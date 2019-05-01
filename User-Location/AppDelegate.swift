@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  User-Location
 //
-//  Created by Sean Allen on 8/24/18.
-//  Copyright © 2018 Sean Allen. All rights reserved.
+//  Created by Denis Leupold on 8/24/18.
+//  Copyright © 2018 Denis Leupold. All rights reserved.
 //
 
 import UIKit

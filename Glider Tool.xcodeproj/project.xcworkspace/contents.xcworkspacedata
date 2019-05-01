@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:User-Location.xcodeproj">
+      location = "self:/Users/sonicwave3/Downloads/User-Location/Glider Tool.xcodeproj">
    </FileRef>
 </Workspace>
