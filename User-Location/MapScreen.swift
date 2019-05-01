@@ -21,7 +21,8 @@ class MapScreen: UIViewController {
     
     
     struct Airport {
-        var name: String
+        var icao: String
+        var city: String
         var latitude: Double
         var longitude: Double
         var altitude: Double
@@ -107,17 +108,19 @@ class MapScreen: UIViewController {
 
 
     func setupAirport(){
-        let stahringen = Airport(name: "EDSR",
+        let stahringen = Airport(icao: "EDSR",
+                                 city: "Stahringen",
                                  latitude: 47.801791,
                                  longitude: 8.978528,
                                  altitude: 421,
                                  frequency: 127.530)
 
-        let friedrichshafen = Airport(name: "EDNY",
-                                 latitude: 47.801791,
-                                 longitude: 8.978528,
-                                 altitude: 421,
-                                 frequency: 125.123)
+        let friedrichshafen = Airport(icao: "EDNY",
+                                city: "Friedrichshafen",
+                                latitude: 47.801791,
+                                longitude: 8.978528,
+                                altitude: 421,
+                                frequency: 125.123)
         
         self.airports = [stahringen,friedrichshafen]
     }
