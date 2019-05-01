@@ -45,6 +45,9 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uSp-xY-LoD">
+                                <rect key="frame" x="0.0" y="562" width="375" height="216"/>
+                            </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Speed kmh" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eHM-8U-PsR">
                                 <rect key="frame" x="118" y="57" width="126" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
@@ -55,14 +58,18 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="uSp-xY-LoD" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="FwV-Fd-Dzs"/>
                             <constraint firstAttribute="bottom" secondItem="Fl3-Wh-sat" secondAttribute="bottom" id="Pi0-79-Uwe"/>
                             <constraint firstItem="Fl3-Wh-sat" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="eGI-8Z-s0H"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="uSp-xY-LoD" secondAttribute="bottom" id="gJd-EP-M1z"/>
                             <constraint firstAttribute="trailing" secondItem="Fl3-Wh-sat" secondAttribute="trailing" id="jKq-tU-NpP"/>
                             <constraint firstItem="Fl3-Wh-sat" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="pjd-2Q-tUc"/>
+                            <constraint firstItem="uSp-xY-LoD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="vzU-wp-FsZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="airportPicker" destination="uSp-xY-LoD" id="5rt-dd-2Xn"/>
                         <outlet property="altitudeShort" destination="cKy-zl-zfE" id="p91-Dh-Axv"/>
                         <outlet property="courseShort" destination="oI6-xe-rnK" id="5mw-Zp-RKH"/>
                         <outlet property="glidepathShort" destination="0ui-pn-zDg" id="Lx0-ZK-kvH"/>

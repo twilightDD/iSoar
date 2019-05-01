@@ -16,7 +16,20 @@ import UIKit
 import MapKit
 import CoreLocation
 
+
 class MapScreen: UIViewController {
+    
+    
+    struct Airport {
+        var name: String
+        var latitude: Double
+        var longitude: Double
+        var altitude: Double
+        var frequency: Double
+    }
+
+        
+
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var speed: UILabel!
@@ -24,17 +37,27 @@ class MapScreen: UIViewController {
     @IBOutlet weak var courseShort: UILabel!
     @IBOutlet weak var glidepathShort: UILabel!
     
+    @IBOutlet weak var airportPicker: UIPickerView!
+    
+    
+    
+    
+    
+    var airports = [Airport]()
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 10000
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupAirport()
         checkLocationServices()
         
 
     }
     
+    
+
     
     func setupLocationManager() {
         locationManager.delegate = self
@@ -81,8 +104,27 @@ class MapScreen: UIViewController {
             print("Didn't request permission for User Notifications")
         }
     }
-}
 
+
+    func setupAirport(){
+        let stahringen = Airport(name: "EDSR",
+                                 latitude: 47.801791,
+                                 longitude: 8.978528,
+                                 altitude: 421,
+                                 frequency: 127.530)
+
+        let friedrichshafen = Airport(name: "EDNY",
+                                 latitude: 47.801791,
+                                 longitude: 8.978528,
+                                 altitude: 421,
+                                 frequency: 125.123)
+        
+        self.airports = [stahringen,friedrichshafen]
+    }
+    
+    
+    
+}
 
 extension MapScreen: CLLocationManagerDelegate {
     
@@ -104,18 +146,12 @@ extension MapScreen: CLLocationManagerDelegate {
         self.courseShort.text = courseShort
         
         let safetyHeight: Double = 200                  //Sicherheitshöhe
-        let destinationHeight: Double = 421             //Höhe EDSR
+        let airportHeight: Double = 421             //Höhe EDSR
 
-        let glidepath = altitude-destinationHeight-safetyHeight
+        let glidepath = altitude-airportHeight-safetyHeight
         let glidepathShort = String(format: "%.0f m", glidepath)
         self.glidepathShort.text = glidepathShort
 
-        
-
-    
-        print("Altitude: \(altitudeShort)")
-        print("Course: \(courseShort)")
-        print("Glidepath: \(glidepathShort)")
         
     }
     
