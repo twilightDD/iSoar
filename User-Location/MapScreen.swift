@@ -19,17 +19,10 @@ import CoreLocation
 class MapScreen: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
-    //@IBOutlet weak var altitude: UILabel!
     @IBOutlet weak var speed: UILabel!
-
     @IBOutlet weak var altitudeShort: UILabel!
-
     @IBOutlet weak var courseShort: UILabel!
-    
-    
     @IBOutlet weak var glidepathShort: UILabel!
-    
-    
     
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 10000
@@ -39,8 +32,7 @@ class MapScreen: UIViewController {
         super.viewDidLoad()
         checkLocationServices()
         
-        //Prevent Display to fall asleep
-        UIApplication.shared.isIdleTimerDisabled = true
+
     }
     
     
