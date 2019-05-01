@@ -12,7 +12,6 @@
 // App Icon
 // Button Switch MapView
 
-
 import UIKit
 import MapKit
 import CoreLocation
