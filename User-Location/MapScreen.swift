@@ -160,9 +160,9 @@ extension MapScreen: CLLocationManagerDelegate {
         self.courseShort.text = courseShort
         
         let safetyHeight: Double = 200                  //Sicherheitshöhe
-        let airportHeight: Double = 421             //Höhe EDSR
+        let airportAltitude: Double = 419             //Höhe EDSR
 
-        let glidepath = altitude-airportHeight-safetyHeight
+        let glidepath = altitude-airportAltitude-safetyHeight
         let glidepathShort = String(format: "%.0f m", glidepath)
         self.glidepathShort.text = glidepathShort
 
