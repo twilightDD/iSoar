@@ -19,6 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Prevent Display to fall asleep
         UIApplication.shared.isIdleTimerDisabled = true
         
+        //Prevent from showing notifications
+        UIApplication.shared.unregisterForRemoteNotifications()
+        
         return true
     }
 

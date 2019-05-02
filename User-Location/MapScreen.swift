@@ -34,10 +34,24 @@ class MapScreen: UIViewController {
 
     
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var speed: UILabel!
+
+    
+    @IBOutlet weak var speedkmhShort: UILabel!
+    
+    
+    
+    
+    
+    
     @IBOutlet weak var altitudeShort: UILabel!
     @IBOutlet weak var courseShort: UILabel!
-    @IBOutlet weak var glidepathShort: UILabel!
+    @IBOutlet weak var destinationAltitudeShort: UILabel!
+    
+    
+    @IBOutlet weak var destinationAirport: UILabel!
+    
+    
+    
     
     @IBOutlet weak var airportPicker: UIPickerView!
     
@@ -148,25 +162,28 @@ extension MapScreen: CLLocationManagerDelegate {
         mapView.setRegion(region, animated: true)
     
         let altitude = location.altitude
-        let altitudeShort = String(format: "%.0f m", altitude)
+        let altitudeShort = String(format: "%.0fm", altitude)
         self.altitudeShort.text = altitudeShort
 
-        let speed = location.speed
-        self.speed.text = "\(speed) mps"
+        let speed = location.speed              // meter per second
+        let speedkmhShort = String(format: "%.0f Kmh", speed*3.6)
+        self.speedkmhShort.text = "\(speedkmhShort)"
         
+        print (speedkmhShort)
         
         let course = location.course
-        let courseShort = String(format: "%.0f °", course)
+        let courseShort = String(format: "%.0f°", course)
         self.courseShort.text = courseShort
         
         let safetyHeight: Double = 200                  //Sicherheitshöhe
         let airportAltitude: Double = 419             //Höhe EDSR
 
-        let glidepath = altitude-airportAltitude-safetyHeight
-        let glidepathShort = String(format: "%.0f m", glidepath)
-        self.glidepathShort.text = glidepathShort
-
+        let destinationAltitude = altitude-airportAltitude-safetyHeight
+        let destinationAltitudeShort = String(format: "%.0fm", destinationAltitude)
+        self.destinationAltitudeShort.text = destinationAltitudeShort
         
+        let destinationAirport: String = "EDSR"
+        self.destinationAirport.text = destinationAirport
     }
     
 
