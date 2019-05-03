@@ -188,6 +188,34 @@ extension MapScreen: CLLocationManagerDelegate {
         self.destinationAltitudeShort.text = destinationAltitudeShort
         
 
+        
+        
+        
+        // Show Airports on Map
+        let airport = MKPointAnnotation()
+        airport.title = "EDSR"
+        airport.coordinate = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
+        self.mapView.addAnnotation(airport)
+        
+        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            guard annotation is MKPointAnnotation else { return nil }
+            
+            let identifier = "Annotation"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+            
+            if annotationView == nil {
+                annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView!.canShowCallout = true
+            } else {
+                annotationView!.annotation = annotation
+            }
+            
+            return annotationView
+        }
+        
+        
+        
+
 // MARK: Output
         
         // Output all Data
