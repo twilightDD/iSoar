@@ -145,8 +145,22 @@ extension MapScreen: CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         let region = MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
         mapView.setRegion(region, animated: true)
-    
-        let altitude = location.altitude
+        
+        let airportAltitude: Double = 419             // Höhe EDSR
+
+        // Measure Distance between own Location and Destination
+        let ownLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        let destinationAirportLocation = CLLocation(latitude: 47.806103, longitude: 8.979535)
+        let distance = ownLocation.distance(from: destinationAirportLocation) // result is in meters
+        let distanceShort = String(format: "%.0f Km", distance/1000)
+        self.distanceShort.text = distanceShort
+        
+        let destinationAirport: String = "EDSR"
+        self.destinationAirport.text = destinationAirport
+        
+        
+        //let altitude = location.altitude
+        let altitude: Double = 2000
         let altitudeShort = String(format: "%.0fm", altitude)
         self.altitudeShort.text = altitudeShort
 
@@ -154,27 +168,36 @@ extension MapScreen: CLLocationManagerDelegate {
         let speedkmhShort = String(format: "%.0f Kmh", speed*3.6)   //ToDo convert with Measurement
         self.speedkmhShort.text = "\(speedkmhShort)"
         
+        // Steering Course
         let course = location.course
         let courseShort = String(format: "%.0f°", course)
         self.courseShort.text = courseShort
         
-        let safetyHeight: Double = 200                  // Sicherheitshöhe
-        let airportAltitude: Double = 419             // Höhe EDSR
+        // Safety Height
+        let safetyHeight: Double = 200
+        
+        // Calculate Glider Sink Rate to Destination
+        let gliderRatio: Double = 20                  //Gleitzahl
+        let gliderRatioMeter = gliderRatio*1000       //Gleitzahl in Meter
+        let gliderSinkRatePerMeter = 1000/gliderRatioMeter    //Sinkrate pro Meter
+        let gliderSinkRateToDestination = distance*gliderSinkRatePerMeter   //Sinkrate to Destination in Meter
 
-        let destinationAltitude = altitude-airportAltitude-safetyHeight
+        // Calculate Height of Glider at Destination
+        let destinationAltitude = altitude-airportAltitude-safetyHeight-gliderSinkRateToDestination
         let destinationAltitudeShort = String(format: "%.0fm", destinationAltitude)
         self.destinationAltitudeShort.text = destinationAltitudeShort
         
-        let destinationAirport: String = "EDSR"
-        self.destinationAirport.text = destinationAirport
-        
-        
-        let ownLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        let destinationAirportLocation = CLLocation(latitude: 47.806103, longitude: 8.979535)
-        let distance = ownLocation.distance(from: destinationAirportLocation) // result is in meters
-        let distanceShort = String(format: "%.0f Km", distance/1000)
-        self.distanceShort.text = distanceShort
 
+
+        
+        
+        
+        // Output all Data
+        print(gliderRatio)
+        print(gliderSinkRatePerMeter)
+        print(distance)
+        print(gliderSinkRateToDestination)
+        
         
     }
     
