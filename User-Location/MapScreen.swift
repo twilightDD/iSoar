@@ -18,8 +18,7 @@ import CoreLocation
 
 
 class MapScreen: UIViewController {
-    
-    
+
     struct Airport {
         var icao: String
         var city: String
@@ -30,35 +29,23 @@ class MapScreen: UIViewController {
         var runways: String
     }
 
-        
-
-    
     @IBOutlet weak var mapView: MKMapView!
-
-    
     @IBOutlet weak var speedkmhShort: UILabel!
-    
-    
-    
-    
-    
-    
     @IBOutlet weak var altitudeShort: UILabel!
     @IBOutlet weak var courseShort: UILabel!
     @IBOutlet weak var destinationAltitudeShort: UILabel!
-    
-    
     @IBOutlet weak var destinationAirport: UILabel!
     
     
+    @IBOutlet weak var distanceShort: UILabel!
     
     
+    
+    
+
     @IBOutlet weak var airportPicker: UIPickerView!
     
-    
-    
-    
-    
+
     var airports = [Airport]()
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 10000
@@ -71,8 +58,6 @@ class MapScreen: UIViewController {
         
 
     }
-    
-    
 
     
     func setupLocationManager() {
@@ -125,8 +110,8 @@ class MapScreen: UIViewController {
     func setupAirport(){
         let stahringen = Airport(icao: "EDSR",
                                  city: "Stahringen",
-                                 latitude: 47.801791,
-                                 longitude: 8.978528,
+                                 latitude: 47.806103,
+                                 longitude: 8.979535,
                                  altitude: 419,
                                  radioFrequency: 127.530,
                                  runways: "01/19")
@@ -139,7 +124,7 @@ class MapScreen: UIViewController {
                                 radioFrequency: 125.123,
                                 runways: "01/19")
         
-        let leibertingen = Airport(icao: "EDNY",
+        let leibertingen = Airport(icao: "LEIB",
                                       city: "Leibertingen",
                                       latitude: 47.801791,
                                       longitude: 8.978528,
@@ -165,18 +150,16 @@ extension MapScreen: CLLocationManagerDelegate {
         let altitudeShort = String(format: "%.0fm", altitude)
         self.altitudeShort.text = altitudeShort
 
-        let speed = location.speed              // meter per second
-        let speedkmhShort = String(format: "%.0f Kmh", speed*3.6)
+        let speed = location.speed                     // meter per second
+        let speedkmhShort = String(format: "%.0f Kmh", speed*3.6)   //ToDo convert with Measurement
         self.speedkmhShort.text = "\(speedkmhShort)"
-        
-        print (speedkmhShort)
         
         let course = location.course
         let courseShort = String(format: "%.0f°", course)
         self.courseShort.text = courseShort
         
-        let safetyHeight: Double = 200                  //Sicherheitshöhe
-        let airportAltitude: Double = 419             //Höhe EDSR
+        let safetyHeight: Double = 200                  // Sicherheitshöhe
+        let airportAltitude: Double = 419             // Höhe EDSR
 
         let destinationAltitude = altitude-airportAltitude-safetyHeight
         let destinationAltitudeShort = String(format: "%.0fm", destinationAltitude)
@@ -184,6 +167,15 @@ extension MapScreen: CLLocationManagerDelegate {
         
         let destinationAirport: String = "EDSR"
         self.destinationAirport.text = destinationAirport
+        
+        
+        let ownLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        let destinationAirportLocation = CLLocation(latitude: 47.806103, longitude: 8.979535)
+        let distance = ownLocation.distance(from: destinationAirportLocation) // result is in meters
+        let distanceShort = String(format: "%.0f Km", distance/1000)
+        self.distanceShort.text = distanceShort
+
+        
     }
     
 
