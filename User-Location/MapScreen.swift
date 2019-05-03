@@ -159,8 +159,8 @@ extension MapScreen: CLLocationManagerDelegate {
         self.destinationAirport.text = destinationAirport
         
         
-        //let altitude = location.altitude
-        let altitude: Double = 2000
+        let altitude = location.altitude
+        //let altitude: Double = 2000
         let altitudeShort = String(format: "%.0fm", altitude)
         self.altitudeShort.text = altitudeShort
 
@@ -188,16 +188,14 @@ extension MapScreen: CLLocationManagerDelegate {
         self.destinationAltitudeShort.text = destinationAltitudeShort
         
 
-
-        
-        
+// MARK: Output
         
         // Output all Data
-        print(gliderRatio)
-        print(gliderSinkRatePerMeter)
-        print(distance)
-        print(gliderSinkRateToDestination)
-        
+        print("Altitude: \(altitudeShort)")
+        print("GliderRatio: \(gliderRatio)")
+        print("Glider Sink Rate per Meter \(gliderSinkRatePerMeter)")
+        print("Distance to Destination: \(distanceShort)")
+        print("Glider Sink Rate to Destination: \(gliderSinkRateToDestination)")
         
     }
     
@@ -206,3 +204,4 @@ extension MapScreen: CLLocationManagerDelegate {
         checkLocationAuthorization()
     }
 }
+
