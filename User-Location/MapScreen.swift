@@ -35,15 +35,7 @@ class MapScreen: UIViewController {
     @IBOutlet weak var courseShort: UILabel!
     @IBOutlet weak var destinationAltitudeShort: UILabel!
     @IBOutlet weak var destinationAirport: UILabel!
-    
-    
     @IBOutlet weak var distanceShort: UILabel!
-    
-    
-    
-    
-
-    @IBOutlet weak var airportPicker: UIPickerView!
     
 
     var airports = [Airport]()
@@ -55,9 +47,7 @@ class MapScreen: UIViewController {
         super.viewDidLoad()
         setupAirport()
         checkLocationServices()
-        
-
-    }
+  }
 
     
     func setupLocationManager() {
@@ -65,7 +55,7 @@ class MapScreen: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
     }
     
-    
+    // Center view on User Location on Map
     func centerViewOnUserLocation() {
         if let location = locationManager.location?.coordinate {
             let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
@@ -83,7 +73,7 @@ class MapScreen: UIViewController {
         }
     }
     
-    
+    // Check for Location Authorization
     func checkLocationAuthorization() {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse:
