@@ -30,14 +30,16 @@ class MapScreen: UIViewController {
     }
 
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var speedkmhShort: UILabel!
-    @IBOutlet weak var altitudeShort: UILabel!
-    @IBOutlet weak var courseShort: UILabel!
-    @IBOutlet weak var destinationAltitudeShort: UILabel!
-    @IBOutlet weak var destinationAirport: UILabel!
-    @IBOutlet weak var distanceShort: UILabel!
-    
+    @IBOutlet weak var courseShort: UITextField!
+    @IBOutlet weak var destinationAltitudeShort: UITextField!
 
+    @IBOutlet weak var distanceShort: UITextField!
+    @IBOutlet weak var destinationAirport: UITextField!
+    @IBOutlet weak var altitudeShort: UITextField!
+    
+    
+    @IBOutlet weak var speedkmhShort: UITextField!
+    
     var airports = [Airport]()
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 10000
@@ -142,10 +144,10 @@ extension MapScreen: CLLocationManagerDelegate {
         let ownLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let destinationAirportLocation = CLLocation(latitude: 47.806103, longitude: 8.979535)
         let distance = ownLocation.distance(from: destinationAirportLocation) // result is in meters
-        let distanceShort = String(format: "%.0f Km", distance/1000)
+        let distanceShort = String(format: "%.0fKm", distance/1000)
         self.distanceShort.text = distanceShort
         
-        let destinationAirport: String = "EDSR"
+        let destinationAirport: String = "to EDSR"
         self.destinationAirport.text = destinationAirport
         
         
@@ -155,7 +157,7 @@ extension MapScreen: CLLocationManagerDelegate {
         self.altitudeShort.text = altitudeShort
 
         let speed = location.speed                     // meter per second
-        let speedkmhShort = String(format: "%.0f Kmh", speed*3.6)   //ToDo convert with Measurement
+        let speedkmhShort = String(format: "%.0fKmh", speed*3.6)   //ToDo convert with Measurement
         self.speedkmhShort.text = "\(speedkmhShort)"
         
         // Steering Course
