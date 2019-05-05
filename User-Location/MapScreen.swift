@@ -26,6 +26,7 @@ class MapScreen: UIViewController {
         var longitude: Double
         var altitude: Double
         var radioFrequency: Double
+        var radioName: String
         var runways: String
     }
 
@@ -106,25 +107,19 @@ class MapScreen: UIViewController {
                                  longitude: 8.979535,
                                  altitude: 419,
                                  radioFrequency: 127.530,
+                                 radioName: "Stahringen Info",
                                  runways: "01/19")
 
-        let friedrichshafen = Airport(icao: "EDNY",
-                                city: "Friedrichshafen",
+        let testfeld = Airport(icao: "TEST",
+                                city: "Testfeld",
                                 latitude: 47.801791,
                                 longitude: 8.978528,
                                 altitude: 478,
                                 radioFrequency: 125.123,
-                                runways: "01/19")
+                                radioName: "Acker Tower",
+                                runways: "09/27")
         
-        let leibertingen = Airport(icao: "LEIB",
-                                      city: "Leibertingen",
-                                      latitude: 47.801791,
-                                      longitude: 8.978528,
-                                      altitude: 612,
-                                      radioFrequency: 125.123,
-                                      runways: "01/19")
-        
-        self.airports = [stahringen,friedrichshafen, leibertingen]
+        self.airports = [stahringen,testfeld]
     }
     
     
