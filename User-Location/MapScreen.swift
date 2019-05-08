@@ -41,6 +41,19 @@ class MapScreen: UIViewController {
     
     @IBOutlet weak var speedkmhShort: UITextField!
     
+    
+    
+    @IBAction func exitSettingsButton(_ sender: UIButton) {
+        
+        self.dismiss(animated: true)
+    }
+    
+    
+    
+    
+    
+    
+    
     var airports = [Airport]()
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 10000
