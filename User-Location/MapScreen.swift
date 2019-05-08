@@ -33,25 +33,12 @@ class MapScreen: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var courseShort: UITextField!
     @IBOutlet weak var destinationAltitudeShort: UITextField!
-
     @IBOutlet weak var distanceShort: UITextField!
     @IBOutlet weak var destinationAirport: UITextField!
     @IBOutlet weak var altitudeShort: UITextField!
-    
-    
     @IBOutlet weak var speedkmhShort: UITextField!
     
-    
-    
-    @IBAction func exitSettingsButton(_ sender: UIButton) {
-        
-        self.dismiss(animated: true)
-    }
-    
-    
-    
-    
-    
+
     
     
     var airports = [Airport]()
@@ -213,17 +200,18 @@ extension MapScreen: CLLocationManagerDelegate {
             return annotationView
         }
         
-        
-        
+   
 
 // MARK: Output
         
-        // Output all Data
-        print("Altitude: \(altitudeShort)")
-        print("GliderRatio: \(gliderRatio)")
-        print("Glider Sink Rate per Meter \(gliderSinkRatePerMeter)")
-        print("Distance to Destination: \(distanceShort)")
-        print("Glider Sink Rate to Destination: \(gliderSinkRateToDestination)")
+//        // Output all Data
+//        print("Latitude: \(location.coordinate.latitude)")
+//        print("Longitude: \(location.coordinate.longitude)")
+//        print("Altitude: \(altitudeShort)")
+//        print("GliderRatio: \(gliderRatio)")
+//        print("Glider Sink Rate per Meter \(gliderSinkRatePerMeter)")
+//        print("Distance to Destination: \(distanceShort)")
+//        print("Glider Sink Rate to Destination: \(gliderSinkRateToDestination)")
         
     }
     
