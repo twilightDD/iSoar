@@ -64,8 +64,9 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N75-Ee-Ly4">
-                                <rect key="frame" x="337" y="115" width="22" height="22"/>
+                                <rect key="frame" x="326" y="117" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <segue destination="ILV-wr-QVr" kind="show" id="cqi-lh-yVY"/>
                                 </connections>
@@ -102,14 +103,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="afM-7h-RD7" userLabel="Back to Map Button">
-                                <rect key="frame" x="337" y="115" width="22" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="exitSettingsButton:" destination="3Jb-n0-fU4" eventType="touchUpInside" id="qrE-Ok-M70"/>
-                                    <action selector="exitUserSettings:" destination="ILV-wr-QVr" eventType="touchUpInside" id="ud8-ga-vkQ"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Uma-pM-80t" userLabel="Glider Ratio" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
                                 <rect key="frame" x="259" y="160" width="100" height="38"/>
                                 <nil key="textColor"/>
@@ -208,6 +201,15 @@
                                     <action selector="SaveButtonTapped:" destination="ILV-wr-QVr" eventType="touchUpInside" id="DZF-zL-7cD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xco-SQ-jXL">
+                                <rect key="frame" x="301" y="92" width="47" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="exitSettings:" destination="ILV-wr-QVr" eventType="touchUpInside" id="ral-MV-TOe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -242,13 +244,12 @@
                     </view>
                     <connections>
                         <outlet property="gliderIDTextfield" destination="aJN-ar-pUl" id="JFn-IF-0PK"/>
-                        <outlet property="gliderRatioTextFied" destination="Uma-pM-80t" id="d9m-hu-Vaw"/>
+                        <outlet property="gliderRatioTextField" destination="Uma-pM-80t" id="kFr-9J-9q2"/>
                         <outlet property="mapRegionInMetersTextField" destination="QdG-bg-VJy" id="7Vb-Ho-D3N"/>
                         <outlet property="safetyAltitudeTextField" destination="vi7-Ik-Pbz" id="s9F-0g-Ymw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UKB-Ee-tBq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="3Jb-n0-fU4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="861.60000000000002" y="124.8768472906404"/>
         </scene>
