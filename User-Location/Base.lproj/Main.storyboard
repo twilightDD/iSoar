@@ -111,28 +111,28 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Uma-pM-80t" userLabel="Glider Ratio" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
-                                <rect key="frame" x="209" y="163" width="150" height="38"/>
+                                <rect key="frame" x="259" y="160" width="100" height="38"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" textContentType="name"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="name"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="vi7-Ik-Pbz" userLabel="Safety Altitude" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
-                                <rect key="frame" x="209" y="212" width="150" height="38"/>
+                                <rect key="frame" x="259" y="204" width="100" height="38"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" textContentType="name"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="name"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="aJN-ar-pUl" userLabel="Glider ID" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
-                                <rect key="frame" x="209" y="265" width="150" height="38"/>
+                                <rect key="frame" x="259" y="252" width="100" height="38"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <textInputTraits key="textInputTraits" textContentType="name"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="QdG-bg-VJy" userLabel="Map Region" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
-                                <rect key="frame" x="209" y="317" width="150" height="38"/>
+                                <rect key="frame" x="259" y="299" width="100" height="38"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <textInputTraits key="textInputTraits" textContentType="name"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="name"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Glider Ratio:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRc-6M-XsH">
                                 <rect key="frame" x="16" y="167" width="107" height="24"/>
@@ -141,35 +141,28 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Safety Altitude:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55b-9k-XZj">
-                                <rect key="frame" x="16" y="216" width="134" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Safety Altitude in m:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55b-9k-XZj">
+                                <rect key="frame" x="16" y="211" width="174" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Glider ID:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMn-n2-sUr">
-                                <rect key="frame" x="16" y="269" width="81" height="24"/>
+                                <rect key="frame" x="16" y="259" width="81" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Map Region:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tf7-Ly-b3U">
-                                <rect key="frame" x="16" y="321" width="109" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Map Region in m:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tf7-Ly-b3U">
+                                <rect key="frame" x="16" y="306" width="150" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHq-JY-pFB" userLabel="SAVE Button" customClass="SaveButton" customModule="Glider_Tool" customModuleProvider="target">
-                                <rect key="frame" x="144" y="391" width="86" height="34"/>
-                                <state key="normal" title="SAVE"/>
-                                <connections>
-                                    <action selector="SaveButtonTapped:" destination="ILV-wr-QVr" eventType="touchUpInside" id="DZF-zL-7cD"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kZj-Y0-xIz" userLabel="Update Button" customClass="SaveButton" customModule="Glider_Tool" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kZj-Y0-xIz" userLabel="Update Button" customClass="Buttons" customModule="Glider_Tool" customModuleProvider="target">
                                 <rect key="frame" x="134" y="579" width="106" height="34"/>
                                 <state key="normal" title="UPDATE"/>
                             </button>
@@ -208,42 +201,49 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHq-JY-pFB" userLabel="SAVE Button" customClass="Buttons" customModule="Glider_Tool" customModuleProvider="target">
+                                <rect key="frame" x="144" y="361" width="86" height="34"/>
+                                <state key="normal" title="SAVE"/>
+                                <connections>
+                                    <action selector="SaveButtonTapped:" destination="ILV-wr-QVr" eventType="touchUpInside" id="DZF-zL-7cD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="04Y-Ph-TZm" firstAttribute="trailing" secondItem="kZj-Y0-xIz" secondAttribute="trailing" constant="135" id="0c1-ff-M6m"/>
-                            <constraint firstItem="vi7-Ik-Pbz" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="168" id="5eu-Hj-UM6"/>
-                            <constraint firstItem="QdG-bg-VJy" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="273" id="66A-G8-f6a"/>
-                            <constraint firstItem="aJN-ar-pUl" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="221" id="9eF-2f-rlw"/>
-                            <constraint firstItem="Uma-pM-80t" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="119" id="A38-Rg-ubF"/>
-                            <constraint firstItem="vi7-Ik-Pbz" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="168" id="AsP-yS-l1w"/>
-                            <constraint firstItem="FHq-JY-pFB" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="347" id="LWy-iw-K0D"/>
+                            <constraint firstItem="vi7-Ik-Pbz" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="160" id="5eu-Hj-UM6"/>
+                            <constraint firstItem="QdG-bg-VJy" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="255" id="66A-G8-f6a"/>
+                            <constraint firstItem="aJN-ar-pUl" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="208" id="9eF-2f-rlw"/>
+                            <constraint firstItem="Uma-pM-80t" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="116" id="A38-Rg-ubF"/>
+                            <constraint firstItem="vi7-Ik-Pbz" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="160" id="AsP-yS-l1w"/>
+                            <constraint firstItem="FHq-JY-pFB" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="317" id="LWy-iw-K0D"/>
                             <constraint firstItem="04Y-Ph-TZm" firstAttribute="trailing" secondItem="QdG-bg-VJy" secondAttribute="trailing" constant="16" id="M3E-2X-2bF"/>
-                            <constraint firstItem="04Y-Ph-TZm" firstAttribute="bottom" secondItem="FHq-JY-pFB" secondAttribute="bottom" constant="353" id="O66-b9-xza"/>
-                            <constraint firstItem="aJN-ar-pUl" firstAttribute="leading" secondItem="04Y-Ph-TZm" secondAttribute="leading" constant="209" id="Pvw-lb-XvD"/>
+                            <constraint firstItem="04Y-Ph-TZm" firstAttribute="bottom" secondItem="FHq-JY-pFB" secondAttribute="bottom" constant="383" id="O66-b9-xza"/>
+                            <constraint firstItem="aJN-ar-pUl" firstAttribute="leading" secondItem="04Y-Ph-TZm" secondAttribute="leading" constant="259" id="Pvw-lb-XvD"/>
                             <constraint firstItem="kZj-Y0-xIz" firstAttribute="leading" secondItem="04Y-Ph-TZm" secondAttribute="leading" constant="134" id="Vdo-c5-6gP"/>
                             <constraint firstItem="04Y-Ph-TZm" firstAttribute="trailing" secondItem="FHq-JY-pFB" secondAttribute="trailing" constant="145" id="bJA-Vl-WGf"/>
                             <constraint firstItem="FHq-JY-pFB" firstAttribute="leading" secondItem="04Y-Ph-TZm" secondAttribute="leading" constant="144" id="bm6-Vb-B01"/>
                             <constraint firstItem="kZj-Y0-xIz" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="535" id="cWF-xX-bkO"/>
-                            <constraint firstItem="04Y-Ph-TZm" firstAttribute="bottom" secondItem="Uma-pM-80t" secondAttribute="bottom" constant="577" id="j7r-5Z-rhu"/>
-                            <constraint firstItem="Uma-pM-80t" firstAttribute="leading" secondItem="04Y-Ph-TZm" secondAttribute="leading" constant="209" id="kD1-pB-cpR"/>
-                            <constraint firstItem="vi7-Ik-Pbz" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="168" id="kVn-Fh-E4v"/>
+                            <constraint firstItem="04Y-Ph-TZm" firstAttribute="bottom" secondItem="Uma-pM-80t" secondAttribute="bottom" constant="580" id="j7r-5Z-rhu"/>
+                            <constraint firstItem="Uma-pM-80t" firstAttribute="leading" secondItem="04Y-Ph-TZm" secondAttribute="leading" constant="259" id="kD1-pB-cpR"/>
+                            <constraint firstItem="vi7-Ik-Pbz" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="160" id="kVn-Fh-E4v"/>
                             <constraint firstItem="04Y-Ph-TZm" firstAttribute="trailing" secondItem="aJN-ar-pUl" secondAttribute="trailing" constant="16" id="o6b-k7-PVj"/>
-                            <constraint firstItem="QdG-bg-VJy" firstAttribute="leading" secondItem="04Y-Ph-TZm" secondAttribute="leading" constant="209" id="oyH-rH-xOF"/>
+                            <constraint firstItem="QdG-bg-VJy" firstAttribute="leading" secondItem="04Y-Ph-TZm" secondAttribute="leading" constant="259" id="oyH-rH-xOF"/>
                             <constraint firstItem="04Y-Ph-TZm" firstAttribute="trailing" secondItem="vi7-Ik-Pbz" secondAttribute="trailing" constant="16" id="tNn-V4-Igj"/>
-                            <constraint firstItem="04Y-Ph-TZm" firstAttribute="bottom" secondItem="vi7-Ik-Pbz" secondAttribute="bottom" constant="528" id="tgH-FJ-z59"/>
+                            <constraint firstItem="04Y-Ph-TZm" firstAttribute="bottom" secondItem="vi7-Ik-Pbz" secondAttribute="bottom" constant="536" id="tgH-FJ-z59"/>
                             <constraint firstItem="04Y-Ph-TZm" firstAttribute="trailing" secondItem="Uma-pM-80t" secondAttribute="trailing" constant="16" id="trK-ux-EC1"/>
                             <constraint firstItem="04Y-Ph-TZm" firstAttribute="bottom" secondItem="kZj-Y0-xIz" secondAttribute="bottom" constant="165" id="urs-jT-b2K"/>
-                            <constraint firstItem="04Y-Ph-TZm" firstAttribute="bottom" secondItem="QdG-bg-VJy" secondAttribute="bottom" constant="423" id="uvj-St-ayk"/>
-                            <constraint firstItem="04Y-Ph-TZm" firstAttribute="bottom" secondItem="aJN-ar-pUl" secondAttribute="bottom" constant="475" id="vLh-kz-Kdq"/>
-                            <constraint firstItem="vi7-Ik-Pbz" firstAttribute="leading" secondItem="04Y-Ph-TZm" secondAttribute="leading" constant="209" id="xZJ-6K-rsz"/>
+                            <constraint firstItem="04Y-Ph-TZm" firstAttribute="bottom" secondItem="QdG-bg-VJy" secondAttribute="bottom" constant="441" id="uvj-St-ayk"/>
+                            <constraint firstItem="04Y-Ph-TZm" firstAttribute="bottom" secondItem="aJN-ar-pUl" secondAttribute="bottom" constant="488" id="vLh-kz-Kdq"/>
+                            <constraint firstItem="vi7-Ik-Pbz" firstAttribute="leading" secondItem="04Y-Ph-TZm" secondAttribute="leading" constant="259" id="xZJ-6K-rsz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="04Y-Ph-TZm"/>
                     </view>
                     <connections>
                         <outlet property="gliderIDTextfield" destination="aJN-ar-pUl" id="JFn-IF-0PK"/>
                         <outlet property="gliderRatioTextFied" destination="Uma-pM-80t" id="d9m-hu-Vaw"/>
-                        <outlet property="mapRegionTextField" destination="QdG-bg-VJy" id="sOL-rp-hLp"/>
+                        <outlet property="mapRegionInMetersTextField" destination="QdG-bg-VJy" id="7Vb-Ho-D3N"/>
                         <outlet property="safetyAltitudeTextField" destination="vi7-Ik-Pbz" id="s9F-0g-Ymw"/>
                     </connections>
                 </viewController>

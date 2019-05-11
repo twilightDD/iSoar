@@ -38,12 +38,9 @@ class MapScreen: UIViewController {
     @IBOutlet weak var altitudeShort: UITextField!
     @IBOutlet weak var speedkmhShort: UITextField!
     
-
-    
-    
     var airports = [Airport]()
     let locationManager = CLLocationManager()
-    let regionInMeters: Double = 10000
+    let mapRegionInMeters: Double = 10000
 
     
     override func viewDidLoad() {
@@ -51,7 +48,6 @@ class MapScreen: UIViewController {
         setupAirport()
         checkLocationServices()
   }
-
     
     func setupLocationManager() {
         locationManager.delegate = self
@@ -61,7 +57,7 @@ class MapScreen: UIViewController {
     // Center view on User Location on Map
     func centerViewOnUserLocation() {
         if let location = locationManager.location?.coordinate {
-            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: mapRegionInMeters, longitudinalMeters: mapRegionInMeters)
             mapView.setRegion(region, animated: true)
         }
     }
@@ -122,7 +118,7 @@ class MapScreen: UIViewController {
         self.airports = [stahringen,testfeld]
     }
     
-    
+
     
 }
 
@@ -130,7 +126,7 @@ extension MapScreen: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        let region = MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+        let region = MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: mapRegionInMeters, longitudinalMeters: mapRegionInMeters)
         mapView.setRegion(region, animated: true)
         
         let airportAltitude: Double = 419             // Höhe EDSR

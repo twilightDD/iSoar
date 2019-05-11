@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E0B52F6F228373AA00E28A93 /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F6E228373AA00E28A93 /* UserSettingsViewController.swift */; };
-		E0B52F72228377F300E28A93 /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F71228377F300E28A93 /* SaveButton.swift */; };
-		E0B52F742283784D00E28A93 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F732283784D00E28A93 /* Constants.swift */; };
+		E0B52F72228377F300E28A93 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F71228377F300E28A93 /* Buttons.swift */; };
 		E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F7622837C1500E28A93 /* TextFields.swift */; };
 		EDA236232130AA7500739396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA236222130AA7500739396 /* AppDelegate.swift */; };
 		EDA236282130AA7500739396 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDA236262130AA7500739396 /* Main.storyboard */; };
@@ -20,8 +19,7 @@
 
 /* Begin PBXFileReference section */
 		E0B52F6E228373AA00E28A93 /* UserSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
-		E0B52F71228377F300E28A93 /* SaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
-		E0B52F732283784D00E28A93 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E0B52F71228377F300E28A93 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		E0B52F7622837C1500E28A93 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
 		EDA2361F2130AA7500739396 /* Glider Tool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Glider Tool.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA236222130AA7500739396 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -54,8 +52,7 @@
 		E0B52F7522837BC800E28A93 /* Designs */ = {
 			isa = PBXGroup;
 			children = (
-				E0B52F732283784D00E28A93 /* Constants.swift */,
-				E0B52F71228377F300E28A93 /* SaveButton.swift */,
+				E0B52F71228377F300E28A93 /* Buttons.swift */,
 				E0B52F7622837C1500E28A93 /* TextFields.swift */,
 			);
 			path = Designs;
@@ -167,9 +164,8 @@
 				E0B52F6F228373AA00E28A93 /* UserSettingsViewController.swift in Sources */,
 				EDA236352130AA9A00739396 /* MapScreen.swift in Sources */,
 				EDA236232130AA7500739396 /* AppDelegate.swift in Sources */,
-				E0B52F72228377F300E28A93 /* SaveButton.swift in Sources */,
+				E0B52F72228377F300E28A93 /* Buttons.swift in Sources */,
 				E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */,
-				E0B52F742283784D00E28A93 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

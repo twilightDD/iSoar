@@ -21,19 +21,8 @@ class TextFields: UITextField {
     }
 
     private func setUpTextField() {
-        tintColor       = Colors.darkGrey
-        textColor       = Colors.darkGrey
+        tintColor       = UIColor .blue
+        textColor       = UIColor .black
         backgroundColor = .white
-    }
-    
-    func updateStyle(isDarkMode: Bool) {
-        let mainColor       = isDarkMode ? .white : Colors.darkGrey
-        keyboardAppearance  = isDarkMode ? .dark : .light
-        
-        UIView.animate(withDuration: 0.4) {
-            self.tintColor          = mainColor
-            self.textColor          = mainColor
-            self.backgroundColor    = isDarkMode ? Colors.darkGrey : .white
-        }
     }
 }

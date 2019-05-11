@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SaveButton: UIButton {
+class Buttons: UIButton {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,7 +22,7 @@ class SaveButton: UIButton {
 
     private func setupButton() {
         setTitleColor(.white, for: .normal)
-        backgroundColor     = Colors.lightBlue
+        backgroundColor     = UIColor .lightGray
         titleLabel?.font    = .boldSystemFont(ofSize: 20)
         layer.cornerRadius  = frame.size.height / 2
     }
