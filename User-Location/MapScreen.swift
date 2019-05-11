@@ -161,10 +161,10 @@ extension MapScreen: CLLocationManagerDelegate {
         self.courseShort.text = courseShort
         
         // Safety Height
-        let safetyHeight: Double = 200
+        let safetyHeight: Double = 0
         
         // Calculate Glider Sink Rate to Destination
-        let gliderRatio: Double = 20                  //Gleitzahl
+        let gliderRatio: Double = 30                  //Gleitzahl
         let gliderRatioMeter = gliderRatio*1000       //Gleitzahl in Meter
         let gliderSinkRatePerMeter = 1000/gliderRatioMeter    //Sinkrate pro Meter
         let gliderSinkRateToDestination = distance*gliderSinkRatePerMeter   //Sinkrate to Destination in Meter

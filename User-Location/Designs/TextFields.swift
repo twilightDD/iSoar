@@ -30,7 +30,7 @@ class TextFields: UITextField {
         let mainColor       = isDarkMode ? .white : Colors.darkGrey
         keyboardAppearance  = isDarkMode ? .dark : .light
         
-        UIView.animate(withDuration: 8.4) {
+        UIView.animate(withDuration: 0.4) {
             self.tintColor          = mainColor
             self.textColor          = mainColor
             self.backgroundColor    = isDarkMode ? Colors.darkGrey : .white
