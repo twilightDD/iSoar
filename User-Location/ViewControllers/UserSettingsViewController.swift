@@ -9,21 +9,22 @@
 import UIKit
 
 class UserSettingsViewController: UIViewController {
-    
- 
+
     @IBOutlet weak var gliderRatioTextFied: TextFields!
     @IBOutlet weak var safetyAltitudeTextField: TextFields!
     @IBOutlet weak var gliderIDTextfield: TextFields!
+    @IBOutlet weak var mapRegionTextField: TextFields!
     
-
     let defaults = UserDefaults.standard
     
     struct Keys {
-        static let gliderID = "gliderID"
+        
+        static let gliderRatio = 30
         static let safetyAltitude: Double = 200
+        static let gliderID = "gliderID"
+        static let mapRegion = 10000
     }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         checkForSavedSettings()

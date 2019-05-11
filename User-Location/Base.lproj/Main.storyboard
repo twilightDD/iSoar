@@ -243,6 +243,7 @@
                     <connections>
                         <outlet property="gliderIDTextfield" destination="aJN-ar-pUl" id="JFn-IF-0PK"/>
                         <outlet property="gliderRatioTextFied" destination="Uma-pM-80t" id="d9m-hu-Vaw"/>
+                        <outlet property="mapRegionTextField" destination="QdG-bg-VJy" id="sOL-rp-hLp"/>
                         <outlet property="safetyAltitudeTextField" destination="vi7-Ik-Pbz" id="s9F-0g-Ymw"/>
                     </connections>
                 </viewController>
