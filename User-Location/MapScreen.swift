@@ -52,12 +52,17 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         setupAirport()
         checkLocationServices()
         
-        
-        
         mapView.delegate = self
-
+        
+        // Show Airports on Map
+        let airportPointAnnotation = MKPointAnnotation()
+        airportPointAnnotation.title = "EDSR"
+        airportPointAnnotation.subtitle = "419"
+        airportPointAnnotation.coordinate = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
+        self.mapView.addAnnotation(airportPointAnnotation)
+        
+       
   }
-    
     func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
@@ -129,52 +134,51 @@ class MapScreen: UIViewController, MKMapViewDelegate {
 extension MapScreen: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        let region = MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: mapRegionInMeters, longitudinalMeters: mapRegionInMeters)
-        mapView.setRegion(region, animated: true)
-        
-        let airportAltitude: Double = 419             // Höhe EDSR
+        guard let currentLocation = locations.last else { return }
+//        let region = MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: mapRegionInMeters, longitudinalMeters: mapRegionInMeters)
+        //mapView.setRegion(region, animated: true)
 
-        // Measure Distance between own Location and Destination
-        let currentLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-        let destinationAirportLocation = CLLocation(latitude: 47.806103, longitude: 8.979535)
+        
+        let destinationAirportLocation = CLLocation(latitude: self.destinationAirportCoords.latitude,
+                                                    longitude: self.destinationAirportCoords.longitude)
         let distance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
         let distanceShort = String(format: "%.0fKm", distance/1000)
         self.distanceShort.text = distanceShort
         
+        // Muss hier eigentlich nicht stehen, sondern nur, wenn anderer Zielhafen gewählt wird, wird String neu gestetzt
         let destinationAirport: String = "to EDSR"
         self.destinationAirport.text = destinationAirport
         
-        let altitude = location.altitude
+        let altitude = currentLocation.altitude
         //let altitude: Double = 2000
         let altitudeShort = String(format: "%.0fm", altitude)
         self.altitudeShort.text = altitudeShort
 
-        let speed = location.speed                     // meter per second
+        let speed = currentLocation.speed                     // meter per second
         let speedkmhShort = String(format: "%.0fKmh", speed*3.6)   //ToDo convert with Measurement
         self.speedkmhShort.text = "\(speedkmhShort)"
         
         // Steering Course
-        let course = location.course
+        let course = currentLocation.course
         let courseShort = String(format: "%.0f°", course)
         self.courseShort.text = courseShort
         
         // Safety Altitude
-        let safetyAltitude: Double = 0
+        let defaults = UserDefaults.standard
+        let safetyAltitude = defaults.value(forKey: UserSettingsViewController.Settings.safetyAltitude) as! Double
+        
         
         // Calculate Glider Sink Rate to Destination
         let gliderRatio: Double = 30                  //Gleitzahl
-        let gliderRatioMeter = gliderRatio*1000       //Gleitzahl in Meter
-        let gliderSinkRatePerMeter = 1000/gliderRatioMeter    //Sinkrate pro Meter
-        let gliderSinkRateToDestination = distance*gliderSinkRatePerMeter   //Sinkrate to Destination in Meter
+        let gliderRatioMeter = gliderRatio * 1000       //Gleitzahl in Meter
+        let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    //Sinkrate pro Meter
+        let gliderSinkRateToDestination = distance * gliderSinkRatePerMeter   //Sinkrate to Destination in Meter
 
         // Calculate Height of Glider at Destination
-        let destinationAltitude = altitude-airportAltitude-safetyAltitude-gliderSinkRateToDestination
-        let destinationAltitudeShort = String(format: "%.0fm", destinationAltitude)
+        let airportAltitude: Double = 419             // Höhe EDSR
+        let destinationAltitude = altitude - airportAltitude - safetyAltitude - gliderSinkRateToDestination
+        let destinationAltitudeShort = String(format:"%.0fm", destinationAltitude)
         self.destinationAltitudeShort.text = destinationAltitudeShort
-        
-
-        
         
         //Add MKPolyLine as an overlay - reflects the direct line between current location and destinationAirport.
         if self.currentDirectionLine != nil {
@@ -185,29 +189,9 @@ extension MapScreen: CLLocationManagerDelegate {
                                        count: newDirectionCoordinates.count)
         self.mapView.addOverlay(newDirectionLine)
         
-        // Show Airports on Map
-        let airport = MKPointAnnotation()
-        airport.title = "EDSR\n419m"
-        airport.coordinate = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
-        self.mapView.addAnnotation(airport)
+        self.currentDirectionLine = newDirectionLine
         
-        func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            guard annotation is MKPointAnnotation else { return nil }
-            
-            let identifier = "Annotation"
-            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-            
-            if annotationView == nil {
-                annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                annotationView!.canShowCallout = true
-            } else {
-                annotationView!.annotation = annotation
-            }
-            
-            return annotationView
-        }
         
-
 // MARK: Output
         
 //        // Output all Data
@@ -221,6 +205,31 @@ extension MapScreen: CLLocationManagerDelegate {
         
     }
 
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+
+        guard annotation is MKPointAnnotation else {
+            // zoom to hoome of dl
+            let region = MKCoordinateRegion.init(center: destinationAirportCoords,
+                                                 latitudinalMeters: mapRegionInMeters,
+                                                 longitudinalMeters: mapRegionInMeters)
+//            mapView.setRegion(region, animated: true)
+            
+            return nil
+        }
+        
+        let identifier = "Annotation"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+        
+        if annotationView == nil {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView!.canShowCallout = true
+        } else {
+            annotationView!.annotation = annotation
+        }
+        
+        return annotationView
+    }
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()
     }
