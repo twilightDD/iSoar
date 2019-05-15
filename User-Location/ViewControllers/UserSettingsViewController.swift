@@ -31,17 +31,19 @@ class UserSettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUserDefaults()
+        //setupUserDefaults()
         setupUI()
     }
     
     // Set up User Defaults if they have no values
-    func setupUserDefaults() {
+    class func setupUserDefaults() {
+        let defaults = UserDefaults.standard
+        
         if defaults.value(forKey: Settings.gliderRatio) == nil {
             defaults.set("20", forKey: Settings.gliderRatio)
         }
         if defaults.value(forKey: Settings.safetyAltitude) == nil {
-            defaults.set("200", forKey: Settings.safetyAltitude)
+            defaults.set(200, forKey: Settings.safetyAltitude)
         }
         if defaults.value(forKey: Settings.gliderID) == nil {
             defaults.set("D-1234", forKey: Settings.gliderID)
@@ -54,7 +56,7 @@ class UserSettingsViewController: UIViewController {
     // Read User Defaults and display them on screen
     func setupUI(){
         gliderRatioTextField.text! = defaults.value(forKey: Settings.gliderRatio) as? String ?? "20"
-        safetyAltitudeTextField.text! = defaults.value(forKey: Settings.safetyAltitude) as? String ?? "200"
+        safetyAltitudeTextField.text! = (defaults.value(forKey: Settings.safetyAltitude) as! Double).description
         gliderIDTextfield.text! = defaults.value(forKey: Settings.gliderID) as? String ?? "D-1234"
         mapRegionInMetersTextField.text! = defaults.value(forKey: Settings.mapRegionInMeters) as? String ?? "15000"
     }
@@ -76,8 +78,13 @@ class UserSettingsViewController: UIViewController {
     
     //Save Settings to User Defaults
     func saveSettings(){
+        // aus textField kommt immer ein String raus
+        // -> string in double konvertieren!
+        let safetyAltitudeString = safetyAltitudeTextField.text!
+        let safetyAltitudeDouble = (safetyAltitudeString as NSString).doubleValue
+        
         defaults.set(gliderRatioTextField.text!, forKey: Settings.gliderRatio);
-        defaults.set(safetyAltitudeTextField.text!, forKey: Settings.safetyAltitude);
+        defaults.set(safetyAltitudeDouble, forKey: Settings.safetyAltitude);
         defaults.set(gliderIDTextfield.text!, forKey: Settings.gliderID);
         defaults.set(mapRegionInMetersTextField.text!, forKey: Settings.mapRegionInMeters);
 

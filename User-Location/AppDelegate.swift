@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.unregisterForRemoteNotifications()
         
         // ToDo: Set up User Defaults
-        //UserSettingsViewController.setupUserDefaults()
+        UserSettingsViewController.setupUserDefaults()
         
         return true
     }
