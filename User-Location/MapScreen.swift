@@ -43,10 +43,10 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     let mapRegionInMeters: Double = 15000
     
     let coords1 = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
-    let destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.817789, longitude: 9.046318)
+    let destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
     
     var currentDirectionLine:MKPolyline?
-    var radebeulDirectionLine:MKPolyline?
+    var restrictedAirspaceLine:MKPolyline?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,20 +58,25 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         // Show Airports on Map
         let airportPointAnnotation = MKPointAnnotation()
         airportPointAnnotation.title = "EDSR"
-        airportPointAnnotation.subtitle = "419"
+        airportPointAnnotation.subtitle = "419m"
         airportPointAnnotation.coordinate = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
         self.mapView.addAnnotation(airportPointAnnotation)
         
        // draw overlay for military outpost in Radeirgendwas
-        let triangle:[CLLocationCoordinate2D] = [CLLocationCoordinate2D(latitude:51.146729, longitude:13.607747),
-                                                 CLLocationCoordinate2D(latitude:51.145766, longitude:13.690211),
-                                                 CLLocationCoordinate2D(latitude:51.095840, longitude:13.631656),
-                                                 CLLocationCoordinate2D(latitude:51.146729, longitude:13.607747)]
+        let triangle:[CLLocationCoordinate2D] = [CLLocationCoordinate2D(latitude:47.840000, longitude:9.060000),
+                                                 CLLocationCoordinate2D(latitude:47.840000, longitude:9.090000),
+                                                CLLocationCoordinate2D(latitude:47.864483,
+                                                    longitude:9.090000),
+                                                 CLLocationCoordinate2D(latitude:47.864483,
+                                                    longitude:9.060000),
+                                                 CLLocationCoordinate2D(latitude:47.840000, longitude:9.060000),
         
-        self.radebeulDirectionLine = MKPolyline(coordinates: triangle,
+                                                 ]
+        
+        self.restrictedAirspaceLine = MKPolyline(coordinates: triangle,
                                           count: triangle.count)
         
-        self.mapView.addOverlay(self.radebeulDirectionLine!)
+        self.mapView.addOverlay(self.restrictedAirspaceLine!)
   }
     func setupLocationManager() {
         locationManager.delegate = self
@@ -145,9 +150,10 @@ extension MapScreen: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last else { return }
-//        let region = MKCoordinateRegion.init(center: location.coordinate, latitudinalMeters: mapRegionInMeters, longitudinalMeters: mapRegionInMeters)
-        //mapView.setRegion(region, animated: true)
+        let region = MKCoordinateRegion.init(center: currentLocation.coordinate, latitudinalMeters: mapRegionInMeters, longitudinalMeters: mapRegionInMeters)
+        mapView.setRegion(region, animated: true)
 
+        let defaults = UserDefaults.standard
         
         let destinationAirportLocation = CLLocation(latitude: self.destinationAirportCoords.latitude,
                                                     longitude: self.destinationAirportCoords.longitude)
@@ -174,11 +180,12 @@ extension MapScreen: CLLocationManagerDelegate {
         self.courseShort.text = courseShort
         
         // Safety Altitude
-        let defaults = UserDefaults.standard
         let safetyAltitude = defaults.value(forKey: UserSettingsViewController.Settings.safetyAltitude) as! Double
         
         
         // Calculate Glider Sink Rate to Destination
+        //let gliderRatio = defaults.value(forKey: UserSettingsViewController.Settings.gliderRatio) as! Double
+        
         let gliderRatio: Double = 30                  //Gleitzahl
         let gliderRatioMeter = gliderRatio * 1000       //Gleitzahl in Meter
         let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    //Sinkrate pro Meter
@@ -219,9 +226,9 @@ extension MapScreen: CLLocationManagerDelegate {
 
         guard annotation is MKPointAnnotation else {
             // zoom to hoome of dl
-            let region = MKCoordinateRegion.init(center: destinationAirportCoords,
-                                                 latitudinalMeters: mapRegionInMeters,
-                                                 longitudinalMeters: mapRegionInMeters)
+//            let region = MKCoordinateRegion.init(center: destinationAirportCoords,
+//                        latitudinalMeters;: mapRegionInMeters,
+//                        longitudinalMeters: mapRegionInMeters)
 //            mapView.setRegion(region, animated: true)
             
             return nil
@@ -253,7 +260,7 @@ extension MapScreen: CLLocationManagerDelegate {
                 overlayRenderer.strokeColor = .blue
                 overlayRenderer.lineWidth = 1.0
             }
-            else if currentPolyline == self.radebeulDirectionLine {
+            else if currentPolyline == self.restrictedAirspaceLine {
                 overlayRenderer.strokeColor = .red
                 overlayRenderer.lineWidth = 2.0
             }
