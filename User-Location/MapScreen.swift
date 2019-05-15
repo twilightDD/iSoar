@@ -46,6 +46,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     let destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.817789, longitude: 9.046318)
     
     var currentDirectionLine:MKPolyline?
+    var radebeulDirectionLine:MKPolyline?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +62,16 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         airportPointAnnotation.coordinate = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
         self.mapView.addAnnotation(airportPointAnnotation)
         
-       
+       // draw overlay for military outpost in Radeirgendwas
+        let triangle:[CLLocationCoordinate2D] = [CLLocationCoordinate2D(latitude:51.146729, longitude:13.607747),
+                                                 CLLocationCoordinate2D(latitude:51.145766, longitude:13.690211),
+                                                 CLLocationCoordinate2D(latitude:51.095840, longitude:13.631656),
+                                                 CLLocationCoordinate2D(latitude:51.146729, longitude:13.607747)]
+        
+        self.radebeulDirectionLine = MKPolyline(coordinates: triangle,
+                                          count: triangle.count)
+        
+        self.mapView.addOverlay(self.radebeulDirectionLine!)
   }
     func setupLocationManager() {
         locationManager.delegate = self
@@ -185,11 +195,11 @@ extension MapScreen: CLLocationManagerDelegate {
             self.mapView.removeOverlay(self.currentDirectionLine!)
         }
         let newDirectionCoordinates:[CLLocationCoordinate2D] = [currentLocation.coordinate, destinationAirportCoords]
-        let newDirectionLine = MKPolyline(coordinates: newDirectionCoordinates,
+        self.currentDirectionLine = MKPolyline(coordinates: newDirectionCoordinates,
                                        count: newDirectionCoordinates.count)
-        self.mapView.addOverlay(newDirectionLine)
         
-        self.currentDirectionLine = newDirectionLine
+        self.mapView.addOverlay(self.currentDirectionLine!)
+
         
         
 // MARK: Output
@@ -234,14 +244,20 @@ extension MapScreen: CLLocationManagerDelegate {
         checkLocationAuthorization()
     }
     
-    // Add Direction Polyline Overlay to Map
+    // Change Direction Polyline Overlay to Map
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         //Return an `MKPolylineRenderer` for the `MKPolyline` in the `MKMapViewDelegate`s method
-        if let directionPolyline = overlay as? MKPolyline {
-            let directionPolylineRenderer = MKPolylineRenderer(polyline: directionPolyline)
-            directionPolylineRenderer.strokeColor = .blue
-            directionPolylineRenderer.lineWidth = 1.0
-            return directionPolylineRenderer
+        if let currentPolyline = overlay as? MKPolyline {
+            let overlayRenderer = MKPolylineRenderer(polyline: currentPolyline)
+            if currentPolyline == self.currentDirectionLine {
+                overlayRenderer.strokeColor = .blue
+                overlayRenderer.lineWidth = 1.0
+            }
+            else if currentPolyline == self.radebeulDirectionLine {
+                overlayRenderer.strokeColor = .red
+                overlayRenderer.lineWidth = 2.0
+            }
+            return overlayRenderer
         }
         
         fatalError("Something wrong...")
