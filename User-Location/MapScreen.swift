@@ -45,6 +45,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     let coords1 = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
     let destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.817789, longitude: 9.046318)
     
+    var currentDirectionLine:MKPolyline?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,12 +53,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         checkLocationServices()
         
         
-        //Add MKPolyLine as an overlay.
-        let directionCoords:[CLLocationCoordinate2D] = [coords1,destinationAirportCoords]
-        let directionLine = MKPolyline(coordinates: directionCoords, count: directionCoords.count)
         
-        
-        mapView.addOverlay(directionLine)
         mapView.delegate = self
 
   }
@@ -180,6 +176,14 @@ extension MapScreen: CLLocationManagerDelegate {
 
         
         
+        //Add MKPolyLine as an overlay - reflects the direct line between current location and destinationAirport.
+        if self.currentDirectionLine != nil {
+            self.mapView.removeOverlay(self.currentDirectionLine!)
+        }
+        let newDirectionCoordinates:[CLLocationCoordinate2D] = [currentLocation.coordinate, destinationAirportCoords]
+        let newDirectionLine = MKPolyline(coordinates: newDirectionCoordinates,
+                                       count: newDirectionCoordinates.count)
+        self.mapView.addOverlay(newDirectionLine)
         
         // Show Airports on Map
         let airport = MKPointAnnotation()
