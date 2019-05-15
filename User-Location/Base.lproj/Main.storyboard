@@ -195,7 +195,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHq-JY-pFB" userLabel="SAVE Button" customClass="Buttons" customModule="Glider_Tool" customModuleProvider="target">
-                                <rect key="frame" x="144" y="361" width="86" height="34"/>
+                                <rect key="frame" x="144" y="411" width="86" height="34"/>
                                 <state key="normal" title="SAVE"/>
                                 <connections>
                                     <action selector="SaveButtonTapped:" destination="ILV-wr-QVr" eventType="touchUpInside" id="DZF-zL-7cD"/>
@@ -210,6 +210,20 @@
                                     <action selector="exitSettings:" destination="ILV-wr-QVr" eventType="touchUpInside" id="ral-MV-TOe"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fk4-Dn-1d3">
+                                <rect key="frame" x="285" y="347" width="49" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="showDirectionLineSwitch:" destination="ILV-wr-QVr" eventType="valueChanged" id="z1q-8g-m7k"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show Direction Line:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LK7-KN-Q4d">
+                                <rect key="frame" x="16" y="350" width="179" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -219,9 +233,9 @@
                             <constraint firstItem="aJN-ar-pUl" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="208" id="9eF-2f-rlw"/>
                             <constraint firstItem="Uma-pM-80t" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="116" id="A38-Rg-ubF"/>
                             <constraint firstItem="vi7-Ik-Pbz" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="160" id="AsP-yS-l1w"/>
-                            <constraint firstItem="FHq-JY-pFB" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="317" id="LWy-iw-K0D"/>
+                            <constraint firstItem="FHq-JY-pFB" firstAttribute="top" secondItem="04Y-Ph-TZm" secondAttribute="top" constant="367" id="LWy-iw-K0D"/>
                             <constraint firstItem="04Y-Ph-TZm" firstAttribute="trailing" secondItem="QdG-bg-VJy" secondAttribute="trailing" constant="16" id="M3E-2X-2bF"/>
-                            <constraint firstItem="04Y-Ph-TZm" firstAttribute="bottom" secondItem="FHq-JY-pFB" secondAttribute="bottom" constant="383" id="O66-b9-xza"/>
+                            <constraint firstItem="04Y-Ph-TZm" firstAttribute="bottom" secondItem="FHq-JY-pFB" secondAttribute="bottom" constant="333" id="O66-b9-xza"/>
                             <constraint firstItem="aJN-ar-pUl" firstAttribute="leading" secondItem="04Y-Ph-TZm" secondAttribute="leading" constant="259" id="Pvw-lb-XvD"/>
                             <constraint firstItem="kZj-Y0-xIz" firstAttribute="leading" secondItem="04Y-Ph-TZm" secondAttribute="leading" constant="134" id="Vdo-c5-6gP"/>
                             <constraint firstItem="04Y-Ph-TZm" firstAttribute="trailing" secondItem="FHq-JY-pFB" secondAttribute="trailing" constant="145" id="bJA-Vl-WGf"/>

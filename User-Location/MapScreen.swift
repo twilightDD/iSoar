@@ -17,9 +17,9 @@ import MapKit
 import CoreLocation
 
 
-class MapScreen: UIViewController {
+class MapScreen: UIViewController, MKMapViewDelegate {
 
-    struct Airport {
+    struct Airports {
         var icao: String
         var city: String
         var latitude: Double
@@ -38,15 +38,28 @@ class MapScreen: UIViewController {
     @IBOutlet weak var altitudeShort: UITextField!
     @IBOutlet weak var speedkmhShort: UITextField!
     
-    var airports = [Airport]()
+    var airports = [Airports]()
     let locationManager = CLLocationManager()
-    let mapRegionInMeters: Double = 10000
-
+    let mapRegionInMeters: Double = 15000
+    
+    let coords1 = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
+    let destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.817789, longitude: 9.046318)
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAirport()
         checkLocationServices()
+        
+        
+        //Add MKPolyLine as an overlay.
+        let directionCoords:[CLLocationCoordinate2D] = [coords1,destinationAirportCoords]
+        let directionLine = MKPolyline(coordinates: directionCoords, count: directionCoords.count)
+        
+        
+        mapView.addOverlay(directionLine)
+        mapView.delegate = self
+
   }
     
     func setupLocationManager() {
@@ -61,7 +74,6 @@ class MapScreen: UIViewController {
             mapView.setRegion(region, animated: true)
         }
     }
-    
     
     func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled() {
@@ -95,9 +107,8 @@ class MapScreen: UIViewController {
         }
     }
 
-
     func setupAirport(){
-        let stahringen = Airport(icao: "EDSR",
+        let stahringen = Airports(icao: "EDSR",
                                  city: "Stahringen",
                                  latitude: 47.806103,
                                  longitude: 8.979535,
@@ -106,7 +117,7 @@ class MapScreen: UIViewController {
                                  radioName: "Stahringen Info",
                                  runways: "01/19")
 
-        let testfeld = Airport(icao: "TEST",
+        let testfeld = Airports(icao: "TEST",
                                 city: "Testfeld",
                                 latitude: 47.801791,
                                 longitude: 8.978528,
@@ -117,9 +128,6 @@ class MapScreen: UIViewController {
         
         self.airports = [stahringen,testfeld]
     }
-    
-
-    
 }
 
 extension MapScreen: CLLocationManagerDelegate {
@@ -132,15 +140,14 @@ extension MapScreen: CLLocationManagerDelegate {
         let airportAltitude: Double = 419             // Höhe EDSR
 
         // Measure Distance between own Location and Destination
-        let ownLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+        let currentLocation = CLLocation(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         let destinationAirportLocation = CLLocation(latitude: 47.806103, longitude: 8.979535)
-        let distance = ownLocation.distance(from: destinationAirportLocation) // result is in meters
+        let distance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
         let distanceShort = String(format: "%.0fKm", distance/1000)
         self.distanceShort.text = distanceShort
         
         let destinationAirport: String = "to EDSR"
         self.destinationAirport.text = destinationAirport
-        
         
         let altitude = location.altitude
         //let altitude: Double = 2000
@@ -176,7 +183,7 @@ extension MapScreen: CLLocationManagerDelegate {
         
         // Show Airports on Map
         let airport = MKPointAnnotation()
-        airport.title = "EDSR"
+        airport.title = "EDSR\n419m"
         airport.coordinate = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
         self.mapView.addAnnotation(airport)
         
@@ -196,7 +203,6 @@ extension MapScreen: CLLocationManagerDelegate {
             return annotationView
         }
         
-   
 
 // MARK: Output
         
@@ -210,10 +216,24 @@ extension MapScreen: CLLocationManagerDelegate {
 //        print("Glider Sink Rate to Destination: \(gliderSinkRateToDestination)")
         
     }
-    
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()
     }
+    
+    // Add Direction Polyline Overlay to Map
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        //Return an `MKPolylineRenderer` for the `MKPolyline` in the `MKMapViewDelegate`s method
+        if let directionPolyline = overlay as? MKPolyline {
+            let directionPolylineRenderer = MKPolylineRenderer(polyline: directionPolyline)
+            directionPolylineRenderer.strokeColor = .blue
+            directionPolylineRenderer.lineWidth = 1.0
+            return directionPolylineRenderer
+        }
+        
+        fatalError("Something wrong...")
+        //return MKOverlayRenderer()
+    }
+    
 }
 

@@ -15,6 +15,10 @@ class UserSettingsViewController: UIViewController {
     @IBOutlet weak var gliderIDTextfield: TextFields!
     @IBOutlet weak var mapRegionInMetersTextField: TextFields!
     
+
+    
+
+    
     let defaults = UserDefaults.standard
     
     struct Settings {
@@ -22,31 +26,46 @@ class UserSettingsViewController: UIViewController {
         static let safetyAltitude = "safetyAltitude"
         static let gliderID = "gliderID"
         static let mapRegionInMeters = "mapRegionInMeters"
+        static let showDirectionLine: Bool = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkForSavedSettings()
+        setupUserDefaults()
+        setupUI()
     }
     
-    // Check for saved Settings and display them on Screen. If nil use these defaults.
-    func checkForSavedSettings(){
-        let gliderRatio = defaults.value(forKey: Settings.gliderRatio) as? String ?? "30"
-        gliderRatioTextField.text = gliderRatio
-        
-        let safetyAltitude = defaults.value(forKey: Settings.safetyAltitude) as? String ?? "200"
-        safetyAltitudeTextField.text! = safetyAltitude
-        
-        let gliderID = defaults.value(forKey: Settings.gliderID) as? String ?? "D-1234"
-        gliderIDTextfield.text = gliderID
-       
-        let mapRegionInMeters = defaults.value(forKey: Settings.mapRegionInMeters) as? String ?? "10000"
-        mapRegionInMetersTextField.text = mapRegionInMeters
+    // Set up User Defaults if they have no values
+    func setupUserDefaults() {
+        if defaults.value(forKey: Settings.gliderRatio) == nil {
+            defaults.set("20", forKey: Settings.gliderRatio)
+        }
+        if defaults.value(forKey: Settings.safetyAltitude) == nil {
+            defaults.set("200", forKey: Settings.safetyAltitude)
+        }
+        if defaults.value(forKey: Settings.gliderID) == nil {
+            defaults.set("D-1234", forKey: Settings.gliderID)
+        }
+        if defaults.value(forKey: Settings.mapRegionInMeters) == nil {
+            defaults.set("15000", forKey: Settings.mapRegionInMeters)
+        }
+    }
+    
+    // Read User Defaults and display them on screen
+    func setupUI(){
+        gliderRatioTextField.text! = defaults.value(forKey: Settings.gliderRatio) as? String ?? "20"
+        safetyAltitudeTextField.text! = defaults.value(forKey: Settings.safetyAltitude) as? String ?? "200"
+        gliderIDTextfield.text! = defaults.value(forKey: Settings.gliderID) as? String ?? "D-1234"
+        mapRegionInMetersTextField.text! = defaults.value(forKey: Settings.mapRegionInMeters) as? String ?? "15000"
     }
     
     // Return to Map View Button
     @IBAction func exitSettings(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    // Direction Line Switch
+    @IBAction func showDirectionLineSwitch(_ sender: Any) {
     }
     
     // Save Button - Save Settings and dismiss Keyboard
@@ -61,7 +80,13 @@ class UserSettingsViewController: UIViewController {
         defaults.set(safetyAltitudeTextField.text!, forKey: Settings.safetyAltitude);
         defaults.set(gliderIDTextfield.text!, forKey: Settings.gliderID);
         defaults.set(mapRegionInMetersTextField.text!, forKey: Settings.mapRegionInMeters);
+
+// MARK: Output
+        
+//        // Output all Data
+//        print("Glider Ratio set to: \(defaults.value(forKey: Settings.gliderRatio)!)")
+//        print("Safety Altitude set to: \(defaults.value(forKey: Settings.safetyAltitude)!)")
+//        print("Glider ID set to: \(defaults.value(forKey: Settings.gliderID)!)")
+//        print("Map Region set to: \(defaults.value(forKey: Settings.mapRegionInMeters)!)")
     }
 }
-
-

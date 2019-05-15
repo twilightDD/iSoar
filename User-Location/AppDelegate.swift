@@ -13,7 +13,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         //Prevent Display to fall asleep
@@ -22,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Prevent from showing notifications
         UIApplication.shared.unregisterForRemoteNotifications()
         
+        // ToDo: Set up User Defaults
+        //UserSettingsViewController.setupUserDefaults()
+        
         return true
     }
 
@@ -29,7 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Set Display Dimmer active again
         UIApplication.shared.isIdleTimerDisabled = false
-        
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -41,7 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Prevent Display to fall asleep
         UIApplication.shared.isIdleTimerDisabled = true
-
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
