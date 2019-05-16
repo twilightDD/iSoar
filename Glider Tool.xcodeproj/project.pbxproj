@@ -62,13 +62,13 @@
 			path = Designs;
 			sourceTree = "<group>";
 		};
-		E0DA9414228D267500D3A854 /* Objects */ = {
+		E0DA9414228D267500D3A854 /* MapObjects */ = {
 			isa = PBXGroup;
 			children = (
 				E0DA9415228D269300D3A854 /* Airports.plist */,
 				E0DA9417228D2B3400D3A854 /* Airspaces.plist */,
 			);
-			path = Objects;
+			path = MapObjects;
 			sourceTree = "<group>";
 		};
 		EDA236162130AA7500739396 = {
@@ -90,7 +90,7 @@
 		EDA236212130AA7500739396 /* User-Location */ = {
 			isa = PBXGroup;
 			children = (
-				E0DA9414228D267500D3A854 /* Objects */,
+				E0DA9414228D267500D3A854 /* MapObjects */,
 				E0B52F7522837BC800E28A93 /* Designs */,
 				E0B52F702283753400E28A93 /* ViewControllers */,
 				EDA236222130AA7500739396 /* AppDelegate.swift */,

@@ -15,10 +15,7 @@ class UserSettingsViewController: UIViewController {
     @IBOutlet weak var gliderIDTextfield: TextFields!
     @IBOutlet weak var mapRegionInMetersTextField: TextFields!
     
-
-    
-
-    
+    // ToDo: das ist irgendwie doppelt drin
     let defaults = UserDefaults.standard
     
     struct Settings {
@@ -31,7 +28,6 @@ class UserSettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //setupUserDefaults()
         setupUI()
     }
     
@@ -40,7 +36,7 @@ class UserSettingsViewController: UIViewController {
         let defaults = UserDefaults.standard
         
         if defaults.value(forKey: Settings.gliderRatio) == nil {
-            defaults.set("20", forKey: Settings.gliderRatio)
+            defaults.set(20, forKey: Settings.gliderRatio)
         }
         if defaults.value(forKey: Settings.safetyAltitude) == nil {
             defaults.set(200, forKey: Settings.safetyAltitude)
@@ -49,16 +45,16 @@ class UserSettingsViewController: UIViewController {
             defaults.set("D-1234", forKey: Settings.gliderID)
         }
         if defaults.value(forKey: Settings.mapRegionInMeters) == nil {
-            defaults.set("15000", forKey: Settings.mapRegionInMeters)
+            defaults.set(15000, forKey: Settings.mapRegionInMeters)
         }
     }
     
     // Read User Defaults and display them on screen
     func setupUI(){
-        gliderRatioTextField.text! = defaults.value(forKey: Settings.gliderRatio) as? String ?? "20"
+        gliderRatioTextField.text! = (defaults.value( forKey: Settings.gliderRatio) as! Double).description
         safetyAltitudeTextField.text! = (defaults.value(forKey: Settings.safetyAltitude) as! Double).description
         gliderIDTextfield.text! = defaults.value(forKey: Settings.gliderID) as? String ?? "D-1234"
-        mapRegionInMetersTextField.text! = defaults.value(forKey: Settings.mapRegionInMeters) as? String ?? "15000"
+        mapRegionInMetersTextField.text! = (defaults.value(forKey: Settings.mapRegionInMeters) as! Double).description
     }
     
     // Return to Map View Button
@@ -80,13 +76,20 @@ class UserSettingsViewController: UIViewController {
     func saveSettings(){
         // aus textField kommt immer ein String raus
         // -> string in double konvertieren!
+        
+        let gliderRatioString = gliderRatioTextField.text!
+        let gliderRatioDouble = (gliderRatioString as NSString).doubleValue
+        
         let safetyAltitudeString = safetyAltitudeTextField.text!
         let safetyAltitudeDouble = (safetyAltitudeString as NSString).doubleValue
         
-        defaults.set(gliderRatioTextField.text!, forKey: Settings.gliderRatio);
+        let mapRegionInMetersString = mapRegionInMetersTextField.text!
+        let mapRegionInMetersDouble = (mapRegionInMetersString as NSString).doubleValue
+        
+        defaults.set(gliderRatioDouble, forKey: Settings.gliderRatio);
         defaults.set(safetyAltitudeDouble, forKey: Settings.safetyAltitude);
         defaults.set(gliderIDTextfield.text!, forKey: Settings.gliderID);
-        defaults.set(mapRegionInMetersTextField.text!, forKey: Settings.mapRegionInMeters);
+        defaults.set(mapRegionInMetersDouble, forKey: Settings.mapRegionInMeters);
 
 // MARK: Output
         

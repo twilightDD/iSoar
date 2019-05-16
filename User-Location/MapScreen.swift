@@ -40,7 +40,9 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     
     var airports = [Airports]()
     let locationManager = CLLocationManager()
+    
     let mapRegionInMeters: Double = 15000
+    //let mapRegionInMeters = defaults.value(forKey: UserSettingsViewController.Settings.mapRegionInMeters) as! Double
     
     let coords1 = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
     let destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
@@ -62,7 +64,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         airportPointAnnotation.coordinate = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
         self.mapView.addAnnotation(airportPointAnnotation)
         
-       // draw overlay for military outpost in Radeirgendwas
+       // Draw overlay for restricted Airspace
         let triangle:[CLLocationCoordinate2D] = [CLLocationCoordinate2D(latitude:47.840000, longitude:9.060000),
                                                  CLLocationCoordinate2D(latitude:47.840000, longitude:9.100000),
                                                 CLLocationCoordinate2D(latitude:47.864483,
@@ -155,6 +157,8 @@ extension MapScreen: CLLocationManagerDelegate {
 
         let defaults = UserDefaults.standard
         
+        //let mapRegionInMeters = defaults.value(forKey: UserSettingsViewController.Settings.mapRegionInMeters) as! Double
+        
         let destinationAirportLocation = CLLocation(latitude: self.destinationAirportCoords.latitude,
                                                     longitude: self.destinationAirportCoords.longitude)
         let distance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
@@ -182,11 +186,8 @@ extension MapScreen: CLLocationManagerDelegate {
         // Safety Altitude
         let safetyAltitude = defaults.value(forKey: UserSettingsViewController.Settings.safetyAltitude) as! Double
         
-        
         // Calculate Glider Sink Rate to Destination
-        //let gliderRatio = defaults.value(forKey: UserSettingsViewController.Settings.gliderRatio) as! Double
-        
-        let gliderRatio: Double = 30                  //Gleitzahl
+        let gliderRatio = defaults.value(forKey: UserSettingsViewController.Settings.gliderRatio) as! Double
         let gliderRatioMeter = gliderRatio * 1000       //Gleitzahl in Meter
         let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    //Sinkrate pro Meter
         let gliderSinkRateToDestination = distance * gliderSinkRatePerMeter   //Sinkrate to Destination in Meter
@@ -247,6 +248,7 @@ extension MapScreen: CLLocationManagerDelegate {
         return annotationView
     }
     
+    // Check for Location Authorization
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()
     }
@@ -261,7 +263,7 @@ extension MapScreen: CLLocationManagerDelegate {
                 overlayRenderer.lineWidth = 1.0
             }
             else if currentPolyline == self.restrictedAirspaceLine {
-                overlayRenderer.strokeColor = .purple
+                overlayRenderer.strokeColor = .red
                 overlayRenderer.lineWidth = 1.0
             }
             return overlayRenderer
