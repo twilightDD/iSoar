@@ -14,6 +14,7 @@ class UserSettingsViewController: UIViewController {
     @IBOutlet weak var safetyAltitudeTextField: TextFields!
     @IBOutlet weak var gliderIDTextfield: TextFields!
     @IBOutlet weak var mapRegionInMetersTextField: TextFields!
+    @IBOutlet weak var showDirectionLineSwitch: UISwitch!
     
     // ToDo: das ist irgendwie doppelt drin
     let defaults = UserDefaults.standard
@@ -23,12 +24,16 @@ class UserSettingsViewController: UIViewController {
         static let safetyAltitude = "safetyAltitude"
         static let gliderID = "gliderID"
         static let mapRegionInMeters = "mapRegionInMeters"
-        static let showDirectionLine: Bool = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        
+        // Show Direction Line Switch Setup
+        if (defaults.object(forKey: "SwitchState") != nil) {
+            showDirectionLineSwitch.isOn = defaults.bool(forKey: "SwitchState")
+        }
     }
     
     // Set up User Defaults if they have no values
@@ -64,6 +69,11 @@ class UserSettingsViewController: UIViewController {
     
     // Direction Line Switch
     @IBAction func showDirectionLineSwitch(_ sender: Any) {
+        if showDirectionLineSwitch.isOn {
+            defaults.set(true, forKey: "SwitchState")
+        } else {
+            defaults.set(false, forKey: "SwitchState")
+        }
     }
     
     // Save Button - Save Settings and dismiss Keyboard

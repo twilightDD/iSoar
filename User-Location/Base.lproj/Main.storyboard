@@ -214,7 +214,7 @@
                                 <rect key="frame" x="285" y="347" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <action selector="showDirectionLineSwitch:" destination="ILV-wr-QVr" eventType="valueChanged" id="z1q-8g-m7k"/>
+                                    <action selector="showDirectionLineSwitch:" destination="ILV-wr-QVr" eventType="valueChanged" id="sLE-R2-h06"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show Direction Line:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LK7-KN-Q4d">
@@ -261,6 +261,7 @@
                         <outlet property="gliderRatioTextField" destination="Uma-pM-80t" id="kFr-9J-9q2"/>
                         <outlet property="mapRegionInMetersTextField" destination="QdG-bg-VJy" id="7Vb-Ho-D3N"/>
                         <outlet property="safetyAltitudeTextField" destination="vi7-Ik-Pbz" id="s9F-0g-Ymw"/>
+                        <outlet property="showDirectionLineSwitch" destination="fk4-Dn-1d3" id="C7q-VM-H1n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UKB-Ee-tBq" userLabel="First Responder" sceneMemberID="firstResponder"/>
