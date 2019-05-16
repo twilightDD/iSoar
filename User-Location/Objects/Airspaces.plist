@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Test Military</key>
+	<dict>
+		<key>name</key>
+		<string>Test Military</string>
+		<key>location</key>
+		<string>{47.806103,8.979535}</string>
+	</dict>
+</dict>
+</plist>

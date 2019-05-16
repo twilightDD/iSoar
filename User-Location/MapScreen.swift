@@ -64,9 +64,9 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         
        // draw overlay for military outpost in Radeirgendwas
         let triangle:[CLLocationCoordinate2D] = [CLLocationCoordinate2D(latitude:47.840000, longitude:9.060000),
-                                                 CLLocationCoordinate2D(latitude:47.840000, longitude:9.090000),
+                                                 CLLocationCoordinate2D(latitude:47.840000, longitude:9.100000),
                                                 CLLocationCoordinate2D(latitude:47.864483,
-                                                    longitude:9.090000),
+                                                    longitude:9.100000),
                                                  CLLocationCoordinate2D(latitude:47.864483,
                                                     longitude:9.060000),
                                                  CLLocationCoordinate2D(latitude:47.840000, longitude:9.060000),
@@ -261,8 +261,8 @@ extension MapScreen: CLLocationManagerDelegate {
                 overlayRenderer.lineWidth = 1.0
             }
             else if currentPolyline == self.restrictedAirspaceLine {
-                overlayRenderer.strokeColor = .red
-                overlayRenderer.lineWidth = 2.0
+                overlayRenderer.strokeColor = .purple
+                overlayRenderer.lineWidth = 1.0
             }
             return overlayRenderer
         }

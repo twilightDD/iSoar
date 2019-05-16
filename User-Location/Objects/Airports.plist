@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>EDSR</key>
+	<dict>
+		<key>icao</key>
+		<string>EDSR</string>
+		<key>name</key>
+		<string>Stahringen Radolfzell</string>
+		<key>location</key>
+		<string>{47.806103,8.979535}</string>
+		<key>elevation</key>
+		<integer>419</integer>
+		<key>radioFrequency</key>
+		<string>127.530</string>
+		<key>radioFrequencyName</key>
+		<string>Stahringen Info</string>
+		<key>runways</key>
+		<string>01/19</string>
+		<key>url</key>
+		<string>www.edsr.info</string>
+	</dict>
+	<key>EDTZ</key>
+	<dict>
+		<key>icao</key>
+		<string>EDTZ</string>
+		<key>name</key>
+		<string>Konstanz</string>
+		<key>location</key>
+		<string>{47.682012,9.138971}</string>
+		<key>elevation</key>
+		<integer>397</integer>
+		<key>radioFrequency</key>
+		<string>124.355</string>
+		<key>radioFrequencyName</key>
+		<string>Konstanz Info</string>
+		<key>runways</key>
+		<string>12/30</string>
+		<key>url</key>
+		<string>www.flugplatz-konstanz.de</string>
+	</dict>
+</dict>
+</plist>
