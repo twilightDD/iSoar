@@ -16,7 +16,6 @@ import UIKit
 import MapKit
 import CoreLocation
 
-
 class MapScreen: UIViewController, MKMapViewDelegate {
 
     struct Airports {
@@ -41,10 +40,11 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     var airports = [Airports]()
     let locationManager = CLLocationManager()
     
+    // ToDo Map Region User Defaults in MapScreen
     let mapRegionInMeters: Double = 15000
     //let mapRegionInMeters = defaults.value(forKey: UserSettingsViewController.Settings.mapRegionInMeters) as! Double
     
-    let coords1 = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
+    // Hardcoded Destination Airport Location
     let destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
     
     var currentDirectionLine:MKPolyline?
@@ -71,9 +71,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
                                                     longitude:9.100000),
                                                  CLLocationCoordinate2D(latitude:47.864483,
                                                     longitude:9.060000),
-                                                 CLLocationCoordinate2D(latitude:47.840000, longitude:9.060000),
-        
-                                                 ]
+                                                 CLLocationCoordinate2D(latitude:47.840000, longitude:9.060000),]
         
         self.restrictedAirspaceLine = MKPolyline(coordinates: triangle,
                                           count: triangle.count)
