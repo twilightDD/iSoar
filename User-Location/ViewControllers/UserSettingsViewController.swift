@@ -15,6 +15,7 @@ class UserSettingsViewController: UIViewController {
     @IBOutlet weak var gliderIDTextfield: TextFields!
     @IBOutlet weak var mapRegionInMetersTextField: TextFields!
     @IBOutlet weak var showDirectionLineSwitch: UISwitch!
+    @IBOutlet weak var showTrackingRouteSwitch: UISwitch!
     
     // ToDo: das ist irgendwie doppelt drin
     let defaults = UserDefaults.standard
@@ -31,8 +32,8 @@ class UserSettingsViewController: UIViewController {
         setupUI()
         
         // Show Direction Line Switch Setup
-        if (defaults.object(forKey: "SwitchState") != nil) {
-            showDirectionLineSwitch.isOn = defaults.bool(forKey: "SwitchState")
+        if (defaults.object(forKey: "ShowDirectionToDestinationAirportOnMapState") != nil) {
+            showDirectionLineSwitch.isOn = defaults.bool(forKey: "ShowDirectionToDestinationAirportOnMapState")
         }
     }
     

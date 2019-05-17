@@ -18,6 +18,10 @@
 		<string>Stahringen Info</string>
 		<key>runways</key>
 		<string>01/19</string>
+		<key>runwayDimensions</key>
+		<string>710 x 30</string>
+		<key>runwaySurface</key>
+		<string>Grass</string>
 		<key>url</key>
 		<string>www.edsr.info</string>
 	</dict>
@@ -37,6 +41,10 @@
 		<string>Konstanz Info</string>
 		<key>runways</key>
 		<string>12/30</string>
+		<key>runwayDimensions</key>
+		<string>760 x 50</string>
+		<key>runwaySurface</key>
+		<string>Grass</string>
 		<key>url</key>
 		<string>www.flugplatz-konstanz.de</string>
 	</dict>

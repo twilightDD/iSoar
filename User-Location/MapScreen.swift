@@ -23,7 +23,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         var city: String
         var latitude: Double
         var longitude: Double
-        var altitude: Double
+        var elevation: Double
         var radioFrequency: Double
         var radioName: String
         var runways: String
@@ -128,7 +128,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
                                  city: "Stahringen",
                                  latitude: 47.806103,
                                  longitude: 8.979535,
-                                 altitude: 419,
+                                 elevation: 419,
                                  radioFrequency: 127.530,
                                  radioName: "Stahringen Info",
                                  runways: "01/19")
@@ -137,7 +137,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
                                 city: "Testfeld",
                                 latitude: 47.801791,
                                 longitude: 8.978528,
-                                altitude: 478,
+                                elevation: 478,
                                 radioFrequency: 125.123,
                                 radioName: "Acker Tower",
                                 runways: "09/27")
@@ -191,8 +191,8 @@ extension MapScreen: CLLocationManagerDelegate {
         let gliderSinkRateToDestination = distance * gliderSinkRatePerMeter   //Sinkrate to Destination in Meter
 
         // Calculate Height of Glider at Destination
-        let airportAltitude: Double = 419             // Höhe EDSR
-        let destinationAltitude = altitude - airportAltitude - safetyAltitude - gliderSinkRateToDestination
+        let destinationAirportElevation: Double = 419
+        let destinationAltitude = altitude - destinationAirportElevation - safetyAltitude - gliderSinkRateToDestination
         let destinationAltitudeShort = String(format:"%.0fm", destinationAltitude)
         self.destinationAltitudeShort.text = destinationAltitudeShort
         
