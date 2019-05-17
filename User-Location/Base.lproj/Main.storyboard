@@ -229,6 +229,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="showDirectionLineSwitch:" destination="ILV-wr-QVr" eventType="valueChanged" id="CB9-5a-voA"/>
+                                    <action selector="showTrackingRouteSwitch:" destination="ILV-wr-QVr" eventType="valueChanged" id="4aI-jP-SyI"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Show Tracking Route:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH1-lu-hfJ">

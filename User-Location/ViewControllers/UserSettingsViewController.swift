@@ -31,10 +31,15 @@ class UserSettingsViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         
-        // Show Direction Line Switch Setup
-        if (defaults.object(forKey: "ShowDirectionToDestinationAirportOnMapState") != nil) {
-            showDirectionLineSwitch.isOn = defaults.bool(forKey: "ShowDirectionToDestinationAirportOnMapState")
+        // Direction Line Switch Setup
+        if (defaults.object(forKey: "ShowDirectionToDestinationAirportSwitchState") != nil) {
+            showDirectionLineSwitch.isOn = defaults.bool(forKey: "ShowDirectionToDestinationAirportSwitchState")
         }
+        // Tracking Route Switch Setup
+        if (defaults.object(forKey: "ShowTrackingRouteSwitchState") != nil) {
+            showTrackingRouteSwitch.isOn = defaults.bool(forKey: "ShowTrackingRouteSwitchState")
+        }
+        
     }
     
     // Set up User Defaults if they have no values
@@ -71,9 +76,18 @@ class UserSettingsViewController: UIViewController {
     // Direction Line Switch
     @IBAction func showDirectionLineSwitch(_ sender: Any) {
         if showDirectionLineSwitch.isOn {
-            defaults.set(true, forKey: "SwitchState")
+            defaults.set(true, forKey: "ShowDirectionToDestinationAirportSwitchState")
         } else {
-            defaults.set(false, forKey: "SwitchState")
+            defaults.set(false, forKey: "ShowDirectionToDestinationAirportSwitchState")
+        }
+    }
+    
+    // Tracking Route Switch
+    @IBAction func showTrackingRouteSwitch(_ sender: Any) {
+        if showTrackingRouteSwitch.isOn {
+            defaults.set(true, forKey: "ShowTrackingRouteSwitchState")
+        } else {
+            defaults.set(false, forKey: "ShowTrackingRouteSwitchState")
         }
     }
     
