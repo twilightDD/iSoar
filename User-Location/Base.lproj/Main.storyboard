@@ -71,6 +71,25 @@
                                     <segue destination="ILV-wr-QVr" kind="show" id="cqi-lh-yVY"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Luy-IE-1qP">
+                                <rect key="frame" x="25" y="553" width="39" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="EDSR"/>
+                                <connections>
+                                    <action selector="EDSRbutton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZzP-E9-JON"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VuZ-P7-ztv">
+                                <rect key="frame" x="25" y="591" width="39" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="LEIB"/>
+                                <connections>
+                                    <action selector="EDSRbutton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jOk-md-hQa"/>
+                                    <action selector="LEIB:" destination="BYZ-38-t0r" eventType="touchUpInside" id="l1D-Ow-8WH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>

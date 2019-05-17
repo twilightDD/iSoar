@@ -44,12 +44,22 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     let mapRegionInMeters: Double = 15000
     //let mapRegionInMeters = defaults.value(forKey: UserSettingsViewController.Settings.mapRegionInMeters) as! Double
     
-    // Hardcoded Destination Airport Location
-    let destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
+    // ToDo Hardcoded Destination Airport Location
+    var destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
     
     var currentDirectionLine:MKPolyline?
     var restrictedAirspaceLine:MKPolyline?
     
+    
+    // Temp Airport Direct to Buttons
+    @IBAction func EDSRbutton(_ sender: Any) {
+        destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
+    }
+    @IBAction func LEIB(_ sender: Any) {
+        destinationAirportCoords = CLLocationCoordinate2D(latitude: 48.044272, longitude: 9.025188)
+    }
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAirport()
@@ -78,6 +88,8 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         
         self.mapView.addOverlay(self.restrictedAirspaceLine!)
   }
+    
+    // Setup Location Manager
     func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
@@ -91,6 +103,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         }
     }
     
+    // Check for Location Services
     func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled() {
             setupLocationManager()
@@ -206,8 +219,6 @@ extension MapScreen: CLLocationManagerDelegate {
         
         self.mapView.addOverlay(self.currentDirectionLine!)
 
-        
-        
 // MARK: Output
         
 //        // Output all Data
@@ -237,8 +248,9 @@ extension MapScreen: CLLocationManagerDelegate {
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
         
         if annotationView == nil {
-            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView!.canShowCallout = true
+            annotationView!.image = UIImage(named: "EDSR")
         } else {
             annotationView!.annotation = annotation
         }
