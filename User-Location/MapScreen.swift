@@ -55,10 +55,10 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     @IBAction func EDSRbutton(_ sender: Any) {
         destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
     }
-    @IBAction func LEIB(_ sender: Any) {
+    @IBAction func LEIBbutton(_ sender: Any) {
         destinationAirportCoords = CLLocationCoordinate2D(latitude: 48.044272, longitude: 9.025188)
     }
-    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -250,11 +250,10 @@ extension MapScreen: CLLocationManagerDelegate {
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView!.canShowCallout = true
-            annotationView!.image = UIImage(named: "EDSR")
+            annotationView!.image = UIImage(named: "runway_grass")
         } else {
             annotationView!.annotation = annotation
         }
-        
         return annotationView
     }
     
@@ -263,7 +262,7 @@ extension MapScreen: CLLocationManagerDelegate {
         checkLocationAuthorization()
     }
     
-    // Change Direction Polyline Overlay to Map
+    // Renew Direction Polyline Overlay on Map
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         //Return an `MKPolylineRenderer` for the `MKPolyline` in the `MKMapViewDelegate`s method
         if let currentPolyline = overlay as? MKPolyline {
