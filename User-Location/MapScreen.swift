@@ -40,16 +40,11 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     var airports = [Airports]()
     let locationManager = CLLocationManager()
     
-    // ToDo Map Region User Defaults in MapScreen
-    let mapRegionInMeters: Double = 15000
-    //let mapRegionInMeters = defaults.value(forKey: UserSettingsViewController.Settings.mapRegionInMeters) as! Double
-    
     // ToDo Hardcoded Destination Airport Location
     var destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
     
     var currentDirectionLine:MKPolyline?
     var restrictedAirspaceLine:MKPolyline?
-    
     
     // Temp Airport Direct to Buttons
     @IBAction func EDSRbutton(_ sender: Any) {
@@ -58,7 +53,6 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     @IBAction func LEIBbutton(_ sender: Any) {
         destinationAirportCoords = CLLocationCoordinate2D(latitude: 48.044272, longitude: 9.025188)
     }
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +81,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
                                           count: triangle.count)
         
         self.mapView.addOverlay(self.restrictedAirspaceLine!)
-  }
+    }
     
     // Setup Location Manager
     func setupLocationManager() {
@@ -97,6 +91,8 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     
     // Center view on User Location on Map
     func centerViewOnUserLocation() {
+        let defaults = UserDefaults.standard
+        let mapRegionInMeters = defaults.value(forKey: UserSettingsViewController.Settings.mapRegionInMeters) as! Double
         if let location = locationManager.location?.coordinate {
             let region = MKCoordinateRegion.init(center: location, latitudinalMeters: mapRegionInMeters, longitudinalMeters: mapRegionInMeters)
             mapView.setRegion(region, animated: true)
@@ -162,13 +158,16 @@ class MapScreen: UIViewController, MKMapViewDelegate {
 extension MapScreen: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let defaults = UserDefaults.standard
+        
+        let mapRegionInMeters = defaults.value(forKey: UserSettingsViewController.Settings.mapRegionInMeters) as! Double
+        
         guard let currentLocation = locations.last else { return }
+        
         let region = MKCoordinateRegion.init(center: currentLocation.coordinate, latitudinalMeters: mapRegionInMeters, longitudinalMeters: mapRegionInMeters)
         mapView.setRegion(region, animated: true)
 
-        let defaults = UserDefaults.standard
-        
-        //let mapRegionInMeters = defaults.value(forKey: UserSettingsViewController.Settings.mapRegionInMeters) as! Double
+        //let defaults = UserDefaults.standard
         
         let destinationAirportLocation = CLLocation(latitude: self.destinationAirportCoords.latitude,
                                                     longitude: self.destinationAirportCoords.longitude)
@@ -229,6 +228,7 @@ extension MapScreen: CLLocationManagerDelegate {
 //        print("Glider Sink Rate per Meter \(gliderSinkRatePerMeter)")
 //        print("Distance to Destination: \(distanceShort)")
 //        print("Glider Sink Rate to Destination: \(gliderSinkRateToDestination)")
+//        print("Map Region in Meters: \(mapRegionInMeters)")
         
     }
 

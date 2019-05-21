@@ -35,11 +35,11 @@ class UserSettingsViewController: UIViewController {
         if (defaults.object(forKey: "ShowDirectionToDestinationAirportSwitchState") != nil) {
             showDirectionLineSwitch.isOn = defaults.bool(forKey: "ShowDirectionToDestinationAirportSwitchState")
         }
+        
         // Tracking Route Switch Setup
         if (defaults.object(forKey: "ShowTrackingRouteSwitchState") != nil) {
             showTrackingRouteSwitch.isOn = defaults.bool(forKey: "ShowTrackingRouteSwitchState")
         }
-        
     }
     
     // Set up User Defaults if they have no values
@@ -99,9 +99,6 @@ class UserSettingsViewController: UIViewController {
     
     //Save Settings to User Defaults
     func saveSettings(){
-        // aus textField kommt immer ein String raus
-        // -> string in double konvertieren!
-        
         let gliderRatioString = gliderRatioTextField.text!
         let gliderRatioDouble = (gliderRatioString as NSString).doubleValue
         
