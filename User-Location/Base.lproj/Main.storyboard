@@ -63,7 +63,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N75-Ee-Ly4">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N75-Ee-Ly4" userLabel="Settings">
                                 <rect key="frame" x="326" y="117" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -87,6 +87,14 @@
                                 <state key="normal" title="LEIB"/>
                                 <connections>
                                     <action selector="LEIBbutton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pPx-DY-XY5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NeN-tY-cHC" userLabel="DirectTo">
+                                <rect key="frame" x="326" y="171" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <segue destination="9P3-5x-xQ4" kind="show" id="ReQ-MA-ybL"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -113,10 +121,10 @@
             </objects>
             <point key="canvasLocation" x="61.600000000000001" y="124.8768472906404"/>
         </scene>
-        <!--User Settings View Controller-->
+        <!--Settings-->
         <scene sceneID="gV1-cd-Egb">
             <objects>
-                <viewController id="ILV-wr-QVr" customClass="UserSettingsViewController" customModule="Glider_Tool" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Settings" id="ILV-wr-QVr" customClass="UserSettingsViewController" customModule="Glider_Tool" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6Zd-EZ-uZW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -219,7 +227,7 @@
                                     <action selector="SaveButtonTapped:" destination="ILV-wr-QVr" eventType="touchUpInside" id="DZF-zL-7cD"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xco-SQ-jXL">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xco-SQ-jXL" userLabel="Done Button">
                                 <rect key="frame" x="301" y="92" width="47" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -246,7 +254,6 @@
                                 <rect key="frame" x="285" y="391" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <action selector="showDirectionLineSwitch:" destination="ILV-wr-QVr" eventType="valueChanged" id="CB9-5a-voA"/>
                                     <action selector="showTrackingRouteSwitch:" destination="ILV-wr-QVr" eventType="valueChanged" id="4aI-jP-SyI"/>
                                 </connections>
                             </switch>
@@ -300,7 +307,35 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UKB-Ee-tBq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="861.60000000000002" y="124.8768472906404"/>
+            <point key="canvasLocation" x="1290" y="-106"/>
+        </scene>
+        <!--DirectTo-->
+        <scene sceneID="5qI-dL-Q73">
+            <objects>
+                <viewController title="DirectTo" id="9P3-5x-xQ4" customClass="DirectToViewController" customModule="Glider_Tool" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yu7-SL-BYV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2b9-WQ-STG">
+                                <rect key="frame" x="300" y="101" width="47" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="dismiss:" destination="9P3-5x-xQ4" eventType="touchUpInside" id="pCv-xp-FLn"/>
+                                    <action selector="dismiss:" destination="Ej6-5y-a3U" eventType="touchUpInside" id="pb0-iS-EyA"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="kCY-4z-bfF"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hYX-j3-l4i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Ej6-5y-a3U" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1288.8" y="551.97044334975374"/>
         </scene>
     </scenes>
 </document>

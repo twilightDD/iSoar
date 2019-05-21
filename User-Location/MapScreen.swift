@@ -53,7 +53,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     @IBAction func LEIBbutton(_ sender: Any) {
         destinationAirportCoords = CLLocationCoordinate2D(latitude: 48.044272, longitude: 9.025188)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAirport()
@@ -160,6 +160,11 @@ extension MapScreen: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let defaults = UserDefaults.standard
         
+        // Show Glider Image on Map
+        let currentLocationImage = mapView.view(for: mapView.userLocation)
+        currentLocationImage?.image = UIImage(named: "glider")
+        
+        // Read Map Region from User Defaults
         let mapRegionInMeters = defaults.value(forKey: UserSettingsViewController.Settings.mapRegionInMeters) as! Double
         
         guard let currentLocation = locations.last else { return }
@@ -167,15 +172,13 @@ extension MapScreen: CLLocationManagerDelegate {
         let region = MKCoordinateRegion.init(center: currentLocation.coordinate, latitudinalMeters: mapRegionInMeters, longitudinalMeters: mapRegionInMeters)
         mapView.setRegion(region, animated: true)
 
-        //let defaults = UserDefaults.standard
-        
         let destinationAirportLocation = CLLocation(latitude: self.destinationAirportCoords.latitude,
                                                     longitude: self.destinationAirportCoords.longitude)
         let distance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
         let distanceShort = String(format: "%.0fKm", distance/1000)
         self.distanceShort.text = distanceShort
         
-        // Muss hier eigentlich nicht stehen, sondern nur, wenn anderer Zielhafen gewählt wird, wird String neu gestetzt
+        // ToDo: Muss hier eigentlich nicht stehen, sondern nur, wenn anderer Zielhafen gewählt wird, wird String neu gestetzt
         let destinationAirport: String = "to EDSR"
         self.destinationAirport.text = destinationAirport
         
@@ -281,6 +284,10 @@ extension MapScreen: CLLocationManagerDelegate {
         fatalError("Something wrong...")
         //return MKOverlayRenderer()
     }
+    
+    
+    
+
     
 }
 

@@ -114,11 +114,13 @@ class UserSettingsViewController: UIViewController {
         defaults.set(mapRegionInMetersDouble, forKey: Settings.mapRegionInMeters);
 
 // MARK: Output
-        
-//        // Output all Data
+
 //        print("Glider Ratio set to: \(defaults.value(forKey: Settings.gliderRatio)!)")
 //        print("Safety Altitude set to: \(defaults.value(forKey: Settings.safetyAltitude)!)")
 //        print("Glider ID set to: \(defaults.value(forKey: Settings.gliderID)!)")
 //        print("Map Region set to: \(defaults.value(forKey: Settings.mapRegionInMeters)!)")
+//        print("Direction Line Switch: \(defaults.bool(forKey: "ShowDirectionToDestinationAirportSwitchState"))")
+//        print("Tracking Route Switch: \(defaults.bool(forKey: "ShowTrackingRouteSwitchState"))")
+        
     }
 }
