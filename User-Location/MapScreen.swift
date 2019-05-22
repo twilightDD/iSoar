@@ -62,10 +62,11 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         mapView.delegate = self
         
         // Show Airports on Map
-        let airportPointAnnotation = MKPointAnnotation()
+        let airportPointAnnotation = DLPointAnnotiation()
         airportPointAnnotation.title = "EDSR"
         airportPointAnnotation.subtitle = "419m"
         airportPointAnnotation.coordinate = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
+        airportPointAnnotation.imageName = "runway_grass"
         self.mapView.addAnnotation(airportPointAnnotation)
         
        // Draw overlay for restricted Airspace
@@ -236,26 +237,22 @@ extension MapScreen: CLLocationManagerDelegate {
     }
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-
-        guard annotation is MKPointAnnotation else {
-            // zoom to hoome of dl
-//            let region = MKCoordinateRegion.init(center: destinationAirportCoords,
-//                        latitudinalMeters;: mapRegionInMeters,
-//                        longitudinalMeters: mapRegionInMeters)
-//            mapView.setRegion(region, animated: true)
-            
-            return nil
-        }
         
+        // Get annotationView
         let identifier = "Annotation"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
         
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView!.canShowCallout = true
-            annotationView!.image = UIImage(named: "runway_grass")
-        } else {
-            annotationView!.annotation = annotation
+        }
+        
+        // Set image of annotationView depending of the type of annotation
+        if let castedAnnotation = annotation as? DLPointAnnotiation {
+            annotationView!.image = UIImage(named: castedAnnotation.imageName)
+        }
+        else if annotation === mapView.userLocation {
+            annotationView!.image = UIImage(named: "glider")
         }
         return annotationView
     }
@@ -290,4 +287,9 @@ extension MapScreen: CLLocationManagerDelegate {
 
     
 }
+
+class DLPointAnnotiation: MKPointAnnotation {
+    var imageName:String = ""
+}
+
 
