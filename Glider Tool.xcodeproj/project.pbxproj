@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D074B513229683BB00A573AE /* MapAnnotations.json in Resources */ = {isa = PBXBuildFile; fileRef = D074B512229683BB00A573AE /* MapAnnotations.json */; };
 		E0B52F6F228373AA00E28A93 /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F6E228373AA00E28A93 /* UserSettingsViewController.swift */; };
 		E0B52F72228377F300E28A93 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F71228377F300E28A93 /* Buttons.swift */; };
 		E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F7622837C1500E28A93 /* TextFields.swift */; };
-		E0DA9416228D269300D3A854 /* Airports.plist in Resources */ = {isa = PBXBuildFile; fileRef = E0DA9415228D269300D3A854 /* Airports.plist */; };
-		E0DA9418228D2B3400D3A854 /* Airspaces.plist in Resources */ = {isa = PBXBuildFile; fileRef = E0DA9417228D2B3400D3A854 /* Airspaces.plist */; };
 		E0E1D87A229476C00004DE81 /* DirectToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D879229476C00004DE81 /* DirectToViewController.swift */; };
 		EDA236232130AA7500739396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA236222130AA7500739396 /* AppDelegate.swift */; };
 		EDA236282130AA7500739396 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDA236262130AA7500739396 /* Main.storyboard */; };
@@ -21,11 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D074B512229683BB00A573AE /* MapAnnotations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MapAnnotations.json; sourceTree = "<group>"; };
 		E0B52F6E228373AA00E28A93 /* UserSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
 		E0B52F71228377F300E28A93 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		E0B52F7622837C1500E28A93 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
-		E0DA9415228D269300D3A854 /* Airports.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Airports.plist; sourceTree = "<group>"; };
-		E0DA9417228D2B3400D3A854 /* Airspaces.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Airspaces.plist; sourceTree = "<group>"; };
 		E0E1D879229476C00004DE81 /* DirectToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectToViewController.swift; sourceTree = "<group>"; };
 		EDA2361F2130AA7500739396 /* Glider Tool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Glider Tool.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA236222130AA7500739396 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -68,8 +66,7 @@
 		E0DA9414228D267500D3A854 /* MapObjects */ = {
 			isa = PBXGroup;
 			children = (
-				E0DA9415228D269300D3A854 /* Airports.plist */,
-				E0DA9417228D2B3400D3A854 /* Airspaces.plist */,
+				D074B512229683BB00A573AE /* MapAnnotations.json */,
 			);
 			path = MapObjects;
 			sourceTree = "<group>";
@@ -165,11 +162,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0DA9418228D2B3400D3A854 /* Airspaces.plist in Resources */,
-				E0DA9416228D269300D3A854 /* Airports.plist in Resources */,
 				EDA2362D2130AA7600739396 /* LaunchScreen.storyboard in Resources */,
 				EDA2362A2130AA7600739396 /* Assets.xcassets in Resources */,
 				EDA236282130AA7500739396 /* Main.storyboard in Resources */,
+				D074B513229683BB00A573AE /* MapAnnotations.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
