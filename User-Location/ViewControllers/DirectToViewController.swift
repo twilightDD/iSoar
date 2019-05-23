@@ -10,37 +10,22 @@ import UIKit
 
 class DirectToViewController: UIViewController {
 
-    
     private let dataSource = ["EDSR", "EDNY", "EDTZ", "EDKN", "EDAB"]
-    
-    //@IBOutlet weak var detailLabel: UILabel!
-
-
     
     @IBAction func dismiss(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    
-
-    
     @IBOutlet weak var detailLabel: UILabel!
-    
-    
-    
     @IBOutlet weak var pickerView: UIPickerView!
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         pickerView.dataSource = self
         pickerView.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
     }
-
 }
-
-
 
 extension DirectToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -56,23 +41,9 @@ extension DirectToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         
         detailLabel.text = dataSource[row]
         print(detailLabel.text!)
-        
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return dataSource[row]
-        
-        
     }
-    
-    
 }
-    
-    
-    
-
-
-    
-    
-
-    

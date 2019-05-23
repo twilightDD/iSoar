@@ -71,8 +71,16 @@
                                     <segue destination="ILV-wr-QVr" kind="show" id="cqi-lh-yVY"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NeN-tY-cHC" userLabel="DirectTo">
+                                <rect key="frame" x="326" y="171" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <segue destination="9P3-5x-xQ4" kind="show" id="ReQ-MA-ybL"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Luy-IE-1qP">
-                                <rect key="frame" x="25" y="553" width="39" height="30"/>
+                                <rect key="frame" x="16" y="696" width="39" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="EDSR"/>
@@ -81,20 +89,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VuZ-P7-ztv">
-                                <rect key="frame" x="25" y="591" width="39" height="30"/>
+                                <rect key="frame" x="16" y="734" width="39" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="LEIB"/>
                                 <connections>
                                     <action selector="LEIBbutton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pPx-DY-XY5"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NeN-tY-cHC" userLabel="DirectTo">
-                                <rect key="frame" x="326" y="171" width="22" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <segue destination="9P3-5x-xQ4" kind="show" id="ReQ-MA-ybL"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -324,7 +324,6 @@
                                 <state key="normal" title="Set"/>
                                 <connections>
                                     <action selector="dismiss:" destination="9P3-5x-xQ4" eventType="touchUpInside" id="pCv-xp-FLn"/>
-                                    <action selector="dismiss:" destination="Ej6-5y-a3U" eventType="touchUpInside" id="pb0-iS-EyA"/>
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bfe-S9-mOE">
@@ -352,7 +351,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hYX-j3-l4i" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Ej6-5y-a3U" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1288.8" y="551.97044334975374"/>
         </scene>
