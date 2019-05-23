@@ -43,7 +43,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     // ToDo Hardcoded Destination Airport Location
     var destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
     
-    var currentDirectionLine:MKPolyline?
+    var currentDirectionLine:DLPolyline?
     var restrictedAirspaceLine:MKPolyline?
     
     // Temp Airport Direct to Buttons
@@ -73,18 +73,16 @@ class MapScreen: UIViewController, MKMapViewDelegate {
 //        self.mapView.addAnnotation(airportPointAnnotation)
         
        // Draw overlay for restricted Airspace
-        let triangle:[CLLocationCoordinate2D] = [CLLocationCoordinate2D(latitude:47.840000, longitude:9.060000),
-                                                 CLLocationCoordinate2D(latitude:47.840000, longitude:9.100000),
-                                                CLLocationCoordinate2D(latitude:47.864483,
-                                                    longitude:9.100000),
-                                                 CLLocationCoordinate2D(latitude:47.864483,
-                                                    longitude:9.060000),
-                                                 CLLocationCoordinate2D(latitude:47.840000, longitude:9.060000),]
-        
-        self.restrictedAirspaceLine = MKPolyline(coordinates: triangle,
-                                          count: triangle.count)
-        
-        self.mapView.addOverlay(self.restrictedAirspaceLine!)
+//        let triangle:[CLLocationCoordinate2D] = [CLLocationCoordinate2D(latitude:47.840000, longitude:9.060000),
+//                                                 CLLocationCoordinate2D(latitude:47.840000, longitude:9.100000),
+//                                                 CLLocationCoordinate2D(latitude:47.864483, longitude:9.100000),
+//                                                 CLLocationCoordinate2D(latitude:47.864483, longitude:9.060000),
+//                                                 CLLocationCoordinate2D(latitude:47.840000, longitude:9.060000),]
+//
+//        self.restrictedAirspaceLine = MKPolyline(coordinates: triangle,
+//                                          count: triangle.count)
+//
+//        self.mapView.addOverlay(self.restrictedAirspaceLine!)
     }
     
     // Setup Location Manager
@@ -173,11 +171,11 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         }
         
         // --- Dict parsen und Annotations bauen
+        // Airports
         // aus dem Dictionary den Zweig für 'Airports holen (sollte ein Array sein)
         if let airports:[NSDictionary] = jsonAsDict["Airports"] as? [NSDictionary] {
             // jedes Element des Arrays abklappern
             for airport in airports {
-                
                 let airportPointAnnotation = DLPointAnnotiation()
                 
                 airportPointAnnotation.title = airport["icao"] as? String
@@ -192,7 +190,27 @@ class MapScreen: UIViewController, MKMapViewDelegate {
                 
                 self.mapView.addAnnotation(airportPointAnnotation)
             }
-            
+        }
+        
+        // RestrictedAreas
+        if let restrictedAreas:[NSDictionary] = jsonAsDict["RestrictedAreas"] as? [NSDictionary] {
+            // jedes Element des Arrays abklappern
+            for restrictedArea in restrictedAreas {
+                // Coordinates rauskramen und in ein Array packen
+                if let coordinatesFromDict:[NSDictionary] = restrictedArea["geoPoints"] as? [NSDictionary] {
+                    var locationCoordinates:[CLLocationCoordinate2D] = [CLLocationCoordinate2D]()
+                    for coordinate in coordinatesFromDict {
+                        guard let latitude = coordinate["latitude"] as? Double,
+                            let longitude = coordinate["longitude"] as? Double
+                            else { break }
+                        locationCoordinates.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+                    }
+                    let restrictedAreaPolyline = DLPolyline(coordinates: locationCoordinates,
+                                                            count: locationCoordinates.count)
+                    restrictedAreaPolyline.type = .restrictedArea
+                    self.mapView.addOverlay(restrictedAreaPolyline)
+                }
+            }
         }
     }
     
@@ -280,8 +298,9 @@ extension MapScreen: CLLocationManagerDelegate {
             self.mapView.removeOverlay(self.currentDirectionLine!)
         }
         let newDirectionCoordinates:[CLLocationCoordinate2D] = [currentLocation.coordinate, destinationAirportCoords]
-        self.currentDirectionLine = MKPolyline(coordinates: newDirectionCoordinates,
+        self.currentDirectionLine = DLPolyline(coordinates: newDirectionCoordinates,
                                        count: newDirectionCoordinates.count)
+        self.currentDirectionLine?.type = .directLine
         
         self.mapView.addOverlay(self.currentDirectionLine!)
 
@@ -325,34 +344,41 @@ extension MapScreen: CLLocationManagerDelegate {
         checkLocationAuthorization()
     }
     
-    // Renew Direction Polyline Overlay on Map
+    // Change Polyline Overlay on Map
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        //Return an `MKPolylineRenderer` for the `MKPolyline` in the `MKMapViewDelegate`s method
-        if let currentPolyline = overlay as? MKPolyline {
-            let overlayRenderer = MKPolylineRenderer(polyline: currentPolyline)
-            if currentPolyline == self.currentDirectionLine {
-                overlayRenderer.strokeColor = .blue
-                overlayRenderer.lineWidth = 1.0
-            }
-            else if currentPolyline == self.restrictedAirspaceLine {
-                overlayRenderer.strokeColor = .red
-                overlayRenderer.lineWidth = 1.0
-            }
-            return overlayRenderer
-        }
-        
-        fatalError("Something wrong...")
-        //return MKOverlayRenderer()
-    }
-    
-    
-    
+        var overlayRenderer = MKPolylineRenderer() // leeren MKOverlayRenderer anlegen
+        if let currentPolyline = overlay as? DLPolyline { // wenn overlay eine DLPolyline ist
+            overlayRenderer = MKPolylineRenderer(polyline: currentPolyline) // MKOverlayRenderer mit dem Pfad des Overlay versehen
 
-    
+            // Abhängig vom type der DLPolyline setzen wir Farbe und Dicke
+            switch currentPolyline.type {
+                case .directLine: // Direct Line
+                    overlayRenderer.strokeColor = .blue
+                    overlayRenderer.lineWidth = 1.0
+                case .restrictedArea: // Restricted Area
+                    overlayRenderer.strokeColor = .red
+                    overlayRenderer.lineWidth = 1.0
+                default: // All other (just in case)
+                    overlayRenderer.strokeColor = .black
+                    overlayRenderer.lineWidth = 1.0
+            }
+        }
+            
+        return overlayRenderer
+    }
 }
 
 class DLPointAnnotiation: MKPointAnnotation {
     var imageName:String = ""
 }
 
+class DLPolyline: MKPolyline {
+    enum DLPolylineType {
+        case directLine
+        case restrictedArea
+        case areaOfInterest
+    }
+
+    var type:DLPolylineType = .directLine // Default
+}
 

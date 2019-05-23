@@ -1,32 +1,32 @@
 {
   "Airports": [
     {
-      "elevation": 486,
       "icao": "EDSI",
-      "latitude": 47.797272,
-      "longitude": 8.715873,
       "name": "Binningen",
-      "phone": "+49 15259410917",
+      "elevation": 486,
       "radioFrequency": 125.635,
       "radioFrequencyName": "Binningen Info",
+      "runways": "06/24",
       "runwayDimensions": "860 x 30",
       "runwaySurface": "Grass",
-      "runways": "06/24",
-      "url": "www.sfg-binningen.de"
+      "url": "www.sfg-binningen.de",
+      "latitude": 47.797272,
+      "longitude": 8.715873,
+      "phone": "+49 15259410917"
     },
     {
-      "elevation": 799,
       "icao": "EDSN",
-      "latitude": 47.976987,
-      "longitude": 8.903970,
       "name": "Neuhausen ob Eck",
-      "phone": "+49 7467 94900",
+      "elevation": 799,
       "radioFrequency": 119.605,
       "radioFrequencyName": "Neuhausen Info",
+      "runways": "09/27",
       "runwayDimensions": "1248/30",
       "runwaySurface": "Grass",
-      "runways": "09/27",
-      "url": "www.take-off-park.de"
+      "url": "www.take-off-park.de",
+      "latitude": 47.976987,
+      "longitude": 8.90397,
+      "phone": "+49 7467 94900"
     },
     {
       "elevation": 419,
@@ -46,7 +46,7 @@
       "elevation": 702,
       "icao": "EDTP",
       "latitude": 47.911985,
-      "longitude": 9.251330,
+      "longitude": 9.25133,
       "name": "Pfullendorf",
       "phone": "+49 7552 8670",
       "radioFrequency": 122.435,
@@ -111,6 +111,34 @@
       "runwaySurface": "Grass",
       "runways": "05/23",
       "url": "www.ulboll.de"
+    }
+  ],
+  "RestrictedAreas": [
+    {
+      "geoPoints": [
+        {
+          "latitude": 47.840000,
+          "longitude": 9.060000
+        },
+        {
+          "latitude": 47.840000,
+          "longitude": 9.100000
+        },
+        {
+          "latitude": 47.864483,
+          "longitude": 9.100000
+        },
+        {
+          "latitude": 47.864483,
+          "longitude": 9.060000
+        },
+        {
+          "latitude": 47.840000,
+          "longitude": 9.060000
+        }
+      ],
+      "name": "Atomkraftwerk 1",
+      "description": "Sieht man auch im Dunkeln"
     }
   ]
 }
