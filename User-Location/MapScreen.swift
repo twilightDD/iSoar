@@ -18,17 +18,6 @@ import CoreLocation
 
 class MapScreen: UIViewController, MKMapViewDelegate {
 
-    struct Airports {
-        var icao: String
-        var city: String
-        var latitude: Double
-        var longitude: Double
-        var elevation: Double
-        var radioFrequency: Double
-        var radioName: String
-        var runways: String
-    }
-
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var courseShort: UITextField!
     @IBOutlet weak var destinationAltitudeShort: UITextField!
@@ -37,14 +26,12 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var altitudeShort: UITextField!
     @IBOutlet weak var speedkmhShort: UITextField!
     
-    var airports = [Airports]()
     let locationManager = CLLocationManager()
     
     // ToDo Hardcoded Destination Airport Location
     var destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
     
     var currentDirectionLine:DLPolyline?
-    var restrictedAirspaceLine:MKPolyline?
     
     // Temp Airport Direct to Buttons
     @IBAction func EDSRbutton(_ sender: Any) {
@@ -56,33 +43,11 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupAirport()
         checkLocationServices()
         
         mapView.delegate = self
         
         loadMapAnnotations()
-        
-        
-        // Show Airports on Map
-//        let airportPointAnnotation = DLPointAnnotiation()
-//        airportPointAnnotation.title = "EDSR"
-//        airportPointAnnotation.subtitle = "419m"
-//        airportPointAnnotation.coordinate = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
-//        airportPointAnnotation.imageName = "runway_grass"
-//        self.mapView.addAnnotation(airportPointAnnotation)
-        
-       // Draw overlay for restricted Airspace
-//        let triangle:[CLLocationCoordinate2D] = [CLLocationCoordinate2D(latitude:47.840000, longitude:9.060000),
-//                                                 CLLocationCoordinate2D(latitude:47.840000, longitude:9.100000),
-//                                                 CLLocationCoordinate2D(latitude:47.864483, longitude:9.100000),
-//                                                 CLLocationCoordinate2D(latitude:47.864483, longitude:9.060000),
-//                                                 CLLocationCoordinate2D(latitude:47.840000, longitude:9.060000),]
-//
-//        self.restrictedAirspaceLine = MKPolyline(coordinates: triangle,
-//                                          count: triangle.count)
-//
-//        self.mapView.addOverlay(self.restrictedAirspaceLine!)
     }
     
     // Setup Location Manager
@@ -213,28 +178,6 @@ class MapScreen: UIViewController, MKMapViewDelegate {
             }
         }
     }
-    
-    func setupAirport(){
-        let stahringen = Airports(icao: "EDSR",
-                                 city: "Stahringen",
-                                 latitude: 47.806103,
-                                 longitude: 8.979535,
-                                 elevation: 419,
-                                 radioFrequency: 127.530,
-                                 radioName: "Stahringen Info",
-                                 runways: "01/19")
-
-        let testfeld = Airports(icao: "TEST",
-                                city: "Testfeld",
-                                latitude: 47.801791,
-                                longitude: 8.978528,
-                                elevation: 478,
-                                radioFrequency: 125.123,
-                                radioName: "Acker Tower",
-                                runways: "09/27")
-        
-        self.airports = [stahringen,testfeld]
-    }
 }
 
 extension MapScreen: CLLocationManagerDelegate {
@@ -303,19 +246,6 @@ extension MapScreen: CLLocationManagerDelegate {
         self.currentDirectionLine?.type = .directLine
         
         self.mapView.addOverlay(self.currentDirectionLine!)
-
-// MARK: Output
-        
-//        // Output all Data
-//        print("Latitude: \(location.coordinate.latitude)")
-//        print("Longitude: \(location.coordinate.longitude)")
-//        print("Altitude: \(altitudeShort)")
-//        print("GliderRatio: \(gliderRatio)")
-//        print("Glider Sink Rate per Meter \(gliderSinkRatePerMeter)")
-//        print("Distance to Destination: \(distanceShort)")
-//        print("Glider Sink Rate to Destination: \(gliderSinkRateToDestination)")
-//        print("Map Region in Meters: \(mapRegionInMeters)")
-        
     }
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
