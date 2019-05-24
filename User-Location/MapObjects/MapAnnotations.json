@@ -170,33 +170,6 @@
         {
             "geoPoints": [
                 {
-                    "latitude": 47.84,
-                    "longitude": 9.06
-                },
-                {
-                    "latitude": 47.84,
-                    "longitude": 9.1
-                },
-                {
-                    "latitude": 47.864483,
-                    "longitude": 9.1
-                },
-                {
-                    "latitude": 47.864483,
-                    "longitude": 9.06
-                },
-                {
-                    "latitude": 47.84,
-                    "longitude": 9.06
-                }
-            ],
-            "type": "ED-R",
-            "name": "Atomkraftwerk 1",
-            "description": "Sieht man auch im Dunkeln"
-        },
-        {
-            "geoPoints": [
-                {
                     "latitude": 48.081944,
                     "longitude": 9.2275
                 },
@@ -220,6 +193,68 @@
             "type": "RMZ",
             "name": "RMZ EDTM",
             "description": "RMZ Mengen"
+        },
+        {
+            "geoPoints": [
+                {
+                    "latitude": 48.208333,
+                    "longitude": 8.95
+                },
+                {
+                    "latitude": 48.208333,
+                    "longitude": 9.1
+                },
+                {
+                    "latitude": 48.116667,
+                    "longitude": 9.1
+                },
+                {
+                    "latitude": 48.116667,
+                    "longitude": 8.95
+                },
+                {
+                    "latitude": 48.208333,
+                    "longitude": 8.95
+                }
+            ],
+            "type": "ED-R",
+            "name": "ED-R132A Heuberg",
+            "description": "ED-R132A Heuberg MON-FRI+"
+        },
+        {
+            "geoPoints": [
+                {
+                    "latitude": 48.208333,
+                    "longitude": 8.9
+                },
+                {
+                    "latitude": 48.208333,
+                    "longitude": 8.95
+                },
+                {
+                    "latitude": 48.116667,
+                    "longitude": 8.95
+                },
+                {
+                    "latitude": 48.116667,
+                    "longitude": 9.1
+                },
+                {
+                    "latitude": 48.083333,
+                    "longitude": 9.1
+                },
+                {
+                    "latitude": 48.083333,
+                    "longitude": 8.9
+                },
+                {
+                    "latitude": 48.208333,
+                    "longitude": 8.9
+                }
+            ],
+            "type": "ED-R",
+            "name": "ED-R132A Heuberg",
+            "description": "ED-R132B Heuberg NOTAM"
         }
     ]
 }
