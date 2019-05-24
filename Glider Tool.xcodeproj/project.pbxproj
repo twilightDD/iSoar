@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D074B51522968C7A00A573AE /* MapAnnotations.json in Resources */ = {isa = PBXBuildFile; fileRef = D074B51422968C7A00A573AE /* MapAnnotations.json */; };
+		D074B51522968C7A00A573AE /* MapObjects.json in Resources */ = {isa = PBXBuildFile; fileRef = D074B51422968C7A00A573AE /* MapObjects.json */; };
 		E0B52F6F228373AA00E28A93 /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F6E228373AA00E28A93 /* UserSettingsViewController.swift */; };
 		E0B52F72228377F300E28A93 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F71228377F300E28A93 /* Buttons.swift */; };
 		E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F7622837C1500E28A93 /* TextFields.swift */; };
@@ -20,7 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D074B51422968C7A00A573AE /* MapAnnotations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MapAnnotations.json; sourceTree = "<group>"; };
+		D074B51422968C7A00A573AE /* MapObjects.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MapObjects.json; sourceTree = "<group>"; };
 		E0B52F6E228373AA00E28A93 /* UserSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
 		E0B52F71228377F300E28A93 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		E0B52F7622837C1500E28A93 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
@@ -66,7 +66,7 @@
 		E0DA9414228D267500D3A854 /* MapObjects */ = {
 			isa = PBXGroup;
 			children = (
-				D074B51422968C7A00A573AE /* MapAnnotations.json */,
+				D074B51422968C7A00A573AE /* MapObjects.json */,
 			);
 			path = MapObjects;
 			sourceTree = "<group>";
@@ -165,7 +165,7 @@
 				EDA2362D2130AA7600739396 /* LaunchScreen.storyboard in Resources */,
 				EDA2362A2130AA7600739396 /* Assets.xcassets in Resources */,
 				EDA236282130AA7500739396 /* Main.storyboard in Resources */,
-				D074B51522968C7A00A573AE /* MapAnnotations.json in Resources */,
+				D074B51522968C7A00A573AE /* MapObjects.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

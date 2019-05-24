@@ -106,16 +106,16 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         var jsonAsString:String?
         
         // Dateipfad holen
-        guard let mapAnnotationPath = Bundle.main.path(forResource: "MapAnnotations",
+        guard let mapObjectsPath = Bundle.main.path(forResource: "MapObjects",
                                                        ofType: "json")
             else { return }
         
         // aus Pfad eine URL machen
-        let mapAnnotationURL = URL(fileURLWithPath: mapAnnotationPath)
+        let mapObjectsURL = URL(fileURLWithPath: mapObjectsPath)
         
         do {
             // URL laden und als String zurück geben
-            try jsonAsString = String.init(contentsOf: mapAnnotationURL)
+            try jsonAsString = String.init(contentsOf: mapObjectsURL)
         }
         catch {
             print("went wrong")
