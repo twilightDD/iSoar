@@ -149,6 +149,21 @@
             "runways": "05/23",
             "url": "www.ulboll.de",
             "valid": "20190523"
+        },
+        {
+            "elevation": 554,
+            "icao": "EDTM",
+            "latitude": 48.054420,
+            "longitude": 9.368417,
+            "name": "Mengen-Hohentengen",
+            "phone": "+49 07572 711047",
+            "radioFrequency": "135,180",
+            "radioFrequencyName": "Mengen Info",
+            "runwayDimensions": "1566 x 30",
+            "runwaySurface": "Asphalt",
+            "runways": "07/25",
+            "url": "www.regio-airport-mengen.de",
+            "valid": "20190523"
         }
     ],
     "RestrictedAreas": [
@@ -175,8 +190,37 @@
                     "longitude": 9.06
                 }
             ],
+            "type": "ED-R",
             "name": "Atomkraftwerk 1",
             "description": "Sieht man auch im Dunkeln"
+        },
+        {
+            "geoPoints": [
+                {
+                    "latitude": 48.081944,
+                    "longitude": 9.2275
+                },
+                {
+                    "latitude": 48.123333,
+                    "longitude": 9.485833
+                },
+                {
+                    "latitude": 48.025833,
+                    "longitude": 9.520278
+                },
+                {
+                    "latitude": 47.984722,
+                    "longitude": 9.262222
+                },
+                {
+                    "latitude": 48.081944,
+                    "longitude": 9.2275
+                }
+            ],
+            "type": "RMZ",
+            "name": "RMZ EDTM",
+            "description": "RMZ Mengen"
         }
     ]
 }
+
