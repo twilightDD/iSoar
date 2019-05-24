@@ -10,14 +10,119 @@ import UIKit
 
 class DirectToViewController: UIViewController {
 
-    private let dataSource = ["EDSR", "EDNY", "EDTZ", "EDKN", "EDAB"]
+    private let dataSource = ["APJK",
+                              "BHWR",
+                              "BPDP",
+                              "BZFD",
+                              "CDUR",
+                              "CJCW",
+                              "CUNA",
+                              "CWYD",
+                              "DKPN",
+                              "DNQQ",
+                              "DPBL",
+                              "DVKL",
+                              "EQDG",
+                              "ETPF",
+                              "FBNY",
+                              "FELG",
+                              "FMAP",
+                              "FVEU",
+                              "FZUR",
+                              "GHHK",
+                              "GHVU",
+                              "GMSZ",
+                              "GVKN",
+                              "HBMN",
+                              "HQEB",
+                              "JBJY",
+                              "JDBE",
+                              "JDSE",
+                              "JHEX",
+                              "JSCA",
+                              "JTCA",
+                              "KHJF",
+                              "KHKP",
+                              "KRKJ",
+                              "KTYT",
+                              "KUPW",
+                              "LNGG",
+                              "MCWE",
+                              "MDCS",
+                              "MNAS",
+                              "MNEP",
+                              "MUTD",
+                              "MZMC",
+                              "NECG",
+                              "NKFX",
+                              "NKKP",
+                              "NPRZ",
+                              "NUWE",
+                              "PFEN",
+                              "PSUX",
+                              "PSWA",
+                              "PTNC",
+                              "PVJJ",
+                              "QDAU",
+                              "QKGC",
+                              "QMVL",
+                              "QSQX",
+                              "RFRE",
+                              "RHEY",
+                              "RKJQ",
+                              "RMHR",
+                              "RMJX",
+                              "RQNR",
+                              "RXQU",
+                              "SBDA",
+                              "SBVJ",
+                              "SKZZ",
+                              "SVPH",
+                              "SXWT",
+                              "TDQS",
+                              "TDTY",
+                              "TGRF",
+                              "TVSL",
+                              "TYWB",
+                              "UFZA",
+                              "UHVY",
+                              "UMLZ",
+                              "UQMU",
+                              "UUGL",
+                              "UXZN",
+                              "UZJY",
+                              "VARF",
+                              "VCDW",
+                              "VJZN",
+                              "VUSE",
+                              "WDJZ",
+                              "WSKR",
+                              "XAZX",
+                              "XNQB",
+                              "XPJM",
+                              "XRHS",
+                              "XRSZ",
+                              "YDNZ",
+                              "YPSC",
+                              "YWVM",
+                              "ZFJP",
+                              "ZGMF",
+                              "ZMRU",
+                              "ZTRS",
+                              "ZZJG"]
     
-    @IBAction func dismiss(_ sender: UIButton) {
-        self.dismiss(animated: true, completion: nil)
-    }
+
+    
+    
     
     @IBOutlet weak var detailLabel: UILabel!
+
+    
     @IBOutlet weak var pickerView: UIPickerView!
+    
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
