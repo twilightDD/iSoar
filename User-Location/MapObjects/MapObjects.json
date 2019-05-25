@@ -16,6 +16,21 @@
             "valid": "20190523"
         },
         {
+            "elevation": 698,
+            "icao": "EDSL",
+            "latitude": 47.844722,
+            "longitude": 8.565556,
+            "name": "Blumberg",
+            "phone": "+49 7702 738",
+            "radioFrequency": "135.005",
+            "radioFrequencyName": "Blumberg Info",
+            "runwayDimensions": "780 x 30",
+            "runwaySurface": "Grass",
+            "runways": "06/24",
+            "url": "www.luftsportverein-blumberg.de",
+            "valid": "20190523"
+        },
+        {
             "icao": "EDSN",
             "name": "Neuhausen ob Eck",
             "elevation": 799,
@@ -43,6 +58,36 @@
             "runwaySurface": "Grass",
             "runways": "01/19",
             "url": "www.edsr.info",
+            "valid": "20190523"
+        },
+        {
+            "elevation": 680,
+            "icao": "EDTD",
+            "latitude": 47.973333,
+            "longitude": 8.521944,
+            "name": "Donaueschingen Villingen",
+            "phone": "+49 771 2585",
+            "radioFrequency": "126.690",
+            "radioFrequencyName": "Donau Info",
+            "runwayDimensions": "1290 x 30",
+            "runwaySurface": "Asphalt",
+            "runways": "18/36",
+            "url": "www.flugplatz-donaueschingen.de",
+            "valid": "20190523"
+        },
+        {
+            "elevation": 554,
+            "icao": "EDTM",
+            "latitude": 48.05442,
+            "longitude": 9.368417,
+            "name": "Mengen-Hohentengen",
+            "phone": "+49 07572 711047",
+            "radioFrequency": "135,180",
+            "radioFrequencyName": "Mengen Info",
+            "runwayDimensions": "1566 x 30",
+            "runwaySurface": "Asphalt",
+            "runways": "07/25",
+            "url": "www.regio-airport-mengen.de",
             "valid": "20190523"
         },
         {
@@ -149,21 +194,6 @@
             "runways": "05/23",
             "url": "www.ulboll.de",
             "valid": "20190523"
-        },
-        {
-            "elevation": 554,
-            "icao": "EDTM",
-            "latitude": 48.054420,
-            "longitude": 9.368417,
-            "name": "Mengen-Hohentengen",
-            "phone": "+49 07572 711047",
-            "radioFrequency": "135,180",
-            "radioFrequencyName": "Mengen Info",
-            "runwayDimensions": "1566 x 30",
-            "runwaySurface": "Asphalt",
-            "runways": "07/25",
-            "url": "www.regio-airport-mengen.de",
-            "valid": "20190523"
         }
     ],
     "RestrictedAreas": [
@@ -192,7 +222,7 @@
             ],
             "type": "RMZ",
             "name": "RMZ EDTM",
-            "description": "RMZ Mengen"
+            "description": "RMZ EDTM 135.180"
         },
         {
             "geoPoints": [
@@ -255,7 +285,33 @@
             "type": "ED-R",
             "name": "ED-R132A Heuberg",
             "description": "ED-R132B Heuberg NOTAM"
+        },
+        {
+            "geoPoints": [
+                {
+                    "latitude": 48.061111,
+                    "longitude": 8.443889
+                },
+                {
+                    "latitude": 48.063333,
+                    "longitude": 8.593056
+                },
+                {
+                    "latitude": 47.886111,
+                    "longitude": 8.6
+                },
+                {
+                    "latitude": 47.883889,
+                    "longitude": 8.451111
+                },
+                {
+                    "latitude": 48.061111,
+                    "longitude": 8.443889
+                }
+            ],
+            "type": "RMZ",
+            "name": "RMZ EDTD",
+            "description": "RMZ EDTD 126.690"
         }
     ]
 }
-
