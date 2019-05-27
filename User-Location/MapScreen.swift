@@ -16,8 +16,9 @@ import UIKit
 import MapKit
 import CoreLocation
 
+//MARK: MapScreen
 class MapScreen: UIViewController, MKMapViewDelegate {
-
+    // MARK: IBOutlets
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var courseShort: UITextField!
     @IBOutlet weak var destinationAltitudeShort: UITextField!
@@ -28,43 +29,17 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var userTrackingModeButton: UISwitch!
     
+    // MARK: properties
     let locationManager = CLLocationManager()
     var currentLocation:CLLocation?
     var userTrackingMode = true
     
     // ToDo Hardcoded Destination Airport Location
     var destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
-    
     var currentDirectionLine:DLPolyline?
     
-    // Temp Airport Direct to Buttons
-    @IBAction func EDSRbutton(_ sender: Any) {
-        destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
-    }
-    @IBAction func LEIBbutton(_ sender: Any) {
-        destinationAirportCoords = CLLocationCoordinate2D(latitude: 48.044272, longitude: 9.025188)
-    }
     
-    
-    @IBAction func toggleUserTrackingModeAction(_ sender: UISwitch) {
-        switch sender.isOn {
-            case true:
-            
-                guard let currentLocation = self.currentLocation else {return}
-                let defaults = UserDefaults.standard
-                let mapRegionInMeters = defaults.value(forKey: SettingsViewController.Settings.mapRegionInMeters) as! Double
-                let region = MKCoordinateRegion.init(center: currentLocation.coordinate,
-                                                     latitudinalMeters: mapRegionInMeters,
-                                                     longitudinalMeters: mapRegionInMeters)
-                mapView.setRegion(region, animated: true)
-                mapView.userTrackingMode = .follow
-//                mapView.camera.heading = 0
-            case false:
-                mapView.userTrackingMode = .none
-            }
-    }
-    
-    
+    // MARK: - Init & Co.
     override func viewDidLoad() {
         super.viewDidLoad()
         checkLocationServices()
@@ -73,11 +48,9 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         mapView.delegate = self
         
         loadMapAnnotations()
-        
-        
-        
     }
     
+    // MARK: Setup functions
     // Setup Location Manager
     func setupLocationManager() {
         locationManager.delegate = self
@@ -88,27 +61,15 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
         panGestureRecognizer.delegate = self
         mapView.isUserInteractionEnabled = true
-       mapView.addGestureRecognizer(panGestureRecognizer)
-        
-    }
-    @objc func screenEdgeSwiped(recognizer: UIScreenEdgePanGestureRecognizer) {
-        switch recognizer.state {
-        case .began:
-            mapView.userTrackingMode = .none
-            userTrackingModeButton.isOn = false
-        default:
-            return
-        }
-        
-    
+        mapView.addGestureRecognizer(panGestureRecognizer)
     }
 
     // Center view on User Location on Map
     func centerViewOnUserLocation() {
         let defaults = UserDefaults.standard
         let mapRegionInMeters = defaults.value(forKey: SettingsViewController.Settings.mapRegionInMeters) as! Double
-        if let location = locationManager.location?.coordinate {
-            let region = MKCoordinateRegion.init(center: location,
+        if let coordinate = locationManager.location?.coordinate {
+            let region = MKCoordinateRegion.init(center: coordinate,
                                                  latitudinalMeters: mapRegionInMeters,
                                                  longitudinalMeters: mapRegionInMeters)
             mapView.setRegion(region, animated: true)
@@ -256,18 +217,45 @@ class MapScreen: UIViewController, MKMapViewDelegate {
             }
         }
     }
+
+    // MARK: Handle GestureRecognizer
+    @objc func screenEdgeSwiped(recognizer: UIScreenEdgePanGestureRecognizer) {
+        switch recognizer.state {
+        case .began:
+            mapView.userTrackingMode = .none
+            userTrackingModeButton.isOn = false
+        default:
+            return
+        }
+    }
+
+    // MARK: IBActions
+    // Temp Airport Direct to Buttons
+    @IBAction func EDSRbutton(_ sender: Any) {
+        destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
+    }
+    @IBAction func LEIBbutton(_ sender: Any) {
+        destinationAirportCoords = CLLocationCoordinate2D(latitude: 48.044272, longitude: 9.025188)
+    }
+    
+    
+    @IBAction func toggleUserTrackingModeAction(_ sender: UISwitch) {
+        switch sender.isOn {
+        case true:
+            centerViewOnUserLocation()
+            mapView.userTrackingMode = .follow
+        // mapView.camera.heading = 0
+        case false:
+            mapView.userTrackingMode = .none
+        }
+    }
 }
 
+// MARK: - MapScreen: CLLocationManagerDelegate
 extension MapScreen: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let newLocation = locations.last else { return }
-        
-        self.currentLocation = newLocation
-        
-        guard let currentLocation = currentLocation else {return}
-        
-
+        guard let currentLocation = locations.last else { return }
         
         // Show Glider Image on Map
         let currentLocationImage = mapView.view(for: mapView.userLocation)
@@ -385,7 +373,7 @@ extension MapScreen: CLLocationManagerDelegate {
     }
 }
 
-
+// MARK: - MapScreen:UIGestureRecognizerDelegate
 extension MapScreen:UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                            shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -393,11 +381,12 @@ extension MapScreen:UIGestureRecognizerDelegate {
     }
 }
 
-
+// MARK: - DLPointAnnotiation
 class DLPointAnnotiation: MKPointAnnotation {
     var imageName:String = ""
 }
 
+// MARK: - DLPolyline
 class DLPolyline: MKPolyline {
     public enum DLPolylineType {
         case directLine
