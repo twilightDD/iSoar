@@ -286,10 +286,17 @@
                                     <action selector="LEIBbutton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pPx-DY-XY5"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SMq-et-1le">
+                                <rect key="frame" x="310" y="680" width="51" height="31"/>
+                                <connections>
+                                    <action selector="toggleUserTrackingModeAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="Srg-b4-Y1p"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="x6s-Ge-3Ew" firstAttribute="baseline" secondItem="S1U-Xo-THa" secondAttribute="baseline" id="1yW-Yh-dBx"/>
+                            <constraint firstItem="SMq-et-1le" firstAttribute="top" secondItem="Fl3-Wh-sat" secondAttribute="bottom" constant="-132" id="5Vh-Ta-GYA"/>
                             <constraint firstItem="S1U-Xo-THa" firstAttribute="trailing" secondItem="vSe-nf-Gec" secondAttribute="trailing" id="7du-CF-K7h"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jis-y8-DAW" secondAttribute="bottom" constant="627" id="8Hy-GZ-CcJ"/>
                             <constraint firstItem="6Qw-fg-JHN" firstAttribute="baseline" secondItem="x6s-Ge-3Ew" secondAttribute="baseline" id="8wQ-II-XdS"/>
@@ -311,6 +318,7 @@
                             <constraint firstItem="x6s-Ge-3Ew" firstAttribute="centerX" secondItem="Fl3-Wh-sat" secondAttribute="centerX" id="gpU-GP-QHl"/>
                             <constraint firstItem="x6s-Ge-3Ew" firstAttribute="trailing" secondItem="jis-y8-DAW" secondAttribute="trailing" id="iDg-Y4-xAy"/>
                             <constraint firstAttribute="trailing" secondItem="Fl3-Wh-sat" secondAttribute="trailing" id="jKq-tU-NpP"/>
+                            <constraint firstItem="SMq-et-1le" firstAttribute="leading" secondItem="Fl3-Wh-sat" secondAttribute="trailing" constant="-65" id="lgP-4O-nv9"/>
                             <constraint firstItem="Luy-IE-1qP" firstAttribute="leading" secondItem="VuZ-P7-ztv" secondAttribute="leading" id="m7g-ZN-KmK"/>
                             <constraint firstItem="FT8-oD-6VL" firstAttribute="baseline" secondItem="jis-y8-DAW" secondAttribute="baseline" id="mKR-rf-hDX"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="VuZ-P7-ztv" secondAttribute="bottom" constant="18" id="mVk-Vz-hPF"/>
@@ -333,6 +341,7 @@
                         <outlet property="distanceShort" destination="FT8-oD-6VL" id="dfs-eM-1Uw"/>
                         <outlet property="mapView" destination="Fl3-Wh-sat" id="qA4-9W-BtK"/>
                         <outlet property="speedkmhShort" destination="x6s-Ge-3Ew" id="pp8-eC-0Oo"/>
+                        <outlet property="userTrackingModeButton" destination="SMq-et-1le" id="X2X-P2-8hn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

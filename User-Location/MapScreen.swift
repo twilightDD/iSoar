@@ -26,7 +26,11 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var altitudeShort: UITextField!
     @IBOutlet weak var speedkmhShort: UITextField!
     
+    @IBOutlet weak var userTrackingModeButton: UISwitch!
+    
     let locationManager = CLLocationManager()
+    var currentLocation:CLLocation?
+    var userTrackingMode = true
     
     // ToDo Hardcoded Destination Airport Location
     var destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
@@ -41,13 +45,37 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         destinationAirportCoords = CLLocationCoordinate2D(latitude: 48.044272, longitude: 9.025188)
     }
     
+    
+    @IBAction func toggleUserTrackingModeAction(_ sender: UISwitch) {
+        switch sender.isOn {
+            case true:
+            
+                guard let currentLocation = self.currentLocation else {return}
+                let defaults = UserDefaults.standard
+                let mapRegionInMeters = defaults.value(forKey: SettingsViewController.Settings.mapRegionInMeters) as! Double
+                let region = MKCoordinateRegion.init(center: currentLocation.coordinate,
+                                                     latitudinalMeters: mapRegionInMeters,
+                                                     longitudinalMeters: mapRegionInMeters)
+                mapView.setRegion(region, animated: true)
+                mapView.userTrackingMode = .follow
+//                mapView.camera.heading = 0
+            case false:
+                mapView.userTrackingMode = .none
+            }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         checkLocationServices()
         
+        setupGestureRecognizers()
         mapView.delegate = self
         
         loadMapAnnotations()
+        
+        
+        
     }
     
     // Setup Location Manager
@@ -56,12 +84,33 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
     }
     
+    func setupGestureRecognizers() {
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
+        panGestureRecognizer.delegate = self
+        mapView.isUserInteractionEnabled = true
+       mapView.addGestureRecognizer(panGestureRecognizer)
+        
+    }
+    @objc func screenEdgeSwiped(recognizer: UIScreenEdgePanGestureRecognizer) {
+        switch recognizer.state {
+        case .began:
+            mapView.userTrackingMode = .none
+            userTrackingModeButton.isOn = false
+        default:
+            return
+        }
+        
+    
+    }
+
     // Center view on User Location on Map
     func centerViewOnUserLocation() {
         let defaults = UserDefaults.standard
         let mapRegionInMeters = defaults.value(forKey: SettingsViewController.Settings.mapRegionInMeters) as! Double
         if let location = locationManager.location?.coordinate {
-            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: mapRegionInMeters, longitudinalMeters: mapRegionInMeters)
+            let region = MKCoordinateRegion.init(center: location,
+                                                 latitudinalMeters: mapRegionInMeters,
+                                                 longitudinalMeters: mapRegionInMeters)
             mapView.setRegion(region, animated: true)
         }
     }
@@ -212,21 +261,24 @@ class MapScreen: UIViewController, MKMapViewDelegate {
 extension MapScreen: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let defaults = UserDefaults.standard
+        guard let newLocation = locations.last else { return }
+        
+        self.currentLocation = newLocation
+        
+        guard let currentLocation = currentLocation else {return}
+        
+
         
         // Show Glider Image on Map
         let currentLocationImage = mapView.view(for: mapView.userLocation)
         currentLocationImage?.image = UIImage(named: "glider")
         
         // Read Map Region from User Defaults
-        let mapRegionInMeters = defaults.value(forKey: SettingsViewController.Settings.mapRegionInMeters) as! Double
-        
-        guard let currentLocation = locations.last else { return }
-        
-        let region = MKCoordinateRegion.init(center: currentLocation.coordinate,
-                                             latitudinalMeters: mapRegionInMeters,
-                                             longitudinalMeters: mapRegionInMeters)
-        mapView.setRegion(region, animated: true)
+//        let mapRegionInMeters = defaults.value(forKey: SettingsViewController.Settings.mapRegionInMeters) as! Double
+//        let region = MKCoordinateRegion.init(center: currentLocation.coordinate,
+//                                             latitudinalMeters: mapRegionInMeters,
+//                                             longitudinalMeters: mapRegionInMeters)
+        //mapView.setRegion(region, animated: true)
 
         let destinationAirportLocation = CLLocation(latitude: self.destinationAirportCoords.latitude,
                                                     longitude: self.destinationAirportCoords.longitude)
@@ -253,6 +305,7 @@ extension MapScreen: CLLocationManagerDelegate {
         self.courseShort.text = courseShort
         
         // Safety Altitude
+        let defaults = UserDefaults.standard
         let safetyAltitude = defaults.value(forKey: SettingsViewController.Settings.safetyAltitude) as! Double
         
         // Calculate Glider Sink Rate to Destination
@@ -330,10 +383,16 @@ extension MapScreen: CLLocationManagerDelegate {
             
         return overlayRenderer
     }
-    
-
-    
 }
+
+
+extension MapScreen:UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
 
 class DLPointAnnotiation: MKPointAnnotation {
     var imageName:String = ""
