@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		D074B51522968C7A00A573AE /* MapObjects.json in Resources */ = {isa = PBXBuildFile; fileRef = D074B51422968C7A00A573AE /* MapObjects.json */; };
-		E0B52F6F228373AA00E28A93 /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F6E228373AA00E28A93 /* UserSettingsViewController.swift */; };
+		E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086AB0A229C35890011C433 /* SettingsViewController.swift */; };
 		E0B52F72228377F300E28A93 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F71228377F300E28A93 /* Buttons.swift */; };
 		E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F7622837C1500E28A93 /* TextFields.swift */; };
-		E0E1D87A229476C00004DE81 /* DirectToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D879229476C00004DE81 /* DirectToViewController.swift */; };
+		E0E1D87A229476C00004DE81 /* NavToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D879229476C00004DE81 /* NavToViewController.swift */; };
 		EDA236232130AA7500739396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA236222130AA7500739396 /* AppDelegate.swift */; };
 		EDA236282130AA7500739396 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDA236262130AA7500739396 /* Main.storyboard */; };
 		EDA2362A2130AA7600739396 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDA236292130AA7600739396 /* Assets.xcassets */; };
@@ -21,10 +21,10 @@
 
 /* Begin PBXFileReference section */
 		D074B51422968C7A00A573AE /* MapObjects.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MapObjects.json; sourceTree = "<group>"; };
-		E0B52F6E228373AA00E28A93 /* UserSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
+		E086AB0A229C35890011C433 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E0B52F71228377F300E28A93 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		E0B52F7622837C1500E28A93 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
-		E0E1D879229476C00004DE81 /* DirectToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectToViewController.swift; sourceTree = "<group>"; };
+		E0E1D879229476C00004DE81 /* NavToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavToViewController.swift; sourceTree = "<group>"; };
 		EDA2361F2130AA7500739396 /* Glider Tool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Glider Tool.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA236222130AA7500739396 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDA236272130AA7500739396 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -48,8 +48,8 @@
 		E0B52F702283753400E28A93 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				E0B52F6E228373AA00E28A93 /* UserSettingsViewController.swift */,
-				E0E1D879229476C00004DE81 /* DirectToViewController.swift */,
+				E0E1D879229476C00004DE81 /* NavToViewController.swift */,
+				E086AB0A229C35890011C433 /* SettingsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -176,9 +176,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0B52F6F228373AA00E28A93 /* UserSettingsViewController.swift in Sources */,
 				EDA236352130AA9A00739396 /* MapScreen.swift in Sources */,
-				E0E1D87A229476C00004DE81 /* DirectToViewController.swift in Sources */,
+				E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */,
+				E0E1D87A229476C00004DE81 /* NavToViewController.swift in Sources */,
 				EDA236232130AA7500739396 /* AppDelegate.swift in Sources */,
 				E0B52F72228377F300E28A93 /* Buttons.swift in Sources */,
 				E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */,

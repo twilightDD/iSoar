@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DirectToViewController: UIViewController {
+class NavToViewController: UIViewController {
 
     private let dataSource = ["EDBT",
                               "EDCA",
@@ -28,18 +28,8 @@ class DirectToViewController: UIViewController {
                               "ETEB",
                               "ETHA",]
     
-
-    
-    
-    
     @IBOutlet weak var detailLabel: UILabel!
-
-    
     @IBOutlet weak var pickerView: UIPickerView!
-    
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +39,7 @@ class DirectToViewController: UIViewController {
     }
 }
 
-extension DirectToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1

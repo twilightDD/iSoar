@@ -21,8 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Prevent from showing notifications
         UIApplication.shared.unregisterForRemoteNotifications()
         
-        // ToDo: Set up User Defaults
-        UserSettingsViewController.setupUserDefaults()
+        // Set up User Defaults
+        SettingsViewController.setupUserDefaults()
         
         return true
     }

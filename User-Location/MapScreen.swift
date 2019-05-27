@@ -59,7 +59,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     // Center view on User Location on Map
     func centerViewOnUserLocation() {
         let defaults = UserDefaults.standard
-        let mapRegionInMeters = defaults.value(forKey: UserSettingsViewController.Settings.mapRegionInMeters) as! Double
+        let mapRegionInMeters = defaults.value(forKey: SettingsViewController.Settings.mapRegionInMeters) as! Double
         if let location = locationManager.location?.coordinate {
             let region = MKCoordinateRegion.init(center: location, latitudinalMeters: mapRegionInMeters, longitudinalMeters: mapRegionInMeters)
             mapView.setRegion(region, animated: true)
@@ -190,7 +190,7 @@ extension MapScreen: CLLocationManagerDelegate {
         currentLocationImage?.image = UIImage(named: "glider")
         
         // Read Map Region from User Defaults
-        let mapRegionInMeters = defaults.value(forKey: UserSettingsViewController.Settings.mapRegionInMeters) as! Double
+        let mapRegionInMeters = defaults.value(forKey: SettingsViewController.Settings.mapRegionInMeters) as! Double
         
         guard let currentLocation = locations.last else { return }
         
@@ -222,10 +222,10 @@ extension MapScreen: CLLocationManagerDelegate {
         self.courseShort.text = courseShort
         
         // Safety Altitude
-        let safetyAltitude = defaults.value(forKey: UserSettingsViewController.Settings.safetyAltitude) as! Double
+        let safetyAltitude = defaults.value(forKey: SettingsViewController.Settings.safetyAltitude) as! Double
         
         // Calculate Glider Sink Rate to Destination
-        let gliderRatio = defaults.value(forKey: UserSettingsViewController.Settings.gliderRatio) as! Double
+        let gliderRatio = defaults.value(forKey: SettingsViewController.Settings.gliderRatio) as! Double
         let gliderRatioMeter = gliderRatio * 1000       //Gleitzahl in Meter
         let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    //Sinkrate pro Meter
         let gliderSinkRateToDestination = distance * gliderSinkRatePerMeter   //Sinkrate to Destination in Meter
