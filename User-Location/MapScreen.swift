@@ -125,11 +125,11 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         let jsonAsData = jsonAsString?.data(using: .utf8)
         
         // hier kommt der Inhalt der Datei als Dictionary rein
-        var jsonAsDict = [String:NSArray]()
+        var jsonAsDict = [String:Any]()
         do {
             // Umwandeln des Data in ein Dictionary (nennt sich deserialisieren)
             jsonAsDict = try JSONSerialization.jsonObject(with: jsonAsData!,
-                                                          options: .allowFragments) as! [String : NSArray]
+                                                          options: .allowFragments) as! [String : Any]
         }
         catch {
             print("json went wrong")
@@ -161,6 +161,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         if let restrictedAreas:[NSDictionary] = jsonAsDict["RestrictedAreas"] as? [NSDictionary] {
             // jedes Element des Arrays abklappern
             for restrictedArea in restrictedAreas {
+                
                 // Coordinates rauskramen und in ein Array packen
                 if let coordinatesFromDict:[NSDictionary] = restrictedArea["geoPoints"] as? [NSDictionary] {
                     var locationCoordinates:[CLLocationCoordinate2D] = [CLLocationCoordinate2D]()
@@ -170,9 +171,37 @@ class MapScreen: UIViewController, MKMapViewDelegate {
                             else { break }
                         locationCoordinates.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
                     }
+                    
+                    // Polyline erzeugen
                     let restrictedAreaPolyline = DLPolyline(coordinates: locationCoordinates,
                                                             count: locationCoordinates.count)
-                    restrictedAreaPolyline.type = .restrictedArea
+                    
+                    // restricted area type
+                    if let typeString = restrictedArea["type"] as? String {
+                        switch typeString {
+                            case "C":
+                                restrictedAreaPolyline.type = .restrictedAreaC
+                            case "CTR":
+                                restrictedAreaPolyline.type = .restrictedAreaCTR
+                            case "D":
+                                restrictedAreaPolyline.type = .restrictedAreaD
+                            case "G":
+                                restrictedAreaPolyline.type = .restrictedAreaG
+                            case "Q":
+                                restrictedAreaPolyline.type = .restrictedAreaQ
+                            case "R":
+                                restrictedAreaPolyline.type = .restrictedAreaR
+                            case "RMZ":
+                                restrictedAreaPolyline.type = .restrictedAreaRMZ
+                            case "TMZ":
+                                restrictedAreaPolyline.type = .restrictedAreaTMZ
+                            case "W":
+                                restrictedAreaPolyline.type = .restrictedAreaW
+                            default:
+                                restrictedAreaPolyline.type = .directLine
+                        }
+                    }
+                    
                     self.mapView.addOverlay(restrictedAreaPolyline)
                 }
             }
@@ -194,7 +223,9 @@ extension MapScreen: CLLocationManagerDelegate {
         
         guard let currentLocation = locations.last else { return }
         
-        let region = MKCoordinateRegion.init(center: currentLocation.coordinate, latitudinalMeters: mapRegionInMeters, longitudinalMeters: mapRegionInMeters)
+        let region = MKCoordinateRegion.init(center: currentLocation.coordinate,
+                                             latitudinalMeters: mapRegionInMeters,
+                                             longitudinalMeters: mapRegionInMeters)
         mapView.setRegion(region, animated: true)
 
         let destinationAirportLocation = CLLocation(latitude: self.destinationAirportCoords.latitude,
@@ -282,11 +313,14 @@ extension MapScreen: CLLocationManagerDelegate {
 
             // Abhängig vom type der DLPolyline setzen wir Farbe und Dicke
             switch currentPolyline.type {
-                case .directLine: // Direct Line
+                case .directLine:
                     overlayRenderer.strokeColor = .blue
                     overlayRenderer.lineWidth = 1.0
-                case .restrictedArea: // Restricted Area
+                case .restrictedAreaR:
                     overlayRenderer.strokeColor = .red
+                    overlayRenderer.lineWidth = 1.5
+                case .restrictedAreaRMZ:
+                    overlayRenderer.strokeColor = .purple
                     overlayRenderer.lineWidth = 1.0
                 default: // All other (just in case)
                     overlayRenderer.strokeColor = .black
@@ -296,6 +330,9 @@ extension MapScreen: CLLocationManagerDelegate {
             
         return overlayRenderer
     }
+    
+
+    
 }
 
 class DLPointAnnotiation: MKPointAnnotation {
@@ -303,12 +340,20 @@ class DLPointAnnotiation: MKPointAnnotation {
 }
 
 class DLPolyline: MKPolyline {
-    enum DLPolylineType {
+    public enum DLPolylineType {
         case directLine
-        case restrictedArea
-        case areaOfInterest
+        case restrictedAreaC
+        case restrictedAreaCTR
+        case restrictedAreaD
+        case restrictedAreaG
+        case restrictedAreaQ
+        case restrictedAreaR
+        case restrictedAreaRMZ
+        case restrictedAreaTMZ
+        case restrictedAreaW
     }
 
     var type:DLPolylineType = .directLine // Default
+    
 }
 

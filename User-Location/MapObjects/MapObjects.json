@@ -247,7 +247,7 @@
                     "longitude": 8.95
                 }
             ],
-            "type": "ED-R",
+            "type": "R",
             "name": "ED-R132A Heuberg",
             "description": "ED-R132A Heuberg MON-FRI+"
         },
@@ -282,7 +282,7 @@
                     "longitude": 8.9
                 }
             ],
-            "type": "ED-R",
+            "type": "R",
             "name": "ED-R132A Heuberg",
             "description": "ED-R132B Heuberg NOTAM"
         },
