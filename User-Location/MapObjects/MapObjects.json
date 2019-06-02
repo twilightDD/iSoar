@@ -1,19 +1,43 @@
+
 {
     "Airports": [
         {
-            "icao": "EDSI",
-            "name": "Binningen",
-            "elevation": 486,
-            "radioFrequency": 125.635,
-            "radioFrequencyName": "Binningen Info",
-            "runways": "06/24",
-            "runwayDimensions": "860 x 30",
+            "name": "Albstadt‐Degerfeld",
+            "icao": "EDSA",
+            "airportType": "AD",
+            "elevation": 891,
+            "latitude": 48.250585,
+            "runwayDimensions": "960 x 30",
+            "runways": "09/27",
+            "url": "www.lsv-degerfeld.de",
+            "valid": "20190601",
             "runwaySurface": "Grass",
-            "url": "www.sfg-binningen.de",
+            "longitude": 9.065678,
+            "radios": [
+                {
+                    "radioFrequency": 125.835,
+                    "radioFrequencyName": "Info"
+                }
+            ]
+        },
+        {
+            "airportType": "AD",
+            "elevation": 486,
+            "icao": "EDSI",
             "latitude": 47.797272,
             "longitude": 8.715873,
-            "phone": "+49 15259410917",
-            "valid": "20190523"
+            "name": "Binningen",
+            "runwayDimensions": "860 x 30",
+            "runwaySurface": "Grass",
+            "runways": "06/24",
+            "url": "www.sfg-binningen.de",
+            "valid": "20190523",
+            "radios": [
+                {
+                    "radioFrequency": 125.635,
+                    "radioFrequencyName": "Binningen Info"
+                }
+            ]
         },
         {
             "elevation": 698,
@@ -21,29 +45,35 @@
             "latitude": 47.844722,
             "longitude": 8.565556,
             "name": "Blumberg",
-            "phone": "+49 7702 738",
-            "radioFrequency": "135.005",
-            "radioFrequencyName": "Blumberg Info",
             "runwayDimensions": "780 x 30",
             "runwaySurface": "Grass",
             "runways": "06/24",
             "url": "www.luftsportverein-blumberg.de",
-            "valid": "20190523"
+            "valid": "20190523",
+            "radios": [
+                {
+                    "radioFrequency": 135.005,
+                    "radioFrequencyName": "Blumberg Info"
+                }
+            ]
         },
         {
             "icao": "EDSN",
             "name": "Neuhausen ob Eck",
             "elevation": 799,
-            "radioFrequency": 119.605,
-            "radioFrequencyName": "Neuhausen Info",
             "runways": "09/27",
             "runwayDimensions": "1248/30",
             "runwaySurface": "Grass",
             "url": "www.take-off-park.de",
             "latitude": 47.976987,
             "longitude": 8.90397,
-            "phone": "+49 7467 94900",
-            "valid": "20190523"
+            "valid": "20190523",
+            "radios": [
+                {
+                    "radioFrequency": 119.605,
+                    "radioFrequencyName": "Neuhausen Info"
+                }
+            ]
         },
         {
             "elevation": 419,
@@ -51,14 +81,17 @@
             "latitude": 47.806103,
             "longitude": 8.979535,
             "name": "Stahringen Radolfzell",
-            "phone": "+49 7771 2829",
-            "radioFrequency": "127.530",
-            "radioFrequencyName": "Stahringen Info",
             "runwayDimensions": "710 x 30",
             "runwaySurface": "Grass",
             "runways": "01/19",
             "url": "www.edsr.info",
-            "valid": "20190523"
+            "valid": "20190523",
+            "radios": [
+                {
+                    "radioFrequency": 127.530,
+                    "radioFrequencyName": "Stahringen Info"
+                }
+            ]
         },
         {
             "elevation": 680,
@@ -66,14 +99,17 @@
             "latitude": 47.973333,
             "longitude": 8.521944,
             "name": "Donaueschingen Villingen",
-            "phone": "+49 771 2585",
-            "radioFrequency": "126.690",
-            "radioFrequencyName": "Donau Info",
             "runwayDimensions": "1290 x 30",
             "runwaySurface": "Asphalt",
             "runways": "18/36",
             "url": "www.flugplatz-donaueschingen.de",
-            "valid": "20190523"
+            "valid": "20190523",
+            "radios": [
+                {
+                    "radioFrequency": 126.69,
+                    "radioFrequencyName": "Donau Info"
+                }
+            ]
         },
         {
             "elevation": 554,
@@ -81,14 +117,17 @@
             "latitude": 48.05442,
             "longitude": 9.368417,
             "name": "Mengen-Hohentengen",
-            "phone": "+49 07572 711047",
-            "radioFrequency": "135,180",
-            "radioFrequencyName": "Mengen Info",
             "runwayDimensions": "1566 x 30",
             "runwaySurface": "Asphalt",
             "runways": "07/25",
             "url": "www.regio-airport-mengen.de",
-            "valid": "20190523"
+            "valid": "20190523",
+            "radios": [
+                {
+                    "radioFrequency": 135.18,
+                    "radioFrequencyName": "Mengen Info"
+                }
+            ]
         },
         {
             "elevation": 702,
@@ -96,14 +135,17 @@
             "latitude": 47.911985,
             "longitude": 9.25133,
             "name": "Pfullendorf",
-            "phone": "+49 7552 8670",
-            "radioFrequency": 122.435,
-            "radioFrequencyName": "Pfullendorf Info",
             "runwayDimensions": "609 x 30",
             "runwaySurface": "Grass",
             "runways": "01/19",
             "url": "www.fsv-pfullendorf.de",
-            "valid": "20190523"
+            "valid": "20190523",
+            "radios": [
+                {
+                    "radioFrequency": 122.435,
+                    "radioFrequencyName": "Pfullendorf Info"
+                }
+            ]
         },
         {
             "elevation": 397,
@@ -111,14 +153,17 @@
             "latitude": 47.682012,
             "longitude": 9.138971,
             "name": "Konstanz",
-            "phone": "+49 7531 62662",
-            "radioFrequency": "124.355",
-            "radioFrequencyName": "Konstanz Info",
             "runwayDimensions": "760 x 50",
             "runwaySurface": "Grass",
             "runways": "12/30",
             "url": "www.flugplatz-konstanz.de",
-            "valid": "20190523"
+            "valid": "20190523",
+            "radios": [
+                {
+                    "radioFrequency": 124.355,
+                    "radioFrequencyName": "Konstanz Info"
+                }
+            ]
         },
         {
             "elevation": 760,
@@ -126,14 +171,17 @@
             "latitude": 47.833438,
             "longitude": 9.301205,
             "name": "Heiligenberg",
-            "phone": "+49 176 34031150",
-            "radioFrequency": 131.39,
-            "radioFrequencyName": "Heiligenberg Segelflug",
             "runwayDimensions": "500 x 30",
             "runwaySurface": "Grass",
             "runways": "18/36",
             "url": "www.fg-heiligenberg.de",
-            "valid": "20190523"
+            "valid": "20190523",
+            "radios": [
+                {
+                    "radioFrequency": 131.39,
+                    "radioFrequencyName": "Heiligenberg Segelflug"
+                }
+            ]
         },
         {
             "elevation": 453,
@@ -141,14 +189,17 @@
             "latitude": 47.759845,
             "longitude": 8.770117,
             "name": "Hilzingen",
-            "phone": "",
-            "radioFrequency": 127.14,
-            "radioFrequencyName": "Hinzingen Info",
             "runwayDimensions": "450 x 30",
             "runwaySurface": "Grass",
             "runways": "09/27",
             "url": "www.sfg-singen.de",
-            "valid": "20190523"
+            "valid": "20190523",
+            "radios": [
+                {
+                    "radioFrequency": 127.14,
+                    "radioFrequencyName": "Hilzingen Info"
+                }
+            ]
         },
         {
             "elevation": 949,
@@ -156,14 +207,17 @@
             "latitude": 48.1104,
             "longitude": 8.763406,
             "name": "Klippeneck",
-            "phone": "",
-            "radioFrequency": 135.09,
-            "radioFrequencyName": "Klippeneck Info",
             "runwayDimensions": "800 x 30",
             "runwaySurface": "Grass",
             "runways": "05/23",
             "url": "www.aeroclub-klippeneck.de",
-            "valid": "20190523"
+            "valid": "20190523",
+            "radios": [
+                {
+                    "radioFrequency": 135.09,
+                    "radioFrequencyName": "Klippeneck Info"
+                }
+            ]
         },
         {
             "elevation": 833,
@@ -171,14 +225,17 @@
             "latitude": 48.044236,
             "longitude": 9.025054,
             "name": "Leibertingen",
-            "phone": "+49 7466 485",
-            "radioFrequency": "121,2083",
-            "radioFrequencyName": "Leibertingen Info",
             "runwayDimensions": "930 x 30",
             "runwaySurface": "Grass",
             "runways": "10/28",
             "url": "www.flugplatz-leibertingen.de",
-            "valid": "20190523"
+            "valid": "20190523",
+            "radios": [
+                {
+                    "radioFrequency": 121.2083,
+                    "radioFrequencyName": "Leibertingen Info"
+                }
+            ]
         },
         {
             "elevation": 661,
@@ -186,14 +243,36 @@
             "latitude": 47.956709,
             "longitude": 9.034566,
             "name": "Sauldorf Boll",
-            "phone": "+49 160 93056310",
-            "radioFrequency": 125.365,
-            "radioFrequencyName": "Sauldorf Start",
             "runwayDimensions": "550 x 20",
             "runwaySurface": "Grass",
             "runways": "05/23",
             "url": "www.ulboll.de",
-            "valid": "20190523"
+            "valid": "20190523",
+            "radios": [
+                {
+                    "radioFrequency": 125.365,
+                    "radioFrequencyName": "Sauldorf Start"
+                }
+            ]
+        },
+        {
+            "name": "Schwenningen Am Neckar",
+            "icao": "EDTS",
+            "airportType": "AD",
+            "elevation": 661,
+            "latitude": 48.065885,
+            "runwayDimensions": "804 x 20",
+            "runways": "04/22",
+            "url": "",
+            "valid": "20190601",
+            "runwaySurface": "Asphalt",
+            "longitude": 8.567706,
+            "radios": [
+                {
+                    "radioFrequency": 127.535,
+                    "radioFrequencyName": "Info"
+                }
+            ]
         }
     ],
     "RestrictedAreas": [

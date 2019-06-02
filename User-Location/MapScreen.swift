@@ -15,6 +15,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CoreMotion
 
 //MARK: MapScreen
 class MapScreen: UIViewController, MKMapViewDelegate {
@@ -26,18 +27,19 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var destinationAirport: UITextField!
     @IBOutlet weak var altitudeShort: UITextField!
     @IBOutlet weak var speedkmhShort: UITextField!
-    
     @IBOutlet weak var userTrackingModeButton: UISwitch!
+    @IBOutlet weak var relativeAltitude: UILabel!
+    @IBOutlet weak var pressure: UILabel!
     
     // MARK: properties
     let locationManager = CLLocationManager()
     var currentLocation:CLLocation?
     var userTrackingMode = true
+    let altimeter = CMAltimeter()
     
     // ToDo Hardcoded Destination Airport Location
     var destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
     var currentDirectionLine:DLPolyline?
-    
     
     // MARK: - Init & Co.
     override func viewDidLoad() {
@@ -48,6 +50,8 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         mapView.delegate = self
         
         loadMapAnnotations()
+        
+        setupBarograph()
     }
     
     // MARK: Setup functions
@@ -217,6 +221,18 @@ class MapScreen: UIViewController, MKMapViewDelegate {
             }
         }
     }
+    
+    
+    func setupBarograph() {
+        if CMAltimeter.isRelativeAltitudeAvailable() {
+            altimeter.startRelativeAltitudeUpdates(to: OperationQueue.main) { (data, error) in
+                self.relativeAltitude.text = String.init(format: "%.1fM", (data?.relativeAltitude.floatValue)!)
+                self.pressure.text = String.init(format: "%.2f hPA", (data?.pressure.floatValue)!*10)
+            }
+        }
+    }
+    
+    
 
     // MARK: Handle GestureRecognizer
     @objc func screenEdgeSwiped(recognizer: UIScreenEdgePanGestureRecognizer) {
@@ -228,7 +244,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
             return
         }
     }
-
+    
     // MARK: IBActions
     // Temp Airport Direct to Buttons
     @IBAction func EDSRbutton(_ sender: Any) {
@@ -257,9 +273,15 @@ extension MapScreen: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last else { return }
         
-        // Show Glider Image on Map
+        // ToDo: Show Glider Image on Map
         let currentLocationImage = mapView.view(for: mapView.userLocation)
         currentLocationImage?.image = UIImage(named: "glider")
+        
+        
+//        let image = UIImage(named: "image.png")!
+//        let newImage = image.rotate(radians: .pi/2) // Rotate 90 degrees
+        
+        
         
         // Read Map Region from User Defaults
 //        let mapRegionInMeters = defaults.value(forKey: SettingsViewController.Settings.mapRegionInMeters) as! Double
@@ -378,6 +400,31 @@ extension MapScreen:UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                            shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+}
+
+// MARK: UIimage Rotate Extension
+extension UIImage {
+    func rotate(radians: Float) -> UIImage? {
+        var newSize = CGRect(origin: CGPoint.zero, size: self.size).applying(CGAffineTransform(rotationAngle: CGFloat(radians))).size
+        // Trim off the extremely small float value to prevent core graphics from rounding it up
+        newSize.width = floor(newSize.width)
+        newSize.height = floor(newSize.height)
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, self.scale)
+        let context = UIGraphicsGetCurrentContext()!
+        
+        // Move origin to middle
+        context.translateBy(x: newSize.width/2, y: newSize.height/2)
+        // Rotate around middle
+        context.rotate(by: CGFloat(radians))
+        // Draw the image at its center
+        self.draw(in: CGRect(x: -self.size.width/2, y: -self.size.height/2, width: self.size.width, height: self.size.height))
+        
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage
     }
 }
 
