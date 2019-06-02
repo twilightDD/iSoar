@@ -13,7 +13,7 @@ class MapObjects{
     
     static let shared = MapObjects()
     var destinationAirports = [MapObjects.Airport]()
-    
+
     struct Airport {
         var valid:String
         var icao:String
@@ -26,6 +26,8 @@ class MapObjects{
         var runwayDimensions:String
         var runways:String
         var url:String?
+        
+        // var radios:[Radio] // hinzufügen => ProTipp: Struct ;)
         
         public init(dictionary: [String:Any]) {
             self.valid = dictionary["valid"] as? String ?? ""
@@ -42,6 +44,11 @@ class MapObjects{
         }
     }
     
+    struct RestrictedAreas {
+        // vars
+        
+        // public init
+    }
     
     
     private init(){

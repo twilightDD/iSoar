@@ -140,6 +140,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
             self.mapView.addAnnotation(airportPointAnnotation)
         }
         
+        // TODO: RestrictedAreas aus MapObjects.shared herausnehmen und ähnlich wie AirPorts anzeigen lassen
         
       /*
         // RestrictedAreas
