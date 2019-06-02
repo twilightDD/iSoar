@@ -19,6 +19,10 @@ import CoreMotion
 
 //MARK: MapScreen
 class MapScreen: UIViewController, MKMapViewDelegate {
+    
+    
+   
+    
     // MARK: IBOutlets
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var courseShort: UITextField!
@@ -37,6 +41,8 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     var userTrackingMode = true
     let altimeter = CMAltimeter()
     
+
+    
     // ToDo Hardcoded Destination Airport Location
     var destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
     var destinationAirportElevation:Double = 419
@@ -51,7 +57,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         mapView.delegate = self
         
         loadMapAnnotations()
-        
+       
         setupBarograph()
     }
     
@@ -115,63 +121,21 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     }
 
     func loadMapAnnotations() {
-        // --- json laden
-        
-        // hier kommt der Inhalt der Datein rein
-        var jsonAsString:String?
-        
-        // Dateipfad holen
-        guard let mapObjectsPath = Bundle.main.path(forResource: "MapObjects",
-                                                       ofType: "json")
-            else { return }
-        
-        // aus Pfad eine URL machen
-        let mapObjectsURL = URL(fileURLWithPath: mapObjectsPath)
-        
-        do {
-            // URL laden und als String zurück geben
-            try jsonAsString = String.init(contentsOf: mapObjectsURL)
-        }
-        catch {
-            print("went wrong")
+        let destinationAirports = MapObjects.shared.destinationAirports
+        for destinationAirport in destinationAirports {
+            let airportPointAnnotation = DLPointAnnotiation()
+            
+            airportPointAnnotation.title = destinationAirport.icao
+            airportPointAnnotation.subtitle = destinationAirport.elevation.description
+            airportPointAnnotation.coordinate = CLLocationCoordinate2D(latitude: destinationAirport.latitude,
+                                                                       longitude: destinationAirport.longitude)
+            airportPointAnnotation.imageName = "runway_grass"
+            
+            self.mapView.addAnnotation(airportPointAnnotation)
         }
         
-        // String in Data konvertieren
-        let jsonAsData = jsonAsString?.data(using: .utf8)
         
-        // hier kommt der Inhalt der Datei als Dictionary rein
-        var jsonAsDict = [String:Any]()
-        do {
-            // Umwandeln des Data in ein Dictionary (nennt sich deserialisieren)
-            jsonAsDict = try JSONSerialization.jsonObject(with: jsonAsData!,
-                                                          options: .allowFragments) as! [String : Any]
-        }
-        catch {
-            print("json went wrong")
-        }
-        
-        // --- Dict parsen und Annotations bauen
-        // Airports
-        // aus dem Dictionary den Zweig für 'Airports holen (sollte ein Array sein)
-        if let airports:[NSDictionary] = jsonAsDict["Airports"] as? [NSDictionary] {
-            // jedes Element des Arrays abklappern
-            for airport in airports {
-                let airportPointAnnotation = DLPointAnnotiation()
-                
-                airportPointAnnotation.title = airport["icao"] as? String
-                
-                let elevation = airport["elevation"] as? Double
-                airportPointAnnotation.subtitle = elevation?.description
-                
-                airportPointAnnotation.coordinate = CLLocationCoordinate2D(latitude: (airport["latitude"] as? Double)!,
-                                                                           longitude: (airport["longitude"] as? Double)!)
-                
-                airportPointAnnotation.imageName = "runway_grass"
-                
-                self.mapView.addAnnotation(airportPointAnnotation)
-            }
-        }
-        
+      /*
         // RestrictedAreas
         if let restrictedAreas:[NSDictionary] = jsonAsDict["RestrictedAreas"] as? [NSDictionary] {
             // jedes Element des Arrays abklappern
@@ -221,6 +185,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
                 }
             }
         }
+ */
     }
     
     
