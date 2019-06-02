@@ -20,7 +20,7 @@ import CoreMotion
 //MARK: MapScreen
 class MapScreen: UIViewController, MKMapViewDelegate {
     
-    
+     static let shared = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapScreenIdentifier") as! MapScreen
    
     
     // MARK: IBOutlets
@@ -41,14 +41,20 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     var userTrackingMode = true
     let altimeter = CMAltimeter()
     
+    var selectedDestinationAirport:MapObjects.Airport?
 
     
     // ToDo Hardcoded Destination Airport Location
-    var destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
-    var destinationAirportElevation:Double = 419
+   
     var currentDirectionLine:DLPolyline?
     
     // MARK: - Init & Co.
+
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         checkLocationServices()
@@ -211,19 +217,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         }
     }
     
-    // MARK: IBActions
-    // Temp Airport Direct to Buttons
-    @IBAction func EDSRbutton(_ sender: Any) {
-        destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
-        destinationAirportElevation = 419
-    }
-    
-    @IBAction func LEIBbutton(_ sender: Any) {
-        destinationAirportCoords = CLLocationCoordinate2D(latitude: 48.044272, longitude: 9.025188)
-        destinationAirportElevation = 833
-    }
-    
-    
+
     @IBAction func toggleUserTrackingModeAction(_ sender: UISwitch) {
         switch sender.isOn {
         case true:
@@ -251,55 +245,60 @@ extension MapScreen: CLLocationManagerDelegate {
             }
         }
         
-        let destinationAirportLocation = CLLocation(latitude: self.destinationAirportCoords.latitude,
-                                                    longitude: self.destinationAirportCoords.longitude)
-        let distance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
-        let distanceShort = String(format: "%.0fKm", distance/1000)
-        self.distanceShort.text = distanceShort
-        
-        // ToDo: Muss hier eigentlich nicht stehen, sondern nur, wenn anderer Zielhafen gewählt wird, wird String neu gestetzt
-        let destinationAirport: String = "to EDSR"
-        self.destinationAirport.text = destinationAirport
-        
-        let altitude = currentLocation.altitude
-        //let altitude: Double = 2000
-        let altitudeShort = String(format: "%.0fm", altitude)
+        // Current Location depending stuff
+        // altitude
+        let altitudeShort = String(format: "%.0fm", currentLocation.altitude)
         self.altitudeShort.text = altitudeShort
-
-        let speed = currentLocation.speed                     // meter per second
-        let speedkmhShort = String(format: "%.0fKmh", speed*3.6)   //ToDo convert with Measurement
+        // speed
+        let speedkmhShort = String(format: "%.0fKmh", currentLocation.speed * 3.6)   //ToDo convert with Measurement
         self.speedkmhShort.text = "\(speedkmhShort)"
-        
         // Steering Course
-        let course = currentLocation.course
-        let courseShort = String(format: "%.0f°", course)
+        let courseShort = String(format: "%.0f°", currentLocation.course)
         self.courseShort.text = courseShort
         
-        // Safety Altitude
-        let defaults = UserDefaults.standard
-        let safetyAltitude = defaults.value(forKey: SettingsViewController.Settings.safetyAltitude) as! Double
         
-        // Calculate Glider Sink Rate to Destination
-        let gliderRatio = defaults.value(forKey: SettingsViewController.Settings.gliderRatio) as! Double
-        let gliderRatioMeter = gliderRatio * 1000       //Gleitzahl in Meter
-        let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    //Sinkrate pro Meter
-        let gliderSinkRateToDestination = distance * gliderSinkRatePerMeter   //Sinkrate to Destination in Meter
-
-        // Calculate Height of Glider at Destination
-        let destinationAltitude = altitude - destinationAirportElevation - safetyAltitude - gliderSinkRateToDestination
-        let destinationAltitudeShort = String(format:"%.0fm", destinationAltitude)
-        self.destinationAltitudeShort.text = destinationAltitudeShort
         
-        //Add MKPolyLine as an overlay - reflects the direct line between current location and destinationAirport.
-        if self.currentDirectionLine != nil {
-            self.mapView.removeOverlay(self.currentDirectionLine!)
-        }
-        let newDirectionCoordinates:[CLLocationCoordinate2D] = [currentLocation.coordinate, destinationAirportCoords]
-        self.currentDirectionLine = DLPolyline(coordinates: newDirectionCoordinates,
-                                       count: newDirectionCoordinates.count)
-        self.currentDirectionLine?.type = .directLine
+        // Destination depending stuff
+        if let selectedDestinationAirport = MapScreen.shared.selectedDestinationAirport  {
+            // ICAO
+            self.destinationAirport.text = selectedDestinationAirport.icao
+            
+            // Distance
+            let destinationAirportLocation = CLLocation(latitude: selectedDestinationAirport.latitude,
+                                                        longitude: selectedDestinationAirport.longitude)
+            let distance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
+            let distanceShort = String(format: "%.0fKm", distance/1000)
+            self.distanceShort.text = distanceShort
         
-        self.mapView.addOverlay(self.currentDirectionLine!)
+            
+            let defaults = UserDefaults.standard
+            
+            // Calculate Glider Sink Rate to Destination
+            let safetyAltitude = defaults.value(forKey: SettingsViewController.Settings.safetyAltitude) as! Double
+            let gliderRatio = defaults.value(forKey: SettingsViewController.Settings.gliderRatio) as! Double
+            
+            let gliderRatioMeter = gliderRatio * 1000       //Gleitzahl in Meter
+            let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    //Sinkrate pro Meter
+            let gliderSinkRateToDestination = distance * gliderSinkRatePerMeter   //Sinkrate to Destination in Meter
+        
+            // Calculate altitude of Glider at Destination
+            let destinationAltitude = currentLocation.altitude - selectedDestinationAirport.elevation - safetyAltitude - gliderSinkRateToDestination
+            let destinationAltitudeShort = String(format:"%.0fm", destinationAltitude)
+            self.destinationAltitudeShort.text = destinationAltitudeShort
+            
+            //Add MKPolyLine as an overlay - reflects the direct line between current location and destinationAirport.
+            if self.currentDirectionLine != nil {
+                self.mapView.removeOverlay(self.currentDirectionLine!)
+            }
+            let destinationAirportLocationCoordinate = CLLocationCoordinate2D(latitude: selectedDestinationAirport.latitude,
+                                                                              longitude: selectedDestinationAirport.longitude)
+            let newDirectionCoordinates:[CLLocationCoordinate2D] = [currentLocation.coordinate, destinationAirportLocationCoordinate]
+            self.currentDirectionLine = DLPolyline(coordinates: newDirectionCoordinates,
+                                                   count: newDirectionCoordinates.count)
+            self.currentDirectionLine?.type = .directLine
+            
+            self.mapView.addOverlay(self.currentDirectionLine!)
+        }        
     }
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

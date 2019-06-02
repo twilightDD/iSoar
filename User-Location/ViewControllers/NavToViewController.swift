@@ -10,23 +10,7 @@ import UIKit
 
 class NavToViewController: UIViewController {
 
-    private let dataSource = ["EDBT",
-                              "EDCA",
-                              "EDFA",
-                              "EDFQ",
-                              "EDGA",
-                              "EDHA",
-                              "EDHO",
-                              "EDKA",
-                              "EDKD",
-                              "EDNA",
-                              "EDOY",
-                              "EDPA",
-                              "EDQF",
-                              "EDSW",
-                              "EDXA",
-                              "ETEB",
-                              "ETHA",]
+    
     
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var pickerView: UIPickerView!
@@ -46,16 +30,19 @@ extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return dataSource.count
+        return MapObjects.shared.destinationAirports.count
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let selectedDestinationAirport = MapObjects.shared.destinationAirports[row]
         
-        detailLabel.text = dataSource[row]
+        detailLabel.text = selectedDestinationAirport.icao
         print(detailLabel.text!)
+        
+        MapScreen.shared.selectedDestinationAirport = selectedDestinationAirport
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return dataSource[row]
+        return MapObjects.shared.destinationAirports[row].name
     }
 }
