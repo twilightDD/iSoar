@@ -273,23 +273,15 @@ extension MapScreen: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last else { return }
         
-        // ToDo: Show Glider Image on Map
-        let currentLocationImage = mapView.view(for: mapView.userLocation)
-        currentLocationImage?.image = UIImage(named: "glider")
+        // Show Glider Image on Map
+        if let image = UIImage(named: "glider") {
+            let rotatedImage = image.rotate(course: currentLocation.course )
+            
+            if let currentLocationImage = mapView.view(for: mapView.userLocation) {
+                currentLocationImage.image = rotatedImage
+            }
+        }
         
-        
-//        let image = UIImage(named: "image.png")!
-//        let newImage = image.rotate(radians: .pi/2) // Rotate 90 degrees
-        
-        
-        
-        // Read Map Region from User Defaults
-//        let mapRegionInMeters = defaults.value(forKey: SettingsViewController.Settings.mapRegionInMeters) as! Double
-//        let region = MKCoordinateRegion.init(center: currentLocation.coordinate,
-//                                             latitudinalMeters: mapRegionInMeters,
-//                                             longitudinalMeters: mapRegionInMeters)
-        //mapView.setRegion(region, animated: true)
-
         let destinationAirportLocation = CLLocation(latitude: self.destinationAirportCoords.latitude,
                                                     longitude: self.destinationAirportCoords.longitude)
         let distance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
@@ -405,13 +397,19 @@ extension MapScreen:UIGestureRecognizerDelegate {
 
 // MARK: UIimage Rotate Extension
 extension UIImage {
-    func rotate(radians: Float) -> UIImage? {
+    func rotate(course: Double) -> UIImage? {
+        let radians = course * Double.pi / 180
+        return self.rotate(radians: radians)
+    }
+    
+    func rotate(radians: Double) -> UIImage? {
         var newSize = CGRect(origin: CGPoint.zero, size: self.size).applying(CGAffineTransform(rotationAngle: CGFloat(radians))).size
         // Trim off the extremely small float value to prevent core graphics from rounding it up
         newSize.width = floor(newSize.width)
         newSize.height = floor(newSize.height)
         
         UIGraphicsBeginImageContextWithOptions(newSize, false, self.scale)
+        
         let context = UIGraphicsGetCurrentContext()!
         
         // Move origin to middle
@@ -422,6 +420,7 @@ extension UIImage {
         self.draw(in: CGRect(x: -self.size.width/2, y: -self.size.height/2, width: self.size.width, height: self.size.height))
         
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        
         UIGraphicsEndImageContext()
         
         return newImage
