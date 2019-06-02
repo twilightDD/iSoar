@@ -39,6 +39,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     
     // ToDo Hardcoded Destination Airport Location
     var destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
+    var destinationAirportElevation:Double = 419
     var currentDirectionLine:DLPolyline?
     
     // MARK: - Init & Co.
@@ -249,9 +250,12 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     // Temp Airport Direct to Buttons
     @IBAction func EDSRbutton(_ sender: Any) {
         destinationAirportCoords = CLLocationCoordinate2D(latitude: 47.806103, longitude: 8.979535)
+        destinationAirportElevation = 419
     }
+    
     @IBAction func LEIBbutton(_ sender: Any) {
         destinationAirportCoords = CLLocationCoordinate2D(latitude: 48.044272, longitude: 9.025188)
+        destinationAirportElevation = 833
     }
     
     
@@ -317,7 +321,6 @@ extension MapScreen: CLLocationManagerDelegate {
         let gliderSinkRateToDestination = distance * gliderSinkRatePerMeter   //Sinkrate to Destination in Meter
 
         // Calculate Height of Glider at Destination
-        let destinationAirportElevation: Double = 419
         let destinationAltitude = altitude - destinationAirportElevation - safetyAltitude - gliderSinkRateToDestination
         let destinationAltitudeShort = String(format:"%.0fm", destinationAltitude)
         self.destinationAltitudeShort.text = destinationAltitudeShort
