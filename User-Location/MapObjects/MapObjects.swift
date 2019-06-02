@@ -29,7 +29,7 @@ class MapObjects{
         
         // var radios:[Radio] // hinzufügen => ProTipp: Struct ;)
         
-        public init(dictionary: [String:Any]) {
+        public init(dictionary: Dictionary<String, Any>) {
             self.valid = dictionary["valid"] as? String ?? ""
             self.icao = dictionary["icao"] as? String ?? ""
             self.name = dictionary["name"] as? String ?? ""
@@ -98,10 +98,11 @@ class MapObjects{
         // --- Dict parsen und Annotations bauen
         // Airports
         // aus dem Dictionary den Zweig für 'Airports holen (sollte ein Array sein)
-        if let airports:[NSDictionary] = jsonAsDict["Airports"] as? [NSDictionary] {
+        
+        if let airports = jsonAsDict["Airports"] as? [Dictionary<String, Any>] {
             // jedes Element des Arrays abklappern
             for airport in airports {
-                let myAirportStruct = MapObjects.Airport(dictionary: airport as! [String:Any])
+                let myAirportStruct = MapObjects.Airport(dictionary: airport)
                 destinationAirports.append(myAirportStruct)
             }
         }
