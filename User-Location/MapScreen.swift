@@ -218,7 +218,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         }
     }
     
-
+    // Follow Mode Switch
     @IBAction func toggleUserTrackingModeAction(_ sender: UISwitch) {
         switch sender.isOn {
         case true:
@@ -278,14 +278,18 @@ extension MapScreen: CLLocationManagerDelegate {
             let safetyAltitude = defaults.value(forKey: SettingsViewController.Settings.safetyAltitude) as! Double
             let gliderRatio = defaults.value(forKey: SettingsViewController.Settings.gliderRatio) as! Double
             
+            // Calculate Glider Sink Rate to Destination Airport
             let gliderRatioMeter = gliderRatio * 1000       //Gleitzahl in Meter
             let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    //Sinkrate pro Meter
             let gliderSinkRateToDestination = distance * gliderSinkRatePerMeter   //Sinkrate to Destination in Meter
         
-            // Calculate altitude of Glider at Destination
+            // Calculate altitude of Glider at Destination Airport
             let destinationAltitude = currentLocation.altitude - selectedDestinationAirport.elevation - safetyAltitude - gliderSinkRateToDestination
             let destinationAltitudeShort = String(format:"%.0fm", destinationAltitude)
             self.destinationAltitudeShort.text = destinationAltitudeShort
+            
+            // ToDo: Calculate Gliding-Range - Does not work without Surface Elevation
+            // let glidingRange = (currentLocation.altitude - safetyAltitude)*gliderRatio
             
             //Add MKPolyLine as an overlay - reflects the direct line between current location and destinationAirport.
             if self.currentDirectionLine != nil {
@@ -299,8 +303,10 @@ extension MapScreen: CLLocationManagerDelegate {
             self.currentDirectionLine?.type = .directLine
             
             self.mapView.addOverlay(self.currentDirectionLine!)
-        }        
+        }
     }
+    
+    
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
@@ -354,6 +360,7 @@ extension MapScreen: CLLocationManagerDelegate {
         return overlayRenderer
     }
 }
+
 
 // MARK: - MapScreen:UIGestureRecognizerDelegate
 extension MapScreen:UIGestureRecognizerDelegate {

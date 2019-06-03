@@ -10,9 +10,8 @@ import UIKit
 
 class NavToViewController: UIViewController {
 
-    
-    
-    @IBOutlet weak var detailLabel: UILabel!
+    @IBOutlet weak var icao: UILabel!
+    @IBOutlet weak var airportName: UILabel!
     @IBOutlet weak var pickerView: UIPickerView!
     
     override func viewDidLoad() {
@@ -36,8 +35,11 @@ extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let selectedDestinationAirport = MapObjects.shared.destinationAirports[row]
         
-        detailLabel.text = selectedDestinationAirport.icao
-        print(detailLabel.text!)
+        icao.text = selectedDestinationAirport.icao
+        print(icao.text!)
+        
+        airportName.text = selectedDestinationAirport.name
+        print(airportName.text!)
         
         MapScreen.shared.selectedDestinationAirport = selectedDestinationAirport
     }
