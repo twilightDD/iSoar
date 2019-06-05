@@ -13,6 +13,7 @@
 		E0B52F72228377F300E28A93 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F71228377F300E28A93 /* Buttons.swift */; };
 		E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F7622837C1500E28A93 /* TextFields.swift */; };
 		E0E1D87A229476C00004DE81 /* NavToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D879229476C00004DE81 /* NavToViewController.swift */; };
+		E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */; };
 		EDA236232130AA7500739396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA236222130AA7500739396 /* AppDelegate.swift */; };
 		EDA236282130AA7500739396 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDA236262130AA7500739396 /* Main.storyboard */; };
 		EDA2362A2130AA7600739396 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDA236292130AA7600739396 /* Assets.xcassets */; };
@@ -27,6 +28,7 @@
 		E0B52F71228377F300E28A93 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		E0B52F7622837C1500E28A93 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
 		E0E1D879229476C00004DE81 /* NavToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavToViewController.swift; sourceTree = "<group>"; };
+		E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportInfoViewController.swift; sourceTree = "<group>"; };
 		EDA2361F2130AA7500739396 /* Glider Tool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Glider Tool.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA236222130AA7500739396 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDA236272130AA7500739396 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -50,6 +52,7 @@
 		E0B52F702283753400E28A93 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */,
 				E0E1D879229476C00004DE81 /* NavToViewController.swift */,
 				E086AB0A229C35890011C433 /* SettingsViewController.swift */,
 			);
@@ -185,6 +188,7 @@
 				E0E1D87A229476C00004DE81 /* NavToViewController.swift in Sources */,
 				EDA236232130AA7500739396 /* AppDelegate.swift in Sources */,
 				E0B52F72228377F300E28A93 /* Buttons.swift in Sources */,
+				E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */,
 				E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

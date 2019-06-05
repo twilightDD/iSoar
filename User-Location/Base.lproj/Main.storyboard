@@ -247,6 +247,41 @@
             </objects>
             <point key="canvasLocation" x="-1591" y="-188"/>
         </scene>
+        <!--Airport Info View Controller-->
+        <scene sceneID="JKU-bW-3xI">
+            <objects>
+                <viewController id="3Br-pt-Icv" customClass="AirportInfoViewController" customModule="Glider_Tool" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4Ax-e0-FBb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Airport Info" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86F-GL-s9q" userLabel="Airport Name">
+                                <rect key="frame" x="37" y="140" width="300" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfN-vw-tZQ">
+                                <rect key="frame" x="322" y="44" width="37" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Done"/>
+                                <connections>
+                                    <action selector="BackToMapButton:" destination="3Br-pt-Icv" eventType="touchUpInside" id="jJr-bV-fPt"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="YQK-pO-ANI"/>
+                    </view>
+                    <connections>
+                        <outlet property="Label" destination="86F-GL-s9q" id="QMb-zN-kTf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NNL-hG-AEc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1975" y="1278"/>
+        </scene>
         <!--Map-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -378,6 +413,7 @@
                         <outlet property="relativeAltitude" destination="cRP-l7-0lM" id="3SH-bq-yOe"/>
                         <outlet property="speedkmhShort" destination="x6s-Ge-3Ew" id="pp8-eC-0Oo"/>
                         <outlet property="userTrackingModeButton" destination="SMq-et-1le" id="X2X-P2-8hn"/>
+                        <segue destination="3Br-pt-Icv" kind="show" identifier="AirportInfoSegue" id="5aq-Sy-5ZY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

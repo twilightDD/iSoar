@@ -6,12 +6,6 @@
 //  Copyright © 2018 Denis Leupold. All rights reserved.
 //
 
-// Disable automatic center
-// Check if Charger is plugged in
-// Button center Location
-// App Icon
-// Button Switch MapView
-
 import UIKit
 import MapKit
 import CoreLocation
@@ -42,15 +36,11 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     let altimeter = CMAltimeter()
     
     var selectedDestinationAirport:MapObjects.Airport?
-
-    
-    // ToDo Hardcoded Destination Airport Location
    
     var currentDirectionLine:DLPolyline?
     
     // MARK: - Init & Co.
 
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -307,7 +297,7 @@ extension MapScreen: CLLocationManagerDelegate {
     }
     
     
-
+    // Show Annotation on Map
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         // Get annotationView
@@ -317,6 +307,7 @@ extension MapScreen: CLLocationManagerDelegate {
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView!.canShowCallout = true
+            //performSegue(withIdentifier: "AirportInfoSegue", sender: self)
         }
         
         // Set image of annotationView depending of the type of annotation
@@ -329,12 +320,21 @@ extension MapScreen: CLLocationManagerDelegate {
         return annotationView
     }
     
+    // Open AirportInfoViewController by tapping Airport Annotation
+    func mapView(MapView: MKMapView!, annotation: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+        if control == annotation.rightCalloutAccessoryView {
+            performSegue(withIdentifier: "AirportInfoSegue", sender: self)
+            print("Going to the next VC!")
+        }
+    }
+    
     // Check for Location Authorization
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()
     }
     
-    // Change Polyline Overlay on Map
+    // Draw and renew Polyline Overlay on Map
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         var overlayRenderer = MKPolylineRenderer() // leeren MKOverlayRenderer anlegen
         if let currentPolyline = overlay as? DLPolyline { // wenn overlay eine DLPolyline ist
@@ -356,7 +356,6 @@ extension MapScreen: CLLocationManagerDelegate {
                     overlayRenderer.lineWidth = 1.0
             }
         }
-            
         return overlayRenderer
     }
 }
@@ -400,6 +399,9 @@ extension UIImage {
         
         return newImage
     }
+    
+
+    
 }
 
 // MARK: - DLPointAnnotiation
