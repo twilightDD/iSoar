@@ -16,7 +16,6 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     
      static let shared = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapScreenIdentifier") as! MapScreen
    
-    
     // MARK: IBOutlets
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var courseShort: UITextField!
@@ -40,7 +39,6 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     var currentDirectionLine:DLPolyline?
     
     // MARK: - Init & Co.
-
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -185,7 +183,6 @@ class MapScreen: UIViewController, MKMapViewDelegate {
  */
     }
     
-    
     func setupBarograph() {
         if CMAltimeter.isRelativeAltitudeAvailable() {
             altimeter.startRelativeAltitudeUpdates(to: OperationQueue.main) { (data, error) in
@@ -194,8 +191,6 @@ class MapScreen: UIViewController, MKMapViewDelegate {
             }
         }
     }
-    
-    
 
     // MARK: Handle GestureRecognizer
     @objc func screenEdgeSwiped(recognizer: UIScreenEdgePanGestureRecognizer) {
@@ -247,8 +242,6 @@ extension MapScreen: CLLocationManagerDelegate {
         let courseShort = String(format: "%.0f°", currentLocation.course)
         self.courseShort.text = courseShort
         
-        
-        
         // Destination depending stuff
         if let selectedDestinationAirport = MapScreen.shared.selectedDestinationAirport  {
             // ICAO
@@ -296,7 +289,6 @@ extension MapScreen: CLLocationManagerDelegate {
         }
     }
     
-    
     // Show Annotation on Map
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
@@ -325,7 +317,7 @@ extension MapScreen: CLLocationManagerDelegate {
         
         if control == annotation.rightCalloutAccessoryView {
             performSegue(withIdentifier: "AirportInfoSegue", sender: self)
-            print("Going to the next VC!")
+            print("Opening AirportInfoViewController")
         }
     }
     
@@ -360,7 +352,6 @@ extension MapScreen: CLLocationManagerDelegate {
     }
 }
 
-
 // MARK: - MapScreen:UIGestureRecognizerDelegate
 extension MapScreen:UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
@@ -369,7 +360,7 @@ extension MapScreen:UIGestureRecognizerDelegate {
     }
 }
 
-// MARK: UIimage Rotate Extension
+// MARK: - UIimage Rotate Extension
 extension UIImage {
     func rotate(course: Double) -> UIImage? {
         let radians = course * Double.pi / 180
@@ -399,9 +390,6 @@ extension UIImage {
         
         return newImage
     }
-    
-
-    
 }
 
 // MARK: - DLPointAnnotiation
@@ -427,4 +415,3 @@ class DLPolyline: MKPolyline {
     var type:DLPolylineType = .directLine // Default
     
 }
-

@@ -17,7 +17,6 @@ import UIKit
         @IBOutlet weak var showDirectionLineSwitch: UISwitch!
         @IBOutlet weak var showTrackingRouteSwitch: UISwitch!
         
-        
         // ToDo: das ist irgendwie doppelt drin
         let defaults = UserDefaults.standard
         
@@ -107,7 +106,7 @@ import UIKit
             defaults.set(gliderIDTextField.text!, forKey: Settings.gliderID);
             defaults.set(mapRegionInMetersDouble, forKey: Settings.mapRegionInMeters);
             
-            // MARK: Output
+            // MARK: - Output
             
             //        print("Glider Ratio set to: \(defaults.value(forKey: Settings.gliderRatio)!)")
             //        print("Safety Altitude set to: \(defaults.value(forKey: Settings.safetyAltitude)!)")

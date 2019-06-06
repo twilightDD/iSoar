@@ -1,6 +1,7 @@
 {
     "Airports": [
         {
+            "country": "Germany",
             "name": "Albstadt‐Degerfeld",
             "icao": "EDSA",
             "airportType": "AD",
@@ -25,6 +26,7 @@
             "icao": "EDSI",
             "latitude": 47.797272,
             "longitude": 8.715873,
+            "country": "Germany",
             "name": "Binningen",
             "runwayDimensions": "860 x 30",
             "runwaySurface": "Grass",
@@ -43,6 +45,7 @@
             "icao": "EDSL",
             "latitude": 47.844722,
             "longitude": 8.565556,
+            "country": "Germany",
             "name": "Blumberg",
             "runwayDimensions": "780 x 30",
             "runwaySurface": "Grass",
@@ -58,6 +61,7 @@
         },
         {
             "icao": "EDSN",
+            "country": "Germany",
             "name": "Neuhausen ob Eck",
             "elevation": 799,
             "runways": "09/27",
@@ -79,6 +83,7 @@
             "icao": "EDSR",
             "latitude": 47.806103,
             "longitude": 8.979535,
+            "country": "Germany",
             "name": "Stahringen Radolfzell",
             "runwayDimensions": "710 x 30",
             "runwaySurface": "Grass",
@@ -97,6 +102,7 @@
             "icao": "EDTD",
             "latitude": 47.973333,
             "longitude": 8.521944,
+            "country": "Germany",
             "name": "Donaueschingen Villingen",
             "runwayDimensions": "1290 x 30",
             "runwaySurface": "Asphalt",
@@ -115,6 +121,7 @@
             "icao": "EDTM",
             "latitude": 48.05442,
             "longitude": 9.368417,
+            "country": "Germany",
             "name": "Mengen-Hohentengen",
             "runwayDimensions": "1566 x 30",
             "runwaySurface": "Asphalt",
@@ -133,6 +140,7 @@
             "icao": "EDTP",
             "latitude": 47.911985,
             "longitude": 9.25133,
+            "country": "Germany",
             "name": "Pfullendorf",
             "runwayDimensions": "609 x 30",
             "runwaySurface": "Grass",
@@ -147,6 +155,7 @@
             ]
         },
         {
+            "country": "Germany",
             "name": "Schwenningen Am Neckar",
             "icao": "EDTS",
             "airportType": "AD",
@@ -170,6 +179,7 @@
             "icao": "EDTZ",
             "latitude": 47.682012,
             "longitude": 9.138971,
+            "country": "Germany",
             "name": "Konstanz",
             "runwayDimensions": "760 x 50",
             "runwaySurface": "Grass",
@@ -188,6 +198,7 @@
             "icao": "HEIL",
             "latitude": 47.833438,
             "longitude": 9.301205,
+            "country": "Germany",
             "name": "Heiligenberg",
             "runwayDimensions": "500 x 30",
             "runwaySurface": "Grass",
@@ -206,6 +217,7 @@
             "icao": "HILZ",
             "latitude": 47.759845,
             "longitude": 8.770117,
+            "country": "Germany",
             "name": "Hilzingen",
             "runwayDimensions": "450 x 30",
             "runwaySurface": "Grass",
@@ -224,6 +236,7 @@
             "icao": "KLIP",
             "latitude": 48.1104,
             "longitude": 8.763406,
+            "country": "Germany",
             "name": "Klippeneck",
             "runwayDimensions": "800 x 30",
             "runwaySurface": "Grass",
@@ -242,6 +255,7 @@
             "icao": "LEIB",
             "latitude": 48.044236,
             "longitude": 9.025054,
+            "country": "Germany",
             "name": "Leibertingen",
             "runwayDimensions": "930 x 30",
             "runwaySurface": "Grass",
@@ -260,6 +274,7 @@
             "icao": "SAUL",
             "latitude": 47.956709,
             "longitude": 9.034566,
+            "country": "Germany",
             "name": "Sauldorf Boll",
             "runwayDimensions": "550 x 20",
             "runwaySurface": "Grass",
@@ -274,6 +289,45 @@
             ]
         },
         {
+            "elevation": 484,
+            "icao": "LOIK",
+            "latitude": 47.565216,
+            "longitude": 12.126675,
+            "country": "Austria",
+            "name": "Kufstein",
+            "runwayDimensions": "800 x 30",
+            "runwaySurface": "Grass",
+            "runways": "06/24",
+            "url": "www.fliegerclub-kufstein.at",
+            "validiationDate": "20190606",
+            "radios": [
+                {
+                    "radioFrequency": 122.38,
+                    "radioFrequencyName": "Kufstein Info"
+                }
+            ]
+        },
+        {
+            "elevation": 856,
+            "icao": "LOIR",
+            "latitude": 47.472220,
+            "longitude": 10.692666,
+            "country": "Austria",
+            "name": "Reutte-Höfen",
+            "runwayDimensions": "732 x 30",
+            "runwaySurface": "Asphalt",
+            "runways": "04/22",
+            "url": "www.flugsportverein-reutte.at",
+            "validiationDate": "20190606",
+            "radios": [
+                {
+                    "radioFrequency": 122.405,
+                    "radioFrequencyName": "Reutte Segelflug"
+                }
+            ]
+        },
+        {
+            "country": "Germany",
             "name": "Aalen‐Heidenheim/Elchingen",
             "icao": "EDPA",
             "airportType": "AD",
@@ -289,6 +343,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Achmer",
             "icao": "EDXA",
             "airportType": "AD",
@@ -304,6 +359,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Aichach",
             "icao": "",
             "airportType": "GLD",
@@ -319,6 +375,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Ailertchen",
             "icao": "EDGA",
             "airportType": "AD",
@@ -334,6 +391,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Allendorf/Eder",
             "icao": "EDFQ",
             "airportType": "AD",
@@ -349,6 +407,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Allendorf/Eder",
             "icao": "EDFQ",
             "airportType": "AD",
@@ -364,6 +423,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Alsfeld",
             "icao": "",
             "airportType": "GLD",
@@ -379,6 +439,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Altdorf‐Hagenhausen",
             "icao": "",
             "airportType": "GLD",
@@ -394,6 +455,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Altdorf‐Wallburg",
             "icao": "EDSW",
             "airportType": "AD",
@@ -409,6 +471,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Alte Ems Bei Herbrum",
             "icao": "",
             "airportType": "GLD",
@@ -424,6 +487,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Altena‐Hegenscheid",
             "icao": "EDKD",
             "airportType": "AD",
@@ -439,6 +503,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Altes Lager",
             "icao": "",
             "airportType": "UL",
@@ -454,6 +519,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Am Kreuzberg",
             "icao": "",
             "airportType": "GLD",
@@ -469,6 +535,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Am Kreuzberg",
             "icao": "",
             "airportType": "GLD",
@@ -484,6 +551,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Amberg",
             "icao": "",
             "airportType": "GLD",
@@ -499,6 +567,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Ampfing‐Waldkraiburg",
             "icao": "EDNA",
             "airportType": "AD",
@@ -514,6 +583,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Anklam",
             "icao": "EDCA",
             "airportType": "AD",
@@ -529,6 +599,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Ansbach‐Petersdorf",
             "icao": "EDQF",
             "airportType": "AD",
@@ -544,6 +615,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Anspach/Taunus",
             "icao": "EDFA",
             "airportType": "AD",
@@ -559,6 +631,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Antersberg",
             "icao": "",
             "airportType": "GLD",
@@ -574,6 +647,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Arnsberg‐Menden",
             "icao": "EDLA",
             "airportType": "AD",
@@ -589,6 +663,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Arnstadt‐Alkersleben",
             "icao": "EDBA",
             "airportType": "AD",
@@ -604,6 +679,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Aschaffenburg",
             "icao": "EDFC",
             "airportType": "AD",
@@ -619,6 +695,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Aschersleben",
             "icao": "EDCQ",
             "airportType": "AD",
@@ -634,6 +711,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Aue",
             "icao": "",
             "airportType": "GLD",
@@ -649,6 +727,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Auerbach",
             "icao": "EDOA",
             "airportType": "AD",
@@ -664,6 +743,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Auf Der Schaufel/Bad Wildungen",
             "icao": "",
             "airportType": "GLD",
@@ -679,6 +759,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Augsburg",
             "icao": "EDMA",
             "airportType": "AD",
@@ -694,6 +775,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Augsburg",
             "icao": "EDMA",
             "airportType": "AD",
@@ -709,6 +791,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Backnang‐Heiningen",
             "icao": "EDSH",
             "airportType": "AD",
@@ -724,6 +807,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bad Berka",
             "icao": "EDOB",
             "airportType": "AD",
@@ -739,6 +823,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bad Ditzenbach",
             "icao": "EDPB",
             "airportType": "AD",
@@ -754,6 +839,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bad Duerkheim",
             "icao": "EDRF",
             "airportType": "AD",
@@ -769,6 +855,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bad Endorf/Jolling",
             "icao": "EDPC",
             "airportType": "AD",
@@ -784,6 +871,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bad Frankenhausen",
             "icao": "EDOF",
             "airportType": "AD",
@@ -799,6 +887,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bad Gandersheim",
             "icao": "EDVA",
             "airportType": "AD",
@@ -814,6 +903,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bad Hersfeld",
             "icao": "EDEN",
             "airportType": "AD",
@@ -829,6 +919,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bad Kissingen",
             "icao": "EDFK",
             "airportType": "AD",
@@ -844,6 +935,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bad Langensalza",
             "icao": "EDEB",
             "airportType": "AD",
@@ -859,6 +951,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bad Neuenahr‐Ahrweiler",
             "icao": "EDRA",
             "airportType": "AD",
@@ -874,6 +967,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bad Neustadt/Saale",
             "icao": "EDFD",
             "airportType": "AD",
@@ -889,6 +983,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bad Sobernheim‐Domberg",
             "icao": "EDRS",
             "airportType": "AD",
@@ -904,6 +999,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bad Waldsee‐Reute",
             "icao": "",
             "airportType": "AD",
@@ -919,6 +1015,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bad Windsheim",
             "icao": "EDQB",
             "airportType": "AD",
@@ -934,6 +1031,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bad Woerishofen",
             "icao": "",
             "airportType": "GLD",
@@ -949,6 +1047,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bad Woerishofen‐Nord",
             "icao": "EDNH",
             "airportType": "AD",
@@ -964,6 +1063,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Baden‐Oos",
             "icao": "EDTB",
             "airportType": "AD",
@@ -979,6 +1079,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Ballenstedt",
             "icao": "EDCB",
             "airportType": "AD",
@@ -994,6 +1095,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Baltrum",
             "icao": "EDWZ",
             "airportType": "AD",
@@ -1009,6 +1111,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bartholomae‐Amalienhof",
             "icao": "EDPU",
             "airportType": "AD",
@@ -1024,6 +1127,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Baumerlenbach",
             "icao": "",
             "airportType": "GLD",
@@ -1039,6 +1143,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bautzen",
             "icao": "EDAB",
             "airportType": "AD",
@@ -1054,6 +1159,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bayreuth",
             "icao": "EDQD",
             "airportType": "AD",
@@ -1069,6 +1175,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Beelen",
             "icao": "EDLQ",
             "airportType": "AD",
@@ -1084,6 +1191,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Beilngries",
             "icao": "EDNC",
             "airportType": "AD",
@@ -1099,6 +1207,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bensheimer Stadtwiesen",
             "icao": "",
             "airportType": "GLD",
@@ -1114,6 +1223,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Berg",
             "icao": "",
             "airportType": "UL",
@@ -1129,6 +1239,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bergneustadt/Auf Dem Duempel",
             "icao": "EDKF",
             "airportType": "AD",
@@ -1144,6 +1255,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Berlin/Schoenefeld",
             "icao": "EDDB",
             "airportType": "AD",
@@ -1159,6 +1271,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Berliner Heide",
             "icao": "",
             "airportType": "GLD",
@@ -1174,6 +1287,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Betzdorf‐Kirchen",
             "icao": "EDKI",
             "airportType": "AD",
@@ -1189,6 +1303,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Biberach A.D.Riss",
             "icao": "EDMB",
             "airportType": "AD",
@@ -1204,6 +1319,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bienenfarm",
             "icao": "EDOI",
             "airportType": "AD",
@@ -1219,6 +1335,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Blaubeuren",
             "icao": "EDMC",
             "airportType": "AD",
@@ -1234,6 +1351,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Blexen",
             "icao": "EDWT",
             "airportType": "AD",
@@ -1249,6 +1367,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Blomberg‐Borkhausen",
             "icao": "EDVF",
             "airportType": "AD",
@@ -1264,6 +1383,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Boberg",
             "icao": "",
             "airportType": "GLD",
@@ -1279,6 +1399,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Boehlen",
             "icao": "EDOE",
             "airportType": "AD",
@@ -1294,6 +1415,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bohlhof",
             "icao": "",
             "airportType": "GLD",
@@ -1309,6 +1431,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bohmte‐Bad Essen",
             "icao": "EDXD",
             "airportType": "AD",
@@ -1324,6 +1447,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Borghorst‐Fuechten",
             "icao": "",
             "airportType": "GLD",
@@ -1339,6 +1463,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Borkenberge",
             "icao": "EDLB",
             "airportType": "AD",
@@ -1354,6 +1479,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Borkum",
             "icao": "EDWR",
             "airportType": "AD",
@@ -1369,6 +1495,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bottenhorn",
             "icao": "EDGT",
             "airportType": "AD",
@@ -1384,6 +1511,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Brandenburg‐Muehlenfeld",
             "icao": "EDBE",
             "airportType": "AD",
@@ -1399,6 +1527,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Brauna",
             "icao": "",
             "airportType": "UL",
@@ -1414,6 +1543,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Braunfels",
             "icao": "",
             "airportType": "GLD",
@@ -1429,6 +1559,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Breitscheid",
             "icao": "EDGB",
             "airportType": "AD",
@@ -1444,6 +1575,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bremgarten",
             "icao": "EDTG",
             "airportType": "AD",
@@ -1459,6 +1591,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Buechig",
             "icao": "",
             "airportType": "GLD",
@@ -1474,6 +1607,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bueckeburg‐Weinberg",
             "icao": "",
             "airportType": "GLD",
@@ -1489,6 +1623,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bueren/Am Schwalenberg",
             "icao": "",
             "airportType": "GLD",
@@ -1504,6 +1639,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Bundenthal‐Rumbach",
             "icao": "",
             "airportType": "GLD",
@@ -1519,6 +1655,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Burg",
             "icao": "EDBG",
             "airportType": "AD",
@@ -1534,6 +1671,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Burg Feuerstein",
             "icao": "EDQE",
             "airportType": "AD",
@@ -1549,6 +1687,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Burgberg Bei Witzenhausen",
             "icao": "",
             "airportType": "GLD",
@@ -1564,6 +1703,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Burgebrach",
             "icao": "",
             "airportType": "UL",
@@ -1579,6 +1719,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Burgheim",
             "icao": "",
             "airportType": "AD",
@@ -1594,6 +1735,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Burgholzhausen",
             "icao": "",
             "airportType": "HEL",
@@ -1609,6 +1751,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Celle‐Arloh",
             "icao": "EDVC",
             "airportType": "AD",
@@ -1624,6 +1767,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Cham‐Janahof",
             "icao": "",
             "airportType": "GLD",
@@ -1639,6 +1783,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Chemnitz/Jahnsdorf",
             "icao": "EDCJ",
             "airportType": "AD",
@@ -1654,6 +1799,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Coburg‐Brandensteinsebene",
             "icao": "EDQC",
             "airportType": "AD",
@@ -1669,6 +1815,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Coburg‐Steinruecken",
             "icao": "EDQY",
             "airportType": "AD",
@@ -1684,6 +1831,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Cottbus‐Drewitz",
             "icao": "EDCD",
             "airportType": "AD",
@@ -1699,6 +1847,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Crawinkel",
             "icao": "",
             "airportType": "AD",
@@ -1714,6 +1863,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Crussow",
             "icao": "",
             "airportType": "UL",
@@ -1729,6 +1879,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Dachau‐Groebenried",
             "icao": "EDMD",
             "airportType": "AD",
@@ -1744,6 +1895,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Dahlemer Binz",
             "icao": "EDKV",
             "airportType": "AD",
@@ -1759,6 +1911,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Dankern/Haren",
             "icao": "",
             "airportType": "UL",
@@ -1774,6 +1927,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Dauborn",
             "icao": "",
             "airportType": "AD",
@@ -1789,6 +1943,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Daun‐Senheld",
             "icao": "",
             "airportType": "GLD",
@@ -1804,6 +1959,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Deckenpfronn‐Egelsee",
             "icao": "",
             "airportType": "GLD",
@@ -1819,6 +1975,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Deggendorf",
             "icao": "EDMW",
             "airportType": "AD",
@@ -1834,6 +1991,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Dehausen",
             "icao": "",
             "airportType": "GLD",
@@ -1849,6 +2007,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Der Plaetzer",
             "icao": "",
             "airportType": "GLD",
@@ -1864,6 +2023,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Der Ring In Schwalmstadt",
             "icao": "",
             "airportType": "GLD",
@@ -1879,6 +2039,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Detmold",
             "icao": "EDLJ",
             "airportType": "AD",
@@ -1894,6 +2055,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Diepholz",
             "icao": "ETND",
             "airportType": "AD",
@@ -1909,6 +2071,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Dierdorf‐Wienau",
             "icao": "EDRW",
             "airportType": "AD",
@@ -1924,6 +2087,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Dingelstedt",
             "icao": "",
             "airportType": "UL",
@@ -1939,6 +2103,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Dingolfing",
             "icao": "EDPD",
             "airportType": "AD",
@@ -1954,6 +2119,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Dinkelsbuehl‐Sinbronn",
             "icao": "EDND",
             "airportType": "AD",
@@ -1969,6 +2135,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Dinslaken/Schwarze Heide",
             "icao": "EDLD",
             "airportType": "AD",
@@ -1984,6 +2151,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Dobenreuth",
             "icao": "",
             "airportType": "GLD",
@@ -1999,6 +2167,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Donauwoerth",
             "icao": "EDPR",
             "airportType": "HEL",
@@ -2014,6 +2183,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Donauwoerth",
             "icao": "EDPR",
             "airportType": "HEL",
@@ -2029,6 +2199,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Donauwoerth‐Genderk.",
             "icao": "EDMQ",
             "airportType": "AD",
@@ -2044,6 +2215,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Donzdorf",
             "icao": "EDPM",
             "airportType": "AD",
@@ -2059,6 +2231,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Dornberg Bei Sontra",
             "icao": "",
             "airportType": "GLD",
@@ -2074,6 +2247,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Dortmund",
             "icao": "EDLW",
             "airportType": "AD",
@@ -2089,6 +2263,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Dresden",
             "icao": "EDDC",
             "airportType": "AD",
@@ -2104,6 +2279,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Dresden",
             "icao": "EDDC",
             "airportType": "AD",
@@ -2119,6 +2295,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Dueren‐Huertgenwald",
             "icao": "",
             "airportType": "GLD",
@@ -2134,6 +2311,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Duesseldorf‐Wolfsaap",
             "icao": "",
             "airportType": "GLD",
@@ -2149,6 +2327,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Ebern‐Sendelbach",
             "icao": "EDQR",
             "airportType": "AD",
@@ -2164,6 +2343,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Eberswalde‐Finow",
             "icao": "EDAV",
             "airportType": "AD",
@@ -2179,6 +2359,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Eggersdorf",
             "icao": "EDCE",
             "airportType": "AD",
@@ -2194,6 +2375,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Eichstaett",
             "icao": "EDPE",
             "airportType": "AD",
@@ -2209,6 +2391,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Eisenach‐Kindel",
             "icao": "EDGE",
             "airportType": "AD",
@@ -2224,6 +2407,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Eisenhuettenstadt",
             "icao": "EDAE",
             "airportType": "AD",
@@ -2239,6 +2423,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Ellwangen",
             "icao": "EDPY",
             "airportType": "AD",
@@ -2254,6 +2439,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Elsenthal‐Grafenau",
             "icao": "EDNF",
             "airportType": "AD",
@@ -2269,6 +2455,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Elz",
             "icao": "EDFY",
             "airportType": "AD",
@@ -2284,6 +2471,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Erbach",
             "icao": "EDNE",
             "airportType": "AD",
@@ -2299,6 +2487,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Erbendorf‐Schweisslohe",
             "icao": "",
             "airportType": "GLD",
@@ -2314,6 +2503,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Erkelenz‐Kueckhoven",
             "icao": "",
             "airportType": "UL",
@@ -2329,6 +2519,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Essen/Muelheim",
             "icao": "EDLE",
             "airportType": "AD",
@@ -2344,6 +2535,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Essweiler",
             "icao": "",
             "airportType": "GLD",
@@ -2359,6 +2551,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Eutingen Im Gaeu",
             "icao": "EDTE",
             "airportType": "AD",
@@ -2374,6 +2567,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Farrenberg",
             "icao": "",
             "airportType": "GLD",
@@ -2389,6 +2583,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Fehrbellin",
             "icao": "EDBF",
             "airportType": "AD",
@@ -2404,6 +2599,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Fichtelbrunn",
             "icao": "",
             "airportType": "GLD",
@@ -2419,6 +2615,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Finsterwalde/Schacksdorf",
             "icao": "EDUS",
             "airportType": "AD",
@@ -2434,6 +2631,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Finsterwalde‐Heinrichsruh",
             "icao": "EDAS",
             "airportType": "AD",
@@ -2449,6 +2647,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Fischbek",
             "icao": "",
             "airportType": "GLD",
@@ -2464,6 +2663,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Flugplatz Eichsfeld",
             "icao": "EDHD",
             "airportType": "AD",
@@ -2479,6 +2679,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Frankfurt Main",
             "icao": "EDDF",
             "airportType": "AD",
@@ -2494,6 +2695,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Frankfurt Main",
             "icao": "EDDF",
             "airportType": "AD",
@@ -2509,6 +2711,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Frankfurt Main",
             "icao": "EDDF",
             "airportType": "AD",
@@ -2524,6 +2727,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Frankfurt‐Egelsbach",
             "icao": "EDFE",
             "airportType": "AD",
@@ -2539,6 +2743,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Frankfurt‐Hahn",
             "icao": "EDFH",
             "airportType": "AD",
@@ -2554,6 +2759,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Frankfurt‐Hahn",
             "icao": "EDFH",
             "airportType": "AD",
@@ -2569,6 +2775,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Friedrichshafen",
             "icao": "EDNY",
             "airportType": "AD",
@@ -2584,6 +2791,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Friedrichshafen",
             "icao": "EDNY",
             "airportType": "AD",
@@ -2599,6 +2807,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Friesener Warte",
             "icao": "",
             "airportType": "GLD",
@@ -2614,6 +2823,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Fuerth‐Seckendorf",
             "icao": "",
             "airportType": "GLD",
@@ -2629,6 +2839,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Fuessen",
             "icao": "",
             "airportType": "GLD",
@@ -2644,6 +2855,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Gammelsdorf",
             "icao": "",
             "airportType": "GLD",
@@ -2659,6 +2871,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Ganderkesee Atlas Airfield",
             "icao": "EDWQ",
             "airportType": "AD",
@@ -2674,6 +2887,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Garbenheimer Wiesen",
             "icao": "",
             "airportType": "GLD",
@@ -2689,6 +2903,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Gardelegen",
             "icao": "EDOC",
             "airportType": "AD",
@@ -2704,6 +2919,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Gedern",
             "icao": "",
             "airportType": "GLD",
@@ -2719,6 +2935,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Gelnhausen",
             "icao": "EDFG",
             "airportType": "AD",
@@ -2734,6 +2951,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Gera‐Leumnitz",
             "icao": "EDAJ",
             "airportType": "AD",
@@ -2749,6 +2967,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Gerlingen Firma Bosch",
             "icao": "",
             "airportType": "HEL",
@@ -2764,6 +2983,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Giebelstadt",
             "icao": "EDQG",
             "airportType": "AD",
@@ -2779,6 +2999,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Giengen/Brenz",
             "icao": "EDNG",
             "airportType": "AD",
@@ -2794,6 +3015,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Giessen‐Luetzellinden",
             "icao": "EDFL",
             "airportType": "AD",
@@ -2809,6 +3031,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Giessen‐Reiskirchen",
             "icao": "EDGR",
             "airportType": "AD",
@@ -2824,6 +3047,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Giessen‐Wieseck",
             "icao": "",
             "airportType": "GLD",
@@ -2839,6 +3063,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Goch‐Asperden",
             "icao": "EDLG",
             "airportType": "AD",
@@ -2854,6 +3079,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Goepfersdorf",
             "icao": "",
             "airportType": "UL",
@@ -2869,6 +3095,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Goerlitz",
             "icao": "EDBX",
             "airportType": "AD",
@@ -2884,6 +3111,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Gotha‐Ost",
             "icao": "EDEG",
             "airportType": "AD",
@@ -2899,6 +3127,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Grabenstaett",
             "icao": "EDJG",
             "airportType": "AD",
@@ -2914,6 +3143,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Grabenstetten",
             "icao": "EDSG",
             "airportType": "AD",
@@ -2929,6 +3159,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Gransee",
             "icao": "EDUG",
             "airportType": "AD",
@@ -2944,6 +3175,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Grefrath‐Niershorst",
             "icao": "EDLF",
             "airportType": "AD",
@@ -2959,6 +3191,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Greiling",
             "icao": "",
             "airportType": "GLD",
@@ -2974,6 +3207,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Greiz‐Obergrochlitz",
             "icao": "EDOT",
             "airportType": "AD",
@@ -2989,6 +3223,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Grossenhain",
             "icao": "EDAK",
             "airportType": "AD",
@@ -3004,6 +3239,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Grosses Moor",
             "icao": "",
             "airportType": "GLD",
@@ -3019,6 +3255,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Grossrueckerswalde",
             "icao": "EDAG",
             "airportType": "AD",
@@ -3034,6 +3271,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Grube",
             "icao": "EDHB",
             "airportType": "AD",
@@ -3049,6 +3287,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Gruenstadt‐Quirnheimer Bg.",
             "icao": "",
             "airportType": "GLD",
@@ -3064,6 +3303,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Gruibingen‐Nortel",
             "icao": "EDSO",
             "airportType": "AD",
@@ -3079,6 +3319,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Guenzburg‐Donauried",
             "icao": "EDMG",
             "airportType": "AD",
@@ -3094,6 +3335,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Guestrow",
             "icao": "EDCU",
             "airportType": "AD",
@@ -3109,6 +3351,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Gundelfingen",
             "icao": "EDMU",
             "airportType": "AD",
@@ -3124,6 +3367,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Gunzenhausen‐Reutberg",
             "icao": "EDMH",
             "airportType": "AD",
@@ -3139,6 +3383,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Gustorfer Hoehe/Grevenbr.",
             "icao": "",
             "airportType": "GLD",
@@ -3154,6 +3399,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hahnweide",
             "icao": "EDST",
             "airportType": "AD",
@@ -3169,6 +3415,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Halle‐Oppin",
             "icao": "EDAQ",
             "airportType": "AD",
@@ -3184,6 +3431,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hamburg",
             "icao": "EDDH",
             "airportType": "AD",
@@ -3199,6 +3447,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hamburg",
             "icao": "EDDH",
             "airportType": "AD",
@@ -3214,6 +3463,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hamburg‐Finkenwerder",
             "icao": "EDHI",
             "airportType": "AD",
@@ -3229,6 +3479,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hamburg‐Finkenwerder",
             "icao": "EDHI",
             "airportType": "AD",
@@ -3244,6 +3495,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hamm‐Lippewiesen",
             "icao": "EDLH",
             "airportType": "AD",
@@ -3259,6 +3511,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hangensteinerhof",
             "icao": "",
             "airportType": "GLD",
@@ -3274,6 +3527,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Harle",
             "icao": "EDXP",
             "airportType": "AD",
@@ -3289,6 +3543,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hassfurt‐Schweinfurt",
             "icao": "EDQT",
             "airportType": "AD",
@@ -3304,6 +3559,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hassloch/Pf.",
             "icao": "",
             "airportType": "GLD",
@@ -3319,6 +3575,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hayingen",
             "icao": "",
             "airportType": "GLD",
@@ -3334,6 +3591,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Heide‐Buesum",
             "icao": "EDXB",
             "airportType": "AD",
@@ -3349,6 +3607,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Heilbronn‐Boeckingen",
             "icao": "",
             "airportType": "GLD",
@@ -3364,6 +3623,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Heinsberg‐Aphoven",
             "icao": "",
             "airportType": "UL",
@@ -3379,6 +3639,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Helgoland Duene",
             "icao": "EDXH",
             "airportType": "AD",
@@ -3394,6 +3655,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hengsen‐Opherdicke",
             "icao": "",
             "airportType": "GLD",
@@ -3409,6 +3671,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Heppenheim",
             "icao": "EDEP",
             "airportType": "AD",
@@ -3424,6 +3687,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Heringsdorf",
             "icao": "EDAH",
             "airportType": "AD",
@@ -3439,6 +3703,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Herrenteich",
             "icao": "EDEH",
             "airportType": "AD",
@@ -3454,6 +3719,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hersbruck",
             "icao": "",
             "airportType": "GLD",
@@ -3469,6 +3735,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Herten‐Rheinfelden",
             "icao": "EDTR",
             "airportType": "AD",
@@ -3484,6 +3751,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Herzogenaurach",
             "icao": "EDQH",
             "airportType": "AD",
@@ -3499,6 +3767,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hessisch‐Lichtenau",
             "icao": "",
             "airportType": "GLD",
@@ -3514,6 +3783,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hettstadt",
             "icao": "EDGH",
             "airportType": "AD",
@@ -3529,6 +3799,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hetzleser Berg",
             "icao": "EDQX",
             "airportType": "AD",
@@ -3544,6 +3815,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Heubach",
             "icao": "EDTH",
             "airportType": "AD",
@@ -3559,6 +3831,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hienheim",
             "icao": "",
             "airportType": "GLD",
@@ -3574,6 +3847,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hildesheim",
             "icao": "EDVM",
             "airportType": "AD",
@@ -3589,6 +3863,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hirzenhain",
             "icao": "EDFI",
             "airportType": "AD",
@@ -3604,6 +3879,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hockenheim",
             "icao": "EDFX",
             "airportType": "AD",
@@ -3619,6 +3895,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hodenhagen",
             "icao": "EDVH",
             "airportType": "AD",
@@ -3634,6 +3911,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hoelleberg",
             "icao": "EDVL",
             "airportType": "AD",
@@ -3649,6 +3927,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hoepen",
             "icao": "",
             "airportType": "GLD",
@@ -3664,6 +3943,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hoerbach",
             "icao": "",
             "airportType": "GLD",
@@ -3679,6 +3959,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hoexter‐Holzminden",
             "icao": "EDVI",
             "airportType": "AD",
@@ -3694,6 +3975,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hof‐Plauen",
             "icao": "EDQM",
             "airportType": "AD",
@@ -3709,6 +3991,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Holtorfsloh",
             "icao": "",
             "airportType": "GA",
@@ -3724,6 +4007,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hoppstaedten‐Weiersbach",
             "icao": "EDRH",
             "airportType": "AD",
@@ -3739,6 +4023,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Hornberg",
             "icao": "",
             "airportType": "GLD",
@@ -3754,6 +4039,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Huelben",
             "icao": "",
             "airportType": "GLD",
@@ -3769,6 +4055,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Huensborn",
             "icao": "EDKH",
             "airportType": "AD",
@@ -3784,6 +4071,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Huettenbusch",
             "icao": "EDXU",
             "airportType": "AD",
@@ -3799,6 +4087,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Husum‐Schwesing",
             "icao": "EDXJ",
             "airportType": "AD",
@@ -3814,6 +4103,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Idar‐Oberstein/Goettschied",
             "icao": "EDRG",
             "airportType": "AD",
@@ -3829,6 +4119,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Illertissen",
             "icao": "EDMI",
             "airportType": "AD",
@@ -3844,6 +4135,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Imsweiler",
             "icao": "",
             "airportType": "UL",
@@ -3859,6 +4151,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Ingelfingen‐Buehlhof",
             "icao": "EDGI",
             "airportType": "AD",
@@ -3874,6 +4167,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Ingolstadt‐Etting",
             "icao": "",
             "airportType": "GLD",
@@ -3889,6 +4183,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Iserlohn‐Suemmern",
             "icao": "",
             "airportType": "GLD",
@@ -3904,6 +4199,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Ithwiesen",
             "icao": "EDVT",
             "airportType": "AD",
@@ -3919,6 +4215,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Itzehoe/Hungriger Wolf",
             "icao": "EDHF",
             "airportType": "AD",
@@ -3934,6 +4231,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Jena‐Schoengleina",
             "icao": "EDBJ",
             "airportType": "AD",
@@ -3949,6 +4247,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Jesenwang",
             "icao": "EDMJ",
             "airportType": "AD",
@@ -3964,6 +4263,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Kamen‐Heeren",
             "icao": "",
             "airportType": "GLD",
@@ -3979,6 +4279,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Kamenz",
             "icao": "EDCM",
             "airportType": "AD",
@@ -3994,6 +4295,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Kammermark",
             "icao": "",
             "airportType": "GLD",
@@ -4009,6 +4311,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Kamp‐Lintfort",
             "icao": "EDLC",
             "airportType": "AD",
@@ -4024,6 +4327,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Karlshoefen",
             "icao": "EDWK",
             "airportType": "AD",
@@ -4039,6 +4343,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Karlsruhe/Baden‐Baden",
             "icao": "EDSB",
             "airportType": "AD",
@@ -4054,6 +4359,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Karlsruhe/Baden‐Baden",
             "icao": "EDSB",
             "airportType": "AD",
@@ -4069,6 +4375,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Kassel‐Calden",
             "icao": "EDVK",
             "airportType": "AD",
@@ -4084,6 +4391,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Kassel‐Calden",
             "icao": "EDVK",
             "airportType": "AD",
@@ -4099,6 +4407,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Kehl‐Sundheim",
             "icao": "EDSK",
             "airportType": "AD",
@@ -4114,6 +4423,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Kempten‐Durach",
             "icao": "EDMK",
             "airportType": "AD",
@@ -4129,6 +4439,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Kiel‐Holtenau",
             "icao": "EDHK",
             "airportType": "AD",
@@ -4144,6 +4455,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Kirchdorf/Inn",
             "icao": "EDNK",
             "airportType": "AD",
@@ -4159,6 +4471,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Kirn",
             "icao": "",
             "airportType": "GLD",
@@ -4174,6 +4487,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Kisslegg",
             "icao": "",
             "airportType": "GLD",
@@ -4189,6 +4503,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Kitzingen",
             "icao": "EDGY",
             "airportType": "AD",
@@ -4204,6 +4519,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Klein Muehlingen",
             "icao": "EDOM",
             "airportType": "AD",
@@ -4219,6 +4535,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Klietz/Scharlibbe",
             "icao": "EDCL",
             "airportType": "AD",
@@ -4234,6 +4551,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Klix",
             "icao": "EDCI",
             "airportType": "AD",
@@ -4249,6 +4567,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Koblenz‐Winningen",
             "icao": "EDRK",
             "airportType": "AD",
@@ -4264,6 +4583,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Koenigsdorf",
             "icao": "",
             "airportType": "GLD",
@@ -4279,6 +4599,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Koethen",
             "icao": "EDCK",
             "airportType": "AD",
@@ -4294,6 +4615,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Konz‐Koenen",
             "icao": "",
             "airportType": "GLD",
@@ -4309,6 +4631,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Krefeld‐Egelsberg",
             "icao": "EDLK",
             "airportType": "AD",
@@ -4324,6 +4647,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Kronach",
             "icao": "",
             "airportType": "GLD",
@@ -4339,6 +4663,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Kulmbach",
             "icao": "EDQK",
             "airportType": "AD",
@@ -4354,6 +4679,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Lachen‐Speyerdorf",
             "icao": "EDRL",
             "airportType": "AD",
@@ -4369,6 +4695,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Lahr",
             "icao": "EDTL",
             "airportType": "AD",
@@ -4384,6 +4711,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Laichingen",
             "icao": "EDPJ",
             "airportType": "AD",
@@ -4399,6 +4727,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Landau‐Ebenberg",
             "icao": "",
             "airportType": "GLD",
@@ -4414,6 +4743,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Landshut",
             "icao": "EDML",
             "airportType": "AD",
@@ -4429,6 +4759,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Langenberg",
             "icao": "",
             "airportType": "GLD",
@@ -4444,6 +4775,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Langenlonsheim",
             "icao": "EDEL",
             "airportType": "AD",
@@ -4459,6 +4791,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Langeoog",
             "icao": "EDWL",
             "airportType": "AD",
@@ -4474,6 +4807,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Langhennersdorf",
             "icao": "EDOH",
             "airportType": "AD",
@@ -4489,6 +4823,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Laucha",
             "icao": "EDBL",
             "airportType": "AD",
@@ -4504,6 +4839,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Laufenselden",
             "icao": "",
             "airportType": "GLD",
@@ -4519,6 +4855,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Lauf‐Lillinghof",
             "icao": "EDQI",
             "airportType": "AD",
@@ -4534,6 +4871,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Leck",
             "icao": "EDXK",
             "airportType": "AD",
@@ -4549,6 +4887,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Leer‐Papenburg",
             "icao": "EDWF",
             "airportType": "AD",
@@ -4564,6 +4903,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Leipzig‐Altenburg Airport",
             "icao": "EDAC",
             "airportType": "AD",
@@ -4579,6 +4919,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Leutkirch‐Unterzeil",
             "icao": "EDNL",
             "airportType": "AD",
@@ -4594,6 +4935,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Leverkusen",
             "icao": "EDKL",
             "airportType": "AD",
@@ -4609,6 +4951,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Lichtenfels",
             "icao": "EDQL",
             "airportType": "AD",
@@ -4624,6 +4967,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Linkenheim",
             "icao": "EDRI",
             "airportType": "AD",
@@ -4639,6 +4983,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Linnich‐Boslar",
             "icao": "",
             "airportType": "UL",
@@ -4654,6 +4999,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Locktow",
             "icao": "",
             "airportType": "UL",
@@ -4669,6 +5015,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Loechgau",
             "icao": "",
             "airportType": "GLD",
@@ -4684,6 +5031,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Ludwigshafen‐Dannstadt",
             "icao": "",
             "airportType": "GLD",
@@ -4699,6 +5047,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Luebeck‐Blankensee",
             "icao": "EDHL",
             "airportType": "AD",
@@ -4714,6 +5063,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Luebeck‐Blankensee",
             "icao": "EDHL",
             "airportType": "AD",
@@ -4729,6 +5079,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Luechow‐Rehbeck",
             "icao": "EDHC",
             "airportType": "AD",
@@ -4744,6 +5095,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Lueneburg",
             "icao": "EDHG",
             "airportType": "AD",
@@ -4759,6 +5111,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Luenen‐Lippeweiden",
             "icao": "",
             "airportType": "GLD",
@@ -4774,6 +5127,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Luesse",
             "icao": "EDOJ",
             "airportType": "AD",
@@ -4789,6 +5143,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Magdeburg/City",
             "icao": "EDBM",
             "airportType": "AD",
@@ -4804,6 +5159,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Mainz/Finthen",
             "icao": "EDFZ",
             "airportType": "AD",
@@ -4819,6 +5175,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Malmsheim",
             "icao": "",
             "airportType": "GLD",
@@ -4834,6 +5191,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Mannheim City",
             "icao": "EDFM",
             "airportType": "AD",
@@ -4849,6 +5207,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Mannheim City",
             "icao": "EDFM",
             "airportType": "AD",
@@ -4864,6 +5223,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Marburg‐Schoenstadt",
             "icao": "EDFN",
             "airportType": "AD",
@@ -4879,6 +5239,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Markdorf",
             "icao": "",
             "airportType": "GLD",
@@ -4894,6 +5255,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Meiersberg",
             "icao": "",
             "airportType": "GLD",
@@ -4909,6 +5271,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Melle‐Groenegau",
             "icao": "EDXG",
             "airportType": "AD",
@@ -4924,6 +5287,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Memmingen",
             "icao": "EDJA",
             "airportType": "AD",
@@ -4939,6 +5303,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Memmingen",
             "icao": "EDJA",
             "airportType": "AD",
@@ -4954,6 +5319,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Menden‐Barge",
             "icao": "",
             "airportType": "GLD",
@@ -4969,6 +5335,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Mendig",
             "icao": "EDRE",
             "airportType": "AD",
@@ -4984,6 +5351,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Merseburg",
             "icao": "EDAM",
             "airportType": "AD",
@@ -4999,6 +5367,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Michelbach",
             "icao": "",
             "airportType": "GLD",
@@ -5014,6 +5383,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Michelstadt/Odw.",
             "icao": "EDFO",
             "airportType": "AD",
@@ -5029,6 +5399,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Moeckern",
             "icao": "",
             "airportType": "GLD",
@@ -5044,6 +5415,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Moenchengladbach",
             "icao": "EDLN",
             "airportType": "AD",
@@ -5059,6 +5431,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Moenchsheide",
             "icao": "",
             "airportType": "GLD",
@@ -5074,6 +5447,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Mohorn",
             "icao": "",
             "airportType": "UL",
@@ -5089,6 +5463,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Moosburg Auf Der Kippe",
             "icao": "EDPI",
             "airportType": "AD",
@@ -5104,6 +5479,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Mosbach‐Lohrbach",
             "icao": "EDGM",
             "airportType": "AD",
@@ -5119,6 +5495,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Mosenberg",
             "icao": "EDEM",
             "airportType": "AD",
@@ -5134,6 +5511,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Mosenberg",
             "icao": "EDEM",
             "airportType": "AD",
@@ -5149,6 +5527,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Muellheim",
             "icao": "",
             "airportType": "GLD",
@@ -5164,6 +5543,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Muenchen",
             "icao": "EDDM",
             "airportType": "AD",
@@ -5179,6 +5559,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Muensingen‐Eisberg",
             "icao": "",
             "airportType": "GLD",
@@ -5194,6 +5575,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Muenster‐Telgte",
             "icao": "EDLT",
             "airportType": "AD",
@@ -5209,6 +5591,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Musbach",
             "icao": "",
             "airportType": "GLD",
@@ -5224,6 +5607,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Nardt",
             "icao": "EDAT",
             "airportType": "AD",
@@ -5239,6 +5623,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Neu Guelze",
             "icao": "",
             "airportType": "GLD",
@@ -5254,6 +5639,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Neubrandenburg",
             "icao": "EDBN",
             "airportType": "AD",
@@ -5269,6 +5655,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Neuburg‐Egweil",
             "icao": "EDNJ",
             "airportType": "AD",
@@ -5284,6 +5671,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Neuhardenberg",
             "icao": "EDON",
             "airportType": "AD",
@@ -5299,6 +5687,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Neuhausen",
             "icao": "EDAP",
             "airportType": "AD",
@@ -5314,6 +5703,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Neujellingsdorf",
             "icao": "",
             "airportType": "AD",
@@ -5329,6 +5719,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Neumarkt/Opf.",
             "icao": "EDPO",
             "airportType": "AD",
@@ -5344,6 +5735,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Neumuenster",
             "icao": "EDHN",
             "airportType": "AD",
@@ -5359,6 +5751,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Neunkirchen‐Bexbach",
             "icao": "EDRX",
             "airportType": "AD",
@@ -5374,6 +5767,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Neuruppin",
             "icao": "",
             "airportType": "GLD",
@@ -5389,6 +5783,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Neustadt/Aisch",
             "icao": "EDQN",
             "airportType": "AD",
@@ -5404,6 +5799,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Neustadt‐Glewe",
             "icao": "EDAN",
             "airportType": "AD",
@@ -5419,6 +5815,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Nidda/A.D.Helmsberg",
             "icao": "",
             "airportType": "AD",
@@ -5434,6 +5831,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Niederrhein",
             "icao": "EDLV",
             "airportType": "AD",
@@ -5449,6 +5847,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Niederrhein",
             "icao": "EDLV",
             "airportType": "AD",
@@ -5464,6 +5863,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Niederstetten",
             "icao": "ETHN",
             "airportType": "AD",
@@ -5479,6 +5879,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Nienburg‐Holzbalge",
             "icao": "EDXI",
             "airportType": "AD",
@@ -5494,6 +5895,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Nittenau‐Bruck",
             "icao": "",
             "airportType": "UL",
@@ -5509,6 +5911,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Noerdlingen",
             "icao": "EDNO",
             "airportType": "AD",
@@ -5524,6 +5927,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Nordhausen",
             "icao": "EDAO",
             "airportType": "AD",
@@ -5539,6 +5943,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Nordholz‐Spieka",
             "icao": "EDXN",
             "airportType": "AD",
@@ -5554,6 +5959,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Nordhorn‐Lingen",
             "icao": "EDWN",
             "airportType": "AD",
@@ -5569,6 +5975,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Northeim",
             "icao": "EDVN",
             "airportType": "AD",
@@ -5584,6 +5991,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Nuernberg",
             "icao": "EDDN",
             "airportType": "AD",
@@ -5599,6 +6007,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Nuernberg",
             "icao": "EDDN",
             "airportType": "AD",
@@ -5614,6 +6023,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Oberems",
             "icao": "",
             "airportType": "GLD",
@@ -5629,6 +6039,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Obermehler‐Schlotheim",
             "icao": "EDCO",
             "airportType": "AD",
@@ -5644,6 +6055,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Ober‐Moerlen",
             "icao": "EDFP",
             "airportType": "AD",
@@ -5659,6 +6071,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Oberpfaffenhofen",
             "icao": "EDMO",
             "airportType": "AD",
@@ -5674,6 +6087,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Oberpfaffenhofen",
             "icao": "EDMO",
             "airportType": "AD",
@@ -5689,6 +6103,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Oberrissdorf",
             "icao": "EDUO",
             "airportType": "AD",
@@ -5704,6 +6119,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Oberschleissheim",
             "icao": "EDNX",
             "airportType": "AD",
@@ -5719,6 +6135,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Oberschleissheim",
             "icao": "EDMX",
             "airportType": "HEL",
@@ -5734,6 +6151,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Ochsenfurt",
             "icao": "EDGJ",
             "airportType": "AD",
@@ -5749,6 +6167,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Oedheim",
             "icao": "EDGO",
             "airportType": "HEL",
@@ -5764,6 +6183,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Oehna",
             "icao": "EDBO",
             "airportType": "AD",
@@ -5779,6 +6199,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Oerlinghausen",
             "icao": "EDLO",
             "airportType": "AD",
@@ -5794,6 +6215,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Oeventrop‐Ruhrwiesen",
             "icao": "",
             "airportType": "GLD",
@@ -5809,6 +6231,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Offenburg",
             "icao": "EDTO",
             "airportType": "AD",
@@ -5824,6 +6247,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Oldenburg‐Hatten",
             "icao": "EDWH",
             "airportType": "AD",
@@ -5839,6 +6263,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Oppenheim",
             "icao": "EDGP",
             "airportType": "AD",
@@ -5854,6 +6279,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Oschatz",
             "icao": "EDOQ",
             "airportType": "AD",
@@ -5869,6 +6295,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Oschersleben",
             "icao": "EDOL",
             "airportType": "AD",
@@ -5884,6 +6311,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Osterholz‐Scharmbeck",
             "icao": "",
             "airportType": "GLD",
@@ -5899,6 +6327,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Ottobrunn",
             "icao": "EDMR",
             "airportType": "HEL",
@@ -5914,6 +6343,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Paderborn/Lippstadt",
             "icao": "EDLP",
             "airportType": "AD",
@@ -5929,6 +6359,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Paderborn/Lippstadt",
             "icao": "EDLP",
             "airportType": "AD",
@@ -5944,6 +6375,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Paderborn‐Haxterberg",
             "icao": "EDLR",
             "airportType": "AD",
@@ -5959,6 +6391,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Pasewalk",
             "icao": "EDCV",
             "airportType": "AD",
@@ -5974,6 +6407,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Paterzell",
             "icao": "EDPZ",
             "airportType": "AD",
@@ -5989,6 +6423,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Pattonville",
             "icao": "EDTQ",
             "airportType": "AD",
@@ -6004,6 +6439,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Peenemuende",
             "icao": "EDCP",
             "airportType": "AD",
@@ -6019,6 +6455,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Pegnitz‐Zipser Berg",
             "icao": "EDQZ",
             "airportType": "AD",
@@ -6034,6 +6471,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Peine‐Glindbruchkippe",
             "icao": "EDVP",
             "airportType": "AD",
@@ -6049,6 +6487,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Pellworm",
             "icao": "EDHP",
             "airportType": "AD",
@@ -6064,6 +6503,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Pennewitz",
             "icao": "EDOS",
             "airportType": "AD",
@@ -6079,6 +6519,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Pinnow",
             "icao": "EDBP",
             "airportType": "AD",
@@ -6094,6 +6535,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Pirmasens",
             "icao": "EDRP",
             "airportType": "AD",
@@ -6109,6 +6551,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Pirna‐Pratzschwitz",
             "icao": "EDAR",
             "airportType": "AD",
@@ -6124,6 +6567,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Pleidelsheim",
             "icao": "",
             "airportType": "GLD",
@@ -6139,6 +6583,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Plettenberg‐Hueinghausen",
             "icao": "EDKP",
             "airportType": "AD",
@@ -6154,6 +6599,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Poemetsried",
             "icao": "",
             "airportType": "GLD",
@@ -6169,6 +6615,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Poltringen",
             "icao": "EDSP",
             "airportType": "AD",
@@ -6184,6 +6631,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Porta Westfalica",
             "icao": "EDVY",
             "airportType": "AD",
@@ -6199,6 +6647,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Pretzschendorf",
             "icao": "",
             "airportType": "GLD",
@@ -6214,6 +6663,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Pritzwalk‐Sommersberg",
             "icao": "EDBU",
             "airportType": "AD",
@@ -6229,6 +6679,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Purkshof",
             "icao": "EDCX",
             "airportType": "AD",
@@ -6244,6 +6695,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Quakenbrueck",
             "icao": "",
             "airportType": "GLD",
@@ -6259,6 +6711,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Rastatt‐Baldenau",
             "icao": "",
             "airportType": "GLD",
@@ -6274,6 +6727,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Regensburg‐Oberhub",
             "icao": "EDNR",
             "airportType": "AD",
@@ -6289,6 +6743,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Reinheim",
             "icao": "",
             "airportType": "GLD",
@@ -6304,6 +6759,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Reinsdorf",
             "icao": "EDOD",
             "airportType": "AD",
@@ -6319,6 +6775,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Reiselfingen",
             "icao": "",
             "airportType": "GLD",
@@ -6334,6 +6791,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Rendsburg‐Schachtholm",
             "icao": "EDXR",
             "airportType": "AD",
@@ -6349,6 +6807,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Renneritz",
             "icao": "EDOX",
             "airportType": "AD",
@@ -6364,6 +6823,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Rerik‐Zweedorf",
             "icao": "EDCR",
             "airportType": "AD",
@@ -6379,6 +6839,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Rheine‐Eschendorf",
             "icao": "EDXE",
             "airportType": "AD",
@@ -6394,6 +6855,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Rheinstetten",
             "icao": "",
             "airportType": "GLD",
@@ -6409,6 +6871,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Riedelbach/Ts.",
             "icao": "",
             "airportType": "GLD",
@@ -6424,6 +6887,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Riesa‐Goehlis",
             "icao": "EDAU",
             "airportType": "AD",
@@ -6439,6 +6903,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Rinteln",
             "icao": "EDVR",
             "airportType": "AD",
@@ -6454,6 +6919,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Roitzschjora",
             "icao": "EDAW",
             "airportType": "AD",
@@ -6469,6 +6935,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Rosenthal‐Field Ploessen",
             "icao": "EDQP",
             "airportType": "AD",
@@ -6484,6 +6951,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Rossfeld",
             "icao": "",
             "airportType": "GLD",
@@ -6499,6 +6967,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Rote Wiese",
             "icao": "",
             "airportType": "GLD",
@@ -6514,6 +6983,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Rotenburg (Wuemme)",
             "icao": "EDXQ",
             "airportType": "AD",
@@ -6529,6 +6999,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Rothenburg O.D.T.",
             "icao": "EDFR",
             "airportType": "AD",
@@ -6544,6 +7015,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Rothenburg/Goerlitz",
             "icao": "EDBR",
             "airportType": "AD",
@@ -6559,6 +7031,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Rudolstadt‐Groschwitz",
             "icao": "EDOK",
             "airportType": "AD",
@@ -6574,6 +7047,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Saarlouis‐Dueren",
             "icao": "EDRJ",
             "airportType": "AD",
@@ -6589,6 +7063,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Salzgitter‐Druette",
             "icao": "EDVS",
             "airportType": "AD",
@@ -6604,6 +7079,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Salzgitter‐Schaeferstuhl",
             "icao": "EDVJ",
             "airportType": "AD",
@@ -6619,6 +7095,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Salzwedel",
             "icao": "",
             "airportType": "GLD",
@@ -6634,6 +7111,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Saulgau",
             "icao": "EDTU",
             "airportType": "AD",
@@ -6649,6 +7127,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schaefhalde",
             "icao": "",
             "airportType": "GLD",
@@ -6664,6 +7143,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schameder",
             "icao": "EDGQ",
             "airportType": "AD",
@@ -6679,6 +7159,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schlierstadt‐Seligenberg",
             "icao": "",
             "airportType": "AD",
@@ -6694,6 +7175,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schmallenberg‐Rennefeld",
             "icao": "EDKR",
             "airportType": "AD",
@@ -6709,6 +7191,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schmidgaden",
             "icao": "EDPQ",
             "airportType": "AD",
@@ -6724,6 +7207,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schmoldow",
             "icao": "EDBY",
             "airportType": "AD",
@@ -6739,6 +7223,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schoenberg",
             "icao": "EDPK",
             "airportType": "AD",
@@ -6754,6 +7239,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schoenebeck‐Zackmuende",
             "icao": "EDOZ",
             "airportType": "AD",
@@ -6769,6 +7255,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schoenhagen",
             "icao": "EDAZ",
             "airportType": "AD",
@@ -6784,6 +7271,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schotten",
             "icao": "",
             "airportType": "GLD",
@@ -6799,6 +7287,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schreckhof",
             "icao": "",
             "airportType": "GLD",
@@ -6814,6 +7303,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schwabach‐Buechenbach",
             "icao": "EDPH",
             "airportType": "AD",
@@ -6829,6 +7319,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schwabmuenchen",
             "icao": "EDNS",
             "airportType": "AD",
@@ -6844,6 +7335,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schwaebisch Hall",
             "icao": "EDTY",
             "airportType": "AD",
@@ -6859,6 +7351,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schwaebisch Hall",
             "icao": "EDTY",
             "airportType": "AD",
@@ -6874,6 +7367,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schwandorf",
             "icao": "EDPF",
             "airportType": "AD",
@@ -6889,6 +7383,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schwann‐Conweiler",
             "icao": "",
             "airportType": "GLD",
@@ -6904,6 +7399,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schwarzheide/Schipkau",
             "icao": "EDBZ",
             "airportType": "AD",
@@ -6919,6 +7415,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schweighofen",
             "icao": "EDRO",
             "airportType": "AD",
@@ -6934,6 +7431,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schwerin‐Parchim",
             "icao": "EDOP",
             "airportType": "AD",
@@ -6949,6 +7447,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Schwerin‐Parchim",
             "icao": "EDOP",
             "airportType": "AD",
@@ -6964,6 +7463,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Sengenthal",
             "icao": "",
             "airportType": "UL",
@@ -6979,6 +7479,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Sierksdorf/Altona",
             "icao": "EDXT",
             "airportType": "AD",
@@ -6994,6 +7495,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Sinsheim",
             "icao": "EDTK",
             "airportType": "AD",
@@ -7009,6 +7511,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Soest/Bad Sassendorf",
             "icao": "EDLZ",
             "airportType": "AD",
@@ -7024,6 +7527,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Speyer",
             "icao": "EDRY",
             "airportType": "AD",
@@ -7039,6 +7543,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Stade",
             "icao": "EDHS",
             "airportType": "AD",
@@ -7054,6 +7559,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Stadtlohn‐Vreden",
             "icao": "EDLS",
             "airportType": "AD",
@@ -7069,6 +7575,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Stechow‐Ferchesar",
             "icao": "EDUA",
             "airportType": "AD",
@@ -7084,6 +7591,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Steinberg Bei Surwold",
             "icao": "",
             "airportType": "GLD",
@@ -7099,6 +7607,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Steinberg Bei Wesseln",
             "icao": "",
             "airportType": "GLD",
@@ -7114,6 +7623,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Stendal‐Borstel",
             "icao": "EDOV",
             "airportType": "AD",
@@ -7129,6 +7639,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Stoelln/Rhinow",
             "icao": "EDOR",
             "airportType": "AD",
@@ -7144,6 +7655,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Stolberg‐Diepenlinchen",
             "icao": "",
             "airportType": "GLD",
@@ -7159,6 +7671,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Stralsund",
             "icao": "EDBV",
             "airportType": "AD",
@@ -7174,6 +7687,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Strausberg",
             "icao": "EDAY",
             "airportType": "AD",
@@ -7189,6 +7703,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Stuede‐Bernsteinsee",
             "icao": "",
             "airportType": "GLD",
@@ -7204,6 +7719,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Tannheim",
             "icao": "EDMT",
             "airportType": "AD",
@@ -7219,6 +7735,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Tauberbischofsheim",
             "icao": "",
             "airportType": "GLD",
@@ -7234,6 +7751,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Taucha",
             "icao": "EDCT",
             "airportType": "AD",
@@ -7249,6 +7767,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Thalmaessing‐Waizenhofen",
             "icao": "EDPW",
             "airportType": "AD",
@@ -7264,6 +7783,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Traben‐Trarbach/Mont Royal",
             "icao": "EDRM",
             "airportType": "AD",
@@ -7279,6 +7799,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Trier‐Foehren",
             "icao": "EDRT",
             "airportType": "AD",
@@ -7294,6 +7815,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Troestau",
             "icao": "",
             "airportType": "GLD",
@@ -7309,6 +7831,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Uehrde",
             "icao": "",
             "airportType": "UL",
@@ -7324,6 +7847,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Ummern",
             "icao": "",
             "airportType": "GLD",
@@ -7339,6 +7863,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Unterschuepf",
             "icao": "EDGU",
             "airportType": "AD",
@@ -7354,6 +7879,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Unterwoessen",
             "icao": "",
             "airportType": "GLD",
@@ -7369,6 +7895,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Uslar",
             "icao": "EDVD",
             "airportType": "AD",
@@ -7384,6 +7911,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Utscheid",
             "icao": "",
             "airportType": "GLD",
@@ -7399,6 +7927,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Varrelbusch",
             "icao": "EDWU",
             "airportType": "AD",
@@ -7414,6 +7943,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Verden‐Scharnhorst",
             "icao": "EDWV",
             "airportType": "AD",
@@ -7429,6 +7959,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Vettweiss",
             "icao": "",
             "airportType": "UL",
@@ -7444,6 +7975,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Vielbrunn",
             "icao": "",
             "airportType": "GLD",
@@ -7459,6 +7991,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Vilsbiburg",
             "icao": "EDMP",
             "airportType": "AD",
@@ -7474,6 +8007,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Vilshofen",
             "icao": "EDMV",
             "airportType": "AD",
@@ -7489,6 +8023,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Voelkleshofen‐Lichtenberg",
             "icao": "",
             "airportType": "AD",
@@ -7504,6 +8039,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Vogtareuth",
             "icao": "EDNV",
             "airportType": "AD",
@@ -7519,6 +8055,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Waechtersberg",
             "icao": "EDSV",
             "airportType": "AD",
@@ -7534,6 +8071,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Wahlstedt",
             "icao": "EDHW",
             "airportType": "AD",
@@ -7549,6 +8087,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Walldorf",
             "icao": "EDGX",
             "airportType": "AD",
@@ -7564,6 +8103,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Wallduern",
             "icao": "EDEW",
             "airportType": "AD",
@@ -7579,6 +8119,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Wangerooge",
             "icao": "EDWG",
             "airportType": "AD",
@@ -7594,6 +8135,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Warngau",
             "icao": "",
             "airportType": "AD",
@@ -7609,6 +8151,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Wasentegernbach",
             "icao": "",
             "airportType": "UL",
@@ -7624,6 +8167,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Weiden/Opf.",
             "icao": "EDQW",
             "airportType": "AD",
@@ -7639,6 +8183,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Weilerswist",
             "icao": "",
             "airportType": "UL",
@@ -7654,6 +8199,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Weimar‐Umpferstedt",
             "icao": "EDOU",
             "airportType": "AD",
@@ -7669,6 +8215,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Weinheim/Bergstrasse",
             "icao": "EDGZ",
             "airportType": "AD",
@@ -7684,6 +8231,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Welzheim",
             "icao": "",
             "airportType": "GLD",
@@ -7699,6 +8247,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Welzow",
             "icao": "EDCY",
             "airportType": "AD",
@@ -7714,6 +8263,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Wenzendorf",
             "icao": "",
             "airportType": "GLD",
@@ -7729,6 +8279,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Werdohl‐Kuentrop",
             "icao": "EDKW",
             "airportType": "AD",
@@ -7744,6 +8295,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Werneuchen",
             "icao": "EDBW",
             "airportType": "AD",
@@ -7759,6 +8311,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Wesel‐Roemerwardt",
             "icao": "EDLX",
             "airportType": "AD",
@@ -7774,6 +8327,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Weser‐Wuemme",
             "icao": "EDWM",
             "airportType": "AD",
@@ -7789,6 +8343,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Westerstede‐Felde",
             "icao": "EDWX",
             "airportType": "AD",
@@ -7804,6 +8359,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Wiefelstede/Conneforde",
             "icao": "EDWP",
             "airportType": "AD",
@@ -7819,6 +8375,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Wildberg",
             "icao": "",
             "airportType": "AD",
@@ -7834,6 +8391,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Wilhelmshaven",
             "icao": "EDWI",
             "airportType": "AD",
@@ -7849,6 +8407,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Winzeln‐Schramberg",
             "icao": "EDTW",
             "airportType": "AD",
@@ -7864,6 +8423,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Wipperfuerth‐Neye",
             "icao": "EDKN",
             "airportType": "AD",
@@ -7879,6 +8439,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Worms",
             "icao": "EDFV",
             "airportType": "AD",
@@ -7894,6 +8455,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Wuelzburg",
             "icao": "",
             "airportType": "GLD",
@@ -7909,6 +8471,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Wuerzburg‐Schenkenturm",
             "icao": "EDFW",
             "airportType": "AD",
@@ -7924,6 +8487,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Wyk Auf Foehr",
             "icao": "EDXY",
             "airportType": "AD",
@@ -7939,6 +8503,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Zell‐Haidberg",
             "icao": "EDNZ",
             "airportType": "AD",
@@ -7954,6 +8519,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Zellhausen",
             "icao": "",
             "airportType": "GLD",
@@ -7969,6 +8535,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Zerbst",
             "icao": "EDUZ",
             "airportType": "AD",
@@ -7984,6 +8551,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Zierenberg A.D. Doernberg",
             "icao": "",
             "airportType": "GLD",
@@ -7999,6 +8567,7 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Zweibruecken",
             "icao": "EDRZ",
             "airportType": "AD",
@@ -8014,11 +8583,12 @@
             "longitude": 10.123456
         },
         {
+            "country": "Germany",
             "name": "Zwickau",
             "icao": "EDBI",
             "airportType": "AD",
             "radioFrequencyName": "Info",
-            "radioFrequency": 130.660,
+            "radioFrequency": 130.66,
             "elevation": 320,
             "latitude": 50.123456,
             "runwayDimensions": "800 x 40",

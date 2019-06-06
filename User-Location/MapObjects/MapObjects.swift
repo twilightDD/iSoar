@@ -26,6 +26,7 @@ class MapObjects{
         var runwayDimensions:String
         var runways:String
         var url:String?
+        var country:String?
         
         // var radios:[Radio] // hinzufügen => ProTipp: Struct ;)
         
@@ -41,6 +42,7 @@ class MapObjects{
             self.runwayDimensions = dictionary["runwayDimensions"] as? String ?? ""
             self.runways = dictionary["runways"] as? String ?? ""
             self.url = dictionary["url"] as? String ?? ""
+            self.country = dictionary["country"] as? String ?? ""
         }
     }
     

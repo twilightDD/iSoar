@@ -12,6 +12,7 @@ class NavToViewController: UIViewController {
 
     @IBOutlet weak var icao: UILabel!
     @IBOutlet weak var airportName: UILabel!
+    @IBOutlet weak var country: UILabel!
     @IBOutlet weak var pickerView: UIPickerView!
     
     override func viewDidLoad() {
@@ -40,6 +41,9 @@ extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         
         airportName.text = selectedDestinationAirport.name
         print(airportName.text!)
+        
+        country.text = selectedDestinationAirport.country
+        print(country.text!)
         
         MapScreen.shared.selectedDestinationAirport = selectedDestinationAirport
     }
