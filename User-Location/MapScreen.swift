@@ -52,7 +52,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         
         loadMapAnnotations()
        
-        setupBarograph()
+        setupBarometer()
     }
     
     // MARK: Setup functions
@@ -183,7 +183,8 @@ class MapScreen: UIViewController, MKMapViewDelegate {
  */
     }
     
-    func setupBarograph() {
+    // Setup Barometer
+    func setupBarometer() {
         if CMAltimeter.isRelativeAltitudeAvailable() {
             altimeter.startRelativeAltitudeUpdates(to: OperationQueue.main) { (data, error) in
                 self.relativeAltitude.text = String.init(format: "%.1fM", (data?.relativeAltitude.floatValue)!)
@@ -209,7 +210,6 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         case true:
             centerViewOnUserLocation()
             mapView.userTrackingMode = .follow
-        // mapView.camera.heading = 0
         case false:
             mapView.userTrackingMode = .none
         }
@@ -299,7 +299,7 @@ extension MapScreen: CLLocationManagerDelegate {
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView!.canShowCallout = true
-            //performSegue(withIdentifier: "AirportInfoSegue", sender: self)
+            //ToDo: performSegue(withIdentifier: "AirportInfoSegue", sender: self)
         }
         
         // Set image of annotationView depending of the type of annotation

@@ -289,6 +289,45 @@
             ]
         },
         {
+            "elevation": 640,
+            "icao": "EDNL",
+            "latitude": 47.858741,
+            "longitude": 10.013827,
+            "country": "Germany",
+            "name": "Leutkirch‐Unterzeil",
+            "runwayDimensions": "1020 x 20",
+            "runwaySurface": "Asphalt",
+            "runways": "06/24",
+            "url": "www.flugplatz-leutkirch.de",
+            "validiationDate": "20190609",
+            "radios": [
+                {
+                    "radioFrequency": 122.880,
+                    "radioFrequencyName": "Leutkirch Info"
+                }
+            ]
+        },
+        {
+            "country": "Germany",
+            "name": "Markdorf",
+            "icao": "MARK",
+            "airportType": "GLD",
+            "elevation": 425,
+            "latitude": 47.707326,
+            "runwayDimensions": "420 x 30",
+            "runways": "10/28",
+            "url": "www.sfg-markdorf.de",
+            "validationDate": "20190609",
+            "runwaySurface": "Grass",
+            "longitude": 9.392925,
+            "radios": [
+                {
+                    "radioFrequency": 123.355,
+                    "radioFrequencyName": "Markdorf Segelflug"
+                }
+            ]
+        },
+        {
             "elevation": 484,
             "icao": "LOIK",
             "latitude": 47.565216,
@@ -4920,22 +4959,6 @@
         },
         {
             "country": "Germany",
-            "name": "Leutkirch‐Unterzeil",
-            "icao": "EDNL",
-            "airportType": "AD",
-            "radioFrequencyName": "Info",
-            "radioFrequency": 122.88,
-            "elevation": 1234,
-            "latitude": 50.123456,
-            "runwayDimensions": "",
-            "runways": "",
-            "url": "",
-            "validationDate": "20190601",
-            "runwaySurface": "",
-            "longitude": 10.123456
-        },
-        {
-            "country": "Germany",
             "name": "Leverkusen",
             "icao": "EDKL",
             "airportType": "AD",
@@ -5229,22 +5252,6 @@
             "airportType": "AD",
             "radioFrequencyName": "Info",
             "radioFrequency": 134.915,
-            "elevation": 1234,
-            "latitude": 50.123456,
-            "runwayDimensions": "",
-            "runways": "",
-            "url": "",
-            "validationDate": "20190601",
-            "runwaySurface": "",
-            "longitude": 10.123456
-        },
-        {
-            "country": "Germany",
-            "name": "Markdorf",
-            "icao": "",
-            "airportType": "GLD",
-            "radioFrequencyName": "Segelflug",
-            "radioFrequency": 123.355,
             "elevation": 1234,
             "latitude": 50.123456,
             "runwayDimensions": "",
