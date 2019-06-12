@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import CoreMotion
+import Mapbox
 
 //MARK: MapScreen
 class MapScreen: UIViewController, MKMapViewDelegate {
@@ -48,27 +49,56 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         checkLocationServices()
         
         setupGestureRecognizers()
-        mapView.delegate = self
+        //mapView.delegate = self
         
         loadMapAnnotations()
        
         setupBarometer()
+        
+        mapBox()
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
     
     // MARK: Setup functions
-    // Setup Location Manager
+    // Set up Location Manager
     func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
     }
     
+    // Set up Gesture Recognizers
     func setupGestureRecognizers() {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
         panGestureRecognizer.delegate = self
         mapView.isUserInteractionEnabled = true
         mapView.addGestureRecognizer(panGestureRecognizer)
     }
-
+    
+    // Set up MapBox MapView
+    func mapBox() {
+        let url = URL(string: "mapbox://styles/dlmapbox/cjwrbxi3x10fv1ck92xfdgz66")
+        let mapView = MGLMapView(frame: view.bounds, styleURL: url)
+        
+        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        mapView.setCenter(CLLocationCoordinate2D(
+            latitude: 47.822107,
+            longitude: 9.050871),
+                          zoomLevel: 9.5,
+                          animated: false)
+        mapView.allowsRotating = false
+        mapView.allowsTilting = false
+        
+        
+        // MGLMapboxMetricsEnabledSettingShownInApp: YES - Info.plist
+        // https://docs.mapbox.com/help/how-mapbox-works/mobile-apps/#telemetry
+        mapView.logoView.isHidden = true
+        mapView.attributionButton.isHidden = true
+        view.addSubview(mapView)
+    }
+    
     // Center view on User Location on Map
     func centerViewOnUserLocation() {
         let defaults = UserDefaults.standard
