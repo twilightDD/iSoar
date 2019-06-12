@@ -13,7 +13,7 @@ import CoreMotion
 import Mapbox
 
 //MARK: MapScreen
-class MapScreen: UIViewController, MKMapViewDelegate {
+class MapScreen: UIViewController {
     
      static let shared = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapScreenIdentifier") as! MapScreen
    
@@ -30,7 +30,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     @IBOutlet var pressure: UILabel!
     
     // MARK: properties
-    let locationManager = CLLocationManager()
+    let locationManager:MGLLocationManager?
     var currentLocation:CLLocation?
     var userTrackingMode = true
     let altimeter = CMAltimeter()
@@ -46,6 +46,8 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupMapBox()
         checkLocationServices()
         
         setupGestureRecognizers()
@@ -55,7 +57,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
        
         setupBarometer()
         
-        setupMapBox()
+        
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -65,8 +67,9 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     // MARK: Setup functions
     // Set up Location Manager
     func setupLocationManager() {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager!.delegate = self
+
+        //locationManager!.desiredAccuracy = kCLLocationAccuracyBestForNavigation
     }
     
     // Set up Gesture Recognizers
@@ -82,14 +85,16 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         let url = URL(string: "mapbox://styles/dlmapbox/cjwrbxi3x10fv1ck92xfdgz66")
         self.mapView.styleURL = url
         
+        self.mapView.delegate = self
+        
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapView.setCenter(CLLocationCoordinate2D(
-            latitude: 47.822107,
-            longitude: 9.050871),
+        mapView.setCenter(CLLocationCoordinate2D(latitude: 47.822107,
+                                                 longitude: 9.050871),
                           zoomLevel: 9.5,
                           animated: false)
         mapView.allowsRotating = false
         mapView.allowsTilting = false
+        mapView.locationManager = self.locationManager
         
         
         // MGLMapboxMetricsEnabledSettingShownInApp: YES - Info.plist
@@ -103,12 +108,13 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     func centerViewOnUserLocation() {
         let defaults = UserDefaults.standard
         let mapRegionInMeters = defaults.value(forKey: SettingsViewController.Settings.mapRegionInMeters) as! Double
-        if let coordinate = locationManager.location?.coordinate {
-            let region = MKCoordinateRegion.init(center: coordinate,
-                                                 latitudinalMeters: mapRegionInMeters,
-                                                 longitudinalMeters: mapRegionInMeters)
-            //mapView.setRegion(region, animated: true)
-        }
+       
+//        if let coordinate = locationManager.location?.coordinate {
+//            let region = MKCoordinateRegion.init(center: coordinate,
+//                                                 latitudinalMeters: mapRegionInMeters,
+//                                                 longitudinalMeters: mapRegionInMeters)
+//            //mapView.setRegion(region, animated: true)
+//        }
     }
     
     // Check for Location Services
@@ -127,13 +133,13 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         case .authorizedWhenInUse:
             mapView.showsUserLocation = true
             centerViewOnUserLocation()
-            locationManager.startUpdatingLocation()
+            locationManager?.startUpdatingLocation()
             break
         case .denied:
             // Show alert instructing them how to turn on permissions
             break
         case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
+            locationManager?.requestWhenInUseAuthorization()
         case .restricted:
             // Show an alert letting them know what's up
             break
@@ -147,7 +153,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     func loadMapAnnotations() {
         let destinationAirports = MapObjects.shared.destinationAirports
         for destinationAirport in destinationAirports {
-            let airportPointAnnotation = DLPointAnnotiation()
+            let airportPointAnnotation = DLPointAnnotation()
             
             airportPointAnnotation.title = destinationAirport.icao
             airportPointAnnotation.subtitle = destinationAirport.elevation.description
@@ -155,7 +161,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
                                                                        longitude: destinationAirport.longitude)
             airportPointAnnotation.imageName = "runway_grass"
             
-            //self.mapView.addAnnotation(airportPointAnnotation)
+            self.mapView.addAnnotation(airportPointAnnotation)
         }
         
         // TODO: RestrictedAreas aus MapObjects.shared herausnehmen und ähnlich wie AirPorts anzeigen lassen
@@ -244,22 +250,52 @@ class MapScreen: UIViewController, MKMapViewDelegate {
             mapView.userTrackingMode = .none
         }
     }
-}
-
-// MARK: - MapScreen: CLLocationManagerDelegate
-extension MapScreen: CLLocationManagerDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+
+}
+// MARK: - MapScreen: MGLMapViewDelegate
+extension MapScreen : MGLMapViewDelegate {
+    func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
+        // Show the user location here
+        mapView.showsUserLocation = true
+    }
+    
+    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+        // Substitute our custom view for the user location annotation. This custom view is defined below.
+        print("annotation class: \(annotation.self)")
+        if annotation is MGLUserLocation && mapView.userLocation != nil {
+            return CustomUserLocationAnnotationView()
+        }
+        return nil
+    }
+    
+}
+// MARK: - MapScreen: MGLLocationManagerDelegate
+extension MapScreen: MGLLocationManagerDelegate {
+    func locationManagerShouldDisplayHeadingCalibration(_ manager: MGLLocationManager) -> Bool {
+        
+    }
+    
+    func locationManager(_ manager: MGLLocationManager, didUpdate newHeading: CLHeading) {
+        
+    }
+    
+    func locationManager(_ manager: MGLLocationManager, didFailWithError error: Error) {
+        
+    }
+    
+    func locationManager(_ manager: MGLLocationManager, didUpdate locations: [CLLocation]) {
         guard let currentLocation = locations.last else { return }
         
         // Show Glider Image on Map
-        if let image = UIImage(named: "glider") {
-            let rotatedImage = image.rotate(course: currentLocation.course )
-            
-//            if let currentLocationImage = mapView.view(for: mapView.userLocation) {
-//                currentLocationImage.image = rotatedImage
+//        if let image = UIImage(named: "glider") {
+//            let rotatedImage = image.rotate(course: currentLocation.course )
+//            if let userLocation = mapView.userLocation {
+//                if let currentLocationImage = mapView.view(for: userLocation) {
+//                    currentLocationImage.image = rotatedImage
+//                }
 //            }
-        }
+//        }
         
         // Current Location depending stuff
         // altitude
@@ -319,7 +355,13 @@ extension MapScreen: CLLocationManagerDelegate {
         }
     }
     
+    // Check for Location Authorization
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        checkLocationAuthorization()
+    }
+   
     // Show Annotation on Map
+    /*
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         // Get annotationView
@@ -341,7 +383,9 @@ extension MapScreen: CLLocationManagerDelegate {
         }
         return annotationView
     }
-    
+*/
+  
+    /*
     // Open AirportInfoViewController by tapping Airport Annotation
     func mapView(MapView: MKMapView!, annotation: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
@@ -350,12 +394,9 @@ extension MapScreen: CLLocationManagerDelegate {
             print("Opening AirportInfoViewController")
         }
     }
+    */
     
-    // Check for Location Authorization
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        checkLocationAuthorization()
-    }
-    
+    /*
     // Draw and renew Polyline Overlay on Map
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         var overlayRenderer = MKPolylineRenderer() // leeren MKOverlayRenderer anlegen
@@ -380,6 +421,7 @@ extension MapScreen: CLLocationManagerDelegate {
         }
         return overlayRenderer
     }
+ */
 }
 
 // MARK: - MapScreen:UIGestureRecognizerDelegate
@@ -423,7 +465,7 @@ extension UIImage {
 }
 
 // MARK: - DLPointAnnotiation
-class DLPointAnnotiation: MKPointAnnotation {
+class DLPointAnnotation: MGLPointAnnotation {
     var imageName:String = ""
 }
 

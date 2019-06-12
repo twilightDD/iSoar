@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4FA79AEE7ECE155E0BFA301B /* Pods_Glider_Tool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1EF2983B88025FDC2840F2 /* Pods_Glider_Tool.framework */; };
+		D060C1F322B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */; };
 		D074B51522968C7A00A573AE /* MapObjects.json in Resources */ = {isa = PBXBuildFile; fileRef = D074B51422968C7A00A573AE /* MapObjects.json */; };
 		D0C5ED5B22A4769C009A0542 /* MapObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5ED5A22A4769C009A0542 /* MapObjects.swift */; };
 		E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086AB0A229C35890011C433 /* SettingsViewController.swift */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		75CB3E8DFF8D455C8F1742A5 /* Pods-Glider Tool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Glider Tool.debug.xcconfig"; path = "Target Support Files/Pods-Glider Tool/Pods-Glider Tool.debug.xcconfig"; sourceTree = "<group>"; };
 		AF3E6C1CC85039594789B3C8 /* Pods-Glider Tool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Glider Tool.release.xcconfig"; path = "Target Support Files/Pods-Glider Tool/Pods-Glider Tool.release.xcconfig"; sourceTree = "<group>"; };
+		D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUserLocationAnnotationView.swift; sourceTree = "<group>"; };
 		D074B51422968C7A00A573AE /* MapObjects.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MapObjects.json; sourceTree = "<group>"; };
 		D0C5ED5A22A4769C009A0542 /* MapObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapObjects.swift; sourceTree = "<group>"; };
 		E086AB0A229C35890011C433 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -73,7 +75,6 @@
 				75CB3E8DFF8D455C8F1742A5 /* Pods-Glider Tool.debug.xcconfig */,
 				AF3E6C1CC85039594789B3C8 /* Pods-Glider Tool.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -92,6 +93,7 @@
 			children = (
 				E0B52F71228377F300E28A93 /* Buttons.swift */,
 				E0B52F7622837C1500E28A93 /* TextFields.swift */,
+				D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */,
 			);
 			path = Designs;
 			sourceTree = "<group>";
@@ -265,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D060C1F322B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift in Sources */,
 				EDA236352130AA9A00739396 /* MapScreen.swift in Sources */,
 				E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */,
 				D0C5ED5B22A4769C009A0542 /* MapObjects.swift in Sources */,
