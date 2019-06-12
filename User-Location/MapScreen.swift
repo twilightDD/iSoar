@@ -18,16 +18,16 @@ class MapScreen: UIViewController, MKMapViewDelegate {
      static let shared = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapScreenIdentifier") as! MapScreen
    
     // MARK: IBOutlets
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var courseShort: UITextField!
-    @IBOutlet weak var destinationAltitudeShort: UITextField!
-    @IBOutlet weak var distanceShort: UITextField!
-    @IBOutlet weak var destinationAirport: UITextField!
-    @IBOutlet weak var altitudeShort: UITextField!
-    @IBOutlet weak var speedkmhShort: UITextField!
-    @IBOutlet weak var userTrackingModeButton: UISwitch!
-    @IBOutlet weak var relativeAltitude: UILabel!
-    @IBOutlet weak var pressure: UILabel!
+    @IBOutlet var mapView: MGLMapView!
+    @IBOutlet var courseShort: UITextField!
+    @IBOutlet var destinationAltitudeShort: UITextField!
+    @IBOutlet var distanceShort: UITextField!
+    @IBOutlet var destinationAirport: UITextField!
+    @IBOutlet var altitudeShort: UITextField!
+    @IBOutlet var speedkmhShort: UITextField!
+    @IBOutlet var userTrackingModeButton: UISwitch!
+    @IBOutlet var relativeAltitude: UILabel!
+    @IBOutlet var pressure: UILabel!
     
     // MARK: properties
     let locationManager = CLLocationManager()
@@ -55,7 +55,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
        
         setupBarometer()
         
-        mapBox()
+        setupMapBox()
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -78,9 +78,9 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     }
     
     // Set up MapBox MapView
-    func mapBox() {
+    func setupMapBox() {
         let url = URL(string: "mapbox://styles/dlmapbox/cjwrbxi3x10fv1ck92xfdgz66")
-        let mapView = MGLMapView(frame: view.bounds, styleURL: url)
+        self.mapView.styleURL = url
         
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.setCenter(CLLocationCoordinate2D(
@@ -96,7 +96,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         // https://docs.mapbox.com/help/how-mapbox-works/mobile-apps/#telemetry
         mapView.logoView.isHidden = true
         mapView.attributionButton.isHidden = true
-        view.addSubview(mapView)
+        //view.addSubview(mapView)
     }
     
     // Center view on User Location on Map
@@ -107,7 +107,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
             let region = MKCoordinateRegion.init(center: coordinate,
                                                  latitudinalMeters: mapRegionInMeters,
                                                  longitudinalMeters: mapRegionInMeters)
-            mapView.setRegion(region, animated: true)
+            //mapView.setRegion(region, animated: true)
         }
     }
     
@@ -155,7 +155,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
                                                                        longitude: destinationAirport.longitude)
             airportPointAnnotation.imageName = "runway_grass"
             
-            self.mapView.addAnnotation(airportPointAnnotation)
+            //self.mapView.addAnnotation(airportPointAnnotation)
         }
         
         // TODO: RestrictedAreas aus MapObjects.shared herausnehmen und ähnlich wie AirPorts anzeigen lassen
@@ -256,9 +256,9 @@ extension MapScreen: CLLocationManagerDelegate {
         if let image = UIImage(named: "glider") {
             let rotatedImage = image.rotate(course: currentLocation.course )
             
-            if let currentLocationImage = mapView.view(for: mapView.userLocation) {
-                currentLocationImage.image = rotatedImage
-            }
+//            if let currentLocationImage = mapView.view(for: mapView.userLocation) {
+//                currentLocationImage.image = rotatedImage
+//            }
         }
         
         // Current Location depending stuff
@@ -306,7 +306,7 @@ extension MapScreen: CLLocationManagerDelegate {
             
             //Add MKPolyLine as an overlay - reflects the direct line between current location and destinationAirport.
             if self.currentDirectionLine != nil {
-                self.mapView.removeOverlay(self.currentDirectionLine!)
+               // self.mapView.removeOverlay(self.currentDirectionLine!)
             }
             let destinationAirportLocationCoordinate = CLLocationCoordinate2D(latitude: selectedDestinationAirport.latitude,
                                                                               longitude: selectedDestinationAirport.longitude)
@@ -315,7 +315,7 @@ extension MapScreen: CLLocationManagerDelegate {
                                                    count: newDirectionCoordinates.count)
             self.currentDirectionLine?.type = .directLine
             
-            self.mapView.addOverlay(self.currentDirectionLine!)
+            //self.mapView.addOverlay(self.currentDirectionLine!)
         }
     }
     
