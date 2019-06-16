@@ -122,6 +122,9 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         
         mapView.userTrackingMode = mode
         sender.updateArrowForTrackingMode(mode: mode)
+       
+        // Peter
+        // hier den status des user tracking merken (bool variable)
     }
     
     // Button creation and autolayout setup
@@ -447,6 +450,13 @@ extension MapScreen: CLLocationManagerDelegate {
 //                currentLocationImage.image = rotatedImage
 //            }
         }
+        
+        // Peter
+        // user tracking auswerten ;wenn true, dann setCenter
+//        if myOwnFollowMode == true {
+//            setCenter
+//        }
+    
         
         // Current Location depending stuff
         // altitude
