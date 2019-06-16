@@ -13,7 +13,7 @@ import CoreMotion
 import Mapbox
 
 //MARK: MapScreen
-class MapScreen: UIViewController {
+class MapScreen: UIViewController, MKMapViewDelegate {
     
      static let shared = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapScreenIdentifier") as! MapScreen
    
@@ -30,10 +30,11 @@ class MapScreen: UIViewController {
     @IBOutlet var pressure: UILabel!
     
     // MARK: properties
-    let locationManager:MGLLocationManager?
+    let locationManager = CLLocationManager()
     var currentLocation:CLLocation?
-    var userTrackingMode = true
-    let altimeter = CMAltimeter()
+    
+    //var userTrackingMode = true
+    //let altimeter = CMAltimeter()
     
     var selectedDestinationAirport:MapObjects.Airport?
    
@@ -46,17 +47,15 @@ class MapScreen: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupMapBox()
         checkLocationServices()
         
-        setupGestureRecognizers()
+        setupMapBox()
+        setupLocationButton()
+        
+        //setupGestureRecognizers()
         //mapView.delegate = self
-        
-        loadMapAnnotations()
-       
-        setupBarometer()
-        
+        //loadMapAnnotations()
+        //setupBarometer()
         
     }
     
@@ -67,17 +66,8 @@ class MapScreen: UIViewController {
     // MARK: Setup functions
     // Set up Location Manager
     func setupLocationManager() {
-        locationManager!.delegate = self
-
-        //locationManager!.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-    }
-    
-    // Set up Gesture Recognizers
-    func setupGestureRecognizers() {
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
-        panGestureRecognizer.delegate = self
-        mapView.isUserInteractionEnabled = true
-        mapView.addGestureRecognizer(panGestureRecognizer)
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
     }
     
     // Set up MapBox MapView
@@ -85,37 +75,205 @@ class MapScreen: UIViewController {
         let url = URL(string: "mapbox://styles/dlmapbox/cjwrbxi3x10fv1ck92xfdgz66")
         self.mapView.styleURL = url
         
-        self.mapView.delegate = self
-        
-        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapView.setCenter(CLLocationCoordinate2D(latitude: 47.822107,
-                                                 longitude: 9.050871),
-                          zoomLevel: 9.5,
-                          animated: false)
+        mapView.tintColor = .red
+
         mapView.allowsRotating = false
         mapView.allowsTilting = false
-        mapView.locationManager = self.locationManager
-        
         
         // MGLMapboxMetricsEnabledSettingShownInApp: YES - Info.plist
         // https://docs.mapbox.com/help/how-mapbox-works/mobile-apps/#telemetry
-        mapView.logoView.isHidden = true
-        mapView.attributionButton.isHidden = true
-        //view.addSubview(mapView)
+        mapView.logoView.isHidden = false
+        mapView.attributionButton.isHidden = false
+        mapView.attributionButton.tintColor = .lightGray
+        
+        mapView.setCenter(CLLocationCoordinate2D(
+            latitude: 47.822107,
+            longitude: 9.050871),
+                          zoomLevel: 9.5,
+                          animated: true)
     }
     
+    func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
+        mapView.setCenter((mapView.userLocation?.coordinate)!, animated: false)
+    }
+    
+
+    // Update the user tracking mode when the user toggles the User Tracking Mode Button
+    // Set up User tracking mode button.
+    @IBAction func locationButtonTapped(sender: UserLocationButton) {
+        var mode: MGLUserTrackingMode
+        
+        switch (mapView.userTrackingMode) {
+        case .none:
+            mode = .follow
+            print(mapView.userTrackingMode.rawValue)
+        case .follow:
+            mode = .none
+            print(mapView.userTrackingMode.rawValue)
+//        case .follow:
+//            mode = .followWithHeading
+//        case .followWithHeading:
+//            mode = .followWithCourse
+//        case .followWithCourse:
+//            mode = .none
+        @unknown default:
+            fatalError("Unknown user tracking mode")
+        }
+        
+        mapView.userTrackingMode = mode
+        sender.updateArrowForTrackingMode(mode: mode)
+    }
+    
+    // Button creation and autolayout setup
+    func setupLocationButton() {
+        let userLocationButton = UserLocationButton(buttonSize: 40)
+        userLocationButton.addTarget(self, action: #selector(locationButtonTapped), for: .touchUpInside)
+        userLocationButton.tintColor = mapView.tintColor
+        
+        // Setup constraints such that the button is placed within
+        // the upper left corner of the view.
+        userLocationButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        var leadingConstraint: NSLayoutConstraint
+        if #available(iOS 11.0, *) {
+            leadingConstraint = NSLayoutConstraint(item: userLocationButton, attribute: .leading, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .leading, multiplier: 1, constant: 10)
+        } else {
+            leadingConstraint = NSLayoutConstraint(item: userLocationButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 10)
+        }
+        
+        let constraints: [NSLayoutConstraint] = [
+            NSLayoutConstraint(item: userLocationButton, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 50),
+            leadingConstraint,
+            NSLayoutConstraint(item: userLocationButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: userLocationButton.frame.size.height),
+            NSLayoutConstraint(item: userLocationButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: userLocationButton.frame.size.width)
+        ]
+        
+        view.addSubview(userLocationButton)
+        view.addConstraints(constraints)
+    }
+
+
+// MARK: - Custom UIButton subclass
+class UserLocationButton: UIButton {
+    private var arrow: CAShapeLayer?
+    private let buttonSize: CGFloat
+    
+    // Initializer to create the user tracking mode button
+    init(buttonSize: CGFloat) {
+        self.buttonSize = buttonSize
+        super.init(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize))
+        self.backgroundColor = UIColor.white.withAlphaComponent(0.9)
+        self.layer.cornerRadius = 4
+        
+        let arrow = CAShapeLayer()
+        arrow.path = arrowPath()
+        arrow.lineWidth = 2
+        arrow.lineJoin = CAShapeLayerLineJoin.round
+        arrow.bounds = CGRect(x: 0, y: 0, width: buttonSize / 2, height: buttonSize / 2)
+        arrow.position = CGPoint(x: buttonSize / 2, y: buttonSize / 2)
+        arrow.shouldRasterize = true
+        arrow.rasterizationScale = UIScreen.main.scale
+        arrow.drawsAsynchronously = true
+        
+        self.arrow = arrow
+        
+        // Update arrow for initial tracking mode
+        updateArrowForTrackingMode(mode: .none)
+        layer.addSublayer(self.arrow!)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // Create a new bezier path to represent the tracking mode arrow,
+    // making sure the arrow does not get drawn outside of the
+    // frame size of the UIButton.
+    private func arrowPath() -> CGPath {
+        let bezierPath = UIBezierPath()
+        let max: CGFloat = buttonSize / 2
+        bezierPath.move(to: CGPoint(x: max * 0.5, y: 0))
+        bezierPath.addLine(to: CGPoint(x: max * 0.1, y: max))
+        bezierPath.addLine(to: CGPoint(x: max * 0.5, y: max * 0.65))
+        bezierPath.addLine(to: CGPoint(x: max * 0.9, y: max))
+        bezierPath.addLine(to: CGPoint(x: max * 0.5, y: 0))
+        bezierPath.close()
+        
+        return bezierPath.cgPath
+    }
+    
+    // Update the arrow's color and rotation when tracking mode is changed.
+    func updateArrowForTrackingMode(mode: MGLUserTrackingMode) {
+        let activePrimaryColor = UIColor.red
+        let disabledPrimaryColor = UIColor.clear
+        let disabledSecondaryColor = UIColor.black
+        let rotatedArrow = CGFloat(0.66)
+        
+        switch mode {
+        case .none:
+            updateArrow(fillColor: disabledPrimaryColor, strokeColor: disabledSecondaryColor, rotation: 0)
+        case .follow:
+            updateArrow(fillColor: disabledPrimaryColor, strokeColor: activePrimaryColor, rotation: 0)
+        case .followWithHeading:
+            updateArrow(fillColor: activePrimaryColor, strokeColor: activePrimaryColor, rotation: rotatedArrow)
+        case .followWithCourse:
+            updateArrow(fillColor: activePrimaryColor, strokeColor: activePrimaryColor, rotation: 0)
+        @unknown default:
+            fatalError("Unknown user tracking mode")
+        }
+    }
+    
+    func updateArrow(fillColor: UIColor, strokeColor: UIColor, rotation: CGFloat) {
+        guard let arrow = arrow else { return }
+        arrow.fillColor = fillColor.cgColor
+        arrow.strokeColor = strokeColor.cgColor
+        arrow.setAffineTransform(CGAffineTransform.identity.rotated(by: rotation))
+        
+        // Re-center the arrow within the button if rotated
+        if rotation > 0 {
+            arrow.position = CGPoint(x: buttonSize / 2 + 2, y: buttonSize / 2 - 2)
+        }
+        
+        layoutIfNeeded()
+    }
+}
+    
+    
+    
+    
+    
+    
+    //###############################
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // Center view on User Location on Map
-    func centerViewOnUserLocation() {
-        let defaults = UserDefaults.standard
-        let mapRegionInMeters = defaults.value(forKey: SettingsViewController.Settings.mapRegionInMeters) as! Double
-       
+//    func centerViewOnUserLocation() {
+//        let defaults = UserDefaults.standard
+//        let mapRegionInMeters = defaults.value(forKey: SettingsViewController.Settings.mapRegionInMeters) as! Double
 //        if let coordinate = locationManager.location?.coordinate {
 //            let region = MKCoordinateRegion.init(center: coordinate,
 //                                                 latitudinalMeters: mapRegionInMeters,
 //                                                 longitudinalMeters: mapRegionInMeters)
 //            //mapView.setRegion(region, animated: true)
 //        }
-    }
+//    }
     
     // Check for Location Services
     func checkLocationServices() {
@@ -132,14 +290,14 @@ class MapScreen: UIViewController {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse:
             mapView.showsUserLocation = true
-            centerViewOnUserLocation()
-            locationManager?.startUpdatingLocation()
+            //centerViewOnUserLocation()
+            locationManager.startUpdatingLocation()
             break
         case .denied:
             // Show alert instructing them how to turn on permissions
             break
         case .notDetermined:
-            locationManager?.requestWhenInUseAuthorization()
+            locationManager.requestWhenInUseAuthorization()
         case .restricted:
             // Show an alert letting them know what's up
             break
@@ -149,21 +307,55 @@ class MapScreen: UIViewController {
             print("Didn't request permission for User Notifications")
         }
     }
+    
+//    func checkLocationAuthorization() {
+//        switch CLLocationManager.authorizationStatus() {
+//        case .authorizedWhenInUse:
+//            mapView.showsUserLocation = true
+//            //centerViewOnUserLocation()
+//            locationManager.startUpdatingLocation()
+//            break
+//        case .denied:
+//            // Show alert instructing them how to turn on permissions
+//            break
+//        case .notDetermined:
+//            locationManager.requestWhenInUseAuthorization()
+//        case .restricted:
+//            // Show an alert letting them know what's up
+//            break
+//        case .authorizedAlways:
+//            break
+//        @unknown default:
+//            print("Didn't request permission for User Notifications")
+//        }
+//    }
+    
+    
+    
+    
+    
+    //Set up Gesture Recognizers
+    //    func setupGestureRecognizers() {
+    //        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
+    //        panGestureRecognizer.delegate = self
+    //        mapView.isUserInteractionEnabled = true
+    //        mapView.addGestureRecognizer(panGestureRecognizer)
+    //    }
 
-    func loadMapAnnotations() {
-        let destinationAirports = MapObjects.shared.destinationAirports
-        for destinationAirport in destinationAirports {
-            let airportPointAnnotation = DLPointAnnotation()
-            
-            airportPointAnnotation.title = destinationAirport.icao
-            airportPointAnnotation.subtitle = destinationAirport.elevation.description
-            airportPointAnnotation.coordinate = CLLocationCoordinate2D(latitude: destinationAirport.latitude,
-                                                                       longitude: destinationAirport.longitude)
-            airportPointAnnotation.imageName = "runway_grass"
-            
-            self.mapView.addAnnotation(airportPointAnnotation)
-        }
-        
+//    func loadMapAnnotations() {
+//        let destinationAirports = MapObjects.shared.destinationAirports
+//        for destinationAirport in destinationAirports {
+//            let airportPointAnnotation = DLPointAnnotiation()
+//
+//            airportPointAnnotation.title = destinationAirport.icao
+//            airportPointAnnotation.subtitle = destinationAirport.elevation.description
+//            airportPointAnnotation.coordinate = CLLocationCoordinate2D(latitude: destinationAirport.latitude,
+//                                                                       longitude: destinationAirport.longitude)
+//            airportPointAnnotation.imageName = "runway_grass"
+//
+//            //self.mapView.addAnnotation(airportPointAnnotation)
+//        }
+    
         // TODO: RestrictedAreas aus MapObjects.shared herausnehmen und ähnlich wie AirPorts anzeigen lassen
         
       /*
@@ -220,82 +412,41 @@ class MapScreen: UIViewController {
     }
     
     // Setup Barometer
-    func setupBarometer() {
-        if CMAltimeter.isRelativeAltitudeAvailable() {
-            altimeter.startRelativeAltitudeUpdates(to: OperationQueue.main) { (data, error) in
-                self.relativeAltitude.text = String.init(format: "%.1fM", (data?.relativeAltitude.floatValue)!)
-                self.pressure.text = String.init(format: "%.2f hPA", (data?.pressure.floatValue)!*10)
-            }
-        }
-    }
+//    func setupBarometer() {
+//        if CMAltimeter.isRelativeAltitudeAvailable() {
+//            altimeter.startRelativeAltitudeUpdates(to: OperationQueue.main) { (data, error) in
+//                self.relativeAltitude.text = String.init(format: "%.1fM", (data?.relativeAltitude.floatValue)!)
+//                self.pressure.text = String.init(format: "%.2f hPA", (data?.pressure.floatValue)!*10)
+//            }
+//        }
+//    }
 
     // MARK: Handle GestureRecognizer
-    @objc func screenEdgeSwiped(recognizer: UIScreenEdgePanGestureRecognizer) {
-        switch recognizer.state {
-        case .began:
-            mapView.userTrackingMode = .none
-            userTrackingModeButton.isOn = false
-        default:
-            return
-        }
-    }
-    
-    // Follow Mode Switch
-    @IBAction func toggleUserTrackingModeAction(_ sender: UISwitch) {
-        switch sender.isOn {
-        case true:
-            centerViewOnUserLocation()
-            mapView.userTrackingMode = .follow
-        case false:
-            mapView.userTrackingMode = .none
-        }
-    }
-    
+//    @objc func screenEdgeSwiped(recognizer: UIScreenEdgePanGestureRecognizer) {
+//        switch recognizer.state {
+//        case .began:
+//            mapView.userTrackingMode = .none
+//            userTrackingModeButton.isOn = false
+//        default:
+//            return
+//        }
+//    }
 
-}
-// MARK: - MapScreen: MGLMapViewDelegate
-extension MapScreen : MGLMapViewDelegate {
-    func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
-        // Show the user location here
-        mapView.showsUserLocation = true
-    }
+
+// MARK: - MapScreen: CLLocationManagerDelegate
+extension MapScreen: CLLocationManagerDelegate {
     
-    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        // Substitute our custom view for the user location annotation. This custom view is defined below.
-        print("annotation class: \(annotation.self)")
-        if annotation is MGLUserLocation && mapView.userLocation != nil {
-            return CustomUserLocationAnnotationView()
-        }
-        return nil
-    }
-    
-}
-// MARK: - MapScreen: MGLLocationManagerDelegate
-extension MapScreen: MGLLocationManagerDelegate {
-    func locationManagerShouldDisplayHeadingCalibration(_ manager: MGLLocationManager) -> Bool {
-        
-    }
-    
-    func locationManager(_ manager: MGLLocationManager, didUpdate newHeading: CLHeading) {
-        
-    }
-    
-    func locationManager(_ manager: MGLLocationManager, didFailWithError error: Error) {
-        
-    }
-    
-    func locationManager(_ manager: MGLLocationManager, didUpdate locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last else { return }
         
         // Show Glider Image on Map
-//        if let image = UIImage(named: "glider") {
-//            let rotatedImage = image.rotate(course: currentLocation.course )
-//            if let userLocation = mapView.userLocation {
-//                if let currentLocationImage = mapView.view(for: userLocation) {
-//                    currentLocationImage.image = rotatedImage
-//                }
+        if let image = UIImage(named: "glider") {
+            let rotatedImage = image.rotate(course: currentLocation.course )
+            
+//            if let currentLocationImage = mapView.view(for: mapView.userLocation) {
+//                currentLocationImage.image = rotatedImage
 //            }
-//        }
+        }
         
         // Current Location depending stuff
         // altitude
@@ -355,13 +506,7 @@ extension MapScreen: MGLLocationManagerDelegate {
         }
     }
     
-    // Check for Location Authorization
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        checkLocationAuthorization()
-    }
-   
     // Show Annotation on Map
-    /*
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         // Get annotationView
@@ -383,9 +528,7 @@ extension MapScreen: MGLLocationManagerDelegate {
         }
         return annotationView
     }
-*/
-  
-    /*
+    
     // Open AirportInfoViewController by tapping Airport Annotation
     func mapView(MapView: MKMapView!, annotation: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
@@ -394,9 +537,12 @@ extension MapScreen: MGLLocationManagerDelegate {
             print("Opening AirportInfoViewController")
         }
     }
-    */
     
-    /*
+    // Check for Location Authorization
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        checkLocationAuthorization()
+    }
+    
     // Draw and renew Polyline Overlay on Map
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         var overlayRenderer = MKPolylineRenderer() // leeren MKOverlayRenderer anlegen
@@ -421,7 +567,6 @@ extension MapScreen: MGLLocationManagerDelegate {
         }
         return overlayRenderer
     }
- */
 }
 
 // MARK: - MapScreen:UIGestureRecognizerDelegate
@@ -465,7 +610,7 @@ extension UIImage {
 }
 
 // MARK: - DLPointAnnotiation
-class DLPointAnnotation: MGLPointAnnotation {
+class DLPointAnnotiation: MKPointAnnotation {
     var imageName:String = ""
 }
 

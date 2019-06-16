@@ -14,7 +14,7 @@
             <objects>
                 <viewController id="AW2-mO-9uR" userLabel="Settings" customClass="SettingsViewController" customModule="Glider_Tool" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JoN-R0-khH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHq-JY-pFB" userLabel="SAVE Button" customClass="Buttons" customModule="Glider_Tool" customModuleProvider="target">
@@ -175,7 +175,7 @@
             <objects>
                 <viewController id="pjt-28-YiD" userLabel="Info" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P54-YR-r0T">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="7BK-mo-g91"/>
@@ -191,7 +191,7 @@
             <objects>
                 <viewController id="vvT-rw-CMb" userLabel="Direct To" customClass="NavToViewController" customModule="Glider_Tool" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ViJ-sQ-BHW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <pickerView contentMode="center" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lcl-jA-3xS">
@@ -239,7 +239,7 @@
         <scene sceneID="W0n-hU-MDR">
             <objects>
                 <tabBarController id="ZCM-pp-Scr" sceneMemberID="viewController">
-                    <tabBar key="tabBar" alpha="0.80000000000000004" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="C2t-OH-gKv">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="C2t-OH-gKv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -308,18 +308,46 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LKd-yy-DJC" customClass="MGLMapView">
-                                <rect key="frame" x="0.0" y="120" width="375" height="609"/>
+                                <rect key="frame" x="0.0" y="80" width="375" height="649"/>
+                                <subviews>
+                                    <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="distanceShort" borderStyle="bezel" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FT8-oD-6VL">
+                                        <rect key="frame" x="8" y="152" width="110" height="38"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="27"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="destination" borderStyle="bezel" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jis-y8-DAW">
+                                        <rect key="frame" x="8" y="198" width="110" height="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="27"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="destinationAltitude" borderStyle="bezel" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vSe-nf-Gec">
+                                        <rect key="frame" x="8" y="236" width="110" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="Vjg-2R-Zfr"/>
+                                        </constraints>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="27"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="jis-y8-DAW" firstAttribute="centerX" secondItem="LKd-yy-DJC" secondAttribute="centerX" constant="-124.5" id="7Fk-IU-qLa"/>
+                                    <constraint firstItem="jis-y8-DAW" firstAttribute="trailing" secondItem="FT8-oD-6VL" secondAttribute="trailing" id="89c-We-JZk"/>
+                                    <constraint firstItem="vSe-nf-Gec" firstAttribute="top" secondItem="jis-y8-DAW" secondAttribute="bottom" constant="8" symbolic="YES" id="AhU-8o-Psw"/>
+                                    <constraint firstAttribute="bottom" secondItem="vSe-nf-Gec" secondAttribute="bottom" constant="379" id="NIl-F9-T3s"/>
+                                    <constraint firstItem="jis-y8-DAW" firstAttribute="trailing" secondItem="vSe-nf-Gec" secondAttribute="trailing" id="QhP-eX-psY"/>
+                                    <constraint firstItem="jis-y8-DAW" firstAttribute="leading" secondItem="vSe-nf-Gec" secondAttribute="leading" id="V80-O9-k5H"/>
+                                    <constraint firstItem="jis-y8-DAW" firstAttribute="top" secondItem="FT8-oD-6VL" secondAttribute="bottom" constant="8" symbolic="YES" id="dBX-bS-yxI"/>
+                                    <constraint firstAttribute="bottom" secondItem="FT8-oD-6VL" secondAttribute="bottom" constant="459" id="dcP-wf-i3Q"/>
+                                    <constraint firstItem="jis-y8-DAW" firstAttribute="leading" secondItem="FT8-oD-6VL" secondAttribute="leading" id="vkL-Fr-dxn"/>
+                                    <constraint firstItem="vSe-nf-Gec" firstAttribute="trailing" secondItem="LKd-yy-DJC" secondAttribute="trailingMargin" constant="-249" id="vz0-vr-C9Q"/>
+                                </constraints>
                             </view>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SMq-et-1le">
-                                <rect key="frame" x="310" y="680" width="51" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="toggleUserTrackingModeAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="Srg-b4-Y1p"/>
-                                </connections>
-                            </switch>
-                            <view alpha="0.59999999999999998" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hsD-mX-zC2" userLabel="Top View">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hsD-mX-zC2" userLabel="Top View">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="course" borderStyle="bezel" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Qw-fg-JHN">
                                         <rect key="frame" x="8" y="37" width="110" height="30"/>
@@ -343,60 +371,32 @@
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="27"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="destinationAltitude" borderStyle="bezel" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vSe-nf-Gec">
-                                        <rect key="frame" x="257" y="81" width="110" height="34"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="27"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="destination" borderStyle="bezel" textAlignment="center" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jis-y8-DAW">
-                                        <rect key="frame" x="133" y="82" width="110" height="30"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="27"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="distanceShort" borderStyle="bezel" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FT8-oD-6VL">
-                                        <rect key="frame" x="8" y="81" width="110" height="30"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="27"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="FT8-oD-6VL" firstAttribute="bottom" secondItem="jis-y8-DAW" secondAttribute="bottom" constant="-1" id="0OO-rd-CyO"/>
-                                    <constraint firstItem="jis-y8-DAW" firstAttribute="top" secondItem="6Qw-fg-JHN" secondAttribute="bottom" constant="15" id="8pV-Ko-yPg"/>
-                                    <constraint firstItem="6Qw-fg-JHN" firstAttribute="trailing" secondItem="FT8-oD-6VL" secondAttribute="trailing" id="AGO-mT-SWz"/>
-                                    <constraint firstItem="jis-y8-DAW" firstAttribute="bottom" secondItem="vSe-nf-Gec" secondAttribute="bottom" constant="-3" id="BRi-9q-B9J"/>
-                                    <constraint firstItem="jis-y8-DAW" firstAttribute="baseline" secondItem="vSe-nf-Gec" secondAttribute="baseline" constant="-1" id="FzQ-zM-EEj"/>
-                                    <constraint firstItem="x6s-Ge-3Ew" firstAttribute="bottom" secondItem="S1U-Xo-THa" secondAttribute="bottom" id="II2-GC-b7V"/>
-                                    <constraint firstItem="x6s-Ge-3Ew" firstAttribute="leading" secondItem="jis-y8-DAW" secondAttribute="leading" id="LpD-TZ-qM7"/>
+                                    <constraint firstItem="S1U-Xo-THa" firstAttribute="leading" secondItem="x6s-Ge-3Ew" secondAttribute="trailing" constant="14" id="7Kz-nH-u6Y"/>
+                                    <constraint firstItem="x6s-Ge-3Ew" firstAttribute="baseline" secondItem="S1U-Xo-THa" secondAttribute="firstBaseline" id="ASM-Hc-oHK"/>
                                     <constraint firstItem="6Qw-fg-JHN" firstAttribute="baseline" secondItem="x6s-Ge-3Ew" secondAttribute="baseline" id="RQe-ZZ-zHv"/>
-                                    <constraint firstItem="x6s-Ge-3Ew" firstAttribute="baseline" secondItem="S1U-Xo-THa" secondAttribute="baseline" id="T4U-Ju-ad0"/>
-                                    <constraint firstAttribute="bottom" secondItem="FT8-oD-6VL" secondAttribute="bottom" constant="9" id="T5b-ia-Ehg"/>
-                                    <constraint firstItem="FT8-oD-6VL" firstAttribute="baseline" secondItem="jis-y8-DAW" secondAttribute="baseline" constant="-1" id="Z4m-TF-WE8"/>
-                                    <constraint firstItem="S1U-Xo-THa" firstAttribute="trailing" secondItem="hsD-mX-zC2" secondAttribute="trailingMargin" id="aD3-JQ-AjC"/>
-                                    <constraint firstItem="S1U-Xo-THa" firstAttribute="leading" secondItem="x6s-Ge-3Ew" secondAttribute="trailing" constant="14" id="abk-a3-jKj"/>
+                                    <constraint firstItem="x6s-Ge-3Ew" firstAttribute="top" secondItem="S1U-Xo-THa" secondAttribute="top" id="Wap-Rh-Wzm"/>
+                                    <constraint firstItem="x6s-Ge-3Ew" firstAttribute="firstBaseline" secondItem="S1U-Xo-THa" secondAttribute="baseline" id="Wra-sv-eqE"/>
+                                    <constraint firstItem="x6s-Ge-3Ew" firstAttribute="leading" secondItem="6Qw-fg-JHN" secondAttribute="trailing" constant="15" id="Wu1-nS-2EN"/>
+                                    <constraint firstItem="x6s-Ge-3Ew" firstAttribute="centerX" secondItem="hsD-mX-zC2" secondAttribute="centerX" id="bGf-J3-Hsp"/>
                                     <constraint firstItem="6Qw-fg-JHN" firstAttribute="top" secondItem="hsD-mX-zC2" secondAttribute="top" constant="37" id="cs8-gv-9YS"/>
-                                    <constraint firstItem="FT8-oD-6VL" firstAttribute="top" secondItem="6Qw-fg-JHN" secondAttribute="bottom" constant="14" id="gco-Zh-lIe"/>
-                                    <constraint firstItem="S1U-Xo-THa" firstAttribute="leading" secondItem="vSe-nf-Gec" secondAttribute="leading" id="hEZ-Wm-wS4"/>
-                                    <constraint firstItem="vSe-nf-Gec" firstAttribute="leading" secondItem="FT8-oD-6VL" secondAttribute="trailing" constant="139" id="iiz-ar-bsk"/>
                                     <constraint firstItem="6Qw-fg-JHN" firstAttribute="leading" secondItem="hsD-mX-zC2" secondAttribute="leadingMargin" id="kxJ-OI-IlY"/>
-                                    <constraint firstAttribute="height" constant="120" id="mPa-gH-1qq"/>
-                                    <constraint firstItem="S1U-Xo-THa" firstAttribute="trailing" secondItem="vSe-nf-Gec" secondAttribute="trailing" id="skh-tL-XdL"/>
+                                    <constraint firstAttribute="height" constant="80" id="mPa-gH-1qq"/>
+                                    <constraint firstItem="x6s-Ge-3Ew" firstAttribute="bottom" secondItem="S1U-Xo-THa" secondAttribute="bottom" id="oTM-JK-uT5"/>
                                     <constraint firstItem="6Qw-fg-JHN" firstAttribute="bottom" secondItem="x6s-Ge-3Ew" secondAttribute="bottom" id="tLf-xd-8j9"/>
-                                    <constraint firstItem="6Qw-fg-JHN" firstAttribute="leading" secondItem="FT8-oD-6VL" secondAttribute="leading" id="uw6-DX-XH5"/>
-                                    <constraint firstItem="x6s-Ge-3Ew" firstAttribute="trailing" secondItem="jis-y8-DAW" secondAttribute="trailing" id="yFw-eu-rY5"/>
+                                    <constraint firstItem="x6s-Ge-3Ew" firstAttribute="baseline" secondItem="S1U-Xo-THa" secondAttribute="baseline" id="vlt-hQ-pBK"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="relativeAltitude" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRP-l7-0lM">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="relativeAltitude" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRP-l7-0lM">
                                 <rect key="frame" x="16" y="167" width="131" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="pressure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bo7-Zc-lYU">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="pressure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bo7-Zc-lYU">
                                 <rect key="frame" x="16" y="196" width="131" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -406,7 +406,9 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="hsD-mX-zC2" firstAttribute="leading" secondItem="LKd-yy-DJC" secondAttribute="leading" id="0lv-eA-hXD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="LKd-yy-DJC" secondAttribute="bottom" id="4ih-uH-i5d"/>
+                            <constraint firstItem="hsD-mX-zC2" firstAttribute="trailing" secondItem="LKd-yy-DJC" secondAttribute="trailing" id="Ftf-9q-XbJ"/>
                             <constraint firstItem="LKd-yy-DJC" firstAttribute="top" secondItem="hsD-mX-zC2" secondAttribute="bottom" id="OXC-IF-DCA"/>
                             <constraint firstItem="hsD-mX-zC2" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="bFx-Rq-heS"/>
                             <constraint firstItem="LKd-yy-DJC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="kGC-XZ-6qt"/>
@@ -426,7 +428,6 @@
                         <outlet property="pressure" destination="Bo7-Zc-lYU" id="mIL-ud-WZz"/>
                         <outlet property="relativeAltitude" destination="cRP-l7-0lM" id="3SH-bq-yOe"/>
                         <outlet property="speedkmhShort" destination="x6s-Ge-3Ew" id="pp8-eC-0Oo"/>
-                        <outlet property="userTrackingModeButton" destination="SMq-et-1le" id="X2X-P2-8hn"/>
                         <segue destination="3Br-pt-Icv" kind="show" identifier="AirportInfoSegue" id="5aq-Sy-5ZY"/>
                     </connections>
                 </viewController>
