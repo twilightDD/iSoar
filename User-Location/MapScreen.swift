@@ -39,6 +39,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     var selectedDestinationAirport:MapObjects.Airport?
    
     var currentDirectionLine:DLPolyline?
+    var userFollow = false
     
     // MARK: - Init & Co.
     required init?(coder aDecoder: NSCoder) {
@@ -101,30 +102,42 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     // Update the user tracking mode when the user toggles the User Tracking Mode Button
     // Set up User tracking mode button.
     @IBAction func locationButtonTapped(sender: UserLocationButton) {
-        var mode: MGLUserTrackingMode
-        
-        switch (mapView.userTrackingMode) {
-        case .none:
-            mode = .follow
-            print(mapView.userTrackingMode.rawValue)
-        case .follow:
-            mode = .none
-            print(mapView.userTrackingMode.rawValue)
+//        var mode: MGLUserTrackingMode
+//
+//        switch (mapView.userTrackingMode) {
+//        case .none:
+//            mode = .follow
+//            print(mapView.userTrackingMode.rawValue)
+//        case .follow:
+//            mode = .none
+//            print(mapView.userTrackingMode.rawValue)
 //        case .follow:
 //            mode = .followWithHeading
 //        case .followWithHeading:
 //            mode = .followWithCourse
 //        case .followWithCourse:
 //            mode = .none
-        @unknown default:
-            fatalError("Unknown user tracking mode")
-        }
-        
-        mapView.userTrackingMode = mode
-        sender.updateArrowForTrackingMode(mode: mode)
+//        @unknown default:
+//            fatalError("Unknown user tracking mode")
+//        }
+//
+//        mapView.userTrackingMode = mode
+//        sender.updateArrowForTrackingMode(mode: mode)
        
         // Peter
         // hier den status des user tracking merken (bool variable)
+        // Welchen Modus hätte ich gerne?
+        // - Karte folgt
+        // - Karte folgt nicht
+        
+        self.userFollow = !self.userFollow
+        sender.updateArrowForTrackingMode(state: self.userFollow)
+        
+        if self.userFollow == true {
+            if let _ = self.currentLocation {
+                self.mapView.setCenter(self.currentLocation!.coordinate, animated: true)
+            }
+        }
     }
     
     // Button creation and autolayout setup
@@ -206,6 +219,19 @@ class UserLocationButton: UIButton {
     }
     
     // Update the arrow's color and rotation when tracking mode is changed.
+    func updateArrowForTrackingMode(state:Bool) {
+        let activePrimaryColor = UIColor.red
+        let disabledPrimaryColor = UIColor.clear
+        let disabledSecondaryColor = UIColor.black
+        let rotatedArrow = CGFloat(0.66)
+        if state {
+            updateArrow(fillColor: disabledPrimaryColor, strokeColor: activePrimaryColor, rotation: 0)
+        }
+        else {
+            updateArrow(fillColor: disabledPrimaryColor, strokeColor: disabledSecondaryColor, rotation: 0)
+        }
+    }
+    
     func updateArrowForTrackingMode(mode: MGLUserTrackingMode) {
         let activePrimaryColor = UIColor.red
         let disabledPrimaryColor = UIColor.clear
@@ -441,7 +467,7 @@ extension MapScreen: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last else { return }
-        
+        self.currentLocation = currentLocation
         // Show Glider Image on Map
         if let image = UIImage(named: "glider") {
             let rotatedImage = image.rotate(course: currentLocation.course )
@@ -453,9 +479,9 @@ extension MapScreen: CLLocationManagerDelegate {
         
         // Peter
         // user tracking auswerten ;wenn true, dann setCenter
-//        if myOwnFollowMode == true {
-//            setCenter
-//        }
+        if self.userFollow == true {
+            self.mapView.setCenter(currentLocation.coordinate, animated: true)
+        }
     
         
         // Current Location depending stuff
