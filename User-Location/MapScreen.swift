@@ -478,4 +478,3 @@ class DLPolyline: MKPolyline {
     var type:DLPolylineType = .directLine // Default
     
 }
-

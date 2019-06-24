@@ -13,7 +13,6 @@ import UIKit
         @IBOutlet weak var gliderRatioTextField: TextFields!
         @IBOutlet weak var safetyAltitudeTextField: TextFields!
         @IBOutlet weak var gliderIDTextField: TextFields!
-        @IBOutlet weak var mapRegionInMetersTextField: TextFields!
         @IBOutlet weak var showDirectionLineSwitch: UISwitch!
         @IBOutlet weak var showTrackingRouteSwitch: UISwitch!
         
@@ -24,7 +23,6 @@ import UIKit
             static let gliderRatio = "gliderRatio"
             static let safetyAltitude = "safetyAltitude"
             static let gliderID = "gliderID"
-            static let mapRegionInMeters = "mapRegionInMeters"
         }
         
         override func viewDidLoad() {
@@ -55,9 +53,6 @@ import UIKit
             if defaults.value(forKey: Settings.gliderID) == nil {
                 defaults.set("D-1234", forKey: Settings.gliderID)
             }
-            if defaults.value(forKey: Settings.mapRegionInMeters) == nil {
-                defaults.set(15000, forKey: Settings.mapRegionInMeters)
-            }
         }
         
         // Read User Defaults and display them on screen
@@ -65,7 +60,6 @@ import UIKit
             gliderRatioTextField.text! = (defaults.value( forKey: Settings.gliderRatio) as! Double).description
             safetyAltitudeTextField.text! = (defaults.value(forKey: Settings.safetyAltitude) as! Double).description
             gliderIDTextField.text! = defaults.value(forKey: Settings.gliderID) as? String ?? "D-1234"
-            mapRegionInMetersTextField.text! = (defaults.value(forKey: Settings.mapRegionInMeters) as! Double).description
         }
         
         // Direction Line Switch
@@ -98,22 +92,18 @@ import UIKit
             let safetyAltitudeString = safetyAltitudeTextField.text!
             let safetyAltitudeDouble = (safetyAltitudeString as NSString).doubleValue
             
-            let mapRegionInMetersString = mapRegionInMetersTextField.text!
-            let mapRegionInMetersDouble = (mapRegionInMetersString as NSString).doubleValue
-            
             defaults.set(gliderRatioDouble, forKey: Settings.gliderRatio);
             defaults.set(safetyAltitudeDouble, forKey: Settings.safetyAltitude);
             defaults.set(gliderIDTextField.text!, forKey: Settings.gliderID);
-            defaults.set(mapRegionInMetersDouble, forKey: Settings.mapRegionInMeters);
+            
+            print("Settings saved")
             
             // MARK: - Output
             
             //        print("Glider Ratio set to: \(defaults.value(forKey: Settings.gliderRatio)!)")
             //        print("Safety Altitude set to: \(defaults.value(forKey: Settings.safetyAltitude)!)")
             //        print("Glider ID set to: \(defaults.value(forKey: Settings.gliderID)!)")
-            //        print("Map Region set to: \(defaults.value(forKey: Settings.mapRegionInMeters)!)")
             //        print("Direction Line Switch: \(defaults.bool(forKey: "ShowDirectionToDestinationAirportSwitchState"))")
             //        print("Tracking Route Switch: \(defaults.bool(forKey: "ShowTrackingRouteSwitchState"))")
         }
 }
-

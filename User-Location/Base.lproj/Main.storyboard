@@ -35,7 +35,7 @@
                                 <state key="normal" title="UPDATE"/>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="8yb-8T-kXL">
-                                <rect key="frame" x="16" y="104" width="343" height="182"/>
+                                <rect key="frame" x="16" y="104" width="343" height="152"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="129" translatesAutoresizingMaskIntoConstraints="NO" id="bYI-JZ-gqc" userLabel="Glider Ratio">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
@@ -88,25 +88,8 @@
                                             </textField>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="44" translatesAutoresizingMaskIntoConstraints="NO" id="19C-pl-4PZ" userLabel="Map Region">
-                                        <rect key="frame" x="0.0" y="90" width="343" height="30"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Map Region in m:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tf7-Ly-b3U">
-                                                <rect key="frame" x="0.0" y="0.0" width="149.66666666666666" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="QdG-bg-VJy" userLabel="Map Region" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
-                                                <rect key="frame" x="193.66666666666663" y="0.0" width="149.33333333333337" height="30"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="name"/>
-                                            </textField>
-                                        </subviews>
-                                    </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yF4-9c-K4y" userLabel="Dirction Line Switch">
-                                        <rect key="frame" x="0.0" y="120" width="343" height="31"/>
+                                        <rect key="frame" x="0.0" y="90" width="343" height="31"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Direction Line:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LK7-KN-Q4d">
                                                 <rect key="frame" x="0.0" y="0.0" width="294" height="31"/>
@@ -123,7 +106,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vgx-I8-6vj" userLabel="Tracking Route Switch">
-                                        <rect key="frame" x="0.0" y="151" width="343" height="31"/>
+                                        <rect key="frame" x="0.0" y="121" width="343" height="31"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Tracking Route:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH1-lu-hfJ">
                                                 <rect key="frame" x="0.0" y="0.0" width="294" height="31"/>
@@ -160,7 +143,6 @@
                     <connections>
                         <outlet property="gliderIDTextField" destination="aJN-ar-pUl" id="2Tx-pG-xWm"/>
                         <outlet property="gliderRatioTextField" destination="Uma-pM-80t" id="L64-OO-bCX"/>
-                        <outlet property="mapRegionInMetersTextField" destination="QdG-bg-VJy" id="5dj-Zu-vhC"/>
                         <outlet property="safetyAltitudeTextField" destination="vi7-Ik-Pbz" id="MFm-9G-hI4"/>
                         <outlet property="showDirectionLineSwitch" destination="J8h-Ey-VdH" id="2lu-PR-kFI"/>
                         <outlet property="showTrackingRouteSwitch" destination="fpo-31-RHc" id="KWe-xD-HBr"/>
