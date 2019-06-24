@@ -15,6 +15,7 @@
 		E0B52F72228377F300E28A93 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F71228377F300E28A93 /* Buttons.swift */; };
 		E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F7622837C1500E28A93 /* TextFields.swift */; };
 		E0D5959122C0A4ED007FFBD4 /* GestureRecognizerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D5959022C0A4ED007FFBD4 /* GestureRecognizerExtension.swift */; };
+		E0D5959322C0AD1B007FFBD4 /* RotateUserLocationImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D5959222C0AD1B007FFBD4 /* RotateUserLocationImageExtension.swift */; };
 		E0E1D87A229476C00004DE81 /* NavToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D879229476C00004DE81 /* NavToViewController.swift */; };
 		E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */; };
 		EDA236232130AA7500739396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA236222130AA7500739396 /* AppDelegate.swift */; };
@@ -47,6 +48,7 @@
 		E0B52F71228377F300E28A93 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		E0B52F7622837C1500E28A93 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
 		E0D5959022C0A4ED007FFBD4 /* GestureRecognizerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureRecognizerExtension.swift; sourceTree = "<group>"; };
+		E0D5959222C0AD1B007FFBD4 /* RotateUserLocationImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotateUserLocationImageExtension.swift; sourceTree = "<group>"; };
 		E0E1D879229476C00004DE81 /* NavToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavToViewController.swift; sourceTree = "<group>"; };
 		E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportInfoViewController.swift; sourceTree = "<group>"; };
 		EDA2361F2130AA7500739396 /* Glider Tool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Glider Tool.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				E0D5959022C0A4ED007FFBD4 /* GestureRecognizerExtension.swift */,
+				E0D5959222C0AD1B007FFBD4 /* RotateUserLocationImageExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D060C1F322B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift in Sources */,
+				E0D5959322C0AD1B007FFBD4 /* RotateUserLocationImageExtension.swift in Sources */,
 				EDA236352130AA9A00739396 /* MapScreen.swift in Sources */,
 				E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */,
 				D0C5ED5B22A4769C009A0542 /* MapObjects.swift in Sources */,
