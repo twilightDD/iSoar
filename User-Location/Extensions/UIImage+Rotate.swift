@@ -1,5 +1,5 @@
 //
-//  RotateUserLocationImageExtension.swift
+//  UIImage+Rotate.swift
 //  Glider Tool
 //
 //  Created by sonic on 24.06.19.

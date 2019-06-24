@@ -8,14 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		4FA79AEE7ECE155E0BFA301B /* Pods_Glider_Tool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1EF2983B88025FDC2840F2 /* Pods_Glider_Tool.framework */; };
+		D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02B0E6422C15BB7007C7162 /* UserLocationButton.swift */; };
 		D060C1F322B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */; };
 		D074B51522968C7A00A573AE /* MapObjects.json in Resources */ = {isa = PBXBuildFile; fileRef = D074B51422968C7A00A573AE /* MapObjects.json */; };
 		D0C5ED5B22A4769C009A0542 /* MapObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5ED5A22A4769C009A0542 /* MapObjects.swift */; };
 		E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086AB0A229C35890011C433 /* SettingsViewController.swift */; };
 		E0B52F72228377F300E28A93 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F71228377F300E28A93 /* Buttons.swift */; };
 		E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F7622837C1500E28A93 /* TextFields.swift */; };
-		E0D5959122C0A4ED007FFBD4 /* GestureRecognizerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D5959022C0A4ED007FFBD4 /* GestureRecognizerExtension.swift */; };
-		E0D5959322C0AD1B007FFBD4 /* RotateUserLocationImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D5959222C0AD1B007FFBD4 /* RotateUserLocationImageExtension.swift */; };
+		E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */; };
 		E0E1D87A229476C00004DE81 /* NavToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D879229476C00004DE81 /* NavToViewController.swift */; };
 		E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */; };
 		EDA236232130AA7500739396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA236222130AA7500739396 /* AppDelegate.swift */; };
@@ -41,14 +41,14 @@
 /* Begin PBXFileReference section */
 		75CB3E8DFF8D455C8F1742A5 /* Pods-Glider Tool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Glider Tool.debug.xcconfig"; path = "Target Support Files/Pods-Glider Tool/Pods-Glider Tool.debug.xcconfig"; sourceTree = "<group>"; };
 		AF3E6C1CC85039594789B3C8 /* Pods-Glider Tool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Glider Tool.release.xcconfig"; path = "Target Support Files/Pods-Glider Tool/Pods-Glider Tool.release.xcconfig"; sourceTree = "<group>"; };
+		D02B0E6422C15BB7007C7162 /* UserLocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationButton.swift; sourceTree = "<group>"; };
 		D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUserLocationAnnotationView.swift; sourceTree = "<group>"; };
 		D074B51422968C7A00A573AE /* MapObjects.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MapObjects.json; sourceTree = "<group>"; };
 		D0C5ED5A22A4769C009A0542 /* MapObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapObjects.swift; sourceTree = "<group>"; };
 		E086AB0A229C35890011C433 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E0B52F71228377F300E28A93 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		E0B52F7622837C1500E28A93 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
-		E0D5959022C0A4ED007FFBD4 /* GestureRecognizerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureRecognizerExtension.swift; sourceTree = "<group>"; };
-		E0D5959222C0AD1B007FFBD4 /* RotateUserLocationImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotateUserLocationImageExtension.swift; sourceTree = "<group>"; };
+		E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Rotate.swift"; sourceTree = "<group>"; };
 		E0E1D879229476C00004DE81 /* NavToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavToViewController.swift; sourceTree = "<group>"; };
 		E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportInfoViewController.swift; sourceTree = "<group>"; };
 		EDA2361F2130AA7500739396 /* Glider Tool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Glider Tool.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +73,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D02B0E6322C15B95007C7162 /* Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				D02B0E6422C15BB7007C7162 /* UserLocationButton.swift */,
+			);
+			path = Subclasses;
+			sourceTree = "<group>";
+		};
 		D7FF5846A9BA98C87CDF570F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -85,8 +93,7 @@
 		E0526AB022BF7056001FC6B4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E0D5959022C0A4ED007FFBD4 /* GestureRecognizerExtension.swift */,
-				E0D5959222C0AD1B007FFBD4 /* RotateUserLocationImageExtension.swift */,
+				E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -141,6 +148,7 @@
 		EDA236212130AA7500739396 /* User-Location */ = {
 			isa = PBXGroup;
 			children = (
+				D02B0E6322C15B95007C7162 /* Subclasses */,
 				E0526AB022BF7056001FC6B4 /* Extensions */,
 				E0DA9414228D267500D3A854 /* MapObjects */,
 				E0B52F7522837BC800E28A93 /* Designs */,
@@ -282,13 +290,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D060C1F322B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift in Sources */,
-				E0D5959322C0AD1B007FFBD4 /* RotateUserLocationImageExtension.swift in Sources */,
+				E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */,
 				EDA236352130AA9A00739396 /* MapScreen.swift in Sources */,
+				D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */,
 				E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */,
 				D0C5ED5B22A4769C009A0542 /* MapObjects.swift in Sources */,
 				E0E1D87A229476C00004DE81 /* NavToViewController.swift in Sources */,
 				EDA236232130AA7500739396 /* AppDelegate.swift in Sources */,
-				E0D5959122C0A4ED007FFBD4 /* GestureRecognizerExtension.swift in Sources */,
 				E0B52F72228377F300E28A93 /* Buttons.swift in Sources */,
 				E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */,
 				E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */,
