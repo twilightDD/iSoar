@@ -21,15 +21,15 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     @IBOutlet var mapView: MGLMapView!
 
     @IBOutlet weak var courseShort: UILabel!
-    @IBOutlet var destinationAltitudeShort: UITextField!
-    @IBOutlet var distanceShort: UITextField!
-    @IBOutlet var destinationAirport: UITextField!
     @IBOutlet weak var altitudeShort: UILabel!
     @IBOutlet weak var speedkmhShort: UILabel!
     
     //hidden
     @IBOutlet var relativeAltitude: UILabel!
     @IBOutlet var pressure: UILabel!
+    @IBOutlet var destinationAltitudeShort: UITextField!
+    @IBOutlet var distanceShort: UITextField!
+    @IBOutlet var destinationAirport: UITextField!
     
     // MARK: properties
     let locationManager = CLLocationManager()
@@ -236,12 +236,6 @@ class UserLocationButton: UIButton {
     }
 }
     
-
-    
-//###############################
-    
-
-    
     // Check for Location Services
     func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled() {
@@ -257,7 +251,6 @@ class UserLocationButton: UIButton {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse:
             mapView.showsUserLocation = true
-            //centerViewOnUserLocation()
             locationManager.startUpdatingLocation()
             break
         case .denied:
@@ -274,9 +267,6 @@ class UserLocationButton: UIButton {
             print("Didn't request permission for User Notifications")
         }
     }
-    
-    
-    
 
     //Set up Gesture Recognizers
     func setupGestureRecognizers() {
@@ -286,14 +276,14 @@ class UserLocationButton: UIButton {
         mapView.addGestureRecognizer(panGestureRecognizer)
     }
 
+    //ToDo: Das geht so nicht! Beim zweiten Swipe macht er das Tracking wieder an
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
             self.userFollow = !self.userFollow
-            print("Screen edge swiped")
+            print("Swipe recognized")
+            // ToDo: Set Arrow Color
         }
     }
-
-    
     
 //    func loadMapAnnotations() {
 //        let destinationAirports = MapObjects.shared.destinationAirports
@@ -328,6 +318,7 @@ extension MapScreen: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last else { return }
         self.currentLocation = currentLocation
+        
         // Show Glider Image on Map
         if let image = UIImage(named: "glider") {
             let rotatedImage = image.rotate(course: currentLocation.course )
@@ -403,17 +394,17 @@ extension MapScreen: CLLocationManagerDelegate {
     
     // Show Annotation on Map
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
+
         // Get annotationView
         let identifier = "Annotation"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-        
+
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView!.canShowCallout = true
             //ToDo: performSegue(withIdentifier: "AirportInfoSegue", sender: self)
         }
-        
+
         // Set image of annotationView depending of the type of annotation
         if let castedAnnotation = annotation as? DLPointAnnotiation {
             annotationView!.image = UIImage(named: castedAnnotation.imageName)
@@ -424,7 +415,7 @@ extension MapScreen: CLLocationManagerDelegate {
         return annotationView
     }
     
-    // Open AirportInfoViewController by tapping Airport Annotation
+    // ToDo: Open AirportInfoViewController by tapping Airport Annotation
     func mapView(MapView: MKMapView!, annotation: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         if control == annotation.rightCalloutAccessoryView {
@@ -461,14 +452,6 @@ extension MapScreen: CLLocationManagerDelegate {
             }
         }
         return overlayRenderer
-    }
-}
-
-// MARK: - MapScreen:UIGestureRecognizerDelegate
-extension MapScreen:UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
     }
 }
 

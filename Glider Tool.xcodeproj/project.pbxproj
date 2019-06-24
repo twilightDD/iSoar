@@ -14,6 +14,7 @@
 		E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086AB0A229C35890011C433 /* SettingsViewController.swift */; };
 		E0B52F72228377F300E28A93 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F71228377F300E28A93 /* Buttons.swift */; };
 		E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F7622837C1500E28A93 /* TextFields.swift */; };
+		E0D5959122C0A4ED007FFBD4 /* GestureRecognizerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D5959022C0A4ED007FFBD4 /* GestureRecognizerExtension.swift */; };
 		E0E1D87A229476C00004DE81 /* NavToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D879229476C00004DE81 /* NavToViewController.swift */; };
 		E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */; };
 		EDA236232130AA7500739396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA236222130AA7500739396 /* AppDelegate.swift */; };
@@ -45,6 +46,7 @@
 		E086AB0A229C35890011C433 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E0B52F71228377F300E28A93 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		E0B52F7622837C1500E28A93 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
+		E0D5959022C0A4ED007FFBD4 /* GestureRecognizerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureRecognizerExtension.swift; sourceTree = "<group>"; };
 		E0E1D879229476C00004DE81 /* NavToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavToViewController.swift; sourceTree = "<group>"; };
 		E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportInfoViewController.swift; sourceTree = "<group>"; };
 		EDA2361F2130AA7500739396 /* Glider Tool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Glider Tool.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +78,14 @@
 				AF3E6C1CC85039594789B3C8 /* Pods-Glider Tool.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E0526AB022BF7056001FC6B4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E0D5959022C0A4ED007FFBD4 /* GestureRecognizerExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		E0B52F702283753400E28A93 /* ViewControllers */ = {
@@ -128,6 +138,7 @@
 		EDA236212130AA7500739396 /* User-Location */ = {
 			isa = PBXGroup;
 			children = (
+				E0526AB022BF7056001FC6B4 /* Extensions */,
 				E0DA9414228D267500D3A854 /* MapObjects */,
 				E0B52F7522837BC800E28A93 /* Designs */,
 				E0B52F702283753400E28A93 /* ViewControllers */,
@@ -273,6 +284,7 @@
 				D0C5ED5B22A4769C009A0542 /* MapObjects.swift in Sources */,
 				E0E1D87A229476C00004DE81 /* NavToViewController.swift in Sources */,
 				EDA236232130AA7500739396 /* AppDelegate.swift in Sources */,
+				E0D5959122C0A4ED007FFBD4 /* GestureRecognizerExtension.swift in Sources */,
 				E0B52F72228377F300E28A93 /* Buttons.swift in Sources */,
 				E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */,
 				E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */,
