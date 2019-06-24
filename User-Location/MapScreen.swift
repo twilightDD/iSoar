@@ -51,12 +51,28 @@ class MapScreen: UIViewController, MKMapViewDelegate {
             leadingConstraint = NSLayoutConstraint(item: userLocationButton, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 10)
         }
         
-        let constraints: [NSLayoutConstraint] = [
-            NSLayoutConstraint(item: userLocationButton, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: self.topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 50),
-            leadingConstraint,
-            NSLayoutConstraint(item: userLocationButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: userLocationButton.frame.size.height),
-            NSLayoutConstraint(item: userLocationButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: userLocationButton.frame.size.width)
-        ]
+        let constraints: [NSLayoutConstraint] = [NSLayoutConstraint(item: userLocationButton,
+                                                                    attribute: .top,
+                                                                    relatedBy: .greaterThanOrEqual,
+                                                                    toItem: self.topLayoutGuide,
+                                                                    attribute: .bottom,
+                                                                    multiplier: 1,
+                                                                    constant: 50),
+                                                 leadingConstraint,
+                                                 NSLayoutConstraint(item: userLocationButton,
+                                                                    attribute: .height,
+                                                                    relatedBy: .equal,
+                                                                    toItem: nil,
+                                                                    attribute: .notAnAttribute,
+                                                                    multiplier: 1,
+                                                                    constant: userLocationButton.frame.size.height),
+                                                 NSLayoutConstraint(item: userLocationButton,
+                                                                    attribute: .width,
+                                                                    relatedBy: .equal,
+                                                                    toItem: nil,
+                                                                    attribute: .notAnAttribute,
+                                                                    multiplier: 1,
+                                                                    constant: userLocationButton.frame.size.width)]
         
         self.view.addSubview(userLocationButton)
         self.view.addConstraints(constraints)
