@@ -279,7 +279,7 @@ class UserLocationButton: UIButton {
     //ToDo: Das geht so nicht! Beim zweiten Swipe macht er das Tracking wieder an
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
-            self.userFollow = !self.userFollow
+            self.userFollow = false
             print("Swipe recognized")
             // ToDo: Set Arrow Color
         }
