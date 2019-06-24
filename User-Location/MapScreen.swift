@@ -65,7 +65,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         return true
     }
     
-    // MARK: Setup functions
+    // MARK: - Setup functions
     // Set up Location Manager
     func setupLocationManager() {
         locationManager.delegate = self
@@ -96,17 +96,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
                           animated: true)
     }
     
-    // Set up User tracking mode button.
-    @IBAction func locationButtonTapped(sender: UserLocationButton) {
-        self.userFollow = !self.userFollow
-        sender.updateArrowForTrackingMode(state: self.userFollow)
-        
-        if self.userFollow == true {
-            if let _ = self.currentLocation {
-                self.mapView.setCenter(self.currentLocation!.coordinate, animated: true)
-            }
-        }
-    }
+    
     
     // Button creation and autolayout setup
     func setupCenterMapOnUserLocationButton() {
@@ -169,6 +159,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         }
     }
 
+    // MARK: - Gesture Recognizer Funcs
     //Set up Gesture Recognizers
     func setupGestureRecognizers() {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
@@ -177,12 +168,24 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         mapView.addGestureRecognizer(panGestureRecognizer)
     }
 
-    //ToDo: Das geht so nicht! Beim zweiten Swipe macht er das Tracking wieder an
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
             self.userFollow = false
             print("Swipe recognized")
             // ToDo: Set Arrow Color
+        }
+    }
+    
+    // MARK: - Action Funcs
+    // Set up User tracking mode button.
+    @IBAction func locationButtonTapped(sender: UserLocationButton) {
+        self.userFollow = !self.userFollow
+        sender.updateArrowForTrackingMode(state: self.userFollow)
+        
+        if self.userFollow == true {
+            if let _ = self.currentLocation {
+                self.mapView.setCenter(self.currentLocation!.coordinate, animated: true)
+            }
         }
     }
     
