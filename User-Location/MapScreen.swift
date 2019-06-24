@@ -113,10 +113,12 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         checkLocationServices()
         
         setupMapBox()
+        
         //setupCenterMapOnUserLocationButton()
         
         setupGestureRecognizers()
-        //loadMapAnnotations()
+        loadMapAnnotations()
+    
         //setupBarometer()
     }
     
@@ -135,6 +137,8 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     func setupMapBox() {
         let url = URL(string: "mapbox://styles/dlmapbox/cjwrbxi3x10fv1ck92xfdgz66")
         self.mapView.styleURL = url
+        
+        mapView.delegate = self
         
         mapView.tintColor = .red
         mapView.allowsRotating = false
@@ -255,20 +259,18 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         }
     }
     
-    //    func loadMapAnnotations() {
-    //        let destinationAirports = MapObjects.shared.destinationAirports
-    //        for destinationAirport in destinationAirports {
-    //            let airportPointAnnotation = DLPointAnnotiation()
-    //
-    //            airportPointAnnotation.title = destinationAirport.icao
-    //            airportPointAnnotation.subtitle = destinationAirport.elevation.description
-    //            airportPointAnnotation.coordinate = CLLocationCoordinate2D(latitude: destinationAirport.latitude,
-    //                                                                       longitude: destinationAirport.longitude)
-    //            airportPointAnnotation.imageName = "runway_grass"
-    //
-    //            //self.mapView.addAnnotation(airportPointAnnotation)
-    //        }
+        func loadMapAnnotations() {
+            let destinationAirports = MapObjects.shared.destinationAirports
+            for destinationAirport in destinationAirports {
+                let airportPointAnnotation = DLPointAnnotiation()
+                airportPointAnnotation.coordinate = CLLocationCoordinate2D(latitude: destinationAirport.latitude,
+                                                                           longitude: destinationAirport.longitude)
+
+                airportPointAnnotation.imageName = "runway_grass"
     
+                mapView.addAnnotation(airportPointAnnotation)
+            }
+    }
 }
 
 // Setup Barometer
@@ -280,6 +282,45 @@ class MapScreen: UIViewController, MKMapViewDelegate {
 //            }
 //        }
 //    }
+
+// MARK: - MGLMapViewDelegate methods
+extension MapScreen: MGLMapViewDelegate {
+    
+    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
+        if let image = UIImage.init(named: "info") { //TODO: TODO Ein "leeres" Bild
+            let annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: "infoIdentifer")
+            return annotationImage
+        }
+        return nil
+    }
+    
+    // TODO: WARUM wird das hier nicht aufgerufen?!
+    @nonobjc func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+        // This example is only concerned with point annotations.
+        guard annotation is MGLPointAnnotation else {
+            return nil
+        }
+        
+        // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
+        let reuseIdentifier = "\(annotation.coordinate.longitude)"
+        
+        // For better performance, always try to reuse existing annotations.
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+        
+        // If there’s no reusable annotation view available, initialize a new one.
+        if annotationView == nil {
+//            annotationView = CustomAnnotationView(reuseIdentifier: reuseIdentifier)
+//            annotationView!.bounds = CGRect(x: 0, y: 0, width: 40, height: 40)
+//
+//            // Set the annotation view’s background color to a value determined by its longitude.
+//            let hue = CGFloat(annotation.coordinate.longitude) / 100
+//            annotationView!.backgroundColor = UIColor(hue: hue, saturation: 0.5, brightness: 1, alpha: 1)
+        }
+        
+        return annotationView
+    }
+}
+
 
 
 // MARK: - MapScreen: CLLocationManagerDelegate
@@ -363,18 +404,18 @@ extension MapScreen: CLLocationManagerDelegate {
     }
     
     // Show Annotation on Map
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
+    @nonobjc func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+
         // Get annotationView
         let identifier = "Annotation"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-        
+
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView!.canShowCallout = true
             //ToDo: performSegue(withIdentifier: "AirportInfoSegue", sender: self)
         }
-        
+
         // Set image of annotationView depending of the type of annotation
         if let castedAnnotation = annotation as? DLPointAnnotiation {
             annotationView!.image = UIImage(named: castedAnnotation.imageName)
@@ -435,8 +476,10 @@ extension MapScreen:UIGestureRecognizerDelegate {
 
 
 // MARK: - DLPointAnnotiation
-class DLPointAnnotiation: MKPointAnnotation {
+class DLPointAnnotiation: MGLPointAnnotation {
+    
     var imageName:String = ""
+    
 }
 
 // MARK: - DLPolyline
