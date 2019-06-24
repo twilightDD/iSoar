@@ -34,7 +34,36 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     // MARK: properties
     let locationManager = CLLocationManager()
     var currentLocation:CLLocation?
-    var userLocationButton:UserLocationButton?
+    
+    lazy var userLocationButton:UserLocationButton = {
+        let userLocationButton = UserLocationButton(buttonSize: 40)
+        userLocationButton.addTarget(self, action: #selector(self.locationButtonTapped), for: .touchUpInside)
+        userLocationButton.tintColor = self.mapView.tintColor
+        
+        // Setup constraints such that the button is placed within
+        // the upper left corner of the view.
+        userLocationButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        var leadingConstraint: NSLayoutConstraint
+        if #available(iOS 11.0, *) {
+            leadingConstraint = NSLayoutConstraint(item: userLocationButton, attribute: .leading, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .leading, multiplier: 1, constant: 10)
+        } else {
+            leadingConstraint = NSLayoutConstraint(item: userLocationButton, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 10)
+        }
+        
+        let constraints: [NSLayoutConstraint] = [
+            NSLayoutConstraint(item: userLocationButton, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: self.topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 50),
+            leadingConstraint,
+            NSLayoutConstraint(item: userLocationButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: userLocationButton.frame.size.height),
+            NSLayoutConstraint(item: userLocationButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: userLocationButton.frame.size.width)
+        ]
+        
+        self.view.addSubview(userLocationButton)
+        self.view.addConstraints(constraints)
+        
+        return userLocationButton
+    }()
+    
     
     //let altimeter = CMAltimeter()
     
@@ -55,7 +84,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         checkLocationServices()
         
         setupMapBox()
-        setupCenterMapOnUserLocationButton()
+        //setupCenterMapOnUserLocationButton()
         
         setupGestureRecognizers()
         //loadMapAnnotations()
@@ -95,39 +124,40 @@ class MapScreen: UIViewController, MKMapViewDelegate {
             longitude: 9.205404),
                           zoomLevel: 9.5,
                           animated: true)
+        userLocationButton.updateArrowForTrackingMode(state: userFollow)
     }
     
     
     
     // Button creation and autolayout setup
-    func setupCenterMapOnUserLocationButton() {
-        let userLocationButton = UserLocationButton(buttonSize: 40)
-        userLocationButton.addTarget(self, action: #selector(locationButtonTapped), for: .touchUpInside)
-        userLocationButton.tintColor = mapView.tintColor
-        
-        // Setup constraints such that the button is placed within
-        // the upper left corner of the view.
-        userLocationButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        var leadingConstraint: NSLayoutConstraint
-        if #available(iOS 11.0, *) {
-            leadingConstraint = NSLayoutConstraint(item: userLocationButton, attribute: .leading, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .leading, multiplier: 1, constant: 10)
-        } else {
-            leadingConstraint = NSLayoutConstraint(item: userLocationButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 10)
-        }
-        
-        let constraints: [NSLayoutConstraint] = [
-            NSLayoutConstraint(item: userLocationButton, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 50),
-            leadingConstraint,
-            NSLayoutConstraint(item: userLocationButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: userLocationButton.frame.size.height),
-            NSLayoutConstraint(item: userLocationButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: userLocationButton.frame.size.width)
-        ]
-        
-        view.addSubview(userLocationButton)
-        view.addConstraints(constraints)
-        
-        self.userLocationButton = userLocationButton
-    }
+//    func setupCenterMapOnUserLocationButton() {
+//        let userLocationButton = UserLocationButton(buttonSize: 40)
+//        userLocationButton.addTarget(self, action: #selector(locationButtonTapped), for: .touchUpInside)
+//        userLocationButton.tintColor = mapView.tintColor
+//
+//        // Setup constraints such that the button is placed within
+//        // the upper left corner of the view.
+//        userLocationButton.translatesAutoresizingMaskIntoConstraints = false
+//
+//        var leadingConstraint: NSLayoutConstraint
+//        if #available(iOS 11.0, *) {
+//            leadingConstraint = NSLayoutConstraint(item: userLocationButton, attribute: .leading, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .leading, multiplier: 1, constant: 10)
+//        } else {
+//            leadingConstraint = NSLayoutConstraint(item: userLocationButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 10)
+//        }
+//
+//        let constraints: [NSLayoutConstraint] = [
+//            NSLayoutConstraint(item: userLocationButton, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 50),
+//            leadingConstraint,
+//            NSLayoutConstraint(item: userLocationButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: userLocationButton.frame.size.height),
+//            NSLayoutConstraint(item: userLocationButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: userLocationButton.frame.size.width)
+//        ]
+//
+//        view.addSubview(userLocationButton)
+//        view.addConstraints(constraints)
+//
+//        self.userLocationButton = userLocationButton
+//    }
     
     
     // Check for Location Services
@@ -175,7 +205,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         if recognizer.state == .recognized {
             if userFollow == true {
                 self.userFollow = false
-                userLocationButton?.updateArrowForTrackingMode(state: self.userFollow)
+                userLocationButton.updateArrowForTrackingMode(state: self.userFollow)
             }
             
             print("Swipe recognized")
@@ -187,7 +217,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     // Set up User tracking mode button.
     @IBAction func locationButtonTapped(sender: UserLocationButton) {
         self.userFollow = !self.userFollow
-        sender.updateArrowForTrackingMode(state: self.userFollow)
+        userLocationButton.updateArrowForTrackingMode(state: self.userFollow)
         
         if self.userFollow == true {
             if let _ = self.currentLocation {
