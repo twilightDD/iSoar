@@ -390,6 +390,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="altitudeShort" destination="K7G-au-vdO" id="h5p-0A-gOt"/>
+                        <outlet property="backgroundView" destination="hsD-mX-zC2" id="WtV-2M-vWs"/>
                         <outlet property="courseShort" destination="R3X-KS-AZU" id="5B7-z1-sST"/>
                         <outlet property="destinationAirport" destination="jis-y8-DAW" id="rgc-DJ-vZs"/>
                         <outlet property="destinationAltitudeShort" destination="vSe-nf-Gec" id="ITQ-l4-fxb"/>

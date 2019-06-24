@@ -25,6 +25,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var speedkmhShort: UILabel!
     
     //hidden
+    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet var relativeAltitude: UILabel!
     @IBOutlet var pressure: UILabel!
     @IBOutlet var destinationAltitudeShort: UITextField!
@@ -46,18 +47,30 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         
         var leadingConstraint: NSLayoutConstraint
         if #available(iOS 11.0, *) {
-            leadingConstraint = NSLayoutConstraint(item: userLocationButton, attribute: .leading, relatedBy: .equal, toItem: self.view.safeAreaLayoutGuide, attribute: .leading, multiplier: 1, constant: 10)
+            leadingConstraint = NSLayoutConstraint(item: userLocationButton,
+                                                   attribute: .leading,
+                                                   relatedBy: .equal,
+                                                   toItem: self.view.safeAreaLayoutGuide,
+                                                   attribute: .leading,
+                                                   multiplier: 1,
+                                                   constant: 10)
         } else {
-            leadingConstraint = NSLayoutConstraint(item: userLocationButton, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 10)
+            leadingConstraint = NSLayoutConstraint(item: userLocationButton,
+                                                   attribute: .leading,
+                                                   relatedBy: .equal,
+                                                   toItem: self.view,
+                                                   attribute: .leading,
+                                                   multiplier: 1,
+                                                   constant: 10)
         }
         
         let constraints: [NSLayoutConstraint] = [NSLayoutConstraint(item: userLocationButton,
                                                                     attribute: .top,
                                                                     relatedBy: .greaterThanOrEqual,
-                                                                    toItem: self.topLayoutGuide,
+                                                                    toItem: backgroundView,
                                                                     attribute: .bottom,
                                                                     multiplier: 1,
-                                                                    constant: 50),
+                                                                    constant: 10),
                                                  leadingConstraint,
                                                  NSLayoutConstraint(item: userLocationButton,
                                                                     attribute: .height,
