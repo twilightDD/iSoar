@@ -34,6 +34,7 @@ class MapScreen: UIViewController, MKMapViewDelegate {
     // MARK: properties
     let locationManager = CLLocationManager()
     var currentLocation:CLLocation?
+    var userLocationButton:UserLocationButton?
     
     //let altimeter = CMAltimeter()
     
@@ -124,6 +125,8 @@ class MapScreen: UIViewController, MKMapViewDelegate {
         
         view.addSubview(userLocationButton)
         view.addConstraints(constraints)
+        
+        self.userLocationButton = userLocationButton
     }
 
     
@@ -170,7 +173,11 @@ class MapScreen: UIViewController, MKMapViewDelegate {
 
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
-            self.userFollow = false
+            if userFollow == true {
+                self.userFollow = false
+                userLocationButton?.updateArrowForTrackingMode(state: self.userFollow)
+            }
+            
             print("Swipe recognized")
             // ToDo: Set Arrow Color
         }
