@@ -13,7 +13,7 @@ import CoreMotion
 import Mapbox
 
 //MARK: MapScreen
-class MapScreen: UIViewController, MKMapViewDelegate {
+class MapScreen: UIViewController {
     
     static let shared = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapScreenIdentifier") as! MapScreen
     
@@ -294,9 +294,27 @@ extension MapScreen: MGLMapViewDelegate {
         return nil
     }
     
+    func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
+    
+    }
+    
+    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return true
+    }
+    
+    private func mapView(MapView: MGLMapView!, annotation: MGLAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+//        if control == annotation.rightCalloutAccessoryView {
+//            performSegue(withIdentifier: "AirportInfoSegue", sender: self)
+//            print("Opening AirportInfoViewController")
+//        }
+    }
+    
     // TODO: WARUM wird das hier nicht aufgerufen?!
-    @nonobjc func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
         // This example is only concerned with point annotations.
+        print("\(annotation.self)")
+        
         guard annotation is MGLPointAnnotation else {
             return nil
         }
@@ -404,36 +422,36 @@ extension MapScreen: CLLocationManagerDelegate {
     }
     
     // Show Annotation on Map
-    @nonobjc func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-
-        // Get annotationView
-        let identifier = "Annotation"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView!.canShowCallout = true
-            //ToDo: performSegue(withIdentifier: "AirportInfoSegue", sender: self)
-        }
-
-        // Set image of annotationView depending of the type of annotation
-        if let castedAnnotation = annotation as? DLPointAnnotiation {
-            annotationView!.image = UIImage(named: castedAnnotation.imageName)
-        }
-        else if annotation === mapView.userLocation {
-            annotationView!.image = UIImage(named: "glider")
-        }
-        return annotationView
-    }
+//    @nonobjc func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//
+//        // Get annotationView
+//        let identifier = "Annotation"
+//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+//
+//        if annotationView == nil {
+//            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+//            annotationView!.canShowCallout = true
+//            //ToDo: performSegue(withIdentifier: "AirportInfoSegue", sender: self)
+//        }
+//
+//        // Set image of annotationView depending of the type of annotation
+//        if let castedAnnotation = annotation as? DLPointAnnotiation {
+//            annotationView!.image = UIImage(named: castedAnnotation.imageName)
+//        }
+//        else if annotation === mapView.userLocation {
+//            annotationView!.image = UIImage(named: "glider")
+//        }
+//        return annotationView
+//    }
     
     // ToDo: Open AirportInfoViewController by tapping Airport Annotation
-    func mapView(MapView: MKMapView!, annotation: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        
-        if control == annotation.rightCalloutAccessoryView {
-            performSegue(withIdentifier: "AirportInfoSegue", sender: self)
-            print("Opening AirportInfoViewController")
-        }
-    }
+//    func mapView(MapView: MKMapView!, annotation: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+//
+//        if control == annotation.rightCalloutAccessoryView {
+//            performSegue(withIdentifier: "AirportInfoSegue", sender: self)
+//            print("Opening AirportInfoViewController")
+//        }
+//    }
     
     // Check for Location Authorization
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -441,29 +459,29 @@ extension MapScreen: CLLocationManagerDelegate {
     }
     
     // Draw and renew Polyline Overlay on Map
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        var overlayRenderer = MKPolylineRenderer() // leeren MKOverlayRenderer anlegen
-        if let currentPolyline = overlay as? DLPolyline { // wenn overlay eine DLPolyline ist
-            overlayRenderer = MKPolylineRenderer(polyline: currentPolyline) // MKOverlayRenderer mit dem Pfad des Overlay versehen
-            
-            // Abhängig vom type der DLPolyline setzen wir Farbe und Dicke
-            switch currentPolyline.type {
-            case .directLine:
-                overlayRenderer.strokeColor = .blue
-                overlayRenderer.lineWidth = 1.0
-            case .restrictedAreaR:
-                overlayRenderer.strokeColor = .red
-                overlayRenderer.lineWidth = 1.5
-            case .restrictedAreaRMZ:
-                overlayRenderer.strokeColor = .purple
-                overlayRenderer.lineWidth = 1.0
-            default: // All other (just in case)
-                overlayRenderer.strokeColor = .black
-                overlayRenderer.lineWidth = 1.0
-            }
-        }
-        return overlayRenderer
-    }
+//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+//        var overlayRenderer = MKPolylineRenderer() // leeren MKOverlayRenderer anlegen
+//        if let currentPolyline = overlay as? DLPolyline { // wenn overlay eine DLPolyline ist
+//            overlayRenderer = MKPolylineRenderer(polyline: currentPolyline) // MKOverlayRenderer mit dem Pfad des Overlay versehen
+//
+//            // Abhängig vom type der DLPolyline setzen wir Farbe und Dicke
+//            switch currentPolyline.type {
+//            case .directLine:
+//                overlayRenderer.strokeColor = .blue
+//                overlayRenderer.lineWidth = 1.0
+//            case .restrictedAreaR:
+//                overlayRenderer.strokeColor = .red
+//                overlayRenderer.lineWidth = 1.5
+//            case .restrictedAreaRMZ:
+//                overlayRenderer.strokeColor = .purple
+//                overlayRenderer.lineWidth = 1.0
+//            default: // All other (just in case)
+//                overlayRenderer.strokeColor = .black
+//                overlayRenderer.lineWidth = 1.0
+//            }
+//        }
+//        return overlayRenderer
+//    }
 }
 
 // MARK: - MapScreen:UIGestureRecognizerDelegate
