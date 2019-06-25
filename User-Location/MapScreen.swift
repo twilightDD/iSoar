@@ -20,12 +20,12 @@ class MapScreen: UIViewController {
     // MARK: IBOutlets
     @IBOutlet var mapView: MGLMapView!
     
+    @IBOutlet weak var topBar: UIView!
     @IBOutlet weak var courseShort: UILabel!
     @IBOutlet weak var altitudeShort: UILabel!
     @IBOutlet weak var speedkmhShort: UILabel!
     
     //hidden
-    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet var relativeAltitude: UILabel!
     @IBOutlet var pressure: UILabel!
     @IBOutlet var destinationAltitudeShort: UITextField!
@@ -67,7 +67,7 @@ class MapScreen: UIViewController {
         let constraints: [NSLayoutConstraint] = [NSLayoutConstraint(item: userLocationButton,
                                                                     attribute: .top,
                                                                     relatedBy: .greaterThanOrEqual,
-                                                                    toItem: backgroundView,
+                                                                    toItem: topBar,
                                                                     attribute: .bottom,
                                                                     multiplier: 1,
                                                                     constant: 10),
@@ -287,8 +287,8 @@ class MapScreen: UIViewController {
 extension MapScreen: MGLMapViewDelegate {
     
     func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
-        if let image = UIImage.init(named: "info") { //TODO: TODO Ein "leeres" Bild
-            let annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: "infoIdentifer")
+        if let image = UIImage.init(named: "spacer") {
+            let annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: "airportIdentifer")
             return annotationImage
         }
         return nil
@@ -303,7 +303,8 @@ extension MapScreen: MGLMapViewDelegate {
     }
     
     private func mapView(MapView: MGLMapView!, annotation: MGLAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        
+
+//https://stackoverflow.com/questions/51904284/how-do-you-create-a-custom-callout-for-mapbox-annotations
 //        if control == annotation.rightCalloutAccessoryView {
 //            performSegue(withIdentifier: "AirportInfoSegue", sender: self)
 //            print("Opening AirportInfoViewController")
@@ -313,7 +314,7 @@ extension MapScreen: MGLMapViewDelegate {
     // TODO: WARUM wird das hier nicht aufgerufen?!
      func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
         // This example is only concerned with point annotations.
-        print("\(annotation.self)")
+        //print("\(annotation.self)")
         
         guard annotation is MGLPointAnnotation else {
             return nil
