@@ -57,12 +57,12 @@ class UserLocationButton: UIButton {
         return bezierPath.cgPath
     }
     
-    // Update the arrow's color and rotation when tracking mode is changed.
+    // ToDo: Rotation nor needed - Update the arrow's color and rotation when tracking mode is changed.
     func updateArrowForTrackingMode(state:Bool) {
         let activePrimaryColor = UIColor.red
         let disabledPrimaryColor = UIColor.clear
         let disabledSecondaryColor = UIColor.black
-        let rotatedArrow = CGFloat(0.66)
+        //let rotatedArrow = CGFloat(0.66)
         if state {
             updateArrow(fillColor: disabledPrimaryColor, strokeColor: activePrimaryColor, rotation: 0)
         }
@@ -71,13 +71,14 @@ class UserLocationButton: UIButton {
         }
     }
     
-    // Setup Update Arror for User Tracking Mode
+    // ToDo: Rotate not needed - Setup Update Arror for User Tracking Mode
     func updateArrowForTrackingMode(mode: MGLUserTrackingMode) {
         let activePrimaryColor = UIColor.red
         let disabledPrimaryColor = UIColor.clear
         let disabledSecondaryColor = UIColor.black
         let rotatedArrow = CGFloat(0.66)
         
+        // ToDo: Only 2 cases needed
         switch mode {
         case .none:
             updateArrow(fillColor: disabledPrimaryColor, strokeColor: disabledSecondaryColor, rotation: 0)
@@ -105,6 +106,4 @@ class UserLocationButton: UIButton {
         }
         layoutIfNeeded()
     }
-    
-
 }
