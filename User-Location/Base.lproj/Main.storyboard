@@ -396,7 +396,7 @@
                     <tabBarItem key="tabBarItem" title="Map" image="glider" id="eMQ-jF-so1" userLabel="glider"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="altitudeInMetersShort" destination="K7G-au-vdO" id="nE8-c2-SvC"/>
+                        <outlet property="altitudeLabel" destination="K7G-au-vdO" id="nE8-c2-SvC"/>
                         <outlet property="courseShort" destination="R3X-KS-AZU" id="5B7-z1-sST"/>
                         <outlet property="destinationAirport" destination="jis-y8-DAW" id="rgc-DJ-vZs"/>
                         <outlet property="destinationAltitudeShort" destination="vSe-nf-Gec" id="ITQ-l4-fxb"/>

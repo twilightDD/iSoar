@@ -22,7 +22,7 @@ class MapScreen: UIViewController {
     
     @IBOutlet weak var topBar: UIView!
     @IBOutlet weak var courseShort: UILabel!
-    @IBOutlet weak var altitudeInMetersShort: UILabel!
+    @IBOutlet weak var altitudeLabel: UILabel!
     @IBOutlet weak var speedkmhShort: UILabel!
     
     //hidden
@@ -101,6 +101,9 @@ class MapScreen: UIViewController {
     
     var userTrackingMode = true
     var userFollow = false
+    
+    var showAltitudeInMeters = true
+    var altitudeInMeters:CLLocationDistance = 0
     
     // MARK: - Init & Co.
     required init?(coder aDecoder: NSCoder) {
@@ -192,10 +195,16 @@ class MapScreen: UIViewController {
     // MARK: - Gesture Recognizer Funcs
     //Set up Gesture Recognizers
     func setupGestureRecognizers() {
+        // MapView
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
         panGestureRecognizer.delegate = self
         mapView.isUserInteractionEnabled = true
         mapView.addGestureRecognizer(panGestureRecognizer)
+        
+        // Altitude Label
+        let tapOnAltitudeLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnAltitudeLabel))
+        altitudeLabel.addGestureRecognizer(tapOnAltitudeLabelRecognizer)
+        altitudeLabel.isUserInteractionEnabled = true
     }
     
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
@@ -206,6 +215,12 @@ class MapScreen: UIViewController {
             }
             print("Swipe recognized")
         }
+    }
+    
+    @objc func tapOnAltitudeLabel(_ recognizer: UITapGestureRecognizer) {
+        showAltitudeInMeters = !showAltitudeInMeters
+        
+        updateAltitudeLabel()
     }
     
     // MARK: - Action Funcs
@@ -221,6 +236,8 @@ class MapScreen: UIViewController {
         }
     }
     
+    //MARK: - Private Methods
+    
     func loadMapAnnotations() {
         let destinationAirports = MapObjects.shared.destinationAirports
         for destinationAirport in destinationAirports {
@@ -232,6 +249,24 @@ class MapScreen: UIViewController {
             
             mapView.addAnnotation(airportPointAnnotation)
         }
+    }
+    
+    func updateAltitudeLabel() {
+        guard let currentLocation = currentLocation else {
+            return
+        }
+
+        var altituteLabelText = ""
+        if showAltitudeInMeters == true {
+            altituteLabelText =  String(format: "%.0fm", currentLocation.altitude)
+        }
+        else {
+            let altitudeInFeet = currentLocation.altitude * 3.28084
+            altituteLabelText = String(format: "%.0fft", altitudeInFeet)
+            
+        }
+        
+        altitudeLabel.text = altituteLabelText
     }
 }
 
@@ -377,9 +412,7 @@ extension MapScreen: CLLocationManagerDelegate {
         
         // Current Location depending stuff
         // altitude
-        let altitudeInMetersShort = String(format: "%.0fm", currentLocation.altitude)
-        self.altitudeInMetersShort.text = altitudeInMetersShort
-        let altitudeInMeterFeet = currentLocation.altitude * 0.3
+        updateAltitudeLabel()
         
         // speed
         let speedkmhShort = String(format: "%.0fKmh", currentLocation.speed * 3.28084)   //ToDo: convert with Measurement
@@ -432,12 +465,7 @@ extension MapScreen: CLLocationManagerDelegate {
             self.currentDirectionLine?.type = .directLine
             
             //self.mapView.addOverlay(self.currentDirectionLine!)
-            
-            // MARK: - Output
-            
-            print("Altitude in Meter: \(altitudeInMetersShort)m")
-            print("Altitude in Feet: \(altitudeInMeterFeet)ft")
-
+    
         }
     }
     
