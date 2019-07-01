@@ -415,7 +415,7 @@ extension MapScreen: CLLocationManagerDelegate {
         updateAltitudeLabel()
         
         // speed
-        let speedkmhShort = String(format: "%.0fKmh", currentLocation.speed * 3.28084)   //ToDo: convert with Measurement
+        let speedkmhShort = String(format: "%.0fKmh", currentLocation.speed * 3.6)   //ToDo: convert with Measurement
         self.speedkmhShort.text = "\(speedkmhShort)"
         // Steering Course
         let courseShort = String(format: "%.0f°", currentLocation.course)
