@@ -259,17 +259,17 @@ class MapScreen: UIViewController {
         }
     }
     
-        func loadMapAnnotations() {
-            let destinationAirports = MapObjects.shared.destinationAirports
-            for destinationAirport in destinationAirports {
-                let airportPointAnnotation = DLPointAnnotiation()
-                airportPointAnnotation.coordinate = CLLocationCoordinate2D(latitude: destinationAirport.latitude,
-                                                                           longitude: destinationAirport.longitude)
-
-                airportPointAnnotation.imageName = "runway_grass"
-    
-                mapView.addAnnotation(airportPointAnnotation)
-            }
+    func loadMapAnnotations() {
+        let destinationAirports = MapObjects.shared.destinationAirports
+        for destinationAirport in destinationAirports {
+            let airportPointAnnotation = DLPointAnnotiation()
+            airportPointAnnotation.coordinate = CLLocationCoordinate2D(latitude: destinationAirport.latitude,
+                                                                       longitude: destinationAirport.longitude)
+            airportPointAnnotation.title = "scheisse"
+            airportPointAnnotation.imageName = "runway_grass"
+            
+            mapView.addAnnotation(airportPointAnnotation)
+        }
     }
 }
 
