@@ -95,10 +95,10 @@ import UIKit
             defaults.set(gliderRatioDouble, forKey: Settings.gliderRatio);
             defaults.set(safetyAltitudeDouble, forKey: Settings.safetyAltitude);
             defaults.set(gliderIDTextField.text!, forKey: Settings.gliderID);
+
+            // MARK: - Output
             
             print("Settings saved")
-            
-            // MARK: - Output
             
             //        print("Glider Ratio set to: \(defaults.value(forKey: Settings.gliderRatio)!)")
             //        print("Safety Altitude set to: \(defaults.value(forKey: Settings.safetyAltitude)!)")

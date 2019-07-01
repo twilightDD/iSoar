@@ -22,7 +22,7 @@ class MapScreen: UIViewController {
     
     @IBOutlet weak var topBar: UIView!
     @IBOutlet weak var courseShort: UILabel!
-    @IBOutlet weak var altitudeShort: UILabel!
+    @IBOutlet weak var altitudeInMetersShort: UILabel!
     @IBOutlet weak var speedkmhShort: UILabel!
     
     //hidden
@@ -93,7 +93,6 @@ class MapScreen: UIViewController {
         return userLocationButton
     }()
     
-    
     //let altimeter = CMAltimeter()
     
     var selectedDestinationAirport:MapObjects.Airport?
@@ -113,8 +112,6 @@ class MapScreen: UIViewController {
         checkLocationServices()
         
         setupMapBox()
-        
-        //setupCenterMapOnUserLocationButton()
         
         setupGestureRecognizers()
         loadMapAnnotations()
@@ -159,39 +156,6 @@ class MapScreen: UIViewController {
                           animated: true)
         userLocationButton.updateArrowForTrackingMode(state: userFollow)
     }
-    
-    
-    
-    // Button creation and autolayout setup
-//    func setupCenterMapOnUserLocationButton() {
-//        let userLocationButton = UserLocationButton(buttonSize: 40)
-//        userLocationButton.addTarget(self, action: #selector(locationButtonTapped), for: .touchUpInside)
-//        userLocationButton.tintColor = mapView.tintColor
-//
-//        // Setup constraints such that the button is placed within
-//        // the upper left corner of the view.
-//        userLocationButton.translatesAutoresizingMaskIntoConstraints = false
-//
-//        var leadingConstraint: NSLayoutConstraint
-//        if #available(iOS 11.0, *) {
-//            leadingConstraint = NSLayoutConstraint(item: userLocationButton, attribute: .leading, relatedBy: .equal, toItem: view.safeAreaLayoutGuide, attribute: .leading, multiplier: 1, constant: 10)
-//        } else {
-//            leadingConstraint = NSLayoutConstraint(item: userLocationButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 10)
-//        }
-//
-//        let constraints: [NSLayoutConstraint] = [
-//            NSLayoutConstraint(item: userLocationButton, attribute: .top, relatedBy: .greaterThanOrEqual, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1, constant: 50),
-//            leadingConstraint,
-//            NSLayoutConstraint(item: userLocationButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: userLocationButton.frame.size.height),
-//            NSLayoutConstraint(item: userLocationButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: userLocationButton.frame.size.width)
-//        ]
-//
-//        view.addSubview(userLocationButton)
-//        view.addConstraints(constraints)
-//
-//        self.userLocationButton = userLocationButton
-//    }
-    
     
     // Check for Location Services
     func checkLocationServices() {
@@ -240,9 +204,7 @@ class MapScreen: UIViewController {
                 self.userFollow = false
                 userLocationButton.updateArrowForTrackingMode(state: self.userFollow)
             }
-            
             print("Swipe recognized")
-            // ToDo: Set Arrow Color
         }
     }
     
@@ -366,10 +328,12 @@ extension MapScreen: CLLocationManagerDelegate {
         
         // Current Location depending stuff
         // altitude
-        let altitudeShort = String(format: "%.0fm", currentLocation.altitude)
-        self.altitudeShort.text = altitudeShort
+        let altitudeInMetersShort = String(format: "%.0fm", currentLocation.altitude)
+        self.altitudeInMetersShort.text = altitudeInMetersShort
+        let altitudeInMeterFeet = currentLocation.altitude * 0.3
+        
         // speed
-        let speedkmhShort = String(format: "%.0fKmh", currentLocation.speed * 3.6)   //ToDo convert with Measurement
+        let speedkmhShort = String(format: "%.0fKmh", currentLocation.speed * 3.28084)   //ToDo: convert with Measurement
         self.speedkmhShort.text = "\(speedkmhShort)"
         // Steering Course
         let courseShort = String(format: "%.0f°", currentLocation.course)
@@ -419,6 +383,12 @@ extension MapScreen: CLLocationManagerDelegate {
             self.currentDirectionLine?.type = .directLine
             
             //self.mapView.addOverlay(self.currentDirectionLine!)
+            
+            // MARK: - Output
+            
+            print("Altitude in Meter: \(altitudeInMetersShort)m")
+            print("Altitude in Feet: \(altitudeInMeterFeet)ft")
+
         }
     }
     
