@@ -283,24 +283,72 @@ class MapScreen: UIViewController {
 //        }
 //    }
 
+class DLCalloutView: UIView, MGLCalloutView {
+    var representedObject: MGLAnnotation
+    
+    lazy var leftAccessoryView = UIView()
+    lazy var rightAccessoryView = UIView()
+    
+    var delegate: MGLCalloutViewDelegate?
+    
+    required init(annotation: MGLAnnotation) {
+        self.representedObject = annotation
+        let rect = CGRect(x: 250, y: 250, width: 250, height: 250)
+        super.init(frame: rect)
+    }
+    
+    required init?(coder decoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    func presentCallout(from rect: CGRect, in view: UIView, constrainedTo constrainedRect: CGRect, animated: Bool) {
+        view.addSubview(self)
+    }
+    
+    func dismissCallout(animated: Bool) {
+        if (animated){
+            //do something cool
+            removeFromSuperview()
+        } else {
+            removeFromSuperview()
+        }
+    }
+    
+    
+}
+
+
 // MARK: - MGLMapViewDelegate methods
 extension MapScreen: MGLMapViewDelegate {
     
-    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
-        if let image = UIImage.init(named: "spacer") {
-            let annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: "airportIdentifer")
-            return annotationImage
-        }
-        return nil
-    }
+//    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
+//        if let image = UIImage.init(named: "info") {
+//            let annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: "airportIdentifer")
+//            return annotationImage
+//        }
+//        return nil
+//    }
     
-    func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
-    
+    //https://stackoverflow.com/questions/26713582/didselectannotationview-not-called
+    func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation) -> MGLCalloutView? {
+        // Instantiate and return our custom callout view.
+        let callOutView =  DLCalloutView(annotation: annotation)
+        return callOutView
     }
     
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
         return true
     }
+    
+    
+    func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
+        // Optionally handle taps on the callout.
+        print("Tapped the callout for: \(annotation)")
+        
+        // Hide the callout.
+        mapView.deselectAnnotation(annotation, animated: true)
+    }
+    
+    
     
     private func mapView(MapView: MGLMapView!, annotation: MGLAnnotationView, calloutAccessoryControlTapped control: UIControl) {
 
@@ -310,7 +358,7 @@ extension MapScreen: MGLMapViewDelegate {
 //            print("Opening AirportInfoViewController")
 //        }
     }
-    
+    /*
     // TODO: WARUM wird das hier nicht aufgerufen?!
      func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
         // This example is only concerned with point annotations.
@@ -328,16 +376,17 @@ extension MapScreen: MGLMapViewDelegate {
         
         // If there’s no reusable annotation view available, initialize a new one.
         if annotationView == nil {
-//            annotationView = CustomAnnotationView(reuseIdentifier: reuseIdentifier)
-//            annotationView!.bounds = CGRect(x: 0, y: 0, width: 40, height: 40)
-//
-//            // Set the annotation view’s background color to a value determined by its longitude.
-//            let hue = CGFloat(annotation.coordinate.longitude) / 100
-//            annotationView!.backgroundColor = UIColor(hue: hue, saturation: 0.5, brightness: 1, alpha: 1)
+            annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
+            annotationView?.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+            annotationView?.layer.cornerRadius = (annotationView?.frame.size.width)! / 2
+            annotationView?.layer.borderWidth = 4.0
+            annotationView?.layer.borderColor = UIColor.white.cgColor
+            annotationView!.backgroundColor = UIColor(red: 0.03, green: 0.80, blue: 0.69, alpha: 1.0)
         }
         
         return annotationView
     }
+ */
 }
 
 
