@@ -23,7 +23,7 @@ class MapScreen: UIViewController {
     @IBOutlet weak var topBar: UIView!
     @IBOutlet weak var courseShort: UILabel!
     @IBOutlet weak var altitudeLabel: UILabel!
-    @IBOutlet weak var speedkmhShort: UILabel!
+    @IBOutlet weak var speedLabel: UILabel!
     
     //hidden
     @IBOutlet var relativeAltitude: UILabel!
@@ -105,6 +105,9 @@ class MapScreen: UIViewController {
     var showAltitudeInMeters = true
     var altitudeInMeters:CLLocationDistance = 0
     
+    var showSpeedInKMH = true
+    var speedInKMH:CLLocationSpeed = 0
+    
     // MARK: - Init & Co.
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -117,7 +120,8 @@ class MapScreen: UIViewController {
         setupMapBox()
         
         setupGestureRecognizers()
-        loadMapAnnotations()
+        
+        //loadMapAnnotations()
     
         //setupBarometer()
     }
@@ -205,6 +209,11 @@ class MapScreen: UIViewController {
         let tapOnAltitudeLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnAltitudeLabel))
         altitudeLabel.addGestureRecognizer(tapOnAltitudeLabelRecognizer)
         altitudeLabel.isUserInteractionEnabled = true
+        
+        // Speed Label
+        let tapOnSpeedLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnSpeedLabel))
+        speedLabel.addGestureRecognizer(tapOnSpeedLabelRecognizer)
+        speedLabel.isUserInteractionEnabled = true
     }
     
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
@@ -221,6 +230,12 @@ class MapScreen: UIViewController {
         showAltitudeInMeters = !showAltitudeInMeters
         
         updateAltitudeLabel()
+    }
+    
+    @objc func tapOnSpeedLabel(_ recognizer: UITapGestureRecognizer) {
+        showSpeedInKMH = !showSpeedInKMH
+        
+        updateSpeedLabel()
     }
     
     // MARK: - Action Funcs
@@ -244,7 +259,7 @@ class MapScreen: UIViewController {
             let airportPointAnnotation = DLPointAnnotiation()
             airportPointAnnotation.coordinate = CLLocationCoordinate2D(latitude: destinationAirport.latitude,
                                                                        longitude: destinationAirport.longitude)
-            airportPointAnnotation.title = "scheisse"
+            airportPointAnnotation.title = "title"
             airportPointAnnotation.imageName = "runway_grass"
             
             mapView.addAnnotation(airportPointAnnotation)
@@ -263,11 +278,29 @@ class MapScreen: UIViewController {
         else {
             let altitudeInFeet = currentLocation.altitude * 3.28084
             altituteLabelText = String(format: "%.0fft", altitudeInFeet)
-            
         }
         
         altitudeLabel.text = altituteLabelText
     }
+    
+    func updateSpeedLabel() {
+        guard let currentLocation = currentLocation else {
+            return
+        }
+        
+        var speedLabelText = ""
+        if showSpeedInKMH == true {
+            speedLabelText =  String(format: "%.0fKmh", currentLocation.speed)
+        }
+        else {
+            let speedInKT = currentLocation.speed * 1.852
+            speedLabelText = String(format: "%.0fKt", speedInKT)
+        }
+        
+        speedLabel.text = speedLabelText
+    }
+    
+    
 }
 
 // Setup Barometer
@@ -309,8 +342,6 @@ class DLCalloutView: UIView, MGLCalloutView {
             removeFromSuperview()
         }
     }
-    
-    
 }
 
 
@@ -336,7 +367,6 @@ extension MapScreen: MGLMapViewDelegate {
         return true
     }
     
-    
     func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
         // Optionally handle taps on the callout.
         print("Tapped the callout for: \(annotation)")
@@ -344,8 +374,6 @@ extension MapScreen: MGLMapViewDelegate {
         // Hide the callout.
         mapView.deselectAnnotation(annotation, animated: true)
     }
-    
-    
     
     private func mapView(MapView: MGLMapView!, annotation: MGLAnnotationView, calloutAccessoryControlTapped control: UIControl) {
 
@@ -409,14 +437,13 @@ extension MapScreen: CLLocationManagerDelegate {
             self.mapView.setCenter(currentLocation.coordinate, animated: true)
         }
         
-        
         // Current Location depending stuff
         // altitude
         updateAltitudeLabel()
         
         // speed
-        let speedkmhShort = String(format: "%.0fKmh", currentLocation.speed * 3.6)   //ToDo: convert with Measurement
-        self.speedkmhShort.text = "\(speedkmhShort)"
+        updateSpeedLabel()
+        
         // Steering Course
         let courseShort = String(format: "%.0f°", currentLocation.course)
         self.courseShort.text = courseShort

@@ -404,7 +404,7 @@
                         <outlet property="mapView" destination="LKd-yy-DJC" id="icj-KO-Ca6"/>
                         <outlet property="pressure" destination="Bo7-Zc-lYU" id="mIL-ud-WZz"/>
                         <outlet property="relativeAltitude" destination="cRP-l7-0lM" id="3SH-bq-yOe"/>
-                        <outlet property="speedkmhShort" destination="0jK-Zb-MHZ" id="yE1-sy-DqH"/>
+                        <outlet property="speedLabel" destination="0jK-Zb-MHZ" id="57G-8b-Njv"/>
                         <outlet property="topBar" destination="hsD-mX-zC2" id="vGU-mf-BQt"/>
                         <segue destination="3Br-pt-Icv" kind="show" identifier="AirportInfoSegue" id="5aq-Sy-5ZY"/>
                     </connections>
