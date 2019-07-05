@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18BE3F7422CF688D00859347 /* GliderUserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE3F7322CF688D00859347 /* GliderUserLocationAnnotationView.swift */; };
 		4FA79AEE7ECE155E0BFA301B /* Pods_Glider_Tool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1EF2983B88025FDC2840F2 /* Pods_Glider_Tool.framework */; };
 		D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02B0E6422C15BB7007C7162 /* UserLocationButton.swift */; };
 		D060C1F322B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		18BE3F7322CF688D00859347 /* GliderUserLocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderUserLocationAnnotationView.swift; sourceTree = "<group>"; };
 		75CB3E8DFF8D455C8F1742A5 /* Pods-Glider Tool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Glider Tool.debug.xcconfig"; path = "Target Support Files/Pods-Glider Tool/Pods-Glider Tool.debug.xcconfig"; sourceTree = "<group>"; };
 		AF3E6C1CC85039594789B3C8 /* Pods-Glider Tool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Glider Tool.release.xcconfig"; path = "Target Support Files/Pods-Glider Tool/Pods-Glider Tool.release.xcconfig"; sourceTree = "<group>"; };
 		D02B0E6422C15BB7007C7162 /* UserLocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationButton.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				E0B52F71228377F300E28A93 /* Buttons.swift */,
 				E0B52F7622837C1500E28A93 /* TextFields.swift */,
 				D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */,
+				18BE3F7322CF688D00859347 /* GliderUserLocationAnnotationView.swift */,
 			);
 			path = Designs;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				EDA236232130AA7500739396 /* AppDelegate.swift in Sources */,
 				E0B52F72228377F300E28A93 /* Buttons.swift in Sources */,
 				E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */,
+				18BE3F7422CF688D00859347 /* GliderUserLocationAnnotationView.swift in Sources */,
 				E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

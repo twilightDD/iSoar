@@ -178,7 +178,6 @@ class MapScreen: UIViewController {
     func checkLocationAuthorization() {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse:
-            mapView.showsUserLocation = true
             locationManager.startUpdatingLocation()
             break
         case .denied:
@@ -383,6 +382,18 @@ extension MapScreen: MGLMapViewDelegate {
 //            print("Opening AirportInfoViewController")
 //        }
     }
+    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+        // Substitute our custom view for the user location annotation. This custom view is defined below.
+        if annotation is MGLUserLocation && mapView.userLocation != nil {
+            return GliderUserLocationAnnotationView()
+        }
+        return nil
+    }
+    
+    func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
+        mapView.showsUserLocation = true
+    }
+    
     /*
     // TODO: WARUM wird das hier nicht aufgerufen?!
      func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
