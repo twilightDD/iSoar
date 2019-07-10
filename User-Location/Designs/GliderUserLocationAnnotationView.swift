@@ -11,11 +11,11 @@ import Mapbox
 
 // Create a subclass of MGLUserLocationAnnotationView.
 class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
-    let width: CGFloat = 50
-    let height: CGFloat = 23
+
+    // MARK: Lets and Vats
     lazy var gliderLayer: CALayer? = setupGliderLayer()
     
-    
+    // MARK: - Overrides
     override func update() {
         if frame.isNull {
             fatalError("frame isNull")
@@ -23,12 +23,23 @@ class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
 //            return setNeedsLayout()
         }
         
-        rotateGliderImage()
+        rotateGliderLayer()
     }
     
-
+    //MARK: - Private Methods
+    private func setupGliderLayer () -> CALayer? {
+        let gliderLayer = CALayer()
+        guard let gliderImage = UIImage(named: "glider")?.cgImage
+            else { return nil }
+        gliderLayer.contents = gliderImage
+        gliderLayer.bounds = CGRect(x: 0, y: 0, width: gliderImage.width, height: gliderImage.height)
+        self.layer.addSublayer(gliderLayer)
+        
+        return gliderLayer
+    }
+    
     /// Rotate User Location image depending of course.
-    private func rotateGliderImage() {
+    private func rotateGliderLayer() {
         guard let gliderLayer = self.gliderLayer
             else { return }
         guard let course = MapScreen.shared!.currentLocation?.course
@@ -47,16 +58,5 @@ class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
             gliderLayer.setAffineTransform(CGAffineTransform.identity.rotated(by: rotation))
             CATransaction.commit()
         }
-    }
-    
-    private func setupGliderLayer () -> CALayer? {
-        let gliderLayer = CALayer()
-        guard let gliderImage = UIImage(named: "glider")?.cgImage
-            else { return nil }
-        gliderLayer.contents = gliderImage
-        gliderLayer.bounds = CGRect(x: 0, y: 0, width: gliderImage.width, height: gliderImage.height)
-        self.layer.addSublayer(gliderLayer)
-        
-        return gliderLayer
     }
 }
