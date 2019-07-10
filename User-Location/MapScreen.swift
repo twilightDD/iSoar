@@ -289,7 +289,8 @@ class MapScreen: UIViewController {
         
         var speedLabelText = ""
         if showSpeedInKMH == true {
-            speedLabelText =  String(format: "%.0fKmh", currentLocation.speed)
+            let speedInKMH = currentLocation.speed * 3.6
+            speedLabelText =  String(format: "%.0fKmh", speedInKMH)
         }
         else {
             let speedInKT = currentLocation.speed * 1.852
@@ -298,8 +299,6 @@ class MapScreen: UIViewController {
         
         speedLabel.text = speedLabelText
     }
-    
-    
 }
 
 // Setup Barometer
