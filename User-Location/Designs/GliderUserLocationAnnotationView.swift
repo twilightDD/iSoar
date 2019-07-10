@@ -11,21 +11,16 @@ import Mapbox
 
 // Create a subclass of MGLUserLocationAnnotationView.
 class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
-    let size: CGFloat = 48
-    lazy var gliderLayer: CALayer = {
-        let gliderLayer = CALayer()
-        gliderLayer.contents = UIImage(named: "glider")?.cgImage
-        gliderLayer.bounds = CGRect(x: 0, y: 0, width: self.size, height: self.size)
-        self.layer.addSublayer(gliderLayer)
-        
-        return gliderLayer
-    }()
+    let width: CGFloat = 50
+    let height: CGFloat = 23
+    lazy var gliderLayer: CALayer? = setupGliderLayer()
     
     
     override func update() {
         if frame.isNull {
-            frame = CGRect(x: 0, y: 0, width: size, height: size)
-            return setNeedsLayout()
+            fatalError("frame isNull")
+//            frame = CGRect(x: 0, y: 0, width: width, height: height)
+//            return setNeedsLayout()
         }
         
         rotateGliderImage()
@@ -34,6 +29,8 @@ class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
 
     /// Rotate User Location image depending of course.
     private func rotateGliderImage() {
+        guard let gliderLayer = self.gliderLayer
+            else { return }
         guard let course = MapScreen.shared!.currentLocation?.course
             else { return }
         
@@ -50,5 +47,16 @@ class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
             gliderLayer.setAffineTransform(CGAffineTransform.identity.rotated(by: rotation))
             CATransaction.commit()
         }
+    }
+    
+    private func setupGliderLayer () -> CALayer? {
+        let gliderLayer = CALayer()
+        guard let gliderImage = UIImage(named: "glider")?.cgImage
+            else { return nil }
+        gliderLayer.contents = gliderImage
+        gliderLayer.bounds = CGRect(x: 0, y: 0, width: gliderImage.width, height: gliderImage.height)
+        self.layer.addSublayer(gliderLayer)
+        
+        return gliderLayer
     }
 }
