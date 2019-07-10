@@ -45,7 +45,7 @@ extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         country.text = selectedDestinationAirport.country
         print(country.text!)
         
-        MapScreen.shared.selectedDestinationAirport = selectedDestinationAirport
+        MapScreen.shared!.selectedDestinationAirport = selectedDestinationAirport
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {

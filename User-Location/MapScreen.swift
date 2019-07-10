@@ -14,9 +14,9 @@ import Mapbox
 
 //MARK: MapScreen
 class MapScreen: UIViewController {
-    
-    static let shared = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MapScreenIdentifier") as! MapScreen
-    
+
+    static var shared:MapScreen?
+        
     // MARK: IBOutlets
     @IBOutlet var mapView: MGLMapView!
     
@@ -111,10 +111,12 @@ class MapScreen: UIViewController {
     // MARK: - Init & Co.
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        MapScreen.shared = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         checkLocationServices()
         
         setupMapBox()
@@ -147,6 +149,9 @@ class MapScreen: UIViewController {
         mapView.tintColor = .red
         mapView.allowsRotating = false
         mapView.allowsTilting = false
+        
+        mapView.userTrackingMode = .followWithHeading
+        mapView.showsUserHeadingIndicator = true
         
         // MGLMapboxMetricsEnabledSettingShownInApp: YES - Info.plist
         // MGLMapboxMetricsEnabled = false
@@ -431,7 +436,9 @@ extension MapScreen: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last else { return }
+       
         self.currentLocation = currentLocation
+        
         
         // Show Glider Image on Map
         if let image = UIImage(named: "glider") {
@@ -459,7 +466,7 @@ extension MapScreen: CLLocationManagerDelegate {
         self.courseShort.text = courseShort
         
         // Destination depending stuff
-        if let selectedDestinationAirport = MapScreen.shared.selectedDestinationAirport  {
+        if let selectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport  {
             // ICAO
             self.destinationAirport.text = selectedDestinationAirport.icao
             
