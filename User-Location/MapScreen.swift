@@ -21,7 +21,7 @@ class MapScreen: UIViewController {
     @IBOutlet var mapView: MGLMapView!
     
     @IBOutlet weak var topBar: UIView!
-    @IBOutlet weak var courseShort: UILabel!
+    @IBOutlet weak var courseLabel: UILabel!
     @IBOutlet weak var altitudeLabel: UILabel!
     @IBOutlet weak var speedLabel: UILabel!
     
@@ -359,7 +359,7 @@ extension MapScreen: MGLMapViewDelegate {
 //        return nil
 //    }
     
-    //https://stackoverflow.com/questions/26713582/didselectannotationview-not-called
+    // https://stackoverflow.com/questions/26713582/didselectannotationview-not-called
     func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation) -> MGLCalloutView? {
         // Instantiate and return our custom callout view.
         let callOutView =  DLCalloutView(annotation: annotation)
@@ -439,16 +439,6 @@ extension MapScreen: CLLocationManagerDelegate {
        
         self.currentLocation = currentLocation
         
-        
-        // Show Glider Image on Map
-        if let image = UIImage(named: "glider") {
-            let rotatedImage = image.rotate(course: currentLocation.course )
-            
-            //            if let currentLocationImage = mapView.view(for: mapView.userLocation) {
-            //                currentLocationImage.image = rotatedImage
-            //            }
-        }
-        
         // Get User Tracking State - If true - set Map center on User Location
         if self.userFollow == true {
             self.mapView.setCenter(currentLocation.coordinate, animated: true)
@@ -463,7 +453,7 @@ extension MapScreen: CLLocationManagerDelegate {
         
         // Steering Course
         let courseShort = String(format: "%.0f°", currentLocation.course)
-        self.courseShort.text = courseShort
+        self.courseLabel.text = courseShort
         
         // Destination depending stuff
         if let selectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport  {

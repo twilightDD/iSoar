@@ -15,6 +15,7 @@
 			dependencies = (
 			);
 			name = "Mapbox-iOS-SDK";
+			productName = "Mapbox-iOS-SDK";
 		};
 /* End PBXAggregateTarget section */
 
@@ -42,8 +43,8 @@
 		51EBBBE69DEE63BC261DB061DB46E102 /* Pods-Glider Tool-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Glider Tool-umbrella.h"; sourceTree = "<group>"; };
 		6DF3373083EB9480B3B7FAD08C1DD035 /* Pods-Glider Tool-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Glider Tool-Info.plist"; sourceTree = "<group>"; };
 		766A206A5FE92D373B69A56AF90317C1 /* Pods-Glider Tool.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Glider Tool.modulemap"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		A47409F1251F40FC64FF40053F8A96D7 /* Pods_Glider_Tool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Glider_Tool.framework; path = "Pods-Glider Tool.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A47409F1251F40FC64FF40053F8A96D7 /* Pods_Glider_Tool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Glider_Tool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4B2109B886FBC1F8BD125E9EAD43310 /* Pods-Glider Tool-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Glider Tool-frameworks.sh"; sourceTree = "<group>"; };
 		BA47260D234118019D2DF64B719EF060 /* Pods-Glider Tool-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Glider Tool-dummy.m"; sourceTree = "<group>"; };
 		BF148A10949841DA1797263C310986A1 /* Pods-Glider Tool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Glider Tool.debug.xcconfig"; sourceTree = "<group>"; };
@@ -145,7 +146,6 @@
 				B4A30EB3199C232ADCC57262FB13D57F /* Frameworks */,
 				EEB7D592967A3B5B98358FEE7F3FA97B /* Support Files */,
 			);
-			name = "Mapbox-iOS-SDK";
 			path = "Mapbox-iOS-SDK";
 			sourceTree = "<group>";
 		};
@@ -206,6 +206,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
 			productRefGroup = 443D5709395DE20B804C52A3BE4C64C3 /* Products */;
