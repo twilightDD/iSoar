@@ -495,10 +495,10 @@ extension MapScreen: CLLocationManagerDelegate {
                                                                               longitude: selectedDestinationAirport.longitude)
             let newDirectionCoordinates:[CLLocationCoordinate2D] = [currentLocation.coordinate, destinationAirportLocationCoordinate]
             self.currentDirectionLine = DLPolyline(coordinates: newDirectionCoordinates,
-                                                   count: newDirectionCoordinates.count)
+                                                   count: UInt(newDirectionCoordinates.count))
             self.currentDirectionLine?.type = .directLine
             
-            //self.mapView.addOverlay(self.currentDirectionLine!)
+            self.mapView.add(self.currentDirectionLine!)
     
         }
     }
@@ -583,7 +583,7 @@ class DLPointAnnotiation: MGLPointAnnotation {
 }
 
 // MARK: - DLPolyline
-class DLPolyline: MKPolyline {
+class DLPolyline: MGLPolyline {
     public enum DLPolylineType {
         case directLine
         case restrictedAreaC

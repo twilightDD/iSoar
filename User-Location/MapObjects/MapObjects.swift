@@ -126,7 +126,7 @@ class MapObjects{
                     
                     // Polyline erzeugen
                     let restrictedAreaPolyline = DLPolyline(coordinates: locationCoordinates,
-                                                            count: locationCoordinates.count)
+                                                            count: UInt(locationCoordinates.count))
                     
                     // restricted area type
                     if let typeString = restrictedArea["type"] as? String {
