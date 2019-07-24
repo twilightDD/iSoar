@@ -489,7 +489,7 @@ extension MapScreen: CLLocationManagerDelegate {
             
             //Add MKPolyLine as an overlay - reflects the direct line between current location and destinationAirport.
             if self.currentDirectionLine != nil {
-                // self.mapView.removeOverlay(self.currentDirectionLine!)
+                 self.mapView.remove(self.currentDirectionLine!)
             }
             let destinationAirportLocationCoordinate = CLLocationCoordinate2D(latitude: selectedDestinationAirport.latitude,
                                                                               longitude: selectedDestinationAirport.longitude)
