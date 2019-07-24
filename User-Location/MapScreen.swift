@@ -36,62 +36,7 @@ class MapScreen: UIViewController {
     let locationManager = CLLocationManager()
     var currentLocation:CLLocation?
     
-    lazy var userLocationButton:UserLocationButton = {
-        let userLocationButton = UserLocationButton(buttonSize: 40)
-        userLocationButton.addTarget(self, action: #selector(self.locationButtonTapped), for: .touchUpInside)
-        userLocationButton.tintColor = self.mapView.tintColor
-        
-        // Setup constraints such that the button is placed within
-        // the upper left corner of the view.
-        userLocationButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        var leadingConstraint: NSLayoutConstraint
-        if #available(iOS 11.0, *) {
-            leadingConstraint = NSLayoutConstraint(item: userLocationButton,
-                                                   attribute: .leading,
-                                                   relatedBy: .equal,
-                                                   toItem: self.view.safeAreaLayoutGuide,
-                                                   attribute: .leading,
-                                                   multiplier: 1,
-                                                   constant: 10)
-        } else {
-            leadingConstraint = NSLayoutConstraint(item: userLocationButton,
-                                                   attribute: .leading,
-                                                   relatedBy: .equal,
-                                                   toItem: self.view,
-                                                   attribute: .leading,
-                                                   multiplier: 1,
-                                                   constant: 10)
-        }
-        
-        let constraints: [NSLayoutConstraint] = [NSLayoutConstraint(item: userLocationButton,
-                                                                    attribute: .top,
-                                                                    relatedBy: .greaterThanOrEqual,
-                                                                    toItem: topBar,
-                                                                    attribute: .bottom,
-                                                                    multiplier: 1,
-                                                                    constant: 10),
-                                                 leadingConstraint,
-                                                 NSLayoutConstraint(item: userLocationButton,
-                                                                    attribute: .height,
-                                                                    relatedBy: .equal,
-                                                                    toItem: nil,
-                                                                    attribute: .notAnAttribute,
-                                                                    multiplier: 1,
-                                                                    constant: userLocationButton.frame.size.height),
-                                                 NSLayoutConstraint(item: userLocationButton,
-                                                                    attribute: .width,
-                                                                    relatedBy: .equal,
-                                                                    toItem: nil,
-                                                                    attribute: .notAnAttribute,
-                                                                    multiplier: 1,
-                                                                    constant: userLocationButton.frame.size.width)]
-        
-        self.view.addSubview(userLocationButton)
-        self.view.addConstraints(constraints)
-        
-        return userLocationButton
-    }()
+    lazy var userLocationButton:UserLocationButton = createUserLocationButton()
     
     //let altimeter = CMAltimeter()
     
@@ -198,6 +143,64 @@ class MapScreen: UIViewController {
         @unknown default:
             print("Didn't request permission for User Notifications")
         }
+    }
+    
+    func createUserLocationButton()
+        -> UserLocationButton {
+            let userLocationButton = UserLocationButton(buttonSize: 40)
+            userLocationButton.addTarget(self, action: #selector(self.locationButtonTapped), for: .touchUpInside)
+            userLocationButton.tintColor = self.mapView.tintColor
+            
+            // Setup constraints such that the button is placed within
+            // the upper left corner of the view.
+            userLocationButton.translatesAutoresizingMaskIntoConstraints = false
+            
+            var leadingConstraint: NSLayoutConstraint
+            if #available(iOS 11.0, *) {
+                leadingConstraint = NSLayoutConstraint(item: userLocationButton,
+                                                       attribute: .leading,
+                                                       relatedBy: .equal,
+                                                       toItem: self.view.safeAreaLayoutGuide,
+                                                       attribute: .leading,
+                                                       multiplier: 1,
+                                                       constant: 10)
+            } else {
+                leadingConstraint = NSLayoutConstraint(item: userLocationButton,
+                                                       attribute: .leading,
+                                                       relatedBy: .equal,
+                                                       toItem: self.view,
+                                                       attribute: .leading,
+                                                       multiplier: 1,
+                                                       constant: 10)
+            }
+            
+            let constraints: [NSLayoutConstraint] = [NSLayoutConstraint(item: userLocationButton,
+                                                                        attribute: .top,
+                                                                        relatedBy: .greaterThanOrEqual,
+                                                                        toItem: topBar,
+                                                                        attribute: .bottom,
+                                                                        multiplier: 1,
+                                                                        constant: 10),
+                                                     leadingConstraint,
+                                                     NSLayoutConstraint(item: userLocationButton,
+                                                                        attribute: .height,
+                                                                        relatedBy: .equal,
+                                                                        toItem: nil,
+                                                                        attribute: .notAnAttribute,
+                                                                        multiplier: 1,
+                                                                        constant: userLocationButton.frame.size.height),
+                                                     NSLayoutConstraint(item: userLocationButton,
+                                                                        attribute: .width,
+                                                                        relatedBy: .equal,
+                                                                        toItem: nil,
+                                                                        attribute: .notAnAttribute,
+                                                                        multiplier: 1,
+                                                                        constant: userLocationButton.frame.size.width)]
+            
+            self.view.addSubview(userLocationButton)
+            self.view.addConstraints(constraints)
+            
+            return userLocationButton
     }
     
     // MARK: - Gesture Recognizer Funcs
