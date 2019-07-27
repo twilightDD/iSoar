@@ -24,13 +24,17 @@ class MapScreen: UIViewController {
     @IBOutlet weak var courseLabel: UILabel!
     @IBOutlet weak var altitudeLabel: UILabel!
     @IBOutlet weak var speedLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var destinationAltitudeLabel: UILabel!
+    @IBOutlet weak var destinationAirport: UILabel!
+    
     
     //hidden
+    
+
     @IBOutlet var relativeAltitude: UILabel!
     @IBOutlet var pressure: UILabel!
-    @IBOutlet var destinationAltitudeShort: UITextField!
-    @IBOutlet var distanceShort: UITextField!
-    @IBOutlet var destinationAirport: UITextField!
+
     
     // MARK: properties
     let locationManager = CLLocationManager()
@@ -52,6 +56,9 @@ class MapScreen: UIViewController {
     
     var showSpeedInKMH = true
     var speedInKMH:CLLocationSpeed = 0
+    
+    var showDistanceInKM = true
+    var DistanceInKM:CLLocationDistance = 0
     
     // MARK: - Init & Co.
     required init?(coder aDecoder: NSCoder) {
@@ -241,8 +248,14 @@ class MapScreen: UIViewController {
     
     @objc func tapOnSpeedLabel(_ recognizer: UITapGestureRecognizer) {
         showSpeedInKMH = !showSpeedInKMH
-        
+    
         updateSpeedLabel()
+    }
+    
+    @objc func tapOnDistanceLabel(_ recognizer: UITapGestureRecognizer) {
+        showDistanceInKM = !showDistanceInKM
+        
+        //updateDistanceLabel()
     }
     
     // MARK: - Action Funcs
@@ -307,6 +320,25 @@ class MapScreen: UIViewController {
         
         speedLabel.text = speedLabelText
     }
+
+    // ToDo: Gesture Recognizer for Distance in Miles
+//    func updateDistanceLabel() {
+//        guard let currentLocation = currentLocation else {
+//            return
+//        }
+//
+//        var distanceLabelText = ""
+//        if showDistanceInKM == true {
+//            let distanceInKm = distance // Umrechnung 2,23694
+//            distanceLabelText =  String(format: "%.0fKmh", distanceInKm)
+//        }
+//        else {
+//            let distcanceInMi = currentLocation.speed * 1.852
+//            distanceLabelText = String(format: "%.0fKt", distcanceInMi)
+//        }
+//
+//        destinationAirport.text = distanceLabelText
+//    }
 }
 
 // Setup Barometer
@@ -448,11 +480,14 @@ extension MapScreen: CLLocationManagerDelegate {
         }
         
         // Current Location depending stuff
-        // altitude
+        // Altitude
         updateAltitudeLabel()
         
-        // speed
+        // Speed
         updateSpeedLabel()
+        
+        // Distance
+        //updateDistanceLabel()
         
         // Steering Course
         let courseShort = String(format: "%.0f°", currentLocation.course)
@@ -467,8 +502,8 @@ extension MapScreen: CLLocationManagerDelegate {
             let destinationAirportLocation = CLLocation(latitude: selectedDestinationAirport.latitude,
                                                         longitude: selectedDestinationAirport.longitude)
             let distance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
-            let distanceShort = String(format: "%.0fKm", distance/1000)
-            self.distanceShort.text = distanceShort
+            let distanceShort = String(format: "%.1fKm", distance/1000)
+            self.distanceLabel.text = distanceShort
             
             
             let defaults = UserDefaults.standard
@@ -485,12 +520,12 @@ extension MapScreen: CLLocationManagerDelegate {
             // Calculate altitude of Glider at Destination Airport
             let destinationAltitude = currentLocation.altitude - selectedDestinationAirport.elevation - safetyAltitude - gliderSinkRateToDestination
             let destinationAltitudeShort = String(format:"%.0fm", destinationAltitude)
-            self.destinationAltitudeShort.text = destinationAltitudeShort
+            self.destinationAltitudeLabel.text = destinationAltitudeShort
             
             // ToDo: Calculate Gliding-Range - Does not work without Surface Elevation
             // let glidingRange = (currentLocation.altitude - safetyAltitude)*gliderRatio
             
-            //Add MKPolyLine as an overlay - reflects the direct line between current location and destinationAirport.
+            //Add MGLPolyLine as an overlay - reflects the direct line between current location and destinationAirport.
             if self.currentDirectionLine != nil {
                  self.mapView.remove(self.currentDirectionLine!)
             }
