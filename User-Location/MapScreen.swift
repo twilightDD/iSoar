@@ -26,7 +26,7 @@ class MapScreen: UIViewController {
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var destinationAltitudeLabel: UILabel!
-    @IBOutlet weak var destinationAirport: UILabel!
+    @IBOutlet weak var destinationAirportLabel: UILabel!
     
     
     //hidden
@@ -39,6 +39,7 @@ class MapScreen: UIViewController {
     // MARK: properties
     let locationManager = CLLocationManager()
     var currentLocation:CLLocation?
+    var currentDistance:CLLocationDistance?
     
     lazy var userLocationButton:UserLocationButton = createUserLocationButton()
     
@@ -228,6 +229,11 @@ class MapScreen: UIViewController {
         let tapOnSpeedLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnSpeedLabel))
         speedLabel.addGestureRecognizer(tapOnSpeedLabelRecognizer)
         speedLabel.isUserInteractionEnabled = true
+        
+        // Distance Label
+        let tapOnDistanceLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnDistanceLabel))
+        distanceLabel.addGestureRecognizer(tapOnDistanceLabelRecognizer)
+        distanceLabel.isUserInteractionEnabled = true
     }
     
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
@@ -255,7 +261,7 @@ class MapScreen: UIViewController {
     @objc func tapOnDistanceLabel(_ recognizer: UITapGestureRecognizer) {
         showDistanceInKM = !showDistanceInKM
         
-        //updateDistanceLabel()
+        updateDistanceLabel()
     }
     
     // MARK: - Action Funcs
@@ -322,23 +328,52 @@ class MapScreen: UIViewController {
     }
 
     // ToDo: Gesture Recognizer for Distance in Miles
-//    func updateDistanceLabel() {
-//        guard let currentLocation = currentLocation else {
-//            return
-//        }
-//
-//        var distanceLabelText = ""
-//        if showDistanceInKM == true {
-//            let distanceInKm = distance // Umrechnung 2,23694
-//            distanceLabelText =  String(format: "%.0fKmh", distanceInKm)
-//        }
-//        else {
-//            let distcanceInMi = currentLocation.speed * 1.852
-//            distanceLabelText = String(format: "%.0fKt", distcanceInMi)
-//        }
-//
-//        destinationAirport.text = distanceLabelText
-//    }
+    func updateDistanceLabel() {
+        guard let currentDistance = currentDistance else {
+            return
+        }
+
+        var distanceLabelText = ""
+        if showDistanceInKM == true {
+        
+            let distanceInKm = currentDistance/1000
+            distanceLabelText =  String(format: "%.0fKmh", distanceInKm)
+        }
+        else {
+            let distcanceInMi = currentDistance/1000/1.852
+            distanceLabelText = String(format: "%.0fKt", distcanceInMi)
+        }
+
+        distanceLabel.text = distanceLabelText
+    }
+    
+    func updateDestinationAltitudeLabel() {
+        guard let currentLocation = currentLocation else {
+            return
+        }
+        guard let currentDistance = currentDistance else {
+            return
+        }
+        guard  let selectedDestinationAirport = selectedDestinationAirport else {
+            return
+        }
+        
+        let defaults = UserDefaults.standard
+        
+        // Calculate Glider Sink Rate to Destination
+        let safetyAltitude = defaults.value(forKey: SettingsViewController.Settings.safetyAltitude) as! Double
+        let gliderRatio = defaults.value(forKey: SettingsViewController.Settings.gliderRatio) as! Double
+        
+        // Calculate Glider Sink Rate to Destination Airport
+        let gliderRatioMeter = gliderRatio * 1000       //Gleitzahl in Meter
+        let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    //Sinkrate pro Meter
+        let gliderSinkRateToDestination = currentDistance * gliderSinkRatePerMeter   //Sinkrate to Destination in Meter
+        
+        // Calculate altitude of Glider at Destination Airport
+        let destinationAltitude = currentLocation.altitude - selectedDestinationAirport.elevation - safetyAltitude - gliderSinkRateToDestination
+        let destinationAltitudeShort = String(format:"%.0fm", destinationAltitude)
+        self.destinationAltitudeLabel.text = destinationAltitudeShort
+    }
 }
 
 // Setup Barometer
@@ -486,9 +521,6 @@ extension MapScreen: CLLocationManagerDelegate {
         // Speed
         updateSpeedLabel()
         
-        // Distance
-        //updateDistanceLabel()
-        
         // Steering Course
         let courseShort = String(format: "%.0f°", currentLocation.course)
         self.courseLabel.text = courseShort
@@ -496,38 +528,22 @@ extension MapScreen: CLLocationManagerDelegate {
         // Destination depending stuff
         if let selectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport  {
             // ICAO
-            self.destinationAirport.text = selectedDestinationAirport.icao
+            self.destinationAirportLabel.text = selectedDestinationAirport.icao
             
             // Distance
             let destinationAirportLocation = CLLocation(latitude: selectedDestinationAirport.latitude,
                                                         longitude: selectedDestinationAirport.longitude)
-            let distance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
-            let distanceShort = String(format: "%.1fKm", distance/1000)
-            self.distanceLabel.text = distanceShort
+            currentDistance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
+            updateDistanceLabel()
             
-            let distanceInMiles = String(format: "%.1fNm", distance/1000/1.852)
-            print (distanceInMiles)
+            // DestinationAltitude
+            updateDestinationAltitudeLabel()
             
-            let defaults = UserDefaults.standard
-            
-            // Calculate Glider Sink Rate to Destination
-            let safetyAltitude = defaults.value(forKey: SettingsViewController.Settings.safetyAltitude) as! Double
-            let gliderRatio = defaults.value(forKey: SettingsViewController.Settings.gliderRatio) as! Double
-            
-            // Calculate Glider Sink Rate to Destination Airport
-            let gliderRatioMeter = gliderRatio * 1000       //Gleitzahl in Meter
-            let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    //Sinkrate pro Meter
-            let gliderSinkRateToDestination = distance * gliderSinkRatePerMeter   //Sinkrate to Destination in Meter
-            
-            // Calculate altitude of Glider at Destination Airport
-            let destinationAltitude = currentLocation.altitude - selectedDestinationAirport.elevation - safetyAltitude - gliderSinkRateToDestination
-            let destinationAltitudeShort = String(format:"%.0fm", destinationAltitude)
-            self.destinationAltitudeLabel.text = destinationAltitudeShort
             
             // ToDo: Calculate Gliding-Range - Does not work without Surface Elevation
             // let glidingRange = (currentLocation.altitude - safetyAltitude)*gliderRatio
             
-            //Add MGLPolyLine as an overlay - reflects the direct line between current location and destinationAirport.
+            // Draw direct line between current location and destinationAirport.
             if self.currentDirectionLine != nil {
                  self.mapView.remove(self.currentDirectionLine!)
             }
