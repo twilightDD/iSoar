@@ -505,6 +505,8 @@ extension MapScreen: CLLocationManagerDelegate {
             let distanceShort = String(format: "%.1fKm", distance/1000)
             self.distanceLabel.text = distanceShort
             
+            let distanceInMiles = String(format: "%.1fNm", distance/1000/1.852)
+            print (distanceInMiles)
             
             let defaults = UserDefaults.standard
             
