@@ -315,18 +315,23 @@ class MapScreen: UIViewController {
         }
         
         var speedLabelText = ""
-        if showSpeedInKMH == true {
-            let speedInKMH = currentLocation.speed * 3.6
-            speedLabelText =  String(format: "%.0fKmh", speedInKMH)
+        
+        if currentLocation.speed < 0 {
+            speedLabelText = "---"
         }
         else {
-            let speedInKT = currentLocation.speed * 1.852
-            speedLabelText = String(format: "%.0fKt", speedInKT)
+            if showSpeedInKMH == true {
+                let speedInKMH = currentLocation.speed * 3.6
+                speedLabelText =  String(format: "%.0fkmh", speedInKMH)
+            }
+            else {
+                let speedInKT = currentLocation.speed * 1.852
+                speedLabelText = String(format: "%.0fkt", speedInKT)
+            }
         }
-        
         speedLabel.text = speedLabelText
     }
-
+    
     func updateDistanceLabel() {
         guard let currentDistance = currentDistance else {
             return
@@ -373,6 +378,22 @@ class MapScreen: UIViewController {
         let destinationAltitudeShort = String(format:"%.0fm", destinationAltitude)
         self.destinationAltitudeLabel.text = destinationAltitudeShort
     }
+    
+    func updateCourseLabel() {
+        guard let course = currentLocation?.course else {
+            self.courseLabel.text = "---"
+            return
+        }
+        
+        if course < 0 {
+            self.courseLabel.text = "---"
+        }
+        else {
+            let courseShort = String(format: "%.0f°", course)
+            self.courseLabel.text = courseShort
+        }
+    }
+    
 }
 
 // Setup Barometer
@@ -427,6 +448,17 @@ extension MapScreen: MGLMapViewDelegate {
 //        }
 //        return nil
 //    }
+    
+    
+    func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
+        // Give our polyline a unique color by checking for its `title` property
+        return UIColor.blue
+    }
+        
+    func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
+            // Set the line width for polyline annotations
+            return 1.0
+    }
     
     // https://stackoverflow.com/questions/26713582/didselectannotationview-not-called
     func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation) -> MGLCalloutView? {
@@ -521,8 +553,7 @@ extension MapScreen: CLLocationManagerDelegate {
         updateSpeedLabel()
         
         // Steering Course
-        let courseShort = String(format: "%.0f°", currentLocation.course)
-        self.courseLabel.text = courseShort
+        updateCourseLabel()
         
         // Destination depending stuff
         if let selectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport  {
