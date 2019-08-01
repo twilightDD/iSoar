@@ -337,11 +337,11 @@ class MapScreen: UIViewController {
         if showDistanceInKM == true {
         
             let distanceInKm = currentDistance/1000
-            distanceLabelText =  String(format: "%.0fKmh", distanceInKm)
+            distanceLabelText =  String(format: "%.1fKm", distanceInKm)
         }
         else {
             let distcanceInMi = currentDistance/1000/1.852
-            distanceLabelText = String(format: "%.0fKt", distcanceInMi)
+            distanceLabelText = String(format: "%.1fNm", distcanceInMi)
         }
 
         distanceLabel.text = distanceLabelText
