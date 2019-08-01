@@ -327,7 +327,6 @@ class MapScreen: UIViewController {
         speedLabel.text = speedLabelText
     }
 
-    // ToDo: Gesture Recognizer for Distance in Miles
     func updateDistanceLabel() {
         guard let currentDistance = currentDistance else {
             return
