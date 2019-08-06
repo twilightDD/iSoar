@@ -457,7 +457,7 @@ extension MapScreen: MGLMapViewDelegate {
         
     func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
             // Set the line width for polyline annotations
-            return 1.0
+            return 2.0
     }
     
     // https://stackoverflow.com/questions/26713582/didselectannotationview-not-called
