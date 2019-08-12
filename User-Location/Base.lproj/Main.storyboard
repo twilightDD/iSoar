@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
-    <device id="retina5_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14835.7" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14790.5"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,8 +16,106 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8yb-8T-kXL" userLabel="Settings Stack View">
+                                <rect key="frame" x="10" y="54.000000000000014" width="355" height="205.33333333333337"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="129" translatesAutoresizingMaskIntoConstraints="NO" id="bYI-JZ-gqc" userLabel="Glider Ratio">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="35.333333333333336"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glider Ratio:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRc-6M-XsH">
+                                                <rect key="frame" x="0.0" y="0.0" width="113" height="35.333333333333336"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Uma-pM-80t" userLabel="Glider Ratio" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
+                                                <rect key="frame" x="242" y="0.0" width="113" height="35.333333333333336"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="142" translatesAutoresizingMaskIntoConstraints="NO" id="ect-9Q-EmT" userLabel="Safety Altitude">
+                                        <rect key="frame" x="0.0" y="45.333333333333329" width="355" height="34"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safety Altitude in m:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55b-9k-XZj">
+                                                <rect key="frame" x="0.0" y="0.0" width="177" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="vi7-Ik-Pbz" userLabel="Safety Altitude" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
+                                                <rect key="frame" x="319" y="0.0" width="36" height="34"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="36" id="D2b-0r-MI9"/>
+                                                </constraints>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="181" translatesAutoresizingMaskIntoConstraints="NO" id="2A6-ep-S65" userLabel="Glider ID">
+                                        <rect key="frame" x="0.0" y="89.333333333333343" width="355" height="34"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glider ID:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMn-n2-sUr">
+                                                <rect key="frame" x="0.0" y="0.0" width="87" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="aJN-ar-pUl" userLabel="Glider ID" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
+                                                <rect key="frame" x="268" y="0.0" width="87" height="34"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yF4-9c-K4y" userLabel="Dirction Line Switch">
+                                        <rect key="frame" x="0.0" y="133.33333333333334" width="355" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Direction Line:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LK7-KN-Q4d">
+                                                <rect key="frame" x="0.0" y="0.0" width="306" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J8h-Ey-VdH" userLabel="Show Direction Line Switch">
+                                                <rect key="frame" x="306" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="showDirectionLineSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="Acf-Y2-iMB"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vgx-I8-6vj" userLabel="Tracking Route Switch">
+                                        <rect key="frame" x="0.0" y="174.33333333333334" width="355" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Tracking Route:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH1-lu-hfJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="306" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fpo-31-RHc">
+                                                <rect key="frame" x="306" y="0.0" width="51" height="31"/>
+                                                <connections>
+                                                    <action selector="showTrackingRouteSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="F4d-NP-Akg"/>
+                                                </connections>
+                                            </switch>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="2A6-ep-S65" secondAttribute="bottom" constant="82.000000000000028" id="j3j-Vv-aXL"/>
+                                    <constraint firstItem="ect-9Q-EmT" firstAttribute="top" secondItem="8yb-8T-kXL" secondAttribute="top" constant="45.333333333333329" id="kGx-rm-3yb"/>
+                                    <constraint firstItem="2A6-ep-S65" firstAttribute="top" secondItem="8yb-8T-kXL" secondAttribute="top" constant="89.333333333333343" id="u4P-Gp-eyJ"/>
+                                </constraints>
+                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHq-JY-pFB" userLabel="SAVE Button" customClass="Buttons" customModule="Glider_Tool" customModuleProvider="target">
-                                <rect key="frame" x="144" y="519" width="87" height="34"/>
+                                <rect key="frame" x="144" y="347.66666666666669" width="87" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="H87-Hs-96Y"/>
                                 </constraints>
@@ -27,115 +124,16 @@
                                     <action selector="SaveButtonTapped:" destination="AW2-mO-9uR" eventType="touchUpInside" id="puX-sQ-ZMx"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kZj-Y0-xIz" userLabel="Update Button" customClass="Buttons" customModule="Glider_Tool" customModuleProvider="target">
-                                <rect key="frame" x="134" y="620" width="107" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="qaH-CN-VAW"/>
-                                </constraints>
-                                <state key="normal" title="UPDATE"/>
-                            </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8yb-8T-kXL">
-                                <rect key="frame" x="16" y="104" width="343" height="192"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="129" translatesAutoresizingMaskIntoConstraints="NO" id="bYI-JZ-gqc" userLabel="Glider Ratio">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glider Ratio:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRc-6M-XsH">
-                                                <rect key="frame" x="0.0" y="0.0" width="107" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Uma-pM-80t" userLabel="Glider Ratio" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
-                                                <rect key="frame" x="236" y="0.0" width="107" height="30"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="name"/>
-                                            </textField>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="142" translatesAutoresizingMaskIntoConstraints="NO" id="ect-9Q-EmT" userLabel="Safety Altitude">
-                                        <rect key="frame" x="0.0" y="40" width="343" height="30"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safety Altitude in m:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55b-9k-XZj">
-                                                <rect key="frame" x="0.0" y="0.0" width="174.66666666666666" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="vi7-Ik-Pbz" userLabel="Safety Altitude" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
-                                                <rect key="frame" x="316.66666666666669" y="0.0" width="26.333333333333314" height="30"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="name"/>
-                                            </textField>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="181" translatesAutoresizingMaskIntoConstraints="NO" id="2A6-ep-S65" userLabel="Glider ID">
-                                        <rect key="frame" x="0.0" y="80" width="343" height="30"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glider ID:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMn-n2-sUr">
-                                                <rect key="frame" x="0.0" y="0.0" width="81" height="30"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="aJN-ar-pUl" userLabel="Glider ID" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
-                                                <rect key="frame" x="262" y="0.0" width="81" height="30"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <textInputTraits key="textInputTraits" textContentType="name"/>
-                                            </textField>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yF4-9c-K4y" userLabel="Dirction Line Switch">
-                                        <rect key="frame" x="0.0" y="120" width="343" height="31"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Direction Line:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LK7-KN-Q4d">
-                                                <rect key="frame" x="0.0" y="0.0" width="294" height="31"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J8h-Ey-VdH" userLabel="Show Direction Line Switch">
-                                                <rect key="frame" x="294" y="0.0" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="showDirectionLineSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="Acf-Y2-iMB"/>
-                                                </connections>
-                                            </switch>
-                                        </subviews>
-                                    </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vgx-I8-6vj" userLabel="Tracking Route Switch">
-                                        <rect key="frame" x="0.0" y="161" width="343" height="31"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Tracking Route:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH1-lu-hfJ">
-                                                <rect key="frame" x="0.0" y="0.0" width="294" height="31"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fpo-31-RHc">
-                                                <rect key="frame" x="294" y="0.0" width="51" height="31"/>
-                                                <connections>
-                                                    <action selector="showTrackingRouteSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="F4d-NP-Akg"/>
-                                                </connections>
-                                            </switch>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="8yb-8T-kXL" firstAttribute="leading" secondItem="ZtY-EE-Of7" secondAttribute="leading" constant="16" id="5w9-bp-Vdw"/>
-                            <constraint firstItem="8yb-8T-kXL" firstAttribute="top" secondItem="ZtY-EE-Of7" secondAttribute="top" constant="60" id="6Sn-a5-4lc"/>
-                            <constraint firstItem="kZj-Y0-xIz" firstAttribute="top" secondItem="FHq-JY-pFB" secondAttribute="bottom" constant="67" id="7wB-Yx-Yvc"/>
-                            <constraint firstItem="FHq-JY-pFB" firstAttribute="leading" secondItem="ZtY-EE-Of7" secondAttribute="leading" constant="144" id="Gfx-9f-iWj"/>
-                            <constraint firstItem="FHq-JY-pFB" firstAttribute="centerX" secondItem="kZj-Y0-xIz" secondAttribute="centerX" id="Gmm-xA-bzV"/>
-                            <constraint firstItem="kZj-Y0-xIz" firstAttribute="leading" secondItem="ZtY-EE-Of7" secondAttribute="leading" constant="134" id="IX2-0u-mYY"/>
-                            <constraint firstItem="FHq-JY-pFB" firstAttribute="centerX" secondItem="JoN-R0-khH" secondAttribute="centerX" id="Km6-gt-Lha"/>
-                            <constraint firstItem="ZtY-EE-Of7" firstAttribute="trailing" secondItem="8yb-8T-kXL" secondAttribute="trailing" constant="16" id="T9H-lG-0Br"/>
-                            <constraint firstItem="ZtY-EE-Of7" firstAttribute="bottom" secondItem="kZj-Y0-xIz" secondAttribute="bottom" constant="75" id="vFF-re-LWN"/>
+                            <constraint firstItem="FHq-JY-pFB" firstAttribute="centerY" secondItem="JoN-R0-khH" secondAttribute="centerY" id="1RW-dt-5Z3"/>
+                            <constraint firstItem="FHq-JY-pFB" firstAttribute="centerX" secondItem="8yb-8T-kXL" secondAttribute="centerX" id="Edp-XG-imb"/>
+                            <constraint firstItem="ZtY-EE-Of7" firstAttribute="trailing" secondItem="8yb-8T-kXL" secondAttribute="trailing" constant="10" id="HLd-iC-Y0S"/>
+                            <constraint firstItem="8yb-8T-kXL" firstAttribute="leading" secondItem="ZtY-EE-Of7" secondAttribute="leading" constant="10" id="Sel-tt-YIM"/>
+                            <constraint firstItem="8yb-8T-kXL" firstAttribute="top" secondItem="ZtY-EE-Of7" secondAttribute="top" constant="9.9999999999999858" id="Wv1-uN-GVh"/>
+                            <constraint firstItem="FHq-JY-pFB" firstAttribute="leading" secondItem="ZtY-EE-Of7" secondAttribute="leading" constant="144" id="aPQ-5g-Dzh"/>
+                            <constraint firstItem="FHq-JY-pFB" firstAttribute="top" secondItem="8yb-8T-kXL" secondAttribute="bottom" constant="88.333333333333371" id="n4N-o0-cyS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZtY-EE-Of7"/>
                     </view>
@@ -243,7 +241,7 @@
             <objects>
                 <viewController id="3Br-pt-Icv" customClass="AirportInfoViewController" customModule="Glider_Tool" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4Ax-e0-FBb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfN-vw-tZQ">
@@ -299,20 +297,26 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="74" translatesAutoresizingMaskIntoConstraints="NO" id="70h-Ty-Kwj">
                                         <rect key="frame" x="10" y="30" width="355" height="30"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Speed" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jK-Zb-MHZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="81.666666666666671" height="30"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" insetsLayoutMarginsFromSafeArea="NO" text="Speed" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jK-Zb-MHZ">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="100" id="gJb-fS-ZKO"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Course" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3X-KS-AZU" userLabel="Course Label">
-                                                <rect key="frame" x="155.66666666666666" y="0.0" width="76.666666666666657" height="30"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="Course" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3X-KS-AZU" userLabel="Course Label">
+                                                <rect key="frame" x="174" y="0.0" width="100" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="100" id="7OF-WB-xAb"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="MSL" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K7G-au-vdO">
-                                                <rect key="frame" x="306.33333333333331" y="0.0" width="48.666666666666686" height="30"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" insetsLayoutMarginsFromSafeArea="NO" text="MSL" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K7G-au-vdO">
+                                                <rect key="frame" x="348" y="0.0" width="7" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -322,13 +326,13 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="E39-lY-y1W">
                                         <rect key="frame" x="10" y="59" width="355" height="30"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Distance" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kA8-XT-cnZ">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" insetsLayoutMarginsFromSafeArea="NO" text="DIST" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kA8-XT-cnZ">
                                                 <rect key="frame" x="0.0" y="0.0" width="115" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Destination" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piy-fD-UdR">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="DEST" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piy-fD-UdR">
                                                 <rect key="frame" x="135" y="0.0" width="100" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="BTc-fq-VkA"/>
@@ -337,7 +341,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DestinationAltitude" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tFp-FZ-rSR">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="D-ALT" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tFp-FZ-rSR">
                                                 <rect key="frame" x="255" y="0.0" width="100" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="1bM-QM-9Sb"/>
@@ -413,7 +417,7 @@
     </scenes>
     <resources>
         <image name="directto" width="35" height="35"/>
-        <image name="glider" width="50" height="23"/>
+        <image name="glider" width="65" height="30"/>
         <image name="logbook" width="35" height="35"/>
         <image name="settings" width="35" height="35"/>
     </resources>

@@ -377,6 +377,14 @@ class MapScreen: UIViewController {
         let destinationAltitude = currentLocation.altitude - selectedDestinationAirport.elevation - safetyAltitude - gliderSinkRateToDestination
         let destinationAltitudeShort = String(format:"%.0fm", destinationAltitude)
         self.destinationAltitudeLabel.text = destinationAltitudeShort
+        
+        if destinationAltitude < 1 {
+            destinationAltitudeLabel.textColor = .red
+        }
+        else {
+            return
+        }
+        
     }
     
     func updateCourseLabel() {
