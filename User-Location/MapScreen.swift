@@ -28,10 +28,8 @@ class MapScreen: UIViewController {
     @IBOutlet weak var destinationAltitudeLabel: UILabel!
     @IBOutlet weak var destinationAirportLabel: UILabel!
     
-    
     //hidden
     
-
     @IBOutlet var relativeAltitude: UILabel!
     @IBOutlet var pressure: UILabel!
 
@@ -80,10 +78,11 @@ class MapScreen: UIViewController {
     
         //setupBarometer()
     }
-    
-    override var prefersStatusBarHidden: Bool {
-        return true
+  
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
+
     
     // MARK: - Setup functions
     // Set up Location Manager
