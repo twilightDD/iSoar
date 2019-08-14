@@ -298,11 +298,11 @@ class MapScreen: UIViewController {
 
         var altituteLabelText = ""
         if showAltitudeInMeters == true {
-            altituteLabelText =  String(format: "%.0fm", currentLocation.altitude)
+            altituteLabelText =  String(format: "%.0f m", currentLocation.altitude)
         }
         else {
             let altitudeInFeet = currentLocation.altitude * 3.28084
-            altituteLabelText = String(format: "%.0fft", altitudeInFeet)
+            altituteLabelText = String(format: "%.0f ft", altitudeInFeet)
         }
         
         altitudeLabel.text = altituteLabelText
@@ -321,11 +321,11 @@ class MapScreen: UIViewController {
         else {
             if showSpeedInKMH == true {
                 let speedInKMH = currentLocation.speed * 3.6
-                speedLabelText =  String(format: "%.0fkmh", speedInKMH)
+                speedLabelText =  String(format: "%.0f km/h", speedInKMH)
             }
             else {
                 let speedInKT = currentLocation.speed * 1.852
-                speedLabelText = String(format: "%.0fkt", speedInKT)
+                speedLabelText = String(format: "%.0f kt", speedInKT)
             }
         }
         speedLabel.text = speedLabelText
@@ -340,11 +340,11 @@ class MapScreen: UIViewController {
         if showDistanceInKM == true {
         
             let distanceInKm = currentDistance/1000
-            distanceLabelText =  String(format: "%.1fKm", distanceInKm)
+            distanceLabelText =  String(format: "%.1f Km", distanceInKm)
         }
         else {
             let distcanceInMi = currentDistance/1000/1.852
-            distanceLabelText = String(format: "%.1fNm", distcanceInMi)
+            distanceLabelText = String(format: "%.1f NM", distcanceInMi)
         }
 
         distanceLabel.text = distanceLabelText
@@ -374,7 +374,7 @@ class MapScreen: UIViewController {
         
         // Calculate altitude of Glider at Destination Airport
         let destinationAltitude = currentLocation.altitude - selectedDestinationAirport.elevation - safetyAltitude - gliderSinkRateToDestination
-        let destinationAltitudeShort = String(format:"%.0fm", destinationAltitude)
+        let destinationAltitudeShort = String(format:"%.0f m", destinationAltitude)
         self.destinationAltitudeLabel.text = destinationAltitudeShort
         
         if destinationAltitude < 1 {

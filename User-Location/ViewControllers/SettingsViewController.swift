@@ -57,9 +57,18 @@ import UIKit
         
         // Read User Defaults and display them on screen
         func setupUI(){
-            gliderRatioTextField.text! = (defaults.value( forKey: Settings.gliderRatio) as! Double).description
-            safetyAltitudeTextField.text! = (defaults.value(forKey: Settings.safetyAltitude) as! Double).description
-            gliderIDTextField.text! = defaults.value(forKey: Settings.gliderID) as? String ?? "D-1234"
+            
+            let gliderRatio = defaults.value( forKey: Settings.gliderRatio) as! Double
+            let gliderRatioString = String(format: "%.f", gliderRatio)
+            gliderRatioTextField.text! = gliderRatioString
+            
+            let safetyAltitude = defaults.value( forKey: Settings.safetyAltitude) as! Double
+            let safetyAltitudeString = String(format: "%.f", safetyAltitude)
+            safetyAltitudeTextField.text! = safetyAltitudeString
+            
+            let gliderID = defaults.value(forKey: Settings.gliderID) as? String ?? "D-1234"
+            gliderIDTextField.text! = gliderID
+            
         }
         
         // Direction Line Switch
