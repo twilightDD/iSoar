@@ -19,8 +19,22 @@ class NavToViewController: UIViewController {
         super.viewDidLoad()
         pickerView.dataSource = self
         pickerView.delegate = self
-        // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    @IBAction func cancelButton(_ sender: Buttons) {
+        cancelRoute()
+    }
+    
+    func cancelRoute(){
+        MapScreen.shared!.selectedDestinationAirport = nil  //ToDo nicht sicher ob dass das richtige ist was nil gesetzt werden muss
+        
+        icao.text = nil
+        airportName.text = nil
+        country.text = nil
+        
+        print("Route canceled")
+    }
+    
 }
 
 extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -37,13 +51,8 @@ extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         let selectedDestinationAirport = MapObjects.shared.destinationAirports[row]
         
         icao.text = selectedDestinationAirport.icao
-        print(icao.text!)
-        
         airportName.text = selectedDestinationAirport.name
-        print(airportName.text!)
-        
         country.text = selectedDestinationAirport.country
-        print(country.text!)
         
         MapScreen.shared!.selectedDestinationAirport = selectedDestinationAirport
     }
@@ -51,4 +60,5 @@ extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return MapObjects.shared.destinationAirports[row].name
     }
+    
 }
