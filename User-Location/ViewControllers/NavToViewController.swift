@@ -27,12 +27,8 @@ class NavToViewController: UIViewController {
     
     func cancelRoute(){
         if MapScreen.shared!.selectedDestinationAirport != nil {
-            MapScreen.shared!.selectedDestinationAirport = nil
-            MapScreen.shared!.destinationAltitudeLabel.text = "---"
-            MapScreen.shared!.distanceLabel.text = "---"
-            MapScreen.shared!.destinationAirportLabel.text = "---"
-            
-            MapScreen.shared!.mapView.remove(MapScreen.shared!.currentDirectionLine!)
+            MapScreen.shared!.resetDestinationLabels()
+            MapScreen.shared!.resetDirectionLine()
             
             icao.text = nil
             airportName.text = nil

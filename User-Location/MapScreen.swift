@@ -14,9 +14,9 @@ import Mapbox
 
 //MARK: MapScreen
 class MapScreen: UIViewController {
-
+    
     static var shared:MapScreen?
-        
+    
     // MARK: IBOutlets
     @IBOutlet var mapView: MGLMapView!
     
@@ -32,7 +32,7 @@ class MapScreen: UIViewController {
     
     @IBOutlet var relativeAltitude: UILabel!
     @IBOutlet var pressure: UILabel!
-
+    
     
     // MARK: properties
     let locationManager = CLLocationManager()
@@ -44,23 +44,7 @@ class MapScreen: UIViewController {
     //let altimeter = CMAltimeter()
     
     var selectedDestinationAirport:MapObjects.Airport?
-        // 2. Schritt: didSet benutzen!
-        // diese Funktionalität wird aufgerufen, NACHDEM ein neuer Wert für selectedDestinationAirport gesetzt wurde.
-        // Mal in https://docs.swift.org/swift-book/LanguageGuide/Properties.html#ID262 anschauen!
     
-        /*
-        var selectedDestinationAirport:MapObjects.Airport? {
-            didSet {
-                if selectedDestinationAirport == nil {
-                    resetDirectionLine()
-                }
-            }
-        */
-    }
-    
-    func resetDirectionLine() {
-        
-    }
     var currentDirectionLine:DLPolyline?
     
     var userTrackingMode = true
@@ -91,14 +75,14 @@ class MapScreen: UIViewController {
         setupGestureRecognizers()
         
         //loadMapAnnotations()
-    
+        
         //setupBarometer()
     }
-  
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
+    
     
     // MARK: - Setup functions
     // Set up Location Manager
@@ -269,7 +253,7 @@ class MapScreen: UIViewController {
     
     @objc func tapOnSpeedLabel(_ recognizer: UITapGestureRecognizer) {
         showSpeedInKMH = !showSpeedInKMH
-    
+        
         updateSpeedLabel()
     }
     
@@ -303,7 +287,7 @@ class MapScreen: UIViewController {
                                                                        longitude: destinationAirport.longitude)
             airportPointAnnotation.title = "title"
             airportPointAnnotation.imageName = "runway_grass"
-
+            
             mapView.addAnnotation(airportPointAnnotation)
         }
     }
@@ -313,7 +297,7 @@ class MapScreen: UIViewController {
         guard let currentLocation = currentLocation else {
             return
         }
-
+        
         var altituteLabelText = ""
         if showAltitudeInMeters == true {
             altituteLabelText =  String(format: "%.0f m", currentLocation.altitude)
@@ -326,6 +310,7 @@ class MapScreen: UIViewController {
         altitudeLabel.text = altituteLabelText
     }
     
+    // Update SpeedLabel
     func updateSpeedLabel() {
         guard let currentLocation = currentLocation else {
             return
@@ -349,14 +334,15 @@ class MapScreen: UIViewController {
         speedLabel.text = speedLabelText
     }
     
+    // Update DistanceLabel
     func updateDistanceLabel() {
         guard let currentDistance = currentDistance else {
             return
         }
-
+        
         var distanceLabelText = ""
         if showDistanceInKM == true {
-        
+            
             let distanceInKm = currentDistance/1000
             distanceLabelText =  String(format: "%.1f Km", distanceInKm)
         }
@@ -364,10 +350,12 @@ class MapScreen: UIViewController {
             let distcanceInMi = currentDistance/1000/1.852
             distanceLabelText = String(format: "%.1f NM", distcanceInMi)
         }
-
+        
         distanceLabel.text = distanceLabelText
+        
     }
     
+    // Update DestinationAltitudeLabel
     func updateDestinationAltitudeLabel() {
         guard let currentLocation = currentLocation else {
             return
@@ -379,6 +367,7 @@ class MapScreen: UIViewController {
             return
         }
         
+        // Get User Default Values
         let defaults = UserDefaults.standard
         
         // Calculate Glider Sink Rate to Destination
@@ -394,12 +383,20 @@ class MapScreen: UIViewController {
         let destinationAltitude = currentLocation.altitude - selectedDestinationAirport.elevation - safetyAltitude - gliderSinkRateToDestination
         let destinationAltitudeShort = String(format:"%.0f m", destinationAltitude)
         self.destinationAltitudeLabel.text = destinationAltitudeShort
+
+        // ToDo:
+//        if selectedDestinationAirport = nil {
+//            destinationAltitudeLabel.text = "---"
+//        }
+//        else {
+//            destinationAltitudeLabel.text = destinationAltitudeShort
+//        }
         
-        if destinationAltitude < 0 {
-            destinationAltitudeLabel.textColor = .red
+        if destinationAltitude > 0 {
+            destinationAltitudeLabel.textColor = .white
         }
         else {
-            destinationAltitudeLabel.textColor = .white
+            destinationAltitudeLabel.textColor = .red
         }
         
     }
@@ -417,6 +414,18 @@ class MapScreen: UIViewController {
             let courseShort = String(format: "%.0f°", course)
             self.courseLabel.text = courseShort
         }
+    }
+    
+    func resetDestinationLabels() {
+        distanceLabel = nil
+        destinationAirportLabel = nil
+        destinationAltitudeLabel = nil
+    }
+    
+    func resetDirectionLine() {
+        selectedDestinationAirport = nil
+        mapView.remove(MapScreen.shared!.currentDirectionLine!)
+
     }
     
 }
@@ -465,22 +474,22 @@ class DLCalloutView: UIView, MGLCalloutView {
 // MARK: - MGLMapViewDelegate methods
 extension MapScreen: MGLMapViewDelegate {
     
-//    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
-//        if let image = UIImage.init(named: "info") {
-//            let annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: "airportIdentifer")
-//            return annotationImage
-//        }
-//        return nil
-//    }
+    //    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
+    //        if let image = UIImage.init(named: "info") {
+    //            let annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: "airportIdentifer")
+    //            return annotationImage
+    //        }
+    //        return nil
+    //    }
     
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
         // Give our polyline a unique color by checking for its `title` property
         return UIColor.blue
     }
-        
+    
     func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
-            // Set the line width for polyline annotations
-            return 2.0
+        // Set the line width for polyline annotations
+        return 2.0
     }
     
     // https://stackoverflow.com/questions/26713582/didselectannotationview-not-called
@@ -503,12 +512,12 @@ extension MapScreen: MGLMapViewDelegate {
     }
     
     private func mapView(MapView: MGLMapView!, annotation: MGLAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-
-//https://stackoverflow.com/questions/51904284/how-do-you-create-a-custom-callout-for-mapbox-annotations
-//        if control == annotation.rightCalloutAccessoryView {
-//            performSegue(withIdentifier: "AirportInfoSegue", sender: self)
-//            print("Opening AirportInfoViewController")
-//        }
+        
+        //https://stackoverflow.com/questions/51904284/how-do-you-create-a-custom-callout-for-mapbox-annotations
+        //        if control == annotation.rightCalloutAccessoryView {
+        //            performSegue(withIdentifier: "AirportInfoSegue", sender: self)
+        //            print("Opening AirportInfoViewController")
+        //        }
     }
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
         // Substitute our custom view for the user location annotation. This custom view is defined below.
@@ -523,34 +532,34 @@ extension MapScreen: MGLMapViewDelegate {
     }
     
     /*
-    // TODO: WARUM wird das hier nicht aufgerufen?!
+     // TODO: WARUM wird das hier nicht aufgerufen?!
      func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        // This example is only concerned with point annotations.
-        //print("\(annotation.self)")
-        
-        guard annotation is MGLPointAnnotation else {
-            return nil
-        }
-        
-        // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
-        let reuseIdentifier = "\(annotation.coordinate.longitude)"
-        
-        // For better performance, always try to reuse existing annotations.
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-        
-        // If there’s no reusable annotation view available, initialize a new one.
-        if annotationView == nil {
-            annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
-            annotationView?.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-            annotationView?.layer.cornerRadius = (annotationView?.frame.size.width)! / 2
-            annotationView?.layer.borderWidth = 4.0
-            annotationView?.layer.borderColor = UIColor.white.cgColor
-            annotationView!.backgroundColor = UIColor(red: 0.03, green: 0.80, blue: 0.69, alpha: 1.0)
-        }
-        
-        return annotationView
-    }
- */
+     // This example is only concerned with point annotations.
+     //print("\(annotation.self)")
+     
+     guard annotation is MGLPointAnnotation else {
+     return nil
+     }
+     
+     // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
+     let reuseIdentifier = "\(annotation.coordinate.longitude)"
+     
+     // For better performance, always try to reuse existing annotations.
+     var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+     
+     // If there’s no reusable annotation view available, initialize a new one.
+     if annotationView == nil {
+     annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
+     annotationView?.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+     annotationView?.layer.cornerRadius = (annotationView?.frame.size.width)! / 2
+     annotationView?.layer.borderWidth = 4.0
+     annotationView?.layer.borderColor = UIColor.white.cgColor
+     annotationView!.backgroundColor = UIColor(red: 0.03, green: 0.80, blue: 0.69, alpha: 1.0)
+     }
+     
+     return annotationView
+     }
+     */
 }
 
 // MARK: - MapScreen: CLLocationManagerDelegate
@@ -558,7 +567,7 @@ extension MapScreen: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last else { return }
-       
+        
         self.currentLocation = currentLocation
         
         // Get User Tracking State - If true - set Map center on User Location
@@ -584,6 +593,7 @@ extension MapScreen: CLLocationManagerDelegate {
             // Distance
             let destinationAirportLocation = CLLocation(latitude: selectedDestinationAirport.latitude,
                                                         longitude: selectedDestinationAirport.longitude)
+            
             currentDistance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
             updateDistanceLabel()
             
@@ -596,7 +606,7 @@ extension MapScreen: CLLocationManagerDelegate {
             
             // Draw direct line between current location and destinationAirport.
             if self.currentDirectionLine != nil {
-                 self.mapView.remove(self.currentDirectionLine!)
+                self.mapView.remove(self.currentDirectionLine!)
             }
             let destinationAirportLocationCoordinate = CLLocationCoordinate2D(latitude: selectedDestinationAirport.latitude,
                                                                               longitude: selectedDestinationAirport.longitude)
@@ -606,49 +616,41 @@ extension MapScreen: CLLocationManagerDelegate {
             self.currentDirectionLine?.type = .directLine
             
             self.mapView.add(self.currentDirectionLine!)
-    
-        }
-        else {
-            // 1. Schritt
-            // Also wenn kein selectedDestinationAirport
-            // Todo: remove currentDirectionLine from mapView
-            // Todo: set currentDirectionLine to nil
-            // => es wäre sinnvoll, diese Funktionalität in eine extra Methode auszulagern und diese hier aufzurufen
-            // resetDirectionLine()
+            
         }
     }
     
     // Show Annotation on Map
-//    @nonobjc func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-//
-//        // Get annotationView
-//        let identifier = "Annotation"
-//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-//
-//        if annotationView == nil {
-//            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-//            annotationView!.canShowCallout = true
-//            //ToDo: performSegue(withIdentifier: "AirportInfoSegue", sender: self)
-//        }
-//
-//        // Set image of annotationView depending of the type of annotation
-//        if let castedAnnotation = annotation as? DLPointAnnotiation {
-//            annotationView!.image = UIImage(named: castedAnnotation.imageName)
-//        }
-//        else if annotation === mapView.userLocation {
-//            annotationView!.image = UIImage(named: "glider")
-//        }
-//        return annotationView
-//    }
+    //    @nonobjc func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    //
+    //        // Get annotationView
+    //        let identifier = "Annotation"
+    //        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+    //
+    //        if annotationView == nil {
+    //            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+    //            annotationView!.canShowCallout = true
+    //            //ToDo: performSegue(withIdentifier: "AirportInfoSegue", sender: self)
+    //        }
+    //
+    //        // Set image of annotationView depending of the type of annotation
+    //        if let castedAnnotation = annotation as? DLPointAnnotiation {
+    //            annotationView!.image = UIImage(named: castedAnnotation.imageName)
+    //        }
+    //        else if annotation === mapView.userLocation {
+    //            annotationView!.image = UIImage(named: "glider")
+    //        }
+    //        return annotationView
+    //    }
     
     // ToDo: Open AirportInfoViewController by tapping Airport Annotation
-//    func mapView(MapView: MKMapView!, annotation: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-//
-//        if control == annotation.rightCalloutAccessoryView {
-//            performSegue(withIdentifier: "AirportInfoSegue", sender: self)
-//            print("Opening AirportInfoViewController")
-//        }
-//    }
+    //    func mapView(MapView: MKMapView!, annotation: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    //
+    //        if control == annotation.rightCalloutAccessoryView {
+    //            performSegue(withIdentifier: "AirportInfoSegue", sender: self)
+    //            print("Opening AirportInfoViewController")
+    //        }
+    //    }
     
     // Check for Location Authorization
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -656,29 +658,29 @@ extension MapScreen: CLLocationManagerDelegate {
     }
     
     // Draw and renew Polyline Overlay on Map
-//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-//        var overlayRenderer = MKPolylineRenderer() // leeren MKOverlayRenderer anlegen
-//        if let currentPolyline = overlay as? DLPolyline { // wenn overlay eine DLPolyline ist
-//            overlayRenderer = MKPolylineRenderer(polyline: currentPolyline) // MKOverlayRenderer mit dem Pfad des Overlay versehen
-//
-//            // Abhängig vom type der DLPolyline setzen wir Farbe und Dicke
-//            switch currentPolyline.type {
-//            case .directLine:
-//                overlayRenderer.strokeColor = .blue
-//                overlayRenderer.lineWidth = 1.0
-//            case .restrictedAreaR:
-//                overlayRenderer.strokeColor = .red
-//                overlayRenderer.lineWidth = 1.5
-//            case .restrictedAreaRMZ:
-//                overlayRenderer.strokeColor = .purple
-//                overlayRenderer.lineWidth = 1.0
-//            default: // All other (just in case)
-//                overlayRenderer.strokeColor = .black
-//                overlayRenderer.lineWidth = 1.0
-//            }
-//        }
-//        return overlayRenderer
-//    }
+    //    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+    //        var overlayRenderer = MKPolylineRenderer() // leeren MKOverlayRenderer anlegen
+    //        if let currentPolyline = overlay as? DLPolyline { // wenn overlay eine DLPolyline ist
+    //            overlayRenderer = MKPolylineRenderer(polyline: currentPolyline) // MKOverlayRenderer mit dem Pfad des Overlay versehen
+    //
+    //            // Abhängig vom type der DLPolyline setzen wir Farbe und Dicke
+    //            switch currentPolyline.type {
+    //            case .directLine:
+    //                overlayRenderer.strokeColor = .blue
+    //                overlayRenderer.lineWidth = 1.0
+    //            case .restrictedAreaR:
+    //                overlayRenderer.strokeColor = .red
+    //                overlayRenderer.lineWidth = 1.5
+    //            case .restrictedAreaRMZ:
+    //                overlayRenderer.strokeColor = .purple
+    //                overlayRenderer.lineWidth = 1.0
+    //            default: // All other (just in case)
+    //                overlayRenderer.strokeColor = .black
+    //                overlayRenderer.lineWidth = 1.0
+    //            }
+    //        }
+    //        return overlayRenderer
+    //    }
 }
 
 // MARK: - MapScreen:UIGestureRecognizerDelegate
@@ -715,3 +717,4 @@ class DLPolyline: MGLPolyline {
     var type:DLPolylineType = .directLine // Default
     
 }
+
