@@ -594,6 +594,14 @@ extension MapScreen: CLLocationManagerDelegate {
             self.mapView.add(self.currentDirectionLine!)
     
         }
+        else {
+            // 1. Schritt
+            // Also wenn kein selectedDestinationAirport
+            // Todo: remove currentDirectionLine from mapView
+            // Todo: set currentDirectionLine to nil
+            // => es wäre sinnvoll, diese Funktionalität in eine extra Methode auszulagern und diese hier aufzurufen
+            // resetDirectionLine()
+        }
     }
     
     // Show Annotation on Map
