@@ -278,6 +278,7 @@ class MapScreen: UIViewController {
     
     //MARK: - Private Methods
     
+    // Load Map Annotations
     func loadMapAnnotations() {
         let destinationAirports = MapObjects.shared.destinationAirports
         for destinationAirport in destinationAirports {
@@ -286,11 +287,12 @@ class MapScreen: UIViewController {
                                                                        longitude: destinationAirport.longitude)
             airportPointAnnotation.title = "title"
             airportPointAnnotation.imageName = "runway_grass"
-            
+
             mapView.addAnnotation(airportPointAnnotation)
         }
     }
     
+    // Update AltitudeLabel
     func updateAltitudeLabel() {
         guard let currentLocation = currentLocation else {
             return
@@ -377,11 +379,11 @@ class MapScreen: UIViewController {
         let destinationAltitudeShort = String(format:"%.0f m", destinationAltitude)
         self.destinationAltitudeLabel.text = destinationAltitudeShort
         
-        if destinationAltitude < 1 {
+        if destinationAltitude < 0 {
             destinationAltitudeLabel.textColor = .red
         }
         else {
-            return
+            destinationAltitudeLabel.textColor = .white
         }
         
     }
@@ -444,7 +446,6 @@ class DLCalloutView: UIView, MGLCalloutView {
     }
 }
 
-
 // MARK: - MGLMapViewDelegate methods
 extension MapScreen: MGLMapViewDelegate {
     
@@ -455,7 +456,6 @@ extension MapScreen: MGLMapViewDelegate {
 //        }
 //        return nil
 //    }
-    
     
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
         // Give our polyline a unique color by checking for its `title` property
@@ -536,8 +536,6 @@ extension MapScreen: MGLMapViewDelegate {
     }
  */
 }
-
-
 
 // MARK: - MapScreen: CLLocationManagerDelegate
 extension MapScreen: CLLocationManagerDelegate {

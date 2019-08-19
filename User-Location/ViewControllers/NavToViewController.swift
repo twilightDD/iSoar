@@ -26,13 +26,23 @@ class NavToViewController: UIViewController {
     }
     
     func cancelRoute(){
-        MapScreen.shared!.selectedDestinationAirport = nil  //ToDo nicht sicher ob dass das richtige ist was nil gesetzt werden muss
-        
-        icao.text = nil
-        airportName.text = nil
-        country.text = nil
-        
-        print("Route canceled")
+        if MapScreen.shared!.selectedDestinationAirport != nil {
+            MapScreen.shared!.selectedDestinationAirport = nil
+            MapScreen.shared!.destinationAltitudeLabel.text = "---"
+            MapScreen.shared!.distanceLabel.text = "---"
+            MapScreen.shared!.destinationAirportLabel.text = "---"
+            
+            MapScreen.shared!.mapView.remove(MapScreen.shared!.currentDirectionLine!)
+            
+            icao.text = nil
+            airportName.text = nil
+            country.text = nil
+            
+            print("Route canceled")
+        }
+        else {
+            return
+        }
     }
     
 }
