@@ -44,7 +44,23 @@ class MapScreen: UIViewController {
     //let altimeter = CMAltimeter()
     
     var selectedDestinationAirport:MapObjects.Airport?
+        // 2. Schritt: didSet benutzen!
+        // diese Funktionalität wird aufgerufen, NACHDEM ein neuer Wert für selectedDestinationAirport gesetzt wurde.
+        // Mal in https://docs.swift.org/swift-book/LanguageGuide/Properties.html#ID262 anschauen!
     
+        /*
+        var selectedDestinationAirport:MapObjects.Airport? {
+            didSet {
+                if selectedDestinationAirport == nil {
+                    resetDirectionLine()
+                }
+            }
+        */
+    }
+    
+    func resetDirectionLine() {
+        
+    }
     var currentDirectionLine:DLPolyline?
     
     var userTrackingMode = true
@@ -591,6 +607,14 @@ extension MapScreen: CLLocationManagerDelegate {
             
             self.mapView.add(self.currentDirectionLine!)
     
+        }
+        else {
+            // 1. Schritt
+            // Also wenn kein selectedDestinationAirport
+            // Todo: remove currentDirectionLine from mapView
+            // Todo: set currentDirectionLine to nil
+            // => es wäre sinnvoll, diese Funktionalität in eine extra Methode auszulagern und diese hier aufzurufen
+            // resetDirectionLine()
         }
     }
     
