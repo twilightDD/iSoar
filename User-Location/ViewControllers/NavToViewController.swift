@@ -9,7 +9,7 @@
 import UIKit
 
 class NavToViewController: UIViewController {
-
+    
     @IBOutlet weak var icao: UILabel!
     @IBOutlet weak var airportName: UILabel!
     @IBOutlet weak var country: UILabel!

@@ -19,7 +19,6 @@ class MapScreen: UIViewController {
     
     // MARK: IBOutlets
     @IBOutlet var mapView: MGLMapView!
-    
     @IBOutlet weak var topBar: UIView!
     @IBOutlet weak var courseLabel: UILabel!
     @IBOutlet weak var altitudeLabel: UILabel!
@@ -32,7 +31,6 @@ class MapScreen: UIViewController {
     
     @IBOutlet var relativeAltitude: UILabel!
     @IBOutlet var pressure: UILabel!
-    
     
     // MARK: properties
     let locationManager = CLLocationManager()
@@ -82,7 +80,6 @@ class MapScreen: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
     
     // MARK: - Setup functions
     // Set up Location Manager
@@ -383,14 +380,6 @@ class MapScreen: UIViewController {
         let destinationAltitude = currentLocation.altitude - selectedDestinationAirport.elevation - safetyAltitude - gliderSinkRateToDestination
         let destinationAltitudeShort = String(format:"%.0f m", destinationAltitude)
         self.destinationAltitudeLabel.text = destinationAltitudeShort
-
-        // ToDo:
-//        if selectedDestinationAirport = nil {
-//            destinationAltitudeLabel.text = "---"
-//        }
-//        else {
-//            destinationAltitudeLabel.text = destinationAltitudeShort
-//        }
         
         if destinationAltitude > 0 {
             destinationAltitudeLabel.textColor = .white
@@ -425,9 +414,7 @@ class MapScreen: UIViewController {
     func resetDirectionLine() {
         selectedDestinationAirport = nil
         mapView.remove(MapScreen.shared!.currentDirectionLine!)
-
     }
-    
 }
 
 // Setup Barometer
@@ -519,6 +506,7 @@ extension MapScreen: MGLMapViewDelegate {
         //            print("Opening AirportInfoViewController")
         //        }
     }
+    
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
         // Substitute our custom view for the user location annotation. This custom view is defined below.
         if annotation is MGLUserLocation && mapView.userLocation != nil {
@@ -608,6 +596,7 @@ extension MapScreen: CLLocationManagerDelegate {
             if self.currentDirectionLine != nil {
                 self.mapView.remove(self.currentDirectionLine!)
             }
+            
             let destinationAirportLocationCoordinate = CLLocationCoordinate2D(latitude: selectedDestinationAirport.latitude,
                                                                               longitude: selectedDestinationAirport.longitude)
             let newDirectionCoordinates:[CLLocationCoordinate2D] = [currentLocation.coordinate, destinationAirportLocationCoordinate]
@@ -617,6 +606,7 @@ extension MapScreen: CLLocationManagerDelegate {
             
             self.mapView.add(self.currentDirectionLine!)
             
+
         }
     }
     
@@ -703,6 +693,8 @@ class DLPointAnnotiation: MGLPointAnnotation {
 class DLPolyline: MGLPolyline {
     public enum DLPolylineType {
         case directLine
+        
+        // ToDo benötigen wir die cases noch?
         case restrictedAreaC
         case restrictedAreaCTR
         case restrictedAreaD
@@ -717,4 +709,3 @@ class DLPolyline: MGLPolyline {
     var type:DLPolylineType = .directLine // Default
     
 }
-
