@@ -26,6 +26,8 @@ class NavToViewController: UIViewController {
     }
     
     func cancelRoute(){
+        
+        // Hier würde ich aber eher selectedDestinationAirport vom NavTo prüfen und nil setzen wollen, als den vom MapScreen.
         if MapScreen.shared!.selectedDestinationAirport != nil {
             MapScreen.shared!.resetDestinationLabels()
             MapScreen.shared!.resetDirectionLine()
@@ -61,6 +63,9 @@ extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         country.text = selectedDestinationAirport.country
         
         MapScreen.shared!.selectedDestinationAirport = selectedDestinationAirport
+        
+        print("Destination: \(selectedDestinationAirport.icao)")
+
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {

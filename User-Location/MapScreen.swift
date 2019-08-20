@@ -27,7 +27,7 @@ class MapScreen: UIViewController {
     @IBOutlet weak var destinationAltitudeLabel: UILabel!
     @IBOutlet weak var destinationAirportLabel: UILabel!
     
-    //hidden
+    // hidden IBOutlets
     
     @IBOutlet var relativeAltitude: UILabel!
     @IBOutlet var pressure: UILabel!
@@ -41,8 +41,13 @@ class MapScreen: UIViewController {
     
     //let altimeter = CMAltimeter()
     
-    var selectedDestinationAirport:MapObjects.Airport?
-    
+    var selectedDestinationAirport:MapObjects.Airport? {
+    didSet {
+    if selectedDestinationAirport == nil {
+    resetDirectionLine()
+    }
+    }}
+
     var currentDirectionLine:DLPolyline?
     
     var userTrackingMode = true
@@ -412,9 +417,10 @@ class MapScreen: UIViewController {
     }
     
     func resetDirectionLine() {
-        selectedDestinationAirport = nil
         mapView.remove(MapScreen.shared!.currentDirectionLine!)
+        currentDirectionLine = nil
     }
+    
 }
 
 // Setup Barometer
@@ -606,7 +612,15 @@ extension MapScreen: CLLocationManagerDelegate {
             
             self.mapView.add(self.currentDirectionLine!)
             
-
+//            else {
+                // 1. Schritt
+                // Also wenn kein selectedDestinationAirport
+                // Todo: remove currentDirectionLine from mapView
+                // Todo: set currentDirectionLine to nil
+                // => es wäre sinnvoll, diese Funktionalität in eine extra Methode auszulagern und diese hier aufzurufen
+                // self.resetDirectionLine()
+                // Zeile 419
+//            }
         }
     }
     
