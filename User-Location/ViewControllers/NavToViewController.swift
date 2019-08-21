@@ -22,25 +22,13 @@ class NavToViewController: UIViewController {
     }
     
     @IBAction func cancelButton(_ sender: Buttons) {
-        cancelRoute()
-    }
-    
-    func cancelRoute(){
+        // reset selectedDestinationAirport on MapScreenViewController
+        MapScreen.shared!.selectedDestinationAirport = nil
         
-        // Hier würde ich aber eher selectedDestinationAirport vom NavTo prüfen und nil setzen wollen, als den vom MapScreen.
-        if MapScreen.shared!.selectedDestinationAirport != nil {
-            MapScreen.shared!.resetDestinationLabels()
-            MapScreen.shared!.resetDirectionLine()
-            
-            icao.text = nil
-            airportName.text = nil
-            country.text = nil
-            
-            print("Route canceled")
-        }
-        else {
-            return
-        }
+        // Reset own UI
+        icao.text = ""
+        airportName.text = ""
+        country.text = ""
     }
     
 }

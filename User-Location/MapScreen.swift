@@ -42,12 +42,14 @@ class MapScreen: UIViewController {
     //let altimeter = CMAltimeter()
     
     var selectedDestinationAirport:MapObjects.Airport? {
-    didSet {
-    if selectedDestinationAirport == nil {
-    resetDirectionLine()
+        didSet {
+            if selectedDestinationAirport == nil {
+                resetDestinationLabels()
+                resetDirectionLine()
+            }
+        }
     }
-    }}
-
+        
     var currentDirectionLine:DLPolyline?
     
     var userTrackingMode = true
@@ -411,14 +413,16 @@ class MapScreen: UIViewController {
     }
     
     func resetDestinationLabels() {
-        distanceLabel = nil
-        destinationAirportLabel = nil
-        destinationAltitudeLabel = nil
+        distanceLabel.text = ""
+        destinationAirportLabel.text = ""
+        destinationAltitudeLabel.text = ""
     }
     
     func resetDirectionLine() {
-        mapView.remove(MapScreen.shared!.currentDirectionLine!)
-        currentDirectionLine = nil
+        if let currentDirectionLine = currentDirectionLine {
+            mapView.remove(currentDirectionLine)
+            self.currentDirectionLine = nil
+        }
     }
     
 }
@@ -611,16 +615,6 @@ extension MapScreen: CLLocationManagerDelegate {
             self.currentDirectionLine?.type = .directLine
             
             self.mapView.add(self.currentDirectionLine!)
-            
-//            else {
-                // 1. Schritt
-                // Also wenn kein selectedDestinationAirport
-                // Todo: remove currentDirectionLine from mapView
-                // Todo: set currentDirectionLine to nil
-                // => es wäre sinnvoll, diese Funktionalität in eine extra Methode auszulagern und diese hier aufzurufen
-                // self.resetDirectionLine()
-                // Zeile 419
-//            }
         }
     }
     
