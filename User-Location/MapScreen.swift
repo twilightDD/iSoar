@@ -18,19 +18,19 @@ class MapScreen: UIViewController {
     static var shared:MapScreen?
     
     // MARK: IBOutlets
-    @IBOutlet var mapView: MGLMapView!
-    @IBOutlet weak var topBar: UIView!
-    @IBOutlet weak var courseLabel: UILabel!
-    @IBOutlet weak var altitudeLabel: UILabel!
-    @IBOutlet weak var speedLabel: UILabel!
-    @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var destinationAltitudeLabel: UILabel!
-    @IBOutlet weak var destinationAirportLabel: UILabel!
+    @IBOutlet private var mapView: MGLMapView!
+    @IBOutlet private weak var topBar: UIView!
+    @IBOutlet private weak var courseLabel: UILabel!
+    @IBOutlet private weak var altitudeLabel: UILabel!
+    @IBOutlet private weak var speedLabel: UILabel!
+    @IBOutlet private weak var distanceLabel: UILabel!
+    @IBOutlet private weak var destinationAltitudeLabel: UILabel!
+    @IBOutlet private weak var destinationAirportLabel: UILabel!
     
     // hidden IBOutlets
     
-    @IBOutlet var relativeAltitude: UILabel!
-    @IBOutlet var pressure: UILabel!
+    @IBOutlet private var relativeAltitude: UILabel!
+    @IBOutlet private var pressure: UILabel!
     
     // MARK: properties
     let locationManager = CLLocationManager()
@@ -44,8 +44,7 @@ class MapScreen: UIViewController {
     var selectedDestinationAirport:MapObjects.Airport? {
         didSet {
             if selectedDestinationAirport == nil {
-                resetDestinationLabels()
-                resetDirectionLine()
+                resetDirectionLabelsAndLine()
             }
         }
     }
@@ -84,6 +83,7 @@ class MapScreen: UIViewController {
         //setupBarometer()
     }
     
+    // Light Status Bar Informations
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -156,6 +156,7 @@ class MapScreen: UIViewController {
         }
     }
     
+    // Create User Location Button
     func createUserLocationButton()
         -> UserLocationButton {
             let userLocationButton = UserLocationButton(buttonSize: 40)
@@ -394,7 +395,7 @@ class MapScreen: UIViewController {
         else {
             destinationAltitudeLabel.textColor = .red
         }
-        
+
     }
     
     func updateCourseLabel() {
@@ -412,19 +413,17 @@ class MapScreen: UIViewController {
         }
     }
     
-    func resetDestinationLabels() {
-        distanceLabel.text = ""
-        destinationAirportLabel.text = ""
-        destinationAltitudeLabel.text = ""
-    }
-    
-    func resetDirectionLine() {
+    func resetDirectionLabelsAndLine() {
+        distanceLabel.text = "---"
+        destinationAirportLabel.text = "---"
+        destinationAltitudeLabel.text = "---"
+        destinationAltitudeLabel.textColor = .white
+        
         if let currentDirectionLine = currentDirectionLine {
             mapView.remove(currentDirectionLine)
             self.currentDirectionLine = nil
         }
     }
-    
 }
 
 // Setup Barometer

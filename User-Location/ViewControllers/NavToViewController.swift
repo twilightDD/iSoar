@@ -13,6 +13,7 @@ class NavToViewController: UIViewController {
     @IBOutlet weak var icao: UILabel!
     @IBOutlet weak var airportName: UILabel!
     @IBOutlet weak var country: UILabel!
+    @IBOutlet weak var countryImage: UIImageView!
     @IBOutlet weak var pickerView: UIPickerView!
     
     override func viewDidLoad() {
@@ -29,6 +30,7 @@ class NavToViewController: UIViewController {
         icao.text = ""
         airportName.text = ""
         country.text = ""
+        countryImage.image = UIImage(named: "spacer")
     }
     
 }
@@ -50,9 +52,11 @@ extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         airportName.text = selectedDestinationAirport.name
         country.text = selectedDestinationAirport.country
         
+        countryImage.image = UIImage(named: country.text!)
+        
         MapScreen.shared!.selectedDestinationAirport = selectedDestinationAirport
         
-        print("Destination: \(selectedDestinationAirport.icao)")
+        print("Destination: \(selectedDestinationAirport.icao) - \(selectedDestinationAirport.name)")
 
     }
     

@@ -165,34 +165,34 @@
                                     <constraint firstAttribute="height" constant="300" id="tQV-Xj-4NG"/>
                                 </constraints>
                             </pickerView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Uxe-SF-Gui">
-                                <rect key="frame" x="10" y="74" width="355" height="175"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Uxe-SF-Gui">
+                                <rect key="frame" x="10" y="74" width="355" height="120"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="germany" translatesAutoresizingMaskIntoConstraints="NO" id="o7h-oq-c3t">
-                                        <rect key="frame" x="0.0" y="0.0" width="355" height="25"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o7h-oq-c3t">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="30"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M5L-X5-5Th" userLabel="ICAO">
-                                        <rect key="frame" x="0.0" y="25" width="355" height="50"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vh0-VI-zO2" userLabel="Country">
-                                        <rect key="frame" x="0.0" y="75" width="355" height="50"/>
+                                        <rect key="frame" x="0.0" y="30" width="355" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MZ-JP-MF2" userLabel="Airport Name">
-                                        <rect key="frame" x="0.0" y="125" width="355" height="50"/>
+                                        <rect key="frame" x="0.0" y="60" width="355" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vh0-VI-zO2" userLabel="Country">
+                                        <rect key="frame" x="0.0" y="90" width="355" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vB-ZQ-It7" userLabel="Cancel Button" customClass="Buttons" customModule="Glider_Tool" customModuleProvider="target">
-                                <rect key="frame" x="137" y="666" width="100" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vB-ZQ-It7" userLabel="Cancel Button" customClass="Buttons" customModule="Glider_Tool" customModuleProvider="target">
+                                <rect key="frame" x="137" y="666" width="101" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="I35-PF-eLz"/>
                                 </constraints>
@@ -206,6 +206,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1vB-ZQ-It7" firstAttribute="centerX" secondItem="Lcl-jA-3xS" secondAttribute="centerX" id="2za-JN-YY7"/>
+                            <constraint firstItem="Lcl-jA-3xS" firstAttribute="top" secondItem="Uxe-SF-Gui" secondAttribute="bottom" constant="150" id="DDw-Zl-ROl"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="bottom" secondItem="1vB-ZQ-It7" secondAttribute="bottom" constant="29" id="EsS-md-fde"/>
                             <constraint firstItem="Uxe-SF-Gui" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" constant="10" id="Xv4-1M-5Hj"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" secondItem="Uxe-SF-Gui" secondAttribute="trailing" constant="10" id="b9O-4R-cSn"/>
@@ -221,6 +222,7 @@
                     <connections>
                         <outlet property="airportName" destination="4MZ-JP-MF2" id="4k7-AE-1Dr"/>
                         <outlet property="country" destination="Vh0-VI-zO2" id="SyE-Cz-mrF"/>
+                        <outlet property="countryImage" destination="o7h-oq-c3t" id="jdh-bU-o2S"/>
                         <outlet property="icao" destination="M5L-X5-5Th" id="3IQ-3l-Lvy"/>
                         <outlet property="pickerView" destination="Lcl-jA-3xS" id="lKa-jH-mvG"/>
                     </connections>
@@ -421,7 +423,6 @@
     </scenes>
     <resources>
         <image name="directto" width="35" height="35"/>
-        <image name="germany" width="25" height="25"/>
         <image name="glider" width="65" height="30"/>
         <image name="logbook" width="35" height="35"/>
         <image name="settings" width="35" height="35"/>
