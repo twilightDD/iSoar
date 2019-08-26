@@ -43,12 +43,7 @@ class MapScreen: UIViewController {
     
     var selectedDestinationAirport:MapObjects.Airport? {
         didSet {
-            if selectedDestinationAirport == nil {
-                resetDirectionLabelsAndLine()
-            }
-            if selectedDestinationAirport != nil {
-                updateDirectionLabelsAndLine()
-            }
+            updateDirectionLabelsAndLine()
         }
     }
         
@@ -416,23 +411,58 @@ class MapScreen: UIViewController {
         }
     }
     
-    func resetDirectionLabelsAndLine() {
-        distanceLabel.text = "---"
-        destinationAirportLabel.text = "---"
-        destinationAltitudeLabel.text = "---"
-        destinationAltitudeLabel.textColor = .white
+    private func updateDirectionLabelsAndLine() {
+        // ICAO
+        if let selectedDestinationAirport = selectedDestinationAirport {
+            destinationAirportLabel.text = selectedDestinationAirport.icao
+        }
+        else {
+            destinationAirportLabel.text = "---"
+        }
         
-        if let currentDirectionLine = currentDirectionLine {
-            mapView.remove(currentDirectionLine)
-            self.currentDirectionLine = nil
+        
+        if let selectedDestinationAirport = selectedDestinationAirport,
+            let currentLocation = currentLocation {
+            // Distance
+            let destinationAirportLocation = CLLocation(latitude: selectedDestinationAirport.latitude,
+                                                        longitude: selectedDestinationAirport.longitude)
+            
+            currentDistance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
+            updateDistanceLabel()
+            
+            // DestinationAltitude
+            updateDestinationAltitudeLabel()
+            
+            
+            // ToDo: Calculate Gliding-Range - Does not work without Surface Elevation
+            // let glidingRange = (currentLocation.altitude - safetyAltitude)*gliderRatio
+            
+            // Draw direct line between current location and destinationAirport.
+            if self.currentDirectionLine != nil {
+                self.mapView.remove(self.currentDirectionLine!)
+            }
+            
+            let destinationAirportLocationCoordinate = CLLocationCoordinate2D(latitude: selectedDestinationAirport.latitude,
+                                                                              longitude: selectedDestinationAirport.longitude)
+            let newDirectionCoordinates:[CLLocationCoordinate2D] = [currentLocation.coordinate, destinationAirportLocationCoordinate]
+            self.currentDirectionLine = DLPolyline(coordinates: newDirectionCoordinates,
+                                                   count: UInt(newDirectionCoordinates.count))
+            self.currentDirectionLine?.type = .directLine
+            
+            self.mapView.add(self.currentDirectionLine!)
+        }
+        else {
+            distanceLabel.text = "---"
+            destinationAltitudeLabel.text = "---"
+            destinationAltitudeLabel.textColor = .white
+            
+            if let currentDirectionLine = currentDirectionLine {
+                mapView.remove(currentDirectionLine)
+                self.currentDirectionLine = nil
+            }
         }
     }
-    
-    func updateDirectionLabelsAndLine() {
 
-    }
-
-    
 }
 
 // Setup Barometer
@@ -591,39 +621,8 @@ extension MapScreen: CLLocationManagerDelegate {
         // Steering Course
         updateCourseLabel()
         
-        // Destination depending stuff
-        if let selectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport  {
-            // ICAO
-            self.destinationAirportLabel.text = selectedDestinationAirport.icao
-            
-            // Distance
-            let destinationAirportLocation = CLLocation(latitude: selectedDestinationAirport.latitude,
-                                                        longitude: selectedDestinationAirport.longitude)
-            
-            currentDistance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
-            updateDistanceLabel()
-            
-            // DestinationAltitude
-            updateDestinationAltitudeLabel()
-            
-            
-            // ToDo: Calculate Gliding-Range - Does not work without Surface Elevation
-            // let glidingRange = (currentLocation.altitude - safetyAltitude)*gliderRatio
-            
-            // Draw direct line between current location and destinationAirport.
-            if self.currentDirectionLine != nil {
-                self.mapView.remove(self.currentDirectionLine!)
-            }
-            
-            let destinationAirportLocationCoordinate = CLLocationCoordinate2D(latitude: selectedDestinationAirport.latitude,
-                                                                              longitude: selectedDestinationAirport.longitude)
-            let newDirectionCoordinates:[CLLocationCoordinate2D] = [currentLocation.coordinate, destinationAirportLocationCoordinate]
-            self.currentDirectionLine = DLPolyline(coordinates: newDirectionCoordinates,
-                                                   count: UInt(newDirectionCoordinates.count))
-            self.currentDirectionLine?.type = .directLine
-            
-            self.mapView.add(self.currentDirectionLine!)
-        }
+        updateDirectionLabelsAndLine()
+        
     }
     
     // Show Annotation on Map
