@@ -32,6 +32,20 @@ class NavToViewController: UIViewController {
         createDestinationAirportList()
     }
     
+    // Mark: - Sort Segmented Control Buttons
+    @IBAction func sortButton(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            myArray.sort {$0.name < $1.name}
+            pickerView.reloadAllComponents()
+            pickerView.selectRow(0, inComponent: 0, animated: true)
+        }
+        else {
+            myArray.sort {$0.distance! < $1.distance!}
+            pickerView.reloadAllComponents()
+            pickerView.selectRow(0, inComponent: 0, animated: true)
+        }
+    }
+
     @IBAction func cancelButton(_ sender: Buttons) {
         // reset selectedDestinationAirport on MapScreenViewController
         MapScreen.shared!.selectedDestinationAirport = nil
@@ -109,10 +123,9 @@ extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         var titleForRow = destinationAirport.name
         if let distance = destinationAirport.distance {
             let distanceInKm = distance/1000
-            let distanceString = String(format: " (%.0f Km)", distanceInKm)
+            let distanceString = String(format: " (%.1f Km)", distanceInKm)
             titleForRow.append(distanceString)
         }
-        
         return titleForRow
     }
 }
