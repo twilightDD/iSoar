@@ -27,9 +27,11 @@ class MapObjects{
         var runways:String
         var url:String?
         var country:String?
+        var distance:CLLocationDistance?
         
         // var radios:[Radio] // hinzufügen => ProTipp: Struct ;)
         
+        //MARK: - Init & Co.
         public init(dictionary: Dictionary<String, Any>) {
             self.valid = dictionary["valid"] as? String ?? ""
             self.icao = dictionary["icao"] as? String ?? ""
@@ -43,6 +45,10 @@ class MapObjects{
             self.runways = dictionary["runways"] as? String ?? ""
             self.url = dictionary["url"] as? String ?? ""
             self.country = dictionary["country"] as? String ?? ""
+        }
+        
+        mutating func updateDistance(_ newDistance:CLLocationDistance) {
+            distance = newDistance
         }
     }
     

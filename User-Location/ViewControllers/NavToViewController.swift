@@ -8,7 +8,11 @@
 
 import UIKit
 
+import CoreLocation
+
 class NavToViewController: UIViewController {
+
+    var myArray = [MapObjects.Airport]()
     
     @IBOutlet weak var icao: UILabel!
     @IBOutlet weak var airportName: UILabel!
@@ -22,6 +26,12 @@ class NavToViewController: UIViewController {
         pickerView.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        createDestinationAirportList()
+    }
+    
     @IBAction func cancelButton(_ sender: Buttons) {
         // reset selectedDestinationAirport on MapScreenViewController
         MapScreen.shared!.selectedDestinationAirport = nil
@@ -31,7 +41,41 @@ class NavToViewController: UIViewController {
         airportName.text = ""
         country.text = ""
         countryImage.image = UIImage(named: "spacer")
+        
+        pickerView.selectRow(0, inComponent: 0, animated: true)
     }
+    
+    private func createDestinationAirportList() {
+        let destinationAirports = MapObjects.shared.destinationAirports
+        
+        if let currentLocation = MapScreen.shared!.currentLocation {
+            for var destinationAirport in destinationAirports {
+                let destinationAirportLocation = CLLocation(latitude: destinationAirport.latitude,
+                                                            longitude: destinationAirport.longitude)
+
+                let currentDistance = currentLocation.distance(from: destinationAirportLocation)
+                destinationAirport.updateDistance(currentDistance)
+
+                myArray.append(destinationAirport)
+            }
+        }
+        else {
+            myArray = destinationAirports
+        }
+    
+    }
+    
+    // TODO:
+    /*
+     -  Buttons
+     - Actions zu den Buttons
+     - sort nach Name
+     - sort nach Entfernung
+     - pickerView neu laden
+     - private nicht vergessen
+     - myArray.sort{ $0.distance! < $1.distance!}
+     - myArray umbenennen
+     */
     
 }
 
@@ -42,11 +86,11 @@ extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return MapObjects.shared.destinationAirports.count
+        return myArray.count
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let selectedDestinationAirport = MapObjects.shared.destinationAirports[row]
+        let selectedDestinationAirport = myArray[row]
         
         icao.text = selectedDestinationAirport.icao
         airportName.text = selectedDestinationAirport.name
@@ -61,7 +105,14 @@ extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return MapObjects.shared.destinationAirports[row].name
+        let destinationAirport = myArray[row]
+        var titleForRow = destinationAirport.name
+        if let distance = destinationAirport.distance {
+            let distanceInKm = distance/1000
+            let distanceString = String(format: " (%.0f Km)", distanceInKm)
+            titleForRow.append(distanceString)
+        }
+        
+        return titleForRow
     }
-    
 }
