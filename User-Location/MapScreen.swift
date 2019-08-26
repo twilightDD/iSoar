@@ -46,6 +46,9 @@ class MapScreen: UIViewController {
             if selectedDestinationAirport == nil {
                 resetDirectionLabelsAndLine()
             }
+            if selectedDestinationAirport != nil {
+                updateDirectionLabelsAndLine()
+            }
         }
     }
         
@@ -424,6 +427,12 @@ class MapScreen: UIViewController {
             self.currentDirectionLine = nil
         }
     }
+    
+    func updateDirectionLabelsAndLine() {
+
+    }
+
+    
 }
 
 // Setup Barometer
