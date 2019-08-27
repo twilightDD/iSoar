@@ -13,6 +13,8 @@ class NavToViewController: UIViewController {
 
     var destinationAirportListArray = [MapObjects.Airport]()
     
+    var sortSwitchIndex = 0
+    
     // MARK: - IBOutlets
     @IBOutlet weak var icao: UILabel!
     @IBOutlet weak var airportName: UILabel!
@@ -31,23 +33,27 @@ class NavToViewController: UIViewController {
         super.viewWillAppear(animated)
         
         createDestinationAirportList()
+        updatePickerView()
+
     }
     
-    // MARK: - Buttons
-    // Sort Button
-    @IBAction func sortButton(_ sender: UISegmentedControl) {
+    // MARK: - Buttons and Switches
+    // Sort Switch    
+    @IBAction func sortSwitch(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
+            sortSwitchIndex = sender.selectedSegmentIndex
             destinationAirportListArray.sort {$0.name < $1.name}
             pickerView.reloadAllComponents()
-            pickerView.selectRow(0, inComponent: 0, animated: true)
+            //pickerView.selectRow(0, inComponent: 0, animated: true)
         }
         else {
+            sortSwitchIndex = sender.selectedSegmentIndex
             destinationAirportListArray.sort {$0.distance! < $1.distance!}
             pickerView.reloadAllComponents()
-            pickerView.selectRow(0, inComponent: 0, animated: true)
+            //pickerView.selectRow(0, inComponent: 0, animated: true)
         }
     }
-
+    
     // Cancel Button
     @IBAction func cancelButton(_ sender: Buttons) {
         // reset selectedDestinationAirport on MapScreenViewController
@@ -60,34 +66,47 @@ class NavToViewController: UIViewController {
         countryImage.image = UIImage(named: "spacer")
         
         pickerView.selectRow(0, inComponent: 0, animated: true)
+        
+        print("Route canceled")
     }
     
     // MARK: - Functions
-    private func createDestinationAirportList() {        
-        if destinationAirportListArray.count > 0 {
-                return
-            }
-        else {
-            let destinationAirports = MapObjects.shared.destinationAirports
-            
-            if let currentLocation = MapScreen.shared!.currentLocation {
-                for var destinationAirport in destinationAirports {
-                    let destinationAirportLocation = CLLocation(latitude: destinationAirport.latitude,
-                                                                longitude: destinationAirport.longitude)
-                    
-                    let currentDistance = currentLocation.distance(from: destinationAirportLocation)
-                    destinationAirport.updateDistance(currentDistance)
-                    
-                    destinationAirportListArray.append(destinationAirport)
-                }
-            }
-            else {
-                destinationAirportListArray = destinationAirports
-            }
+    // Create Destination Airport List from JSON
+    private func createDestinationAirportList() {
+        destinationAirportListArray.removeAll()
+        let destinationAirports = MapObjects.shared.destinationAirports
+        
+        if let currentLocation = MapScreen.shared!.currentLocation {
+            for var destinationAirport in destinationAirports {
+                let destinationAirportLocation = CLLocation(latitude: destinationAirport.latitude,
+                                                            longitude: destinationAirport.longitude)
+                
+                let currentDistance = currentLocation.distance(from: destinationAirportLocation)
+                destinationAirport.updateDistance(currentDistance)
+                
+                destinationAirportListArray.append(destinationAirport)
             }
         }
+        else {
+            destinationAirportListArray = destinationAirports
+            }
+        }
+    
+    // Update PickerView
+    func updatePickerView(){
+        if sortSwitchIndex == 0 {
+            destinationAirportListArray.sort {$0.name < $1.name}
+            pickerView.reloadAllComponents()
+        }
+        else {
+            destinationAirportListArray.sort {$0.distance! < $1.distance!}
+            pickerView.reloadAllComponents()
+        }
+    }
 
     }
+
+
 
 // MARK: - Extensions
 extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {

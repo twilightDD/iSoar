@@ -159,6 +159,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="flW-Jw-4Fh">
+                                <rect key="frame" x="116" y="64" width="143" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="o00-NB-bhY"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Name"/>
+                                    <segment title="Distance"/>
+                                </segments>
+                                <connections>
+                                    <action selector="sortSwitch:" destination="vvT-rw-CMb" eventType="valueChanged" id="dmR-6i-hom"/>
+                                </connections>
+                            </segmentedControl>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Uxe-SF-Gui">
                                 <rect key="frame" x="10" y="120" width="355" height="105"/>
                                 <subviews>
@@ -202,19 +215,6 @@
                                     <action selector="cancelButton:" destination="vvT-rw-CMb" eventType="touchUpInside" id="Z6P-Pj-Vbl"/>
                                 </connections>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="flW-Jw-4Fh">
-                                <rect key="frame" x="116" y="64" width="143" height="32"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="31" id="o00-NB-bhY"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="Name"/>
-                                    <segment title="Distance"/>
-                                </segments>
-                                <connections>
-                                    <action selector="sortButton:" destination="vvT-rw-CMb" eventType="valueChanged" id="Z5V-FQ-Rez"/>
-                                </connections>
-                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
