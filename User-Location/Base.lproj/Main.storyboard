@@ -151,10 +151,10 @@
             </objects>
             <point key="canvasLocation" x="276" y="552"/>
         </scene>
-        <!--Direct To-->
+        <!--Route-->
         <scene sceneID="naG-LX-K2Z">
             <objects>
-                <viewController id="vvT-rw-CMb" userLabel="Direct To" customClass="NavToViewController" customModule="Glider_Tool" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="vvT-rw-CMb" customClass="NavToViewController" customModule="Glider_Tool" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ViJ-sQ-BHW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -172,6 +172,12 @@
                                     <action selector="sortSwitch:" destination="vvT-rw-CMb" eventType="valueChanged" id="dmR-6i-hom"/>
                                 </connections>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XvE-2e-Xvt" userLabel="Report Missing Airport">
+                                <rect key="frame" x="300" y="68" width="24.666666666666686" height="24"/>
+                                <connections>
+                                    <action selector="reportMissingAirport:" destination="vvT-rw-CMb" eventType="touchUpInside" id="oUk-YK-hMJ"/>
+                                </connections>
+                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Uxe-SF-Gui">
                                 <rect key="frame" x="10" y="120" width="355" height="105"/>
                                 <subviews>
@@ -219,15 +225,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1vB-ZQ-It7" firstAttribute="centerX" secondItem="Lcl-jA-3xS" secondAttribute="centerX" id="2za-JN-YY7"/>
+                            <constraint firstItem="XvE-2e-Xvt" firstAttribute="leading" secondItem="flW-Jw-4Fh" secondAttribute="trailing" constant="41" id="3In-8k-yXW"/>
                             <constraint firstItem="Uxe-SF-Gui" firstAttribute="top" secondItem="flW-Jw-4Fh" secondAttribute="bottom" constant="25" id="4BS-8t-ddX"/>
                             <constraint firstItem="Lcl-jA-3xS" firstAttribute="top" secondItem="Uxe-SF-Gui" secondAttribute="bottom" constant="8" symbolic="YES" id="DDw-Zl-ROl"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="bottom" secondItem="1vB-ZQ-It7" secondAttribute="bottom" constant="29" id="EsS-md-fde"/>
+                            <constraint firstItem="XvE-2e-Xvt" firstAttribute="centerY" secondItem="flW-Jw-4Fh" secondAttribute="centerY" id="RIm-FD-WAy"/>
                             <constraint firstItem="Uxe-SF-Gui" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" constant="10" id="Xv4-1M-5Hj"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" secondItem="Uxe-SF-Gui" secondAttribute="trailing" constant="10" id="b9O-4R-cSn"/>
                             <constraint firstItem="1vB-ZQ-It7" firstAttribute="centerX" secondItem="Uxe-SF-Gui" secondAttribute="centerX" id="cxe-Z2-4Gi"/>
                             <constraint firstItem="Lcl-jA-3xS" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" id="eAY-r0-UJp"/>
                             <constraint firstItem="flW-Jw-4Fh" firstAttribute="top" secondItem="TB3-Tq-exz" secondAttribute="top" constant="20" id="h4U-ab-W0C"/>
                             <constraint firstItem="1vB-ZQ-It7" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" constant="137" id="iUg-mu-ORs"/>
+                            <constraint firstItem="XvE-2e-Xvt" firstAttribute="top" secondItem="TB3-Tq-exz" secondAttribute="top" constant="24" id="lkY-yl-1wL"/>
                             <constraint firstItem="flW-Jw-4Fh" firstAttribute="centerX" secondItem="Uxe-SF-Gui" secondAttribute="centerX" id="ow7-xg-Yb7"/>
                             <constraint firstItem="1vB-ZQ-It7" firstAttribute="top" secondItem="Lcl-jA-3xS" secondAttribute="bottom" constant="22" id="uqg-X7-3H0"/>
                         </constraints>

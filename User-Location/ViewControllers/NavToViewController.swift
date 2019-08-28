@@ -8,8 +8,9 @@
 
 import UIKit
 import CoreLocation
+import MessageUI
 
-class NavToViewController: UIViewController {
+class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
     var destinationAirportListArray = [MapObjects.Airport]()
     
@@ -52,6 +53,11 @@ class NavToViewController: UIViewController {
             pickerView.reloadAllComponents()
             //pickerView.selectRow(0, inComponent: 0, animated: true)
         }
+    }
+    
+    // Report missing Airport Button
+    @IBAction func reportMissingAirport(_ sender: Any) {
+        reportMissingAirport()
     }
     
     // Cancel Button
@@ -103,10 +109,29 @@ class NavToViewController: UIViewController {
             pickerView.reloadAllComponents()
         }
     }
-
+    
+    // Report missing Airport
+    func reportMissingAirport() {
+        if MFMailComposeViewController.canSendMail() {
+            let mailComposer = MFMailComposeViewController()
+            mailComposer.setToRecipients(["denis@leupold.me"])
+            mailComposer.setSubject("Add missing Airport")
+            mailComposer.setMessageBody("Country:<br>Elevation AMSL:<br>ICAO Code:<br>Latitude:<br>Longitude:<br>Name:<br>Radio Frequency:<br>Radio Frequency Name:<br>Runway Dimensions: (1000 x 50) <br>Runway Direction: (01/19)<br>Runway Surface: Grass / Asphalt<br>URL: www.airport.org", isHTML: true)
+            
+            mailComposer.mailComposeDelegate = self
+            self.present(mailComposer, animated: true
+                , completion: nil)
+        } else {
+            print("Email is not configured in settings app.")
+        }
+    }
+    
+    // Mail Composer Controller
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
     }
 
-
+    }
 
 // MARK: - Extensions
 extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
