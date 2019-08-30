@@ -12,7 +12,7 @@ import MessageUI
 
 class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
-    var destinationAirportListArray = [MapObjects.Airport]()
+    var destinationAirportArray = [MapObjects.Airport]()
     
     var sortSwitchIndex = 0
     
@@ -39,17 +39,22 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     }
     
     // MARK: - Buttons and Switches
-    // Sort Switch    
+    // Download Airport List from Server Button
+    @IBAction func downloadAirports(_ sender: Any) {
+        downloadMapObjectsFromServer()
+    }
+    
+    // Sort Switch
     @IBAction func sortSwitch(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             sortSwitchIndex = sender.selectedSegmentIndex
-            destinationAirportListArray.sort {$0.name < $1.name}
+            destinationAirportArray.sort {$0.name < $1.name}
             pickerView.reloadAllComponents()
             //pickerView.selectRow(0, inComponent: 0, animated: true)
         }
         else {
             sortSwitchIndex = sender.selectedSegmentIndex
-            destinationAirportListArray.sort {$0.distance! < $1.distance!}
+            destinationAirportArray.sort {$0.distance! < $1.distance!}
             pickerView.reloadAllComponents()
             //pickerView.selectRow(0, inComponent: 0, animated: true)
         }
@@ -79,7 +84,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     // MARK: - Functions
     // Create Destination Airport List from JSON
     private func createDestinationAirportList() {
-        destinationAirportListArray.removeAll()
+        destinationAirportArray.removeAll()
         let destinationAirports = MapObjects.shared.destinationAirports
         
         if let currentLocation = MapScreen.shared!.currentLocation {
@@ -90,22 +95,22 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
                 let currentDistance = currentLocation.distance(from: destinationAirportLocation)
                 destinationAirport.updateDistance(currentDistance)
                 
-                destinationAirportListArray.append(destinationAirport)
+                destinationAirportArray.append(destinationAirport)
             }
         }
         else {
-            destinationAirportListArray = destinationAirports
+            destinationAirportArray = destinationAirports
             }
         }
     
     // Update PickerView
     func updatePickerView(){
         if sortSwitchIndex == 0 {
-            destinationAirportListArray.sort {$0.name < $1.name}
+            destinationAirportArray.sort {$0.name < $1.name}
             pickerView.reloadAllComponents()
         }
         else {
-            destinationAirportListArray.sort {$0.distance! < $1.distance!}
+            destinationAirportArray.sort {$0.distance! < $1.distance!}
             pickerView.reloadAllComponents()
         }
     }
@@ -130,7 +135,17 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
     }
-
+    
+    // Download Airport List from Server
+    func downloadMapObjectsFromServer() {
+        let alert = UIAlertController(title: "Download Airport Updates?", message: "Do you want to download an updated Airport List from Server?", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true)
+    }
+    
     }
 
 // MARK: - Extensions
@@ -141,11 +156,11 @@ extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return destinationAirportListArray.count
+        return destinationAirportArray.count
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let selectedDestinationAirport = destinationAirportListArray[row]
+        let selectedDestinationAirport = destinationAirportArray[row]
         
         icao.text = selectedDestinationAirport.icao
         airportName.text = selectedDestinationAirport.name
@@ -160,7 +175,7 @@ extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let destinationAirport = destinationAirportListArray[row]
+        let destinationAirport = destinationAirportArray[row]
         var titleForRow = destinationAirport.name
         if let distance = destinationAirport.distance {
             let distanceInKm = distance/1000

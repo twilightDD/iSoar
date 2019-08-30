@@ -479,6 +479,30 @@
             ],
             "url": "www.cumulus-segelflug.ch",
             "validiationDate": "20190606"
+        },
+        {
+            "airportType": "",
+            "country": "Italy",
+            "elevation": 274,
+            "icao": "LILO",
+            "latitude": 46.153648,
+            "longitude": 9.792743,
+            "name": "Caiolo",
+            "radios": [
+                {
+                    "radioFrequency": 129.500,
+                    "radioFrequencyName": "Caiolo Tower"
+                }
+            ],
+            "runways": [
+                {
+                    "runwayDimensions": "1050 x 23",
+                    "runwayDirection": "09/27",
+                    "runwaySurface": "Asphalt"
+                }
+            ],
+            "url": "NA",
+            "validiationDate": "20190830"
         }
     ]
 }

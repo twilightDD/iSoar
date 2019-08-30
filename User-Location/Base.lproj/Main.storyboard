@@ -221,6 +221,14 @@
                                     <action selector="cancelButton:" destination="vvT-rw-CMb" eventType="touchUpInside" id="Z6P-Pj-Vbl"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4H-hZ-W3N" userLabel="Download Airports">
+                                <rect key="frame" x="50" y="68" width="24" height="24"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="download"/>
+                                <connections>
+                                    <action selector="downloadAirports:" destination="vvT-rw-CMb" eventType="touchUpInside" id="bhJ-yW-PYy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -447,6 +455,7 @@
     </scenes>
     <resources>
         <image name="directto" width="35" height="35"/>
+        <image name="download" width="25" height="25"/>
         <image name="glider" width="65" height="30"/>
         <image name="logbook" width="35" height="35"/>
         <image name="settings" width="35" height="35"/>
