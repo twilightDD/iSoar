@@ -11,7 +11,7 @@ import CoreLocation
 import MessageUI
 
 class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate {
-
+    
     var destinationAirportArray = [MapObjects.Airport]()
     
     var sortSwitchIndex = 0
@@ -22,26 +22,30 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     @IBOutlet weak var country: UILabel!
     @IBOutlet weak var countryImage: UIImageView!
     @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var airportInfoButton: UIButton!
     
     // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
         pickerView.dataSource = self
         pickerView.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        airportInfoButton.isHidden = true
+        
         createDestinationAirportList()
         updatePickerView()
-
+        
     }
     
     // MARK: - Buttons and Switches
     // Download Airport List from Server Button
-    @IBAction func downloadAirports(_ sender: Any) {
-        downloadMapObjectsFromServer()
+    @IBAction func downloadAirportsButton(_ sender: UIButton) {
+        downloadMapObjectsButtonPressed()
     }
     
     // Sort Switch
@@ -61,8 +65,13 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     }
     
     // Report missing Airport Button
-    @IBAction func reportMissingAirport(_ sender: Any) {
+    @IBAction func reportMissingAirport(_ sender: UIButton) {
         reportMissingAirport()
+    }
+    
+    // Airport Info Button
+    @IBAction func airportInfoButton(_ sender: Any) {
+        performSegue(withIdentifier: "AirportInfoSegue", sender: self)
     }
     
     // Cancel Button
@@ -75,6 +84,8 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         airportName.text = ""
         country.text = ""
         countryImage.image = UIImage(named: "spacer")
+        
+        airportInfoButton.isHidden = true
         
         pickerView.selectRow(0, inComponent: 0, animated: true)
         
@@ -100,8 +111,8 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         }
         else {
             destinationAirportArray = destinationAirports
-            }
         }
+    }
     
     // Update PickerView
     func updatePickerView(){
@@ -136,17 +147,62 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         controller.dismiss(animated: true)
     }
     
-    // Download Airport List from Server
-    func downloadMapObjectsFromServer() {
-        let alert = UIAlertController(title: "Download Airport Updates?", message: "Do you want to download an updated Airport List from Server?", preferredStyle: .alert)
+    // Download Airport Database Button pressed - Show Alert
+    func downloadMapObjectsButtonPressed() {
+        let alert = UIAlertController(title: "Download Airport Updates?", message: "Do you want to download an updated Airport Database from Server?", preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+            self.downloadMapObjectsFromServer()
+        }))
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         
         self.present(alert, animated: true)
     }
     
+    // Download MapObjects JSON from Server
+    func downloadMapObjectsFromServer() {
+        
+        // Create destination URL
+        let documentsUrl:URL =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
+        let destinationFileUrl = documentsUrl.appendingPathComponent("downloadedFile.json")
+        
+        // File Source URL
+        let fileURL = URL(string: "https://www.leupold.me/MapObjects.json")
+        
+        let sessionConfig = URLSessionConfiguration.default
+        let session = URLSession(configuration: sessionConfig)
+        
+        let request = URLRequest(url:fileURL!)
+        
+        let task = session.downloadTask(with: request) { (tempLocalUrl, response, error) in
+            if let tempLocalUrl = tempLocalUrl, error == nil {
+                // Success
+                print("Downloading...")
+                if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                    print("Successfully downloaded. Status code: \(statusCode)")
+                }
+                
+                do {
+                    try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
+                } catch (let writeError) {
+                    print("Error creating a file: \(destinationFileUrl) : \(writeError)")
+                }
+                
+            } else {
+                print("Error took place while downloading a file. Error description: %@", error?.localizedDescription);
+            }
+        }
+        task.resume()
+        //print("\(destinationFileUrl)")
+        
+        // move to correct place
+        
+        // Create Destination Airport List from new MapObjects.json
+        createDestinationAirportList()
+        
     }
+    
+}
 
 // MARK: - Extensions
 extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
@@ -168,10 +224,12 @@ extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         
         countryImage.image = UIImage(named: country.text!)
         
+        airportInfoButton.isHidden = false
+        
         MapScreen.shared!.selectedDestinationAirport = selectedDestinationAirport
         
         print("Destination: \(selectedDestinationAirport.icao) - \(selectedDestinationAirport.name)")
-
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -179,7 +237,7 @@ extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         var titleForRow = destinationAirport.name
         if let distance = destinationAirport.distance {
             let distanceInKm = distance/1000
-            let distanceString = String(format: " (%.1f Km)", distanceInKm)
+            let distanceString = String(format: " (%.0f Km)", distanceInKm)
             titleForRow.append(distanceString)
         }
         return titleForRow
