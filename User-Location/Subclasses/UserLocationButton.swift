@@ -57,6 +57,7 @@ class UserLocationButton: UIButton {
         return bezierPath.cgPath
     }
     
+    // MARK: - Functions
     // ToDo: Rotation nor needed - Update the arrow's color and rotation when tracking mode is changed.
     func updateArrowForTrackingMode(state:Bool) {
         let activePrimaryColor = UIColor.red

@@ -164,7 +164,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         
         // Create destination URL
         let documentsUrl:URL =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
-        let destinationFileUrl = documentsUrl.appendingPathComponent("downloadedFile.json")
+        let destinationFileUrl = documentsUrl.appendingPathComponent("MapObjects.json")
         
         // File Source URL
         let fileURL = URL(string: "https://www.leupold.me/MapObjects.json")

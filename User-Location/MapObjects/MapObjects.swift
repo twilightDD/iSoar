@@ -52,13 +52,7 @@ class MapObjects{
         }
     }
     
-    struct RestrictedAreas {
-        // vars
-        
-        // public init
-    }
-    
-    
+    // ToDo: Brauchen wir das hier?
     private init(){
         self.loadMapAnnotations()
     }
@@ -67,6 +61,7 @@ class MapObjects{
         //Code Process
         print("Location granted")
     }
+    
     func loadMapAnnotations() {
         // --- json laden
         
@@ -112,55 +107,6 @@ class MapObjects{
             for airport in airports {
                 let myAirportStruct = MapObjects.Airport(dictionary: airport)
                 destinationAirports.append(myAirportStruct)
-            }
-        }
-        
-        // RestrictedAreas
-        if let restrictedAreas:[NSDictionary] = jsonAsDict["RestrictedAreas"] as? [NSDictionary] {
-            // jedes Element des Arrays abklappern
-            for restrictedArea in restrictedAreas {
-                
-                // Coordinates rauskramen und in ein Array packen
-                if let coordinatesFromDict:[NSDictionary] = restrictedArea["geoPoints"] as? [NSDictionary] {
-                    var locationCoordinates:[CLLocationCoordinate2D] = [CLLocationCoordinate2D]()
-                    for coordinate in coordinatesFromDict {
-                        guard let latitude = coordinate["latitude"] as? Double,
-                            let longitude = coordinate["longitude"] as? Double
-                            else { break }
-                        locationCoordinates.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-                    }
-                    
-                    // Polyline erzeugen
-                    let restrictedAreaPolyline = DLPolyline(coordinates: locationCoordinates,
-                                                            count: UInt(locationCoordinates.count))
-                    
-                    // restricted area type
-                    if let typeString = restrictedArea["type"] as? String {
-                        switch typeString {
-                        case "C":
-                            restrictedAreaPolyline.type = .restrictedAreaC
-                        case "CTR":
-                            restrictedAreaPolyline.type = .restrictedAreaCTR
-                        case "D":
-                            restrictedAreaPolyline.type = .restrictedAreaD
-                        case "G":
-                            restrictedAreaPolyline.type = .restrictedAreaG
-                        case "Q":
-                            restrictedAreaPolyline.type = .restrictedAreaQ
-                        case "R":
-                            restrictedAreaPolyline.type = .restrictedAreaR
-                        case "RMZ":
-                            restrictedAreaPolyline.type = .restrictedAreaRMZ
-                        case "TMZ":
-                            restrictedAreaPolyline.type = .restrictedAreaTMZ
-                        case "W":
-                            restrictedAreaPolyline.type = .restrictedAreaW
-                        default:
-                            restrictedAreaPolyline.type = .directLine
-                        }
-                    }
-                
-                }
             }
         }
     }
