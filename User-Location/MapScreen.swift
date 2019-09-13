@@ -118,7 +118,7 @@ class MapScreen: UIViewController {
         mapView.setCenter(CLLocationCoordinate2D(
             latitude: 48.686251,
             longitude: 9.205404),
-                          zoomLevel: 9.5,
+                          zoomLevel: 10,
                           animated: true)
         userLocationButton.updateArrowForTrackingMode(state: userFollow)
     }

@@ -96,6 +96,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     // Create Destination Airport List from JSON
     private func createDestinationAirportList() {
         destinationAirportArray.removeAll()
+        
         let destinationAirports = MapObjects.shared.destinationAirports
         
         if let currentLocation = MapScreen.shared!.currentLocation {

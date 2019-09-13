@@ -31,7 +31,7 @@ class MapObjects{
         
         // var radios:[Radio] // hinzufügen => ProTipp: Struct ;)
         
-        //MARK: - Init & Co.
+        //MARK: - Public Init & Co.
         public init(dictionary: Dictionary<String, Any>) {
             self.valid = dictionary["valid"] as? String ?? ""
             self.icao = dictionary["icao"] as? String ?? ""
@@ -52,16 +52,38 @@ class MapObjects{
         }
     }
     
-    // ToDo: Brauchen wir das hier?
+    //MARK: - Private Init & Co.
     private init(){
         self.loadMapAnnotations()
+        checkForMapOjectsInDocumentsFolder()
     }
     
+    // MARK: - Functions
+    // Check if MapOjects.json exists in Documents Folder
+    func checkForMapOjectsInDocumentsFolder() {
+        // Check if MapObjects.json exists in Documents Folder
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let url = NSURL(fileURLWithPath: path)
+        if let pathComponent = url.appendingPathComponent("MapObjects.json") {
+            
+            let filePath = pathComponent.path
+            let fileManager = FileManager.default
+            if fileManager.fileExists(atPath: filePath) {
+                print("MapObjects available")
+            } else {
+                print("MapObjects not available")
+                // copy from bundle to Documents
+            }
+        }
+    }
+    
+    // Request for Location
     func requestForLocation(){
         //Code Process
         print("Location granted")
     }
     
+    // Load Map Annotations
     func loadMapAnnotations() {
         // --- json laden
         
