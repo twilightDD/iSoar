@@ -12,15 +12,13 @@ import Mapbox
 // Create a subclass of MGLUserLocationAnnotationView.
 class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
 
-    // MARK: Lets and Vats
+    // MARK: - Lets and Vats
     lazy var gliderLayer: CALayer? = setupGliderLayer()
     
     // MARK: - Overrides
     override func update() {
         if frame.isNull {
             fatalError("frame isNull")
-//            frame = CGRect(x: 0, y: 0, width: width, height: height)
-//            return setNeedsLayout()
         }
         
         rotateGliderLayer()
@@ -38,14 +36,12 @@ class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
         return gliderLayer
     }
     
-    /// Rotate User Location image depending of course.
+    // Rotate User Location image depending of course.
     private func rotateGliderLayer() {
         guard let gliderLayer = self.gliderLayer
             else { return }
         guard let course = MapScreen.shared!.currentLocation?.course
             else { return }
-        
-        // arrow.isHidden = false
         
         // Get the difference between the map’s current direction and the user’s heading, then convert it from degrees to radians.
         let rotation: CGFloat = -MGLRadiansFromDegrees(mapView!.direction - course)
