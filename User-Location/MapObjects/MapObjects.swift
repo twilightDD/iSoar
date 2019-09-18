@@ -13,7 +13,9 @@ class MapObjects{
     
     static let shared = MapObjects()
     var destinationAirports = [MapObjects.Airport]()
-
+    
+    let documentsUrl:URL =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
+    
     struct Airport {
         var valid:String
         var icao:String
@@ -54,8 +56,8 @@ class MapObjects{
     
     //MARK: - Private Init & Co.
     private init(){
-        self.loadMapAnnotations()
         checkForMapOjectsInDocumentsFolder()
+        loadAirports()
     }
     
     // MARK: - Functions
@@ -64,6 +66,10 @@ class MapObjects{
         // Check if MapObjects.json exists in Documents Folder
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let url = NSURL(fileURLWithPath: path)
+ 
+        let destinationFileUrl = documentsUrl.appendingPathComponent("MapObjects.json")
+        let mapObjectsURL = URL(fileURLWithPath: Bundle.main.path(forResource: "MapObjects", ofType: "json")!)
+        
         if let pathComponent = url.appendingPathComponent("MapObjects.json") {
             
             let filePath = pathComponent.path
@@ -71,8 +77,13 @@ class MapObjects{
             if fileManager.fileExists(atPath: filePath) {
                 print("MapObjects available")
             } else {
-                print("MapObjects not available")
-                // copy from bundle to Documents
+                print("MapObjects not found in Documents Folder... will copy...")
+                do {
+                try FileManager.default.copyItem(at: mapObjectsURL, to: destinationFileUrl)
+                print("MapObjects copied to Documents Folder.")
+                } catch (let writeError) {
+                    print("Error creating a file: \(destinationFileUrl) : \(writeError)")
+                }
             }
         }
     }
@@ -83,20 +94,14 @@ class MapObjects{
         print("Location granted")
     }
     
-    // Load Map Annotations
-    func loadMapAnnotations() {
+    // Load Airports
+    func loadAirports() {
         // --- json laden
         
         // hier kommt der Inhalt der Datein rein
         var jsonAsString:String?
-        
-        // Dateipfad holen
-        guard let mapObjectsPath = Bundle.main.path(forResource: "MapObjects",
-                                                    ofType: "json")
-            else { return }
-        
-        // aus Pfad eine URL machen
-        let mapObjectsURL = URL(fileURLWithPath: mapObjectsPath)
+
+        let mapObjectsURL = documentsUrl.appendingPathComponent("MapObjects.json")
         
         do {
             // URL laden und als String zurück geben

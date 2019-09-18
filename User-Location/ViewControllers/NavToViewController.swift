@@ -35,7 +35,8 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        airportInfoButton.isHidden = true
+        // ToDo: bei Eintrit nich immer hidden
+        //airportInfoButton.isHidden = true
         
         createDestinationAirportList()
         updatePickerView()
@@ -70,7 +71,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     }
     
     // Airport Info Button
-    @IBAction func airportInfoButton(_ sender: Any) {
+    @IBAction func airportInfoButton(_ sender: Any) {        
         performSegue(withIdentifier: "AirportInfoSegue", sender: self)
     }
     
@@ -184,6 +185,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
                 }
                 
                 do {
+                    try FileManager.default.removeItem(at: destinationFileUrl)
                     try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
                 } catch (let writeError) {
                     print("Error creating a file: \(destinationFileUrl) : \(writeError)")
@@ -194,13 +196,18 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
             }
         }
         task.resume()
-        //print("\(destinationFileUrl)")
-        
-        // move to correct place
+        // Clear MapObjects.shared.destinationAirports
+        // If uncommented All Airports twice
+        MapObjects.shared.destinationAirports.removeAll()
         
         // Create Destination Airport List from new MapObjects.json
+        MapObjects.shared.loadAirports()
+        
+        // Create new Array
         createDestinationAirportList()
         
+        // Finally updae the PickerView
+        updatePickerView()
     }
     
 }
