@@ -17,6 +17,7 @@ class MapScreen: UIViewController {
     
     static var shared:MapScreen?
     
+    
     // MARK: IBOutlets
     @IBOutlet private var mapView: MGLMapView!
     @IBOutlet private weak var topBar: UIView!
