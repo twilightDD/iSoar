@@ -13,7 +13,6 @@ import MessageUI
 class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     var destinationAirportArray = [MapObjects.Airport]()
-    
     var sortSwitchIndex = 0
     
     // MARK: - IBOutlets
@@ -36,7 +35,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         super.viewWillAppear(animated)
         
         // ToDo: bei Eintrit nich immer hidden
-        //airportInfoButton.isHidden = true
+        airportInfoButton.isHidden = true
         
         createDestinationAirportList()
         updatePickerView()
@@ -139,8 +138,13 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
             mailComposer.mailComposeDelegate = self
             self.present(mailComposer, animated: true
                 , completion: nil)
-        } else {
-            print("Email is not configured in settings app.")
+        }
+        else {
+            let alert = UIAlertController(title: "Error creating Mail", message: "Mail is not configured in settings app.", preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            
+            self.present(alert, animated: true)
         }
     }
     
@@ -176,7 +180,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         
         let request = URLRequest(url:fileURL!)
         
-        let task = session.downloadTask(with: request) { (tempLocalUrl, response, error) in
+        let task = session.downloadTask(with: request) { [unowned self] (tempLocalUrl, response, error) in
             if let tempLocalUrl = tempLocalUrl, error == nil {
                 // Success
                 print("Downloading...")
@@ -187,6 +191,21 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
                 do {
                     try FileManager.default.removeItem(at: destinationFileUrl)
                     try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
+                    
+                    // Clear MapObjects.shared.destinationAirports
+                    MapObjects.shared.destinationAirports.removeAll()
+                    
+                    // Create Destination Airport List from new MapObjects.json
+                    MapObjects.shared.loadAirports()
+                    
+                    // Create new Array
+                    self.createDestinationAirportList()
+                    
+                    // Finally update the PickerView
+                    DispatchQueue.main.async { [unowned self] in
+                        self.updatePickerView()
+                    }
+
                 } catch (let writeError) {
                     print("Error creating a file: \(destinationFileUrl) : \(writeError)")
                 }
@@ -196,18 +215,6 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
             }
         }
         task.resume()
-        // Clear MapObjects.shared.destinationAirports
-        // If uncommented All Airports twice
-        MapObjects.shared.destinationAirports.removeAll()
-        
-        // Create Destination Airport List from new MapObjects.json
-        MapObjects.shared.loadAirports()
-        
-        // Create new Array
-        createDestinationAirportList()
-        
-        // Finally updae the PickerView
-        updatePickerView()
     }
     
 }

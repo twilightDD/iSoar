@@ -169,8 +169,16 @@
                                     <action selector="sortSwitch:" destination="vvT-rw-CMb" eventType="valueChanged" id="dmR-6i-hom"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XvE-2e-Xvt" userLabel="Report Missing Airport">
-                                <rect key="frame" x="281" y="68" width="24.666666666666686" height="23"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCg-5y-Clg" userLabel="Download Button">
+                                <rect key="frame" x="61" y="68" width="25" height="23"/>
+                                <state key="normal" image="download"/>
+                                <connections>
+                                    <action selector="downloadAirportsButton:" destination="vvT-rw-CMb" eventType="touchUpInside" id="bff-bR-Riw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XvE-2e-Xvt" userLabel="Report Missing Airport">
+                                <rect key="frame" x="291" y="68" width="25" height="23"/>
+                                <state key="normal" image="add"/>
                                 <connections>
                                     <action selector="reportMissingAirport:" destination="vvT-rw-CMb" eventType="touchUpInside" id="oUk-YK-hMJ"/>
                                 </connections>
@@ -225,20 +233,14 @@
                                     <action selector="cancelButton:" destination="vvT-rw-CMb" eventType="touchUpInside" id="Z6P-Pj-Vbl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCg-5y-Clg">
-                                <rect key="frame" x="60.999999999999993" y="68" width="24.666666666666664" height="23"/>
-                                <connections>
-                                    <action selector="downloadAirportsButton:" destination="vvT-rw-CMb" eventType="touchUpInside" id="bff-bR-Riw"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1vB-ZQ-It7" firstAttribute="centerX" secondItem="Lcl-jA-3xS" secondAttribute="centerX" id="2za-JN-YY7"/>
                             <constraint firstItem="Uxe-SF-Gui" firstAttribute="top" secondItem="flW-Jw-4Fh" secondAttribute="bottom" constant="25" id="4BS-8t-ddX"/>
-                            <constraint firstItem="XvE-2e-Xvt" firstAttribute="leading" secondItem="flW-Jw-4Fh" secondAttribute="trailing" constant="20" id="B2T-kP-5H6"/>
+                            <constraint firstItem="XvE-2e-Xvt" firstAttribute="leading" secondItem="flW-Jw-4Fh" secondAttribute="trailing" constant="30" id="B2T-kP-5H6"/>
                             <constraint firstItem="Lcl-jA-3xS" firstAttribute="top" secondItem="Uxe-SF-Gui" secondAttribute="bottom" constant="8" symbolic="YES" id="DDw-Zl-ROl"/>
-                            <constraint firstItem="XvE-2e-Xvt" firstAttribute="baseline" secondItem="XCg-5y-Clg" secondAttribute="firstBaseline" id="Eor-C4-2BR"/>
+                            <constraint firstItem="XvE-2e-Xvt" firstAttribute="baseline" secondItem="XCg-5y-Clg" secondAttribute="firstBaseline" constant="23" id="Eor-C4-2BR"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="bottom" secondItem="1vB-ZQ-It7" secondAttribute="bottom" constant="29" id="EsS-md-fde"/>
                             <constraint firstItem="XCg-5y-Clg" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" constant="60.999999999999993" id="Hr5-0w-4bB"/>
                             <constraint firstItem="XvE-2e-Xvt" firstAttribute="centerY" secondItem="flW-Jw-4Fh" secondAttribute="centerY" id="RIm-FD-WAy"/>
@@ -457,7 +459,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="add" width="25" height="25"/>
         <image name="directto" width="35" height="35"/>
+        <image name="download" width="25" height="25"/>
         <image name="glider" width="65" height="30"/>
         <image name="logbook" width="35" height="35"/>
         <image name="settings" width="35" height="35"/>

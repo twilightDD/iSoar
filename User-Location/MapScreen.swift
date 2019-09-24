@@ -17,7 +17,6 @@ class MapScreen: UIViewController {
     
     static var shared:MapScreen?
     
-    
     // MARK: IBOutlets
     @IBOutlet private var mapView: MGLMapView!
     @IBOutlet private weak var topBar: UIView!
@@ -348,11 +347,11 @@ class MapScreen: UIViewController {
         if showDistanceInKM == true {
             
             let distanceInKm = currentDistance/1000
-            distanceLabelText =  String(format: "%.1f Km", distanceInKm)
+            distanceLabelText =  String(format: "%.0f Km", distanceInKm)
         }
         else {
             let distcanceInMi = currentDistance/1000/1.852
-            distanceLabelText = String(format: "%.1f NM", distcanceInMi)
+            distanceLabelText = String(format: "%.0f NM", distcanceInMi)
         }
         
         distanceLabel.text = distanceLabelText

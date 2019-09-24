@@ -27,8 +27,13 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
             mailComposer.mailComposeDelegate = self
             self.present(mailComposer, animated: true
                 , completion: nil)
-        } else {
-            print("Email is not configured in settings app.")
+        }
+        else {
+            let alert = UIAlertController(title: "Error creating Mail", message: "Mail is not configured in settings app.", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            
+            self.present(alert, animated: true)
         }
         
         // Mail Composer Controller

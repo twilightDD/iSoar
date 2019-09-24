@@ -67,8 +67,8 @@ class MapObjects{
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let url = NSURL(fileURLWithPath: path)
  
-        let destinationFileUrl = documentsUrl.appendingPathComponent("MapObjects.json")
-        let mapObjectsURL = URL(fileURLWithPath: Bundle.main.path(forResource: "MapObjects", ofType: "json")!)
+        let mapObjectsInDocumentsFolder = documentsUrl.appendingPathComponent("MapObjects.json")
+        let mapObjectsInBundle = URL(fileURLWithPath: Bundle.main.path(forResource: "MapObjects", ofType: "json")!)
         
         if let pathComponent = url.appendingPathComponent("MapObjects.json") {
             
@@ -79,10 +79,10 @@ class MapObjects{
             } else {
                 print("MapObjects not found in Documents Folder... will copy...")
                 do {
-                try FileManager.default.copyItem(at: mapObjectsURL, to: destinationFileUrl)
+                try FileManager.default.copyItem(at: mapObjectsInBundle, to: mapObjectsInDocumentsFolder)
                 print("MapObjects copied to Documents Folder.")
                 } catch (let writeError) {
-                    print("Error creating a file: \(destinationFileUrl) : \(writeError)")
+                    print("Error creating a file: \(mapObjectsInDocumentsFolder) : \(writeError)")
                 }
             }
         }
