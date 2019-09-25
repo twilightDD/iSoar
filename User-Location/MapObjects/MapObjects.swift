@@ -12,9 +12,9 @@ import CoreLocation
 class MapObjects{
     
     static let shared = MapObjects()
-    var destinationAirports = [MapObjects.Airport]()
+    private var destinationAirports = [MapObjects.Airport]()
     
-    let documentsUrl:URL =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
+    private let documentsUrl:URL =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
     
     struct Airport {
         var valid:String
@@ -53,7 +53,44 @@ class MapObjects{
             distance = newDistance
         }
     }
-    
+
+    func updateDistance() {
+        if let currentLocation = MapScreen.shared!.currentLocation {
+            var puffer = [MapObjects.Airport]()
+            for var destinationAirport in destinationAirports {
+
+                let destinationAirportLocation = CLLocation(latitude: destinationAirport.latitude,
+                                                            longitude: destinationAirport.longitude)
+
+                let currentDistance = currentLocation.distance(from: destinationAirportLocation)
+                destinationAirport.updateDistance(currentDistance)
+
+                puffer.append(destinationAirport)
+            }
+
+            destinationAirports = puffer
+        }
+    }
+
+    func sortedDestinationAirports(by sortIndicator: SortIndicator)
+        -> [MapObjects.Airport]? {
+
+            switch sortIndicator {
+            case .name:
+                let result = destinationAirports.sorted(by: { ($0.name < $1.name) })
+                return result
+            case .distance:
+                let result = destinationAirports.sorted(by: { ($0.distance! < $1.distance!) })
+                return result
+            }
+    }
+
+    enum SortIndicator:Int {
+        case name       = 0
+        case distance   = 1
+    }
+
+
     //MARK: - Private Init & Co.
     private init(){
         checkForMapOjectsInDocumentsFolder()
@@ -136,5 +173,49 @@ class MapObjects{
                 destinationAirports.append(myAirportStruct)
             }
         }
+    }
+
+    func downloadMapObjectsFromServer() {
+
+        // Create destination URL
+        let documentsUrl:URL =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
+        let destinationFileUrl = documentsUrl.appendingPathComponent("MapObjects.json")
+
+        // File Source URL
+        let fileURL = URL(string: "https://www.leupold.me/MapObjects.json")
+
+        let sessionConfig = URLSessionConfiguration.default
+        let session = URLSession(configuration: sessionConfig)
+
+        let request = URLRequest(url:fileURL!)
+
+        let task = session.downloadTask(with: request) { [unowned self] (tempLocalUrl, response, error) in
+            if let tempLocalUrl = tempLocalUrl, error == nil {
+                // Success
+                print("Downloading...")
+                if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                    print("Successfully downloaded. Status code: \(statusCode)")
+                }
+
+                do {
+                    try FileManager.default.removeItem(at: destinationFileUrl)
+                    try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
+
+                    // Clear MapObjects.shared.destinationAirports
+                    self.destinationAirports.removeAll()
+
+                    // Create Destination Airport List from new MapObjects.json
+                    self.loadAirports()
+
+                } catch (let writeError) {
+                    print("Error creating a file: \(destinationFileUrl) : \(writeError)")
+                }
+
+            } else {
+                print("Error took place while downloading a file. Error description: %@", error?.localizedDescription);
+            }
+        }
+        
+        task.resume()
     }
 }

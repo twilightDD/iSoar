@@ -22,6 +22,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     @IBOutlet weak var countryImage: UIImageView!
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var airportInfoButton: UIButton!
+    @IBOutlet weak var airportsSortedBySwitch: UISegmentedControl!
     
     // MARK: - Init
     override func viewDidLoad() {
@@ -36,32 +37,28 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         
         // ToDo: bei Eintrit nich immer hidden
         airportInfoButton.isHidden = true
-        
-        createDestinationAirportList()
+
+        MapObjects.shared.updateDistance()
+
         updatePickerView()
-        
     }
     
     // MARK: - Buttons and Switches
     // Download Airport List from Server Button
     @IBAction func downloadAirportsButton(_ sender: UIButton) {
-        downloadMapObjectsButtonPressed()
+        let alert = UIAlertController(title: "Download Airport Updates?", message: "Do you want to download an updated Airport Database from Server?", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+            MapObjects.shared.downloadMapObjectsFromServer()
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+
+        self.present(alert, animated: true)
     }
     
     // Sort Switch
     @IBAction func sortSwitch(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            sortSwitchIndex = sender.selectedSegmentIndex
-            destinationAirportArray.sort {$0.name < $1.name}
-            pickerView.reloadAllComponents()
-            //pickerView.selectRow(0, inComponent: 0, animated: true)
-        }
-        else {
-            sortSwitchIndex = sender.selectedSegmentIndex
-            destinationAirportArray.sort {$0.distance! < $1.distance!}
-            pickerView.reloadAllComponents()
-            //pickerView.selectRow(0, inComponent: 0, animated: true)
-        }
+         updatePickerView()
     }
     
     // Report missing Airport Button
@@ -93,36 +90,35 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     }
     
     // MARK: - Functions
-    // Create Destination Airport List from JSON
-    private func createDestinationAirportList() {
-        destinationAirportArray.removeAll()
-        
-        let destinationAirports = MapObjects.shared.destinationAirports
-        
-        if let currentLocation = MapScreen.shared!.currentLocation {
-            for var destinationAirport in destinationAirports {
-                let destinationAirportLocation = CLLocation(latitude: destinationAirport.latitude,
-                                                            longitude: destinationAirport.longitude)
-                
-                let currentDistance = currentLocation.distance(from: destinationAirportLocation)
-                destinationAirport.updateDistance(currentDistance)
-                
-                destinationAirportArray.append(destinationAirport)
-            }
-        }
-        else {
-            destinationAirportArray = destinationAirports
-        }
-    }
-    
+//    // Create Destination Airport List from JSON
+//    private func createDestinationAirportList() {
+//        destinationAirportArray.removeAll()
+//
+//        let destinationAirports = MapObjects.shared.destinationAirports
+//
+//        if let currentLocation = MapScreen.shared!.currentLocation {
+//            for var destinationAirport in destinationAirports {
+//                let destinationAirportLocation = CLLocation(latitude: destinationAirport.latitude,
+//                                                            longitude: destinationAirport.longitude)
+//
+//                let currentDistance = currentLocation.distance(from: destinationAirportLocation)
+//                destinationAirport.updateDistance(currentDistance)
+//
+//                destinationAirportArray.append(destinationAirport)
+//            }
+//        }
+//        else {
+//            destinationAirportArray = destinationAirports
+//        }
+//    }
+
     // Update PickerView
-    func updatePickerView(){
-        if sortSwitchIndex == 0 {
-            destinationAirportArray.sort {$0.name < $1.name}
-            pickerView.reloadAllComponents()
-        }
-        else {
-            destinationAirportArray.sort {$0.distance! < $1.distance!}
+    func updatePickerView() {
+        guard let sortIndicator = MapObjects.SortIndicator(rawValue: airportsSortedBySwitch.selectedSegmentIndex)
+            else { fatalError("segmentIndex not suitable for sortIndicator.")}
+
+        if let destinationAirportArray = MapObjects.shared.sortedDestinationAirports(by: sortIndicator) {
+            self.destinationAirportArray = destinationAirportArray
             pickerView.reloadAllComponents()
         }
     }
@@ -151,70 +147,6 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     // Mail Composer Controller
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
-    }
-    
-    // Download Airport Database Button pressed - Show Alert
-    func downloadMapObjectsButtonPressed() {
-        let alert = UIAlertController(title: "Download Airport Updates?", message: "Do you want to download an updated Airport Database from Server?", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-            self.downloadMapObjectsFromServer()
-        }))
-        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-        
-        self.present(alert, animated: true)
-    }
-    
-    // Download MapObjects JSON from Server
-    func downloadMapObjectsFromServer() {
-        
-        // Create destination URL
-        let documentsUrl:URL =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
-        let destinationFileUrl = documentsUrl.appendingPathComponent("MapObjects.json")
-        
-        // File Source URL
-        let fileURL = URL(string: "https://www.leupold.me/MapObjects.json")
-        
-        let sessionConfig = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfig)
-        
-        let request = URLRequest(url:fileURL!)
-        
-        let task = session.downloadTask(with: request) { [unowned self] (tempLocalUrl, response, error) in
-            if let tempLocalUrl = tempLocalUrl, error == nil {
-                // Success
-                print("Downloading...")
-                if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                    print("Successfully downloaded. Status code: \(statusCode)")
-                }
-                
-                do {
-                    try FileManager.default.removeItem(at: destinationFileUrl)
-                    try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
-                    
-                    // Clear MapObjects.shared.destinationAirports
-                    MapObjects.shared.destinationAirports.removeAll()
-                    
-                    // Create Destination Airport List from new MapObjects.json
-                    MapObjects.shared.loadAirports()
-                    
-                    // Create new Array
-                    self.createDestinationAirportList()
-                    
-                    // Finally update the PickerView
-                    DispatchQueue.main.async { [unowned self] in
-                        self.updatePickerView()
-                    }
-
-                } catch (let writeError) {
-                    print("Error creating a file: \(destinationFileUrl) : \(writeError)")
-                }
-                
-            } else {
-                print("Error took place while downloading a file. Error description: %@", error?.localizedDescription);
-            }
-        }
-        task.resume()
     }
     
 }

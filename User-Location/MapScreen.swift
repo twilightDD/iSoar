@@ -75,8 +75,7 @@ class MapScreen: UIViewController {
         setupMapBox()
         
         setupGestureRecognizers()
-        
-        //loadMapAnnotations()
+
         
         //setupBarometer()
     }
@@ -280,20 +279,6 @@ class MapScreen: UIViewController {
     }
     
     //MARK: - Private Methods
-    
-    // Load Map Annotations
-    func loadMapAnnotations() {
-        let destinationAirports = MapObjects.shared.destinationAirports
-        for destinationAirport in destinationAirports {
-            let airportPointAnnotation = DLPointAnnotiation()
-            airportPointAnnotation.coordinate = CLLocationCoordinate2D(latitude: destinationAirport.latitude,
-                                                                       longitude: destinationAirport.longitude)
-            airportPointAnnotation.title = "title"
-            airportPointAnnotation.imageName = "runway_grass"
-            
-            mapView.addAnnotation(airportPointAnnotation)
-        }
-    }
     
     // Update AltitudeLabel
     func updateAltitudeLabel() {
