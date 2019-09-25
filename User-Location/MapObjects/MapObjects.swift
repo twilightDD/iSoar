@@ -9,51 +9,25 @@
 import Foundation
 import CoreLocation
 
+
+//MARK: - MapObjects
 class MapObjects{
-    
+
+    //MARK: - Lets and Vars
     static let shared = MapObjects()
     private var destinationAirports = [MapObjects.Airport]()
     
     private let documentsUrl:URL =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
     
-    struct Airport {
-        var valid:String
-        var icao:String
-        var name:String
-        var latitude:Double
-        var longitude:Double
-        var elevation:Double
-        var airportType:String
-        var runwaySurface:String
-        var runwayDimensions:String
-        var runways:String
-        var url:String?
-        var country:String?
-        var distance:CLLocationDistance?
-        
-        // var radios:[Radio] // hinzufügen => ProTipp: Struct ;)
-        
-        //MARK: - Public Init & Co.
-        public init(dictionary: Dictionary<String, Any>) {
-            self.valid = dictionary["valid"] as? String ?? ""
-            self.icao = dictionary["icao"] as? String ?? ""
-            self.name = dictionary["name"] as? String ?? ""
-            self.latitude = dictionary["latitude"] as? Double ?? 0
-            self.longitude = dictionary["longitude"] as? Double ?? 0
-            self.elevation = dictionary["elevation"] as? Double ?? 0
-            self.airportType = dictionary["airportType"] as? String ?? ""
-            self.runwaySurface = dictionary["runwaySurface"] as? String ?? ""
-            self.runwayDimensions = dictionary["runwayDimensions"] as? String ?? ""
-            self.runways = dictionary["runways"] as? String ?? ""
-            self.url = dictionary["url"] as? String ?? ""
-            self.country = dictionary["country"] as? String ?? ""
-        }
-        
-        mutating func updateDistance(_ newDistance:CLLocationDistance) {
-            distance = newDistance
-        }
+
+    //MARK: - Init&Co.
+    private init(){
+        checkForMapOjectsInDocumentsFolder()
+        loadAirports()
     }
 
+
+    //MARK: - Public Methods
     func updateDistance() {
         if let currentLocation = MapScreen.shared!.currentLocation {
             var puffer = [MapObjects.Airport]()
@@ -72,6 +46,7 @@ class MapObjects{
         }
     }
 
+
     func sortedDestinationAirports(by sortIndicator: SortIndicator)
         -> [MapObjects.Airport]? {
 
@@ -85,21 +60,57 @@ class MapObjects{
             }
     }
 
-    enum SortIndicator:Int {
-        case name       = 0
-        case distance   = 1
+
+    func downloadMapObjectsFromServer() {
+
+        // Create destination URL
+        let documentsUrl:URL =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
+        let destinationFileUrl = documentsUrl.appendingPathComponent("MapObjects.json")
+
+        // File Source URL
+        let fileURL = URL(string: "https://www.leupold.me/MapObjects.json")
+
+        let sessionConfig = URLSessionConfiguration.default
+        let session = URLSession(configuration: sessionConfig)
+
+        let request = URLRequest(url:fileURL!)
+
+        let task = session.downloadTask(with: request) { [unowned self] (tempLocalUrl, response, error) in
+            if let tempLocalUrl = tempLocalUrl, error == nil {
+                // Success
+                print("Downloading...")
+                if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                    print("Successfully downloaded. Status code: \(statusCode)")
+                }
+
+                do {
+                    try FileManager.default.removeItem(at: destinationFileUrl)
+                    try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
+
+                    // Clear MapObjects.shared.destinationAirports
+                    self.destinationAirports.removeAll()
+
+                    // Create Destination Airport List from new MapObjects.json
+                    self.loadAirports()
+
+                } catch (let writeError) {
+                    print("Error creating a file: \(destinationFileUrl) : \(writeError)")
+                }
+
+            } else {
+                print("Error took place while downloading a file. Error description: %@", error?.localizedDescription);
+            }
+        }
+
+        task.resume()
     }
 
 
-    //MARK: - Private Init & Co.
-    private init(){
-        checkForMapOjectsInDocumentsFolder()
-        loadAirports()
-    }
-    
-    // MARK: - Functions
+
+    //MARK: - Private Methods
+
     // Check if MapOjects.json exists in Documents Folder
-    func checkForMapOjectsInDocumentsFolder() {
+    private func checkForMapOjectsInDocumentsFolder() {
         // Check if MapObjects.json exists in Documents Folder
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let url = NSURL(fileURLWithPath: path)
@@ -124,15 +135,17 @@ class MapObjects{
             }
         }
     }
+
     
     // Request for Location
     func requestForLocation(){
         //Code Process
         print("Location granted")
     }
-    
+
+
     // Load Airports
-    func loadAirports() {
+    private func loadAirports() {
         // --- json laden
         
         // hier kommt der Inhalt der Datein rein
@@ -175,47 +188,56 @@ class MapObjects{
         }
     }
 
-    func downloadMapObjectsFromServer() {
+}
 
-        // Create destination URL
-        let documentsUrl:URL =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
-        let destinationFileUrl = documentsUrl.appendingPathComponent("MapObjects.json")
 
-        // File Source URL
-        let fileURL = URL(string: "https://www.leupold.me/MapObjects.json")
+//MARK: - Extentsion - Structs and Enums
 
-        let sessionConfig = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfig)
+extension MapObjects {
 
-        let request = URLRequest(url:fileURL!)
+    enum SortIndicator:Int {
+        case name       = 0
+        case distance   = 1
+    }
 
-        let task = session.downloadTask(with: request) { [unowned self] (tempLocalUrl, response, error) in
-            if let tempLocalUrl = tempLocalUrl, error == nil {
-                // Success
-                print("Downloading...")
-                if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                    print("Successfully downloaded. Status code: \(statusCode)")
-                }
 
-                do {
-                    try FileManager.default.removeItem(at: destinationFileUrl)
-                    try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
+    struct Airport {
+        //MARK: Lets and Vars
+        var valid:String
+        var icao:String
+        var name:String
+        var latitude:Double
+        var longitude:Double
+        var elevation:Double
+        var airportType:String
+        var runwaySurface:String
+        var runwayDimensions:String
+        var runways:String
+        var url:String?
+        var country:String?
+        var distance:CLLocationDistance?
 
-                    // Clear MapObjects.shared.destinationAirports
-                    self.destinationAirports.removeAll()
+        // var radios:[Radio] // hinzufügen => ProTipp: Struct ;)
 
-                    // Create Destination Airport List from new MapObjects.json
-                    self.loadAirports()
-
-                } catch (let writeError) {
-                    print("Error creating a file: \(destinationFileUrl) : \(writeError)")
-                }
-
-            } else {
-                print("Error took place while downloading a file. Error description: %@", error?.localizedDescription);
-            }
+        //MARK: Init&Co.
+        public init(dictionary: Dictionary<String, Any>) {
+            self.valid = dictionary["valid"] as? String ?? ""
+            self.icao = dictionary["icao"] as? String ?? ""
+            self.name = dictionary["name"] as? String ?? ""
+            self.latitude = dictionary["latitude"] as? Double ?? 0
+            self.longitude = dictionary["longitude"] as? Double ?? 0
+            self.elevation = dictionary["elevation"] as? Double ?? 0
+            self.airportType = dictionary["airportType"] as? String ?? ""
+            self.runwaySurface = dictionary["runwaySurface"] as? String ?? ""
+            self.runwayDimensions = dictionary["runwayDimensions"] as? String ?? ""
+            self.runways = dictionary["runways"] as? String ?? ""
+            self.url = dictionary["url"] as? String ?? ""
+            self.country = dictionary["country"] as? String ?? ""
         }
-        
-        task.resume()
+
+        //MARK: Public Methods
+        mutating func updateDistance(_ newDistance:CLLocationDistance) {
+            distance = newDistance
+        }
     }
 }
