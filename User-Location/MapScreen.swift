@@ -456,11 +456,14 @@ class MapScreen: UIViewController {
         
         let distanceInKm = currentDistance/1000
         
+        let upperGearWarningAltitude = selectedDestinationAirport!.elevation + 400
+        let lowerGearWarningAltitude = selectedDestinationAirport!.elevation + 200
+        
         if selectedDestinationAirport != nil {
-            if distanceInKm > 1 { //|| destinationAltitude > 100 {
-                playGearWarning = true
-            }
-            else {
+            if distanceInKm < 1 &&
+                altitudeInMeters < upperGearWarningAltitude &&
+                altitudeInMeters > lowerGearWarningAltitude {
+                
                 if playGearWarning == true {
                     let utterance = AVSpeechUtterance(string: "Warning, Check Landing Gear")
                     utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
@@ -472,8 +475,11 @@ class MapScreen: UIViewController {
                     playGearWarning = false
                 }
                 else {
-                    return
+                    playGearWarning = true
                 }
+            }
+            else {
+                return
             }
         }
         else {
