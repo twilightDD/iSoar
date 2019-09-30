@@ -408,7 +408,6 @@ class MapScreen: UIViewController {
             destinationAirportLabel.text = "---"
         }
         
-        
         if let selectedDestinationAirport = selectedDestinationAirport,
             let currentLocation = currentLocation {
             // Distance
@@ -477,11 +476,11 @@ class MapScreen: UIViewController {
                     playGearWarning = false
                 }
                 else {
-                    playGearWarning = true
+                    return
                 }
             }
             else {
-                return
+                playGearWarning = true
             }
         }
         else {
