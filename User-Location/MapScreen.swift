@@ -382,6 +382,7 @@ class MapScreen: UIViewController {
         }
     }
     
+    // Update Course Label
     private func updateCourseLabel() {
         guard let course = currentLocation?.course else {
             self.courseLabel.text = "---"
@@ -397,6 +398,7 @@ class MapScreen: UIViewController {
         }
     }
     
+    // Update Direction Labels and Line
     private func updateDirectionLabelsAndLine() {
         // ICAO
         if let selectedDestinationAirport = selectedDestinationAirport {
@@ -448,8 +450,8 @@ class MapScreen: UIViewController {
         }
     }
 
-    //ToDo:
-    func gearWarning() {
+    // Audio Landing Gear Warning
+    private func gearWarning() {
         guard let currentDistance = currentDistance else {
             return
         }
@@ -533,14 +535,6 @@ class DLCalloutView: UIView, MGLCalloutView {
 // MARK: - MGLMapViewDelegate methods
 extension MapScreen: MGLMapViewDelegate {
     
-    //    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
-    //        if let image = UIImage.init(named: "info") {
-    //            let annotationImage = MGLAnnotationImage(image: image, reuseIdentifier: "airportIdentifer")
-    //            return annotationImage
-    //        }
-    //        return nil
-    //    }
-    
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
         // Give our polyline a unique color by checking for its `title` property
         return UIColor.blue
@@ -571,7 +565,6 @@ extension MapScreen: MGLMapViewDelegate {
     }
     
     private func mapView(MapView: MGLMapView!, annotation: MGLAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        
         //https://stackoverflow.com/questions/51904284/how-do-you-create-a-custom-callout-for-mapbox-annotations
         //        if control == annotation.rightCalloutAccessoryView {
         //            performSegue(withIdentifier: "AirportInfoSegue", sender: self)
@@ -590,36 +583,7 @@ extension MapScreen: MGLMapViewDelegate {
     func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
         mapView.showsUserLocation = true
     }
-    
-    /*
-     // TODO: WARUM wird das hier nicht aufgerufen?!
-     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-     // This example is only concerned with point annotations.
-     //print("\(annotation.self)")
-     
-     guard annotation is MGLPointAnnotation else {
-     return nil
-     }
-     
-     // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
-     let reuseIdentifier = "\(annotation.coordinate.longitude)"
-     
-     // For better performance, always try to reuse existing annotations.
-     var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-     
-     // If there’s no reusable annotation view available, initialize a new one.
-     if annotationView == nil {
-     annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
-     annotationView?.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-     annotationView?.layer.cornerRadius = (annotationView?.frame.size.width)! / 2
-     annotationView?.layer.borderWidth = 4.0
-     annotationView?.layer.borderColor = UIColor.white.cgColor
-     annotationView!.backgroundColor = UIColor(red: 0.03, green: 0.80, blue: 0.69, alpha: 1.0)
-     }
-     
-     return annotationView
-     }
-     */
+
 }
 
 // MARK: - MapScreen: CLLocationManagerDelegate
