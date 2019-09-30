@@ -11,6 +11,7 @@ import MapKit
 import CoreLocation
 import CoreMotion
 import Mapbox
+import AVFoundation
 
 //MARK: MapScreen
 class MapScreen: UIViewController {
@@ -61,6 +62,8 @@ class MapScreen: UIViewController {
     var showDistanceInKM = true
     var DistanceInKM:CLLocationDistance = 0
     
+    var playGearWarning = true
+    
     // MARK: - Init & Co.
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -76,7 +79,6 @@ class MapScreen: UIViewController {
         
         setupGestureRecognizers()
 
-        
         //setupBarometer()
     }
     
@@ -212,9 +214,9 @@ class MapScreen: UIViewController {
             return userLocationButton
     }
     
-    // MARK: - Gesture Recognizer Funcs
+    // MARK: - Gesture Recognizer Methods
     //Set up Gesture Recognizers
-    func setupGestureRecognizers() {
+    private func setupGestureRecognizers() {
         // MapView
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
         panGestureRecognizer.delegate = self
@@ -281,7 +283,7 @@ class MapScreen: UIViewController {
     //MARK: - Private Methods
     
     // Update AltitudeLabel
-    func updateAltitudeLabel() {
+    private func updateAltitudeLabel() {
         guard let currentLocation = currentLocation else {
             return
         }
@@ -299,7 +301,7 @@ class MapScreen: UIViewController {
     }
     
     // Update SpeedLabel
-    func updateSpeedLabel() {
+    private func updateSpeedLabel() {
         guard let currentLocation = currentLocation else {
             return
         }
@@ -323,7 +325,7 @@ class MapScreen: UIViewController {
     }
     
     // Update DistanceLabel
-    func updateDistanceLabel() {
+    private func updateDistanceLabel() {
         guard let currentDistance = currentDistance else {
             return
         }
@@ -344,7 +346,7 @@ class MapScreen: UIViewController {
     }
     
     // Update DestinationAltitudeLabel
-    func updateDestinationAltitudeLabel() {
+    private func updateDestinationAltitudeLabel() {
         guard let currentLocation = currentLocation else {
             return
         }
@@ -378,10 +380,9 @@ class MapScreen: UIViewController {
         else {
             destinationAltitudeLabel.textColor = .red
         }
-
     }
     
-    func updateCourseLabel() {
+    private func updateCourseLabel() {
         guard let course = currentLocation?.course else {
             self.courseLabel.text = "---"
             return
@@ -418,7 +419,6 @@ class MapScreen: UIViewController {
             // DestinationAltitude
             updateDestinationAltitudeLabel()
             
-            
             // ToDo: Calculate Gliding-Range - Does not work without Surface Elevation
             // let glidingRange = (currentLocation.altitude - safetyAltitude)*gliderRatio
             
@@ -445,6 +445,39 @@ class MapScreen: UIViewController {
                 mapView.remove(currentDirectionLine)
                 self.currentDirectionLine = nil
             }
+        }
+    }
+
+    //ToDo:
+    func gearWarning() {
+        guard let currentDistance = currentDistance else {
+            return
+        }
+        
+        let distanceInKm = currentDistance/1000
+        
+        if selectedDestinationAirport != nil {
+            if distanceInKm > 1 { //|| destinationAltitude > 100 {
+                playGearWarning = true
+            }
+            else {
+                if playGearWarning == true {
+                    let utterance = AVSpeechUtterance(string: "Warning, Check Landing Gear")
+                    utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+                    utterance.rate = 0.5
+                    
+                    let synthesizer = AVSpeechSynthesizer()
+                    synthesizer.speak(utterance)
+                    
+                    playGearWarning = false
+                }
+                else {
+                    return
+                }
+            }
+        }
+        else {
+            return
         }
     }
 
@@ -596,7 +629,7 @@ extension MapScreen: CLLocationManagerDelegate {
             self.mapView.setCenter(currentLocation.coordinate, animated: true)
         }
         
-        // Current Location depending stuff
+        // Current ALtitude and Location depending stuff
         // Altitude
         updateAltitudeLabel()
         
@@ -606,71 +639,19 @@ extension MapScreen: CLLocationManagerDelegate {
         // Steering Course
         updateCourseLabel()
         
+        // Direction
         updateDirectionLabelsAndLine()
         
+        // Gear Warning
+        gearWarning()
+        
     }
-    
-    // Show Annotation on Map
-    //    @nonobjc func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    //
-    //        // Get annotationView
-    //        let identifier = "Annotation"
-    //        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-    //
-    //        if annotationView == nil {
-    //            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-    //            annotationView!.canShowCallout = true
-    //            //ToDo: performSegue(withIdentifier: "AirportInfoSegue", sender: self)
-    //        }
-    //
-    //        // Set image of annotationView depending of the type of annotation
-    //        if let castedAnnotation = annotation as? DLPointAnnotiation {
-    //            annotationView!.image = UIImage(named: castedAnnotation.imageName)
-    //        }
-    //        else if annotation === mapView.userLocation {
-    //            annotationView!.image = UIImage(named: "glider")
-    //        }
-    //        return annotationView
-    //    }
-    
-    // ToDo: Open AirportInfoViewController by tapping Airport Annotation
-    //    func mapView(MapView: MKMapView!, annotation: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-    //
-    //        if control == annotation.rightCalloutAccessoryView {
-    //            performSegue(withIdentifier: "AirportInfoSegue", sender: self)
-    //            print("Opening AirportInfoViewController")
-    //        }
-    //    }
     
     // Check for Location Authorization
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkLocationAuthorization()
     }
     
-    // Draw and renew Polyline Overlay on Map
-    //    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-    //        var overlayRenderer = MKPolylineRenderer() // leeren MKOverlayRenderer anlegen
-    //        if let currentPolyline = overlay as? DLPolyline { // wenn overlay eine DLPolyline ist
-    //            overlayRenderer = MKPolylineRenderer(polyline: currentPolyline) // MKOverlayRenderer mit dem Pfad des Overlay versehen
-    //
-    //            // Abhängig vom type der DLPolyline setzen wir Farbe und Dicke
-    //            switch currentPolyline.type {
-    //            case .directLine:
-    //                overlayRenderer.strokeColor = .blue
-    //                overlayRenderer.lineWidth = 1.0
-    //            case .restrictedAreaR:
-    //                overlayRenderer.strokeColor = .red
-    //                overlayRenderer.lineWidth = 1.5
-    //            case .restrictedAreaRMZ:
-    //                overlayRenderer.strokeColor = .purple
-    //                overlayRenderer.lineWidth = 1.0
-    //            default: // All other (just in case)
-    //                overlayRenderer.strokeColor = .black
-    //                overlayRenderer.lineWidth = 1.0
-    //            }
-    //        }
-    //        return overlayRenderer
-    //    }
 }
 
 // MARK: - MapScreen:UIGestureRecognizerDelegate

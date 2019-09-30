@@ -43,10 +43,10 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         updatePickerView()
     }
     
-    // MARK: - Buttons and Switches
+    // MARK: - Action Methods
     // Download Airport List from Server Button
     @IBAction func downloadAirportsButton(_ sender: UIButton) {
-        let alert = UIAlertController(title: "Download Airport Updates?", message: "Do you want to download an updated Airport Database from Server?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Download Airport Updates", message: "Do you want to download an updated Airport Database from Server?", preferredStyle: .alert)
 
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
             MapObjects.shared.downloadMapObjectsFromServer()
@@ -54,6 +54,9 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
 
         self.present(alert, animated: true)
+        
+        updatePickerView()
+        
     }
     
     // Sort Switch
@@ -89,31 +92,9 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         print("Route canceled")
     }
     
-    // MARK: - Functions
-//    // Create Destination Airport List from JSON
-//    private func createDestinationAirportList() {
-//        destinationAirportArray.removeAll()
-//
-//        let destinationAirports = MapObjects.shared.destinationAirports
-//
-//        if let currentLocation = MapScreen.shared!.currentLocation {
-//            for var destinationAirport in destinationAirports {
-//                let destinationAirportLocation = CLLocation(latitude: destinationAirport.latitude,
-//                                                            longitude: destinationAirport.longitude)
-//
-//                let currentDistance = currentLocation.distance(from: destinationAirportLocation)
-//                destinationAirport.updateDistance(currentDistance)
-//
-//                destinationAirportArray.append(destinationAirport)
-//            }
-//        }
-//        else {
-//            destinationAirportArray = destinationAirports
-//        }
-//    }
-
+    // MARK: - Methods
     // Update PickerView
-    func updatePickerView() {
+    private func updatePickerView() {
         guard let sortIndicator = MapObjects.SortIndicator(rawValue: airportsSortedBySwitch.selectedSegmentIndex)
             else { fatalError("segmentIndex not suitable for sortIndicator.")}
 
@@ -124,7 +105,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     }
     
     // Report missing Airport
-    func reportMissingAirport() {
+    private func reportMissingAirport() {
         if MFMailComposeViewController.canSendMail() {
             let mailComposer = MFMailComposeViewController()
             mailComposer.setToRecipients(["denis@leupold.me"])
@@ -145,7 +126,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     }
     
     // Mail Composer Controller
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    internal func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
     }
     
