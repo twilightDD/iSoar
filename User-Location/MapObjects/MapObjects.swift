@@ -58,6 +58,14 @@ class MapObjects{
             }
     }
 
+
+
+
+
+
+
+    
+
     // Download MapObjects.json from Server
     func downloadMapObjectsFromServer() {
         // Create destination URL
