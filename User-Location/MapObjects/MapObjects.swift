@@ -57,6 +57,7 @@ class MapObjects{
                 return result
             }
     }
+    
 
     // Download MapObjects.json from Server
     func downloadMapObjectsFromServer() {
