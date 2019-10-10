@@ -63,6 +63,7 @@ class MapScreen: UIViewController {
     var DistanceInKM:CLLocationDistance = 0
     
     var playGearWarning = true
+    var playOxygenWarning = true
     
     // MARK: - Init & Co.
     required init?(coder aDecoder: NSCoder) {
@@ -449,42 +450,66 @@ class MapScreen: UIViewController {
         }
     }
 
-    // Audio Landing Gear Warning
+    // Audio Warning for Landing Gear Warning
     private func gearWarning() {
-        guard let currentDistance = currentDistance else {
+        guard let selectedDestinationAirport = selectedDestinationAirport else {
             return
         }
         
-        let distanceInKm = currentDistance/1000
+        let distanceInKm = currentDistance!/1000
         
-        let upperGearWarningAltitude = selectedDestinationAirport!.elevation + 400
-        let lowerGearWarningAltitude = selectedDestinationAirport!.elevation + 200
+        let upperGearWarningAltitude = selectedDestinationAirport.elevation + 400
+        let lowerGearWarningAltitude = selectedDestinationAirport.elevation + 200
         
-        if selectedDestinationAirport != nil {
-            if distanceInKm < 1 &&
-                altitudeInMeters < upperGearWarningAltitude &&
-                altitudeInMeters > lowerGearWarningAltitude {
+        if distanceInKm < 1 && currentLocation!.altitude < upperGearWarningAltitude && currentLocation!.altitude > lowerGearWarningAltitude {
+            
+            if playGearWarning == true {
                 
-                if playGearWarning == true {
-                    let utterance = AVSpeechUtterance(string: "Warning, Check Landing Gear")
-                    utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
-                    utterance.rate = 0.5
-                    
-                    let synthesizer = AVSpeechSynthesizer()
-                    synthesizer.speak(utterance)
-                    
-                    playGearWarning = false
-                }
-                else {
-                    return
-                }
+                let utterance = AVSpeechUtterance(string: "Warning, Check Landing Gear")
+                utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+                utterance.rate = 0.5
+                
+                let synthesizer = AVSpeechSynthesizer()
+                synthesizer.speak(utterance)
+                
+                playGearWarning = false
+    
             }
             else {
-                playGearWarning = true
+                return
             }
         }
         else {
+            playGearWarning = true
+        }
+    }
+    
+    // Audio Audio Warning for Oxygen Level
+    private func oxygenWarning() {
+        guard let currentLocation = currentLocation else {
             return
+        }
+        
+        if currentLocation.altitude > 3500 {
+            
+            if playOxygenWarning == true {
+                
+                let utterance = AVSpeechUtterance(string: "Warning, Oxygen Level low")
+                utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+                utterance.rate = 0.5
+                
+                let synthesizer = AVSpeechSynthesizer()
+                synthesizer.speak(utterance)
+                
+                playOxygenWarning = false
+                
+            }
+            else {
+                return
+            }
+        }
+        else {
+            playOxygenWarning = true
         }
     }
 
@@ -613,6 +638,9 @@ extension MapScreen: CLLocationManagerDelegate {
         
         // Gear Warning
         gearWarning()
+        
+        // Oxygen Warning
+        // oxygenWarning()
         
     }
     

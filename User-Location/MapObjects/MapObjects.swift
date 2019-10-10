@@ -9,7 +9,6 @@
 import Foundation
 import CoreLocation
 
-
 //MARK: - MapObjects
 class MapObjects{
 
@@ -18,7 +17,6 @@ class MapObjects{
     private var destinationAirports = [MapObjects.Airport]()
     
     private let documentsUrl:URL =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
-    
 
     //MARK: - Init&Co.
     private init(){
@@ -26,8 +24,8 @@ class MapObjects{
         loadAirports()
     }
 
-
     //MARK: - Public Methods
+    // updateDistance
     func updateDistance() {
         if let currentLocation = MapScreen.shared!.currentLocation {
             var puffer = [MapObjects.Airport]()
@@ -46,7 +44,7 @@ class MapObjects{
         }
     }
 
-
+    // sortedDestinationAirports
     func sortedDestinationAirports(by sortIndicator: SortIndicator)
         -> [MapObjects.Airport]? {
 
@@ -60,9 +58,8 @@ class MapObjects{
             }
     }
 
-
+    // Download MapObjects.json from Server
     func downloadMapObjectsFromServer() {
-
         // Create destination URL
         let documentsUrl:URL =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
         let destinationFileUrl = documentsUrl.appendingPathComponent("MapObjects.json")
@@ -105,16 +102,13 @@ class MapObjects{
         task.resume()
     }
 
-
-
     //MARK: - Private Methods
-
     // Check if MapOjects.json exists in Documents Folder
     private func checkForMapOjectsInDocumentsFolder() {
         // Check if MapObjects.json exists in Documents Folder
         let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let url = NSURL(fileURLWithPath: path)
- 
+
         let mapObjectsInDocumentsFolder = documentsUrl.appendingPathComponent("MapObjects.json")
         let mapObjectsInBundle = URL(fileURLWithPath: Bundle.main.path(forResource: "MapObjects", ofType: "json")!)
         
@@ -123,9 +117,9 @@ class MapObjects{
             let filePath = pathComponent.path
             let fileManager = FileManager.default
             if fileManager.fileExists(atPath: filePath) {
-                print("MapObjects available")
+                print("MapObjects available in Documents Folder.")
             } else {
-                print("MapObjects not found in Documents Folder... will copy...")
+                print("MapObjects not found in Documents Folder. Copy...")
                 do {
                 try FileManager.default.copyItem(at: mapObjectsInBundle, to: mapObjectsInDocumentsFolder)
                 print("MapObjects copied to Documents Folder.")
@@ -136,15 +130,13 @@ class MapObjects{
         }
     }
 
-    
     // Request for Location
     func requestForLocation(){
         //Code Process
         print("Location granted")
     }
 
-
-    // Load Airports
+    // Load Airports from json
     private func loadAirports() {
         // --- json laden
         

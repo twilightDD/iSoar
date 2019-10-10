@@ -11,10 +11,19 @@ import MessageUI
 
 class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
+    var selectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport
+    
+    
+    @IBOutlet weak var icao: UILabel!
+    
     // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        icao.text = selectedDestinationAirport!.icao
+
     }
+
     
     // MARK: - Methods
     // Report new Data
@@ -22,7 +31,7 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
         if MFMailComposeViewController.canSendMail() {
             let mailComposer = MFMailComposeViewController()
             mailComposer.setToRecipients(["denis@leupold.me"])
-            mailComposer.setSubject("Report new Airport Data")
+            mailComposer.setSubject("Report new Data for \(icao.text!)")
             mailComposer.setMessageBody("Country:<br>Elevation AMSL:<br>ICAO Code:<br>Latitude:<br>Longitude:<br>Name:<br>Radio Frequency:<br>Radio Frequency Name:<br>Runway Dimensions: (1000 x 50) <br>Runway Direction: (01/19)<br>Runway Surface: Grass / Asphalt<br>URL: www.airport.org", isHTML: true)
             
             mailComposer.mailComposeDelegate = self
@@ -43,6 +52,7 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
         controller.dismiss(animated: true)
     }
 
+    
     // MARK: - Action Methods
     @IBAction func dismissButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)

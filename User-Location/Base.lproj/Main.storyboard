@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
-    <device id="retina5_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,37 +17,37 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8yb-8T-kXL">
-                                <rect key="frame" x="20" y="74" width="335" height="175"/>
+                                <rect key="frame" x="20" y="74" width="335" height="190"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="3iw-q3-i4A" userLabel="Label Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="215" height="175"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="215" height="190"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glider Ratio:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRc-6M-XsH">
-                                                <rect key="frame" x="0.0" y="0.0" width="215" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="215" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safety Altitude in m:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55b-9k-XZj">
-                                                <rect key="frame" x="0.0" y="36" width="215" height="31"/>
+                                                <rect key="frame" x="0.0" y="39" width="215" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glider ID:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMn-n2-sUr">
-                                                <rect key="frame" x="0.0" y="72" width="215" height="31"/>
+                                                <rect key="frame" x="0.0" y="78" width="215" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Direction Line:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LK7-KN-Q4d">
-                                                <rect key="frame" x="0.0" y="108" width="215" height="31"/>
+                                                <rect key="frame" x="0.0" y="117" width="215" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Tracking Route:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH1-lu-hfJ">
-                                                <rect key="frame" x="0.0" y="144" width="215" height="31"/>
+                                                <rect key="frame" x="0.0" y="156" width="215" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -56,10 +55,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="H2j-WP-BrR" userLabel="Setting Stack View">
-                                        <rect key="frame" x="220" y="0.0" width="115" height="175"/>
+                                        <rect key="frame" x="220" y="0.0" width="115" height="190"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Uma-pM-80t" userLabel="Glider Ratio" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="0.0" width="100" height="31"/>
+                                                <rect key="frame" x="15" y="0.0" width="100" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="oap-RJ-P4x"/>
                                                 </constraints>
@@ -67,7 +66,7 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="vi7-Ik-Pbz" userLabel="Safety Altitude" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="36" width="100" height="31"/>
+                                                <rect key="frame" x="15" y="39" width="100" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="Z5l-Kk-bnP"/>
                                                 </constraints>
@@ -75,7 +74,7 @@
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="aJN-ar-pUl" userLabel="Glider ID" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
-                                                <rect key="frame" x="15" y="72" width="100" height="31"/>
+                                                <rect key="frame" x="15" y="78" width="100" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="xzw-8N-tn4"/>
                                                 </constraints>
@@ -83,13 +82,13 @@
                                                 <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J8h-Ey-VdH" userLabel="Show Direction Line Switch">
-                                                <rect key="frame" x="66" y="108" width="51" height="31"/>
+                                                <rect key="frame" x="66" y="117" width="51" height="34"/>
                                                 <connections>
                                                     <action selector="showDirectionLineSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="Acf-Y2-iMB"/>
                                                 </connections>
                                             </switch>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fpo-31-RHc">
-                                                <rect key="frame" x="66" y="144" width="51" height="31"/>
+                                                <rect key="frame" x="66" y="156" width="51" height="34"/>
                                                 <connections>
                                                     <action selector="showTrackingRouteSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="F4d-NP-Akg"/>
                                                 </connections>
@@ -157,8 +156,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCg-5y-Clg" userLabel="Download Button">
+                                <rect key="frame" x="54" y="65" width="32" height="32"/>
+                                <state key="normal" image="download"/>
+                                <connections>
+                                    <action selector="downloadAirportsButton:" destination="vvT-rw-CMb" eventType="touchUpInside" id="bff-bR-Riw"/>
+                                </connections>
+                            </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="flW-Jw-4Fh">
-                                <rect key="frame" x="120" y="64" width="135" height="32"/>
+                                <rect key="frame" x="114" y="65" width="147" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="o00-NB-bhY"/>
                                 </constraints>
@@ -170,15 +176,11 @@
                                     <action selector="sortSwitch:" destination="vvT-rw-CMb" eventType="valueChanged" id="dmR-6i-hom"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCg-5y-Clg" userLabel="Download Button">
-                                <rect key="frame" x="61" y="68" width="25" height="23"/>
-                                <state key="normal" image="download"/>
-                                <connections>
-                                    <action selector="downloadAirportsButton:" destination="vvT-rw-CMb" eventType="touchUpInside" id="bff-bR-Riw"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XvE-2e-Xvt" userLabel="Report Missing Airport">
-                                <rect key="frame" x="285" y="68" width="25" height="23"/>
+                                <rect key="frame" x="291" y="65" width="32" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="IeK-I0-clt"/>
+                                </constraints>
                                 <state key="normal" image="add"/>
                                 <connections>
                                     <action selector="reportMissingAirport:" destination="vvT-rw-CMb" eventType="touchUpInside" id="oUk-YK-hMJ"/>
@@ -187,9 +189,14 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Uxe-SF-Gui">
                                 <rect key="frame" x="10" y="120" width="355" height="125"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o7h-oq-c3t">
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CiX-Li-q3n">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="25"/>
-                                    </imageView>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o7h-oq-c3t">
+                                                <rect key="frame" x="0.0" y="0.0" width="355" height="25"/>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M5L-X5-5Th" userLabel="ICAO">
                                         <rect key="frame" x="0.0" y="25" width="355" height="25"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
@@ -221,7 +228,7 @@
                                 </constraints>
                             </stackView>
                             <pickerView contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="Lcl-jA-3xS">
-                                <rect key="frame" x="0.0" y="253" width="375" height="391"/>
+                                <rect key="frame" x="0.0" y="394" width="375" height="250"/>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vB-ZQ-It7" userLabel="Cancel Button" customClass="Buttons" customModule="Glider_Tool" customModuleProvider="target">
                                 <rect key="frame" x="137" y="666" width="101" height="34"/>
@@ -237,26 +244,25 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="XCg-5y-Clg" firstAttribute="top" secondItem="flW-Jw-4Fh" secondAttribute="top" id="204-54-KTA"/>
                             <constraint firstItem="1vB-ZQ-It7" firstAttribute="centerX" secondItem="Lcl-jA-3xS" secondAttribute="centerX" id="2za-JN-YY7"/>
-                            <constraint firstItem="Uxe-SF-Gui" firstAttribute="top" secondItem="flW-Jw-4Fh" secondAttribute="bottom" constant="25" id="4BS-8t-ddX"/>
-                            <constraint firstItem="XvE-2e-Xvt" firstAttribute="leading" secondItem="flW-Jw-4Fh" secondAttribute="trailing" constant="30" id="B2T-kP-5H6"/>
-                            <constraint firstItem="Lcl-jA-3xS" firstAttribute="top" secondItem="Uxe-SF-Gui" secondAttribute="bottom" constant="8" symbolic="YES" id="DDw-Zl-ROl"/>
-                            <constraint firstItem="XvE-2e-Xvt" firstAttribute="baseline" secondItem="XCg-5y-Clg" secondAttribute="firstBaseline" constant="23" id="Eor-C4-2BR"/>
+                            <constraint firstItem="Uxe-SF-Gui" firstAttribute="top" secondItem="flW-Jw-4Fh" secondAttribute="bottom" constant="24" id="4BS-8t-ddX"/>
+                            <constraint firstItem="Lcl-jA-3xS" firstAttribute="top" secondItem="Uxe-SF-Gui" secondAttribute="bottom" constant="149" id="DDw-Zl-ROl"/>
+                            <constraint firstItem="XvE-2e-Xvt" firstAttribute="top" secondItem="flW-Jw-4Fh" secondAttribute="top" id="EIa-0y-1O4"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="bottom" secondItem="1vB-ZQ-It7" secondAttribute="bottom" constant="29" id="EsS-md-fde"/>
-                            <constraint firstItem="XCg-5y-Clg" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" constant="60.999999999999993" id="Hr5-0w-4bB"/>
-                            <constraint firstItem="XvE-2e-Xvt" firstAttribute="centerY" secondItem="flW-Jw-4Fh" secondAttribute="centerY" id="RIm-FD-WAy"/>
-                            <constraint firstItem="XvE-2e-Xvt" firstAttribute="baseline" secondItem="XCg-5y-Clg" secondAttribute="baseline" id="X3v-BN-rAz"/>
+                            <constraint firstItem="flW-Jw-4Fh" firstAttribute="leading" secondItem="XCg-5y-Clg" secondAttribute="trailing" constant="28" id="MqD-US-Jqj"/>
                             <constraint firstItem="Uxe-SF-Gui" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" constant="10" id="Xv4-1M-5Hj"/>
-                            <constraint firstItem="XCg-5y-Clg" firstAttribute="top" secondItem="XvE-2e-Xvt" secondAttribute="top" id="ZlR-OO-vVD"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" secondItem="Uxe-SF-Gui" secondAttribute="trailing" constant="10" id="b9O-4R-cSn"/>
                             <constraint firstItem="1vB-ZQ-It7" firstAttribute="centerX" secondItem="Uxe-SF-Gui" secondAttribute="centerX" id="cxe-Z2-4Gi"/>
                             <constraint firstItem="Lcl-jA-3xS" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" id="eAY-r0-UJp"/>
-                            <constraint firstItem="flW-Jw-4Fh" firstAttribute="top" secondItem="TB3-Tq-exz" secondAttribute="top" constant="20" id="h4U-ab-W0C"/>
+                            <constraint firstItem="XCg-5y-Clg" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" constant="54" id="gar-am-WwL"/>
+                            <constraint firstItem="flW-Jw-4Fh" firstAttribute="top" secondItem="TB3-Tq-exz" secondAttribute="top" constant="21" id="h4U-ab-W0C"/>
                             <constraint firstItem="1vB-ZQ-It7" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" constant="137" id="iUg-mu-ORs"/>
-                            <constraint firstItem="XvE-2e-Xvt" firstAttribute="top" secondItem="TB3-Tq-exz" secondAttribute="top" constant="24" id="lkY-yl-1wL"/>
+                            <constraint firstItem="XCg-5y-Clg" firstAttribute="height" secondItem="flW-Jw-4Fh" secondAttribute="height" constant="1" id="inQ-Zk-wWl"/>
+                            <constraint firstItem="XvE-2e-Xvt" firstAttribute="leading" secondItem="flW-Jw-4Fh" secondAttribute="trailing" constant="30" id="o0B-uq-xGF"/>
                             <constraint firstItem="flW-Jw-4Fh" firstAttribute="centerX" secondItem="Uxe-SF-Gui" secondAttribute="centerX" id="ow7-xg-Yb7"/>
+                            <constraint firstItem="XvE-2e-Xvt" firstAttribute="bottom" secondItem="XCg-5y-Clg" secondAttribute="bottom" id="pua-F9-Llm"/>
                             <constraint firstItem="1vB-ZQ-It7" firstAttribute="top" secondItem="Lcl-jA-3xS" secondAttribute="bottom" constant="22" id="uqg-X7-3H0"/>
-                            <constraint firstItem="XCg-5y-Clg" firstAttribute="centerY" secondItem="flW-Jw-4Fh" secondAttribute="centerY" id="vi9-Y1-Z3l"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TB3-Tq-exz"/>
                     </view>
@@ -301,23 +307,30 @@
             <objects>
                 <viewController id="3Br-pt-Icv" customClass="AirportInfoViewController" customModule="Glider_Tool" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4Ax-e0-FBb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bfN-vw-tZQ">
-                                <rect key="frame" x="306" y="74" width="39" height="30"/>
+                                <rect key="frame" x="306" y="30" width="39" height="30"/>
                                 <state key="normal" title="Close"/>
                                 <connections>
                                     <action selector="dismissButton:" destination="3Br-pt-Icv" eventType="touchUpInside" id="0Ut-PO-dbi"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FjM-EA-mHZ" userLabel="Report new Data" customClass="Buttons" customModule="Glider_Tool" customModuleProvider="target">
-                                <rect key="frame" x="99" y="712" width="177" height="30"/>
+                                <rect key="frame" x="99" y="658" width="177" height="30"/>
                                 <state key="normal" title="Report new Data"/>
                                 <connections>
                                     <action selector="reportNewDataButton:" destination="3Br-pt-Icv" eventType="touchUpInside" id="7na-Ob-0qb"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HgW-3L-HIK" userLabel="ICAO">
+                                <rect key="frame" x="10" y="194" width="355" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -330,6 +343,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YQK-pO-ANI"/>
                     </view>
+                    <connections>
+                        <outlet property="icao" destination="HgW-3L-HIK" id="TVL-pP-5HU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NNL-hG-AEc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -461,9 +477,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="add" width="25" height="25"/>
+        <image name="add" width="512" height="512"/>
         <image name="directto" width="35" height="35"/>
-        <image name="download" width="25" height="25"/>
+        <image name="download" width="512" height="512"/>
         <image name="glider" width="65" height="30"/>
         <image name="logbook" width="35" height="35"/>
         <image name="settings" width="35" height="35"/>
