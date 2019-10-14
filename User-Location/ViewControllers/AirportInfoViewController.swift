@@ -10,20 +10,111 @@ import UIKit
 import MessageUI
 
 class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDelegate {
-
+    
     var selectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport
     
     
+    
+    @IBOutlet weak var airportName: UILabel!
+    
+    
+    @IBOutlet weak var countryImage: UIImageView!
+    
+    @IBOutlet weak var elevation: UILabel!
+    
+    
+    @IBOutlet weak var latitudeValue: UILabel!
+    
+    @IBOutlet weak var longitudeValue: UILabel!
+    
+    
     @IBOutlet weak var icao: UILabel!
+    
+    
+    @IBOutlet weak var radioNameValue: UILabel!
+    
+    
+
+    @IBOutlet weak var radioFrequencyValue: UILabel!
+    
+
+    @IBOutlet weak var runwayDirectionsValue: UILabel!
+    
+    
+    @IBOutlet weak var dimensionsValue: UILabel!
+    
+    
+    @IBOutlet weak var surfaceValue: UILabel!
+    
+    
+    @IBOutlet weak var additionalInfo: UILabel!
+    
+    @IBOutlet weak var countryValue: UILabel!
+    
+    
+    @IBOutlet weak var urlValue: UILabel!
+
+    
+    @IBOutlet weak var callButton: UIButton!
+    
+    
+    
     
     // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        airportName.text = selectedDestinationAirport?.name
+        
+        
+        
         icao.text = selectedDestinationAirport!.icao
-
+        
+        radioNameValue.text =  selectedDestinationAirport?.radioName
+        
+        radioFrequencyValue.text =  selectedDestinationAirport?.radioFrequency
+        
+        runwayDirectionsValue.text = selectedDestinationAirport?.runwayDirections
+        
+        dimensionsValue.text = selectedDestinationAirport?.runwayDimensions
+        
+        surfaceValue.text = selectedDestinationAirport?.runwaySurface
+        
+        
+        
+        countryValue.text = selectedDestinationAirport?.country
+        
+        
+        countryImage.image = UIImage(named: countryValue.text!)
+        
+        
+        elevation.text =  String(format: "%.0f m", selectedDestinationAirport!.elevation)
+        
+        latitudeValue.text = String(format: "%.8f", selectedDestinationAirport!.latitude)
+        
+        longitudeValue.text = String(format: "%.8f", selectedDestinationAirport!.longitude)
+        
+        
+        
+        
+        
+        
+        
+        additionalInfo.text = selectedDestinationAirport?.additionalInfo
+        
+        
+        
+        
+        
+        callButton.setTitle("\(selectedDestinationAirport!.phone!)",for: .normal)
+        
+        
+        urlValue.text = selectedDestinationAirport?.url
+        
+        
+        
     }
-
+    
     
     // MARK: - Methods
     // Report new Data
@@ -40,7 +131,7 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
         }
         else {
             let alert = UIAlertController(title: "Error creating Mail", message: "Mail is not configured in settings app.", preferredStyle: .alert)
-
+            
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             
             self.present(alert, animated: true)
@@ -51,7 +142,8 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
     internal func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
     }
-
+    
+    
     
     // MARK: - Action Methods
     @IBAction func dismissButton(_ sender: Any) {
@@ -60,6 +152,17 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
     
     @IBAction func reportNewDataButton(_ sender: Any) {
         reportNewAirportData()
+    }
+    
+    @IBAction func callButton(_ sender: Any) {
+        
+        let phone = MapScreen.shared?.selectedDestinationAirport?.phone
+        
+        if let url = URL(string: "tel://\(phone!))"),
+            UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        
     }
     
 }

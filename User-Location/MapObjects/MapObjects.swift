@@ -58,7 +58,6 @@ class MapObjects{
             }
     }
 
-
     // Download MapObjects.json from Server
     func downloadMapObjectsFromServer() {
         // Create destination URL
@@ -168,10 +167,6 @@ class MapObjects{
             print("json went wrong")
         }
         
-        // --- Dict parsen und Annotations bauen
-        // Airports
-        // aus dem Dictionary den Zweig für 'Airports holen (sollte ein Array sein)
-        
         if let airports = jsonAsDict["Airports"] as? [Dictionary<String, Any>] {
             // jedes Element des Arrays abklappern
             for airport in airports {
@@ -183,7 +178,6 @@ class MapObjects{
 
 }
 
-
 //MARK: - Extentsion - Structs and Enums
 
 extension MapObjects {
@@ -192,7 +186,6 @@ extension MapObjects {
         case name       = 0
         case distance   = 1
     }
-
 
     struct Airport {
         //MARK: Lets and Vars
@@ -205,10 +198,14 @@ extension MapObjects {
         var airportType:String
         var runwaySurface:String
         var runwayDimensions:String
-        var runways:String
+        var runwayDirections:String
         var url:String?
         var country:String?
         var distance:CLLocationDistance?
+        var phone:String?
+        var additionalInfo:String?
+        var radioName:String?
+        var radioFrequency:String?
 
         // var radios:[Radio] // hinzufügen => ProTipp: Struct ;)
 
@@ -223,9 +220,14 @@ extension MapObjects {
             self.airportType = dictionary["airportType"] as? String ?? ""
             self.runwaySurface = dictionary["runwaySurface"] as? String ?? ""
             self.runwayDimensions = dictionary["runwayDimensions"] as? String ?? ""
-            self.runways = dictionary["runways"] as? String ?? ""
+            self.runwayDirections = dictionary["runwayDirections"] as? String ?? ""
             self.url = dictionary["url"] as? String ?? ""
             self.country = dictionary["country"] as? String ?? ""
+            self.phone = dictionary["phone"] as? String ?? ""
+            self.additionalInfo = dictionary["additionalInfo"] as? String ?? ""
+            self.radioName = dictionary["radioName"] as? String ?? ""
+            self.radioFrequency = dictionary["radioFrequency"] as? String ?? ""
+            
         }
 
         //MARK: Public Methods
