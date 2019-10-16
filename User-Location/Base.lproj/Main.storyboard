@@ -16,8 +16,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lYN-W9-3in">
+                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                <items>
+                                    <navigationItem title="Settings" id="fDB-yZ-GOP"/>
+                                </items>
+                            </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8yb-8T-kXL">
-                                <rect key="frame" x="20" y="116" width="335" height="190"/>
+                                <rect key="frame" x="20" y="108" width="335" height="190"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="3iw-q3-i4A" userLabel="Label Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="215" height="190"/>
@@ -98,7 +104,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHq-JY-pFB" userLabel="SAVE Button" customClass="Buttons" customModule="Glider_Tool" customModuleProvider="target">
-                                <rect key="frame" x="144" y="389.66666666666669" width="87" height="34"/>
+                                <rect key="frame" x="169" y="423" width="37" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="H87-Hs-96Y"/>
                                 </constraints>
@@ -107,22 +113,17 @@
                                     <action selector="SaveButtonTapped:" destination="AW2-mO-9uR" eventType="touchUpInside" id="puX-sQ-ZMx"/>
                                 </connections>
                             </button>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lYN-W9-3in">
-                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Settings" id="fDB-yZ-GOP"/>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="FHq-JY-pFB" firstAttribute="centerY" secondItem="JoN-R0-khH" secondAttribute="centerY" constant="42.166666666666742" id="1RW-dt-5Z3"/>
-                            <constraint firstItem="FHq-JY-pFB" firstAttribute="centerX" secondItem="8yb-8T-kXL" secondAttribute="centerX" id="Edp-XG-imb"/>
+                            <constraint firstItem="FHq-JY-pFB" firstAttribute="centerX" secondItem="8yb-8T-kXL" secondAttribute="centerX" id="2BE-V2-pwH"/>
+                            <constraint firstItem="lYN-W9-3in" firstAttribute="centerX" secondItem="8yb-8T-kXL" secondAttribute="centerX" id="4ea-Bn-RyH"/>
                             <constraint firstItem="ZtY-EE-Of7" firstAttribute="trailing" secondItem="8yb-8T-kXL" secondAttribute="trailing" constant="20" id="HLd-iC-Y0S"/>
+                            <constraint firstItem="8yb-8T-kXL" firstAttribute="top" secondItem="lYN-W9-3in" secondAttribute="bottom" constant="20" id="IBe-wo-9xu"/>
+                            <constraint firstItem="lYN-W9-3in" firstAttribute="leading" secondItem="ZtY-EE-Of7" secondAttribute="leading" id="JrV-4f-glI"/>
+                            <constraint firstItem="FHq-JY-pFB" firstAttribute="top" secondItem="8yb-8T-kXL" secondAttribute="bottom" constant="125" id="Mv1-md-hHT"/>
                             <constraint firstItem="8yb-8T-kXL" firstAttribute="leading" secondItem="ZtY-EE-Of7" secondAttribute="leading" constant="20" id="Sel-tt-YIM"/>
-                            <constraint firstItem="8yb-8T-kXL" firstAttribute="top" secondItem="ZtY-EE-Of7" secondAttribute="top" constant="72" id="Wv1-uN-GVh"/>
-                            <constraint firstItem="FHq-JY-pFB" firstAttribute="leading" secondItem="ZtY-EE-Of7" secondAttribute="leading" constant="144" id="aPQ-5g-Dzh"/>
+                            <constraint firstItem="lYN-W9-3in" firstAttribute="top" secondItem="ZtY-EE-Of7" secondAttribute="top" id="yCk-zk-pI1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZtY-EE-Of7"/>
                     </view>
@@ -253,7 +254,7 @@
                                 </items>
                             </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vB-ZQ-It7" userLabel="Cancel Button" customClass="Buttons" customModule="Glider_Tool" customModuleProvider="target">
-                                <rect key="frame" x="137" y="675" width="101" height="34"/>
+                                <rect key="frame" x="158" y="675" width="59" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="I35-PF-eLz"/>
                                 </constraints>
@@ -280,7 +281,6 @@
                             <constraint firstItem="Lcl-jA-3xS" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" id="eAY-r0-UJp"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" secondItem="XCg-5y-Clg" secondAttribute="trailing" constant="296" id="eib-XR-w7J"/>
                             <constraint firstItem="XCg-5y-Clg" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" constant="50" id="gar-am-WwL"/>
-                            <constraint firstItem="1vB-ZQ-It7" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" constant="137" id="iUg-mu-ORs"/>
                             <constraint firstItem="XCg-5y-Clg" firstAttribute="height" secondItem="flW-Jw-4Fh" secondAttribute="height" constant="-6" id="inQ-Zk-wWl"/>
                             <constraint firstItem="XvE-2e-Xvt" firstAttribute="leading" secondItem="flW-Jw-4Fh" secondAttribute="trailing" constant="39" id="o0B-uq-xGF"/>
                             <constraint firstItem="XvE-2e-Xvt" firstAttribute="bottom" secondItem="XCg-5y-Clg" secondAttribute="bottom" id="pua-F9-Llm"/>
@@ -559,7 +559,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FjM-EA-mHZ" userLabel="Report new Data" customClass="Buttons" customModule="Glider_Tool" customModuleProvider="target">
-                                <rect key="frame" x="129.66666666666666" y="668" width="115" height="34"/>
+                                <rect key="frame" x="129.66666666666666" y="670" width="115" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="A8x-eF-uv4"/>
                                 </constraints>
@@ -576,7 +576,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="FjM-EA-mHZ" firstAttribute="centerX" secondItem="Pw8-Qv-A5D" secondAttribute="centerX" id="AYQ-VG-AX3"/>
-                            <constraint firstItem="YQK-pO-ANI" firstAttribute="bottom" secondItem="FjM-EA-mHZ" secondAttribute="bottom" constant="22" id="DLD-jx-1XH"/>
+                            <constraint firstItem="YQK-pO-ANI" firstAttribute="bottom" secondItem="FjM-EA-mHZ" secondAttribute="bottom" constant="20" id="DLD-jx-1XH"/>
                             <constraint firstItem="YQK-pO-ANI" firstAttribute="trailing" secondItem="Vwd-wo-QJT" secondAttribute="trailing" constant="20" id="FaA-Rm-8Pg"/>
                             <constraint firstItem="okQ-ly-N2X" firstAttribute="leading" secondItem="YQK-pO-ANI" secondAttribute="leading" id="Gon-tW-vTJ"/>
                             <constraint firstItem="YQK-pO-ANI" firstAttribute="trailing" secondItem="Ot4-9d-8Tg" secondAttribute="trailing" constant="20" id="JrM-yh-IpD"/>
@@ -586,7 +586,6 @@
                             <constraint firstItem="YQK-pO-ANI" firstAttribute="trailing" secondItem="okQ-ly-N2X" secondAttribute="trailing" id="tBv-8P-cYS"/>
                             <constraint firstItem="Vwd-wo-QJT" firstAttribute="leading" secondItem="YQK-pO-ANI" secondAttribute="leading" constant="20" id="tD1-6x-1yZ"/>
                             <constraint firstItem="okQ-ly-N2X" firstAttribute="top" secondItem="YQK-pO-ANI" secondAttribute="top" id="up2-lJ-VoP"/>
-                            <constraint firstItem="FjM-EA-mHZ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Vwd-wo-QJT" secondAttribute="bottom" constant="4" id="yN9-E1-lQl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YQK-pO-ANI"/>
                     </view>
