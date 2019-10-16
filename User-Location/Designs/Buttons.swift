@@ -25,5 +25,7 @@ class Buttons: UIButton {
         backgroundColor     = UIColor(red: 237/255, green: 74/255, blue: 101/255, alpha: 1)
         titleLabel?.font    = .boldSystemFont(ofSize: 20)
         layer.cornerRadius  = frame.size.height / 2
+        let spacing: CGFloat = 10
+        contentEdgeInsets = UIEdgeInsets(top: 0, left: spacing, bottom: 0, right: spacing)
     }
 }
