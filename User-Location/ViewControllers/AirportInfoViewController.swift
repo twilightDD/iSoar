@@ -12,109 +12,49 @@ import MessageUI
 class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     var selectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport
-    
-    
-    
+        
+    // MARK: - IBOutlets
     @IBOutlet weak var airportName: UILabel!
-    
-    
     @IBOutlet weak var countryImage: UIImageView!
-    
     @IBOutlet weak var elevation: UILabel!
-    
-    
     @IBOutlet weak var latitudeValue: UILabel!
-    
     @IBOutlet weak var longitudeValue: UILabel!
-    
-    
     @IBOutlet weak var icao: UILabel!
-    
-    
     @IBOutlet weak var radioNameValue: UILabel!
-    
-    
-
     @IBOutlet weak var radioFrequencyValue: UILabel!
-    
-
     @IBOutlet weak var runwayDirectionsValue: UILabel!
-    
-    
     @IBOutlet weak var dimensionsValue: UILabel!
-    
-    
     @IBOutlet weak var surfaceValue: UILabel!
-    
-    
     @IBOutlet weak var additionalInfo: UILabel!
-    
     @IBOutlet weak var countryValue: UILabel!
-    
-    
     @IBOutlet weak var urlValue: UILabel!
-
-    
     @IBOutlet weak var callButton: UIButton!
-    
-    
-    
+    @IBOutlet weak var urlButton: UIButton!
     
     // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
         
         airportName.text = selectedDestinationAirport?.name
-        
-        
-        
         icao.text = selectedDestinationAirport!.icao
-        
         radioNameValue.text =  selectedDestinationAirport?.radioName
-        
         radioFrequencyValue.text =  selectedDestinationAirport?.radioFrequency
-        
         runwayDirectionsValue.text = selectedDestinationAirport?.runwayDirections
-        
         dimensionsValue.text = selectedDestinationAirport?.runwayDimensions
-        
         surfaceValue.text = selectedDestinationAirport?.runwaySurface
-        
-        
-        
         countryValue.text = selectedDestinationAirport?.country
-        
-        
         countryImage.image = UIImage(named: countryValue.text!)
-        
-        
         elevation.text =  String(format: "%.0f m", selectedDestinationAirport!.elevation)
         
         latitudeValue.text = String(format: "%.8f", selectedDestinationAirport!.latitude)
         
         longitudeValue.text = String(format: "%.8f", selectedDestinationAirport!.longitude)
         
-        
-        
-        
-        
-        
-        
         additionalInfo.text = selectedDestinationAirport?.additionalInfo
-        
-        
-        
-        
-        
         callButton.setTitle("\(selectedDestinationAirport!.phone!)",for: .normal)
-        
-        
-        urlValue.text = selectedDestinationAirport?.url
-        
-        
+        urlButton.setTitle("\(selectedDestinationAirport!.url!)",for: .normal)
         
     }
-    
     
     // MARK: - Methods
     // Report new Data
@@ -143,8 +83,6 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
         controller.dismiss(animated: true)
     }
     
-    
-    
     // MARK: - Action Methods
     @IBAction func dismissButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -162,7 +100,14 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
             UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
+    }
+    
+    @IBAction func urlButton(_ sender: Any) {
         
+        if let url = URL(string: "http://\(selectedDestinationAirport!.url!)") {
+            UIApplication.shared.open(url)
+
+        }
     }
     
 }

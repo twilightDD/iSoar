@@ -95,7 +95,7 @@ class MapObjects{
                 }
 
             } else {
-                print("Error took place while downloading a file. Error description: %@", error?.localizedDescription);
+                print("Error took place while downloading a file. Error description: %@", error!.localizedDescription);
             }
         }
 
