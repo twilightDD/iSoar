@@ -686,36 +686,19 @@
                                     <constraint firstAttribute="height" constant="100" id="mPa-gH-1qq"/>
                                 </constraints>
                             </view>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="relativeAltitude" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cRP-l7-0lM">
-                                <rect key="frame" x="20" y="251" width="130.5" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pressure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bo7-Zc-lYU">
-                                <rect key="frame" x="20" y="280" width="130.5" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="hsD-mX-zC2" firstAttribute="leading" secondItem="LKd-yy-DJC" secondAttribute="leading" id="0lv-eA-hXD"/>
-                            <constraint firstItem="Bo7-Zc-lYU" firstAttribute="leading" secondItem="cRP-l7-0lM" secondAttribute="leading" id="1CF-Yc-hpu"/>
-                            <constraint firstItem="Bo7-Zc-lYU" firstAttribute="trailing" secondItem="cRP-l7-0lM" secondAttribute="trailing" id="3qv-lL-66X"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="LKd-yy-DJC" secondAttribute="bottom" id="4ih-uH-i5d"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Bo7-Zc-lYU" secondAttribute="bottom" constant="509" id="5Me-JI-HtV"/>
                             <constraint firstItem="hsD-mX-zC2" firstAttribute="trailing" secondItem="LKd-yy-DJC" secondAttribute="trailing" id="Ftf-9q-XbJ"/>
                             <constraint firstItem="LKd-yy-DJC" firstAttribute="top" secondItem="hsD-mX-zC2" secondAttribute="bottom" id="OXC-IF-DCA"/>
                             <constraint firstItem="hsD-mX-zC2" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="bFx-Rq-heS"/>
                             <constraint firstItem="vTL-NQ-aVo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="cKw-dc-vS3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="vTL-NQ-aVo" secondAttribute="trailing" constant="10" id="ffH-lU-4cx"/>
-                            <constraint firstItem="Bo7-Zc-lYU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="jib-zp-OHc"/>
                             <constraint firstItem="LKd-yy-DJC" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="kGC-XZ-6qt"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="vTL-NQ-aVo" secondAttribute="top" constant="10" id="njh-MT-SMx"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LKd-yy-DJC" secondAttribute="trailing" id="pMt-rz-dYg"/>
-                            <constraint firstItem="Bo7-Zc-lYU" firstAttribute="top" secondItem="cRP-l7-0lM" secondAttribute="bottom" constant="5" id="vhw-38-CCC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -728,8 +711,6 @@
                         <outlet property="destinationAltitudeLabel" destination="tFp-FZ-rSR" id="rM7-lC-bUs"/>
                         <outlet property="distanceLabel" destination="kA8-XT-cnZ" id="oOW-vk-Cx9"/>
                         <outlet property="mapView" destination="LKd-yy-DJC" id="icj-KO-Ca6"/>
-                        <outlet property="pressure" destination="Bo7-Zc-lYU" id="mIL-ud-WZz"/>
-                        <outlet property="relativeAltitude" destination="cRP-l7-0lM" id="3SH-bq-yOe"/>
                         <outlet property="speedLabel" destination="0jK-Zb-MHZ" id="57G-8b-Njv"/>
                         <outlet property="topBar" destination="hsD-mX-zC2" id="vGU-mf-BQt"/>
                     </connections>
