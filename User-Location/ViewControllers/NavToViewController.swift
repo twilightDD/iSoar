@@ -12,6 +12,7 @@ import MessageUI
 
 class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
+    // Datasource
     var destinationAirportArray = [MapObjects.Airport]()
     var sortSwitchIndex = 0
     
@@ -20,36 +21,19 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     @IBOutlet weak var airportName: UILabel!
     @IBOutlet weak var country: UILabel!
     @IBOutlet weak var countryImage: UIImageView!
-    @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var airportInfoButton: UIButton!
     @IBOutlet weak var airportsSortedBySwitch: UISegmentedControl!
-    
-
 
     @IBOutlet weak var tableView: UITableView!
-    
-
-    // MARK: - Init
 
 
-    // Datasource
-    let titleDataSource = MapScreen.shared?.selectedDestinationAirport?.name
-    let dataSource = MapScreen.shared?.selectedDestinationAirport?.icao
-
-
+    // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
-        //pickerView.dataSource = self
-        //pickerView.delegate = self
-        
-        tableView.dataSource = self as! UITableViewDataSource
-        tableView.delegate = self as! UITableViewDelegate
 
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 44
+        tableView.dataSource = self
+        tableView.delegate = self
 
-        tableView.reloadData()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -61,71 +45,22 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
 
         MapObjects.shared.updateDistance()
 
-        //updatePickerView()
+        setupTableViewDatasource()
     }
     
-    
-    // MARK: - Action Methods
-    // Download Airport List from Server Button
-    @IBAction func downloadAirportsButton(_ sender: UIButton) {
-        let alert = UIAlertController(title: "Download Airport Updates", message: "Do you want to download an updated Airport Database from Server?", preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-            MapObjects.shared.downloadMapObjectsFromServer()
-        }))
-        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-
-        self.present(alert, animated: true)
-        
-        //updatePickerView()
-        
-    }
-    
-    // Sort Switch
-    @IBAction func sortSwitch(_ sender: UISegmentedControl) {
-         //updatePickerView()
-    }
-    
-    // Report missing Airport Button
-    @IBAction func reportMissingAirport(_ sender: UIButton) {
-        reportMissingAirport()
-    }
-    
-    // Airport Info Button
-    @IBAction func airportInfoButton(_ sender: Any) {        
-        performSegue(withIdentifier: "AirportInfoSegue", sender: self)
-    }
-    
-    // Cancel Button
-    @IBAction func cancelButton(_ sender: Buttons) {
-        // reset selectedDestinationAirport on MapScreenViewController
-        MapScreen.shared!.selectedDestinationAirport = nil
-        
-        // Reset own UI
-        icao.text = ""
-        airportName.text = ""
-        country.text = ""
-        countryImage.image = UIImage(named: "spacer")
-        
-        airportInfoButton.isHidden = true
-        
-        pickerView.selectRow(0, inComponent: 0, animated: true)
-        
-        print("Route canceled")
-    }
-    
-    // MARK: - Methods
+    // MARK: - Private Methods
     // Update PickerView
-//    private func updatePickerView() {
-//        guard let sortIndicator = MapObjects.SortIndicator(rawValue: airportsSortedBySwitch.selectedSegmentIndex)
-//            else { fatalError("segmentIndex not suitable for sortIndicator.")}
-//
-//        if let destinationAirportArray = MapObjects.shared.sortedDestinationAirports(by: sortIndicator) {
-//            self.destinationAirportArray = destinationAirportArray
-//            pickerView.reloadAllComponents()
-//        }
-//    }
-    
+    private func setupTableViewDatasource() {
+        guard let sortIndicator = MapObjects.SortIndicator(rawValue: airportsSortedBySwitch.selectedSegmentIndex)
+            else { fatalError("segmentIndex not suitable for sortIndicator.")}
+
+        if let destinationAirportArray = MapObjects.shared.sortedDestinationAirports(by: sortIndicator) {
+            self.destinationAirportArray = destinationAirportArray
+            tableView.reloadData()
+        }
+    }
+
     // Report missing Airport
     private func reportMissingAirport() {
         if MFMailComposeViewController.canSendMail() {
@@ -151,7 +86,57 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     internal func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
     }
-    
+
+
+    // MARK: - Action Methods
+    // Download Airport List from Server Button
+    @IBAction func downloadAirportsButton(_ sender: UIButton) {
+        let alert = UIAlertController(title: "Download Airport Updates", message: "Do you want to download an updated Airport Database from Server?", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+            MapObjects.shared.downloadMapObjectsFromServer()
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+
+        self.present(alert, animated: true)
+
+        setupTableViewDatasource()
+    }
+
+    // Sort Switch
+    @IBAction func sortSwitch(_ sender: UISegmentedControl) {
+        setupTableViewDatasource()
+    }
+
+    // Report missing Airport Button
+    @IBAction func reportMissingAirport(_ sender: UIButton) {
+        reportMissingAirport()
+    }
+
+    // Airport Info Button
+    @IBAction func airportInfoButton(_ sender: Any) {
+        performSegue(withIdentifier: "AirportInfoSegue", sender: self)
+    }
+
+    // Cancel Button
+    @IBAction func cancelButton(_ sender: Buttons) {
+        // reset selectedDestinationAirport on MapScreenViewController
+        MapScreen.shared!.selectedDestinationAirport = nil
+
+        // Reset own UI
+        icao.text = ""
+        airportName.text = ""
+        country.text = ""
+        countryImage.image = UIImage(named: "spacer")
+
+        airportInfoButton.isHidden = true
+
+        tableView.selectRow(at: IndexPath.init(row: 0, section: 0), animated: true, scrollPosition: .top)
+        tableView.deselectRow(at: IndexPath.init(row: 0, section: 0), animated: false)
+
+        print("Route canceled")
+    }
+
 }
 
 //// MARK: - Extensions
@@ -205,28 +190,45 @@ extension NavToViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
         -> Int {
-            return dataSource.count
+            let numberOfRowsInSection = destinationAirportArray.count
+            return numberOfRowsInSection
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell {
 
             // get cell from tableView
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AirPortCellAutolayout")
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AirPortCell")
                 else { fatalError("")}
 
-            if let myCell = cell as? TableViewCell {
-                // AirPortCellAutolayout
-                myCell.titleLabel.text = titleDataSource[indexPath.row]
-                myCell.valueLabel.text = dataSource[indexPath.row]
+            let airportForRow = destinationAirportArray[indexPath.row]
+
+            // texts in cell
+            cell.textLabel?.text = airportForRow.name
+            if let distance = airportForRow.distance {
+                let distanceInKm = distance/1000
+                let distanceString = String(format: " (%.0f Km)", distanceInKm)
+                cell.detailTextLabel?.text = distanceString
             }
             else {
-                // RightDetailCell
-                cell.textLabel?.text = titleDataSource[indexPath.row]
-                cell.detailTextLabel?.text =  dataSource[indexPath.row]
+                cell.detailTextLabel?.text = ""
             }
 
-            // cell.accessoryType = .checkmark
+
+            // accessory
+            if let destinationAirport = MapScreen.shared?.selectedDestinationAirport {
+                if destinationAirport.icao == airportForRow.icao {
+                    cell.accessoryType = .checkmark
+
+                }
+                else {
+                    cell.accessoryType = .none
+                }
+            }
+            else {
+                cell.accessoryType = .none
+            }
+
 
             return cell
     }
@@ -234,21 +236,23 @@ extension NavToViewController: UITableViewDataSource {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//MARK: - Extension - UITableViewDelegate
 extension NavToViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedDestinationAirport = destinationAirportArray[indexPath.row]
+
+        icao.text = selectedDestinationAirport.icao
+        airportName.text = selectedDestinationAirport.name
+        country.text = selectedDestinationAirport.country
+        countryImage.image = UIImage(named: country.text!)
+
+        airportInfoButton.isHidden = false
+
+        MapScreen.shared!.selectedDestinationAirport = selectedDestinationAirport
+        tableView.reloadData()
+
+        print("Destination: \(selectedDestinationAirport.icao) - \(selectedDestinationAirport.name)")
+    }
 
 }
