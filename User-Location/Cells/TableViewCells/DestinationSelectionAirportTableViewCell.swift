@@ -16,7 +16,6 @@ class DestinationSelectionAirportTableViewCell: UITableViewCell {
     @IBOutlet weak var countryImageView: UIImageView!
     @IBOutlet weak var airportNameLabel: UILabel!
     @IBOutlet weak var icaoLabel: UILabel!
-    @IBOutlet weak var frequenceLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
 
 
@@ -26,13 +25,20 @@ class DestinationSelectionAirportTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        selectedBackgroundView = UIView()
+       // selectionStyle = .none // you can also take this line out
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+        if selected == true {
+            selectedBackgroundView?.backgroundColor = .green
+        }
+        else {
+            selectedBackgroundView?.backgroundColor = nil
+        }
+
     }
 
 }

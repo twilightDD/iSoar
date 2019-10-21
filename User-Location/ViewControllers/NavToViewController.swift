@@ -17,11 +17,12 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     var sortSwitchIndex = 0
     
     // MARK: - IBOutlets
-    @IBOutlet weak var icao: UILabel!
+
+    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var airportName: UILabel!
-    @IBOutlet weak var country: UILabel!
-    @IBOutlet weak var countryImage: UIImageView!
+    @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var airportInfoButton: UIButton!
+
     @IBOutlet weak var airportsSortedBySwitch: UISegmentedControl!
 
     @IBOutlet weak var tableView: UITableView!
@@ -44,13 +45,28 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         }
 
         MapObjects.shared.updateDistance()
-
         setupTableViewDatasource()
+        updateUIForSelectedDestinationAirport()
     }
     
 
     // MARK: - Private Methods
-    // Update PickerView
+    private func updateUIForSelectedDestinationAirport() {
+        if let destinationAirport = MapScreen.shared?.selectedDestinationAirport {
+            airportName.text = destinationAirport.name
+            distanceLabel.text = distanceAsReadable(destinationAirport.distance)
+
+            airportInfoButton.isHidden = false
+        }
+        else {
+            airportName.text = "-"
+            distanceLabel.text = "-"
+
+            airportInfoButton.isHidden = true
+        }
+    }
+
+
     private func setupTableViewDatasource() {
         guard let sortIndicator = MapObjects.SortIndicator(rawValue: airportsSortedBySwitch.selectedSegmentIndex)
             else { fatalError("segmentIndex not suitable for sortIndicator.")}
@@ -85,6 +101,19 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     // Mail Composer Controller
     internal func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
+    }
+
+
+    func distanceAsReadable(_ distance: CLLocationDistance?)
+        -> String {
+            var distanceAsReadable = ""
+
+            if let distance = distance {
+                let distanceInKm = distance/1000
+                distanceAsReadable = String(format: "%.0f Km", distanceInKm)
+            }
+
+            return distanceAsReadable
     }
 
 
@@ -124,10 +153,8 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         MapScreen.shared!.selectedDestinationAirport = nil
 
         // Reset own UI
-        icao.text = ""
-        airportName.text = ""
-        country.text = ""
-        countryImage.image = UIImage(named: "spacer")
+        airportName.text = "-"
+        distanceLabel.text = "-"
 
         airportInfoButton.isHidden = true
 
@@ -167,7 +194,6 @@ extension NavToViewController: UITableViewDataSource {
             // texts in cell
             cell.airportNameLabel.text = airportForRow.name
             cell.icaoLabel.text = airportForRow.icao
-            cell.frequenceLabel.text = "\(airportForRow.radioFrequency ?? "-") MHz"
 
             var countryImage = UIImage.init(named: "spacer")
             if let country = airportForRow.country {
@@ -175,29 +201,7 @@ extension NavToViewController: UITableViewDataSource {
             }
             cell.countryImageView.image = countryImage
 
-            if let distance = airportForRow.distance {
-                let distanceInKm = distance/1000
-                let distanceString = String(format: " (%.0f Km)", distanceInKm)
-                cell.distanceLabel.text = distanceString
-            }
-            else {
-                cell.detailTextLabel?.text = ""
-            }
-
-
-            // accessory
-            if let destinationAirport = MapScreen.shared?.selectedDestinationAirport {
-                if destinationAirport.icao == airportForRow.icao {
-                    cell.accessoryType = .checkmark
-
-                }
-                else {
-                    cell.accessoryType = .none
-                }
-            }
-            else {
-                cell.accessoryType = .none
-            }
+            cell.distanceLabel.text = distanceAsReadable(airportForRow.distance)
 
 
             return cell
@@ -212,15 +216,11 @@ extension NavToViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedDestinationAirport = destinationAirportArray[indexPath.row]
 
-        icao.text = selectedDestinationAirport.icao
-        airportName.text = selectedDestinationAirport.name
-        country.text = selectedDestinationAirport.country
-        countryImage.image = UIImage(named: country.text!)
-
-        airportInfoButton.isHidden = false
-
         MapScreen.shared!.selectedDestinationAirport = selectedDestinationAirport
-        tableView.reloadData()
+
+        updateUIForSelectedDestinationAirport()
+        navigationBar.topItem?.title = "Ziel: \(selectedDestinationAirport.name)"
+        
 
         print("Destination: \(selectedDestinationAirport.icao) - \(selectedDestinationAirport.name)")
     }
