@@ -24,24 +24,46 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     @IBOutlet weak var airportInfoButton: UIButton!
     @IBOutlet weak var airportsSortedBySwitch: UISegmentedControl!
     
+
+
+    @IBOutlet weak var tableView: UITableView!
+    
+
     // MARK: - Init
+
+
+    // Datasource
+    let titleDataSource = MapScreen.shared?.selectedDestinationAirport?.name
+    let dataSource = MapScreen.shared?.selectedDestinationAirport?.icao
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        pickerView.dataSource = self
-        pickerView.delegate = self
+        //pickerView.dataSource = self
+        //pickerView.delegate = self
+        
+        tableView.dataSource = self as! UITableViewDataSource
+        tableView.delegate = self as! UITableViewDelegate
+
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 44
+
+        tableView.reloadData()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // ToDo: bei Eintrit nich immer hidden
-        airportInfoButton.isHidden = true
+        if MapScreen.shared?.selectedDestinationAirport == nil {
+            airportInfoButton.isHidden = true
+        }
 
         MapObjects.shared.updateDistance()
 
-        updatePickerView()
+        //updatePickerView()
     }
+    
     
     // MARK: - Action Methods
     // Download Airport List from Server Button
@@ -55,13 +77,13 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
 
         self.present(alert, animated: true)
         
-        updatePickerView()
+        //updatePickerView()
         
     }
     
     // Sort Switch
     @IBAction func sortSwitch(_ sender: UISegmentedControl) {
-         updatePickerView()
+         //updatePickerView()
     }
     
     // Report missing Airport Button
@@ -94,15 +116,15 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     
     // MARK: - Methods
     // Update PickerView
-    private func updatePickerView() {
-        guard let sortIndicator = MapObjects.SortIndicator(rawValue: airportsSortedBySwitch.selectedSegmentIndex)
-            else { fatalError("segmentIndex not suitable for sortIndicator.")}
-
-        if let destinationAirportArray = MapObjects.shared.sortedDestinationAirports(by: sortIndicator) {
-            self.destinationAirportArray = destinationAirportArray
-            pickerView.reloadAllComponents()
-        }
-    }
+//    private func updatePickerView() {
+//        guard let sortIndicator = MapObjects.SortIndicator(rawValue: airportsSortedBySwitch.selectedSegmentIndex)
+//            else { fatalError("segmentIndex not suitable for sortIndicator.")}
+//
+//        if let destinationAirportArray = MapObjects.shared.sortedDestinationAirports(by: sortIndicator) {
+//            self.destinationAirportArray = destinationAirportArray
+//            pickerView.reloadAllComponents()
+//        }
+//    }
     
     // Report missing Airport
     private func reportMissingAirport() {
@@ -132,42 +154,101 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     
 }
 
-// MARK: - Extensions
-extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+//// MARK: - Extensions
+//extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+//
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//        return 1
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        return destinationAirportArray.count
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        let selectedDestinationAirport = destinationAirportArray[row]
+//
+//        icao.text = selectedDestinationAirport.icao
+//        airportName.text = selectedDestinationAirport.name
+//        country.text = selectedDestinationAirport.country
+//
+//        countryImage.image = UIImage(named: country.text!)
+//
+//        airportInfoButton.isHidden = false
+//
+//        MapScreen.shared!.selectedDestinationAirport = selectedDestinationAirport
+//
+//        print("Destination: \(selectedDestinationAirport.icao) - \(selectedDestinationAirport.name)")
+//
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        let destinationAirport = destinationAirportArray[row]
+//        var titleForRow = destinationAirport.name
+//        if let distance = destinationAirport.distance {
+//            let distanceInKm = distance/1000
+//            let distanceString = String(format: " (%.0f Km)", distanceInKm)
+//            titleForRow.append(distanceString)
+//        }
+//        return titleForRow
+//    }
+//}
+
+// MARK: - TableView Extension
+
+extension NavToViewController: UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView)
+        -> Int {
+            return 1
     }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return destinationAirportArray.count
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
+        -> Int {
+            return dataSource.count
     }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let selectedDestinationAirport = destinationAirportArray[row]
-        
-        icao.text = selectedDestinationAirport.icao
-        airportName.text = selectedDestinationAirport.name
-        country.text = selectedDestinationAirport.country
-        
-        countryImage.image = UIImage(named: country.text!)
-        
-        airportInfoButton.isHidden = false
-        
-        MapScreen.shared!.selectedDestinationAirport = selectedDestinationAirport
-        
-        print("Destination: \(selectedDestinationAirport.icao) - \(selectedDestinationAirport.name)")
-        
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+        -> UITableViewCell {
+
+            // get cell from tableView
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AirPortCellAutolayout")
+                else { fatalError("")}
+
+            if let myCell = cell as? TableViewCell {
+                // AirPortCellAutolayout
+                myCell.titleLabel.text = titleDataSource[indexPath.row]
+                myCell.valueLabel.text = dataSource[indexPath.row]
+            }
+            else {
+                // RightDetailCell
+                cell.textLabel?.text = titleDataSource[indexPath.row]
+                cell.detailTextLabel?.text =  dataSource[indexPath.row]
+            }
+
+            // cell.accessoryType = .checkmark
+
+            return cell
     }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let destinationAirport = destinationAirportArray[row]
-        var titleForRow = destinationAirport.name
-        if let distance = destinationAirport.distance {
-            let distanceInKm = distance/1000
-            let distanceString = String(format: " (%.0f Km)", distanceInKm)
-            titleForRow.append(distanceString)
-        }
-        return titleForRow
-    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extension NavToViewController: UITableViewDelegate {
+
 }
