@@ -223,28 +223,28 @@
                                 <rect key="frame" x="10" y="135" width="394" height="125"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o7h-oq-c3t">
-                                        <rect key="frame" x="0.0" y="0.0" width="394" height="28"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="43.5"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M5L-X5-5Th" userLabel="ICAO">
-                                        <rect key="frame" x="0.0" y="28" width="394" height="28.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ICAO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M5L-X5-5Th" userLabel="ICAO">
+                                        <rect key="frame" x="0.0" y="43.5" width="394" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MZ-JP-MF2" userLabel="Airport Name">
-                                        <rect key="frame" x="0.0" y="56.5" width="394" height="28"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AirportName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MZ-JP-MF2" userLabel="Airport Name">
+                                        <rect key="frame" x="0.0" y="64" width="394" height="21"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vh0-VI-zO2" userLabel="Country">
-                                        <rect key="frame" x="0.0" y="84.5" width="394" height="28"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Land" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vh0-VI-zO2" userLabel="Country">
+                                        <rect key="frame" x="0.0" y="85" width="394" height="21"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7hI-0W-dCa" userLabel="Airport Info">
-                                        <rect key="frame" x="0.0" y="112.5" width="394" height="12.5"/>
+                                        <rect key="frame" x="0.0" y="106" width="394" height="19"/>
                                         <connections>
                                             <action selector="airportInfoButton:" destination="vvT-rw-CMb" eventType="touchUpInside" id="YSH-pt-LKH"/>
                                             <segue destination="3Br-pt-Icv" kind="show" identifier="AirportInfoSegue" id="KZn-ZC-8BT"/>
@@ -259,29 +259,72 @@
                                 <rect key="frame" x="0.0" y="268" width="414" height="483"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AirPortCell" textLabel="h9I-O3-nq2" detailTextLabel="djZ-9f-WES" style="IBUITableViewCellStyleValue1" id="xvs-1w-Ybi">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DestinationSelectionAirportTableViewCell" rowHeight="101" id="xvs-1w-Ybi" customClass="DestinationSelectionAirportTableViewCell" customModule="Glider_Tool" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="101"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xvs-1w-Ybi" id="9Wi-lG-kHL">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="100.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h9I-O3-nq2">
-                                                    <rect key="frame" x="20" y="12" width="33.5" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Germany" translatesAutoresizingMaskIntoConstraints="NO" id="iIy-vn-hAC">
+                                                    <rect key="frame" x="20" y="11" width="35" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="Rxv-iI-QcM"/>
+                                                        <constraint firstAttribute="width" constant="35" id="i4w-TQ-90Y"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Airport Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtj-Cz-11D">
+                                                    <rect key="frame" x="63" y="11" width="331" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ICAO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETc-gI-31x">
+                                                    <rect key="frame" x="63" y="40" width="331" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="djZ-9f-WES">
-                                                    <rect key="frame" x="350" y="12" width="44" height="20.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99999 km" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHa-Et-Tzq">
+                                                    <rect key="frame" x="294" y="69" width="100" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="IWc-dt-jKj"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Funkfrequenz" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ozO-FY-g5V">
+                                                    <rect key="frame" x="63" y="69" width="105.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="gtj-Cz-11D" secondAttribute="trailing" constant="20" id="5Ja-Vz-bJG"/>
+                                                <constraint firstAttribute="trailing" secondItem="jHa-Et-Tzq" secondAttribute="trailing" constant="20" id="7zl-ow-kc5"/>
+                                                <constraint firstItem="gtj-Cz-11D" firstAttribute="leading" secondItem="iIy-vn-hAC" secondAttribute="trailing" constant="8" id="9C8-2j-apB"/>
+                                                <constraint firstItem="jHa-Et-Tzq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ozO-FY-g5V" secondAttribute="trailing" constant="8" symbolic="YES" id="DBP-5Q-mfw"/>
+                                                <constraint firstItem="ETc-gI-31x" firstAttribute="leading" secondItem="gtj-Cz-11D" secondAttribute="leading" id="DTp-hv-HfK"/>
+                                                <constraint firstItem="gtj-Cz-11D" firstAttribute="top" secondItem="9Wi-lG-kHL" secondAttribute="top" constant="11" id="DUU-VG-uhR"/>
+                                                <constraint firstAttribute="trailing" secondItem="ETc-gI-31x" secondAttribute="trailing" constant="20" symbolic="YES" id="KZN-1A-BcL"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ozO-FY-g5V" secondAttribute="bottom" constant="10" id="LNL-Kg-Vgn"/>
+                                                <constraint firstItem="ozO-FY-g5V" firstAttribute="firstBaseline" secondItem="jHa-Et-Tzq" secondAttribute="firstBaseline" id="eMG-Yt-xd3"/>
+                                                <constraint firstItem="iIy-vn-hAC" firstAttribute="leading" secondItem="9Wi-lG-kHL" secondAttribute="leading" constant="20" id="hDM-ou-bBz"/>
+                                                <constraint firstItem="ozO-FY-g5V" firstAttribute="top" secondItem="ETc-gI-31x" secondAttribute="bottom" constant="8" id="nhO-bS-6RT"/>
+                                                <constraint firstItem="ETc-gI-31x" firstAttribute="top" secondItem="gtj-Cz-11D" secondAttribute="bottom" constant="8" id="oXC-Fr-go6"/>
+                                                <constraint firstItem="ozO-FY-g5V" firstAttribute="leading" secondItem="ETc-gI-31x" secondAttribute="leading" id="ovu-PC-NMI"/>
+                                                <constraint firstItem="iIy-vn-hAC" firstAttribute="top" secondItem="9Wi-lG-kHL" secondAttribute="top" constant="11" id="t1U-yP-qZD"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="airportNameLabel" destination="gtj-Cz-11D" id="7I3-wY-IPC"/>
+                                            <outlet property="countryImageView" destination="iIy-vn-hAC" id="8Nm-kt-QRH"/>
+                                            <outlet property="distanceLabel" destination="jHa-Et-Tzq" id="zt7-IW-dYj"/>
+                                            <outlet property="frequenceLabel" destination="ozO-FY-g5V" id="Q0i-Mq-qJG"/>
+                                            <outlet property="icaoLabel" destination="ETc-gI-31x" id="P6h-1i-l5B"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -335,7 +378,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ay-1U-fmv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1204" y="551.97044334975374"/>
+            <point key="canvasLocation" x="-1204.3478260869565" y="551.11607142857144"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="W0n-hU-MDR">
@@ -750,6 +793,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Germany" width="20" height="20"/>
         <image name="add" width="512" height="512"/>
         <image name="directto" width="35" height="35"/>
         <image name="download" width="512" height="512"/>

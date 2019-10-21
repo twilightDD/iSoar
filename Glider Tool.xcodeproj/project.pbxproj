@@ -15,7 +15,7 @@
 		D0C5ED5B22A4769C009A0542 /* MapObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5ED5A22A4769C009A0542 /* MapObjects.swift */; };
 		E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086AB0A229C35890011C433 /* SettingsViewController.swift */; };
 		E0A215BB235E2D0D009F6953 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BA235E2D0D009F6953 /* TableViewController.swift */; };
-		E0A215BD235E3011009F6953 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BC235E3011009F6953 /* TableViewCell.swift */; };
+		E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */; };
 		E0B52F72228377F300E28A93 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F71228377F300E28A93 /* Buttons.swift */; };
 		E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F7622837C1500E28A93 /* TextFields.swift */; };
 		E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */; };
@@ -51,7 +51,7 @@
 		D0C5ED5A22A4769C009A0542 /* MapObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapObjects.swift; sourceTree = "<group>"; };
 		E086AB0A229C35890011C433 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E0A215BA235E2D0D009F6953 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
-		E0A215BC235E3011009F6953 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionAirportTableViewCell.swift; sourceTree = "<group>"; };
 		E0B52F71228377F300E28A93 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		E0B52F7622837C1500E28A93 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
 		E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Rotate.swift"; sourceTree = "<group>"; };
@@ -87,6 +87,22 @@
 			path = Subclasses;
 			sourceTree = "<group>";
 		};
+		D0945070235E564B0089E3C8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D0945071235E56530089E3C8 /* TableViewCells */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		D0945071235E56530089E3C8 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */,
+			);
+			path = TableViewCells;
+			sourceTree = "<group>";
+		};
 		D7FF5846A9BA98C87CDF570F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -111,7 +127,6 @@
 				E0E1D879229476C00004DE81 /* NavToViewController.swift */,
 				E086AB0A229C35890011C433 /* SettingsViewController.swift */,
 				E0A215BA235E2D0D009F6953 /* TableViewController.swift */,
-				E0A215BC235E3011009F6953 /* TableViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -157,6 +172,7 @@
 		EDA236212130AA7500739396 /* User-Location */ = {
 			isa = PBXGroup;
 			children = (
+				D0945070235E564B0089E3C8 /* Cells */,
 				D02B0E6322C15B95007C7162 /* Subclasses */,
 				E0B52F7522837BC800E28A93 /* Designs */,
 				E0526AB022BF7056001FC6B4 /* Extensions */,
@@ -303,7 +319,7 @@
 				E0A215BB235E2D0D009F6953 /* TableViewController.swift in Sources */,
 				EDA236352130AA9A00739396 /* MapScreen.swift in Sources */,
 				D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */,
-				E0A215BD235E3011009F6953 /* TableViewCell.swift in Sources */,
+				E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */,
 				E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */,
 				D0C5ED5B22A4769C009A0542 /* MapObjects.swift in Sources */,
 				E0E1D87A229476C00004DE81 /* NavToViewController.swift in Sources */,

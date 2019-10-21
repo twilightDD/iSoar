@@ -139,48 +139,9 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
 
 }
 
-//// MARK: - Extensions
-//extension NavToViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-//
-//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-//        return 1
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-//        return destinationAirportArray.count
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//        let selectedDestinationAirport = destinationAirportArray[row]
-//
-//        icao.text = selectedDestinationAirport.icao
-//        airportName.text = selectedDestinationAirport.name
-//        country.text = selectedDestinationAirport.country
-//
-//        countryImage.image = UIImage(named: country.text!)
-//
-//        airportInfoButton.isHidden = false
-//
-//        MapScreen.shared!.selectedDestinationAirport = selectedDestinationAirport
-//
-//        print("Destination: \(selectedDestinationAirport.icao) - \(selectedDestinationAirport.name)")
-//
-//    }
-//
-//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//        let destinationAirport = destinationAirportArray[row]
-//        var titleForRow = destinationAirport.name
-//        if let distance = destinationAirport.distance {
-//            let distanceInKm = distance/1000
-//            let distanceString = String(format: " (%.0f Km)", distanceInKm)
-//            titleForRow.append(distanceString)
-//        }
-//        return titleForRow
-//    }
-//}
 
-// MARK: - TableView Extension
 
+// MARK: - Extension - UITableViewDataSource
 extension NavToViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView)
@@ -198,17 +159,26 @@ extension NavToViewController: UITableViewDataSource {
         -> UITableViewCell {
 
             // get cell from tableView
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AirPortCell")
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DestinationSelectionAirportTableViewCell.identifier) as? DestinationSelectionAirportTableViewCell
                 else { fatalError("")}
 
             let airportForRow = destinationAirportArray[indexPath.row]
 
             // texts in cell
-            cell.textLabel?.text = airportForRow.name
+            cell.airportNameLabel.text = airportForRow.name
+            cell.icaoLabel.text = airportForRow.icao
+            cell.frequenceLabel.text = "\(airportForRow.radioFrequency ?? "-") MHz"
+
+            var countryImage = UIImage.init(named: "spacer")
+            if let country = airportForRow.country {
+                countryImage = UIImage.init(named: country)
+            }
+            cell.countryImageView.image = countryImage
+
             if let distance = airportForRow.distance {
                 let distanceInKm = distance/1000
                 let distanceString = String(format: " (%.0f Km)", distanceInKm)
-                cell.detailTextLabel?.text = distanceString
+                cell.distanceLabel.text = distanceString
             }
             else {
                 cell.detailTextLabel?.text = ""

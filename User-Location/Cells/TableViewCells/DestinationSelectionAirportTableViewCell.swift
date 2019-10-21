@@ -1,5 +1,5 @@
 //
-//  TableViewCell.swift
+//  DestinationSelectionAirportTableViewCell.swift
 //  Glider Tool
 //
 //  Created by sonic on 21.10.19.
@@ -8,11 +8,18 @@
 
 import UIKit
 
-class TableViewCell: UITableViewCell {
+class DestinationSelectionAirportTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var valueLabel: UILabel!
-    
+    static let identifier = "DestinationSelectionAirportTableViewCell"
+
+
+    @IBOutlet weak var countryImageView: UIImageView!
+    @IBOutlet weak var airportNameLabel: UILabel!
+    @IBOutlet weak var icaoLabel: UILabel!
+    @IBOutlet weak var frequenceLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
+
+
     
     
     
