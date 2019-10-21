@@ -28,11 +28,6 @@ class MapScreen: UIViewController {
     @IBOutlet private weak var destinationAltitudeLabel: UILabel!
     @IBOutlet private weak var destinationAirportLabel: UILabel!
     
-    // hidden IBOutlets
-    
-    @IBOutlet private var relativeAltitude: UILabel!
-    @IBOutlet private var pressure: UILabel!
-    
     // MARK: properties
     let locationManager = CLLocationManager()
     var currentLocation:CLLocation?
@@ -80,7 +75,6 @@ class MapScreen: UIViewController {
         
         setupGestureRecognizers()
 
-        //setupBarometer()
     }
     
     // Light Status Bar Informations
@@ -515,15 +509,7 @@ class MapScreen: UIViewController {
 
 }
 
-// Setup Barometer
-//    func setupBarometer() {
-//        if CMAltimeter.isRelativeAltitudeAvailable() {
-//            altimeter.startRelativeAltitudeUpdates(to: OperationQueue.main) { (data, error) in
-//                self.relativeAltitude.text = String.init(format: "%.1fM", (data?.relativeAltitude.floatValue)!)
-//                self.pressure.text = String.init(format: "%.2f hPA", (data?.pressure.floatValue)!*10)
-//            }
-//        }
-//    }
+
 
 class DLCalloutView: UIView, MGLCalloutView {
     var representedObject: MGLAnnotation
@@ -659,8 +645,8 @@ extension MapScreen:UIGestureRecognizerDelegate {
     }
 }
 
-
 // MARK: - DLPointAnnotiation
+// ToDo: Brauchen wir das hier noch?
 class DLPointAnnotiation: MGLPointAnnotation {
     
     var imageName:String = ""

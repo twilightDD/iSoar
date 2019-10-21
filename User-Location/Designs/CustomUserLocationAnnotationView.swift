@@ -15,7 +15,7 @@ class CustomUserLocationAnnotationView: MGLUserLocationAnnotationView {
     var dot: CALayer!
     var arrow: CAShapeLayer!
     
-    // -update is a method inherited from MGLUserLocationAnnotationView. It updates the appearance of the user location annotation when needed. This can be called many times a second, so be careful to keep it lightweight.
+    // MARK: - Methods
     override func update() {
         if frame.isNull {
             frame = CGRect(x: 0, y: 0, width: size, height: size)
@@ -29,6 +29,7 @@ class CustomUserLocationAnnotationView: MGLUserLocationAnnotationView {
         }
     }
     
+    // Update Heading
     private func updateHeading() {
         // Show the heading arrow, if the heading of the user is available.
         if let heading = userLocation!.heading?.trueHeading {
@@ -50,6 +51,7 @@ class CustomUserLocationAnnotationView: MGLUserLocationAnnotationView {
         }
     }
     
+    // Setup Layers
     private func setupLayers() {
         // This dot forms the base of the annotation.
         if dot == nil {
