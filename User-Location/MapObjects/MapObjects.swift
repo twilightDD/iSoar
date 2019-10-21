@@ -53,6 +53,14 @@ class MapObjects{
                 let result = destinationAirports.sorted(by: { ($0.name < $1.name) })
                 return result
             case .distance:
+                // in case we don't have a current location we don't have a distance: return unsorted destinationAirports
+                for destinationAirport in destinationAirports {
+                    if destinationAirport.distance == nil {
+                        return destinationAirports
+                    }
+                }
+
+                // each destinationAirport has a distance: sort by distance
                 let result = destinationAirports.sorted(by: { ($0.distance! < $1.distance!) })
                 return result
             }
@@ -89,6 +97,7 @@ class MapObjects{
 
                     // Create Destination Airport List from new MapObjects.json
                     self.loadAirports()
+                    self.updateDistance()
 
                 } catch (let writeError) {
                     print("Error creating a file: \(destinationFileUrl) : \(writeError)")
