@@ -46,9 +46,9 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
         countryImage.image = UIImage(named: countryValue.text!)
         elevation.text =  String(format: "%.0f m", selectedDestinationAirport!.elevation)
         
-        latitudeValue.text = String(format: "%.8f", selectedDestinationAirport!.latitude)
+        latitudeValue.text = String(format: "%.6f", selectedDestinationAirport!.latitude)
         
-        longitudeValue.text = String(format: "%.8f", selectedDestinationAirport!.longitude)
+        longitudeValue.text = String(format: "%.6f", selectedDestinationAirport!.longitude)
         
         additionalInfo.text = selectedDestinationAirport?.additionalInfo
         callButton.setTitle("\(selectedDestinationAirport!.phone!)",for: .normal)
