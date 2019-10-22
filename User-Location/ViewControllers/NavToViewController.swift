@@ -59,8 +59,8 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
             airportInfoButton.isHidden = false
         }
         else {
-            airportName.text = "-"
-            distanceLabel.text = "-"
+            airportName.text = " "
+            distanceLabel.text = " "
 
             airportInfoButton.isHidden = true
         }
@@ -153,8 +153,8 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         MapScreen.shared!.selectedDestinationAirport = nil
 
         // Reset own UI
-        airportName.text = "-"
-        distanceLabel.text = "-"
+        airportName.text = " "
+        distanceLabel.text = " "
 
         airportInfoButton.isHidden = true
 
@@ -219,9 +219,7 @@ extension NavToViewController: UITableViewDelegate {
         MapScreen.shared!.selectedDestinationAirport = selectedDestinationAirport
 
         updateUIForSelectedDestinationAirport()
-        navigationBar.topItem?.title = "Ziel: \(selectedDestinationAirport.name)"
         
-
         print("Destination: \(selectedDestinationAirport.icao) - \(selectedDestinationAirport.name)")
     }
 
