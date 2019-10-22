@@ -12,17 +12,11 @@ class DestinationSelectionAirportTableViewCell: UITableViewCell {
 
     static let identifier = "DestinationSelectionAirportTableViewCell"
 
-
     @IBOutlet weak var countryImageView: UIImageView!
     @IBOutlet weak var airportNameLabel: UILabel!
     @IBOutlet weak var icaoLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
 
-
-    
-    
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         selectedBackgroundView = UIView()
@@ -33,7 +27,7 @@ class DestinationSelectionAirportTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         if selected == true {
-            selectedBackgroundView?.backgroundColor = .green
+            selectedBackgroundView?.backgroundColor = UIColor(red: 17/255, green: 113/255, blue: 255/255, alpha: 0.1)
         }
         else {
             selectedBackgroundView?.backgroundColor = nil
