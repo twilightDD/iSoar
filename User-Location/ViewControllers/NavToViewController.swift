@@ -17,16 +17,10 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     var sortSwitchIndex = 0
     
     // MARK: - IBOutlets
-
-    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet weak var airportName: UILabel!
-    @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var airportInfoButton: UIButton!
-
     @IBOutlet weak var airportsSortedBySwitch: UISegmentedControl!
-
     @IBOutlet weak var tableView: UITableView!
-
 
     // MARK: - Init&Co.
     override func viewDidLoad() {
@@ -48,24 +42,18 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         setupTableViewDatasource()
         updateUIForSelectedDestinationAirport()
     }
-    
 
     // MARK: - Private Methods
     private func updateUIForSelectedDestinationAirport() {
         if let destinationAirport = MapScreen.shared?.selectedDestinationAirport {
             airportName.text = destinationAirport.name
-            distanceLabel.text = distanceAsReadable(destinationAirport.distance)
-
             airportInfoButton.isHidden = false
         }
         else {
             airportName.text = " "
-            distanceLabel.text = " "
-
             airportInfoButton.isHidden = true
         }
     }
-
 
     private func setupTableViewDatasource() {
         guard let sortIndicator = MapObjects.SortIndicator(rawValue: airportsSortedBySwitch.selectedSegmentIndex)
@@ -103,7 +91,6 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         controller.dismiss(animated: true)
     }
 
-
     func distanceAsReadable(_ distance: CLLocationDistance?)
         -> String {
             var distanceAsReadable = ""
@@ -115,7 +102,6 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
 
             return distanceAsReadable
     }
-
 
     // MARK: - Action Methods
     // Download Airport List from Server Button
@@ -154,7 +140,6 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
 
         // Reset own UI
         airportName.text = " "
-        distanceLabel.text = " "
 
         airportInfoButton.isHidden = true
 
@@ -165,8 +150,6 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     }
 
 }
-
-
 
 // MARK: - Extension - UITableViewDataSource
 extension NavToViewController: UITableViewDataSource {
@@ -203,12 +186,10 @@ extension NavToViewController: UITableViewDataSource {
 
             cell.distanceLabel.text = distanceAsReadable(airportForRow.distance)
 
-
             return cell
     }
 
 }
-
 
 //MARK: - Extension - UITableViewDelegate
 extension NavToViewController: UITableViewDelegate {
