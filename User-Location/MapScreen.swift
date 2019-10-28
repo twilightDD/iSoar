@@ -643,12 +643,3 @@ extension MapScreen:UIGestureRecognizerDelegate {
         return true
     }
 }
-
-// MARK: - DLPointAnnotiation
-// ToDo: Brauchen wir das hier noch?
-class DLPointAnnotiation: MGLPointAnnotation {
-    
-    var imageName:String = ""
-    
-}
-
