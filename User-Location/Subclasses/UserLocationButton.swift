@@ -79,7 +79,6 @@ class UserLocationButton: UIButton {
         let disabledSecondaryColor = UIColor.black
         let rotatedArrow = CGFloat(0.66)
         
-        // ToDo: Only 2 cases needed
         switch mode {
         case .none:
             updateArrow(fillColor: disabledPrimaryColor, strokeColor: disabledSecondaryColor, rotation: 0)

@@ -16,7 +16,6 @@ import UIKit
         @IBOutlet weak var showDirectionLineSwitch: UISwitch!
         @IBOutlet weak var showTrackingRouteSwitch: UISwitch!
         
-        // ToDo: das ist irgendwie doppelt drin
         let defaults = UserDefaults.standard
         
         struct Settings {
