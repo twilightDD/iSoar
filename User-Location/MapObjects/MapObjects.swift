@@ -18,6 +18,9 @@ class MapObjects{
     
     private let documentsUrl:URL =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
 
+    // Notifications
+    static let airportUpdateCompletedNotificationName = Notification.Name(rawValue: "airportUpdateCompleted")
+
     //MARK: - Init&Co.
     private init(){
         checkForMapOjectsInDocumentsFolder()
@@ -98,6 +101,10 @@ class MapObjects{
                     // Create Destination Airport List from new MapObjects.json
                     self.loadAirports()
                     self.updateDistance()
+
+                    // Post Notification
+                    NotificationCenter.default.post(name: MapObjects.airportUpdateCompletedNotificationName,
+                                                    object: nil)
 
                 } catch (let writeError) {
                     print("Error creating a file: \(destinationFileUrl) : \(writeError)")

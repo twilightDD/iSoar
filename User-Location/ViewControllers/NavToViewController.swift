@@ -11,11 +11,17 @@ import CoreLocation
 import MessageUI
 
 class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate {
-    
+
+
+    //MARK: Lets and Vars
     // Datasource
     var destinationAirportArray = [MapObjects.Airport]()
     var sortSwitchIndex = 0
-    
+
+    // notification observers
+    var airportUpdateCompletedNotification:NSObjectProtocol?
+
+
     // MARK: - IBOutlets
     @IBOutlet weak var airportName: UILabel!
     @IBOutlet weak var airportInfoButton: UIButton!
@@ -41,6 +47,20 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         MapObjects.shared.updateDistance()
         setupTableViewDatasource()
         updateUIForSelectedDestinationAirport()
+
+        // Register observer for notfications
+        airportUpdateCompletedNotification = NotificationCenter.default
+            .addObserver(forName: MapObjects.airportUpdateCompletedNotificationName,
+                         object: nil,
+                         queue: OperationQueue.main) { [unowned self] (notification) in
+                            self.setupTableViewDatasource()
+        }
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        if let airportUpdateCompletedNotification = airportUpdateCompletedNotification {
+            NotificationCenter.default.removeObserver(airportUpdateCompletedNotification)
+        }
     }
 
     // MARK: - Private Methods
