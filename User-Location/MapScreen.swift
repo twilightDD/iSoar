@@ -43,7 +43,7 @@ class MapScreen: UIViewController {
         }
     }
         
-    var currentDirectionLine:DLPolyline?
+    var currentDirectionLine:MGLPolyline?
     
     var userTrackingMode = true
     var userFollow = false
@@ -426,9 +426,8 @@ class MapScreen: UIViewController {
             let destinationAirportLocationCoordinate = CLLocationCoordinate2D(latitude: selectedDestinationAirport.latitude,
                                                                               longitude: selectedDestinationAirport.longitude)
             let newDirectionCoordinates:[CLLocationCoordinate2D] = [currentLocation.coordinate, destinationAirportLocationCoordinate]
-            self.currentDirectionLine = DLPolyline(coordinates: newDirectionCoordinates,
-                                                   count: UInt(newDirectionCoordinates.count))
-            self.currentDirectionLine?.type = .directLine
+            self.currentDirectionLine = MGLPolyline(coordinates: newDirectionCoordinates,
+                                                    count: UInt(newDirectionCoordinates.count))
             
             self.mapView.add(self.currentDirectionLine!)
         }
@@ -653,23 +652,3 @@ class DLPointAnnotiation: MGLPointAnnotation {
     
 }
 
-// MARK: - DLPolyline
-class DLPolyline: MGLPolyline {
-    public enum DLPolylineType {
-        case directLine
-        
-        // ToDo benötigen wir die cases noch?
-        case restrictedAreaC
-        case restrictedAreaCTR
-        case restrictedAreaD
-        case restrictedAreaG
-        case restrictedAreaQ
-        case restrictedAreaR
-        case restrictedAreaRMZ
-        case restrictedAreaTMZ
-        case restrictedAreaW
-    }
-    
-    var type:DLPolylineType = .directLine // Default
-    
-}
