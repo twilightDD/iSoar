@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15508"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,44 +16,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lYN-W9-3in">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                                <items>
-                                    <navigationItem title="Settings" id="fDB-yZ-GOP"/>
-                                </items>
-                            </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8yb-8T-kXL">
-                                <rect key="frame" x="20" y="96" width="374" height="175"/>
+                                <rect key="frame" x="20" y="64" width="374" height="190"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="3iw-q3-i4A" userLabel="Label Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="240" height="175"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="190"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glider Ratio:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRc-6M-XsH">
-                                                <rect key="frame" x="0.0" y="0.0" width="240" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="240" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safety Altitude in m:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55b-9k-XZj">
-                                                <rect key="frame" x="0.0" y="36" width="240" height="31"/>
+                                                <rect key="frame" x="0.0" y="39" width="240" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glider ID:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMn-n2-sUr">
-                                                <rect key="frame" x="0.0" y="72" width="240" height="31"/>
+                                                <rect key="frame" x="0.0" y="78" width="240" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Direction Line:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LK7-KN-Q4d">
-                                                <rect key="frame" x="0.0" y="108" width="240" height="31"/>
+                                                <rect key="frame" x="0.0" y="117" width="240" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Tracking Route:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH1-lu-hfJ">
-                                                <rect key="frame" x="0.0" y="144" width="240" height="31"/>
+                                                <rect key="frame" x="0.0" y="156" width="240" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -62,10 +55,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="H2j-WP-BrR" userLabel="Setting Stack View">
-                                        <rect key="frame" x="245" y="0.0" width="129" height="175"/>
+                                        <rect key="frame" x="245" y="0.0" width="129" height="190"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Uma-pM-80t" userLabel="Glider Ratio" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
-                                                <rect key="frame" x="29" y="0.0" width="100" height="31"/>
+                                                <rect key="frame" x="29" y="0.0" width="100" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="oap-RJ-P4x"/>
                                                 </constraints>
@@ -76,7 +69,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="vi7-Ik-Pbz" userLabel="Safety Altitude" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
-                                                <rect key="frame" x="29" y="36" width="100" height="31"/>
+                                                <rect key="frame" x="29" y="39" width="100" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="Z5l-Kk-bnP"/>
                                                 </constraints>
@@ -87,7 +80,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="aJN-ar-pUl" userLabel="Glider ID" customClass="TextFields" customModule="Glider_Tool" customModuleProvider="target">
-                                                <rect key="frame" x="29" y="72" width="100" height="31"/>
+                                                <rect key="frame" x="29" y="78" width="100" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="xzw-8N-tn4"/>
                                                 </constraints>
@@ -98,13 +91,13 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J8h-Ey-VdH" userLabel="Show Direction Line Switch">
-                                                <rect key="frame" x="80" y="108" width="51" height="31"/>
+                                                <rect key="frame" x="80" y="117" width="51" height="34"/>
                                                 <connections>
                                                     <action selector="showDirectionLineSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="Acf-Y2-iMB"/>
                                                 </connections>
                                             </switch>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fpo-31-RHc">
-                                                <rect key="frame" x="80" y="144" width="51" height="31"/>
+                                                <rect key="frame" x="80" y="156" width="51" height="34"/>
                                                 <connections>
                                                     <action selector="showTrackingRouteSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="F4d-NP-Akg"/>
                                                 </connections>
@@ -114,7 +107,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHq-JY-pFB" userLabel="SAVE Button" customClass="Buttons" customModule="Glider_Tool" customModuleProvider="target">
-                                <rect key="frame" x="188.5" y="279" width="37" height="34"/>
+                                <rect key="frame" x="188.5" y="759" width="37" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="H87-Hs-96Y"/>
                                 </constraints>
@@ -124,16 +117,13 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.96267138210000003" green="0.96267138210000003" blue="0.96267138210000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="ZtY-EE-Of7" firstAttribute="bottom" secondItem="FHq-JY-pFB" secondAttribute="bottom" constant="20" id="HLW-QF-CSx"/>
                             <constraint firstItem="ZtY-EE-Of7" firstAttribute="trailing" secondItem="8yb-8T-kXL" secondAttribute="trailing" constant="20" id="HLd-iC-Y0S"/>
-                            <constraint firstItem="8yb-8T-kXL" firstAttribute="top" secondItem="lYN-W9-3in" secondAttribute="bottom" constant="8" id="IBe-wo-9xu"/>
-                            <constraint firstItem="lYN-W9-3in" firstAttribute="leading" secondItem="ZtY-EE-Of7" secondAttribute="leading" id="JrV-4f-glI"/>
-                            <constraint firstItem="FHq-JY-pFB" firstAttribute="top" secondItem="8yb-8T-kXL" secondAttribute="bottom" constant="8" symbolic="YES" id="Mv1-md-hHT"/>
                             <constraint firstItem="FHq-JY-pFB" firstAttribute="centerX" secondItem="ZtY-EE-Of7" secondAttribute="centerX" id="PHj-lI-3Is"/>
-                            <constraint firstItem="lYN-W9-3in" firstAttribute="top" secondItem="ZtY-EE-Of7" secondAttribute="top" id="RLL-TB-i7C"/>
                             <constraint firstItem="8yb-8T-kXL" firstAttribute="leading" secondItem="ZtY-EE-Of7" secondAttribute="leading" constant="20" id="Sel-tt-YIM"/>
-                            <constraint firstItem="ZtY-EE-Of7" firstAttribute="trailing" secondItem="lYN-W9-3in" secondAttribute="trailing" id="yeL-CI-rn0"/>
+                            <constraint firstItem="8yb-8T-kXL" firstAttribute="top" secondItem="ZtY-EE-Of7" secondAttribute="top" constant="20" id="dkC-aj-T0f"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZtY-EE-Of7"/>
                     </view>
@@ -195,7 +185,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCg-5y-Clg" userLabel="Download Button">
-                                <rect key="frame" x="94.5" y="57" width="25" height="25"/>
+                                <rect key="frame" x="88.5" y="57" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="6jz-lf-JED"/>
                                     <constraint firstAttribute="width" constant="25" id="uHF-N1-5vg"/>
@@ -206,7 +196,7 @@
                                 </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="flW-Jw-4Fh">
-                                <rect key="frame" x="139.5" y="54" width="135" height="32"/>
+                                <rect key="frame" x="133.5" y="54" width="147" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="o00-NB-bhY"/>
                                 </constraints>
@@ -219,7 +209,7 @@
                                 </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XvE-2e-Xvt" userLabel="Report Missing Airport">
-                                <rect key="frame" x="294.5" y="57" width="25" height="25"/>
+                                <rect key="frame" x="300.5" y="57" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="FjI-lm-kAm"/>
                                     <constraint firstAttribute="height" constant="25" id="YQS-Fo-pdS"/>
@@ -229,6 +219,13 @@
                                     <action selector="reportMissingAirport:" destination="vvT-rw-CMb" eventType="touchUpInside" id="oUk-YK-hMJ"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Germany" translatesAutoresizingMaskIntoConstraints="NO" id="zhX-2q-7Us" userLabel="Country Image Top">
+                                <rect key="frame" x="15" y="110" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="2pu-Ec-eJo"/>
+                                    <constraint firstAttribute="height" constant="25" id="Fgg-dV-Unu"/>
+                                </constraints>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="destinationAirport" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eu5-OH-egv">
                                 <rect key="frame" x="55" y="110" width="311" height="25"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -254,17 +251,17 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xvs-1w-Ybi" id="9Wi-lG-kHL">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="55.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Airport Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtj-Cz-11D">
-                                                    <rect key="frame" x="55" y="5" width="339" height="20.5"/>
+                                                    <rect key="frame" x="55" y="5" width="339" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ICAO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETc-gI-31x">
-                                                    <rect key="frame" x="55" y="30.5" width="57" height="20"/>
+                                                    <rect key="frame" x="55" y="31" width="57" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="e4s-0a-iwt"/>
                                                         <constraint firstAttribute="width" constant="57" id="pc5-rz-UVx"/>
@@ -274,7 +271,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99999 km" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHa-Et-Tzq">
-                                                    <rect key="frame" x="294" y="30.5" width="100" height="20"/>
+                                                    <rect key="frame" x="294" y="31" width="100" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="IWc-dt-jKj"/>
                                                     </constraints>
@@ -324,15 +321,8 @@
                                     <action selector="cancelButton:" destination="vvT-rw-CMb" eventType="touchUpInside" id="Z6P-Pj-Vbl"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Germany" translatesAutoresizingMaskIntoConstraints="NO" id="zhX-2q-7Us" userLabel="Country Image View Top">
-                                <rect key="frame" x="15" y="110" width="25" height="25"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="25" id="2pu-Ec-eJo"/>
-                                    <constraint firstAttribute="height" constant="25" id="Fgg-dV-Unu"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.96267138210000003" green="0.96267138210000003" blue="0.96267138210000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="bottom" secondItem="1vB-ZQ-It7" secondAttribute="bottom" constant="20" id="7Zs-iV-ZVC"/>
                             <constraint firstItem="HxR-PO-spu" firstAttribute="leading" secondItem="uOE-BD-KUg" secondAttribute="leading" id="7nR-NI-Dhm"/>
@@ -367,6 +357,7 @@
                         <outlet property="airportInfoButton" destination="eid-Eo-OlS" id="mUw-Bg-1jn"/>
                         <outlet property="airportName" destination="eu5-OH-egv" id="tes-Dm-Icz"/>
                         <outlet property="airportsSortedBySwitch" destination="flW-Jw-4Fh" id="2dm-Eo-HIE"/>
+                        <outlet property="countryImageTop" destination="zhX-2q-7Us" id="32s-eg-J1m"/>
                         <outlet property="tableView" destination="uOE-BD-KUg" id="XXD-9h-TMI"/>
                     </connections>
                 </viewController>
@@ -400,11 +391,11 @@
             <objects>
                 <viewController id="3Br-pt-Icv" customClass="AirportInfoViewController" customModule="Glider_Tool" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4Ax-e0-FBb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okQ-ly-N2X">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="hox-H6-A75"/>
                                 </constraints>
@@ -412,7 +403,7 @@
                                     <navigationItem title="Airport Informations" id="tVb-FX-RAd">
                                         <barButtonItem key="rightBarButtonItem" title="Close" style="done" id="Qxd-yi-WvA">
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bfN-vw-tZQ">
-                                                <rect key="frame" x="355" y="7" width="39" height="30"/>
+                                                <rect key="frame" x="355" y="13" width="39" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Close"/>
                                                 <connections>
@@ -424,13 +415,13 @@
                                 </items>
                             </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AirportName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ot4-9d-8Tg" userLabel="AirportName">
-                                <rect key="frame" x="20" y="108" width="374" height="30"/>
+                                <rect key="frame" x="20" y="64" width="374" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Vwd-wo-QJT" userLabel="Airport Info Stack View">
-                                <rect key="frame" x="20" y="146" width="374" height="303.5"/>
+                                <rect key="frame" x="20" y="102" width="374" height="303.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="WFc-Ye-C4Z" userLabel="ICAO Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="21.5"/>
@@ -638,7 +629,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FjM-EA-mHZ" userLabel="Report new Data" customClass="Buttons" customModule="Glider_Tool" customModuleProvider="target">
-                                <rect key="frame" x="149.5" y="808" width="115" height="34"/>
+                                <rect key="frame" x="149.5" y="754" width="115" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="A8x-eF-uv4"/>
                                 </constraints>
