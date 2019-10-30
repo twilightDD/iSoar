@@ -12,7 +12,6 @@ import MessageUI
 
 class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
-
     //MARK: Lets and Vars
     // Datasource
     var destinationAirportArray = [MapObjects.Airport]()
@@ -21,8 +20,9 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     // notification observers
     var airportUpdateCompletedNotification:NSObjectProtocol?
 
-
     // MARK: - IBOutlets
+    
+    @IBOutlet weak var countryImageTop: UIImageView!
     @IBOutlet weak var airportName: UILabel!
     @IBOutlet weak var airportInfoButton: UIButton!
     @IBOutlet weak var airportsSortedBySwitch: UISegmentedControl!
@@ -34,15 +34,11 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
 
         tableView.dataSource = self
         tableView.delegate = self
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if MapScreen.shared?.selectedDestinationAirport == nil {
-            airportInfoButton.isHidden = true
-        }
 
         MapObjects.shared.updateDistance()
         setupTableViewDatasource()
@@ -66,10 +62,12 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     // MARK: - Private Methods
     private func updateUIForSelectedDestinationAirport() {
         if let destinationAirport = MapScreen.shared?.selectedDestinationAirport {
+            countryImageTop.image = UIImage(named: destinationAirport.country!)
             airportName.text = destinationAirport.name
             airportInfoButton.isHidden = false
         }
         else {
+            countryImageTop.image = UIImage(named: "spacer")
             airportName.text = " "
             airportInfoButton.isHidden = true
         }
@@ -159,6 +157,9 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         MapScreen.shared!.selectedDestinationAirport = nil
 
         // Reset own UI
+        
+        countryImageTop.image = UIImage(named: "spacer")
+        
         airportName.text = " "
 
         airportInfoButton.isHidden = true
