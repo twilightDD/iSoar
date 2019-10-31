@@ -11,15 +11,18 @@ import CoreLocation
 import MessageUI
 
 class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate {
-
+    
     //MARK: Lets and Vars
     // Datasource
     var destinationAirportArray = [MapObjects.Airport]()
     var sortSwitchIndex = 0
-
+    
     // notification observers
     var airportUpdateCompletedNotification:NSObjectProtocol?
-
+    
+    // Pull to Refresh of TableView
+    private let refreshControl = UIRefreshControl()
+    
     // MARK: - IBOutlets
     
     @IBOutlet weak var countryImageTop: UIImageView!
@@ -27,23 +30,29 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     @IBOutlet weak var airportInfoButton: UIButton!
     @IBOutlet weak var airportsSortedBySwitch: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
-
+    
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.dataSource = self
         tableView.delegate = self
+        
+        // Pull to Refresh of TableView
+        tableView.addSubview(refreshControl)
+        refreshControl.addTarget(self, action: #selector(refreshAirportDatabase), for: .valueChanged)
+        refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
+        refreshControl.attributedTitle = NSAttributedString(string: "Fetching new Airport Database")
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         MapObjects.shared.updateDistance()
         setupTableViewDatasource()
         updateUIForSelectedDestinationAirport()
-
+        
         // Register observer for notfications
         airportUpdateCompletedNotification = NotificationCenter.default
             .addObserver(forName: MapObjects.airportUpdateCompletedNotificationName,
@@ -52,13 +61,13 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
                             self.setupTableViewDatasource()
         }
     }
-
+    
     override func viewDidDisappear(_ animated: Bool) {
         if let airportUpdateCompletedNotification = airportUpdateCompletedNotification {
             NotificationCenter.default.removeObserver(airportUpdateCompletedNotification)
         }
     }
-
+    
     // MARK: - Private Methods
     private func updateUIForSelectedDestinationAirport() {
         if let destinationAirport = MapScreen.shared?.selectedDestinationAirport {
@@ -72,17 +81,17 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
             airportInfoButton.isHidden = true
         }
     }
-
+    
     private func setupTableViewDatasource() {
         guard let sortIndicator = MapObjects.SortIndicator(rawValue: airportsSortedBySwitch.selectedSegmentIndex)
             else { fatalError("segmentIndex not suitable for sortIndicator.")}
-
+        
         if let destinationAirportArray = MapObjects.shared.sortedDestinationAirports(by: sortIndicator) {
             self.destinationAirportArray = destinationAirportArray
             tableView.reloadData()
         }
     }
-
+    
     // Report missing Airport
     private func reportMissingAirport() {
         if MFMailComposeViewController.canSendMail() {
@@ -97,7 +106,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         }
         else {
             let alert = UIAlertController(title: "Error creating Mail", message: "Mail is not configured in settings app.", preferredStyle: .alert)
-
+            
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             
             self.present(alert, animated: true)
@@ -108,121 +117,140 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     internal func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
     }
-
+    
     func distanceAsReadable(_ distance: CLLocationDistance?)
         -> String {
             var distanceAsReadable = ""
-
+            
             if let distance = distance {
                 let distanceInKm = distance/1000
                 distanceAsReadable = String(format: "%.0f Km", distanceInKm)
             }
-
+            
             return distanceAsReadable
+    }
+    
+    // ToDo: Pull to Refresh of TableView
+    // https://cocoacasts.com/how-to-add-pull-to-refresh-to-a-table-view-or-collection-view
+    @objc private func refreshAirportDatabase(_ sender: Any) {
+        fetchAirportDatabase()
+    }
+    
+    // Könnte man auch einfach oben mit reinpacken
+    private func fetchAirportDatabase() {
+        // Lade runter
+        MapObjects.shared.downloadMapObjectsFromServer()
+        
+        // Auskommentiert hat irgendwie keinen Einfluss?!
+        //setupTableViewDatasource()
+        
+        //self.updateView()
+        self.refreshControl.endRefreshing()
+        //self.activityIndicatorView.stopAnimating()
     }
 
     // MARK: - Action Methods
     // Download Airport List from Server Button
     @IBAction func downloadAirportsButton(_ sender: UIButton) {
         let alert = UIAlertController(title: "Download Airport Updates", message: "Do you want to download an updated Airport Database from Server?", preferredStyle: .alert)
-
+        
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
             MapObjects.shared.downloadMapObjectsFromServer()
         }))
         alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-
+        
         self.present(alert, animated: true)
-
+        
         setupTableViewDatasource()
     }
-
+    
     // Sort Switch
     @IBAction func sortSwitch(_ sender: UISegmentedControl) {
         setupTableViewDatasource()
     }
-
+    
     // Report missing Airport Button
     @IBAction func reportMissingAirport(_ sender: UIButton) {
         reportMissingAirport()
     }
-
+    
     // Airport Info Button
     @IBAction func airportInfoButton(_ sender: Any) {
         performSegue(withIdentifier: "AirportInfoSegue", sender: self)
     }
-
+    
     // Cancel Button
     @IBAction func cancelButton(_ sender: Buttons) {
         // reset selectedDestinationAirport on MapScreenViewController
         MapScreen.shared!.selectedDestinationAirport = nil
-
+        
         // Reset own UI
         
         countryImageTop.image = UIImage(named: "spacer")
         
         airportName.text = " "
-
+        
         airportInfoButton.isHidden = true
-
+        
         tableView.selectRow(at: IndexPath.init(row: 0, section: 0), animated: true, scrollPosition: .top)
         tableView.deselectRow(at: IndexPath.init(row: 0, section: 0), animated: false)
-
+        
         print("Route canceled")
     }
-
+    
 }
 
 // MARK: - Extension - UITableViewDataSource
 extension NavToViewController: UITableViewDataSource {
-
+    
     func numberOfSections(in tableView: UITableView)
         -> Int {
             return 1
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
         -> Int {
             let numberOfRowsInSection = destinationAirportArray.count
             return numberOfRowsInSection
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell {
-
+            
             // get cell from tableView
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DestinationSelectionAirportTableViewCell.identifier) as? DestinationSelectionAirportTableViewCell
                 else { fatalError("")}
-
+            
             let airportForRow = destinationAirportArray[indexPath.row]
-
+            
             // texts in cell
             cell.airportNameLabel.text = airportForRow.name
             cell.icaoLabel.text = airportForRow.icao
-
+            
             var countryImage = UIImage.init(named: "spacer")
             if let country = airportForRow.country {
                 countryImage = UIImage.init(named: country)
             }
             cell.countryImageView.image = countryImage
-
+            
             cell.distanceLabel.text = distanceAsReadable(airportForRow.distance)
-
+            
             return cell
     }
-
+    
 }
 
 //MARK: - Extension - UITableViewDelegate
 extension NavToViewController: UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedDestinationAirport = destinationAirportArray[indexPath.row]
-
+        
         MapScreen.shared!.selectedDestinationAirport = selectedDestinationAirport
-
+        
         updateUIForSelectedDestinationAirport()
         
         print("Destination: \(selectedDestinationAirport.icao) - \(selectedDestinationAirport.name)")
     }
-
+    
 }
