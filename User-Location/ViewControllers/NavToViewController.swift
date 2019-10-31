@@ -130,25 +130,14 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
             return distanceAsReadable
     }
     
-    // ToDo: Pull to Refresh of TableView
-    // https://cocoacasts.com/how-to-add-pull-to-refresh-to-a-table-view-or-collection-view
+    // Pull to Refresh of TableView
     @objc private func refreshAirportDatabase(_ sender: Any) {
-        fetchAirportDatabase()
+        MapObjects.shared.downloadMapObjectsFromServer()
+
+        self.refreshControl.endRefreshing()
+        
     }
     
-    // Könnte man auch einfach oben mit reinpacken
-    private func fetchAirportDatabase() {
-        // Lade runter
-        MapObjects.shared.downloadMapObjectsFromServer()
-        
-        // Auskommentiert hat irgendwie keinen Einfluss?!
-        //setupTableViewDatasource()
-        
-        //self.updateView()
-        self.refreshControl.endRefreshing()
-        //self.activityIndicatorView.stopAnimating()
-    }
-
     // MARK: - Action Methods
     // Download Airport List from Server Button
     @IBAction func downloadAirportsButton(_ sender: UIButton) {
@@ -161,7 +150,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         
         self.present(alert, animated: true)
         
-        setupTableViewDatasource()
+        //setupTableViewDatasource()
     }
     
     // Sort Switch
