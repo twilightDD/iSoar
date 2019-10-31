@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import MessageUI
+import AVFoundation
 
 class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
@@ -30,6 +31,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     @IBOutlet weak var airportInfoButton: UIButton!
     @IBOutlet weak var airportsSortedBySwitch: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var cancelButton: Buttons!
     
     // MARK: - Init&Co.
     override func viewDidLoad() {
@@ -40,8 +42,9 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         
         // Pull to Refresh of TableView
         tableView.addSubview(refreshControl)
-        refreshControl.addTarget(self, action: #selector(refreshAirportDatabase), for: .valueChanged)
-        refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
+        refreshControl.addTarget(self, action: #selector(refreshAirportDatabase),
+                                 for: .valueChanged)
+        //refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
         refreshControl.attributedTitle = NSAttributedString(string: "Fetching new Airport Database")
         
     }
@@ -59,6 +62,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
                          object: nil,
                          queue: OperationQueue.main) { [unowned self] (notification) in
                             self.setupTableViewDatasource()
+                            self.refreshControl.endRefreshing()
         }
     }
     
@@ -74,11 +78,13 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
             countryImageTop.image = UIImage(named: destinationAirport.country!)
             airportName.text = destinationAirport.name
             airportInfoButton.isHidden = false
+            cancelButton.isHidden = false
         }
         else {
             countryImageTop.image = UIImage(named: "spacer")
             airportName.text = " "
             airportInfoButton.isHidden = true
+            cancelButton.isHidden = true
         }
     }
     
@@ -105,16 +111,22 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
                 , completion: nil)
         }
         else {
-            let alert = UIAlertController(title: "Error creating Mail", message: "Mail is not configured in settings app.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Error creating Mail",
+                                          message: "Mail is not configured in settings app.",
+                                          preferredStyle: .alert)
             
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "OK",
+                                          style: .cancel,
+                                          handler: nil))
             
             self.present(alert, animated: true)
         }
     }
     
     // Mail Composer Controller
-    internal func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    internal func mailComposeController(_ controller: MFMailComposeViewController,
+                                        didFinishWith result: MFMailComposeResult,
+                                        error: Error?) {
         controller.dismiss(animated: true)
     }
     
@@ -133,26 +145,10 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     // Pull to Refresh of TableView
     @objc private func refreshAirportDatabase(_ sender: Any) {
         MapObjects.shared.downloadMapObjectsFromServer()
-
-        self.refreshControl.endRefreshing()
         
     }
     
     // MARK: - Action Methods
-    // Download Airport List from Server Button
-    @IBAction func downloadAirportsButton(_ sender: UIButton) {
-        let alert = UIAlertController(title: "Download Airport Updates", message: "Do you want to download an updated Airport Database from Server?", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
-            MapObjects.shared.downloadMapObjectsFromServer()
-        }))
-        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-        
-        self.present(alert, animated: true)
-        
-        //setupTableViewDatasource()
-    }
-    
     // Sort Switch
     @IBAction func sortSwitch(_ sender: UISegmentedControl) {
         setupTableViewDatasource()
@@ -180,6 +176,9 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         airportName.text = " "
         
         airportInfoButton.isHidden = true
+        
+        cancelButton.isHidden = true
+        
         
         tableView.selectRow(at: IndexPath.init(row: 0, section: 0), animated: true, scrollPosition: .top)
         tableView.deselectRow(at: IndexPath.init(row: 0, section: 0), animated: false)
