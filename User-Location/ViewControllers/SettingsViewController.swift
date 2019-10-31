@@ -130,6 +130,47 @@ class SettingsViewController: UIViewController {
         saveSettings()
         self.view.endEditing(true)
     }
+    
+    
+    
+    
+    
+    
+    
+    
+        // Download Airport List from Server Button
+    //    @IBAction func downloadAirportsButton(_ sender: UIButton) {
+    //        let alert = UIAlertController(title: "Download Airport Updates",
+    //                                      message: "Do you want to download an updated Airport Database from Server?",
+    //                                      preferredStyle: .alert)
+    //
+    //        alert.addAction(UIAlertAction(title: "Yes",
+    //                                      style: .default,
+    //                                      handler: { action in
+    //                                        MapObjects.shared.downloadMapObjectsFromServer()
+    //        }))
+    //        alert.addAction(UIAlertAction(title: "No",
+    //                                      style: .cancel,
+    //                                      handler: nil))
+    //
+    //        self.present(alert, animated: true)
+    //
+    //        //setupTableViewDatasource()
+    //    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 }
