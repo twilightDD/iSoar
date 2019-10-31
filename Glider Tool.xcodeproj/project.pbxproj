@@ -61,7 +61,7 @@
 		E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Rotate.swift"; sourceTree = "<group>"; };
 		E0E1D879229476C00004DE81 /* NavToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavToViewController.swift; sourceTree = "<group>"; };
 		E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportInfoViewController.swift; sourceTree = "<group>"; };
-		EDA2361F2130AA7500739396 /* Glider Tool.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Glider Tool.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDA2361F2130AA7500739396 /* iSoar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iSoar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA236222130AA7500739396 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDA236272130AA7500739396 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EDA236292130AA7600739396 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -169,7 +169,7 @@
 		EDA236202130AA7500739396 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EDA2361F2130AA7500739396 /* Glider Tool.app */,
+				EDA2361F2130AA7500739396 /* iSoar.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -222,7 +222,7 @@
 			);
 			name = "Glider Tool";
 			productName = "User-Location";
-			productReference = EDA2361F2130AA7500739396 /* Glider Tool.app */;
+			productReference = EDA2361F2130AA7500739396 /* iSoar.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -494,7 +494,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.isoar.isoar;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = iSoar;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -517,7 +517,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.isoar.isoar;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = iSoar;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
