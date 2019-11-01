@@ -79,9 +79,8 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
                             
                             alert.addAction(UIAlertAction(title: "OK",
                                                           style: .default,
-                                                          handler: nil))
-                            
-                            self.refreshControl.endRefreshing()
+                                                          handler: {(alert: UIAlertAction!) in self.refreshControl.endRefreshing()}))
+
                             self.present(alert, animated: true)
                             
         }
@@ -204,7 +203,6 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         airportInfoButton.isHidden = true
         
         cancelButton.isHidden = true
-        
         
         tableView.selectRow(at: IndexPath.init(row: 0, section: 0), animated: true, scrollPosition: .top)
         tableView.deselectRow(at: IndexPath.init(row: 0, section: 0), animated: false)
