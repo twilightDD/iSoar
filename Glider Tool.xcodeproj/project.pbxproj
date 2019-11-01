@@ -147,13 +147,13 @@
 			path = Designs;
 			sourceTree = "<group>";
 		};
-		E0DA9414228D267500D3A854 /* MapObjects */ = {
+		E0DA9414228D267500D3A854 /* Airports */ = {
 			isa = PBXGroup;
 			children = (
 				D074B51422968C7A00A573AE /* MapObjects.json */,
 				D0C5ED5A22A4769C009A0542 /* MapObjects.swift */,
 			);
-			path = MapObjects;
+			path = Airports;
 			sourceTree = "<group>";
 		};
 		EDA236162130AA7500739396 = {
@@ -181,7 +181,7 @@
 				D02B0E6322C15B95007C7162 /* Subclasses */,
 				E0B52F7522837BC800E28A93 /* Designs */,
 				E0526AB022BF7056001FC6B4 /* Extensions */,
-				E0DA9414228D267500D3A854 /* MapObjects */,
+				E0DA9414228D267500D3A854 /* Airports */,
 				E0B52F702283753400E28A93 /* ViewControllers */,
 				EDA236222130AA7500739396 /* AppDelegate.swift */,
 				EDA236342130AA9A00739396 /* MapScreen.swift */,
