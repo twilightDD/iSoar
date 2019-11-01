@@ -18,8 +18,9 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     var destinationAirportArray = [MapObjects.Airport]()
     var sortSwitchIndex = 0
     
-    // notification observers
+    // Notification Observers
     var airportUpdateCompletedNotification:NSObjectProtocol?
+    var airportUpdateFailedNotification:NSObjectProtocol?
     
     // Pull to Refresh of TableView
     private let refreshControl = UIRefreshControl()
@@ -56,7 +57,8 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         setupTableViewDatasource()
         updateUIForSelectedDestinationAirport()
         
-        // Register observer for notfications
+        // Register Observers for notfications
+        // Airport Update Completed
         airportUpdateCompletedNotification = NotificationCenter.default
             .addObserver(forName: MapObjects.airportUpdateCompletedNotificationName,
                          object: nil,
@@ -64,11 +66,35 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
                             self.setupTableViewDatasource()
                             self.refreshControl.endRefreshing()
         }
+        
+        // Airport Update Failed
+        airportUpdateFailedNotification = NotificationCenter.default
+            .addObserver(forName: MapObjects.airportUpdateFailedNotificationName,
+                         object: nil,
+                         queue: OperationQueue.main) { [unowned self] (notification) in
+                            
+                            let alert = UIAlertController(title: "Download failed",
+                                                          message: "It seems your Device has no active internet Connection.",
+                                                          preferredStyle: .alert)
+                            
+                            alert.addAction(UIAlertAction(title: "OK",
+                                                          style: .default,
+                                                          handler: nil))
+                            
+                            self.refreshControl.endRefreshing()
+                            self.present(alert, animated: true)
+                            
+        }
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         if let airportUpdateCompletedNotification = airportUpdateCompletedNotification {
             NotificationCenter.default.removeObserver(airportUpdateCompletedNotification)
+        }
+        
+        if let airportUpdateFailedNotification = airportUpdateFailedNotification {
+            NotificationCenter.default.removeObserver(airportUpdateFailedNotification)
         }
     }
     
