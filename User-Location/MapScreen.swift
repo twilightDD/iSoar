@@ -74,12 +74,7 @@ class MapScreen: UIViewController {
         setupMapBox()
         
         setupGestureRecognizers()
-
-    }
-    
-    // Light Status Bar Informations
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        
     }
     
     // MARK: - Setup functions
@@ -183,10 +178,10 @@ class MapScreen: UIViewController {
             let constraints: [NSLayoutConstraint] = [NSLayoutConstraint(item: userLocationButton,
                                                                         attribute: .top,
                                                                         relatedBy: .greaterThanOrEqual,
-                                                                        toItem: topBar,
+                                                                        toItem: courseLabel,
                                                                         attribute: .bottom,
                                                                         multiplier: 1,
-                                                                        constant: 10),
+                                                                        constant: 50),
                                                      leadingConstraint,
                                                      NSLayoutConstraint(item: userLocationButton,
                                                                         attribute: .height,
