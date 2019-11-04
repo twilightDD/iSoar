@@ -14,7 +14,7 @@
 		D074B51522968C7A00A573AE /* MapObjects.json in Resources */ = {isa = PBXBuildFile; fileRef = D074B51422968C7A00A573AE /* MapObjects.json */; };
 		D0C2A9E32367954A00FEF926 /* UITextField+NumberPadDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */; };
 		D0C5ED5B22A4769C009A0542 /* MapObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5ED5A22A4769C009A0542 /* MapObjects.swift */; };
-		E014961A236F6B4C00C1AC0D /* LeftLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0149619236F6B4C00C1AC0D /* LeftLabels.swift */; };
+		E014961A236F6B4C00C1AC0D /* MapLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0149619236F6B4C00C1AC0D /* MapLabel.swift */; };
 		E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086AB0A229C35890011C433 /* SettingsViewController.swift */; };
 		E0A215BB235E2D0D009F6953 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BA235E2D0D009F6953 /* TableViewController.swift */; };
 		E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */; };
@@ -23,7 +23,6 @@
 		E0B8142B2367450200D88B6C /* Logbook.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B8142A2367450200D88B6C /* Logbook.swift */; };
 		E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */; };
 		E0E1D87A229476C00004DE81 /* NavToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D879229476C00004DE81 /* NavToViewController.swift */; };
-		E0E38BB3236F7C92002285FC /* RightLabels.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E38BB2236F7C92002285FC /* RightLabels.swift */; };
 		E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */; };
 		EDA236232130AA7500739396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA236222130AA7500739396 /* AppDelegate.swift */; };
 		EDA236282130AA7500739396 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDA236262130AA7500739396 /* Main.storyboard */; };
@@ -54,7 +53,7 @@
 		D074B51422968C7A00A573AE /* MapObjects.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MapObjects.json; sourceTree = "<group>"; };
 		D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+NumberPadDoneButton.swift"; sourceTree = "<group>"; };
 		D0C5ED5A22A4769C009A0542 /* MapObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapObjects.swift; sourceTree = "<group>"; };
-		E0149619236F6B4C00C1AC0D /* LeftLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftLabels.swift; sourceTree = "<group>"; };
+		E0149619236F6B4C00C1AC0D /* MapLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLabel.swift; sourceTree = "<group>"; };
 		E086AB0A229C35890011C433 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E0A215BA235E2D0D009F6953 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionAirportTableViewCell.swift; sourceTree = "<group>"; };
@@ -63,7 +62,6 @@
 		E0B8142A2367450200D88B6C /* Logbook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logbook.swift; sourceTree = "<group>"; };
 		E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Rotate.swift"; sourceTree = "<group>"; };
 		E0E1D879229476C00004DE81 /* NavToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavToViewController.swift; sourceTree = "<group>"; };
-		E0E38BB2236F7C92002285FC /* RightLabels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightLabels.swift; sourceTree = "<group>"; };
 		E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportInfoViewController.swift; sourceTree = "<group>"; };
 		EDA2361F2130AA7500739396 /* iSoar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iSoar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA236222130AA7500739396 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -145,8 +143,7 @@
 			children = (
 				E0B52F71228377F300E28A93 /* Buttons.swift */,
 				E0B52F7622837C1500E28A93 /* TextFields.swift */,
-				E0149619236F6B4C00C1AC0D /* LeftLabels.swift */,
-				E0E38BB2236F7C92002285FC /* RightLabels.swift */,
+				E0149619236F6B4C00C1AC0D /* MapLabel.swift */,
 				D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */,
 				18BE3F7322CF688D00859347 /* GliderUserLocationAnnotationView.swift */,
 			);
@@ -337,13 +334,12 @@
 				E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */,
 				D0C5ED5B22A4769C009A0542 /* MapObjects.swift in Sources */,
 				E0E1D87A229476C00004DE81 /* NavToViewController.swift in Sources */,
-				E014961A236F6B4C00C1AC0D /* LeftLabels.swift in Sources */,
+				E014961A236F6B4C00C1AC0D /* MapLabel.swift in Sources */,
 				EDA236232130AA7500739396 /* AppDelegate.swift in Sources */,
 				E0B52F72228377F300E28A93 /* Buttons.swift in Sources */,
 				E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */,
 				18BE3F7422CF688D00859347 /* GliderUserLocationAnnotationView.swift in Sources */,
 				E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */,
-				E0E38BB3236F7C92002285FC /* RightLabels.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,7 +497,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.sonicsempire.isoar;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = de.sonicsempire.test1;
 				PRODUCT_NAME = iSoar;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -524,7 +521,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.sonicsempire.isoar;
+				MARKETING_VERSION = 0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = de.sonicsempire.test1;
 				PRODUCT_NAME = iSoar;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
