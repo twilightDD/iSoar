@@ -77,6 +77,10 @@ class MapScreen: UIViewController {
         
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     // MARK: - Setup functions
     // Set up Location Manager
     func setupLocationManager() {
