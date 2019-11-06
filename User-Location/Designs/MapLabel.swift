@@ -25,6 +25,8 @@ class MapLabel: UILabel {
         layer.cornerRadius = 10.0
         //layer.borderWidth = 1.0
         //layer.borderColor = UIColor.red.cgColor
+        //textColor = UIColor(red: 0/255, green: 255/255, blue: 255/255, alpha: 1)
+        textColor = UIColor.white
     }
     
 }
