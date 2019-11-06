@@ -1,0 +1,8 @@
+app_identifier("de.sonicsempire.test1") # The bundle identifier of your app
+apple_id("sonic@sonicsempire.de") # Your Apple email address
+
+itc_team_id("120650476") # App Store Connect Team ID
+team_id("HCR82BSM8Z") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
