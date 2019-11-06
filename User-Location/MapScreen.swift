@@ -160,6 +160,10 @@ class MapScreen: UIViewController {
             // the upper left corner of the view.
             userLocationButton.translatesAutoresizingMaskIntoConstraints = false
             
+            userLocationButton.layer.borderWidth = 1
+            userLocationButton.layer.borderColor = UIColor.red.cgColor
+            // userLocationButton.layer.cornerRadius = 5
+            
             var leadingConstraint: NSLayoutConstraint
             if #available(iOS 11.0, *) {
                 leadingConstraint = NSLayoutConstraint(item: userLocationButton,
@@ -185,7 +189,7 @@ class MapScreen: UIViewController {
                                                                         toItem: courseLabel,
                                                                         attribute: .bottom,
                                                                         multiplier: 1,
-                                                                        constant: 50),
+                                                                        constant: 20),
                                                      leadingConstraint,
                                                      NSLayoutConstraint(item: userLocationButton,
                                                                         attribute: .height,
