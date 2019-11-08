@@ -17,10 +17,16 @@ default_platform(:ios)
 
 platform :ios do
 
-  desc "Increase build number."
-  lane :build_number do
-    increment_build_number(xcodeproj: "Glider Tool Mobile.xcodeproj")
-  end
+
+
+  desc "Increase build number"
+  lane :build_number do
+    #get_certificates           # invokes cert
+    #get_provisioning_profile   # invokes sigh
+    increment_build_number(xcodeproj: "Glider Tool.xcodeproj")
+    upload_to_testflight
+  end
+
 
   desc "Push a new beta build to TestFlight"
   lane :beta do
@@ -30,3 +36,4 @@ platform :ios do
     upload_to_testflight
   end
 end
+
