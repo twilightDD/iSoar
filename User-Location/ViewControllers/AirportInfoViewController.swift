@@ -27,6 +27,7 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
     @IBOutlet weak var surfaceValue: UILabel!
     @IBOutlet weak var additionalInfo: UILabel!
     @IBOutlet weak var countryValue: UILabel!
+    @IBOutlet weak var urlValue: UILabel!
     @IBOutlet weak var callButton: UIButton!
     @IBOutlet weak var urlButton: UIButton!
     

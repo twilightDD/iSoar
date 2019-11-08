@@ -22,11 +22,11 @@ class MapLabel: UILabel {
     
     internal func setupAttachedLabel() {
         clipsToBounds = true
-        layer.cornerRadius = 15.0
+        layer.cornerRadius = 10.0
         //layer.borderWidth = 1.0
         //layer.borderColor = UIColor.red.cgColor
-        textColor = UIColor(red: 100/255, green: 255/255, blue: 255/255, alpha: 1)
-        //textColor = UIColor.white
+        //textColor = UIColor(red: 0/255, green: 255/255, blue: 255/255, alpha: 1)
+        textColor = UIColor.white
     }
     
 }

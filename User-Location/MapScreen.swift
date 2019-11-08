@@ -373,7 +373,7 @@ class MapScreen: UIViewController {
         self.destinationAltitudeLabel.text = destinationAltitudeShort
         
         if destinationAltitude > 0 {
-            destinationAltitudeLabel.textColor = UIColor(red: 100/255, green: 255/255, blue: 255/255, alpha: 1)
+            destinationAltitudeLabel.textColor = .white
         }
         else {
             destinationAltitudeLabel.textColor = .red
@@ -437,7 +437,7 @@ class MapScreen: UIViewController {
         else {
             distanceLabel.text = "---"
             destinationAltitudeLabel.text = "---"
-            destinationAltitudeLabel.textColor = UIColor(red: 100/255, green: 255/255, blue: 255/255, alpha: 1)
+            destinationAltitudeLabel.textColor = .white
             
             if let currentDirectionLine = currentDirectionLine {
                 mapView.remove(currentDirectionLine)

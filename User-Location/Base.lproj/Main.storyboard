@@ -424,7 +424,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Vwd-wo-QJT" userLabel="Airport Info Stack View">
-                                <rect key="frame" x="20" y="102" width="374" height="291"/>
+                                <rect key="frame" x="20" y="102" width="374" height="303.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="WFc-Ye-C4Z" userLabel="ICAO Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="21.5"/>
@@ -601,29 +601,26 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="uaE-t5-i7v" userLabel="URL Stack View">
-                                        <rect key="frame" x="0.0" y="245" width="374" height="21.5"/>
+                                        <rect key="frame" x="0.0" y="245" width="374" height="34"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="URL:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KVd-dU-B6u" userLabel="URL:">
-                                                <rect key="frame" x="0.0" y="0.0" width="200" height="21.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="200" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dmy-BZ-CtC">
-                                                <rect key="frame" x="200" y="0.0" width="174" height="21.5"/>
-                                                <accessibility key="accessibilityConfiguration" label="hjhj"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhF-00-YRx" userLabel="URL Button">
+                                                <rect key="frame" x="200" y="0.0" width="174" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                <inset key="contentEdgeInsets" minX="0.0" minY="-1" maxX="0.0" maxY="0.0"/>
                                                 <state key="normal" title="URL"/>
                                                 <connections>
-                                                    <action selector="callButton:" destination="3Br-pt-Icv" eventType="touchUpInside" id="amW-Vj-Qeg"/>
-                                                    <action selector="urlButton:" destination="3Br-pt-Icv" eventType="touchUpInside" id="OMX-un-MQd"/>
+                                                    <action selector="urlButton:" destination="3Br-pt-Icv" eventType="touchUpInside" id="1VQ-Be-CZR"/>
                                                 </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Additional Info:" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1oh-9n-Pxz" userLabel="Additional Info:">
-                                        <rect key="frame" x="0.0" y="269.5" width="374" height="21.5"/>
+                                        <rect key="frame" x="0.0" y="282" width="374" height="21.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -676,7 +673,7 @@
                         <outlet property="radioNameValue" destination="vIb-Og-Qjk" id="bjw-VO-wmk"/>
                         <outlet property="runwayDirectionsValue" destination="w7Z-PL-8gs" id="nHu-bm-NAE"/>
                         <outlet property="surfaceValue" destination="3qx-M0-7lJ" id="cSH-MH-67n"/>
-                        <outlet property="urlButton" destination="Dmy-BZ-CtC" id="1bE-Bw-CbT"/>
+                        <outlet property="urlButton" destination="xhF-00-YRx" id="hWh-ba-CxZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NNL-hG-AEc" userLabel="First Responder" sceneMemberID="firstResponder"/>
