@@ -127,7 +127,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     private func reportMissingAirport() {
         if MFMailComposeViewController.canSendMail() {
             let mailComposer = MFMailComposeViewController()
-            mailComposer.setToRecipients(["denis@leupold.me"])
+            mailComposer.setToRecipients(["mail@isoar.de"])
             mailComposer.setSubject("Add missing Airport")
             mailComposer.setMessageBody("Country:<br>Elevation AMSL:<br>ICAO Code:<br>Latitude:<br>Longitude:<br>Name:<br>Radio Frequency:<br>Radio Frequency Name:<br>Runway Dimensions: (1000 x 50) <br>Runway Direction: (01/19)<br>Runway Surface: Grass / Asphalt<br>URL: www.airport.org", isHTML: true)
             
