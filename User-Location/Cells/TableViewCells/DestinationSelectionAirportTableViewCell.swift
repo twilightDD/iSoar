@@ -28,9 +28,12 @@ class DestinationSelectionAirportTableViewCell: UITableViewCell {
 
         if selected == true {
             selectedBackgroundView?.backgroundColor = UIColor(red: 17/255, green: 113/255, blue: 255/255, alpha: 0.1)
+            accessoryType = .checkmark
+            
         }
         else {
             selectedBackgroundView?.backgroundColor = nil
+            accessoryType = .none
         }
 
     }

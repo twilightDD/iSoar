@@ -286,8 +286,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99999 km" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHa-Et-Tzq">
-                                                    <rect key="frame" x="294" y="31" width="100" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="99999 km" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHa-Et-Tzq">
+                                                    <rect key="frame" x="142" y="31" width="100" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="IWc-dt-jKj"/>
                                                     </constraints>
@@ -305,13 +305,12 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="gtj-Cz-11D" secondAttribute="trailing" constant="20" id="5Ja-Vz-bJG"/>
-                                                <constraint firstAttribute="trailing" secondItem="jHa-Et-Tzq" secondAttribute="trailing" constant="20" id="7zl-ow-kc5"/>
                                                 <constraint firstItem="gtj-Cz-11D" firstAttribute="leading" secondItem="iIy-vn-hAC" secondAttribute="trailing" constant="15" id="9C8-2j-apB"/>
                                                 <constraint firstItem="gtj-Cz-11D" firstAttribute="top" secondItem="9Wi-lG-kHL" secondAttribute="top" constant="5" id="DUU-VG-uhR"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="jHa-Et-Tzq" secondAttribute="bottom" constant="5" id="Jxl-4m-LcX"/>
+                                                <constraint firstItem="jHa-Et-Tzq" firstAttribute="leading" secondItem="ETc-gI-31x" secondAttribute="trailing" constant="30" id="Wzd-JE-Xfn"/>
                                                 <constraint firstAttribute="bottom" secondItem="ETc-gI-31x" secondAttribute="bottom" constant="5" id="aM0-3t-nhw"/>
                                                 <constraint firstItem="iIy-vn-hAC" firstAttribute="leading" secondItem="9Wi-lG-kHL" secondAttribute="leading" constant="15" id="hDM-ou-bBz"/>
-                                                <constraint firstItem="ETc-gI-31x" firstAttribute="centerY" secondItem="jHa-Et-Tzq" secondAttribute="centerY" id="iuC-9N-STq"/>
                                                 <constraint firstItem="ETc-gI-31x" firstAttribute="top" secondItem="gtj-Cz-11D" secondAttribute="bottom" constant="5" id="jSd-fo-5bp"/>
                                                 <constraint firstItem="ETc-gI-31x" firstAttribute="leading" secondItem="gtj-Cz-11D" secondAttribute="leading" id="qbi-dS-PHq"/>
                                                 <constraint firstItem="iIy-vn-hAC" firstAttribute="centerY" secondItem="9Wi-lG-kHL" secondAttribute="centerY" id="ygz-9L-AEJ"/>
@@ -804,7 +803,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Germany" width="20" height="20"/>
+        <image name="Germany" width="512" height="514"/>
         <image name="add" width="512" height="512"/>
         <image name="directto" width="35" height="35"/>
         <image name="glider" width="65" height="30"/>

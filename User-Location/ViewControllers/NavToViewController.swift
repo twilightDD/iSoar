@@ -238,15 +238,14 @@ extension NavToViewController: UITableViewDataSource {
             // texts in cell
             cell.airportNameLabel.text = airportForRow.name
             cell.icaoLabel.text = airportForRow.icao
+            cell.distanceLabel.text = distanceAsReadable(airportForRow.distance)
             
             var countryImage = UIImage.init(named: "spacer")
             if let country = airportForRow.country {
                 countryImage = UIImage.init(named: country)
             }
             cell.countryImageView.image = countryImage
-            
-            cell.distanceLabel.text = distanceAsReadable(airportForRow.distance)
-            
+
             return cell
     }
     
