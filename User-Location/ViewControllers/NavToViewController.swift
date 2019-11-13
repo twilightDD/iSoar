@@ -118,7 +118,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         }
         else {
             countryImageTop.image = UIImage(named: "spacer")
-            airportName.text = " "
+            airportName.text = "(Kein Ziel gewählt)"
             airportInfoButton.isHidden = true
             cancelButton.isHidden = true
         }
@@ -204,20 +204,11 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     @IBAction func cancelButton(_ sender: Buttons) {
         // reset selectedDestinationAirport on MapScreenViewController
         MapScreen.shared!.selectedDestinationAirport = nil
-        
-        // Reset own UI
-        
-        countryImageTop.image = UIImage(named: "spacer")
-        
-        airportName.text = " "
-        
-        airportInfoButton.isHidden = true
-        
-        cancelButton.isHidden = true
-        
-        tableView.selectRow(at: IndexPath.init(row: 0, section: 0), animated: true, scrollPosition: .top)
-        tableView.deselectRow(at: IndexPath.init(row: 0, section: 0), animated: false)
-        
+        updateUIForSelectedDestinationAirport()
+
+        let selectedIndexPath = tableView.indexPathForSelectedRow
+        tableView.deselectRow(at: selectedIndexPath!, animated: false)
+
         print("Route canceled")
     }
     
