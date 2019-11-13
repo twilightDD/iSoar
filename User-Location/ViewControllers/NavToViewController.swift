@@ -55,6 +55,17 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         
         MapObjects.shared.updateDistance()
         setupTableViewDatasource()
+
+        // if there is a selectedDestinationAirport, select corresponding tableViewCell
+        if let selectedDestinationAirport = MapScreen.shared?.selectedDestinationAirport,
+            let row = destinationAirportArray.firstIndex(of: selectedDestinationAirport) {
+
+            let indexPathForSelectedDestinationAirport = IndexPath.init(row: row, section: 0)
+            tableView.selectRow(at: indexPathForSelectedDestinationAirport,
+                                animated: true,
+                                scrollPosition: .middle)
+        }
+
         updateUIForSelectedDestinationAirport()
         
         // Register Observers for notfications

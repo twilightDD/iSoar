@@ -209,7 +209,7 @@ extension MapObjects {
         case distance   = 1
     }
 
-    struct Airport {
+    struct Airport: Equatable {
         //MARK: Lets and Vars
         var valid:String
         var icao:String
@@ -256,5 +256,13 @@ extension MapObjects {
         mutating func updateDistance(_ newDistance:CLLocationDistance) {
             distance = newDistance
         }
+
+        static func == (lhs: Airport, rhs: Airport) -> Bool {
+            return
+                lhs.latitude == rhs.latitude &&
+                    lhs.longitude == rhs.longitude
+        }
+
     }
 }
+
