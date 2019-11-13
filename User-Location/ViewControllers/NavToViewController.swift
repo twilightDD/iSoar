@@ -255,15 +255,23 @@ extension NavToViewController: UITableViewDataSource {
 
 //MARK: - Extension - UITableViewDelegate
 extension NavToViewController: UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedDestinationAirport = destinationAirportArray[indexPath.row]
         
-        MapScreen.shared!.selectedDestinationAirport = selectedDestinationAirport
-        
+        let newSelectedDestinationAirport = destinationAirportArray[indexPath.row]
+
+        //if new selected destination equals the former: it means we want to cancel the navigation
+        // we deselect the cell and set selectedDestinationAirport = nil
+        if let formerSelectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport,
+            newSelectedDestinationAirport == formerSelectedDestinationAirport {
+                MapScreen.shared!.selectedDestinationAirport = nil
+                tableView.deselectRow(at: indexPath, animated: true)
+        }
+        else {
+             MapScreen.shared!.selectedDestinationAirport = newSelectedDestinationAirport
+        }
+
         updateUIForSelectedDestinationAirport()
-        
-        print("Destination: \(selectedDestinationAirport.icao) - \(selectedDestinationAirport.name)")
     }
-    
+
 }
