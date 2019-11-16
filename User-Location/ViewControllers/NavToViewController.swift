@@ -11,7 +11,7 @@ import CoreLocation
 import MessageUI
 import AVFoundation
 
-class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate, UISearchBarDelegate {
+class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     //MARK: Lets and Vars
     // Datasource
@@ -191,39 +191,6 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         MapObjects.shared.downloadMapObjectsFromServer()
         
     }
-    
-    // Set up Search Controller
-    func setupSearchController() {
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self as? UISearchResultsUpdating
-        searchController.searchBar.placeholder = "Search Airport"
-        searchController.searchBar.delegate = self
-        searchController.searchBar.sizeToFit()
-        searchController.isActive = false
-        // Place the search bar view to the tableview headerview.
-        tableView.tableHeaderView = searchController.searchBar
-        
-    }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        shouldShowSearchResults = true
-    }
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredDestinationAirports()
-
-        tableView.reloadData()
-    }
-
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        shouldShowSearchResults = false
-        tableView.reloadData()
-    }
-
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchController.searchBar.resignFirstResponder()
-    }
 
     func filteredDestinationAirports() {
 
@@ -235,12 +202,9 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
             }
         }
         else {
-            // zeige alle
             filteredArray = destinationAirportArray
         }
     }
-
-
 
     // MARK: - Action Methods
     // Sort Switch
@@ -326,6 +290,9 @@ extension NavToViewController: UITableViewDelegate {
         
         let newSelectedDestinationAirport = destinationAirportArray[indexPath.row]
         
+        // ToDo:
+        //let newSelectedDestinationAirport = filteredArray[indexPath.row]
+        
         //if new selected destination equals the former: it means we want to cancel the navigation
         // we deselect the cell and set selectedDestinationAirport = nil
         if let formerSelectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport,
@@ -338,6 +305,39 @@ extension NavToViewController: UITableViewDelegate {
         }
         
         updateUIForSelectedDestinationAirport()
+    }
+    
+}
+//MARK: - Extension - UISearchBarDelegate
+extension NavToViewController: UISearchBarDelegate {
+
+    func setupSearchController() {
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self as? UISearchResultsUpdating
+        searchController.searchBar.placeholder = "Search Airport"
+        searchController.searchBar.delegate = self
+        searchController.searchBar.sizeToFit()
+        searchController.isActive = false
+        tableView.tableHeaderView = searchController.searchBar
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        shouldShowSearchResults = true
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredDestinationAirports()
+        tableView.reloadData()
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        shouldShowSearchResults = false
+        tableView.reloadData()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchController.searchBar.resignFirstResponder()
+        searchController.isActive = false
     }
     
 }
