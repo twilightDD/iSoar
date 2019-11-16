@@ -26,8 +26,6 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     // Pull to Refresh of TableView
     private let refreshControl = UIRefreshControl()
 
-
-
     // SearchController
     var searchController: UISearchController!
 
@@ -84,6 +82,8 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
             .addObserver(forName: MapObjects.airportUpdateCompletedNotificationName,
                          object: nil,
                          queue: OperationQueue.main) { [unowned self] (notification) in
+                            
+                            self.updateUIForSelectedDestinationAirport()
                             self.setupTableViewDatasource()
                             self.refreshControl.endRefreshing()
         }
@@ -188,10 +188,17 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     
     // Pull to Refresh of TableView
     @objc private func refreshAirportDatabase(_ sender: Any) {
+        
+        if MapScreen.shared!.selectedDestinationAirport != nil{
+            MapScreen.shared!.selectedDestinationAirport = nil
+
+        }
+        
         MapObjects.shared.downloadMapObjectsFromServer()
         
     }
-
+    
+    // Filter Destination Airports
     func filteredDestinationAirports() {
 
         if let searchString = searchController.searchBar.text,
