@@ -18,17 +18,17 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     var destinationAirportArray = [MapObjects.Airport]()
     var filteredArray = [MapObjects.Airport]()
     var sortSwitchIndex = 0
-
+    
     // Notification Observers
     var airportUpdateCompletedNotification:NSObjectProtocol?
     var airportUpdateFailedNotification:NSObjectProtocol?
-
+    
     // Pull to Refresh of TableView
     private let refreshControl = UIRefreshControl()
-
+    
     // SearchController
     var searchController: UISearchController!
-
+    
     //var dataArray = [MapObjects.Airport]()
     var shouldShowSearchResults = false
     
@@ -51,7 +51,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         tableView.addSubview(refreshControl)
         refreshControl.addTarget(self, action: #selector(refreshAirportDatabase),
                                  for: .valueChanged)
-        refreshControl.attributedTitle = NSAttributedString(string: "Fetching new Airport Database")
+        refreshControl.attributedTitle = NSAttributedString(string: "Fetching new Airfield Database")
         
         // Search Controller
         setupSearchController()
@@ -138,6 +138,10 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         
         if let destinationAirportArray = MapObjects.shared.sortedDestinationAirports(by: sortIndicator) {
             self.destinationAirportArray = destinationAirportArray
+            
+            
+            searchController.searchBar.placeholder = "Search \(destinationAirportArray.count) Airfields"
+            
             tableView.reloadData()
         }
     }
@@ -191,7 +195,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         
         if MapScreen.shared!.selectedDestinationAirport != nil{
             MapScreen.shared!.selectedDestinationAirport = nil
-
+            
         }
         
         MapObjects.shared.downloadMapObjectsFromServer()
@@ -200,20 +204,27 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     
     // Filter Destination Airports
     func filteredDestinationAirports() {
-
+        
         if let searchString = searchController.searchBar.text,
             searchString.count > 0 {
             filteredArray = destinationAirportArray.filter { (airport) -> Bool in
                 let airportNameContainsSearchString = airport.name.localizedStandardContains(searchString)
                 
+                
+                
                 return airportNameContainsSearchString
+                
+                
+                
             }
         }
         else {
             filteredArray = destinationAirportArray
         }
+        
+        searchController.searchBar.placeholder = "Got \(filteredArray.count) results for \( searchController.searchBar.text!)"
     }
-
+    
     // MARK: - Action Methods
     // Sort Switch
     @IBAction func sortSwitch(_ sender: UISegmentedControl) {
@@ -250,7 +261,7 @@ extension NavToViewController: UITableViewDataSource {
                 let numberOfRowsInSection = destinationAirportArray.count
                 return numberOfRowsInSection
             }
-
+            
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
@@ -259,33 +270,33 @@ extension NavToViewController: UITableViewDataSource {
             // get cell from tableView
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DestinationSelectionAirportTableViewCell.identifier) as? DestinationSelectionAirportTableViewCell
                 else { fatalError("")}
-
-
+            
+            
             // New Update
             var airportOfInterest: MapObjects.Airport?
-
+            
             if shouldShowSearchResults == true {
                 airportOfInterest = filteredArray[indexPath.row]
             }
             else {
                 airportOfInterest = destinationAirportArray[indexPath.row]
             }
-
+            
             guard let airportForRow = airportOfInterest
                 else { fatalError() }
-
-
+            
+            
             // texts in cell
             cell.airportNameLabel.text = airportForRow.name
             cell.icaoLabel.text = airportForRow.icao
             cell.distanceLabel.text = distanceAsReadable(airportForRow.distance)
-
+            
             var countryImage = UIImage.init(named: "destination")
             if let country = airportForRow.country {
                 countryImage = UIImage.init(named: country)
             }
             cell.countryImageView.image = countryImage
-
+            
             return cell
     }
     
@@ -318,11 +329,11 @@ extension NavToViewController: UITableViewDelegate {
 }
 //MARK: - Extension - UISearchBarDelegate
 extension NavToViewController: UISearchBarDelegate {
-
+    
     func setupSearchController() {
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self as? UISearchResultsUpdating
-        searchController.searchBar.placeholder = "Search Airport"
+        //        searchController.searchBar.placeholder = "Search \(destinationAirportArray.count) Airfields"
         searchController.searchBar.delegate = self
         searchController.searchBar.sizeToFit()
         searchController.isActive = false
@@ -332,17 +343,18 @@ extension NavToViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         shouldShowSearchResults = true
     }
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filteredDestinationAirports()
         tableView.reloadData()
     }
-
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchController.searchBar.placeholder = "Search \(destinationAirportArray.count) Airfields"
         shouldShowSearchResults = false
         tableView.reloadData()
     }
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchController.searchBar.resignFirstResponder()
         searchController.isActive = false
