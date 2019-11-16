@@ -126,7 +126,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
             airportInfoButton.isHidden = false
         }
         else {
-            countryImageTop.image = UIImage(named: "spacer")
+            countryImageTop.image = UIImage(named: "destination")
             airportName.text = "Choose your Destination"
             airportInfoButton.isHidden = true
         }
@@ -205,6 +205,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
             searchString.count > 0 {
             filteredArray = destinationAirportArray.filter { (airport) -> Bool in
                 let airportNameContainsSearchString = airport.name.localizedStandardContains(searchString)
+                
                 return airportNameContainsSearchString
             }
         }
@@ -279,7 +280,7 @@ extension NavToViewController: UITableViewDataSource {
             cell.icaoLabel.text = airportForRow.icao
             cell.distanceLabel.text = distanceAsReadable(airportForRow.distance)
 
-            var countryImage = UIImage.init(named: "spacer")
+            var countryImage = UIImage.init(named: "destination")
             if let country = airportForRow.country {
                 countryImage = UIImage.init(named: country)
             }
