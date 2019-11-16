@@ -236,20 +236,20 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Germany" translatesAutoresizingMaskIntoConstraints="NO" id="zhX-2q-7Us" userLabel="Country Image Top">
-                                <rect key="frame" x="15" y="103" width="25" height="25"/>
+                                <rect key="frame" x="15" y="98" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="2pu-Ec-eJo"/>
                                     <constraint firstAttribute="height" constant="25" id="Fgg-dV-Unu"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="destinationAirport" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eu5-OH-egv">
-                                <rect key="frame" x="55" y="103" width="304" height="25"/>
+                                <rect key="frame" x="55" y="98" width="304" height="25"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eid-Eo-OlS">
-                                <rect key="frame" x="369" y="103" width="25" height="25"/>
+                                <rect key="frame" x="369" y="98" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="QQA-lX-6bN"/>
                                     <constraint firstAttribute="height" constant="25" id="cOO-ki-EKj"/>
@@ -260,7 +260,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uOE-BD-KUg">
-                                <rect key="frame" x="0.0" y="143" width="414" height="670"/>
+                                <rect key="frame" x="0.0" y="133" width="414" height="680"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DestinationSelectionAirportTableViewCell" rowHeight="56" id="xvs-1w-Ybi" customClass="DestinationSelectionAirportTableViewCell" customModule="iSoar" customModuleProvider="target">
@@ -335,7 +335,7 @@
                             <constraint firstItem="zhX-2q-7Us" firstAttribute="leading" secondItem="ViJ-sQ-BHW" secondAttribute="leading" constant="15" id="BBO-H8-SHy"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XvE-2e-Xvt" secondAttribute="trailing" constant="20" id="BeX-jV-8A7"/>
                             <constraint firstItem="uOE-BD-KUg" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" id="CA8-ou-8xc"/>
-                            <constraint firstItem="uOE-BD-KUg" firstAttribute="top" secondItem="eu5-OH-egv" secondAttribute="bottom" constant="15" id="Dzg-0U-BHC"/>
+                            <constraint firstItem="uOE-BD-KUg" firstAttribute="top" secondItem="eu5-OH-egv" secondAttribute="bottom" constant="10" id="Dzg-0U-BHC"/>
                             <constraint firstItem="zhX-2q-7Us" firstAttribute="top" secondItem="eu5-OH-egv" secondAttribute="top" id="GbJ-Uw-9ee"/>
                             <constraint firstItem="uOE-BD-KUg" firstAttribute="bottom" secondItem="TB3-Tq-exz" secondAttribute="bottom" id="H6j-GQ-QYn"/>
                             <constraint firstItem="flW-Jw-4Fh" firstAttribute="centerX" secondItem="TB3-Tq-exz" secondAttribute="centerX" id="Hyt-4e-lbP"/>
@@ -347,7 +347,7 @@
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" secondItem="uOE-BD-KUg" secondAttribute="trailing" id="drT-rg-LPG"/>
                             <constraint firstItem="zhX-2q-7Us" firstAttribute="centerY" secondItem="eu5-OH-egv" secondAttribute="centerY" id="fPK-0C-cdr"/>
                             <constraint firstItem="eu5-OH-egv" firstAttribute="leading" secondItem="zhX-2q-7Us" secondAttribute="trailing" constant="15" id="k92-N1-FTD"/>
-                            <constraint firstItem="eu5-OH-egv" firstAttribute="top" secondItem="oz7-YK-1ip" secondAttribute="bottom" constant="15" id="pt8-1V-Ylz"/>
+                            <constraint firstItem="eu5-OH-egv" firstAttribute="top" secondItem="oz7-YK-1ip" secondAttribute="bottom" constant="10" id="pt8-1V-Ylz"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" secondItem="eid-Eo-OlS" secondAttribute="trailing" constant="20" id="r27-tf-vsN"/>
                             <constraint firstItem="XvE-2e-Xvt" firstAttribute="centerY" secondItem="flW-Jw-4Fh" secondAttribute="centerY" id="wnh-8t-Xy9"/>
                             <constraint firstItem="eid-Eo-OlS" firstAttribute="leading" secondItem="eu5-OH-egv" secondAttribute="trailing" constant="10" id="zGV-oZ-2Fd"/>
