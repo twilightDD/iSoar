@@ -16,22 +16,22 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     //MARK: Lets and Vars
     // Datasource
     var destinationAirportArray = [MapObjects.Airport]()
+    var filteredArray = [MapObjects.Airport]()
     var sortSwitchIndex = 0
-    
+
     // Notification Observers
     var airportUpdateCompletedNotification:NSObjectProtocol?
     var airportUpdateFailedNotification:NSObjectProtocol?
-    
+
     // Pull to Refresh of TableView
     private let refreshControl = UIRefreshControl()
-    
-    
-    
+
+
+
     // SearchController
     var searchController: UISearchController!
-    
+
     //var dataArray = [MapObjects.Airport]()
-    var filteredArray = [String]()
     var shouldShowSearchResults = false
     
     // MARK: - IBOutlets
@@ -207,35 +207,41 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         shouldShowSearchResults = true
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredDestinationAirports()
+
         tableView.reloadData()
     }
-    
+
+
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         shouldShowSearchResults = false
         tableView.reloadData()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if !shouldShowSearchResults {
-            shouldShowSearchResults = true
-            tableView.reloadData()
-        }
-     
         searchController.searchBar.resignFirstResponder()
     }
-    
-//    func updateSearchResultsForSearchController(searchController: UISearchController) {
-//        let searchString = searchController.searchBar.text
-//
-//        filteredArray = dataArray.filter({ (country) -> Bool in
-//            let countryText: NSString = country
-//
-//            return (countryText.rangeOfString(searchString, options: NSStringCompareOptions.CaseInsensitiveSearch).location) != NSNotFound
-//        })
-//
-//        tableView.reloadData()
-//    }
-    
+
+    func filteredDestinationAirports() {
+
+        if let searchString = searchController.searchBar.text,
+            searchString.count > 0 {
+            filteredArray = destinationAirportArray.filter { (airport) -> Bool in
+                let airportNameContainsSearchString = airport.name.localizedStandardContains(searchString)
+                return airportNameContainsSearchString
+            }
+        }
+        else {
+            // zeige alle
+            filteredArray = destinationAirportArray
+        }
+    }
+
+
+
     // MARK: - Action Methods
     // Sort Switch
     @IBAction func sortSwitch(_ sender: UISegmentedControl) {
@@ -265,7 +271,7 @@ extension NavToViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
         -> Int {
             
-            if shouldShowSearchResults {
+            if shouldShowSearchResults == true {
                 return filteredArray.count
             }
             else {
@@ -281,37 +287,33 @@ extension NavToViewController: UITableViewDataSource {
             // get cell from tableView
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DestinationSelectionAirportTableViewCell.identifier) as? DestinationSelectionAirportTableViewCell
                 else { fatalError("")}
-            
-            let airportForRow = destinationAirportArray[indexPath.row]
-            
+
+
             // New Update
-            if shouldShowSearchResults {
-                cell.airportNameLabel.text = filteredArray[indexPath.row]
+            var airportOfInterest: MapObjects.Airport?
+
+            if shouldShowSearchResults == true {
+                airportOfInterest = filteredArray[indexPath.row]
             }
             else {
-                cell.airportNameLabel.text = airportForRow.name
-                cell.icaoLabel.text = airportForRow.icao
-                cell.distanceLabel.text = distanceAsReadable(airportForRow.distance)
-                
-                var countryImage = UIImage.init(named: "spacer")
-                if let country = airportForRow.country {
-                    countryImage = UIImage.init(named: country)
-                }
-                cell.countryImageView.image = countryImage
+                airportOfInterest = destinationAirportArray[indexPath.row]
             }
-            
+
+            guard let airportForRow = airportOfInterest
+                else { fatalError() }
+
 
             // texts in cell
-//            cell.airportNameLabel.text = airportForRow.name
-//            cell.icaoLabel.text = airportForRow.icao
-//            cell.distanceLabel.text = distanceAsReadable(airportForRow.distance)
-//
-//            var countryImage = UIImage.init(named: "spacer")
-//            if let country = airportForRow.country {
-//                countryImage = UIImage.init(named: country)
-//            }
-//            cell.countryImageView.image = countryImage
-            
+            cell.airportNameLabel.text = airportForRow.name
+            cell.icaoLabel.text = airportForRow.icao
+            cell.distanceLabel.text = distanceAsReadable(airportForRow.distance)
+
+            var countryImage = UIImage.init(named: "spacer")
+            if let country = airportForRow.country {
+                countryImage = UIImage.init(named: country)
+            }
+            cell.countryImageView.image = countryImage
+
             return cell
     }
     
