@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,43 +26,43 @@
                                 </connections>
                             </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8yb-8T-kXL">
-                                <rect key="frame" x="20" y="108" width="374" height="211"/>
+                                <rect key="frame" x="20" y="108" width="374" height="229"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="3iw-q3-i4A" userLabel="Label Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="248" height="211"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="248" height="229"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glider Ratio:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRc-6M-XsH">
-                                                <rect key="frame" x="0.0" y="0.0" width="248" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="248" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safety Altitude in m:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55b-9k-XZj">
-                                                <rect key="frame" x="0.0" y="36" width="248" height="31"/>
+                                                <rect key="frame" x="0.0" y="39" width="248" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glider ID:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMn-n2-sUr">
-                                                <rect key="frame" x="0.0" y="72" width="248" height="31"/>
+                                                <rect key="frame" x="0.0" y="78" width="248" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Direction Line:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LK7-KN-Q4d">
-                                                <rect key="frame" x="0.0" y="108" width="248" height="31"/>
+                                                <rect key="frame" x="0.0" y="117" width="248" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Tracking Route:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH1-lu-hfJ">
-                                                <rect key="frame" x="0.0" y="144" width="248" height="31"/>
+                                                <rect key="frame" x="0.0" y="156" width="248" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Airport Database Update:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yzx-Ue-oFV">
-                                                <rect key="frame" x="0.0" y="180" width="248" height="31"/>
+                                                <rect key="frame" x="0.0" y="195" width="248" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -71,10 +70,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="H2j-WP-BrR" userLabel="Setting Stack View">
-                                        <rect key="frame" x="253" y="0.0" width="121" height="211"/>
+                                        <rect key="frame" x="253" y="0.0" width="121" height="229"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Uma-pM-80t" userLabel="Glider Ratio" customClass="TextFields" customModule="iSoar" customModuleProvider="target">
-                                                <rect key="frame" x="21" y="0.0" width="100" height="31"/>
+                                                <rect key="frame" x="21" y="0.0" width="100" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="oap-RJ-P4x"/>
                                                 </constraints>
@@ -85,7 +84,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="vi7-Ik-Pbz" userLabel="Safety Altitude" customClass="TextFields" customModule="iSoar" customModuleProvider="target">
-                                                <rect key="frame" x="21" y="36" width="100" height="31"/>
+                                                <rect key="frame" x="21" y="39" width="100" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="Z5l-Kk-bnP"/>
                                                 </constraints>
@@ -96,7 +95,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="aJN-ar-pUl" userLabel="Glider ID" customClass="TextFields" customModule="iSoar" customModuleProvider="target">
-                                                <rect key="frame" x="21" y="72" width="100" height="31"/>
+                                                <rect key="frame" x="21" y="78" width="100" height="34"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="xzw-8N-tn4"/>
                                                 </constraints>
@@ -107,19 +106,19 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J8h-Ey-VdH" userLabel="Show Direction Line Switch">
-                                                <rect key="frame" x="72" y="108" width="51" height="31"/>
+                                                <rect key="frame" x="72" y="117" width="51" height="34"/>
                                                 <connections>
                                                     <action selector="showDirectionLineSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="Acf-Y2-iMB"/>
                                                 </connections>
                                             </switch>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fpo-31-RHc">
-                                                <rect key="frame" x="72" y="144" width="51" height="31"/>
+                                                <rect key="frame" x="72" y="156" width="51" height="34"/>
                                                 <connections>
                                                     <action selector="showTrackingRouteSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="F4d-NP-Akg"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FdF-xH-HSc">
-                                                <rect key="frame" x="40" y="180" width="81" height="31"/>
+                                                <rect key="frame" x="40" y="195" width="81" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" title="Download"/>
                                                 <connections>
@@ -213,7 +212,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                             </navigationBar>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="flW-Jw-4Fh">
-                                <rect key="frame" x="139.5" y="49" width="135" height="32"/>
+                                <rect key="frame" x="133.5" y="49" width="147" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="o00-NB-bhY"/>
                                 </constraints>
@@ -226,7 +225,7 @@
                                 </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XvE-2e-Xvt" userLabel="Report Missing Airport">
-                                <rect key="frame" x="294.5" y="52" width="25" height="25"/>
+                                <rect key="frame" x="300.5" y="52" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="FjI-lm-kAm"/>
                                     <constraint firstAttribute="height" constant="25" id="YQS-Fo-pdS"/>
@@ -261,24 +260,24 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uOE-BD-KUg">
-                                <rect key="frame" x="0.0" y="143" width="414" height="606"/>
+                                <rect key="frame" x="0.0" y="143" width="414" height="670"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DestinationSelectionAirportTableViewCell" rowHeight="56" id="xvs-1w-Ybi" customClass="DestinationSelectionAirportTableViewCell" customModule="iSoar" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xvs-1w-Ybi" id="9Wi-lG-kHL">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="55.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Airport Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtj-Cz-11D">
-                                                    <rect key="frame" x="55" y="5" width="309" height="20.5"/>
+                                                    <rect key="frame" x="55" y="5" width="309" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ICAO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETc-gI-31x">
-                                                    <rect key="frame" x="55" y="30.5" width="57" height="20"/>
+                                                    <rect key="frame" x="55" y="31" width="57" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="e4s-0a-iwt"/>
                                                         <constraint firstAttribute="width" constant="57" id="pc5-rz-UVx"/>
@@ -288,7 +287,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99999 km" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHa-Et-Tzq">
-                                                    <rect key="frame" x="264" y="30.5" width="100" height="21.5"/>
+                                                    <rect key="frame" x="264" y="31" width="100" height="21.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="IWc-dt-jKj"/>
                                                     </constraints>
@@ -329,37 +328,24 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vB-ZQ-It7" userLabel="Cancel Button" customClass="Buttons" customModule="iSoar" customModuleProvider="target">
-                                <rect key="frame" x="177.5" y="764" width="59" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="I35-PF-eLz"/>
-                                </constraints>
-                                <state key="normal" title="CANCEL"/>
-                                <connections>
-                                    <action selector="SaveButtonTapped:" destination="AW2-mO-9uR" eventType="touchUpInside" id="f2S-eK-43m"/>
-                                    <action selector="cancelButton:" destination="vvT-rw-CMb" eventType="touchUpInside" id="Z6P-Pj-Vbl"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="oz7-YK-1ip" firstAttribute="top" secondItem="TB3-Tq-exz" secondAttribute="top" id="2JV-Cx-v83"/>
-                            <constraint firstItem="TB3-Tq-exz" firstAttribute="bottom" secondItem="1vB-ZQ-It7" secondAttribute="bottom" constant="15" id="7Zs-iV-ZVC"/>
                             <constraint firstItem="zhX-2q-7Us" firstAttribute="leading" secondItem="ViJ-sQ-BHW" secondAttribute="leading" constant="15" id="BBO-H8-SHy"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XvE-2e-Xvt" secondAttribute="trailing" constant="20" id="BeX-jV-8A7"/>
                             <constraint firstItem="uOE-BD-KUg" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" id="CA8-ou-8xc"/>
                             <constraint firstItem="uOE-BD-KUg" firstAttribute="top" secondItem="eu5-OH-egv" secondAttribute="bottom" constant="15" id="Dzg-0U-BHC"/>
                             <constraint firstItem="zhX-2q-7Us" firstAttribute="top" secondItem="eu5-OH-egv" secondAttribute="top" id="GbJ-Uw-9ee"/>
+                            <constraint firstItem="uOE-BD-KUg" firstAttribute="bottom" secondItem="TB3-Tq-exz" secondAttribute="bottom" id="H6j-GQ-QYn"/>
                             <constraint firstItem="flW-Jw-4Fh" firstAttribute="centerX" secondItem="TB3-Tq-exz" secondAttribute="centerX" id="Hyt-4e-lbP"/>
                             <constraint firstItem="eid-Eo-OlS" firstAttribute="centerY" secondItem="eu5-OH-egv" secondAttribute="centerY" id="MIe-Ra-pZf"/>
                             <constraint firstItem="flW-Jw-4Fh" firstAttribute="top" secondItem="oz7-YK-1ip" secondAttribute="top" constant="5" id="P0q-5g-dpQ"/>
                             <constraint firstItem="oz7-YK-1ip" firstAttribute="centerX" secondItem="TB3-Tq-exz" secondAttribute="centerX" id="Vjs-0q-17q"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" secondItem="oz7-YK-1ip" secondAttribute="trailing" id="WYh-8P-c9h"/>
-                            <constraint firstItem="1vB-ZQ-It7" firstAttribute="top" secondItem="uOE-BD-KUg" secondAttribute="bottom" constant="15" id="XFa-TZ-a34"/>
                             <constraint firstItem="XvE-2e-Xvt" firstAttribute="leading" secondItem="flW-Jw-4Fh" secondAttribute="trailing" constant="20" id="bkk-E2-Qib"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" secondItem="uOE-BD-KUg" secondAttribute="trailing" id="drT-rg-LPG"/>
                             <constraint firstItem="zhX-2q-7Us" firstAttribute="centerY" secondItem="eu5-OH-egv" secondAttribute="centerY" id="fPK-0C-cdr"/>
-                            <constraint firstItem="1vB-ZQ-It7" firstAttribute="centerX" secondItem="TB3-Tq-exz" secondAttribute="centerX" id="iae-C4-RAs"/>
                             <constraint firstItem="eu5-OH-egv" firstAttribute="leading" secondItem="zhX-2q-7Us" secondAttribute="trailing" constant="15" id="k92-N1-FTD"/>
                             <constraint firstItem="eu5-OH-egv" firstAttribute="top" secondItem="oz7-YK-1ip" secondAttribute="bottom" constant="15" id="pt8-1V-Ylz"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" secondItem="eid-Eo-OlS" secondAttribute="trailing" constant="20" id="r27-tf-vsN"/>
@@ -373,7 +359,6 @@
                         <outlet property="airportInfoButton" destination="eid-Eo-OlS" id="mUw-Bg-1jn"/>
                         <outlet property="airportName" destination="eu5-OH-egv" id="tes-Dm-Icz"/>
                         <outlet property="airportsSortedBySwitch" destination="flW-Jw-4Fh" id="2dm-Eo-HIE"/>
-                        <outlet property="cancelButton" destination="1vB-ZQ-It7" id="CVh-76-FtA"/>
                         <outlet property="countryImageTop" destination="zhX-2q-7Us" id="32s-eg-J1m"/>
                         <outlet property="tableView" destination="uOE-BD-KUg" id="XXD-9h-TMI"/>
                     </connections>
@@ -408,11 +393,11 @@
             <objects>
                 <viewController id="3Br-pt-Icv" customClass="AirportInfoViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4Ax-e0-FBb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okQ-ly-N2X">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="hox-H6-A75"/>
                                 </constraints>
@@ -420,7 +405,7 @@
                                     <navigationItem title="Airport Informations" id="tVb-FX-RAd">
                                         <barButtonItem key="rightBarButtonItem" title="Close" style="done" id="Qxd-yi-WvA">
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bfN-vw-tZQ">
-                                                <rect key="frame" x="355" y="7" width="39" height="30"/>
+                                                <rect key="frame" x="355" y="13" width="39" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Close"/>
                                                 <connections>
@@ -432,13 +417,13 @@
                                 </items>
                             </navigationBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AirportName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ot4-9d-8Tg" userLabel="AirportName">
-                                <rect key="frame" x="20" y="108" width="374" height="30"/>
+                                <rect key="frame" x="20" y="64" width="374" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Vwd-wo-QJT" userLabel="Airport Info Stack View">
-                                <rect key="frame" x="20" y="146" width="374" height="303.5"/>
+                                <rect key="frame" x="20" y="102" width="374" height="303.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="WFc-Ye-C4Z" userLabel="ICAO Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="21.5"/>
@@ -646,7 +631,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FjM-EA-mHZ" userLabel="Report new Data" customClass="Buttons" customModule="iSoar" customModuleProvider="target">
-                                <rect key="frame" x="149.5" y="808" width="115" height="34"/>
+                                <rect key="frame" x="149.5" y="754" width="115" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="A8x-eF-uv4"/>
                                 </constraints>

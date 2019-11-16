@@ -11,7 +11,7 @@ import CoreLocation
 import MessageUI
 import AVFoundation
 
-class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate {
+class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate, UISearchBarDelegate {
     
     //MARK: Lets and Vars
     // Datasource
@@ -25,6 +25,15 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     // Pull to Refresh of TableView
     private let refreshControl = UIRefreshControl()
     
+    
+    
+    // SearchController
+    var searchController: UISearchController!
+    
+    //var dataArray = [MapObjects.Airport]()
+    var filteredArray = [String]()
+    var shouldShowSearchResults = false
+    
     // MARK: - IBOutlets
     
     @IBOutlet weak var countryImageTop: UIImageView!
@@ -32,7 +41,6 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
     @IBOutlet weak var airportInfoButton: UIButton!
     @IBOutlet weak var airportsSortedBySwitch: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var cancelButton: Buttons!
     
     // MARK: - Init&Co.
     override func viewDidLoad() {
@@ -45,8 +53,10 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         tableView.addSubview(refreshControl)
         refreshControl.addTarget(self, action: #selector(refreshAirportDatabase),
                                  for: .valueChanged)
-        //refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
         refreshControl.attributedTitle = NSAttributedString(string: "Fetching new Airport Database")
+        
+        // Search Controller
+        setupSearchController()
         
     }
     
@@ -55,17 +65,17 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         
         MapObjects.shared.updateDistance()
         setupTableViewDatasource()
-
+        
         // if there is a selectedDestinationAirport, select corresponding tableViewCell
         if let selectedDestinationAirport = MapScreen.shared?.selectedDestinationAirport,
             let row = destinationAirportArray.firstIndex(of: selectedDestinationAirport) {
-
+            
             let indexPathForSelectedDestinationAirport = IndexPath.init(row: row, section: 0)
             tableView.selectRow(at: indexPathForSelectedDestinationAirport,
                                 animated: true,
                                 scrollPosition: .middle)
         }
-
+        
         updateUIForSelectedDestinationAirport()
         
         // Register Observers for notfications
@@ -91,7 +101,7 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
                             alert.addAction(UIAlertAction(title: "OK",
                                                           style: .default,
                                                           handler: {(alert: UIAlertAction!) in self.refreshControl.endRefreshing()}))
-
+                            
                             self.present(alert, animated: true)
                             
         }
@@ -114,13 +124,11 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
             countryImageTop.image = UIImage(named: destinationAirport.country!)
             airportName.text = destinationAirport.name
             airportInfoButton.isHidden = false
-            cancelButton.isHidden = false
         }
         else {
             countryImageTop.image = UIImage(named: "spacer")
-            airportName.text = "(Kein Ziel gewählt)"
+            airportName.text = "Choose your Destination"
             airportInfoButton.isHidden = true
-            cancelButton.isHidden = true
         }
     }
     
@@ -184,6 +192,50 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         
     }
     
+    // Set up Search Controller
+    func setupSearchController() {
+        searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self as? UISearchResultsUpdating
+        searchController.searchBar.placeholder = "Search Airport"
+        searchController.searchBar.delegate = self
+        searchController.searchBar.sizeToFit()
+        searchController.isActive = false
+        // Place the search bar view to the tableview headerview.
+        tableView.tableHeaderView = searchController.searchBar
+        
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        shouldShowSearchResults = true
+        tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        shouldShowSearchResults = false
+        tableView.reloadData()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if !shouldShowSearchResults {
+            shouldShowSearchResults = true
+            tableView.reloadData()
+        }
+     
+        searchController.searchBar.resignFirstResponder()
+    }
+    
+//    func updateSearchResultsForSearchController(searchController: UISearchController) {
+//        let searchString = searchController.searchBar.text
+//
+//        filteredArray = dataArray.filter({ (country) -> Bool in
+//            let countryText: NSString = country
+//
+//            return (countryText.rangeOfString(searchString, options: NSStringCompareOptions.CaseInsensitiveSearch).location) != NSNotFound
+//        })
+//
+//        tableView.reloadData()
+//    }
+    
     // MARK: - Action Methods
     // Sort Switch
     @IBAction func sortSwitch(_ sender: UISegmentedControl) {
@@ -200,18 +252,6 @@ class NavToViewController: UIViewController, MFMailComposeViewControllerDelegate
         performSegue(withIdentifier: "AirportInfoSegue", sender: self)
     }
     
-    // Cancel Button
-    @IBAction func cancelButton(_ sender: Buttons) {
-        // reset selectedDestinationAirport on MapScreenViewController
-        MapScreen.shared!.selectedDestinationAirport = nil
-        updateUIForSelectedDestinationAirport()
-
-        let selectedIndexPath = tableView.indexPathForSelectedRow
-        tableView.deselectRow(at: selectedIndexPath!, animated: false)
-
-        print("Route canceled")
-    }
-    
 }
 
 // MARK: - Extension - UITableViewDataSource
@@ -224,8 +264,15 @@ extension NavToViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
         -> Int {
-            let numberOfRowsInSection = destinationAirportArray.count
-            return numberOfRowsInSection
+            
+            if shouldShowSearchResults {
+                return filteredArray.count
+            }
+            else {
+                let numberOfRowsInSection = destinationAirportArray.count
+                return numberOfRowsInSection
+            }
+
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
@@ -237,17 +284,34 @@ extension NavToViewController: UITableViewDataSource {
             
             let airportForRow = destinationAirportArray[indexPath.row]
             
-            // texts in cell
-            cell.airportNameLabel.text = airportForRow.name
-            cell.icaoLabel.text = airportForRow.icao
-            cell.distanceLabel.text = distanceAsReadable(airportForRow.distance)
-            
-            var countryImage = UIImage.init(named: "spacer")
-            if let country = airportForRow.country {
-                countryImage = UIImage.init(named: country)
+            // New Update
+            if shouldShowSearchResults {
+                cell.airportNameLabel.text = filteredArray[indexPath.row]
             }
-            cell.countryImageView.image = countryImage
+            else {
+                cell.airportNameLabel.text = airportForRow.name
+                cell.icaoLabel.text = airportForRow.icao
+                cell.distanceLabel.text = distanceAsReadable(airportForRow.distance)
+                
+                var countryImage = UIImage.init(named: "spacer")
+                if let country = airportForRow.country {
+                    countryImage = UIImage.init(named: country)
+                }
+                cell.countryImageView.image = countryImage
+            }
+            
 
+            // texts in cell
+//            cell.airportNameLabel.text = airportForRow.name
+//            cell.icaoLabel.text = airportForRow.icao
+//            cell.distanceLabel.text = distanceAsReadable(airportForRow.distance)
+//
+//            var countryImage = UIImage.init(named: "spacer")
+//            if let country = airportForRow.country {
+//                countryImage = UIImage.init(named: country)
+//            }
+//            cell.countryImageView.image = countryImage
+            
             return cell
     }
     
@@ -255,23 +319,23 @@ extension NavToViewController: UITableViewDataSource {
 
 //MARK: - Extension - UITableViewDelegate
 extension NavToViewController: UITableViewDelegate {
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let newSelectedDestinationAirport = destinationAirportArray[indexPath.row]
-
+        
         //if new selected destination equals the former: it means we want to cancel the navigation
         // we deselect the cell and set selectedDestinationAirport = nil
         if let formerSelectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport,
             newSelectedDestinationAirport == formerSelectedDestinationAirport {
-                MapScreen.shared!.selectedDestinationAirport = nil
-                tableView.deselectRow(at: indexPath, animated: true)
+            MapScreen.shared!.selectedDestinationAirport = nil
+            tableView.deselectRow(at: indexPath, animated: true)
         }
         else {
-             MapScreen.shared!.selectedDestinationAirport = newSelectedDestinationAirport
+            MapScreen.shared!.selectedDestinationAirport = newSelectedDestinationAirport
         }
-
+        
         updateUIForSelectedDestinationAirport()
     }
-
+    
 }
