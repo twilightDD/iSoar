@@ -7,5 +7,6 @@ target 'Glider Tool' do
 
   # Pods for Glider Tool
     pod 'Mapbox-iOS-SDK', '~> 5.5'
+    pod 'Socket.IO-Client-Swift', '~> 15.2.0'
 
 end
