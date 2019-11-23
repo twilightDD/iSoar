@@ -132,10 +132,11 @@
 		E0B52F702283753400E28A93 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */,
 				E0E1D879229476C00004DE81 /* RouteViewController.swift */,
-				E086AB0A229C35890011C433 /* SettingsViewController.swift */,
 				E0A215BA235E2D0D009F6953 /* TableViewController.swift */,
+				E086AB0A229C35890011C433 /* SettingsViewController.swift */,
+				E0B8142A2367450200D88B6C /* Logbook.swift */,
+				E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -188,9 +189,8 @@
 				E0526AB022BF7056001FC6B4 /* Extensions */,
 				E0DA9414228D267500D3A854 /* Airports */,
 				E0B52F702283753400E28A93 /* ViewControllers */,
-				EDA236222130AA7500739396 /* AppDelegate.swift */,
 				EDA236342130AA9A00739396 /* MapScreen.swift */,
-				E0B8142A2367450200D88B6C /* Logbook.swift */,
+				EDA236222130AA7500739396 /* AppDelegate.swift */,
 				E011D4C023735CB9006F0CC3 /* OGNLocations.swift */,
 				EDA236262130AA7500739396 /* Main.storyboard */,
 				EDA236292130AA7600739396 /* Assets.xcassets */,
