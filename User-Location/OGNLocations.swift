@@ -6,6 +6,46 @@
 //  Copyright © 2019 Denis Leupold. All rights reserved.
 //
 
+import SocketIO
+
+//MARK: - SocketIO
+class OGNLocations{
+    
+    //MARK: - Lets and Vars
+    static let shared = OGNLocations()
+    
+    //MARK: - Init&Co.
+    private init(){
+    }
+    
+    //MARK: - Public Methods
+    // Connect to Socket
+    func socketConnect () {
+        let manager = SocketManager(socketURL: URL(string: "aprs.glidernet.org:14580")!, config: [.log(true), .compress])
+        
+        let socket = manager.defaultSocket
+        socket.on(clientEvent: .connect) {data, ack in
+            print("socket connected")
+        }
+        socket.on("currentAmount") {data, ack in
+            guard let cur = data[0] as? Double else { return }
+            
+            socket.emitWithAck("canUpdate", cur).timingOut(after: 0) {data in
+                socket.emit("update", ["amount": cur + 2.50])
+            }
+            ack.with("Got your currentAmount", "dude")
+        }
+        socket.connect()
+    }
+    
+}
+
+
+
+
+
+
+
 // http://wiki.glidernet.org/wiki:subscribe-to-ogn-data
 
 // http://www.aprs-is.net/Connecting.aspx
@@ -14,10 +54,6 @@
 
 // A sample receive only log in sent to a server TCP port 14580 might be:
 // user AE5PL-TS pass -1 vers testsoftware 1.0_05 filter r/33.25/-96.5/50
-
-//let api = "aprs.glidernet.org"
-//let port = "14580"
-//let url = URL(string: api + ":" + port)
 
 
 
@@ -34,26 +70,3 @@
 //let filter = "r/47/9/100"
 //
 //let connectString = "user \(user) pass \(pass) vers \(softwarename) \(softwareversion) filter \(filter)"
-
-
-
-import SocketIO
-
-//let manager = SocketManager(socketURL: URL(string: "http://localhost:8080")!, config: [.log(true), .compress])
-//let socket = manager.defaultSocket
-//
-//socket.on(clientEvent: .connect) {data, ack in
-//    print("socket connected")
-//}
-//
-//socket.on("currentAmount") {data, ack in
-//    guard let cur = data[0] as? Double else { return }
-//
-//    socket.emitWithAck("canUpdate", cur).timingOut(after: 0) {data in
-//        socket.emit("update", ["amount": cur + 2.50])
-//    }
-//
-//    ack.with("Got your currentAmount", "dude")
-//}
-//
-//socket.connect()
