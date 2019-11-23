@@ -37,7 +37,7 @@ class MapScreen: UIViewController {
     
     //let altimeter = CMAltimeter()
     
-    var selectedDestinationAirport:MapObjects.Airport? {
+    var selectedDestinationAirport:AirportDatabase.Airport? {
         didSet {
             updateDirectionLabelsAndLine()
         }

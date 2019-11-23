@@ -58,7 +58,7 @@ class SettingsViewController: UIViewController {
         
         // Register observer for notfications
         airportUpdateFailedNotification = NotificationCenter.default
-            .addObserver(forName: MapObjects.airportUpdateFailedNotificationName,
+            .addObserver(forName: AirportDatabase.airportUpdateFailedNotificationName,
                          object: nil,
                          queue: OperationQueue.main) { [unowned self] (notification) in
                             
@@ -164,7 +164,7 @@ class SettingsViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Yes",
                                       style: .default,
                                       handler: { action in
-                                        MapObjects.shared.downloadMapObjectsFromServer()
+                                        AirportDatabase.shared.downloadMapObjectsFromServer()
         }))
         alert.addAction(UIAlertAction(title: "No",
                                       style: .cancel,
