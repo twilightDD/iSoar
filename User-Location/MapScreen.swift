@@ -20,7 +20,6 @@ class MapScreen: UIViewController {
     
     // MARK: IBOutlets
     @IBOutlet private var mapView: MGLMapView!
-    @IBOutlet private weak var topBar: UIView!
     @IBOutlet private weak var courseLabel: UILabel!
     @IBOutlet private weak var altitudeLabel: UILabel!
     @IBOutlet private weak var speedLabel: UILabel!
