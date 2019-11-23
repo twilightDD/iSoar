@@ -32,7 +32,6 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var showDirectionLineSwitch: UISwitch!
     @IBOutlet weak var showTrackingRouteSwitch: UISwitch!
     
-    
     //MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -155,6 +154,7 @@ class SettingsViewController: UIViewController {
         }
     }
     
+    // Download updated Airport Database File from Server
     @IBAction func downloadAirportUpdates(_ sender: UIButton) {
         
         let alert = UIAlertController(title: "Download Airport Updates",
@@ -174,6 +174,12 @@ class SettingsViewController: UIViewController {
         
     }
     
+    // ToDo: Temporary Socket Connect Button
+    @IBAction func SocketConnect(_ sender: UIButton) {
+        OGNLocations.shared.socketConnect()
+    }
+    
+    // Save User Defaults
     @IBAction func SaveButtonTapped(_ sender: Buttons) {
         saveSettings()
         self.view.endEditing(true)
