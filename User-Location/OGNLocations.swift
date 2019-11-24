@@ -15,9 +15,12 @@ class OGNLocations{
     static let shared = OGNLocations()
     var connection: NWConnection?
     private var queue = DispatchQueue(label: "NetworkQuue", qos: .utility)
+    var username = ""
     
     // MARK: - Init&Co.
     private init(){
+        generateRandomUsername()
+
     }
     
     // MARK: - Public Methods
@@ -41,8 +44,8 @@ class OGNLocations{
                 case .ready:
                     //The connection is established and ready to send and recieve data.
                     print("Connection: Ready")
-                    self.sendPaket("user XYZ1ADL27 pass -1 vers iSoar 1 filter r/47.80/8.97/1")
-                    print("Sending Filter Request")
+                    print("Login String: user \(self.username) pass -1 vers iSoar 1.0_04 filter r/33.25/-96.5/50")
+                    self.sendPaket("user \(self.username) pass -1 vers iSoar 1.0_04 filter r/33.25/-96.5/50")
                     self.receiveMessage()
                 case .failed:
                     //The connection in the process of being established
@@ -59,6 +62,14 @@ class OGNLocations{
     }
     
     // MARK: - Private Methods
+    // Generate Random Username
+    private func generateRandomUsername() {
+        let length = 9
+        let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        let randomCharacters = (0..<length).map{_ in characters.randomElement()!}
+        username = String(randomCharacters)
+    }
+    
     // Send Filter Request to Server
     private func sendPaket(_ packet:String)
     {
