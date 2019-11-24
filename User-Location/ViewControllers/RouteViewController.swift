@@ -307,8 +307,6 @@ extension RouteViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        //let newSelectedDestinationAirport = destinationAirportArray[indexPath.row]
-        
         let newSelectedDestinationAirport: AirportDatabase.Airport?
         if shouldShowSearchResults == true {
             newSelectedDestinationAirport = filteredArray[indexPath.row]
@@ -359,6 +357,8 @@ extension RouteViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterDestinationAirports()
+        airportSearchString = searchController.searchBar.text!
+        searchController.searchBar.placeholder = "Got \(filteredArray.count) results for \( airportSearchString)"
         tableView.reloadData()
     }
     
