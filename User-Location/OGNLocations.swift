@@ -13,15 +13,23 @@ class OGNLocations{
     
     // MARK: - Lets and Vars
     static let shared = OGNLocations()
-    var connection: NWConnection?
-    private var queue = DispatchQueue(label: "NetworkQuue", qos: .utility)
-    var username = ""
-    
-    // MARK: - Init&Co.
-    private init(){
-        generateRandomUsername()
 
-    }
+    private var connection: NWConnection?
+    private var queue = DispatchQueue(label: "NetworkQueue", qos: .utility)
+    private lazy var userName = generateRandomUserName()
+
+
+    // MARK: - Init&Co.
+
+    // Generate Random Username
+       private func generateRandomUserName()
+       -> String {
+           let length = 9
+           let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+           let randomCharacters = (0..<length).map{_ in characters.randomElement()!}
+           let username = String(randomCharacters)
+           return username
+       }
     
     // MARK: - Public Methods
     // Connect to Server Socket
@@ -44,8 +52,8 @@ class OGNLocations{
                 case .ready:
                     //The connection is established and ready to send and recieve data.
                     print("Connection: Ready")
-                    print("Login String: user \(self.username) pass -1 vers iSoar 1.0_04 filter r/33.25/-96.5/50")
-                    self.sendPaket("user \(self.username) pass -1 vers iSoar 1.0_04 filter r/33.25/-96.5/50")
+                    print("Login String: user \(self.userName) pass -1 vers iSoar 1.0_04 filter r/33.25/-96.5/50")
+                    self.sendPaket("user \(self.userName) pass -1 vers iSoar 1.0_04 filter r/33.25/-96.5/50")
                     self.receiveMessage()
                 case .failed:
                     //The connection in the process of being established
@@ -62,13 +70,7 @@ class OGNLocations{
     }
     
     // MARK: - Private Methods
-    // Generate Random Username
-    private func generateRandomUsername() {
-        let length = 9
-        let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        let randomCharacters = (0..<length).map{_ in characters.randomElement()!}
-        username = String(randomCharacters)
-    }
+
     
     // Send Filter Request to Server
     private func sendPaket(_ packet:String)
