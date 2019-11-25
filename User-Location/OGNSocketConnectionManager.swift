@@ -1,5 +1,5 @@
 //
-//  OGNLocations.swift
+//  OGNSocketConnectionManager.swift
 //  Glider Tool
 //
 //  Created by sonic on 06.11.19.
@@ -9,10 +9,10 @@
 import Network
 
 // MARK: - OGNLocations
-class OGNLocations{
+class OGNSocketConnectionManager{
     
     // MARK: - Lets and Vars
-    static let shared = OGNLocations()
+    static let shared = OGNSocketConnectionManager()
 
     private var connection: NWConnection?
     private var queue = DispatchQueue(label: "NetworkQueue", qos: .utility)
