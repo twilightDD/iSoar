@@ -18,9 +18,11 @@ class SettingsViewController: UIViewController {
     var airportUpdateFailedNotification:NSObjectProtocol?
     
     struct Settings {
-        static let gliderRatio = "gliderRatio"
-        static let safetyAltitude = "safetyAltitude"
-        static let gliderID = "gliderID"
+        static let GliderRatioKey = "gliderRatio"
+        static let SafetyAltitudeKey = "safetyAltitude"
+        static let GliderIDKey = "gliderID"
+        static let LandingGearWarningSwitchKey = "landingGearWarningSwitch"
+        static let ShowTrackingRouteSwitchKey = "showTrackingRouteSwitch"
     }
     
     // MARK: IBOutlets
@@ -38,16 +40,7 @@ class SettingsViewController: UIViewController {
         gliderIDTextField.delegate = self
         safetyAltitudeTextField.delegate = self
         gliderIDTextField.delegate = self
-        
-        // Landing Gear Warning Switch Setup
-        if (defaults.object(forKey: "LandingGearWarningSwitchState") != nil) {
-            landingGearWarningSwitch.isOn = defaults.bool(forKey: "LandingGearWarningSwitchState")
-        }
-        
-        // Tracking Route Switch Setup
-        if (defaults.object(forKey: "ShowTrackingRouteSwitchState") != nil) {
-            showTrackingRouteSwitch.isOn = defaults.bool(forKey: "ShowTrackingRouteSwitchState")
-        }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,14 +76,20 @@ class SettingsViewController: UIViewController {
     class func setupUserDefaults() {
         let defaults = UserDefaults.standard
         
-        if defaults.value(forKey: Settings.gliderRatio) == nil {
-            defaults.set(20, forKey: Settings.gliderRatio)
+        if defaults.value(forKey: Settings.GliderRatioKey) == nil {
+            defaults.set(20, forKey: Settings.GliderRatioKey)
         }
-        if defaults.value(forKey: Settings.safetyAltitude) == nil {
-            defaults.set(200, forKey: Settings.safetyAltitude)
+        if defaults.value(forKey: Settings.SafetyAltitudeKey) == nil {
+            defaults.set(200, forKey: Settings.SafetyAltitudeKey)
         }
-        if defaults.value(forKey: Settings.gliderID) == nil {
-            defaults.set("D-1234", forKey: Settings.gliderID)
+        if defaults.value(forKey: Settings.GliderIDKey) == nil {
+            defaults.set("D-1234", forKey: Settings.GliderIDKey)
+        }
+        if defaults.value(forKey: Settings.LandingGearWarningSwitchKey) == nil {
+            defaults.set(true, forKey: Settings.LandingGearWarningSwitchKey)
+        }
+        if defaults.value(forKey: Settings.ShowTrackingRouteSwitchKey) == nil {
+            defaults.set(true, forKey: Settings.ShowTrackingRouteSwitchKey)
         }
         
     }
@@ -99,17 +98,25 @@ class SettingsViewController: UIViewController {
     // Read User Defaults and display them on screen
     func setupUI(){
         
-        let gliderRatio = defaults.value( forKey: Settings.gliderRatio) as! Double
+        let gliderRatio = defaults.value( forKey: Settings.GliderRatioKey) as! Double
         let gliderRatioString = String(format: "%.f", gliderRatio)
         gliderRatioTextField.text! = gliderRatioString
         
-        let safetyAltitude = defaults.value( forKey: Settings.safetyAltitude) as! Double
+        let safetyAltitude = defaults.value( forKey: Settings.SafetyAltitudeKey) as! Double
         let safetyAltitudeString = String(format: "%.f", safetyAltitude)
         safetyAltitudeTextField.text! = safetyAltitudeString
         
-        let gliderID = defaults.value(forKey: Settings.gliderID) as? String ?? "D-1234"
+        let gliderID = defaults.value(forKey: Settings.GliderIDKey) as? String ?? "D-1234"
         gliderIDTextField.text! = gliderID
-        
+
+
+        // Landing Gear Warning Switch Setup
+        let landingGearWarningSwitchState = defaults.value(forKey: Settings.LandingGearWarningSwitchKey) as! Bool
+        landingGearWarningSwitch.isOn = landingGearWarningSwitchState
+
+        // Tracking Route Switch Setup
+        let showTrackingRouteSwitchState = defaults.value(forKey: Settings.ShowTrackingRouteSwitchKey) as! Bool
+        showTrackingRouteSwitch.isOn = showTrackingRouteSwitchState
     }
     
     // Save Settings to User Defaults
@@ -120,9 +127,9 @@ class SettingsViewController: UIViewController {
         let safetyAltitudeString = safetyAltitudeTextField.text!
         let safetyAltitudeDouble = (safetyAltitudeString as NSString).doubleValue
         
-        defaults.set(gliderRatioDouble, forKey: Settings.gliderRatio);
-        defaults.set(safetyAltitudeDouble, forKey: Settings.safetyAltitude);
-        defaults.set(gliderIDTextField.text!, forKey: Settings.gliderID);
+        defaults.set(gliderRatioDouble, forKey: Settings.GliderRatioKey);
+        defaults.set(safetyAltitudeDouble, forKey: Settings.SafetyAltitudeKey);
+        defaults.set(gliderIDTextField.text!, forKey: Settings.GliderIDKey);
         
         // MARK: - Output
         
