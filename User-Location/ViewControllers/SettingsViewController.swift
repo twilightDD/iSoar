@@ -144,20 +144,12 @@ class SettingsViewController: UIViewController {
     
     // MARK: - Action Methods
     // Landing Gear Warning Switch
-    @IBAction func landingGearWarningSwitch(_ sender: Any) {
-        if landingGearWarningSwitch.isOn {
-            defaults.set(true, forKey: "LandingGearWarningSwitchState")
-        } else {
-            defaults.set(false, forKey: "LandingGearWarningSwitchState")
-        }
+    @IBAction func landingGearWarningSwitch(_ sender: UISwitch) {
+        defaults.set(landingGearWarningSwitch.isOn, forKey: Settings.LandingGearWarningSwitchKey)
     }
     
-    @IBAction func showTrackingRouteSwitch(_ sender: Any) {
-        if showTrackingRouteSwitch.isOn {
-            defaults.set(true, forKey: "ShowTrackingRouteSwitchState")
-        } else {
-            defaults.set(false, forKey: "ShowTrackingRouteSwitchState")
-        }
+    @IBAction func showTrackingRouteSwitch(_ sender: UISwitch) {
+        defaults.set(showTrackingRouteSwitch.isOn, forKey: Settings.ShowTrackingRouteSwitchKey)
     }
     
     // Download updated Airport Database File from Server
