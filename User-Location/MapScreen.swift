@@ -359,8 +359,8 @@ class MapScreen: UIViewController {
         let defaults = UserDefaults.standard
         
         // Calculate Glider Sink Rate to Destination
-        let safetyAltitude = defaults.value(forKey: SettingsViewController.Settings.safetyAltitude) as! Double
-        let gliderRatio = defaults.value(forKey: SettingsViewController.Settings.gliderRatio) as! Double
+        let safetyAltitude = defaults.value(forKey: SettingsViewController.Settings.SafetyAltitudeKey) as! Double
+        let gliderRatio = defaults.value(forKey: SettingsViewController.Settings.GliderRatioKey) as! Double
         
         // Calculate Glider Sink Rate to Destination Airport
         let gliderRatioMeter = gliderRatio * 1000       //Gleitzahl in Meter
