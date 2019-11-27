@@ -27,10 +27,11 @@ class MapScreen: UIViewController {
     @IBOutlet private weak var destinationAltitudeLabel: UILabel!
     @IBOutlet private weak var destinationAirportLabel: UILabel!
     
-    // MARK: properties
+    // MARK: Lets and Vars
     let locationManager = CLLocationManager()
     var currentLocation:CLLocation?
     var currentDistance:CLLocationDistance?
+    let defaults = UserDefaults.standard
     
     lazy var userLocationButton:UserLocationButton = createUserLocationButton()
     

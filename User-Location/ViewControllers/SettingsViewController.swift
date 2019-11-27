@@ -8,11 +8,10 @@
 
 import UIKit
 
-
-//MARK: SettingsViewController
+// MARK: SettingsViewController
 class SettingsViewController: UIViewController {
     
-    //MARK: Lets and Vats
+    // MARK: Lets and Vats
     let defaults = UserDefaults.standard
     
     // Notification Observers
@@ -24,15 +23,14 @@ class SettingsViewController: UIViewController {
         static let gliderID = "gliderID"
     }
     
-    
-    //MARK: IBOutlets
+    // MARK: IBOutlets
     @IBOutlet weak var gliderRatioTextField: TextFields!
     @IBOutlet weak var safetyAltitudeTextField: TextFields!
     @IBOutlet weak var gliderIDTextField: TextFields!
-    @IBOutlet weak var showDirectionLineSwitch: UISwitch!
+    @IBOutlet weak var landingGearWarningSwitch: UISwitch!
     @IBOutlet weak var showTrackingRouteSwitch: UISwitch!
     
-    //MARK: - Init&Co.
+    // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -41,9 +39,9 @@ class SettingsViewController: UIViewController {
         safetyAltitudeTextField.delegate = self
         gliderIDTextField.delegate = self
         
-        // Direction Line Switch Setup
-        if (defaults.object(forKey: "ShowDirectionToDestinationAirportSwitchState") != nil) {
-            showDirectionLineSwitch.isOn = defaults.bool(forKey: "ShowDirectionToDestinationAirportSwitchState")
+        // Landing Gear Warning Switch Setup
+        if (defaults.object(forKey: "LandingGearWarningSwitchState") != nil) {
+            landingGearWarningSwitch.isOn = defaults.bool(forKey: "LandingGearWarningSwitchState")
         }
         
         // Tracking Route Switch Setup
@@ -80,7 +78,7 @@ class SettingsViewController: UIViewController {
         }
     }
     
-    //MARK: - Public Class Methods
+    // MARK: - Public Class Methods
     // Set up User Defaults if they have no values
     class func setupUserDefaults() {
         let defaults = UserDefaults.standard
@@ -94,9 +92,10 @@ class SettingsViewController: UIViewController {
         if defaults.value(forKey: Settings.gliderID) == nil {
             defaults.set("D-1234", forKey: Settings.gliderID)
         }
+        
     }
     
-    //MARK: - Private Instance Methods
+    // MARK: - Private Instance Methods
     // Read User Defaults and display them on screen
     func setupUI(){
         
@@ -113,7 +112,7 @@ class SettingsViewController: UIViewController {
         
     }
     
-    //Save Settings to User Defaults
+    // Save Settings to User Defaults
     func saveSettings(){
         let gliderRatioString = gliderRatioTextField.text!
         let gliderRatioDouble = (gliderRatioString as NSString).doubleValue
@@ -132,17 +131,17 @@ class SettingsViewController: UIViewController {
         //        print("Glider Ratio set to: \(defaults.value(forKey: Settings.gliderRatio)!)")
         //        print("Safety Altitude set to: \(defaults.value(forKey: Settings.safetyAltitude)!)")
         //        print("Glider ID set to: \(defaults.value(forKey: Settings.gliderID)!)")
-        //        print("Direction Line Switch: \(defaults.bool(forKey: "ShowDirectionToDestinationAirportSwitchState"))")
-        //        print("Tracking Route Switch: \(defaults.bool(forKey: "ShowTrackingRouteSwitchState"))")
+        print("Landing Gear Warning Switch is On: \(defaults.bool(forKey: "LandingGearWarningSwitchState"))")
+        print("Tracking Route Switch is On: \(defaults.bool(forKey: "ShowTrackingRouteSwitchState"))")
     }
     
-    //MARK: - Action Methods
-    // Direction Line Switch
-    @IBAction func showDirectionLineSwitch(_ sender: Any) {
-        if showDirectionLineSwitch.isOn {
-            defaults.set(true, forKey: "ShowDirectionToDestinationAirportSwitchState")
+    // MARK: - Action Methods
+    // Landing Gear Warning Switch
+    @IBAction func landingGearWarningSwitch(_ sender: Any) {
+        if landingGearWarningSwitch.isOn {
+            defaults.set(true, forKey: "LandingGearWarningSwitchState")
         } else {
-            defaults.set(false, forKey: "ShowDirectionToDestinationAirportSwitchState")
+            defaults.set(false, forKey: "LandingGearWarningSwitchState")
         }
     }
     
@@ -187,7 +186,7 @@ class SettingsViewController: UIViewController {
     
 }
 
-//MARK: - Extension - UITextFieldDelegate
+// MARK: - Extension - UITextFieldDelegate
 extension SettingsViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField)
