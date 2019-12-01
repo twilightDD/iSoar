@@ -13,6 +13,7 @@ class SettingsViewController: UIViewController {
     
     // MARK: Lets and Vats
     let defaults = UserDefaults.standard
+    var activeTextField = UITextField()
     
     // Notification Observers
     var airportUpdateFailedNotification:NSObjectProtocol?
@@ -40,7 +41,7 @@ class SettingsViewController: UIViewController {
         gliderIDTextField.delegate = self
         safetyAltitudeTextField.delegate = self
         gliderIDTextField.delegate = self
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,22 +99,24 @@ class SettingsViewController: UIViewController {
     // Read User Defaults and display them on screen
     func setupUI(){
         
+        // Glider Ratio
         let gliderRatio = defaults.value( forKey: Settings.GliderRatioKey) as! Double
         let gliderRatioString = String(format: "%.f", gliderRatio)
         gliderRatioTextField.text! = gliderRatioString
         
+        // Safety Altitude
         let safetyAltitude = defaults.value( forKey: Settings.SafetyAltitudeKey) as! Double
         let safetyAltitudeString = String(format: "%.f", safetyAltitude)
         safetyAltitudeTextField.text! = safetyAltitudeString
         
+        // Glider ID
         let gliderID = defaults.value(forKey: Settings.GliderIDKey) as? String ?? "D-1234"
         gliderIDTextField.text! = gliderID
-
-
+        
         // Landing Gear Warning Switch Setup
         let landingGearWarningSwitchState = defaults.value(forKey: Settings.LandingGearWarningSwitchKey) as! Bool
         landingGearWarningSwitch.isOn = landingGearWarningSwitchState
-
+        
         // Tracking Route Switch Setup
         let showTrackingRouteSwitchState = defaults.value(forKey: Settings.ShowTrackingRouteSwitchKey) as! Bool
         showTrackingRouteSwitch.isOn = showTrackingRouteSwitchState
@@ -188,6 +191,15 @@ class SettingsViewController: UIViewController {
 // MARK: - Extension - UITextFieldDelegate
 extension SettingsViewController: UITextFieldDelegate {
     
+    // Store which Textfield is currently active to activeTextField variable
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        print("Begin Editing detected")
+        self.activeTextField = textField
+
+    }
+    
+    // Execute when Done Button is pressed
     func textFieldShouldReturn(_ textField: UITextField)
         -> Bool {
             textField.resignFirstResponder()
