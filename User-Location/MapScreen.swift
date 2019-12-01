@@ -42,7 +42,7 @@ class MapScreen: UIViewController {
             updateDirectionLabelsAndLine()
         }
     }
-        
+    
     var currentDirectionLine:MGLPolyline?
     
     var userTrackingMode = true
@@ -445,39 +445,55 @@ class MapScreen: UIViewController {
             }
         }
     }
-
+    
     // Audio Warning for Landing Gear Warning
     private func gearWarning() {
         guard let selectedDestinationAirport = selectedDestinationAirport else {
             return
         }
         
+        let landingGearWarningSwitch = defaults.value(forKey: "landingGearWarningSwitch") as! Bool
+        
         let distanceInKm = currentDistance!/1000
         
         let upperGearWarningAltitude = selectedDestinationAirport.elevation + 400
         let lowerGearWarningAltitude = selectedDestinationAirport.elevation + 200
         
-        if distanceInKm < 1 && currentLocation!.altitude < upperGearWarningAltitude && currentLocation!.altitude > lowerGearWarningAltitude {
+        // TestFlight: Remove tempAltitude and insert currentLocation!.altitude
+        let tempAltitude = currentLocation!.altitude + 300
+        
+        if landingGearWarningSwitch == true {
             
-            if playGearWarning == true {
+            print("Switch ist an")
+            
+            if distanceInKm < 1 && tempAltitude < upperGearWarningAltitude && tempAltitude > lowerGearWarningAltitude {
                 
-                let utterance = AVSpeechUtterance(string: "Warning, Check Landing Gear")
-                utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
-                utterance.rate = 0.5
-                
-                let synthesizer = AVSpeechSynthesizer()
-                synthesizer.speak(utterance)
-                
-                playGearWarning = false
-    
+                if playGearWarning == true {
+                    
+                    AudioServicesPlayAlertSound(SystemSoundID(1256))
+                    
+                    let utterance = AVSpeechUtterance(string: "Check Landing Gear")
+                    utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+                    utterance.rate = 0.5
+                    
+                    let synthesizer = AVSpeechSynthesizer()
+                    synthesizer.speak(utterance)
+                    
+                    playGearWarning = false
+                    
+                }
+                else {
+                    return
+                }
             }
             else {
-                return
+                playGearWarning = true
             }
         }
         else {
-            playGearWarning = true
+            print("Switch ist aus")
         }
+        
     }
     
     // Audio Audio Warning for Oxygen Level
@@ -508,7 +524,7 @@ class MapScreen: UIViewController {
             playOxygenWarning = true
         }
     }
-
+    
 }
 
 
@@ -595,7 +611,7 @@ extension MapScreen: MGLMapViewDelegate {
     func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
         mapView.showsUserLocation = true
     }
-
+    
 }
 
 // MARK: - MapScreen: CLLocationManagerDelegate
