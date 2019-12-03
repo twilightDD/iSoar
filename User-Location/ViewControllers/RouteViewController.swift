@@ -9,11 +9,10 @@
 import UIKit
 import CoreLocation
 import MessageUI
-import AVFoundation
 
 class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
-    //MARK: Lets and Vars
+    // MARK: Lets and Vars
     // Datasource
     var destinationAirportArray = [AirportDatabase.Airport]()
     var filteredArray = [AirportDatabase.Airport]()
@@ -34,7 +33,6 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
     var airportSearchString = ""
     
     // MARK: - IBOutlets
-    
     @IBOutlet weak var countryImageTop: UIImageView!
     @IBOutlet weak var airportName: UILabel!
     @IBOutlet weak var airportInfoButton: UIButton!
@@ -79,7 +77,7 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
         updateUIForSelectedDestinationAirport()
         updateUIForFilterStatus()
         
-        // Register Observers for notfications
+        // MARK: - Register Observers for notfications
         // Airport Update Completed
         airportUpdateCompletedNotification = NotificationCenter.default
             .addObserver(forName: AirportDatabase.airportUpdateCompletedNotificationName,
@@ -149,8 +147,7 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
         }
     }
     
-    
-    
+    // Setup TableViewDatasource
     private func setupTableViewDatasource() {
         guard let sortIndicator = AirportDatabase.SortIndicator(rawValue: airportsSortedBySwitch.selectedSegmentIndex)
             else { fatalError("segmentIndex not suitable for sortIndicator.")}
@@ -218,6 +215,7 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
         
     }
     
+    // Filter DestinationAirports
     func filterDestinationAirports() {
         filteredArray = AirportDatabase.shared.filterDestinationAirports(byName: searchController.searchBar.text)
         
@@ -315,8 +313,9 @@ extension RouteViewController: UITableViewDelegate {
             newSelectedDestinationAirport = destinationAirportArray[indexPath.row]
         }
         
-        //if new selected destination equals the former: it means we want to cancel the navigation
-        // we deselect the cell and set selectedDestinationAirport = nil
+        // If the newly selected destination equals the former:
+        // it means we want to cancel the navigation
+        // We deselect the active cell and set selectedDestinationAirport = nil
         if let formerSelectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport,
             newSelectedDestinationAirport == formerSelectedDestinationAirport {
             MapScreen.shared!.selectedDestinationAirport = nil
@@ -333,6 +332,7 @@ extension RouteViewController: UITableViewDelegate {
 //MARK: - Extension - UISearchBarDelegate
 extension RouteViewController: UISearchBarDelegate {
     
+    // Setup SearchController
     func setupSearchController() {
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self as? UISearchResultsUpdating
@@ -348,13 +348,14 @@ extension RouteViewController: UISearchBarDelegate {
             searchController.searchBar.placeholder = "Search \(destinationAirportArray.count) Airfields"
         }
         
-        
     }
     
+    // Execute when searchBarTextDidBeginEditing
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         shouldShowSearchResults = true
     }
     
+    // Execute Search
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterDestinationAirports()
         airportSearchString = searchController.searchBar.text!
@@ -362,12 +363,14 @@ extension RouteViewController: UISearchBarDelegate {
         tableView.reloadData()
     }
     
+    // Execute when searchBarCancelButtonClicked
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchController.searchBar.placeholder = "Search \(destinationAirportArray.count) Airfields"
         shouldShowSearchResults = false
         tableView.reloadData()
     }
     
+    // Execute when searchBarSearchButtonClicked
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         airportSearchString = searchController.searchBar.text!
         searchController.searchBar.resignFirstResponder()
