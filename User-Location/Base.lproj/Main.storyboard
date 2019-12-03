@@ -130,22 +130,10 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHq-JY-pFB" userLabel="SAVE Button" customClass="Buttons" customModule="iSoar" customModuleProvider="target">
-                                <rect key="frame" x="188.5" y="759" width="37" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="H87-Hs-96Y"/>
-                                </constraints>
-                                <state key="normal" title="SAVE"/>
-                                <connections>
-                                    <action selector="SaveButtonTapped:" destination="AW2-mO-9uR" eventType="touchUpInside" id="puX-sQ-ZMx"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ZtY-EE-Of7" firstAttribute="bottom" secondItem="FHq-JY-pFB" secondAttribute="bottom" constant="20" id="HLW-QF-CSx"/>
                             <constraint firstItem="ZtY-EE-Of7" firstAttribute="trailing" secondItem="8yb-8T-kXL" secondAttribute="trailing" constant="20" id="HLd-iC-Y0S"/>
-                            <constraint firstItem="FHq-JY-pFB" firstAttribute="centerX" secondItem="ZtY-EE-Of7" secondAttribute="centerX" id="PHj-lI-3Is"/>
                             <constraint firstItem="8yb-8T-kXL" firstAttribute="leading" secondItem="ZtY-EE-Of7" secondAttribute="leading" constant="20" id="Sel-tt-YIM"/>
                             <constraint firstItem="8yb-8T-kXL" firstAttribute="top" secondItem="8gb-FZ-fCz" secondAttribute="bottom" constant="20" id="dkC-aj-T0f"/>
                             <constraint firstItem="8gb-FZ-fCz" firstAttribute="top" secondItem="ZtY-EE-Of7" secondAttribute="top" id="gYf-Sf-vbs"/>

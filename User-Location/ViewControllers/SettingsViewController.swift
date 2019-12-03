@@ -175,12 +175,6 @@ class SettingsViewController: UIViewController {
         
     }
     
-    // Save User Defaults
-    @IBAction func SaveButtonTapped(_ sender: Buttons) {
-        saveSettings()
-        self.view.endEditing(true)
-    }
-    
 }
 
 // MARK: - Extension - UITextFieldDelegate
