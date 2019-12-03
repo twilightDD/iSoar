@@ -459,12 +459,9 @@ class MapScreen: UIViewController {
         let upperGearWarningAltitude = selectedDestinationAirport.elevation + 400
         let lowerGearWarningAltitude = selectedDestinationAirport.elevation + 200
         
-        // TestFlight: Remove tempAltitude and insert currentLocation!.altitude
-        let tempAltitude = currentLocation!.altitude + 300
-        
         if landingGearWarningSwitch == true {
             
-            if distanceInKm < 1 && tempAltitude < upperGearWarningAltitude && tempAltitude > lowerGearWarningAltitude {
+            if distanceInKm < 1 && currentLocation!.altitude < upperGearWarningAltitude && currentLocation!.altitude > lowerGearWarningAltitude {
                 
                 if playGearWarning == true {
                     
