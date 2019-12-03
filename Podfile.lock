@@ -1,25 +1,16 @@
 PODS:
   - Mapbox-iOS-SDK (5.5.0)
-  - Socket.IO-Client-Swift (15.2.0):
-    - Starscream (~> 3.1)
-  - Starscream (3.1.1)
 
 DEPENDENCIES:
   - Mapbox-iOS-SDK (~> 5.5)
-  - Socket.IO-Client-Swift (~> 15.2.0)
-  - Starscream (~> 3.1)
 
 SPEC REPOS:
   trunk:
     - Mapbox-iOS-SDK
-    - Socket.IO-Client-Swift
-    - Starscream
 
 SPEC CHECKSUMS:
   Mapbox-iOS-SDK: 7fa66a27e586acb14c7f32ec5a487343e3994451
-  Socket.IO-Client-Swift: 1e3e3a1f09f3312a167f0d781eb2f383d477357c
-  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
 
-PODFILE CHECKSUM: c92d20619f914cdcf62616409af5b2faa835a30c
+PODFILE CHECKSUM: 836fbd3be34e993d37ddfc78f1d222d348a66145
 
 COCOAPODS: 1.8.4
