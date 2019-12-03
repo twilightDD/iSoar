@@ -446,7 +446,7 @@ class MapScreen: UIViewController {
         }
     }
     
-    // Audio Warning for Landing Gear Warning
+    // Audio Landing Gear Warning
     private func gearWarning() {
         guard let selectedDestinationAirport = selectedDestinationAirport else {
             return
@@ -463,8 +463,6 @@ class MapScreen: UIViewController {
         let tempAltitude = currentLocation!.altitude + 300
         
         if landingGearWarningSwitch == true {
-            
-            print("Switch ist an")
             
             if distanceInKm < 1 && tempAltitude < upperGearWarningAltitude && tempAltitude > lowerGearWarningAltitude {
                 
@@ -491,12 +489,12 @@ class MapScreen: UIViewController {
             }
         }
         else {
-            print("Switch ist aus")
+            // Landing Gear Switch is off
         }
         
     }
     
-    // Audio Audio Warning for Oxygen Level
+    // Audio for Oxygen Level Warning
     private func oxygenWarning() {
         guard let currentLocation = currentLocation else {
             return
@@ -527,8 +525,7 @@ class MapScreen: UIViewController {
     
 }
 
-
-
+// ToDo: Documentation
 class DLCalloutView: UIView, MGLCalloutView {
     var representedObject: MGLAnnotation
     
@@ -563,19 +560,19 @@ class DLCalloutView: UIView, MGLCalloutView {
 // MARK: - MGLMapViewDelegate methods
 extension MapScreen: MGLMapViewDelegate {
     
+    // Set the Direction Line color
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
-        // Give our polyline a unique color by checking for its `title` property
         return UIColor.blue
     }
     
+    // Set the Direction Line width
     func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
-        // Set the line width for polyline annotations
         return 2.0
     }
     
+    // Instantiate and return our custom callout view
     // https://stackoverflow.com/questions/26713582/didselectannotationview-not-called
     func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation) -> MGLCalloutView? {
-        // Instantiate and return our custom callout view.
         let callOutView =  DLCalloutView(annotation: annotation)
         return callOutView
     }
@@ -584,11 +581,10 @@ extension MapScreen: MGLMapViewDelegate {
         return true
     }
     
+    // Hide the callout
     func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
         // Optionally handle taps on the callout.
         print("Tapped the callout for: \(annotation)")
-        
-        // Hide the callout.
         mapView.deselectAnnotation(annotation, animated: true)
     }
     
@@ -600,8 +596,8 @@ extension MapScreen: MGLMapViewDelegate {
         //        }
     }
     
+    // Substitute our custom view for the user location annotation
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        // Substitute our custom view for the user location annotation. This custom view is defined below.
         if annotation is MGLUserLocation && mapView.userLocation != nil {
             return GliderUserLocationAnnotationView()
         }
