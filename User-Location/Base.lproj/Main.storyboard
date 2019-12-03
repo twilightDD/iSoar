@@ -140,14 +140,6 @@
                                     <action selector="SaveButtonTapped:" destination="AW2-mO-9uR" eventType="touchUpInside" id="puX-sQ-ZMx"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BQB-Nt-TLi">
-                                <rect key="frame" x="83" y="552" width="127" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Connect to Socket"/>
-                                <connections>
-                                    <action selector="SocketConnect:" destination="AW2-mO-9uR" eventType="touchUpInside" id="mhi-CI-49f"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>

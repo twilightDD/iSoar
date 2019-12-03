@@ -175,11 +175,6 @@ class SettingsViewController: UIViewController {
         
     }
     
-    // ToDo: Temporary Socket Connect Button
-    @IBAction func SocketConnect(_ sender: UIButton) {
-        OGNSocketConnectionManager.shared.connectToServerSocket()
-    }
-    
     // Save User Defaults
     @IBAction func SaveButtonTapped(_ sender: Buttons) {
         saveSettings()
