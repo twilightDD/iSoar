@@ -96,7 +96,7 @@ class SettingsViewController: UIViewController {
     
     // MARK: - Private Instance Methods
     // Read User Defaults and display them on screen
-    func setupUI(){
+    private func setupUI(){
         
         // Glider Ratio
         let gliderRatio = defaults.value( forKey: Settings.GliderRatioKey) as! Double
@@ -122,7 +122,7 @@ class SettingsViewController: UIViewController {
     }
     
     // Save Settings to User Defaults
-    func saveSettings(){
+    private func saveSettings(){
         let gliderRatioString = gliderRatioTextField.text!
         let gliderRatioDouble = (gliderRatioString as NSString).doubleValue
         
@@ -187,6 +187,7 @@ extension SettingsViewController: UITextFieldDelegate {
             return true;
     }
     
+    // Execute when Textfield did End Editing
     func textFieldDidEndEditing(_ textField: UITextField) {
         saveSettings()
     }
