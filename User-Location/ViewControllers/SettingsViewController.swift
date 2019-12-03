@@ -13,7 +13,6 @@ class SettingsViewController: UIViewController {
     
     // MARK: Lets and Vats
     let defaults = UserDefaults.standard
-    var activeTextField = UITextField()
     
     // Notification Observers
     var airportUpdateFailedNotification:NSObjectProtocol?
@@ -38,7 +37,7 @@ class SettingsViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         
-        gliderIDTextField.delegate = self
+        gliderRatioTextField.delegate = self
         safetyAltitudeTextField.delegate = self
         gliderIDTextField.delegate = self
         
@@ -136,13 +135,13 @@ class SettingsViewController: UIViewController {
         
         // MARK: - Output
         
-        print("Settings saved")
+//                print("Settings saved")
+//                print("Glider Ratio set to: \(defaults.value(forKey: Settings.GliderRatioKey)!)")
+//                print("Safety Altitude set to: \(defaults.value(forKey: Settings.SafetyAltitudeKey)!)")
+//                print("Glider ID set to: \(defaults.value(forKey: Settings.GliderIDKey)!)")
+//                print("Landing Gear Warning Switch is On: \(defaults.bool(forKey: Settings.LandingGearWarningSwitchKey))")
+//                print("Show Tracking Route Switch is On: \(defaults.bool(forKey: Settings.ShowTrackingRouteSwitchKey))")
         
-        //        print("Glider Ratio set to: \(defaults.value(forKey: Settings.gliderRatio)!)")
-        //        print("Safety Altitude set to: \(defaults.value(forKey: Settings.safetyAltitude)!)")
-        //        print("Glider ID set to: \(defaults.value(forKey: Settings.gliderID)!)")
-        print("Landing Gear Warning Switch is On: \(defaults.bool(forKey: "LandingGearWarningSwitchState"))")
-        print("Tracking Route Switch is On: \(defaults.bool(forKey: "ShowTrackingRouteSwitchState"))")
     }
     
     // MARK: - Action Methods
@@ -151,6 +150,7 @@ class SettingsViewController: UIViewController {
         defaults.set(landingGearWarningSwitch.isOn, forKey: Settings.LandingGearWarningSwitchKey)
     }
     
+    //Show Tracking Route Switch
     @IBAction func showTrackingRouteSwitch(_ sender: UISwitch) {
         defaults.set(showTrackingRouteSwitch.isOn, forKey: Settings.ShowTrackingRouteSwitchKey)
     }
@@ -191,19 +191,15 @@ class SettingsViewController: UIViewController {
 // MARK: - Extension - UITextFieldDelegate
 extension SettingsViewController: UITextFieldDelegate {
     
-    // Store which Textfield is currently active to activeTextField variable
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        
-        print("Begin Editing detected")
-        self.activeTextField = textField
-
-    }
-    
     // Execute when Done Button is pressed
     func textFieldShouldReturn(_ textField: UITextField)
         -> Bool {
             textField.resignFirstResponder()
             return true;
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        saveSettings()
     }
     
 }
