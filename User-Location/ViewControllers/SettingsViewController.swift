@@ -135,12 +135,12 @@ class SettingsViewController: UIViewController {
         
         // MARK: - Output
         
-//                print("Settings saved")
-//                print("Glider Ratio set to: \(defaults.value(forKey: Settings.GliderRatioKey)!)")
-//                print("Safety Altitude set to: \(defaults.value(forKey: Settings.SafetyAltitudeKey)!)")
-//                print("Glider ID set to: \(defaults.value(forKey: Settings.GliderIDKey)!)")
-//                print("Landing Gear Warning Switch is On: \(defaults.bool(forKey: Settings.LandingGearWarningSwitchKey))")
-//                print("Show Tracking Route Switch is On: \(defaults.bool(forKey: Settings.ShowTrackingRouteSwitchKey))")
+        //                print("Settings saved")
+        //                print("Glider Ratio set to: \(defaults.value(forKey: Settings.GliderRatioKey)!)")
+        //                print("Safety Altitude set to: \(defaults.value(forKey: Settings.SafetyAltitudeKey)!)")
+        //                print("Glider ID set to: \(defaults.value(forKey: Settings.GliderIDKey)!)")
+        //                print("Landing Gear Warning Switch is On: \(defaults.bool(forKey: Settings.LandingGearWarningSwitchKey))")
+        //                print("Show Tracking Route Switch is On: \(defaults.bool(forKey: Settings.ShowTrackingRouteSwitchKey))")
         
     }
     
