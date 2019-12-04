@@ -19,23 +19,6 @@ class DestinationSelectionAirportTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        selectedBackgroundView = UIView()
-       // selectionStyle = .none // you can also take this line out
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        if selected == true {
-            selectedBackgroundView?.backgroundColor = UIColor(red: 17/255, green: 113/255, blue: 255/255, alpha: 0.1)
-            accessoryType = .checkmark
-            
-        }
-        else {
-            selectedBackgroundView?.backgroundColor = nil
-            accessoryType = .none
-        }
-
     }
 
 }

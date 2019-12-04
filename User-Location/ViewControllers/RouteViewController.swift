@@ -205,7 +205,7 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
         AirportDatabase.shared.downloadMapObjectsFromServer()
         
     }
-    
+
 
     // adjust tableView height if necessary
     @objc private func adjustForKeyboard(notification: Notification) {
@@ -282,7 +282,18 @@ extension RouteViewController: UITableViewDataSource {
                 countryImage = UIImage.init(named: country)
             }
             cell.countryImageView.image = countryImage
-            
+
+
+            // checkbox for selected airport
+            if MapScreen.shared!.selectedDestinationAirport?.icao == airportOfInterest.icao {
+                cell.accessoryType = .checkmark
+                cell.backgroundColor = UIColor(red: 17/255, green: 113/255, blue: 255/255, alpha: 0.1)
+            }
+            else {
+                cell.accessoryType = .none
+                cell.backgroundColor = nil
+            }
+
             return cell
     }
     
@@ -301,13 +312,17 @@ extension RouteViewController: UITableViewDelegate {
         if let formerSelectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport,
             newSelectedDestinationAirport == formerSelectedDestinationAirport {
             MapScreen.shared!.selectedDestinationAirport = nil
-            tableView.deselectRow(at: indexPath, animated: true)
         }
         else {
             MapScreen.shared!.selectedDestinationAirport = newSelectedDestinationAirport
         }
-        
+
         updateUIForSelectedDestinationAirport()
+
+        guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows
+            else { return }
+        tableView.reloadRows(at: indexPathsForVisibleRows, with: .none)
+
     }
     
 }
