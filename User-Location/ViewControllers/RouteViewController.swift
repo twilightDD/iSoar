@@ -51,6 +51,12 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
         refreshControl.addTarget(self, action: #selector(refreshAirportDatabase),
                                  for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(string: "Fetching new Airfield Database")
+
+        // register keyboard hide notifications to adjust tableView height if necessary.
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -206,7 +212,32 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
     func filterDestinationAirports(_ searchString: String?) {
         filteredArray = AirportDatabase.shared.filterDestinationAirports(byName: searchString)
     }
-    
+
+
+    // adjust tableView height if necessary
+    @objc private func adjustForKeyboard(notification: Notification) {
+        // https://www.hackingwithswift.com/example-code/uikit/how-to-adjust-a-uiscrollview-to-fit-the-keyboard
+//        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
+//            else { return }
+//
+//        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+//        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame,
+//                                                from: view.window)
+
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            tableView.contentInset = .zero
+        } else {
+            // TODO: Magic number issue; 04.12.19, ph
+            tableView.contentInset = UIEdgeInsets(top: 0,
+                                                  left: 0,
+                                                  bottom: 220, //keyboardViewEndFrame.height - view.safeAreaInsets.bottom,
+                right: 0)
+        }
+
+        tableView.scrollIndicatorInsets = tableView.contentInset
+    }
+
+
     // MARK: - Action Methods
     // Sort Switch
     @IBAction func sortSwitch(_ sender: UISegmentedControl) {
@@ -343,4 +374,5 @@ extension RouteViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
+
 }
