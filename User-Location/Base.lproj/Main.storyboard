@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -247,13 +247,20 @@
                                     <segue destination="3Br-pt-Icv" kind="showDetail" identifier="AirportInfoSegue" id="Zkc-e6-S7u"/>
                                 </connections>
                             </button>
+                            <searchBar contentMode="redraw" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J3X-KW-pzm">
+                                <rect key="frame" x="0.0" y="128" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="vvT-rw-CMb" id="Che-cj-maN"/>
+                                </connections>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uOE-BD-KUg">
-                                <rect key="frame" x="0.0" y="133" width="414" height="680"/>
+                                <rect key="frame" x="0.0" y="184" width="414" height="629"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DestinationSelectionAirportTableViewCell" rowHeight="56" id="xvs-1w-Ybi" customClass="DestinationSelectionAirportTableViewCell" customModule="iSoar" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="56"/>
-                                        <autoresizingMask key="autoresizingMask"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xvs-1w-Ybi" id="9Wi-lG-kHL">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -320,21 +327,24 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="oz7-YK-1ip" firstAttribute="top" secondItem="TB3-Tq-exz" secondAttribute="top" id="2JV-Cx-v83"/>
+                            <constraint firstItem="J3X-KW-pzm" firstAttribute="top" secondItem="eu5-OH-egv" secondAttribute="bottom" constant="5" id="2KF-Rg-qP8"/>
                             <constraint firstItem="zhX-2q-7Us" firstAttribute="leading" secondItem="ViJ-sQ-BHW" secondAttribute="leading" constant="15" id="BBO-H8-SHy"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XvE-2e-Xvt" secondAttribute="trailing" constant="20" id="BeX-jV-8A7"/>
                             <constraint firstItem="uOE-BD-KUg" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" id="CA8-ou-8xc"/>
-                            <constraint firstItem="uOE-BD-KUg" firstAttribute="top" secondItem="eu5-OH-egv" secondAttribute="bottom" constant="10" id="Dzg-0U-BHC"/>
                             <constraint firstItem="zhX-2q-7Us" firstAttribute="top" secondItem="eu5-OH-egv" secondAttribute="top" id="GbJ-Uw-9ee"/>
                             <constraint firstItem="uOE-BD-KUg" firstAttribute="bottom" secondItem="TB3-Tq-exz" secondAttribute="bottom" id="H6j-GQ-QYn"/>
                             <constraint firstItem="flW-Jw-4Fh" firstAttribute="centerX" secondItem="TB3-Tq-exz" secondAttribute="centerX" id="Hyt-4e-lbP"/>
+                            <constraint firstItem="J3X-KW-pzm" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" id="KlM-Nh-CpH"/>
                             <constraint firstItem="eid-Eo-OlS" firstAttribute="centerY" secondItem="eu5-OH-egv" secondAttribute="centerY" id="MIe-Ra-pZf"/>
                             <constraint firstItem="flW-Jw-4Fh" firstAttribute="top" secondItem="oz7-YK-1ip" secondAttribute="top" constant="5" id="P0q-5g-dpQ"/>
+                            <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" secondItem="J3X-KW-pzm" secondAttribute="trailing" id="PAs-u2-Wma"/>
                             <constraint firstItem="oz7-YK-1ip" firstAttribute="centerX" secondItem="TB3-Tq-exz" secondAttribute="centerX" id="Vjs-0q-17q"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" secondItem="oz7-YK-1ip" secondAttribute="trailing" id="WYh-8P-c9h"/>
                             <constraint firstItem="XvE-2e-Xvt" firstAttribute="leading" secondItem="flW-Jw-4Fh" secondAttribute="trailing" constant="20" id="bkk-E2-Qib"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" secondItem="uOE-BD-KUg" secondAttribute="trailing" id="drT-rg-LPG"/>
                             <constraint firstItem="zhX-2q-7Us" firstAttribute="centerY" secondItem="eu5-OH-egv" secondAttribute="centerY" id="fPK-0C-cdr"/>
                             <constraint firstItem="eu5-OH-egv" firstAttribute="leading" secondItem="zhX-2q-7Us" secondAttribute="trailing" constant="15" id="k92-N1-FTD"/>
+                            <constraint firstItem="uOE-BD-KUg" firstAttribute="firstBaseline" secondItem="J3X-KW-pzm" secondAttribute="baseline" symbolType="layoutAnchor" id="mt7-7a-SKF"/>
                             <constraint firstItem="eu5-OH-egv" firstAttribute="top" secondItem="oz7-YK-1ip" secondAttribute="bottom" constant="10" id="pt8-1V-Ylz"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" secondItem="eid-Eo-OlS" secondAttribute="trailing" constant="20" id="r27-tf-vsN"/>
                             <constraint firstItem="XvE-2e-Xvt" firstAttribute="centerY" secondItem="flW-Jw-4Fh" secondAttribute="centerY" id="wnh-8t-Xy9"/>
@@ -348,6 +358,7 @@
                         <outlet property="airportName" destination="eu5-OH-egv" id="tes-Dm-Icz"/>
                         <outlet property="airportsSortedBySwitch" destination="flW-Jw-4Fh" id="2dm-Eo-HIE"/>
                         <outlet property="countryImageTop" destination="zhX-2q-7Us" id="32s-eg-J1m"/>
+                        <outlet property="searchBar" destination="J3X-KW-pzm" id="CQV-2R-gP4"/>
                         <outlet property="tableView" destination="uOE-BD-KUg" id="XXD-9h-TMI"/>
                     </connections>
                 </viewController>

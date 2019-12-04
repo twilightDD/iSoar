@@ -25,12 +25,8 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
     // Pull to Refresh of TableView
     private let refreshControl = UIRefreshControl()
     
-    // SearchController
-    var searchController: UISearchController!
-    
     //var dataArray = [MapObjects.Airport]()
     var shouldShowSearchResults = false
-    var airportSearchString = ""
     
     // MARK: - IBOutlets
     @IBOutlet weak var countryImageTop: UIImageView!
@@ -38,7 +34,11 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
     @IBOutlet weak var airportInfoButton: UIButton!
     @IBOutlet weak var airportsSortedBySwitch: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
-    
+
+    @IBOutlet weak var searchBar: UISearchBar!
+
+
+
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,10 +51,6 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
         refreshControl.addTarget(self, action: #selector(refreshAirportDatabase),
                                  for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(string: "Fetching new Airfield Database")
-        
-        // Search Controller
-        setupSearchController()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,7 +71,7 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
         }
         
         updateUIForSelectedDestinationAirport()
-        updateUIForFilterStatus()
+        searchBar.placeholder = "Filter airports"
         
         // MARK: - Register Observers for notfications
         // Airport Update Completed
@@ -88,7 +84,7 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
                             self.setupTableViewDatasource()
                             self.refreshControl.endRefreshing()
                             
-                            self.searchController.searchBar.placeholder = "Search \(self.destinationAirportArray.count) Airfields"
+                           // self.searchController.searchBar.placeholder = "Search \(self.destinationAirportArray.count) Airfields"
                             
         }
         
@@ -136,16 +132,7 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
             airportInfoButton.isHidden = true
         }
     }
-    
-    // updateUIForFilterStatus
-    func updateUIForFilterStatus () {
-        if shouldShowSearchResults == false {
-            searchController.searchBar.placeholder = "Search \(destinationAirportArray.count) Airfields"
-        }
-        else {
-            searchController.searchBar.placeholder = "Got \(filteredArray.count) results for \( airportSearchString)"
-        }
-    }
+
     
     // Setup TableViewDatasource
     private func setupTableViewDatasource() {
@@ -216,11 +203,8 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
     }
     
     // Filter DestinationAirports
-    func filterDestinationAirports() {
-        filteredArray = AirportDatabase.shared.filterDestinationAirports(byName: searchController.searchBar.text)
-        
-        searchController.searchBar.placeholder = "Got \(filteredArray.count) results for \( airportSearchString)"
-        
+    func filterDestinationAirports(_ searchString: String?) {
+        filteredArray = AirportDatabase.shared.filterDestinationAirports(byName: searchString)
     }
     
     // MARK: - Action Methods
@@ -329,26 +313,10 @@ extension RouteViewController: UITableViewDelegate {
     }
     
 }
+
+
 //MARK: - Extension - UISearchBarDelegate
 extension RouteViewController: UISearchBarDelegate {
-    
-    // Setup SearchController
-    func setupSearchController() {
-        searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self as? UISearchResultsUpdating
-        searchController.searchBar.delegate = self
-        searchController.searchBar.sizeToFit()
-        searchController.isActive = false
-        tableView.tableHeaderView = searchController.searchBar
-        
-        if shouldShowSearchResults == true {
-            searchController.searchBar.placeholder = "Got \(filteredArray.count) results for \( airportSearchString)"
-        }
-        else {
-            searchController.searchBar.placeholder = "Search \(destinationAirportArray.count) Airfields"
-        }
-        
-    }
     
     // Execute when searchBarTextDidBeginEditing
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -357,25 +325,22 @@ extension RouteViewController: UISearchBarDelegate {
     
     // Execute Search
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filterDestinationAirports()
-        airportSearchString = searchController.searchBar.text!
-        searchController.searchBar.placeholder = "Got \(filteredArray.count) results for \( airportSearchString)"
+        filterDestinationAirports(searchBar.text)
         tableView.reloadData()
     }
     
     // Execute when searchBarCancelButtonClicked
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchController.searchBar.placeholder = "Search \(destinationAirportArray.count) Airfields"
         shouldShowSearchResults = false
+
+        searchBar.resignFirstResponder()
+        searchBar.text = nil
+        filterDestinationAirports(nil)
+
         tableView.reloadData()
     }
-    
-    // Execute when searchBarSearchButtonClicked
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        airportSearchString = searchController.searchBar.text!
-        searchController.searchBar.resignFirstResponder()
-        searchController.isActive = false
-        searchController.searchBar.placeholder = "Got \(filteredArray.count) results for \( airportSearchString)"
+        searchBar.resignFirstResponder()
     }
-    
 }
