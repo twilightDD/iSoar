@@ -15,7 +15,6 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
     // MARK: Lets and Vars
     // Datasource
     var destinationAirportArray = [AirportDatabase.Airport]()
-    var filteredArray = [AirportDatabase.Airport]()
     var sortSwitchIndex = 0
     
     // Notification Observers
@@ -24,9 +23,7 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
     
     // Pull to Refresh of TableView
     private let refreshControl = UIRefreshControl()
-    
-    //var dataArray = [MapObjects.Airport]()
-    var shouldShowSearchResults = false
+
     
     // MARK: - IBOutlets
     @IBOutlet weak var countryImageTop: UIImageView!
@@ -210,7 +207,7 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
     
     // Filter DestinationAirports
     func filterDestinationAirports(_ searchString: String?) {
-        filteredArray = AirportDatabase.shared.filterDestinationAirports(byName: searchString)
+        destinationAirportArray = AirportDatabase.shared.filterDestinationAirports(byName: searchString)
     }
 
 
@@ -266,15 +263,8 @@ extension RouteViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
         -> Int {
-            
-            if shouldShowSearchResults == true {
-                return filteredArray.count
-            }
-            else {
-                let numberOfRowsInSection = destinationAirportArray.count
-                return numberOfRowsInSection
-            }
-            
+            let numberOfRowsInSection = destinationAirportArray.count
+            return numberOfRowsInSection
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
@@ -283,29 +273,16 @@ extension RouteViewController: UITableViewDataSource {
             // get cell from tableView
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DestinationSelectionAirportTableViewCell.identifier) as? DestinationSelectionAirportTableViewCell
                 else { fatalError("")}
-            
-            
-            // New Update
-            var airportOfInterest: AirportDatabase.Airport?
-            
-            if shouldShowSearchResults == true {
-                airportOfInterest = filteredArray[indexPath.row]
-            }
-            else {
-                airportOfInterest = destinationAirportArray[indexPath.row]
-            }
-            
-            guard let airportForRow = airportOfInterest
-                else { fatalError() }
-            
-            
+
+            let airportOfInterest = destinationAirportArray[indexPath.row]
+
             // texts in cell
-            cell.airportNameLabel.text = airportForRow.name
-            cell.icaoLabel.text = airportForRow.icao
-            cell.distanceLabel.text = distanceAsReadable(airportForRow.distance)
+            cell.airportNameLabel.text = airportOfInterest.name
+            cell.icaoLabel.text = airportOfInterest.icao
+            cell.distanceLabel.text = distanceAsReadable(airportOfInterest.distance)
             
             var countryImage = UIImage.init(named: "destination")
-            if let country = airportForRow.country {
+            if let country = airportOfInterest.country {
                 countryImage = UIImage.init(named: country)
             }
             cell.countryImageView.image = countryImage
@@ -320,13 +297,7 @@ extension RouteViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let newSelectedDestinationAirport: AirportDatabase.Airport?
-        if shouldShowSearchResults == true {
-            newSelectedDestinationAirport = filteredArray[indexPath.row]
-        }
-        else {
-            newSelectedDestinationAirport = destinationAirportArray[indexPath.row]
-        }
+        let newSelectedDestinationAirport = destinationAirportArray[indexPath.row]
         
         // If the newly selected destination equals the former:
         // it means we want to cancel the navigation
@@ -349,11 +320,6 @@ extension RouteViewController: UITableViewDelegate {
 //MARK: - Extension - UISearchBarDelegate
 extension RouteViewController: UISearchBarDelegate {
     
-    // Execute when searchBarTextDidBeginEditing
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        shouldShowSearchResults = true
-    }
-    
     // Execute Search
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filterDestinationAirports(searchBar.text)
@@ -362,8 +328,6 @@ extension RouteViewController: UISearchBarDelegate {
     
     // Execute when searchBarCancelButtonClicked
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        shouldShowSearchResults = false
-
         searchBar.resignFirstResponder()
         searchBar.text = nil
         filterDestinationAirports(nil)
