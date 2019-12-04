@@ -142,7 +142,8 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
         guard let sortIndicator = AirportDatabase.SortIndicator(rawValue: airportsSortedBySwitch.selectedSegmentIndex)
             else { fatalError("segmentIndex not suitable for sortIndicator.")}
         
-        if let destinationAirportArray = AirportDatabase.shared.sortedDestinationAirports(by: sortIndicator) {
+        if let destinationAirportArray = AirportDatabase.shared.filterDestinationAirports(byName: searchBar.text,
+                                                                                          sortedBy: sortIndicator) {
             self.destinationAirportArray = destinationAirportArray
             
             tableView.reloadData()
@@ -205,11 +206,6 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
         
     }
     
-    // Filter DestinationAirports
-    func filterDestinationAirports(_ searchString: String?) {
-        destinationAirportArray = AirportDatabase.shared.filterDestinationAirports(byName: searchString)
-    }
-
 
     // adjust tableView height if necessary
     @objc private func adjustForKeyboard(notification: Notification) {
@@ -322,17 +318,14 @@ extension RouteViewController: UISearchBarDelegate {
     
     // Execute Search
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filterDestinationAirports(searchBar.text)
-        tableView.reloadData()
+        setupTableViewDatasource()
     }
     
     // Execute when searchBarCancelButtonClicked
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.text = nil
-        filterDestinationAirports(nil)
-
-        tableView.reloadData()
+        setupTableViewDatasource()
     }
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
