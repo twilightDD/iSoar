@@ -11,11 +11,12 @@
 		4FA79AEE7ECE155E0BFA301B /* Pods_Glider_Tool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1EF2983B88025FDC2840F2 /* Pods_Glider_Tool.framework */; };
 		D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02B0E6422C15BB7007C7162 /* UserLocationButton.swift */; };
 		D060C1F322B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */; };
-		D074B51522968C7A00A573AE /* MapObjects.json in Resources */ = {isa = PBXBuildFile; fileRef = D074B51422968C7A00A573AE /* MapObjects.json */; };
+		D074B51522968C7A00A573AE /* Airports.json in Resources */ = {isa = PBXBuildFile; fileRef = D074B51422968C7A00A573AE /* Airports.json */; };
 		D0C2A9E32367954A00FEF926 /* UITextField+NumberPadDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */; };
 		D0C5ED5B22A4769C009A0542 /* AirportDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5ED5A22A4769C009A0542 /* AirportDatabase.swift */; };
 		E011D4C123735CB9006F0CC3 /* OGNSocketConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */; };
 		E014961A236F6B4C00C1AC0D /* MapLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0149619236F6B4C00C1AC0D /* MapLabel.swift */; };
+		E01CAFD4239964ED00FE1B90 /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01CAFD3239964ED00FE1B90 /* TasksViewController.swift */; };
 		E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086AB0A229C35890011C433 /* SettingsViewController.swift */; };
 		E0A215BB235E2D0D009F6953 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BA235E2D0D009F6953 /* TableViewController.swift */; };
 		E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */; };
@@ -51,11 +52,12 @@
 		AF3E6C1CC85039594789B3C8 /* Pods-Glider Tool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Glider Tool.release.xcconfig"; path = "Target Support Files/Pods-Glider Tool/Pods-Glider Tool.release.xcconfig"; sourceTree = "<group>"; };
 		D02B0E6422C15BB7007C7162 /* UserLocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationButton.swift; sourceTree = "<group>"; };
 		D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUserLocationAnnotationView.swift; sourceTree = "<group>"; };
-		D074B51422968C7A00A573AE /* MapObjects.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MapObjects.json; sourceTree = "<group>"; };
+		D074B51422968C7A00A573AE /* Airports.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Airports.json; sourceTree = "<group>"; };
 		D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+NumberPadDoneButton.swift"; sourceTree = "<group>"; };
 		D0C5ED5A22A4769C009A0542 /* AirportDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportDatabase.swift; sourceTree = "<group>"; };
 		E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OGNSocketConnectionManager.swift; sourceTree = "<group>"; };
 		E0149619236F6B4C00C1AC0D /* MapLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLabel.swift; sourceTree = "<group>"; };
+		E01CAFD3239964ED00FE1B90 /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		E086AB0A229C35890011C433 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E0A215BA235E2D0D009F6953 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionAirportTableViewCell.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			children = (
 				E0E1D879229476C00004DE81 /* RouteViewController.swift */,
 				E0A215BA235E2D0D009F6953 /* TableViewController.swift */,
+				E01CAFD3239964ED00FE1B90 /* TasksViewController.swift */,
 				E086AB0A229C35890011C433 /* SettingsViewController.swift */,
 				E0B8142A2367450200D88B6C /* Logbook.swift */,
 				E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */,
@@ -156,7 +159,7 @@
 		E0DA9414228D267500D3A854 /* Airports */ = {
 			isa = PBXGroup;
 			children = (
-				D074B51422968C7A00A573AE /* MapObjects.json */,
+				D074B51422968C7A00A573AE /* Airports.json */,
 				D0C5ED5A22A4769C009A0542 /* AirportDatabase.swift */,
 			);
 			path = Airports;
@@ -273,7 +276,7 @@
 				EDA2362D2130AA7600739396 /* LaunchScreen.storyboard in Resources */,
 				EDA2362A2130AA7600739396 /* Assets.xcassets in Resources */,
 				EDA236282130AA7500739396 /* Main.storyboard in Resources */,
-				D074B51522968C7A00A573AE /* MapObjects.json in Resources */,
+				D074B51522968C7A00A573AE /* Airports.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +344,7 @@
 				E014961A236F6B4C00C1AC0D /* MapLabel.swift in Sources */,
 				EDA236232130AA7500739396 /* AppDelegate.swift in Sources */,
 				E0B52F72228377F300E28A93 /* Buttons.swift in Sources */,
+				E01CAFD4239964ED00FE1B90 /* TasksViewController.swift in Sources */,
 				E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */,
 				18BE3F7422CF688D00859347 /* GliderUserLocationAnnotationView.swift in Sources */,
 				E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */,

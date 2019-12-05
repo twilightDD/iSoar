@@ -1,5 +1,5 @@
 //
-//  MapObjects.swift
+//  AirportDatabase.swift
 //  Glider Tool
 //
 //  Created by Peter Hauke on 02.06.19.
@@ -16,7 +16,7 @@ class AirportDatabase{
     static let shared = AirportDatabase()
     private var destinationAirports = [AirportDatabase.Airport]()
     
-    private let documentsUrl:URL =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
+    private let libraryURL:URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
     
     // Notifications
     static let airportUpdateCompletedNotificationName = Notification.Name(rawValue: "airportUpdateCompleted")
@@ -25,7 +25,7 @@ class AirportDatabase{
     
     //MARK: - Init&Co.
     private init(){
-        checkForMapOjectsInDocumentsFolder()
+        checkForMapOjectsInLibraryFolder()
         loadAirports()
     }
     
@@ -87,14 +87,14 @@ class AirportDatabase{
 
 
     
-    // Download MapObjects.json from Server
-    func downloadMapObjectsFromServer() {
+    // Download Airports.json from Server
+    func downloadAirportsFromServer() {
         // Create destination URL
-        let documentsUrl:URL =  (FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL?)!
-        let destinationFileUrl = documentsUrl.appendingPathComponent("MapObjects.json")
+        let libraryUrl:URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
+        let destinationFileUrl = libraryUrl.appendingPathComponent("Airports.json")
         
         // File Source URL
-        let fileURL = URL(string: "https://www.leupold.me/MapObjects.json")
+        let fileURL = URL(string: "https://www.leupold.me/Airports.json")
         
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
@@ -113,10 +113,10 @@ class AirportDatabase{
                     try FileManager.default.removeItem(at: destinationFileUrl)
                     try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
                     
-                    // Clear MapObjects.shared.destinationAirports
+                    // Clear Airports.shared.destinationAirports
                     self.destinationAirports.removeAll()
                     
-                    // Create Destination Airport List from new MapObjects.json
+                    // Create Destination Airport List from new Airports.json
                     self.loadAirports()
                     self.updateDistance()
                     
@@ -145,28 +145,28 @@ class AirportDatabase{
     
     
     //MARK: - Private Methods
-    // Check if MapOjects.json exists in Documents Folder
-    private func checkForMapOjectsInDocumentsFolder() {
-        // Check if MapObjects.json exists in Documents Folder
-        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+    // Check if MapOjects.json exists in Library Folder
+    private func checkForMapOjectsInLibraryFolder() {
+        // Check if Airports.json exists in Library Folder
+        let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0] as String
         let url = NSURL(fileURLWithPath: path)
         
-        let mapObjectsInDocumentsFolder = documentsUrl.appendingPathComponent("MapObjects.json")
-        let mapObjectsInBundle = URL(fileURLWithPath: Bundle.main.path(forResource: "MapObjects", ofType: "json")!)
+        let AirportsInLibraryFolder = libraryURL.appendingPathComponent("Airports.json")
+        let AirportsInBundle = URL(fileURLWithPath: Bundle.main.path(forResource: "Airports", ofType: "json")!)
         
-        if let pathComponent = url.appendingPathComponent("MapObjects.json") {
+        if let pathComponent = url.appendingPathComponent("Airports.json") {
             
             let filePath = pathComponent.path
             let fileManager = FileManager.default
             if fileManager.fileExists(atPath: filePath) {
-                print("MapObjects available in Documents Folder.")
+                print("Airports.json available in Library Folder.")
             } else {
-                print("MapObjects not found in Documents Folder. Copy...")
+                print("Airports.json not found in Library Folder. Copy...")
                 do {
-                    try FileManager.default.copyItem(at: mapObjectsInBundle, to: mapObjectsInDocumentsFolder)
-                    print("MapObjects copied to Documents Folder.")
+                    try FileManager.default.copyItem(at: AirportsInBundle, to: AirportsInLibraryFolder)
+                    print("Airports.json copied to Library Folder.")
                 } catch (let writeError) {
-                    print("Error creating a file: \(mapObjectsInDocumentsFolder) : \(writeError)")
+                    print("Error creating a file: \(AirportsInLibraryFolder) : \(writeError)")
                 }
             }
         }
@@ -185,11 +185,11 @@ class AirportDatabase{
         // hier kommt der Inhalt der Datein rein
         var jsonAsString:String?
         
-        let mapObjectsURL = documentsUrl.appendingPathComponent("MapObjects.json")
+        let AirportsURL = libraryURL.appendingPathComponent("Airports.json")
         
         do {
             // URL laden und als String zurück geben
-            try jsonAsString = String.init(contentsOf: mapObjectsURL)
+            try jsonAsString = String.init(contentsOf: AirportsURL)
         }
         catch {
             print("went wrong")

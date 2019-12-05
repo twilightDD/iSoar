@@ -202,7 +202,7 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
             
         }
         
-        AirportDatabase.shared.downloadMapObjectsFromServer()
+        AirportDatabase.shared.downloadAirportsFromServer()
         
     }
 
