@@ -24,17 +24,13 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
     // Pull to Refresh of TableView
     private let refreshControl = UIRefreshControl()
 
-    
     // MARK: - IBOutlets
     @IBOutlet weak var countryImageTop: UIImageView!
     @IBOutlet weak var airportName: UILabel!
     @IBOutlet weak var airportInfoButton: UIButton!
     @IBOutlet weak var airportsSortedBySwitch: UISegmentedControl!
-    @IBOutlet weak var tableView: UITableView!
-
     @IBOutlet weak var searchBar: UISearchBar!
-
-
+    @IBOutlet weak var tableView: UITableView!
 
     // MARK: - Init&Co.
     override func viewDidLoad() {
@@ -136,7 +132,6 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
         }
     }
 
-    
     // Setup TableViewDatasource
     private func setupTableViewDatasource() {
         guard let sortIndicator = AirportDatabase.SortIndicator(rawValue: airportsSortedBySwitch.selectedSegmentIndex)
@@ -205,9 +200,8 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
         AirportDatabase.shared.downloadAirportsFromServer()
         
     }
-
-
-    // adjust tableView height if necessary
+    
+    // Adjust TableView height if necessary
     @objc private func adjustForKeyboard(notification: Notification) {
         // https://www.hackingwithswift.com/example-code/uikit/how-to-adjust-a-uiscrollview-to-fit-the-keyboard
 //        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
@@ -229,7 +223,6 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
 
         tableView.scrollIndicatorInsets = tableView.contentInset
     }
-
 
     // MARK: - Action Methods
     // Sort Switch
@@ -326,7 +319,6 @@ extension RouteViewController: UITableViewDelegate {
     }
     
 }
-
 
 //MARK: - Extension - UISearchBarDelegate
 extension RouteViewController: UISearchBarDelegate {
