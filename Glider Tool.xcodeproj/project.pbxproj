@@ -17,6 +17,8 @@
 		E011D4C123735CB9006F0CC3 /* OGNSocketConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */; };
 		E014961A236F6B4C00C1AC0D /* MapLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0149619236F6B4C00C1AC0D /* MapLabel.swift */; };
 		E01CAFD4239964ED00FE1B90 /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01CAFD3239964ED00FE1B90 /* TasksViewController.swift */; };
+		E01D87E8239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01D87E7239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift */; };
+		E01D87EB239ABB5D00E9B5B6 /* TasksDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */; };
 		E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086AB0A229C35890011C433 /* SettingsViewController.swift */; };
 		E0A215BB235E2D0D009F6953 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BA235E2D0D009F6953 /* TableViewController.swift */; };
 		E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */; };
@@ -58,6 +60,8 @@
 		E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OGNSocketConnectionManager.swift; sourceTree = "<group>"; };
 		E0149619236F6B4C00C1AC0D /* MapLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLabel.swift; sourceTree = "<group>"; };
 		E01CAFD3239964ED00FE1B90 /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
+		E01D87E7239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSelectionTableViewCell.swift; sourceTree = "<group>"; };
+		E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksDatabase.swift; sourceTree = "<group>"; };
 		E086AB0A229C35890011C433 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E0A215BA235E2D0D009F6953 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionAirportTableViewCell.swift; sourceTree = "<group>"; };
@@ -109,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */,
+				E01D87E7239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift */,
 			);
 			path = TableViewCells;
 			sourceTree = "<group>";
@@ -120,6 +125,14 @@
 				AF3E6C1CC85039594789B3C8 /* Pods-Glider Tool.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E01D87E9239ABB1C00E9B5B6 /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+				E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */,
+			);
+			path = Tasks;
 			sourceTree = "<group>";
 		};
 		E0526AB022BF7056001FC6B4 /* Extensions */ = {
@@ -191,6 +204,7 @@
 				E0B52F7522837BC800E28A93 /* Designs */,
 				E0526AB022BF7056001FC6B4 /* Extensions */,
 				E0DA9414228D267500D3A854 /* Airports */,
+				E01D87E9239ABB1C00E9B5B6 /* Tasks */,
 				E0B52F702283753400E28A93 /* ViewControllers */,
 				EDA236342130AA9A00739396 /* MapScreen.swift */,
 				EDA236222130AA7500739396 /* AppDelegate.swift */,
@@ -331,10 +345,12 @@
 			files = (
 				D060C1F322B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift in Sources */,
 				E0B8142B2367450200D88B6C /* Logbook.swift in Sources */,
+				E01D87EB239ABB5D00E9B5B6 /* TasksDatabase.swift in Sources */,
 				D0C2A9E32367954A00FEF926 /* UITextField+NumberPadDoneButton.swift in Sources */,
 				E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */,
 				E0A215BB235E2D0D009F6953 /* TableViewController.swift in Sources */,
 				EDA236352130AA9A00739396 /* MapScreen.swift in Sources */,
+				E01D87E8239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift in Sources */,
 				D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */,
 				E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */,
 				E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */,

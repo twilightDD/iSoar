@@ -396,22 +396,59 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tasks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OAc-FU-b6Z">
-                                <rect key="frame" x="128" y="125" width="44" height="21"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vfb-Kg-XfK">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <navigationItem title="Tasks" id="ckQ-4I-OWd"/>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fX1-KO-Yxc">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="DPU-HB-jDi" userLabel="TaskSelectionTableViewCell" customClass="TaskSelectionTableViewCell" customModule="iSoar" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DPU-HB-jDi" id="BFo-Hu-pV9">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Xn-Tp-uFX" userLabel="Task Name Label">
+                                                    <rect key="frame" x="20" y="12" width="37" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="taskName" destination="9Xn-Tp-uFX" id="9s0-Qg-vP1"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="delegate" destination="1wz-qU-aR0" id="OeO-En-wPW"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="vfb-Kg-XfK" firstAttribute="centerX" secondItem="Wom-Mb-s34" secondAttribute="centerX" id="H45-n7-mDi"/>
+                            <constraint firstItem="vfb-Kg-XfK" firstAttribute="leading" secondItem="Gjp-hy-qPJ" secondAttribute="leading" id="iuc-d9-W3T"/>
+                            <constraint firstItem="vfb-Kg-XfK" firstAttribute="top" secondItem="Gjp-hy-qPJ" secondAttribute="top" id="sTw-sh-8VA"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Gjp-hy-qPJ"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Tasks" image="tasks" id="sqr-Jh-oik"/>
+                    <connections>
+                        <outlet property="tableView" destination="fX1-KO-Yxc" id="gyi-ne-37R"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gU4-h2-Pz3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-459" y="551"/>
+            <point key="canvasLocation" x="-459.4202898550725" y="550.44642857142856"/>
         </scene>
         <!--Airport Info View Controller-->
         <scene sceneID="JKU-bW-3xI">
