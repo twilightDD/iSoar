@@ -6,7 +6,6 @@
 //  Copyright © 2019 Denis Leupold. All rights reserved.
 //
 
-import Foundation
 import CoreLocation
 
 //MARK: - AirportDatabase
@@ -49,7 +48,7 @@ class AirportDatabase{
         }
     }
     
-
+    // Filter Destination Airports
     func filterDestinationAirports(byName searchString: String?, sortedBy sortIndicator: SortIndicator)
         -> [AirportDatabase.Airport]? {
 
@@ -66,8 +65,7 @@ class AirportDatabase{
                 }
             }
 
-
-            // Sorting
+            // Sorting Destination Airports
             switch sortIndicator {
                 case .name:
                     filteredAndSortedAirports = filteredArray.sorted(by: { ($0.name < $1.name) })
@@ -85,8 +83,6 @@ class AirportDatabase{
             return filteredAndSortedAirports
     }
 
-
-    
     // Download Airports.json from Server
     func downloadAirportsFromServer() {
         // Create destination URL
