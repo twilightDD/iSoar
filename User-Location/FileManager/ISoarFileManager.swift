@@ -12,6 +12,9 @@ import Foundation
 class ISoarFileManager {
 
     //MARK: Private Lets and Vars
+    private static let gpxSubPath = "/Tasks"
+
+
     private static let documentPath: String = {
         let dirPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentPath = dirPaths[0]
@@ -19,16 +22,30 @@ class ISoarFileManager {
         return documentPath
     }()
 
+
+    private static let gpxPath: String = {
+        let gpxPath = documentPath.appending(gpxSubPath)
+
+        return gpxPath
+    }()
+
+    private static let gpxURL: URL = {
+        let gpxURL = URL.init(fileURLWithPath: gpxPath)
+
+        return gpxURL
+       }()
+
+
 }
 
 
 //MARK: - Extension - Check Directory Class Methods
 extension ISoarFileManager {
     class func checkForTasksFolder() {
-        if !FileManager.default.fileExists(atPath: gpxPath()) {
+        if !FileManager.default.fileExists(atPath: gpxPath) {
             print("Tasks Folder dont exist in Documents Folder. Creating...")
             do {
-                try FileManager.default.createDirectory(atPath: gpxPath(),
+                try FileManager.default.createDirectory(atPath: gpxPath,
                                                         withIntermediateDirectories: true,
                                                         attributes: nil)
             } catch {
@@ -51,9 +68,12 @@ extension ISoarFileManager {
             var gpxFileNames = [String]()
 
             // get files from disc
-            var files = [String]()
+            var fileURLs = [URL]()
             do {
-                files = try FileManager.default.contentsOfDirectory(atPath: gpxPath())
+                fileURLs = try FileManager.default.contentsOfDirectory(at: gpxURL,
+                                                                       includingPropertiesForKeys: [],
+                                                                       options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
+                fileURLs = fileURLs.filter{ $0.pathExtension == "gpx" }
             }
             catch let contentsOfDirectory {
                 fatalError("\(contentsOfDirectory.localizedDescription)")
@@ -61,21 +81,13 @@ extension ISoarFileManager {
 
 
             // parse fileNames
-            for file in files {
-                gpxFileNames.append(file)
+            for fileURL in fileURLs {
+                let fileURLWithoutExtension = fileURL.deletingPathExtension()
+                let fileName = fileURLWithoutExtension.lastPathComponent
+                gpxFileNames.append(fileName)
             }
 
             return gpxFileNames
     }
-
-    
-    //MARK: Private Class Methods
-    fileprivate class func gpxPath()
-        -> String {
-            let gpxPath = documentPath.appending("/Tasks")
-
-            return gpxPath
-    }
-
 
 }
