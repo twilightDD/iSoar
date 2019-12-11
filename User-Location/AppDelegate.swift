@@ -23,6 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Set up User Defaults
         SettingsViewController.setupUserDefaults()
+
+        // Setup Documents/Tasks-Folder
+        checkForTasksFolder()
         
         return true
     }
@@ -56,3 +59,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+extension AppDelegate {
+    fileprivate func checkForTasksFolder() {
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+               let documentsDirectory = paths[0]
+               let docURL = URL(string: documentsDirectory)!
+               let dataPath = docURL.appendingPathComponent("Tasks")
+               if !FileManager.default.fileExists(atPath: dataPath.absoluteString) {
+                   print("Tasks Folder dont exist in Documents Folder. Creating...")
+                   do {
+                       try FileManager.default.createDirectory(atPath: dataPath.absoluteString,
+                                                               withIntermediateDirectories: true,
+                                                               attributes: nil)
+                   } catch {
+                       print(error.localizedDescription);
+                   }
+               }
+               else {
+                   print("Tasks Folder exist in Documents Folder.")
+               }
+    }
+}
