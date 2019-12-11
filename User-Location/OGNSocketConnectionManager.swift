@@ -8,8 +8,7 @@
 
 import Network
 
-// MARK: - OGNSocketConnectionManager
-class OGNSocketConnectionManager{
+class OGNSocketConnectionManager {
     
     // MARK: - Lets and Vars
     static let shared = OGNSocketConnectionManager()
@@ -18,7 +17,11 @@ class OGNSocketConnectionManager{
     private var queue = DispatchQueue(label: "NetworkQueue", qos: .utility)
     private lazy var userName = generateRandomUserName()
     
-    var receivedServerIdentification :Bool = false
+    var receivedServerIdentification: Bool = false
+    var isLoggedIn = false
+    
+    var latitude = MapScreen.shared?.currentLocation?.coordinate.latitude
+    var longitude = MapScreen.shared?.currentLocation?.coordinate.longitude
     
     // MARK: - Init&Co.
     // Generate Random Username
@@ -53,7 +56,7 @@ class OGNSocketConnectionManager{
             case .ready:
                 //The connection is established and ready to send and recieve data.
                 print("Connection: Ready")
-                self.receiveMessage()
+                self.setupReceive()
             case .failed:
                 //The connection in the process of being established
                 print("Connection: failed")
@@ -65,62 +68,66 @@ class OGNSocketConnectionManager{
                 print("waiting or failed")
             }
         }
-        connection?.start(queue: self.queue)
+        connection?.start(queue: .main)
         
     }
     
     // MARK: - Private Methods
+    // Setup Receive Data
+    private func setupReceive() {
+        connection?.receive(minimumIncompleteLength: 1, maximumLength: 9000, completion: { (data, context, isComplete, error) in
+            
+            print("Message received")
+            
+            if let rcvData = data,
+                let receivedData = String(data:rcvData, encoding: .utf8) {
+                print("Message: \(receivedData)")
+            }
+            
+            if self.receivedServerIdentification == false {
+                self.receivedServerIdentification = true
+                print("Received Server Ident: \(self.receivedServerIdentification)")
+                
+                if !self.isLoggedIn {
+                    self.login()
+                }
+            }
+            
+            if context?.identifier == "Final Message" && isComplete {
+                self.connection?.cancel()
+                return
+            }
+            
+            if let messageError = error {
+                print("Recieve error: \(messageError)")
+            } else {
+                self.setupReceive()
+            }
+        })
+    }
+    
+    // Send Login String with generated Username and Current Location
+    private func login() {
+        // ToDo: guard let for currentLocation
+        sendPaket("user \(userName) pass -1 vers iSoar 1.0_04 filter r/\(latitude!)/\(longitude!)/50\r\n")
+        isLoggedIn = true
+    }
+    
     // Send Filter Request to Server
     private func sendPaket(_ packet:String)
     {
         let packetData = packet.data(using: .utf8)
         
-        print("Filter: user TESTISOAR pass -1 vers iSoar 1.0_04 filter r/33.25/-96.5/50")
-        print("Sent = \(packetData!)")
+        print("Sent PaketData: \(packetData!)")
         
-        self.connection?.send(content: packetData, completion: NWConnection.SendCompletion.contentProcessed(({ (error) in
+        connection?.send(content: packetData, completion: .contentProcessed({ (error) in
             if let err = error {
                 print("Sending error \(err)")
             } else {
                 print("Filter Request successfully sent")
             }
-        })))
+        }))
         
-    }
-    
-    // Receive Messages from Server
-    private func receiveMessage()
-    {
-        self.connection?.receiveMessage(completion:
-            {
-                (data, context, isComplete, error) in
-                print("Message received")
-                
-                if self.receivedServerIdentification == false {
-                    self.receivedServerIdentification = true
-                    print("Received Server Ident: \(self.receivedServerIdentification)")
-                }
-                
-                if let messageError = error {
-                    print("Recieve error: \(messageError)")
-                }
-                
-                if let rcvData = data,
-                    let receivedData = String(data:rcvData, encoding: .utf8) {
-                    print("Message: \(receivedData)")
-                    
-                    self.sendPaket("user TESTISOAR pass -1 vers iSoar 1.0_04 filter r/33.25/-96.5/50")
-                    
-                    //self.receiveMessage()
-                    
-                }
-                
-                //self.receiveMessage()
-                
-        })
     }
 }
 
-//print("Login String: user \(self.userName) pass -1 vers iSoar 1.0_04 filter r/33.25/-96.5/50")
-//self.sendPaket("user \(self.userName) pass -1 vers iSoar 1.0_04 filter r/33.25/-96.5/50")
-//self.receiveMessage()
