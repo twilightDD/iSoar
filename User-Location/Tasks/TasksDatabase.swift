@@ -9,5 +9,14 @@
 import CoreLocation
 
 //MARK: - AirportDatabase
-class TasksDatabase{
+class TasksDatabase {
+    static let shared = TasksDatabase()
+
+    class func gpxFileNames()
+        -> [String] {
+            let gpxFileNames = ISoarFileManager.gpxFileNames()
+
+            return gpxFileNames
+    }
+
 }

@@ -13,7 +13,7 @@ class TasksViewController: UIViewController {
     // MARK: Lets and Vars
     // Datasource
     // ToDo: Source!
-    var tasksArray = [AirportDatabase.Airport]()
+    var tasksArray = [String]()
     
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
@@ -37,9 +37,8 @@ class TasksViewController: UIViewController {
     
     // Setup TableViewDatasource
     private func setupTableViewDatasource() {
-        
-        
-        
+        tasksArray = TasksDatabase.gpxFileNames()
+
         tableView.reloadData()
     }
 }
@@ -65,22 +64,10 @@ extension TasksViewController: UITableViewDataSource {
             // get cell from tableView
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskSelectionTableViewCell.identifier) as? TaskSelectionTableViewCell
                 else { fatalError("")}
-            
-            let airportOfInterest = tasksArray[indexPath.row]
-            
-            // texts in cell
-            // ToDo: source!
-            cell.taskName.text = airportOfInterest.name
-            
-            // checkbox for selected airport
-            if MapScreen.shared!.selectedDestinationAirport?.icao == airportOfInterest.icao {
-                cell.accessoryType = .checkmark
-                cell.backgroundColor = UIColor(red: 17/255, green: 113/255, blue: 255/255, alpha: 0.1)
-            }
-            else {
-                cell.accessoryType = .none
-                cell.backgroundColor = nil
-            }
+
+            let taskOfInterest = tasksArray[indexPath.row]
+
+            cell.taskName.text = taskOfInterest
             
             return cell
     }
