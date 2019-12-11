@@ -12,6 +12,7 @@
 		D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02B0E6422C15BB7007C7162 /* UserLocationButton.swift */; };
 		D060C1F322B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */; };
 		D074B51522968C7A00A573AE /* Airports.json in Resources */ = {isa = PBXBuildFile; fileRef = D074B51422968C7A00A573AE /* Airports.json */; };
+		D0BBE08623A18CEB00CAD9FF /* ISoarFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BBE08523A18CEB00CAD9FF /* ISoarFileManager.swift */; };
 		D0C2A9E32367954A00FEF926 /* UITextField+NumberPadDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */; };
 		D0C5ED5B22A4769C009A0542 /* AirportDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5ED5A22A4769C009A0542 /* AirportDatabase.swift */; };
 		E011D4C123735CB9006F0CC3 /* OGNSocketConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */; };
@@ -55,6 +56,7 @@
 		D02B0E6422C15BB7007C7162 /* UserLocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationButton.swift; sourceTree = "<group>"; };
 		D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUserLocationAnnotationView.swift; sourceTree = "<group>"; };
 		D074B51422968C7A00A573AE /* Airports.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Airports.json; sourceTree = "<group>"; };
+		D0BBE08523A18CEB00CAD9FF /* ISoarFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISoarFileManager.swift; sourceTree = "<group>"; };
 		D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+NumberPadDoneButton.swift"; sourceTree = "<group>"; };
 		D0C5ED5A22A4769C009A0542 /* AirportDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportDatabase.swift; sourceTree = "<group>"; };
 		E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OGNSocketConnectionManager.swift; sourceTree = "<group>"; };
@@ -116,6 +118,14 @@
 				E01D87E7239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift */,
 			);
 			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		D0BBE08423A18CB900CAD9FF /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+				D0BBE08523A18CEB00CAD9FF /* ISoarFileManager.swift */,
+			);
+			path = FileManager;
 			sourceTree = "<group>";
 		};
 		D7FF5846A9BA98C87CDF570F /* Pods */ = {
@@ -199,6 +209,7 @@
 		EDA236212130AA7500739396 /* User-Location */ = {
 			isa = PBXGroup;
 			children = (
+				D0BBE08423A18CB900CAD9FF /* FileManager */,
 				D0945070235E564B0089E3C8 /* Cells */,
 				D02B0E6322C15B95007C7162 /* Subclasses */,
 				E0B52F7522837BC800E28A93 /* Designs */,
@@ -357,6 +368,7 @@
 				D0C5ED5B22A4769C009A0542 /* AirportDatabase.swift in Sources */,
 				E0E1D87A229476C00004DE81 /* RouteViewController.swift in Sources */,
 				E011D4C123735CB9006F0CC3 /* OGNSocketConnectionManager.swift in Sources */,
+				D0BBE08623A18CEB00CAD9FF /* ISoarFileManager.swift in Sources */,
 				E014961A236F6B4C00C1AC0D /* MapLabel.swift in Sources */,
 				EDA236232130AA7500739396 /* AppDelegate.swift in Sources */,
 				E0B52F72228377F300E28A93 /* Buttons.swift in Sources */,
@@ -513,7 +525,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = HCR82BSM8Z;
+				DEVELOPMENT_TEAM = URATVA2LKM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -539,7 +551,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = HCR82BSM8Z;
+				DEVELOPMENT_TEAM = URATVA2LKM;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
