@@ -57,6 +57,8 @@ class MapScreen: UIViewController {
     var showDistanceInKM = true
     var DistanceInKM:CLLocationDistance = 0
     
+    var showTrackingRoute = false
+    
     var playGearWarning = true
     var playOxygenWarning = true
     
@@ -446,6 +448,28 @@ class MapScreen: UIViewController {
         }
     }
     
+    // Show Tracking Route on Map
+    private func drawTrackingRoute() {
+        
+        let showTrackingRouteSwitch = defaults.value(forKey: "showTrackingRouteSwitch") as! Bool
+        
+        if showTrackingRouteSwitch == true {
+            showTrackingRoute = true
+            print("Tracking Route Switch ist an")
+            print("Draw Tracking Line")
+        }
+        else {
+            print("Tracking Route Switch ist aus")
+            if showTrackingRoute == true {
+                showTrackingRoute = false
+                print("Reset Subview")
+            }
+            else {
+                return
+            }
+        }
+    }
+    
     // Audio Landing Gear Warning
     private func gearWarning() {
         guard let selectedDestinationAirport = selectedDestinationAirport else {
@@ -632,6 +656,9 @@ extension MapScreen: CLLocationManagerDelegate {
         
         // Direction
         updateDirectionLabelsAndLine()
+        
+        // Tracking Route
+        drawTrackingRoute()
         
         // Gear Warning
         gearWarning()
