@@ -6,17 +6,34 @@
 //  Copyright © 2019 Denis Leupold. All rights reserved.
 //
 
-import CoreLocation
+import Foundation
 
-//MARK: - AirportDatabase
+var waypoints = [[String: String]]()
+
+//MARK: - TasksDatabase
 class TasksDatabase {
     static let shared = TasksDatabase()
-
+    
     class func gpxFileNames()
         -> [String] {
-            let gpxFileNames = ISoarFileManager.gpxFileNames()
-
+            let gpxFileNames = iSoarFileManager.gpxFileNames()
+            
             return gpxFileNames
     }
-
+    
 }
+
+//MARK: - Extentsion - Structs and Enums
+
+//extension TasksDatabase {
+
+// ToDo:
+// extension TasksDatabase: XMLParserDelegate {
+
+struct Waypoint: Equatable {
+    //MARK: Lets and Vars
+    var latitude:String
+    var longitude:String
+    
+}
+
