@@ -1,5 +1,5 @@
 //
-//  ISoarFileManager.swift
+//  iSoarFileManager.swift
 //  Glider Tool
 //
 //  Created by Peter Hauke on 11.12.19.
