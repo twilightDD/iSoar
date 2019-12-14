@@ -23,7 +23,7 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
     
     // Pull to Refresh of TableView
     private let refreshControl = UIRefreshControl()
-
+    
     // MARK: - IBOutlets
     @IBOutlet weak var countryImageTop: UIImageView!
     @IBOutlet weak var airportName: UILabel!
@@ -31,7 +31,7 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
     @IBOutlet weak var airportsSortedBySwitch: UISegmentedControl!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
-
+    
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,12 +44,12 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
         refreshControl.addTarget(self, action: #selector(refreshAirportDatabase),
                                  for: .valueChanged)
         refreshControl.attributedTitle = NSAttributedString(string: "Fetching new Airfield Database")
-
+        
         // register keyboard hide notifications to adjust tableView height if necessary.
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,7 +83,7 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
                             self.setupTableViewDatasource()
                             self.refreshControl.endRefreshing()
                             
-                           // self.searchController.searchBar.placeholder = "Search \(self.destinationAirportArray.count) Airfields"
+                            // self.searchController.searchBar.placeholder = "Search \(self.destinationAirportArray.count) Airfields"
                             
         }
         
@@ -131,7 +131,7 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
             airportInfoButton.isHidden = true
         }
     }
-
+    
     // Setup TableViewDatasource
     private func setupTableViewDatasource() {
         guard let sortIndicator = AirportDatabase.SortIndicator(rawValue: airportsSortedBySwitch.selectedSegmentIndex)
@@ -204,13 +204,13 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
     // Adjust TableView height if necessary
     @objc private func adjustForKeyboard(notification: Notification) {
         // https://www.hackingwithswift.com/example-code/uikit/how-to-adjust-a-uiscrollview-to-fit-the-keyboard
-//        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
-//            else { return }
-//
-//        let keyboardScreenEndFrame = keyboardValue.cgRectValue
-//        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame,
-//                                                from: view.window)
-
+        //        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
+        //            else { return }
+        //
+        //        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        //        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame,
+        //                                                from: view.window)
+        
         if notification.name == UIResponder.keyboardWillHideNotification {
             tableView.contentInset = .zero
         } else {
@@ -220,10 +220,10 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
                                                   bottom: 220, //keyboardViewEndFrame.height - view.safeAreaInsets.bottom,
                 right: 0)
         }
-
+        
         tableView.scrollIndicatorInsets = tableView.contentInset
     }
-
+    
     // MARK: - Action Methods
     // Sort Switch
     @IBAction func sortSwitch(_ sender: UISegmentedControl) {
@@ -262,9 +262,9 @@ extension RouteViewController: UITableViewDataSource {
             // get cell from tableView
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DestinationSelectionAirportTableViewCell.identifier) as? DestinationSelectionAirportTableViewCell
                 else { fatalError("")}
-
+            
             let airportOfInterest = destinationAirportArray[indexPath.row]
-
+            
             // texts in cell
             cell.airportNameLabel.text = airportOfInterest.name
             cell.icaoLabel.text = airportOfInterest.icao
@@ -275,10 +275,12 @@ extension RouteViewController: UITableViewDataSource {
                 countryImage = UIImage.init(named: country)
             }
             cell.countryImageView.image = countryImage
-
-
+            
+            
             // checkbox for selected airport
-            if MapScreen.shared!.selectedDestinationAirport?.icao == airportOfInterest.icao {
+            if MapScreen.shared!.selectedDestinationAirport?.latitude == airportOfInterest.latitude,
+                MapScreen.shared!.selectedDestinationAirport?.longitude == airportOfInterest.longitude
+            {
                 cell.accessoryType = .checkmark
                 cell.backgroundColor = UIColor(red: 17/255, green: 113/255, blue: 255/255, alpha: 0.1)
             }
@@ -286,7 +288,7 @@ extension RouteViewController: UITableViewDataSource {
                 cell.accessoryType = .none
                 cell.backgroundColor = nil
             }
-
+            
             return cell
     }
     
@@ -309,13 +311,13 @@ extension RouteViewController: UITableViewDelegate {
         else {
             MapScreen.shared!.selectedDestinationAirport = newSelectedDestinationAirport
         }
-
+        
         updateUIForSelectedDestinationAirport()
-
+        
         guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows
             else { return }
         tableView.reloadRows(at: indexPathsForVisibleRows, with: .none)
-
+        
     }
     
 }
@@ -334,9 +336,9 @@ extension RouteViewController: UISearchBarDelegate {
         searchBar.text = nil
         setupTableViewDatasource()
     }
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
-
+    
 }
