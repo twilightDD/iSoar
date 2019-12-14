@@ -9,7 +9,7 @@
 import CoreLocation
 
 //MARK: - AirportDatabase
-class AirportDatabase{
+class AirportDatabase {
     
     //MARK: - Lets and Vars
     static let shared = AirportDatabase()
@@ -135,10 +135,6 @@ class AirportDatabase{
         
         task.resume()
     }
-    
-
-    
-    
     
     //MARK: - Private Methods
     // Check if MapOjects.json exists in Library Folder
@@ -273,6 +269,7 @@ extension AirportDatabase {
             distance = newDistance
         }
         
+        // ToDo: was genau checkt der hier?
         static func == (lhs: Airport, rhs: Airport) -> Bool {
             return
                 lhs.latitude == rhs.latitude &&

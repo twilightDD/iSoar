@@ -448,21 +448,21 @@ class MapScreen: UIViewController {
         }
     }
     
-    // Show Tracking Route on Map
+    // ToDo: Show Tracking Route on Map
     private func drawTrackingRoute() {
         
         let showTrackingRouteSwitch = defaults.value(forKey: "showTrackingRouteSwitch") as! Bool
         
         if showTrackingRouteSwitch == true {
-            showTrackingRoute = true
-            print("Tracking Route Switch ist an")
-            print("Draw Tracking Line")
+            showTrackingRoute = showTrackingRouteSwitch
+            //print("Tracking Route Switch ist an")
+            //print("Draw Tracking Line")
         }
         else {
-            print("Tracking Route Switch ist aus")
+            //print("Tracking Route Switch ist aus")
             if showTrackingRoute == true {
-                showTrackingRoute = false
-                print("Reset Subview")
+                showTrackingRoute = showTrackingRouteSwitch
+                //print("Reset Subview")
             }
             else {
                 return
@@ -644,7 +644,7 @@ extension MapScreen: CLLocationManagerDelegate {
             self.mapView.setCenter(currentLocation.coordinate, animated: true)
         }
         
-        // Current ALtitude and Location depending stuff
+        // Current Altitude and Location depending stuff
         // Altitude
         updateAltitudeLabel()
         
@@ -657,14 +657,15 @@ extension MapScreen: CLLocationManagerDelegate {
         // Direction
         updateDirectionLabelsAndLine()
         
-        // Tracking Route
-        drawTrackingRoute()
-        
+        // Operating Stuff
         // Gear Warning
         gearWarning()
         
         // Oxygen Warning
         // oxygenWarning()
+        
+        // ToDo: Flight Recorder
+        //FlightRecorder.storeFlightData()
         
     }
     
