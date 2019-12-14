@@ -12,7 +12,7 @@
 		D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02B0E6422C15BB7007C7162 /* UserLocationButton.swift */; };
 		D060C1F322B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */; };
 		D074B51522968C7A00A573AE /* Airports.json in Resources */ = {isa = PBXBuildFile; fileRef = D074B51422968C7A00A573AE /* Airports.json */; };
-		D0BBE08623A18CEB00CAD9FF /* ISoarFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BBE08523A18CEB00CAD9FF /* ISoarFileManager.swift */; };
+		D0BBE08623A18CEB00CAD9FF /* iSoarFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BBE08523A18CEB00CAD9FF /* iSoarFileManager.swift */; };
 		D0C2A9E32367954A00FEF926 /* UITextField+NumberPadDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */; };
 		D0C5ED5B22A4769C009A0542 /* AirportDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5ED5A22A4769C009A0542 /* AirportDatabase.swift */; };
 		E011D4C123735CB9006F0CC3 /* OGNSocketConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */; };
@@ -20,6 +20,7 @@
 		E01CAFD4239964ED00FE1B90 /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01CAFD3239964ED00FE1B90 /* TasksViewController.swift */; };
 		E01D87E8239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01D87E7239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift */; };
 		E01D87EB239ABB5D00E9B5B6 /* TasksDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */; };
+		E0766AF123A4CCAD002FA676 /* FlightRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0766AF023A4CCAD002FA676 /* FlightRecorder.swift */; };
 		E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086AB0A229C35890011C433 /* SettingsViewController.swift */; };
 		E0A215BB235E2D0D009F6953 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BA235E2D0D009F6953 /* TableViewController.swift */; };
 		E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */; };
@@ -56,7 +57,7 @@
 		D02B0E6422C15BB7007C7162 /* UserLocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationButton.swift; sourceTree = "<group>"; };
 		D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUserLocationAnnotationView.swift; sourceTree = "<group>"; };
 		D074B51422968C7A00A573AE /* Airports.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Airports.json; sourceTree = "<group>"; };
-		D0BBE08523A18CEB00CAD9FF /* ISoarFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISoarFileManager.swift; sourceTree = "<group>"; };
+		D0BBE08523A18CEB00CAD9FF /* iSoarFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iSoarFileManager.swift; sourceTree = "<group>"; };
 		D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+NumberPadDoneButton.swift"; sourceTree = "<group>"; };
 		D0C5ED5A22A4769C009A0542 /* AirportDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportDatabase.swift; sourceTree = "<group>"; };
 		E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OGNSocketConnectionManager.swift; sourceTree = "<group>"; };
@@ -64,6 +65,7 @@
 		E01CAFD3239964ED00FE1B90 /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		E01D87E7239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksDatabase.swift; sourceTree = "<group>"; };
+		E0766AF023A4CCAD002FA676 /* FlightRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FlightRecorder.swift; path = "User-Location/FlightRecorder.swift"; sourceTree = SOURCE_ROOT; };
 		E086AB0A229C35890011C433 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E0A215BA235E2D0D009F6953 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionAirportTableViewCell.swift; sourceTree = "<group>"; };
@@ -123,7 +125,7 @@
 		D0BBE08423A18CB900CAD9FF /* FileManager */ = {
 			isa = PBXGroup;
 			children = (
-				D0BBE08523A18CEB00CAD9FF /* ISoarFileManager.swift */,
+				D0BBE08523A18CEB00CAD9FF /* iSoarFileManager.swift */,
 			);
 			path = FileManager;
 			sourceTree = "<group>";
@@ -152,6 +154,22 @@
 				D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E0766AEF23A3F040002FA676 /* FlightRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				E0766AF023A4CCAD002FA676 /* FlightRecorder.swift */,
+			);
+			path = FlightRecorder;
+			sourceTree = "<group>";
+		};
+		E0766AF223A57115002FA676 /* OGN Socket Manager */ = {
+			isa = PBXGroup;
+			children = (
+				E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */,
+			);
+			path = "OGN Socket Manager";
 			sourceTree = "<group>";
 		};
 		E0B52F702283753400E28A93 /* ViewControllers */ = {
@@ -214,12 +232,13 @@
 				D02B0E6322C15B95007C7162 /* Subclasses */,
 				E0B52F7522837BC800E28A93 /* Designs */,
 				E0526AB022BF7056001FC6B4 /* Extensions */,
+				E0766AEF23A3F040002FA676 /* FlightRecorder */,
 				E0DA9414228D267500D3A854 /* Airports */,
+				E0766AF223A57115002FA676 /* OGN Socket Manager */,
 				E01D87E9239ABB1C00E9B5B6 /* Tasks */,
 				E0B52F702283753400E28A93 /* ViewControllers */,
 				EDA236342130AA9A00739396 /* MapScreen.swift */,
 				EDA236222130AA7500739396 /* AppDelegate.swift */,
-				E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */,
 				EDA236262130AA7500739396 /* Main.storyboard */,
 				EDA236292130AA7600739396 /* Assets.xcassets */,
 				EDA2362B2130AA7600739396 /* LaunchScreen.storyboard */,
@@ -368,8 +387,9 @@
 				D0C5ED5B22A4769C009A0542 /* AirportDatabase.swift in Sources */,
 				E0E1D87A229476C00004DE81 /* RouteViewController.swift in Sources */,
 				E011D4C123735CB9006F0CC3 /* OGNSocketConnectionManager.swift in Sources */,
-				D0BBE08623A18CEB00CAD9FF /* ISoarFileManager.swift in Sources */,
+				D0BBE08623A18CEB00CAD9FF /* iSoarFileManager.swift in Sources */,
 				E014961A236F6B4C00C1AC0D /* MapLabel.swift in Sources */,
+				E0766AF123A4CCAD002FA676 /* FlightRecorder.swift in Sources */,
 				EDA236232130AA7500739396 /* AppDelegate.swift in Sources */,
 				E0B52F72228377F300E28A93 /* Buttons.swift in Sources */,
 				E01CAFD4239964ED00FE1B90 /* TasksViewController.swift in Sources */,
@@ -525,7 +545,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = URATVA2LKM;
+				DEVELOPMENT_TEAM = HCR82BSM8Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -548,10 +568,10 @@
 			baseConfigurationReference = AF3E6C1CC85039594789B3C8 /* Pods-Glider Tool.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 5;
-				DEVELOPMENT_TEAM = URATVA2LKM;
+				DEVELOPMENT_TEAM = HCR82BSM8Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

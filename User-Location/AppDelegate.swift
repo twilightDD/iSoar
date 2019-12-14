@@ -24,8 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set up User Defaults
         SettingsViewController.setupUserDefaults()
 
+        // Setup Documents/Flights-Folder
+        iSoarFileManager.checkForFlightsFolder()
+        
         // Setup Documents/Tasks-Folder
-        ISoarFileManager.checkForTasksFolder()
+        iSoarFileManager.checkForTasksFolder()
         
         return true
     }
