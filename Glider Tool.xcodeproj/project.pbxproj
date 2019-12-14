@@ -125,6 +125,7 @@
 		D0BBE08423A18CB900CAD9FF /* FileManager */ = {
 			isa = PBXGroup;
 			children = (
+				D0BBE08523A18CEB00CAD9FF /* iSoarFileManager.swift */,
 			);
 			path = FileManager;
 			sourceTree = "<group>";
@@ -226,7 +227,6 @@
 		EDA236212130AA7500739396 /* User-Location */ = {
 			isa = PBXGroup;
 			children = (
-				D0BBE08523A18CEB00CAD9FF /* iSoarFileManager.swift */,
 				D0BBE08423A18CB900CAD9FF /* FileManager */,
 				D0945070235E564B0089E3C8 /* Cells */,
 				D02B0E6322C15B95007C7162 /* Subclasses */,
