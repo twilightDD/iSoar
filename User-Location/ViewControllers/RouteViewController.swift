@@ -70,7 +70,7 @@ class RouteViewController: UIViewController, MFMailComposeViewControllerDelegate
         }
         
         updateUIForSelectedDestinationAirport()
-        searchBar.placeholder = "Filter airports"
+        searchBar.placeholder = "Filter Airfields"
         
         // MARK: - Register Observers for notfications
         // Airport Update Completed
