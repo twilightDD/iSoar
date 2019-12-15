@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MapKit
 import CoreLocation
 import CoreMotion
 import Mapbox
@@ -111,13 +110,6 @@ class MapScreen: UIViewController {
         mapView.attributionButton.isHidden = false
         mapView.attributionButton.tintColor = .lightGray
         
-        // Center Map to Airport Stuttgart at App Start
-        mapView.setCenter(CLLocationCoordinate2D(
-            latitude: 48.686251,
-            longitude: 9.205404),
-                          zoomLevel: 9.6,
-                          animated: true)
-        userLocationButton.updateArrowForTrackingMode(state: userFollow)
     }
     
     // Check for Location Services
@@ -281,7 +273,6 @@ class MapScreen: UIViewController {
     }
     
     //MARK: - Private Methods
-    
     // Update AltitudeLabel
     private func updateAltitudeLabel() {
         guard let currentLocation = currentLocation else {
@@ -627,6 +618,15 @@ extension MapScreen: MGLMapViewDelegate {
     
     func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
         mapView.showsUserLocation = true
+        
+        // Center Map to User Location
+        mapView.setCenter(CLLocationCoordinate2D(
+            latitude: currentLocation!.coordinate.latitude,
+            longitude: currentLocation!.coordinate.longitude),
+                          zoomLevel: 9.6,
+                          animated: true)
+        userLocationButton.updateArrowForTrackingMode(state: userFollow)
+        
     }
     
 }
