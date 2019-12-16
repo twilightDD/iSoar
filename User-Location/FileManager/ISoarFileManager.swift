@@ -1,5 +1,5 @@
 //
-//  iSoarFileManager.swift
+//  ISoarFileManager.swift
 //  Glider Tool
 //
 //  Created by Peter Hauke on 11.12.19.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-//MARK: - iSoarFileManager
-class iSoarFileManager {
+//MARK: - ISoarFileManager
+class ISoarFileManager {
     
     //MARK: Private Lets and Vars
     private static let flightSubPath = "/Flights"
@@ -52,7 +52,7 @@ class iSoarFileManager {
 
 //MARK: - Extension - Check Directory Class Methods
 // Check if Tasks Folder exists in Documents Folder
-extension iSoarFileManager {
+extension ISoarFileManager {
     class func checkForTasksFolder() {
         if !FileManager.default.fileExists(atPath: gpxPath) {
             print("Tasks Folder dont exist in Documents Folder. Creating...")
@@ -88,7 +88,7 @@ extension iSoarFileManager {
 }
 
 //MARK: - Extension - GPX File Handling
-extension iSoarFileManager {
+extension ISoarFileManager {
     //MARK:  Public Class Methods
     class func gpxFileNames()
         -> [String] {
