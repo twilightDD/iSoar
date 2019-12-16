@@ -426,10 +426,15 @@ class MapScreen: UIViewController {
 
             self.mapView.addAnnotation(newCurrentLine)
 
+            // to avoid flickering we delay the removable of the "former" line a little bit; 16.12.19, ph
             if let currentDirectionLine = self.currentDirectionLine {
-               self.mapView.removeAnnotation(currentDirectionLine)
+                let seconds = 0.025
+                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                    self.mapView.removeAnnotation(currentDirectionLine)
+                }
+
             }
-            
+
             currentDirectionLine = newCurrentLine
         }
         else {
@@ -671,6 +676,8 @@ extension MapScreen: CLLocationManagerDelegate {
         
         // FlightRecorder
         FlightRecorder.shared.addFlightRecorderEntryForLocation(currentLocation)
+
+        // updateFlightRecorderLine()
     }
     
     // Check for Location Authorization
