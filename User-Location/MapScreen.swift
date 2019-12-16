@@ -416,17 +416,21 @@ class MapScreen: UIViewController {
             // let glidingRange = (currentLocation.altitude - safetyAltitude)*gliderRatio
             
             // Draw direct line between current location and destinationAirport.
-            if self.currentDirectionLine != nil {
-                self.mapView.remove(self.currentDirectionLine!)
-            }
+
             
             let destinationAirportLocationCoordinate = CLLocationCoordinate2D(latitude: selectedDestinationAirport.latitude,
                                                                               longitude: selectedDestinationAirport.longitude)
             let newDirectionCoordinates:[CLLocationCoordinate2D] = [currentLocation.coordinate, destinationAirportLocationCoordinate]
-            self.currentDirectionLine = MGLPolyline(coordinates: newDirectionCoordinates,
-                                                    count: UInt(newDirectionCoordinates.count))
+            let newCurrentLine = MGLPolyline(coordinates: newDirectionCoordinates,
+                                                        count: UInt(newDirectionCoordinates.count))
+
+            self.mapView.addAnnotation(newCurrentLine)
+
+            if let currentDirectionLine = self.currentDirectionLine {
+               self.mapView.removeAnnotation(currentDirectionLine)
+            }
             
-            self.mapView.add(self.currentDirectionLine!)
+            currentDirectionLine = newCurrentLine
         }
         else {
             distanceLabel.text = "---"
