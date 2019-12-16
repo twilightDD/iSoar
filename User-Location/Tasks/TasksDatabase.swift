@@ -16,7 +16,7 @@ class TasksDatabase {
     
     class func gpxFileNames()
         -> [String] {
-            let gpxFileNames = iSoarFileManager.gpxFileNames()
+            let gpxFileNames = ISoarFileManager.gpxFileNames()
             
             return gpxFileNames
     }
