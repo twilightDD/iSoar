@@ -268,14 +268,7 @@ extension AirportDatabase {
         mutating func updateDistance(_ newDistance:CLLocationDistance) {
             distance = newDistance
         }
-        
-        // ToDo: was genau checkt der hier?
-        static func == (lhs: Airport, rhs: Airport) -> Bool {
-            return
-                lhs.latitude == rhs.latitude &&
-                    lhs.longitude == rhs.longitude
-        }
-        
+    
     }
 }
 
