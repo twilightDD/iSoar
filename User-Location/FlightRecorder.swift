@@ -14,8 +14,8 @@ class FlightRecorder {
     
     // MARK: - Lets and Vars
     static let shared = FlightRecorder()
-    var flightDataArray = [FlightRecorder.flightData]()
-    
+    var flightDataArray = [FlightRecorder.FlightData]()
+
     var currentLocation:CLLocation?
     
     
@@ -28,7 +28,7 @@ class FlightRecorder {
         //let timeStamp = Date().timeIntervalSince1970
         //let unixTimeStamp = Date.currentTimeStamp
         
-        flightDataArray.append(flightData(unixTimeStamp: Date.currentTimeStamp,
+        flightDataArray.append(FlightData(unixTimeStamp: Date.currentTimeStamp,
                                           latitude: currentLocation.coordinate.latitude,
                                           longitude: currentLocation.coordinate.latitude,
                                           altitude: currentLocation.altitude,
@@ -44,7 +44,7 @@ class FlightRecorder {
 // MARK: - Extentsion - Structs and Enums
 extension FlightRecorder {
     
-    struct flightData: Equatable {
+    struct FlightData: Equatable {
         //MARK: Lets and Vars
         var unixTimeStamp: Int64
         var latitude: Double
