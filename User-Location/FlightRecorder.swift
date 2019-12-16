@@ -7,36 +7,55 @@
 //
 
 import Foundation
+import CoreLocation
 
-//MARK: - FlightRecorder
+// MARK: - FlightRecorder
 class FlightRecorder {
     
-    //MARK: - Lets and Vars
+    // MARK: - Lets and Vars
     static let shared = FlightRecorder()
     var flightDataArray = [FlightRecorder.flightData]()
     
+    var currentLocation:CLLocation?
     
-    //MARK: - Public Methods
+    
+    // MARK: - Public Methods
     func storeFlightData() {
+        guard let currentLocation = currentLocation else {
+            return
+        }
         
-        flightDataArray.append(flightData(time: "12", latitude: 12, longitude: 12, altitude: 12, speed: 12, course: 12))
-
+        //let timeStamp = Date().timeIntervalSince1970
+        let unixTimeStamp = Date.currentTimeStamp
+        
+        flightDataArray.append(flightData(unixTimeStamp: unixTimeStamp,
+                                          latitude: currentLocation.coordinate.latitude,
+                                          longitude: currentLocation.coordinate.latitude,
+                                          altitude: currentLocation.altitude,
+                                          speed: currentLocation.speed,
+                                          course: currentLocation.course))
     }
     
 }
 
-//MARK: - Extentsion - Structs and Enums
+// MARK: - Extentsion - Structs and Enums
 extension FlightRecorder {
     
     struct flightData: Equatable {
         //MARK: Lets and Vars
-        
-        var time: String
+        var unixTimeStamp: Int64
         var latitude: Double
         var longitude: Double
         var altitude: Double
         var speed: Double
         var course: Double
-        
+    }
+    
+}
+
+// Unix Date Extension
+extension Date {
+    static var currentTimeStamp: Int64{
+        return Int64(Date().timeIntervalSince1970 * 1000)
     }
 }
