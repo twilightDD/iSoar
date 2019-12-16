@@ -15,28 +15,21 @@ class FlightRecorder {
     // MARK: - Lets and Vars
     static let shared = FlightRecorder()
     var flightDataArray = [FlightRecorder.FlightData]()
-
-    var currentLocation:CLLocation?
-    
     
     // MARK: - Public Methods
-    func storeFlightData() {
-        guard let currentLocation = currentLocation else {
-            return
-        }
+    func addFlightRecorderEntryForLocation(_ currentLocation: CLLocation) {
+        let flightData = FlightData(unixTimeStamp: Date.currentTimeStamp,
+                                    latitude: currentLocation.coordinate.latitude,
+                                    longitude: currentLocation.coordinate.longitude,
+                                    altitude: currentLocation.altitude,
+                                    speed: currentLocation.speed,
+                                    course: currentLocation.course,
+                                    horizontalAccuracy: currentLocation.horizontalAccuracy,
+                                    verticalAccuracy: currentLocation.verticalAccuracy)
+        flightDataArray.append(flightData)
         
-        //let timeStamp = Date().timeIntervalSince1970
-        //let unixTimeStamp = Date.currentTimeStamp
-        
-        flightDataArray.append(FlightData(unixTimeStamp: Date.currentTimeStamp,
-                                          latitude: currentLocation.coordinate.latitude,
-                                          longitude: currentLocation.coordinate.latitude,
-                                          altitude: currentLocation.altitude,
-                                          speed: currentLocation.speed,
-                                          course: currentLocation.course))
-        
-        print(Date.currentTimeStamp)
-        
+        print("Location: time: \(Date.currentTimeStamp) hA: \(flightData.horizontalAccuracy) vA: \(flightData.verticalAccuracy) long: \(flightData.longitude) lat: \(flightData.latitude)")
+        print("Anzahl Einträge: \(flightDataArray.count)")
     }
     
 }
@@ -52,6 +45,9 @@ extension FlightRecorder {
         var altitude: Double
         var speed: Double
         var course: Double
+        var horizontalAccuracy: CLLocationAccuracy
+        var verticalAccuracy: CLLocationAccuracy
+
     }
     
 }

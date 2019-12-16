@@ -40,6 +40,7 @@ class MapScreen: UIViewController {
         didSet {
             updateDirectionLabelsAndLine()
         }
+        
     }
     
     var currentDirectionLine:MGLPolyline?
@@ -664,9 +665,8 @@ extension MapScreen: CLLocationManagerDelegate {
         // Oxygen Warning
         // oxygenWarning()
         
-        // ToDo: Flight Recorder
-        //FlightRecorder.storeFlightData()
-        
+        // FlightRecorder
+        FlightRecorder.shared.addFlightRecorderEntryForLocation(currentLocation)
     }
     
     // Check for Location Authorization
