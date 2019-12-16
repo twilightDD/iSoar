@@ -26,14 +26,17 @@ class FlightRecorder {
         }
         
         //let timeStamp = Date().timeIntervalSince1970
-        let unixTimeStamp = Date.currentTimeStamp
+        //let unixTimeStamp = Date.currentTimeStamp
         
-        flightDataArray.append(flightData(unixTimeStamp: unixTimeStamp,
+        flightDataArray.append(flightData(unixTimeStamp: Date.currentTimeStamp,
                                           latitude: currentLocation.coordinate.latitude,
                                           longitude: currentLocation.coordinate.latitude,
                                           altitude: currentLocation.altitude,
                                           speed: currentLocation.speed,
                                           course: currentLocation.course))
+        
+        print(Date.currentTimeStamp)
+        
     }
     
 }
