@@ -62,6 +62,19 @@ class MapScreen: UIViewController {
     var playGearWarning = true
     var playOxygenWarning = true
     
+    
+    
+    //ToDo: wieder entfernen! Nur zum Test
+    var flightDataEntries = [
+        CLLocationCoordinate2D(latitude: 47.801931, longitude: 8.979349),
+        CLLocationCoordinate2D(latitude: 47.809564, longitude: 8.982026),
+        CLLocationCoordinate2D(latitude: 47.811941, longitude: 8.990480),
+        CLLocationCoordinate2D(latitude: 47.814189, longitude: 8.998226),
+        CLLocationCoordinate2D(latitude: 47.825802, longitude: 9.005286),
+        CLLocationCoordinate2D(latitude: 47.840443, longitude: 9.007204)
+        
+    ]
+    
     // MARK: - Init & Co.
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -416,25 +429,25 @@ class MapScreen: UIViewController {
             // let glidingRange = (currentLocation.altitude - safetyAltitude)*gliderRatio
             
             // Draw direct line between current location and destinationAirport.
-
+            
             
             let destinationAirportLocationCoordinate = CLLocationCoordinate2D(latitude: selectedDestinationAirport.latitude,
                                                                               longitude: selectedDestinationAirport.longitude)
             let newDirectionCoordinates:[CLLocationCoordinate2D] = [currentLocation.coordinate, destinationAirportLocationCoordinate]
             let newCurrentLine = MGLPolyline(coordinates: newDirectionCoordinates,
-                                                        count: UInt(newDirectionCoordinates.count))
-
+                                             count: UInt(newDirectionCoordinates.count))
+            
             self.mapView.addAnnotation(newCurrentLine)
-
+            
             // to avoid flickering we delay the removable of the "former" line a little bit; 16.12.19, ph
             if let currentDirectionLine = self.currentDirectionLine {
                 let seconds = 0.025
                 DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
                     self.mapView.removeAnnotation(currentDirectionLine)
                 }
-
+                
             }
-
+            
             currentDirectionLine = newCurrentLine
         }
         else {
@@ -456,11 +469,17 @@ class MapScreen: UIViewController {
         
         if showTrackingRouteSwitch == true {
             showTrackingRoute = showTrackingRouteSwitch
-            //print("Tracking Route Switch ist an")
-            //print("Draw Tracking Line")
+            
+            let trackingRoute = MGLPolyline(coordinates: &flightDataEntries, count: UInt(flightDataEntries.count))
+            
+            // Damit kann man Koordinaten an die Linie "anhängen"
+            //trackingRoute.appendCoordinates(&flightDataEntries, count:UInt(flightDataEntries.count))
+            
+            mapView.addAnnotation(trackingRoute)
+            
         }
         else {
-            //print("Tracking Route Switch ist aus")
+            print("Tracking Route Switch ist aus")
             if showTrackingRoute == true {
                 showTrackingRoute = showTrackingRouteSwitch
                 //print("Reset Subview")
@@ -676,8 +695,11 @@ extension MapScreen: CLLocationManagerDelegate {
         
         // FlightRecorder
         FlightRecorder.shared.addFlightRecorderEntryForLocation(currentLocation)
-
+        
         // updateFlightRecorderLine()
+        drawTrackingRoute()
+        
+        
     }
     
     // Check for Location Authorization
