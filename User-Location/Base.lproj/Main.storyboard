@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
     <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -221,7 +221,7 @@
                                     <constraint firstAttribute="width" constant="25" id="FjI-lm-kAm"/>
                                     <constraint firstAttribute="height" constant="25" id="YQS-Fo-pdS"/>
                                 </constraints>
-                                <state key="normal" image="add"/>
+                                <state key="normal" image="plus.circle" catalog="system"/>
                                 <connections>
                                     <action selector="reportMissingAirport:" destination="vvT-rw-CMb" eventType="touchUpInside" id="oUk-YK-hMJ"/>
                                 </connections>
@@ -245,7 +245,7 @@
                                     <constraint firstAttribute="width" constant="25" id="QQA-lX-6bN"/>
                                     <constraint firstAttribute="height" constant="25" id="cOO-ki-EKj"/>
                                 </constraints>
-                                <state key="normal" image="info"/>
+                                <state key="normal" image="info.circle" catalog="system"/>
                                 <connections>
                                     <segue destination="3Br-pt-Icv" kind="showDetail" identifier="AirportInfoSegue" id="Zkc-e6-S7u"/>
                                 </connections>
@@ -844,7 +844,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" image="glider" id="eMQ-jF-so1" userLabel="glider"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="map" id="eMQ-jF-so1" userLabel="glider"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="altitudeLabel" destination="K7G-au-vdO" id="nE8-c2-SvC"/>
@@ -863,10 +863,10 @@
     </scenes>
     <resources>
         <image name="Germany" width="512" height="514"/>
-        <image name="add" width="512" height="512"/>
-        <image name="glider" width="65" height="30"/>
-        <image name="info" width="512" height="512"/>
+        <image name="info.circle" catalog="system" width="64" height="60"/>
         <image name="logbook" width="35" height="35"/>
+        <image name="map" width="65" height="30"/>
+        <image name="plus.circle" catalog="system" width="64" height="60"/>
         <image name="settings" width="35" height="35"/>
         <image name="tabbar_DestinationSelection" width="35" height="35"/>
         <image name="tasks" width="35" height="35"/>
