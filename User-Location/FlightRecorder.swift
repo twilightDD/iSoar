@@ -18,9 +18,13 @@ class FlightRecorder {
     
     // MARK: - Public Methods
     func addFlightRecorderEntryForLocation(_ currentLocation: CLLocation) {
+        let locationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
+                                                               longitude: currentLocation.coordinate.longitude)
+
         let flightData = FlightData(unixTimeStamp: Date.currentTimeStamp,
                                     latitude: currentLocation.coordinate.latitude,
                                     longitude: currentLocation.coordinate.longitude,
+                                    locationCoordinate2D: locationCoordinate2D,
                                     altitude: currentLocation.altitude,
                                     speed: currentLocation.speed,
                                     course: currentLocation.course,
@@ -42,6 +46,7 @@ extension FlightRecorder {
         var unixTimeStamp: Int64
         var latitude: Double
         var longitude: Double
+        var locationCoordinate2D : CLLocationCoordinate2D
         var altitude: Double
         var speed: Double
         var course: Double
@@ -50,6 +55,14 @@ extension FlightRecorder {
 
     }
     
+}
+
+extension CLLocationCoordinate2D: Equatable {
+    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D)
+        -> Bool {
+            return lhs.latitude == rhs.latitude &&
+                lhs.longitude == rhs.longitude
+    }
 }
 
 // Unix Date Extension
