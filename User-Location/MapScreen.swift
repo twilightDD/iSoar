@@ -44,6 +44,7 @@ class MapScreen: UIViewController {
     }
     
     var currentDirectionLine:MGLPolyline?
+    var currentFlightLine: MGLPolyline?
     
     var userTrackingMode = true
     var userFollow = false
@@ -66,13 +67,49 @@ class MapScreen: UIViewController {
     
     //ToDo: wieder entfernen! Nur zum Test
     var flightDataEntries = [
-        CLLocationCoordinate2D(latitude: 47.801931, longitude: 8.979349),
-        CLLocationCoordinate2D(latitude: 47.809564, longitude: 8.982026),
-        CLLocationCoordinate2D(latitude: 47.811941, longitude: 8.990480),
-        CLLocationCoordinate2D(latitude: 47.814189, longitude: 8.998226),
-        CLLocationCoordinate2D(latitude: 47.825802, longitude: 9.005286),
-        CLLocationCoordinate2D(latitude: 47.840443, longitude: 9.007204)
-        
+        CLLocationCoordinate2D(latitude: 51.07368666714155, longitude: 13.741828515314758),
+        CLLocationCoordinate2D(latitude: 51.07368666714155, longitude: 13.741828515314758),
+        CLLocationCoordinate2D(latitude: 51.07354691544257, longitude: 13.741736415336309),
+        CLLocationCoordinate2D(latitude: 51.07355745965976, longitude: 13.741724946714275),
+        CLLocationCoordinate2D(latitude: 51.07358656011961, longitude: 13.741768850089965),
+        CLLocationCoordinate2D(latitude: 51.07351886719069, longitude: 13.741722943332784),
+        CLLocationCoordinate2D(latitude: 51.07351320273523, longitude: 13.741747400062923),
+        CLLocationCoordinate2D(latitude: 51.07353899611132, longitude: 13.741795639522342),
+        CLLocationCoordinate2D(latitude: 51.07356060210416, longitude: 13.74180348078995 ),
+        CLLocationCoordinate2D(latitude: 51.07356270435661, longitude: 13.741777312173895),
+        CLLocationCoordinate2D(latitude: 51.07353967387063, longitude: 13.741899676801946),
+        CLLocationCoordinate2D(latitude: 51.07352366645905, longitude: 13.741951585925175),
+        CLLocationCoordinate2D(latitude: 51.073602757123155,longitude: 13.741964244717696),
+        CLLocationCoordinate2D(latitude: 51.07355109683625, longitude: 13.741939010836724),
+        CLLocationCoordinate2D(latitude: 51.07354700827357, longitude: 13.74193627348982 ),
+        CLLocationCoordinate2D(latitude: 51.07353321516896, longitude: 13.741917053977327),
+        CLLocationCoordinate2D(latitude: 51.073584616403295,longitude: 13.741850522828388),
+        CLLocationCoordinate2D(latitude: 51.073602525068715,longitude: 13.74185063712511 ),
+        CLLocationCoordinate2D(latitude: 51.073509063631235,longitude: 13.741837937564652),
+        CLLocationCoordinate2D(latitude: 51.07349263415882, longitude: 13.741901586334539),
+        CLLocationCoordinate2D(latitude: 51.07357519140273, longitude: 13.741907014738038),
+        CLLocationCoordinate2D(latitude: 51.07357172155459, longitude: 13.741900954398044),
+        CLLocationCoordinate2D(latitude: 51.07356238398292, longitude: 13.741886630171189),
+        CLLocationCoordinate2D(latitude: 51.073579858090184,longitude: 13.74190727857294 ),
+        CLLocationCoordinate2D(latitude: 51.0736079810987,  longitude: 13.741937163838996),
+        CLLocationCoordinate2D(latitude: 51.07361837623945, longitude: 13.741942501681793),
+        CLLocationCoordinate2D(latitude: 51.073627633593254,longitude: 13.7419561789014     ),
+        CLLocationCoordinate2D(latitude: 51.07362529007395, longitude: 13.74196591007884 ),
+        CLLocationCoordinate2D(latitude: 51.073628763826505,longitude: 13.741968485826035),
+        CLLocationCoordinate2D(latitude: 51.07363479146303, longitude: 13.741960228553772),
+        CLLocationCoordinate2D(latitude: 51.07363702022029, longitude: 13.74194881618587 ),
+        CLLocationCoordinate2D(latitude: 51.07363481944622, longitude: 13.741937112269236),
+        CLLocationCoordinate2D(latitude: 51.073638197405245,longitude: 13.741931338608627),
+        CLLocationCoordinate2D(latitude: 51.073638535819505,longitude: 13.741920995838168),
+        CLLocationCoordinate2D(latitude: 51.07358139949214, longitude: 13.741898197254287),
+        CLLocationCoordinate2D(latitude: 51.07358752365171, longitude: 13.741895655304003),
+        CLLocationCoordinate2D(latitude: 51.0735916437382,  longitude: 13.74188938656638 ),
+        CLLocationCoordinate2D(latitude: 51.073594375684145,longitude: 13.74189121861711 ),
+        CLLocationCoordinate2D(latitude: 51.07358318074434, longitude: 13.741871412646079),
+        CLLocationCoordinate2D(latitude: 51.073593720505556,longitude: 13.741875458896903),
+        CLLocationCoordinate2D(latitude: 51.0735969486108,  longitude: 13.74187375722567 ),
+        CLLocationCoordinate2D(latitude: 51.07360107600439, longitude: 13.74187661667017 ),
+        CLLocationCoordinate2D(latitude: 51.07360107600439, longitude: 13.74187661667017)
     ]
     
     // MARK: - Init & Co.
@@ -469,13 +506,33 @@ class MapScreen: UIViewController {
         
         if showTrackingRouteSwitch == true {
             showTrackingRoute = showTrackingRouteSwitch
-            
-            let trackingRoute = MGLPolyline(coordinates: &flightDataEntries, count: UInt(flightDataEntries.count))
-            
-            // Damit kann man Koordinaten an die Linie "anhängen"
-            //trackingRoute.appendCoordinates(&flightDataEntries, count:UInt(flightDataEntries.count))
-            
+
+            var coords = FlightRecorder.shared.flightDataArray.map({ (flightData)
+                -> CLLocationCoordinate2D in
+                return flightData.locationCoordinate2D
+            })
+//            print("---------------")
+//            print("\(coords)")
+//            print("---------------")
+
+
+            let trackingRoute = MGLPolyline(coordinates: &coords,
+                                            count: UInt(flightDataEntries.count))
+
+
+//            trackingRoute.appendCoordinates(&flightDataEntries,
+//            count:UInt(flightDataEntries.count))
+
             mapView.addAnnotation(trackingRoute)
+
+            if let currentFlightLine = self.currentFlightLine {
+                let seconds = 0.025
+                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                    self.mapView.removeAnnotation(currentFlightLine)
+                }
+            }
+
+            currentFlightLine = trackingRoute
             
         }
         else {
@@ -489,7 +546,7 @@ class MapScreen: UIViewController {
             }
         }
     }
-    
+
     // Audio Landing Gear Warning
     private func gearWarning() {
         guard let selectedDestinationAirport = selectedDestinationAirport else {
