@@ -21,8 +21,22 @@ class TextFields: UITextField {
     }
 
     private func setUpTextField() {
-        tintColor       = UIColor .blue
-        textColor       = UIColor .black
-        backgroundColor = .white
+        // Color presets
+        var textColor: UIColor
+        var backgroundColor: UIColor
+
+
+        if #available(iOS 13, *) {
+            textColor = .label
+            backgroundColor = .systemBackground
+        }
+        else {
+            textColor = .darkText
+            backgroundColor = .white
+        }
+
+        self.textColor       = textColor
+        self.backgroundColor = backgroundColor
     }
+    
 }
