@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -352,7 +352,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TB3-Tq-exz"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Destination" image="dest" id="ING-ff-gWt" userLabel="Direct to"/>
+                    <tabBarItem key="tabBarItem" title="Destination" image="tabbar_DestinationSelection" id="ING-ff-gWt" userLabel="Direct to"/>
                     <connections>
                         <outlet property="airportInfoButton" destination="eid-Eo-OlS" id="mUw-Bg-1jn"/>
                         <outlet property="airportName" destination="eu5-OH-egv" id="tes-Dm-Icz"/>
@@ -861,11 +861,11 @@
     <resources>
         <image name="Germany" width="512" height="514"/>
         <image name="add" width="512" height="512"/>
-        <image name="dest" width="35" height="35"/>
         <image name="glider" width="65" height="30"/>
         <image name="info" width="512" height="512"/>
         <image name="logbook" width="35" height="35"/>
         <image name="settings" width="35" height="35"/>
+        <image name="tabbar_DestinationSelection" width="35" height="35"/>
         <image name="tasks" width="35" height="35"/>
     </resources>
 </document>
