@@ -27,13 +27,11 @@ class FlightRecorder {
                                     locationCoordinate2D: locationCoordinate2D,
                                     altitude: currentLocation.altitude,
                                     speed: currentLocation.speed,
-                                    course: currentLocation.course,
-                                    horizontalAccuracy: currentLocation.horizontalAccuracy,
-                                    verticalAccuracy: currentLocation.verticalAccuracy)
+                                    course: currentLocation.course)
         flightDataArray.append(flightData)
         
-        print("Location: time: \(Date.currentTimeStamp) hA: \(flightData.horizontalAccuracy) vA: \(flightData.verticalAccuracy) long: \(flightData.longitude) lat: \(flightData.latitude)")
-        print("Anzahl Einträge: \(flightDataArray.count)")
+//        print("Location: time: \(Date.currentTimeStamp) lat: \(flightData.latitude) long: \(flightData.longitude)")
+//        print("Anzahl Einträge: \(flightDataArray.count)")
     }
     
 }
@@ -50,8 +48,6 @@ extension FlightRecorder {
         var altitude: Double
         var speed: Double
         var course: Double
-        var horizontalAccuracy: CLLocationAccuracy
-        var verticalAccuracy: CLLocationAccuracy
 
     }
     
