@@ -1,5 +1,8 @@
 ${PODS_ROOT}/Target Support Files/Pods-Glider Tool/Pods-Glider Tool-frameworks.sh
 ${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework
 ${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM
-${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/1C04753A-6715-3177-9FDA-8F75B4324E0C.bcsymbolmap
-${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/EE5140C5-686C-3DED-8916-3717EC675952.bcsymbolmap
+${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/F207D6B5-A5AF-3799-A665-6016E3A8EA01.bcsymbolmap
+${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/8F504B7B-C196-3FBC-B345-1F70257D3AEC.bcsymbolmap
+${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/2020F3C8-7482-398F-94F5-08E6FADF2B47.bcsymbolmap
+${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/B2BBCEBE-D9C9-3E98-A63B-0BD273A7B14A.bcsymbolmap
+${BUILT_PRODUCTS_DIR}/MapboxMobileEvents/MapboxMobileEvents.framework
