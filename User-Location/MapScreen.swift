@@ -44,8 +44,7 @@ class MapScreen: UIViewController {
     }
     
     var currentDirectionLine:MGLPolyline?
-    var currentFlightLine: MGLPolyline?
-    var flightDataEntries: [CLLocationCoordinate2D] = []
+    var currentFlightLine = MGLPolyline()
     
     var userTrackingMode = true
     var userFollow = false
@@ -79,6 +78,12 @@ class MapScreen: UIViewController {
         
         setupGestureRecognizers()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        checkTrackingRouteStatus()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -451,42 +456,31 @@ class MapScreen: UIViewController {
         }
     }
     
-    // ToDo: Show Tracking Route on Map
-    private func drawTrackingRoute() {
-        
-        let showTrackingRouteSwitch = defaults.value(forKey: "showTrackingRouteSwitch") as! Bool
-        
-        if showTrackingRouteSwitch == true {
-            showTrackingRoute = showTrackingRouteSwitch
-            
-            if let currentLocation = self.currentLocation {
-                
-                var currentLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
-                                                                              longitude: currentLocation.coordinate.longitude)
-                currentFlightLine?.appendCoordinates(&currentLocationCoordinate2D,
-                                                     count: 1)
-                
-                flightDataEntries.append(currentLocationCoordinate2D)
-                
-                currentFlightLine = MGLPolyline(coordinates: flightDataEntries, count: UInt(flightDataEntries.count))
-                
-                mapView.addAnnotation(currentFlightLine!)
-                
-                print(flightDataEntries.count)
-                
+    // MARK: Route Tracking
+    // Check for Tracking Route Status
+    private func checkTrackingRouteStatus() {
+        showTrackingRoute = defaults.value(forKey: SettingsViewController.Settings.ShowTrackingRouteSwitchKey) as! Bool
+        if showTrackingRoute == true {
+            // Delay Drawing and wait for Location
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.mapView.addAnnotation(self.currentFlightLine)
             }
-            
         }
         else {
-            print("Tracking Route Switch ist aus")
-            if showTrackingRoute == true {
-                showTrackingRoute = showTrackingRouteSwitch
-                //print("Reset Subview")
-            }
-            else {
-                return
-            }
+            mapView.removeAnnotation(currentFlightLine)
+            
         }
+    }
+    
+    // Draw Tracking Route
+    private func drawTrackingRoute() {
+        if let currentLocation = self.currentLocation {
+            var currentLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
+                                                                          longitude: currentLocation.coordinate.longitude)
+            currentFlightLine.appendCoordinates(&currentLocationCoordinate2D,
+                                                count: 1)
+        }
+        
     }
     
     // Audio Landing Gear Warning
