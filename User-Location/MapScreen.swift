@@ -84,6 +84,7 @@ class MapScreen: UIViewController {
         super.viewWillAppear(animated)
         
         checkTrackingRouteStatus()
+
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -457,7 +458,7 @@ class MapScreen: UIViewController {
     }
     
     // MARK: Route Tracking
-    // Check for Tracking Route Status
+    // Check for Tracking Route Status ins Settings
     private func checkTrackingRouteStatus() {
         showTrackingRoute = defaults.value(forKey: SettingsViewController.Settings.ShowTrackingRouteSwitchKey) as! Bool
         if showTrackingRoute == true {
@@ -468,17 +469,16 @@ class MapScreen: UIViewController {
         }
         else {
             mapView.removeAnnotation(currentFlightLine)
-            
         }
     }
     
-    // Draw Tracking Route
+    // Draw Tracking Route Polyline on Map
     private func drawTrackingRoute() {
         if let currentLocation = self.currentLocation {
             var currentLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
                                                                           longitude: currentLocation.coordinate.longitude)
-            currentFlightLine.appendCoordinates(&currentLocationCoordinate2D,
-                                                count: 1)
+                currentFlightLine.appendCoordinates(&currentLocationCoordinate2D,
+                                                    count: 1)
         }
         
     }
@@ -687,7 +687,8 @@ extension MapScreen: CLLocationManagerDelegate {
         // oxygenWarning()
         
         // FlightRecorder
-        FlightRecorder.shared.addFlightRecorderEntryForLocation(currentLocation)
+        FlightRecorder.shared.checkIfGliderIsFlying()
+        //FlightRecorder.shared.addFlightRecorderEntryForLocation(currentLocation)
         
         // updateFlightRecorderLine()
         drawTrackingRoute()
