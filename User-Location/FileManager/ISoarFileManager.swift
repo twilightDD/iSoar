@@ -106,7 +106,6 @@ extension ISoarFileManager {
                 fatalError("\(contentsOfDirectory.localizedDescription)")
             }
             
-            
             // parse fileNames
             for fileURL in fileURLs {
                 let fileURLWithoutExtension = fileURL.deletingPathExtension()
@@ -116,5 +115,44 @@ extension ISoarFileManager {
             
             return gpxFileNames
     }
-    
 }
+
+// MARK: - Extension Store Flieght Recorder File
+// ToDo: Create Flight Recorder File in Documents Folder
+extension ISoarFileManager {
+    class func createFlightRecorderFile() {
+        
+        let dateFormatter = DateFormatter()
+        let timeFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yMMdd"
+        timeFormatter.dateFormat = "HHmm"
+        
+        let fileName = "\(dateFormatter.string(from: FlightRecorder.shared.today))-\(timeFormatter.string(from: FlightRecorder.shared.startFlightTime))-\(timeFormatter.string(from: FlightRecorder.shared.stopFlightTime))"
+        
+        let FlightsDirectory = try? FileManager.default.url(for: .documentDirectory,
+                                                            in: .userDomainMask, appropriateFor: nil, create: true)
+        
+        // ToDo: Store File in Flights Folder instead of Documents Folder
+        // If the directory was found, we write a file to it and read it back
+        if let fileURL = FlightsDirectory?.appendingPathComponent(fileName).appendingPathExtension("txt") {
+            
+            // Write Location Data in this file...
+            let outString = "Write Location Data in this file when Flight stopped."
+            do {
+                try outString.write(to: fileURL, atomically: true, encoding: .utf8)
+            } catch {
+                print("Failed writing to URL: \(fileURL), Error: " + error.localizedDescription)
+            }
+            
+            // Then reading it back from the file
+            var inString = ""
+            do {
+                inString = try String(contentsOf: fileURL)
+            } catch {
+                print("Failed reading from URL: \(fileURL), Error: " + error.localizedDescription)
+            }
+            print("Read from the file: \(inString)")
+        }
+    }
+}
+
