@@ -16,11 +16,46 @@ class FlightRecorder {
     static let shared = FlightRecorder()
     var flightDataArray = [FlightRecorder.FlightData]()
     
+    var gliderIsFlying: Bool = false
+    
+    var today = Date()
+    var startFlightTime = Date()
+    var stopFlightTime = Date()
+    
     // MARK: - Public Methods
+    // Check if Glider is flying or on ground
+    func checkIfGliderIsFlying() {
+        if gliderIsFlying == false {
+            // Check if Glider is faster than 5,5m/s, then set FlightMode to true
+            if MapScreen.shared!.currentLocation!.speed > 5.5 {
+                gliderIsFlying = true
+                startFlightTime = Date()
+            }
+            else {
+                return
+            }
+        }
+        else {
+            // Check if Glider is slower than 5,5m/s, then set FlightMode to false
+            if MapScreen.shared!.currentLocation!.speed < 5.5 {
+                gliderIsFlying = false
+                stopFlightTime = Date()
+                ISoarFileManager.createFlightRecorderFile()
+                // ToDo: Store content of the flightDataArray to the File
+                // ToDo: Remove all Entries from the flightDataArray
+            }
+            else {
+                return
+            }
+        }
+        
+    }
+    
+    // Add Current Location Infos to FlightRecorder Database
     func addFlightRecorderEntryForLocation(_ currentLocation: CLLocation) {
         let locationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
                                                                longitude: currentLocation.coordinate.longitude)
-
+        
         let flightData = FlightData(unixTimeStamp: Date.currentTimeStamp,
                                     latitude: currentLocation.coordinate.latitude,
                                     longitude: currentLocation.coordinate.longitude,
@@ -30,8 +65,8 @@ class FlightRecorder {
                                     course: currentLocation.course)
         flightDataArray.append(flightData)
         
-//        print("Location: time: \(Date.currentTimeStamp) lat: \(flightData.latitude) long: \(flightData.longitude)")
-//        print("Anzahl Einträge: \(flightDataArray.count)")
+        //        print("Location: time: \(Date.currentTimeStamp) lat: \(flightData.latitude) long: \(flightData.longitude)")
+        //        print("Anzahl Einträge: \(flightDataArray.count)")
     }
     
 }
@@ -48,7 +83,7 @@ extension FlightRecorder {
         var altitude: Double
         var speed: Double
         var course: Double
-
+        
     }
     
 }
