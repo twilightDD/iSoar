@@ -26,8 +26,8 @@ class FlightRecorder {
     // Check if Glider is flying or on ground
     func checkIfGliderIsFlying() {
         if gliderIsFlying == false {
-            // Check if Glider is faster than 5,5m/s, then set FlightMode to true
-            if MapScreen.shared!.currentLocation!.speed > 5.5 {
+            // Check if Glider is faster than 7m/s, then set FlightMode to true
+            if MapScreen.shared!.currentLocation!.speed > 7 {
                 gliderIsFlying = true
                 startFlightTime = Date()
             }
@@ -36,8 +36,8 @@ class FlightRecorder {
             }
         }
         else {
-            // Check if Glider is slower than 5,5m/s, then set FlightMode to false
-            if MapScreen.shared!.currentLocation!.speed < 5.5 {
+            // Check if Glider is slower than 7m/s, then set FlightMode to false
+            if MapScreen.shared!.currentLocation!.speed < 7 {
                 gliderIsFlying = false
                 stopFlightTime = Date()
                 ISoarFileManager.createFlightRecorderFile()
@@ -56,17 +56,15 @@ class FlightRecorder {
         let locationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
                                                                longitude: currentLocation.coordinate.longitude)
         
-        let flightData = FlightData(unixTimeStamp: Date.currentTimeStamp,
+        let currentPositionInfo = FlightData(unixTimeStamp: Date.currentTimeStamp,
                                     latitude: currentLocation.coordinate.latitude,
                                     longitude: currentLocation.coordinate.longitude,
                                     locationCoordinate2D: locationCoordinate2D,
                                     altitude: currentLocation.altitude,
                                     speed: currentLocation.speed,
                                     course: currentLocation.course)
-        flightDataArray.append(flightData)
+        flightDataArray.append(currentPositionInfo)
         
-        //        print("Location: time: \(Date.currentTimeStamp) lat: \(flightData.latitude) long: \(flightData.longitude)")
-        //        print("Anzahl Einträge: \(flightDataArray.count)")
     }
     
 }
