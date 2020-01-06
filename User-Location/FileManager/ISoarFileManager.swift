@@ -137,21 +137,13 @@ extension ISoarFileManager {
         if let fileURL = FlightsDirectory?.appendingPathComponent(fileName).appendingPathExtension("txt") {
             
             // Write Location Data in this file...
-            let outString = "Write Location Data in this file when Flight stopped."
+            let outString = "Write IGC valid Data in here... later..."
             do {
                 try outString.write(to: fileURL, atomically: true, encoding: .utf8)
             } catch {
                 print("Failed writing to URL: \(fileURL), Error: " + error.localizedDescription)
             }
             
-            // Then reading it back from the file
-            var inString = ""
-            do {
-                inString = try String(contentsOf: fileURL)
-            } catch {
-                print("Failed reading from URL: \(fileURL), Error: " + error.localizedDescription)
-            }
-            print("Read from the file: \(inString)")
         }
     }
 }
