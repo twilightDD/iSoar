@@ -133,15 +133,6 @@ class SettingsViewController: UIViewController {
         defaults.set(safetyAltitudeDouble, forKey: Settings.SafetyAltitudeKey);
         defaults.set(gliderIDTextField.text!, forKey: Settings.GliderIDKey);
         
-        // MARK: - Output
-        
-        //                print("Settings saved")
-        //                print("Glider Ratio set to: \(defaults.value(forKey: Settings.GliderRatioKey)!)")
-        //                print("Safety Altitude set to: \(defaults.value(forKey: Settings.SafetyAltitudeKey)!)")
-        //                print("Glider ID set to: \(defaults.value(forKey: Settings.GliderIDKey)!)")
-        //                print("Landing Gear Warning Switch is On: \(defaults.bool(forKey: Settings.LandingGearWarningSwitchKey))")
-        //                print("Show Tracking Route Switch is On: \(defaults.bool(forKey: Settings.ShowTrackingRouteSwitchKey))")
-        
     }
     
     // MARK: - Action Methods
