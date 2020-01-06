@@ -58,17 +58,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
         AirportDatabase.shared.updateDistance()
         setupTableViewDatasource()
         
-        // if there is a selectedDestinationAirport, select corresponding tableViewCell
-        if let selectedDestinationAirport = MapScreen.shared?.selectedDestinationAirport,
-            let row = destinationAirportArray.firstIndex(of: selectedDestinationAirport) {
-            
-            let indexPathForSelectedDestinationAirport = IndexPath.init(row: row, section: 0)
-            tableView.selectRow(at: indexPathForSelectedDestinationAirport,
-                                animated: true,
-                                scrollPosition: .none
-            )
-        }
-        
+        // ToDo: muss das bei jedem Anzeigen ausgeführt werden?
         updateUIForSelectedDestinationAirport()
         searchBar.placeholder = "Filter Airfields"
         
@@ -305,11 +295,12 @@ extension DestinationSelectionViewController: UITableViewDelegate {
         // it means we want to cancel the navigation
         // We deselect the active cell and set selectedDestinationAirport = nil
         if let formerSelectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport,
-            newSelectedDestinationAirport == formerSelectedDestinationAirport {
+        newSelectedDestinationAirport.latitude == formerSelectedDestinationAirport.latitude && newSelectedDestinationAirport.longitude == formerSelectedDestinationAirport.longitude {
             MapScreen.shared!.selectedDestinationAirport = nil
         }
         else {
             MapScreen.shared!.selectedDestinationAirport = newSelectedDestinationAirport
+            
         }
         
         updateUIForSelectedDestinationAirport()
