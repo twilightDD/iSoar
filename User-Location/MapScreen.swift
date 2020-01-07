@@ -119,6 +119,8 @@ class MapScreen: UIViewController {
         mapView.attributionButton.isHidden = false
         mapView.attributionButton.tintColor = .lightGray
         
+        mapView.resetNorth()
+        
     }
     
     // Check for Location Services
@@ -639,17 +641,20 @@ extension MapScreen: MGLMapViewDelegate {
         return nil
     }
     
+    // Map finished loading
     func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
-        mapView.showsUserLocation = true
         // Center Map to User Location
-        // Check if Location is available. If not set Center of Map to Airport Stuttgart
+        // Check if User Location is available.
+        // If yes, set Center the Map to User Location
         if let currentLocation = self.currentLocation {
+            mapView.showsUserLocation = true
             mapView.setCenter(CLLocationCoordinate2D(
             latitude: currentLocation.coordinate.latitude,
             longitude: currentLocation.coordinate.longitude),
                           zoomLevel: 9.6,
                           animated: true)
         }
+        // If not, set Center the Map to Airport Stuttgart
         else {
             mapView.setCenter(CLLocationCoordinate2D(
             latitude: 48.689497,
