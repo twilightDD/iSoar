@@ -483,6 +483,7 @@ class MapScreen: UIViewController {
         
     }
     
+    // MARK: Audio Warnings
     // Audio Landing Gear Warning
     private func gearWarning() {
         guard let selectedDestinationAirport = selectedDestinationAirport else {
@@ -640,13 +641,23 @@ extension MapScreen: MGLMapViewDelegate {
     
     func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
         mapView.showsUserLocation = true
-        
         // Center Map to User Location
-        mapView.setCenter(CLLocationCoordinate2D(
-            latitude: currentLocation!.coordinate.latitude,
-            longitude: currentLocation!.coordinate.longitude),
+        // Check if Location is available. If not set Center of Map to Airport Stuttgart
+        if let currentLocation = self.currentLocation {
+            mapView.setCenter(CLLocationCoordinate2D(
+            latitude: currentLocation.coordinate.latitude,
+            longitude: currentLocation.coordinate.longitude),
                           zoomLevel: 9.6,
                           animated: true)
+        }
+        else {
+            mapView.setCenter(CLLocationCoordinate2D(
+            latitude: 48.689497,
+            longitude: 9.219885),
+                          zoomLevel: 9.6,
+                          animated: true)
+        }
+
         userLocationButton.updateArrowForTrackingMode(state: userFollow)
         
     }
