@@ -17,10 +17,12 @@ class FlightRecorder {
     var flightDataArray = [FlightRecorder.FlightData]()
     
     var gliderIsFlying: Bool = false
-    
+    var recorderIsReadyToWrite = false
+
     var today = Date()
     var startFlightTime = Date()
     var stopFlightTime = Date()
+
     
     // MARK: - Public Methods
     // Check if Glider is flying or on ground
@@ -30,6 +32,9 @@ class FlightRecorder {
             if MapScreen.shared!.currentLocation!.speed > 7 {
                 gliderIsFlying = true
                 startFlightTime = Date()
+
+                // create file
+                recorderIsReadyToWrite = ISoarFileManager.createFileForFlight()
             }
             else {
                 return
@@ -40,7 +45,12 @@ class FlightRecorder {
             if MapScreen.shared!.currentLocation!.speed < 7 {
                 gliderIsFlying = false
                 stopFlightTime = Date()
-                ISoarFileManager.createFlightRecorderFile()
+
+                ISoarFileManager.stopFlightRecorderFile()
+                recorderIsReadyToWrite = false
+
+               // ISoarFileManager.createFlightRecorderFile()
+
                 // ToDo: Store content of the flightDataArray to the File
                 // ToDo: Remove all Entries from the flightDataArray
             }
@@ -50,9 +60,12 @@ class FlightRecorder {
         }
         
     }
-    
+
+
+
     // Add Current Location Infos to FlightRecorder Database
     func addFlightRecorderEntryForLocation(_ currentLocation: CLLocation) {
+
         let locationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
                                                                longitude: currentLocation.coordinate.longitude)
         
@@ -64,7 +77,20 @@ class FlightRecorder {
                                     speed: currentLocation.speed,
                                     course: currentLocation.course)
         flightDataArray.append(currentPositionInfo)
-        
+
+
+        // Flight Recorder on disk
+        checkIfGliderIsFlying()
+        if recorderIsReadyToWrite == true {
+            // Aufbereiten der Daten für das RecorderFile
+            var recordLine = ""
+            recordLine.append(contentsOf: "\(currentPositionInfo.unixTimeStamp): ")
+            recordLine.append(contentsOf: "lat \(locationCoordinate2D.latitude) ")
+            recordLine.append(contentsOf: "lon \(locationCoordinate2D.longitude) ")
+            recordLine.append(contentsOf: "\n")
+
+            ISoarFileManager.appendToFlightRecorderFile(recordLine)
+        }
     }
     
 }

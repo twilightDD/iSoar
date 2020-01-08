@@ -703,8 +703,7 @@ extension MapScreen: CLLocationManagerDelegate {
         // oxygenWarning()
         
         // FlightRecorder
-        FlightRecorder.shared.checkIfGliderIsFlying()
-        //FlightRecorder.shared.addFlightRecorderEntryForLocation(currentLocation)
+        FlightRecorder.shared.addFlightRecorderEntryForLocation(currentLocation)
         
         // updateFlightRecorderLine()
         drawTrackingRoute()
