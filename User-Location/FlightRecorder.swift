@@ -16,6 +16,10 @@ class FlightRecorder {
     static let shared = FlightRecorder()
     var flightDataArray = [FlightRecorder.FlightData]()
 
+    var formerLocation: CLLocation?
+    var completeDistance: CLLocationDistance = 0
+
+
     var recorderIsReadyToWrite = false
     
     // MARK: - Public Methods
@@ -34,6 +38,9 @@ class FlightRecorder {
                                     course: currentLocation.course)
         flightDataArray.append(currentTelemetryData)
 
+
+
+
         // Write Data to FlightRecorder File
         FlightComputer.shared.checkIfGliderIsFlying()
         if recorderIsReadyToWrite == true {
@@ -45,11 +52,22 @@ class FlightRecorder {
             recordLine.append(contentsOf: "\(currentLocation.altitude),")
             recordLine.append(contentsOf: "\(currentLocation.speed),")
             recordLine.append(contentsOf: "\(currentLocation.course),")
+
+            var distance: CLLocationDistance = 0
+            if let formerLocation = formerLocation {
+                distance = currentLocation.distance(from: formerLocation)
+                completeDistance += distance
+            }
+            recordLine.append(contentsOf: String(format: "%.01f", distance))
+
             recordLine.append(contentsOf: "\n")
 
             // Append Data to FlightRecorder File
             ISoarFileManager.appendTelemetryDataToFlightRecorderFile(recordLine)
         }
+
+        formerLocation = currentLocation
+        print(String(format: "Komplette Dist  %.01f Meter", completeDistance))
     }
     
 }
