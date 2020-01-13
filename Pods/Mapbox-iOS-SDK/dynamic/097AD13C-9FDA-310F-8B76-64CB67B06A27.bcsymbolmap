@@ -25843,13 +25843,17 @@ __ZNK6kdbush6KDBushIN6mapbox12supercluster7ClusterEjE6withinIZNKS2_12Supercluste
 __ZNK6mapbox12supercluster12Supercluster9eachChildIZNKS1_23getClusterExpansionZoomEjEUlRKT_E_EEvjS5_
 __ZNK6kdbush6KDBushIN6mapbox12supercluster7ClusterEjE6withinIZNKS2_12Supercluster9eachChildIZNKS6_23getClusterExpansionZoomEjEUlRKT_E_EEvjSA_EUlSA_E_EEvdddSA_jjh
 __ZN4mbgl5style13GeoJSONVTDataC2ERKN6mapbox4util7variantIJNS2_8geometry8geometryIdNSt3__16vectorEEENS2_7feature7featureIdEENSA_18feature_collectionIdS8_EEEEERKNS2_9geojsonvt7OptionsE
-__ZN6mapbox9geojsonvt9GeoJSONVTC1ERKNS_4util7variantIJNS_8geometry8geometryIdNSt3__16vectorEEENS_7feature7featureIdEENS9_18feature_collectionIdS7_EEEEERKNS0_7OptionsE
 __ZN4mbgl5style13GeoJSONVTDataD1Ev
 __ZN4mbgl5style13GeoJSONVTDataD0Ev
 __ZN4mbgl5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS5_6vectorEEEEEE
 __ZN4mbgl5style13GeoJSONVTData11getChildrenEj
 __ZN4mbgl5style13GeoJSONVTData9getLeavesEjjj
 __ZN4mbgl5style13GeoJSONVTData23getClusterExpansionZoomEj
+__ZNSt3__120__shared_ptr_emplaceIN6mapbox9geojsonvt9GeoJSONVTENS_9allocatorIS3_EEED1Ev
+__ZNSt3__120__shared_ptr_emplaceIN6mapbox9geojsonvt9GeoJSONVTENS_9allocatorIS3_EEED0Ev
+__ZNSt3__120__shared_ptr_emplaceIN6mapbox9geojsonvt9GeoJSONVTENS_9allocatorIS3_EEE16__on_zero_sharedEv
+__ZNSt3__120__shared_ptr_emplaceIN6mapbox9geojsonvt9GeoJSONVTENS_9allocatorIS3_EEE21__on_zero_shared_weakEv
+__ZN6mapbox9geojsonvt9GeoJSONVTC1ERKNS_4util7variantIJNS_8geometry8geometryIdNSt3__16vectorEEENS_7feature7featureIdEENS9_18feature_collectionIdS7_EEEEERKNS0_7OptionsE
 __ZN6mapbox4util6detail10dispatcherINS_9geojsonvt19ToFeatureCollectionENS0_7variantIJNS_8geometry8geometryIdNSt3__16vectorEEENS_7feature7featureIdEENSB_18feature_collectionIdS9_EEEEESF_JSA_SD_SF_EE11apply_constERKSG_OS4_
 __ZN6mapbox7feature7featureIdEC2ERKNS_8geometry8geometryIdNSt3__16vectorEEE
 __ZN6mapbox7feature18feature_collectionIdNSt3__16vectorEEC2ESt16initializer_listINS0_7featureIdEEE
@@ -25864,7 +25868,6 @@ __ZNSt3__110__function6__funcIZN4mbgl9Scheduler21scheduleAndReplyValueIZNS2_5sty
 __ZNSt3__110__function6__funcIZN4mbgl9Scheduler21scheduleAndReplyValueIZNS2_5style13GeoJSONVTData7getTileERKNS2_15CanonicalTileIDERKNS_8functionIFvN6mapbox7feature18feature_collectionIsNS_6vectorEEEEEEEUlvE_SH_EEvRKT_RKT0_NSB_4base7WeakPtrIS3_EEEUlvE_NS_9allocatorISU_EEFvvEEclEv
 __ZNSt3__122__compressed_pair_elemIZN4mbgl9Scheduler21scheduleAndReplyValueIZNS1_5style13GeoJSONVTData7getTileERKNS1_15CanonicalTileIDERKNS_8functionIFvN6mapbox7feature18feature_collectionIsNS_6vectorEEEEEEEUlvE_SG_EEvRKT_RKT0_NSA_4base7WeakPtrIS2_EEEUlvE_Li0ELb0EEC2IJRKST_EJLm0EEEENS_21piecewise_construct_tENS_5tupleIJDpT_EEENS_15__tuple_indicesIJXspT0_EEEE
 __ZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EEENKUlvE_clEv
-__ZZN4mbgl5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS5_6vectorEEEEEEENKUlvE_clEv
 __ZNSt3__16vectorIN6mapbox7feature7featureIsEENS_9allocatorIS4_EEEC2ERKS7_
 __ZN6mapbox7feature7featureIsEC2ERKS2_
 __ZNSt3__110__function6__funcIZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS2_5style13GeoJSONVTData7getTileERKNS2_15CanonicalTileIDERKNS_8functionIFvN6mapbox7feature18feature_collectionIsNS_6vectorEEEEEEEUlvE_SH_EEvRKT_RKT0_NSB_4base7WeakPtrIS3_EEENKUlvE_clEvEUlvE_NS_9allocatorISV_EEFvvEED1Ev
@@ -25875,7 +25878,6 @@ __ZNSt3__110__function6__funcIZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS2_5st
 __ZNSt3__110__function6__funcIZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS2_5style13GeoJSONVTData7getTileERKNS2_15CanonicalTileIDERKNS_8functionIFvN6mapbox7feature18feature_collectionIsNS_6vectorEEEEEEEUlvE_SH_EEvRKT_RKT0_NSB_4base7WeakPtrIS3_EEENKUlvE_clEvEUlvE_NS_9allocatorISV_EEFvvEE18destroy_deallocateEv
 __ZNSt3__110__function6__funcIZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS2_5style13GeoJSONVTData7getTileERKNS2_15CanonicalTileIDERKNS_8functionIFvN6mapbox7feature18feature_collectionIsNS_6vectorEEEEEEEUlvE_SH_EEvRKT_RKT0_NSB_4base7WeakPtrIS3_EEENKUlvE_clEvEUlvE_NS_9allocatorISV_EEFvvEEclEv
 __ZZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EEENKUlvE_clEvENKUlvE_clEv
-__ZN6mapbox7feature18feature_collectionIsNSt3__16vectorEEC2ESt16initializer_listINS0_7featureIsEEE
 __ZNSt3__120__shared_ptr_emplaceIN4mbgl7FeatureENS_9allocatorIS2_EEED1Ev
 __ZNSt3__120__shared_ptr_emplaceIN4mbgl7FeatureENS_9allocatorIS2_EEED0Ev
 __ZNSt3__120__shared_ptr_emplaceIN4mbgl7FeatureENS_9allocatorIS2_EEE16__on_zero_sharedEv
@@ -25901,7 +25903,6 @@ __ZNSt3__120__shared_ptr_pointerIPN4mbgl5style16SuperclusterDataENS_14default_de
 __ZNSt3__120__shared_ptr_pointerIPN4mbgl5style16SuperclusterDataENS_14default_deleteIS3_EENS_9allocatorIS3_EEED0Ev
 __ZNSt3__120__shared_ptr_pointerIPN4mbgl5style16SuperclusterDataENS_14default_deleteIS3_EENS_9allocatorIS3_EEE16__on_zero_sharedEv
 __ZNSt3__120__shared_ptr_pointerIPN4mbgl5style16SuperclusterDataENS_14default_deleteIS3_EENS_9allocatorIS3_EEE21__on_zero_shared_weakEv
-__ZNSt3__110shared_ptrIN4mbgl5style11GeoJSONDataEEC2INS2_13GeoJSONVTDataEEEPT_NS_9enable_ifIXsr14is_convertibleIS8_PS3_EE5valueENS4_5__natEE4typeE
 __ZNSt3__120__shared_ptr_pointerIPN4mbgl5style13GeoJSONVTDataENS_14default_deleteIS3_EENS_9allocatorIS3_EEED1Ev
 __ZNSt3__120__shared_ptr_pointerIPN4mbgl5style13GeoJSONVTDataENS_14default_deleteIS3_EENS_9allocatorIS3_EEED0Ev
 __ZNSt3__120__shared_ptr_pointerIPN4mbgl5style13GeoJSONVTDataENS_14default_deleteIS3_EENS_9allocatorIS3_EEE16__on_zero_sharedEv
@@ -25916,9 +25917,11 @@ __ZN4mbgl5style16SuperclusterData9getLeavesEjjj.cold.1
 __ZN6mapbox12supercluster12Supercluster4ZoomC2ERKNS_7feature18feature_collectionIdNSt3__16vectorEEERKNS0_7OptionsE.cold.1
 __ZN6mapbox12supercluster12Supercluster4ZoomC2ERS2_dhRKNS0_7OptionsE.cold.1
 __ZNK6mapbox12supercluster12Supercluster7getTileEhjj.cold.1
-__ZN4mbgl5style13GeoJSONVTDataC2ERKN6mapbox4util7variantIJNS2_8geometry8geometryIdNSt3__16vectorEEENS2_7feature7featureIdEENSA_18feature_collectionIdS8_EEEEERKNS2_9geojsonvt7OptionsE.cold.1
 __ZN6mapbox9geojsonvt9GeoJSONVTC1ERKNS_4util7variantIJNS_8geometry8geometryIdNSt3__16vectorEEENS_7feature7featureIdEENS9_18feature_collectionIdS7_EEEEERKNS0_7OptionsE.cold.1
-__ZZN4mbgl5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS5_6vectorEEEEEEENKUlvE_clEv.cold.1
+__ZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EE.cold.1
+__ZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EE.cold.2
+__ZNSt3__18functionIFvvEEC2IZN4mbgl9Scheduler21scheduleAndReplyValueIZNS4_5style13GeoJSONVTData7getTileERKNS4_15CanonicalTileIDERKNS0_IFvN6mapbox7feature18feature_collectionIsNS_6vectorEEEEEEEUlvE_SI_EEvRKT_RKT0_NSC_4base7WeakPtrIS5_EEEUlvE_vEESM_.cold.1
+__ZNSt3__122__compressed_pair_elemIZN4mbgl9Scheduler21scheduleAndReplyValueIZNS1_5style13GeoJSONVTData7getTileERKNS1_15CanonicalTileIDERKNS_8functionIFvN6mapbox7feature18feature_collectionIsNS_6vectorEEEEEEEUlvE_SG_EEvRKT_RKT0_NSA_4base7WeakPtrIS2_EEEUlvE_Li0ELb0EEC2IJRKST_EJLm0EEEENS_21piecewise_construct_tENS_5tupleIJDpT_EEENS_15__tuple_indicesIJXspT0_EEEE.cold.1
 __ZNSt3__16vectorIN6mapbox7feature7featureIsEENS_9allocatorIS4_EEEC2ERKS7_.cold.1
 __ZNKSt3__110__function6__funcIZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS2_5style13GeoJSONVTData7getTileERKNS2_15CanonicalTileIDERKNS_8functionIFvN6mapbox7feature18feature_collectionIsNS_6vectorEEEEEEEUlvE_SH_EEvRKT_RKT0_NSB_4base7WeakPtrIS3_EEENKUlvE_clEvEUlvE_NS_9allocatorISV_EEFvvEE7__cloneEPNS0_6__baseISY_EE.cold.1
 __ZZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EEENKUlvE_clEvENKUlvE_clEv.cold.1
@@ -25927,6 +25930,7 @@ __ZTVN4mbgl5style13GeoJSONSource4ImplE
 __ZTVNSt3__110__function6__funcIN6mapbox12supercluster7Options3mapMUlRKNS_13unordered_mapINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS2_7feature5valueENS_4hashISB_EENS_8equal_toISB_EENS9_INS_4pairIKSB_SD_EEEEEEE_ENS9_ISP_EEFSM_SO_EEE
 __ZTVN4mbgl5style16SuperclusterDataE
 __ZTVN4mbgl5style13GeoJSONVTDataE
+__ZTVNSt3__120__shared_ptr_emplaceIN6mapbox9geojsonvt9GeoJSONVTENS_9allocatorIS3_EEEE
 __ZTVNSt3__110__function6__funcIZN4mbgl9Scheduler21scheduleAndReplyValueIZNS2_5style13GeoJSONVTData7getTileERKNS2_15CanonicalTileIDERKNS_8functionIFvN6mapbox7feature18feature_collectionIsNS_6vectorEEEEEEEUlvE_SH_EEvRKT_RKT0_NSB_4base7WeakPtrIS3_EEEUlvE_NS_9allocatorISU_EEFvvEEE
 __ZTVNSt3__110__function6__funcIZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS2_5style13GeoJSONVTData7getTileERKNS2_15CanonicalTileIDERKNS_8functionIFvN6mapbox7feature18feature_collectionIsNS_6vectorEEEEEEEUlvE_SH_EEvRKT_RKT0_NSB_4base7WeakPtrIS3_EEENKUlvE_clEvEUlvE_NS_9allocatorISV_EEFvvEEE
 __ZTVNSt3__120__shared_ptr_emplaceIN4mbgl7FeatureENS_9allocatorIS2_EEEE
@@ -25935,65 +25939,52 @@ __ZTVNSt3__110__function6__funcIZN4mbgl5style11GeoJSONData6createERKN6mapbox4uti
 __ZTVNSt3__120__shared_ptr_pointerIPN4mbgl5style16SuperclusterDataENS_14default_deleteIS3_EENS_9allocatorIS3_EEEE
 __ZTVNSt3__120__shared_ptr_pointerIPN4mbgl5style13GeoJSONVTDataENS_14default_deleteIS3_EENS_9allocatorIS3_EEEE
 /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp
-__call<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:94:30) &, const std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &>
-__invoke<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:94:30) &, const std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &>
+__call<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:89:30) &, const std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &>
+__invoke<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:89:30) &, const std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &>
 src/mbgl/style/sources/geojson_source_impl.cpp
 _ZZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EEENKUlvE_clEvENUlvE_C1ERKST_
 _ZZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EEENKUlvE_clEvENUlvE_C2ERKST_
-GeoJSONVTData
+_ZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EEENUlvE_C1ERKSS_
+_ZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EEENUlvE_C2ERKSS_
+_ZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EEENUlvE_C1EOSS_
+_ZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EEENUlvE_C2EOSS_
+scheduleAndReplyValue<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:21:13), std::__1::function<void (mapbox::feature::feature_collection<short, std::vector>)> >
 vendor/mapbox-base/mapbox/supercluster.hpp/include/supercluster.hpp
 Zoom
 destroy<mapbox::supercluster::Cluster>
 __destroy<mapbox::supercluster::Cluster>
 ~Cluster
 SuperclusterData
-operator=<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:94:30), void>
-operator=<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:103:33), void>
+operator=<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:89:30), void>
+operator=<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:98:33), void>
 _GLOBAL__sub_I_geojson_source_impl.cpp
-shared_ptr<mbgl::style::GeoJSONVTData>
-__enable_weak_this<mbgl::style::GeoJSONVTData, mbgl::style::GeoJSONVTData>
-operator=<mbgl::style::GeoJSONVTData>
-swap<mbgl::style::GeoJSONVTData *>
-weak_ptr<mbgl::style::GeoJSONVTData>
-shared_ptr<mbgl::style::GeoJSONData>
-__compressed_pair<std::__1::__compressed_pair<mbgl::style::GeoJSONVTData *, std::__1::default_delete<mbgl::style::GeoJSONVTData> >, std::__1::allocator<mbgl::style::GeoJSONVTData> >
-__compressed_pair_elem<std::__1::__compressed_pair<mbgl::style::GeoJSONVTData *, std::__1::default_delete<mbgl::style::GeoJSONVTData> >, void>
-__call<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:103:33) &, std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &, const std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &>
-__invoke<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:103:33) &, std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &, const std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &>
-__compressed_pair<const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:103:33) &, const std::__1::allocator<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:103:33)> &>
-__compressed_pair_elem<const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:103:33) &, 0>
+__call<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:98:33) &, std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &, const std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &>
+__invoke<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:98:33) &, std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &, const std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &>
+__compressed_pair<const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:98:33) &, const std::__1::allocator<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:98:33)> &>
+__compressed_pair_elem<const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:98:33) &, 0>
 _ZZN4mbgl5style11GeoJSONData6createERKN6mapbox4util7variantIJNS2_8geometry8geometryIdNSt3__16vectorEEENS2_7feature7featureIdEENSA_18feature_collectionIdS8_EEEEENS_9ImmutableINS0_14GeoJSONOptionsEEEEN3$_1C1ERKSL_
 _ZZN4mbgl5style11GeoJSONData6createERKN6mapbox4util7variantIJNS2_8geometry8geometryIdNSt3__16vectorEEENS2_7feature7featureIdEENSA_18feature_collectionIdS8_EEEEENS_9ImmutableINS0_14GeoJSONOptionsEEEEN3$_1C2ERKSL_
-__compressed_pair<const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:103:33) &, std::__1::allocator<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:103:33)> &&>
+__compressed_pair<const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:98:33) &, std::__1::allocator<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:98:33)> &&>
 swap<std::__1::__function::__base<void (std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &, const std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &)> *>
 evaluateFeature<mapbox::feature::value>
-__compressed_pair<const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:94:30) &, const std::__1::allocator<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:94:30)> &>
-__compressed_pair_elem<const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:94:30) &, 0>
+__compressed_pair<const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:89:30) &, const std::__1::allocator<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:89:30)> &>
+__compressed_pair_elem<const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:89:30) &, 0>
 _ZZN4mbgl5style11GeoJSONData6createERKN6mapbox4util7variantIJNS2_8geometry8geometryIdNSt3__16vectorEEENS2_7feature7featureIdEENSA_18feature_collectionIdS8_EEEEENS_9ImmutableINS0_14GeoJSONOptionsEEEEN3$_0C1ERKSL_
 _ZZN4mbgl5style11GeoJSONData6createERKN6mapbox4util7variantIJNS2_8geometry8geometryIdNSt3__16vectorEEENS2_7feature7featureIdEENSA_18feature_collectionIdS8_EEEEENS_9ImmutableINS0_14GeoJSONOptionsEEEEN3$_0C2ERKSL_
-__compressed_pair<const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:94:30) &, std::__1::allocator<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:94:30)> &&>
+__compressed_pair<const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:89:30) &, std::__1::allocator<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:89:30)> &&>
 swap<std::__1::__function::__base<std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > (const std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &)> *>
-__construct_range_forward<const mapbox::feature::feature<short> *, mapbox::feature::feature<short> *>
-__construct_at_end<const mapbox::feature::feature<short> *>
-construct<mapbox::feature::feature<short>, const mapbox::feature::feature<short> &>
-__construct<mapbox::feature::feature<short>, const mapbox::feature::feature<short> &>
 __construct_range_forward<mapbox::feature::feature<short> *, mapbox::feature::feature<short> *>
 __construct_at_end<mapbox::feature::feature<short> *>
 construct<mapbox::feature::feature<short>, mapbox::feature::feature<short> &>
 __construct<mapbox::feature::feature<short>, mapbox::feature::feature<short> &>
 _ZZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EEENKUlvE_clEvENUlvE_C1EOST_
 _ZZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EEENKUlvE_clEvENUlvE_C2EOST_
-_ZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EEENUlvE_C1ERKSS_
-_ZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EEENUlvE_C2ERKSS_
 _ZZN4mbgl5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS5_6vectorEEEEEEENUlvE_C1ERKSG_
 _ZZN4mbgl5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS5_6vectorEEEEEEENUlvE_C2ERKSG_
 get<0, const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/include/mbgl/actor/scheduler.hpp:109:26) &>
 forward_as_tuple<const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/include/mbgl/actor/scheduler.hpp:109:26) &>
 __tuple_impl<0, const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/include/mbgl/actor/scheduler.hpp:109:26) &, const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/include/mbgl/actor/scheduler.hpp:109:26) &>
 __tuple_leaf<const (lambda at /Users/distiller/project/vendor/mapbox-gl-native/include/mbgl/actor/scheduler.hpp:109:26) &, void>
-_ZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EEENUlvE_C1EOSS_
-_ZZN4mbgl9Scheduler21scheduleAndReplyValueIZNS_5style13GeoJSONVTData7getTileERKNS_15CanonicalTileIDERKNSt3__18functionIFvN6mapbox7feature18feature_collectionIsNS7_6vectorEEEEEEEUlvE_SF_EEvRKT_RKT0_NS9_4base7WeakPtrIS0_EEENUlvE_C2EOSS_
-scheduleAndReplyValue<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:22:13), std::__1::function<void (mapbox::feature::feature_collection<short, std::vector>)> >
 get_unchecked<mapbox::geometry::line_string<double, vector>, nullptr>
 is<mapbox::geometry::multi_polygon<double, vector>, nullptr>
 operator!=<const mapbox::geometry::line_string<double, vector> *>
@@ -26007,9 +25998,14 @@ get_unchecked<mapbox::feature::feature<double>, nullptr>
 is<mapbox::feature::feature<double>, nullptr>
 get_unchecked<mapbox::geometry::geometry<double, std::vector>, nullptr>
 is<mapbox::geometry::geometry<double, std::vector>, nullptr>
-~GeoJSONVTData
 visit<mapbox::geojsonvt::ToFeatureCollection, mapbox::util::variant<mapbox::geometry::geometry<double, std::vector>, mapbox::feature::feature<double>, mapbox::feature::feature_collection<double, std::vector> >, mapbox::feature::feature_collection<double, std::vector> >
-GeoJSONData
+~GeoJSONVTData
+GeoJSONVTData
+make_shared<mapbox::geojsonvt::GeoJSONVT, const mapbox::util::variant<mapbox::geometry::geometry<double, std::vector>, mapbox::feature::feature<double>, mapbox::feature::feature_collection<double, std::vector> > &, const mapbox::geojsonvt::Options &>
+make_shared<const mapbox::util::variant<mapbox::geometry::geometry<double, std::vector>, mapbox::feature::feature<double>, mapbox::feature::feature_collection<double, std::vector> > &, const mapbox::geojsonvt::Options &>
+__shared_ptr_emplace<const mapbox::util::variant<mapbox::geometry::geometry<double, std::vector>, mapbox::feature::feature<double>, mapbox::feature::feature_collection<double, std::vector> > &, const mapbox::geojsonvt::Options &>
+__compressed_pair<std::__1::allocator<mapbox::geojsonvt::GeoJSONVT> &, const mapbox::util::variant<mapbox::geometry::geometry<double, std::vector>, mapbox::feature::feature<double>, mapbox::feature::feature_collection<double, std::vector> > &, const mapbox::geojsonvt::Options &>
+__compressed_pair_elem<const mapbox::util::variant<mapbox::geometry::geometry<double, std::vector>, mapbox::feature::feature<double>, mapbox::feature::feature_collection<double, std::vector> > &, const mapbox::geojsonvt::Options &, 0, 1>
 within<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/next/vendor/mapbox-base/mapbox/supercluster.hpp/include/supercluster.hpp:361:57)>
 vendor/mapbox-base/extras/kdbush.hpp/include/kdbush.hpp
 operator()<unsigned int>
@@ -26152,20 +26148,23 @@ __compressed_pair<std::__1::__hash_node_base<std::__1::__hash_node<std::__1::__h
 __call<mapbox::supercluster::Options::(lambda at /Users/distiller/project/vendor/mapbox-gl-native/next/vendor/mapbox-base/mapbox/supercluster.hpp/include/supercluster.hpp:129:9) &, const std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &>
 __invoke<mapbox::supercluster::Options::(lambda at /Users/distiller/project/vendor/mapbox-gl-native/next/vendor/mapbox-base/mapbox/supercluster.hpp/include/supercluster.hpp:129:9) &, const std::__1::unordered_map<std::__1::basic_string<char>, mapbox::feature::value, std::__1::hash<std::__1::basic_string<char> >, std::__1::equal_to<std::__1::basic_string<char> >, std::__1::allocator<std::__1::pair<const std::__1::basic_string<char>, mapbox::feature::value> > > &>
 getData
+shared_ptr<mbgl::style::GeoJSONVTData>
+__compressed_pair<std::__1::__compressed_pair<mbgl::style::GeoJSONVTData *, std::__1::default_delete<mbgl::style::GeoJSONVTData> >, std::__1::allocator<mbgl::style::GeoJSONVTData> >
+__compressed_pair_elem<std::__1::__compressed_pair<mbgl::style::GeoJSONVTData *, std::__1::default_delete<mbgl::style::GeoJSONVTData> >, void>
 shared_ptr<mbgl::style::SuperclusterData>
 __compressed_pair<std::__1::__compressed_pair<mbgl::style::SuperclusterData *, std::__1::default_delete<mbgl::style::SuperclusterData> >, std::__1::allocator<mbgl::style::SuperclusterData> >
 __compressed_pair_elem<std::__1::__compressed_pair<mbgl::style::SuperclusterData *, std::__1::default_delete<mbgl::style::SuperclusterData> >, void>
 get<mapbox::feature::feature_collection<double, std::vector>, nullptr>
-function<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:103:33), void>
-__value_func<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:103:33), std::__1::allocator<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:103:33)> >
-__compressed_pair<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:103:33) &&, std::__1::allocator<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:103:33)> &&>
-__compressed_pair_elem<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:103:33) &&, 0>
+function<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:98:33), void>
+__value_func<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:98:33), std::__1::allocator<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:98:33)> >
+__compressed_pair<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:98:33) &&, std::__1::allocator<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:98:33)> &&>
+__compressed_pair_elem<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:98:33) &&, 0>
 _ZZN4mbgl5style11GeoJSONData6createERKN6mapbox4util7variantIJNS2_8geometry8geometryIdNSt3__16vectorEEENS2_7feature7featureIdEENSA_18feature_collectionIdS8_EEEEENS_9ImmutableINS0_14GeoJSONOptionsEEEEN3$_1C1EOSL_
 _ZZN4mbgl5style11GeoJSONData6createERKN6mapbox4util7variantIJNS2_8geometry8geometryIdNSt3__16vectorEEENS2_7feature7featureIdEENSA_18feature_collectionIdS8_EEEEENS_9ImmutableINS0_14GeoJSONOptionsEEEEN3$_1C2EOSL_
-function<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:94:30), void>
-__value_func<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:94:30), std::__1::allocator<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:94:30)> >
-__compressed_pair<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:94:30) &&, std::__1::allocator<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:94:30)> &&>
-__compressed_pair_elem<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:94:30) &&, 0>
+function<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:89:30), void>
+__value_func<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:89:30), std::__1::allocator<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:89:30)> >
+__compressed_pair<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:89:30) &&, std::__1::allocator<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:89:30)> &&>
+__compressed_pair_elem<(lambda at /Users/distiller/project/vendor/mapbox-gl-native/src/mbgl/style/sources/geojson_source_impl.cpp:89:30) &&, 0>
 _ZZN4mbgl5style11GeoJSONData6createERKN6mapbox4util7variantIJNS2_8geometry8geometryIdNSt3__16vectorEEENS2_7feature7featureIdEENSA_18feature_collectionIdS8_EEEEENS_9ImmutableINS0_14GeoJSONOptionsEEEEN3$_0C1EOSL_
 _ZZN4mbgl5style11GeoJSONData6createERKN6mapbox4util7variantIJNS2_8geometry8geometryIdNSt3__16vectorEEENS2_7feature7featureIdEENSA_18feature_collectionIdS8_EEEEENS_9ImmutableINS0_14GeoJSONOptionsEEEEN3$_0C2EOSL_
 make_shared<mbgl::Feature>
