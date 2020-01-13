@@ -8,10 +8,10 @@
 
 import Foundation
 
-//MARK: - ISoarFileManager
+// MARK: - ISoarFileManager
 class ISoarFileManager {
     
-    //MARK: Private Lets and Vars
+    // MARK: Private Lets and Vars
     private static let shared = ISoarFileManager()
 
     private static let flightSubPath = "/Flights"
@@ -50,15 +50,18 @@ class ISoarFileManager {
         return flightURL
     }()
 
-    //Mark: Lets and Vars
+    // MARK: Lets and Vars
     var currentFlightRecordFileHandle: FileHandle?
-
-
-
+    
+    var tempRecorderFileURL: URL!
+    var finalRecorderFileURL: URL!
+    var today = Date()
+    var flightStartTime = Date()
+    var flightEndTime = Date()
 
 }
 
-//MARK: - Extension - Check Directory Class Methods
+// MARK: - Extension - Check Directory Class Methods
 // Check if Tasks Folder exists in Documents Folder
 extension ISoarFileManager {
     class func checkForTasksFolder() {
@@ -95,9 +98,9 @@ extension ISoarFileManager {
     }
 }
 
-//MARK: - Extension - GPX File Handling
+// MARK: - Extension - GPX File Handling
 extension ISoarFileManager {
-    //MARK:  Public Class Methods
+    // MARK:  Public Class Methods
     class func gpxFileNames()
         -> [String] {
             var gpxFileNames = [String]()
@@ -126,72 +129,49 @@ extension ISoarFileManager {
 }
 
 // MARK: - Extension Store Flight Recorder File
-// ToDo: Create Flight Recorder File in Documents Folder
+// ToDo: Create Flight Recorder File in Flights Folder
 extension ISoarFileManager {
-    class func createFlightRecorderFile() {
-        
-        let dateFormatter = DateFormatter()
-        let timeFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yMMdd"
-        timeFormatter.dateFormat = "HHmm"
-        
-        let fileName = "\(dateFormatter.string(from: FlightRecorder.shared.today))-\(timeFormatter.string(from: FlightRecorder.shared.startFlightTime))-\(timeFormatter.string(from: FlightRecorder.shared.stopFlightTime))"
-
-        let fileURL = flightURL.appendingPathComponent(fileName).appendingPathExtension("txt")
-
-        // Write Location Data in this file...
-        let outString = "Write IGC valid Data in here... later..."
-        do {
-            try outString.write(to: fileURL,
-                                atomically: true,
-                                encoding: .utf8)
-        } catch {
-            print("Failed writing to URL: \(fileURL), Error: " + error.localizedDescription)
-        }
-    }
-
-
-    class func createFileForFlight()
+    class func createFlightRecorderFile()
         -> Bool {
 
-            let dateFormatter = DateFormatter()
-            let timeFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yMMdd"
-            timeFormatter.dateFormat = "HHmm"
+            ISoarFileManager.shared.flightStartTime = Date()
+            
+            let tempDirURL = URL(fileURLWithPath: NSTemporaryDirectory())
+            let tempFileName = UUID().uuidString
+            
+            let tempFileURL = tempDirURL.appendingPathComponent(tempFileName).appendingPathExtension("txt")
+            
+            ISoarFileManager.shared.tempRecorderFileURL = tempFileURL
+            
+            print(tempFileURL)
 
-            let fileName = "\(dateFormatter.string(from: FlightRecorder.shared.today))-\(timeFormatter.string(from: FlightRecorder.shared.startFlightTime))"
-
-            let fileURL = flightURL.appendingPathComponent(fileName).appendingPathExtension("txt")
-
-            // Write Location Data in this file...
-            let outString = "FileName: \(fileName)\n"
+            // Write Telemetry Data to Flight Recorder File
+            let outString = "TimeStamp,Latitude,Longitude,Altitude,Speed,Course\n"
 
             var successfullyCreatedFile = false
             do {
-                try outString.write(to: fileURL,
+                try outString.write(to: tempFileURL,
                                     atomically: true,
                                     encoding: .utf8)
                 successfullyCreatedFile = true
             } catch {
-                fatalError("Failed writing to URL: \(fileURL), Error: " + error.localizedDescription)
+                fatalError("Failed writing to URL: \(tempFileURL), Error: " + error.localizedDescription)
             }
 
-
             do {
-                shared.currentFlightRecordFileHandle = try FileHandle.init(forWritingTo: fileURL)
+                shared.currentFlightRecordFileHandle = try FileHandle.init(forWritingTo: tempFileURL)
                 shared.currentFlightRecordFileHandle!.seekToEndOfFile()
             }
             catch let fileHandleError {
                 fatalError("No fileHandle: \(fileHandleError.localizedDescription)")
             }
 
-
             return successfullyCreatedFile
 
     }
 
     @discardableResult
-    class func appendToFlightRecorderFile(_ string: String)
+    class func appendTelemetryDataToFlightRecorderFile(_ string: String)
         -> Bool {
             guard let fileHandle = shared.currentFlightRecordFileHandle
                 else { return false }
@@ -203,15 +183,30 @@ extension ISoarFileManager {
             return true
     }
 
-    class func stopFlightRecorderFile() {
+    class func closeFlightRecorderFile() {
         guard let fileHandle = shared.currentFlightRecordFileHandle
             else { return }
 
+        // Set Flight End Time
+        ISoarFileManager.shared.flightEndTime = Date()
+        
+        let dateFormatter = DateFormatter()
+        let timeFormatter = DateFormatter()
+        dateFormatter.dateFormat = "y-MM-dd"
+        timeFormatter.dateFormat = "HHmm"
+        
+        // Set Final Flight Recorder FileNameURL
+        ISoarFileManager.shared.finalRecorderFileURL = flightURL.appendingPathComponent("\(dateFormatter.string(from: ISoarFileManager.shared.today)) \(timeFormatter.string(from: ISoarFileManager.shared.flightStartTime))-\(timeFormatter.string(from: ISoarFileManager.shared.flightEndTime))").appendingPathExtension("txt")
+        
         fileHandle.closeFile()
         shared.currentFlightRecordFileHandle = nil
-
-        // Datei umbenennen
-        // alte fileURL nehmen - um Endzeit den Dateinamen dieser fileURL ergänzen - Datei umbennen (move)
+        
+        do {
+            try FileManager.default.moveItem(at: ISoarFileManager.shared.tempRecorderFileURL,
+                                             to: ISoarFileManager.shared.finalRecorderFileURL)
+        } catch {
+            fatalError("Failed writing to URL: \(flightURL), Error: " + error.localizedDescription)
+        }
 
     }
 
