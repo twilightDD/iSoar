@@ -96,6 +96,7 @@ class MapScreen: UIViewController {
     func setupLocationManager() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager.allowsBackgroundLocationUpdates = true
     }
     
     // Set up MapBox MapView
@@ -148,6 +149,7 @@ class MapScreen: UIViewController {
             // Show an alert letting them know what's up
             break
         case .authorizedAlways:
+            locationManager.startUpdatingLocation()
             break
         @unknown default:
             print("Didn't request permission for User Notifications")
