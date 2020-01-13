@@ -142,8 +142,6 @@ extension ISoarFileManager {
             let tempFileURL = tempDirURL.appendingPathComponent(tempFileName).appendingPathExtension("txt")
             
             ISoarFileManager.shared.tempRecorderFileURL = tempFileURL
-            
-            print(tempFileURL)
 
             // Write Telemetry Data to Flight Recorder File
             let outString = "TimeStamp,Latitude,Longitude,Altitude,Speed,Course\n"
@@ -205,7 +203,7 @@ extension ISoarFileManager {
             try FileManager.default.moveItem(at: ISoarFileManager.shared.tempRecorderFileURL,
                                              to: ISoarFileManager.shared.finalRecorderFileURL)
         } catch {
-            fatalError("Failed writing to URL: \(flightURL), Error: " + error.localizedDescription)
+            fatalError("Failed writing to URL: \(ISoarFileManager.shared.finalRecorderFileURL), Error: " + error.localizedDescription)
         }
 
     }
