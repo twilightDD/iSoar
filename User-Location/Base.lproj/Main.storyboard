@@ -162,7 +162,7 @@
         <!--Logbook-->
         <scene sceneID="kZz-qr-uGS">
             <objects>
-                <viewController id="pjt-28-YiD" sceneMemberID="viewController">
+                <viewController id="pjt-28-YiD" customClass="LogbookViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="P54-YR-r0T">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -172,13 +172,40 @@
                                 <items>
                                     <navigationItem title="Logbook" id="guk-a6-3Tx"/>
                                 </items>
-                                <connections>
-                                    <outlet property="delegate" destination="pjt-28-YiD" id="fJY-9u-Ozb"/>
-                                </connections>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sci-ZX-eQ7">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlightSelectionTableViewCell" id="NG8-3P-2HW" customClass="FlightSelectionTableViewCell" customModule="iSoar" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NG8-3P-2HW" id="Myw-XH-dg1">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6o1-Mk-rCn" userLabel="FlightName">
+                                                    <rect key="frame" x="20" y="11" width="374" height="21.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="6o1-Mk-rCn" secondAttribute="trailing" constant="20" id="FFc-AX-fCP"/>
+                                                <constraint firstItem="6o1-Mk-rCn" firstAttribute="top" secondItem="Myw-XH-dg1" secondAttribute="topMargin" id="SIu-0x-8Uk"/>
+                                                <constraint firstItem="6o1-Mk-rCn" firstAttribute="centerY" secondItem="Myw-XH-dg1" secondAttribute="centerY" id="Xkg-qQ-i7w"/>
+                                                <constraint firstItem="6o1-Mk-rCn" firstAttribute="leading" secondItem="Myw-XH-dg1" secondAttribute="leading" constant="20" id="fhr-xM-m8m"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="flightName" destination="6o1-Mk-rCn" id="k3f-41-Xda"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="delegate" destination="pjt-28-YiD" id="Dff-Qp-RHa"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -194,6 +221,9 @@
                         <viewLayoutGuide key="safeArea" id="7BK-mo-g91"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Logbook" image="logbook" id="tjD-oY-sVf"/>
+                    <connections>
+                        <outlet property="tableView" destination="sci-ZX-eQ7" id="19e-Mn-Apy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bR1-wW-GuP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -425,7 +455,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labelfdsfdsf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fmk-3Q-uW8">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fmk-3Q-uW8">
                                                     <rect key="frame" x="20" y="11" width="0.0" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
