@@ -5,6 +5,7 @@
 //  Created by Peter Hauke on 11.12.19.
 //  Copyright © 2019 Denis Leupold. All rights reserved.
 //
+//
 
 import Foundation
 
@@ -55,7 +56,7 @@ class ISoarFileManager {
     
     var tempRecorderFileURL: URL!
     var finalRecorderFileURL: URL!
-    var today = Date()
+
     var flightStartTime = Date()
     var flightEndTime = Date()
 
@@ -98,7 +99,8 @@ extension ISoarFileManager {
     }
 }
 
-// MARK: - Extension - GPX File Handling
+// MARK: - Extension - File Handlings
+// Extension - GPX File Handling
 extension ISoarFileManager {
     // MARK:  Public Class Methods
     class func gpxFileNames()
@@ -128,6 +130,36 @@ extension ISoarFileManager {
     }
 }
 
+// Extension - Flight File Handling
+extension ISoarFileManager {
+    // MARK:  Public Class Methods
+    class func flightFileNames()
+        -> [String] {
+            var flightFileNames = [String]()
+            
+            // get files from disc
+            var fileURLs = [URL]()
+            do {
+                fileURLs = try FileManager.default.contentsOfDirectory(at: flightURL,
+                                                                       includingPropertiesForKeys: [],
+                                                                       options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
+                fileURLs = fileURLs.filter{ $0.pathExtension == "txt" }
+            }
+            catch let contentsOfDirectory {
+                fatalError("\(contentsOfDirectory.localizedDescription)")
+            }
+            
+            // parse fileNames
+            for fileURL in fileURLs {
+                let fileURLWithoutExtension = fileURL.deletingPathExtension()
+                let fileName = fileURLWithoutExtension.lastPathComponent
+                flightFileNames.append(fileName)
+            }
+            
+            return flightFileNames
+    }
+}
+
 // MARK: - Extension Store Flight Recorder File
 // ToDo: Create Flight Recorder File in Flights Folder
 extension ISoarFileManager {
@@ -144,7 +176,7 @@ extension ISoarFileManager {
             ISoarFileManager.shared.tempRecorderFileURL = tempFileURL
 
             // Write Telemetry Data to Flight Recorder File
-            let outString = "TimeStamp,Latitude,Longitude,Altitude,Speed,Course\n"
+            let outString = "TimeStamp,Latitude,Longitude,Altitude,Speed,Course,Distance-Block,Accumulated Distance,\n"
 
             var successfullyCreatedFile = false
             do {
@@ -181,6 +213,7 @@ extension ISoarFileManager {
             return true
     }
 
+    // Close Flight Recorder File
     class func closeFlightRecorderFile() {
         guard let fileHandle = shared.currentFlightRecordFileHandle
             else { return }
@@ -194,7 +227,7 @@ extension ISoarFileManager {
         timeFormatter.dateFormat = "HHmm"
         
         // Set Final Flight Recorder FileNameURL
-        ISoarFileManager.shared.finalRecorderFileURL = flightURL.appendingPathComponent("\(dateFormatter.string(from: ISoarFileManager.shared.today)) \(timeFormatter.string(from: ISoarFileManager.shared.flightStartTime))-\(timeFormatter.string(from: ISoarFileManager.shared.flightEndTime))").appendingPathExtension("txt")
+        ISoarFileManager.shared.finalRecorderFileURL = flightURL.appendingPathComponent("\(dateFormatter.string(from: ISoarFileManager.shared.flightStartTime)) \(timeFormatter.string(from: ISoarFileManager.shared.flightStartTime))-\(timeFormatter.string(from: ISoarFileManager.shared.flightEndTime))").appendingPathExtension("txt")
         
         fileHandle.closeFile()
         shared.currentFlightRecordFileHandle = nil
@@ -203,10 +236,9 @@ extension ISoarFileManager {
             try FileManager.default.moveItem(at: ISoarFileManager.shared.tempRecorderFileURL,
                                              to: ISoarFileManager.shared.finalRecorderFileURL)
         } catch {
-            fatalError("Failed writing to URL: \(ISoarFileManager.shared.finalRecorderFileURL), Error: " + error.localizedDescription)
+            fatalError("Failed writing to URL: \(String(describing: ISoarFileManager.shared.finalRecorderFileURL)), Error: " + error.localizedDescription)
         }
 
     }
 
 }
-
