@@ -14,11 +14,10 @@ class FlightRecorder {
     
     // MARK: - Lets and Vars
     static let shared = FlightRecorder()
-    var flightDataArray = [FlightRecorder.FlightData]()
+    //var flightDataArray = [FlightRecorder.FlightData]()
 
-    var formerLocation: CLLocation?
-    var completeDistance: CLLocationDistance = 0
-
+//    var formerLocation: CLLocation?
+//    var accumulatedDistance: CLLocationDistance = 0
 
     var recorderIsReadyToWrite = false
     
@@ -36,10 +35,7 @@ class FlightRecorder {
                                     altitude: currentLocation.altitude,
                                     speed: currentLocation.speed,
                                     course: currentLocation.course)
-        flightDataArray.append(currentTelemetryData)
-
-
-
+        //flightDataArray.append(currentTelemetryData)
 
         // Write Data to FlightRecorder File
         FlightComputer.shared.checkIfGliderIsFlying()
@@ -53,12 +49,13 @@ class FlightRecorder {
             recordLine.append(contentsOf: "\(currentLocation.speed),")
             recordLine.append(contentsOf: "\(currentLocation.course),")
 
-            var distance: CLLocationDistance = 0
-            if let formerLocation = formerLocation {
-                distance = currentLocation.distance(from: formerLocation)
-                completeDistance += distance
-            }
-            recordLine.append(contentsOf: String(format: "%.01f", distance))
+//            var distance: CLLocationDistance = 0
+//            if let formerLocation = formerLocation {
+//                distance = currentLocation.distance(from: formerLocation)
+//                accumulatedDistance += distance
+//            }
+//            recordLine.append(contentsOf: String(format: "%.01f,", distance))
+//            recordLine.append(contentsOf: String(format: "%.01f", accumulatedDistance))
 
             recordLine.append(contentsOf: "\n")
 
@@ -66,8 +63,8 @@ class FlightRecorder {
             ISoarFileManager.appendTelemetryDataToFlightRecorderFile(recordLine)
         }
 
-        formerLocation = currentLocation
-        print(String(format: "Komplette Dist  %.01f Meter", completeDistance))
+        //formerLocation = currentLocation
+
     }
     
 }
