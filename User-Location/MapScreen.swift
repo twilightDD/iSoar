@@ -10,7 +10,6 @@ import UIKit
 import CoreLocation
 import CoreMotion
 import Mapbox
-import AVFoundation
 
 //MARK: MapScreen
 class MapScreen: UIViewController {
@@ -59,10 +58,7 @@ class MapScreen: UIViewController {
     var DistanceInKM:CLLocationDistance = 0
     
     var showTrackingRoute = false
-    
-    var playGearWarning = true
-    var playOxygenWarning = true
-    
+        
     // MARK: - Init & Co.
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -487,81 +483,6 @@ class MapScreen: UIViewController {
         
     }
     
-    // MARK: Audio Warnings
-    // Audio Landing Gear Warning
-    private func gearWarning() {
-        guard let selectedDestinationAirport = selectedDestinationAirport else {
-            return
-        }
-        
-        let landingGearWarningSwitch = defaults.value(forKey: "landingGearWarningSwitch") as! Bool
-        
-        let distanceInKm = currentDistance!/1000
-        
-        let upperGearWarningAltitude = selectedDestinationAirport.elevation + 400
-        let lowerGearWarningAltitude = selectedDestinationAirport.elevation + 200
-        
-        if landingGearWarningSwitch == true {
-            
-            if distanceInKm < 1 && currentLocation!.altitude < upperGearWarningAltitude && currentLocation!.altitude > lowerGearWarningAltitude {
-                
-                if playGearWarning == true {
-                    
-                    AudioServicesPlayAlertSound(SystemSoundID(1256))
-                    
-                    let utterance = AVSpeechUtterance(string: "Check Landing Gear")
-                    utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-                    utterance.rate = 0.5
-                    
-                    let synthesizer = AVSpeechSynthesizer()
-                    synthesizer.speak(utterance)
-                    
-                    playGearWarning = false
-                    
-                }
-                else {
-                    return
-                }
-            }
-            else {
-                playGearWarning = true
-            }
-        }
-        else {
-            // Landing Gear Switch is off
-        }
-        
-    }
-    
-    // Audio for Oxygen Level Warning
-    private func oxygenWarning() {
-        guard let currentLocation = currentLocation else {
-            return
-        }
-        
-        if currentLocation.altitude > 3500 {
-            
-            if playOxygenWarning == true {
-                
-                let utterance = AVSpeechUtterance(string: "Warning, Oxygen Level low")
-                utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
-                utterance.rate = 0.5
-                
-                let synthesizer = AVSpeechSynthesizer()
-                synthesizer.speak(utterance)
-                
-                playOxygenWarning = false
-                
-            }
-            else {
-                return
-            }
-        }
-        else {
-            playOxygenWarning = true
-        }
-    }
-    
 }
 
 // ToDo: Documentation
@@ -699,10 +620,10 @@ extension MapScreen: CLLocationManagerDelegate {
         
         // Operating Stuff
         // Gear Warning
-        gearWarning()
+        FlightComputer.shared.gearWarning()
         
         // Oxygen Warning
-        // oxygenWarning()
+        FlightComputer.shared.oxygenWarning()
         
         // FlightRecorder
         FlightRecorder.shared.addFlightRecorderEntryForLocation(currentLocation)
