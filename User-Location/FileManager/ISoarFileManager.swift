@@ -238,6 +238,44 @@ extension ISoarFileManager {
         } catch {
             fatalError("Failed writing to URL: \(String(describing: ISoarFileManager.shared.finalRecorderFileURL)), Error: " + error.localizedDescription)
         }
+        
+        print(ISoarFileManager.shared.finalRecorderFileURL)
+        
+        
+        
+        // Create JSON
+        let array = [["Start":"\(ISoarFileManager.shared.flightStartTime)","End": "\(ISoarFileManager.shared.flightStartTime)"],]
+        
+        do {
+            let data = try JSONSerialization.data(withJSONObject: array, options: [])
+            if let dataString = String(data: data, encoding: .utf8) {
+                print(dataString)
+            }
+        } catch {
+            print(error)
+        }
+        
+        do {
+            let data = try JSONSerialization.data(withJSONObject: array, options: [])
+            if let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                let fileUrl = documentDirectoryUrl.appendingPathComponent("MyFile.json")
+                try data.write(to: fileUrl)
+            }
+        } catch {
+            print(error)
+        }
+        // End Create JSON
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
     }
 
