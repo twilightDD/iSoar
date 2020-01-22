@@ -19,6 +19,9 @@ class FlightComputer {
     
     var gliderIsFlying: Bool = false
     
+    var flightStartTime = Date()
+    var flightEndTime = Date()
+    
     var playGearWarning = true
     var playOxygenWarning = true
     
@@ -29,6 +32,7 @@ class FlightComputer {
             // Check if Glider is faster than 7m/s, then set FlightMode to true
             if MapScreen.shared!.currentLocation!.speed > 7 {
                 gliderIsFlying = true
+                flightStartTime = Date()
                 
                 // Create FlightRecorder File
                 FlightRecorder.shared.recorderIsReadyToWrite = ISoarFileManager.createFlightRecorderFile()
@@ -41,6 +45,7 @@ class FlightComputer {
             // Check if Glider is slower than 7m/s, then set FlightMode to false
             if MapScreen.shared!.currentLocation!.speed < 7 {
                 gliderIsFlying = false
+                flightEndTime = Date()
                 
                 // Close FlightRecorder File
                 ISoarFileManager.closeFlightRecorderFile()
