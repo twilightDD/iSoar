@@ -18,5 +18,35 @@ class FlightsDatabase {
             
             return flightFileNames
     }
-    
+
+    class func metaData()
+        -> FlightMetaData? {
+            var flightMetaData: FlightMetaData?
+
+            if let metaDataData = ISoarFileManager.flightMetaDataFileData() {
+                do {
+                    flightMetaData = try JSONDecoder().decode(FlightMetaData.self,
+                                                              from: metaDataData)
+                } catch let jsonError {
+                    print("\(jsonError.localizedDescription)")
+                }
+            }
+
+            return flightMetaData
+    }
+
+}
+
+// MARK: Extension - Struct
+
+struct FlightMetaData: Codable {
+    var uuid: String
+    var date: String
+    var gliderID: String
+    var startTimeUTC: String
+    var startICAO: String
+    var endTimeUTC: String
+    var endICAO: String
+    var flightCompleted: Bool
+    var flightTime: String
 }

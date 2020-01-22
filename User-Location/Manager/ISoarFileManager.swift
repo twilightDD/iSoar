@@ -24,6 +24,19 @@ class ISoarFileManager {
         
         return documentPath
     }()
+
+    private static let documentDirectoryURL: URL = {
+        do {
+            let url = try FileManager.default.url(for: .documentDirectory,
+                                           in: .userDomainMask,
+                                           appropriateFor: nil,
+                                           create: false)
+            return url
+        }
+        catch let getURLError {
+            fatalError("\(getURLError.localizedDescription)")
+        }
+    }()
     
     // Path and URL for GPX Files
     private static let gpxPath: String = {
@@ -59,19 +72,7 @@ class ISoarFileManager {
     
 }
 
-// MARK: Extension - Struct
 
-struct flightMetadata: Codable {
-    var uuid: String
-    var date: String
-    var gliderID: String
-    var startTimeUTC: String
-    var startICAO: String
-    var endTimeUTC: String
-    var endICAO: String
-    var flightCompleted: Bool
-    var flightTime: String
-}
 
 // MARK: - Extension - Check Directory Class Methods
 // Check if Tasks Folder exists in Documents Folder
@@ -174,6 +175,20 @@ extension ISoarFileManager {
 // MARK: - Extension Store Flight Recorder File
 // ToDo: Create Flight Recorder File in Flights Folder
 extension ISoarFileManager {
+    class func flightMetaDataFileData()
+        -> Data? {
+            var flightMetaDataFileData: Data?
+            let fileURL = documentDirectoryURL.appendingPathComponent("MyFile.json")
+
+            do {
+                flightMetaDataFileData = try Data(contentsOf: fileURL)
+            } catch let readError {
+                print("\(readError.localizedDescription)")
+            }
+
+            return flightMetaDataFileData
+    }
+
     class func createFlightRecorderFile()
         -> Bool {
             
@@ -215,16 +230,17 @@ extension ISoarFileManager {
 
             
             // Create JSON
-            let data = flightMetadata(uuid: "uuid",
-                                      date: (dateFormatter.string(from: FlightComputer.shared.flightStartTime)),
-                                      gliderID: UserDefaultsManager.getGliderID(),
-                startTimeUTC: "\(timeFormatter.string(from: FlightComputer.shared.flightStartTime)) UTC",
+            let data = FlightMetaData.init(uuid: "uuid",
+                                           date: (dateFormatter.string(from: FlightComputer.shared.flightStartTime)),
+                                           gliderID: UserDefaultsManager.getGliderID(),
+                                           startTimeUTC: "\(timeFormatter.string(from: FlightComputer.shared.flightStartTime)) UTC",
                 startICAO: "",
                 endTimeUTC: "",
                 endICAO: "",
                 flightCompleted: false,
                 flightTime: "")
-            
+
+
             do {
                 let fileURL = try FileManager.default
                     .url(for: .documentDirectory,
@@ -235,7 +251,8 @@ extension ISoarFileManager {
                 
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .prettyPrinted
-                
+
+
                 try encoder.encode(data)
                     .write(to: fileURL)
                 
@@ -307,7 +324,7 @@ extension ISoarFileManager {
                 .appendingPathComponent("MyFile.json")
 
             let data = try Data(contentsOf: fileURL)
-            let metaData = try JSONDecoder().decode(flightMetadata.self,
+            let metaData = try JSONDecoder().decode(FlightMetaData.self,
                                                from: data)
             print(metaData)
         } catch {
@@ -316,7 +333,7 @@ extension ISoarFileManager {
         // Done
         
         // Create JSON
-        let data = flightMetadata(uuid: "uuid",
+        let data = FlightMetaData(uuid: "uuid",
                                   date: (dateFormatter.string(from: FlightComputer.shared.flightStartTime)),
                                   gliderID: UserDefaultsManager.getGliderID(),
             startTimeUTC: "\(timeFormatter.string(from: FlightComputer.shared.flightStartTime)) UTC",

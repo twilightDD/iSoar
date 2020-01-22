@@ -13,7 +13,7 @@ class LogbookViewController: UIViewController {
     // MARK: Lets and Vars
     // Datasource
     // ToDo: Source!
-    var flightsArray = [String]()
+    var flightMetaDatas = [FlightMetaData]()
     
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
@@ -24,6 +24,8 @@ class LogbookViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+
+        flightMetaDatas = [FlightMetaData]()
         
     }
     
@@ -36,7 +38,12 @@ class LogbookViewController: UIViewController {
     
     // Setup TableViewDatasource
     private func setupTableViewDatasource() {
-        flightsArray = FlightsDatabase.flightFileNames().sorted(by: {$0.description > $1.description})
+        flightMetaDatas.removeAll()
+
+        if let flightMetaData = FlightsDatabase.metaData() {
+            flightMetaDatas.append(flightMetaData)
+        }
+
         tableView.reloadData()
     }
 }
@@ -51,7 +58,7 @@ extension LogbookViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
         -> Int {
-            let numberOfRowsInSection = flightsArray.count
+            let numberOfRowsInSection = flightMetaDatas.count
             return numberOfRowsInSection
     }
     
@@ -62,9 +69,9 @@ extension LogbookViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: FlightSelectionTableViewCell.identifier) as? FlightSelectionTableViewCell
                 else { fatalError("")}
             
-            let flightOfInterest = flightsArray[indexPath.row]
+            let flightMetaDataOfInterest = flightMetaDatas[indexPath.row]
             
-            cell.flightName.text = flightOfInterest
+            cell.flightName.text = flightMetaDataOfInterest.date
             
             return cell
     }
