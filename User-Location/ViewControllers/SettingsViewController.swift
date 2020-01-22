@@ -17,13 +17,7 @@ class SettingsViewController: UIViewController {
     // Notification Observers
     var airportUpdateFailedNotification:NSObjectProtocol?
     
-    struct Settings {
-        static let GliderRatioKey = "gliderRatio"
-        static let SafetyAltitudeKey = "safetyAltitude"
-        static let GliderIDKey = "gliderID"
-        static let LandingGearWarningSwitchKey = "landingGearWarningSwitch"
-        static let ShowTrackingRouteSwitchKey = "showTrackingRouteSwitch"
-    }
+   
     
     // MARK: IBOutlets
     @IBOutlet weak var gliderRatioTextField: TextFields!
@@ -72,52 +66,31 @@ class SettingsViewController: UIViewController {
     }
     
     // MARK: - Public Class Methods
-    // Set up User Defaults if they have no values
-    class func setupUserDefaults() {
-        let defaults = UserDefaults.standard
-        
-        if defaults.value(forKey: Settings.GliderRatioKey) == nil {
-            defaults.set(20, forKey: Settings.GliderRatioKey)
-        }
-        if defaults.value(forKey: Settings.SafetyAltitudeKey) == nil {
-            defaults.set(200, forKey: Settings.SafetyAltitudeKey)
-        }
-        if defaults.value(forKey: Settings.GliderIDKey) == nil {
-            defaults.set("D-1234", forKey: Settings.GliderIDKey)
-        }
-        if defaults.value(forKey: Settings.LandingGearWarningSwitchKey) == nil {
-            defaults.set(true, forKey: Settings.LandingGearWarningSwitchKey)
-        }
-        if defaults.value(forKey: Settings.ShowTrackingRouteSwitchKey) == nil {
-            defaults.set(true, forKey: Settings.ShowTrackingRouteSwitchKey)
-        }
-        
-    }
     
     // MARK: - Private Instance Methods
     // Read User Defaults and display them on screen
     private func setupUI(){
         
         // Glider Ratio
-        let gliderRatio = defaults.value( forKey: Settings.GliderRatioKey) as! Double
+        let gliderRatio = UserDefaultsManager.getGliderRatio()
         let gliderRatioString = String(format: "%.f", gliderRatio)
         gliderRatioTextField.text! = gliderRatioString
         
         // Safety Altitude
-        let safetyAltitude = defaults.value( forKey: Settings.SafetyAltitudeKey) as! Double
+        let safetyAltitude = UserDefaultsManager.getSafetyAltitude()
         let safetyAltitudeString = String(format: "%.f", safetyAltitude)
         safetyAltitudeTextField.text! = safetyAltitudeString
         
         // Glider ID
-        let gliderID = defaults.value(forKey: Settings.GliderIDKey) as? String ?? "D-1234"
+        let gliderID = UserDefaultsManager.getGliderID()
         gliderIDTextField.text! = gliderID
         
         // Landing Gear Warning Switch Setup
-        let landingGearWarningSwitchState = defaults.value(forKey: Settings.LandingGearWarningSwitchKey) as! Bool
+        let landingGearWarningSwitchState = UserDefaultsManager.getLandingGearWarningSwitch()
         landingGearWarningSwitch.isOn = landingGearWarningSwitchState
         
         // Tracking Route Switch Setup
-        let showTrackingRouteSwitchState = defaults.value(forKey: Settings.ShowTrackingRouteSwitchKey) as! Bool
+        let showTrackingRouteSwitchState = UserDefaultsManager.getShowTrackingRouteSwitchKey()
         showTrackingRouteSwitch.isOn = showTrackingRouteSwitchState
     }
     
@@ -129,21 +102,21 @@ class SettingsViewController: UIViewController {
         let safetyAltitudeString = safetyAltitudeTextField.text!
         let safetyAltitudeDouble = (safetyAltitudeString as NSString).doubleValue
         
-        defaults.set(gliderRatioDouble, forKey: Settings.GliderRatioKey);
-        defaults.set(safetyAltitudeDouble, forKey: Settings.SafetyAltitudeKey);
-        defaults.set(gliderIDTextField.text!, forKey: Settings.GliderIDKey);
+        UserDefaultsManager.set(gliderRatio: gliderRatioDouble)
+        UserDefaultsManager.set(safetyAltitude: safetyAltitudeDouble)
+        UserDefaultsManager.set(gliderID: gliderIDTextField.text!)
         
     }
     
     // MARK: - Action Methods
     // Landing Gear Warning Switch
     @IBAction func landingGearWarningSwitch(_ sender: UISwitch) {
-        defaults.set(landingGearWarningSwitch.isOn, forKey: Settings.LandingGearWarningSwitchKey)
+        UserDefaultsManager.set(landingGearWarningSwitch: landingGearWarningSwitch.isOn)
     }
     
     //Show Tracking Route Switch
     @IBAction func showTrackingRouteSwitch(_ sender: UISwitch) {
-        defaults.set(showTrackingRouteSwitch.isOn, forKey: Settings.ShowTrackingRouteSwitchKey)
+        UserDefaultsManager.set(showTrackingRouteSwitch: showTrackingRouteSwitch.isOn)
     }
     
     // Download updated Airport Database File from Server

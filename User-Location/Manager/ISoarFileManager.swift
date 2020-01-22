@@ -219,7 +219,7 @@ extension ISoarFileManager {
             // Create JSON
             let data = flightMetadata(uuid: "uuid",
                                       date: (dateFormatter.string(from: FlightComputer.shared.flightStartTime)),
-                gliderID: "\(ISoarFileManager.shared.defaults.string(forKey: "gliderID") ?? "NotSet")",
+                                      gliderID: UserDefaultsManager.getGliderID(),
                 startTimeUTC: "\(timeFormatter.string(from: FlightComputer.shared.flightStartTime)) UTC",
                 startICAO: "",
                 endTimeUTC: "",
@@ -319,14 +319,14 @@ extension ISoarFileManager {
         
         // Create JSON
         let data = flightMetadata(uuid: "uuid",
-        date: (dateFormatter.string(from: FlightComputer.shared.flightStartTime)),
-        gliderID: "\(ISoarFileManager.shared.defaults.string(forKey: "gliderID") ?? "Glider")",
-        startTimeUTC: "\(timeFormatter.string(from: FlightComputer.shared.flightStartTime)) UTC",
-        startICAO: "",
-        endTimeUTC: "\(timeFormatter.string(from: FlightComputer.shared.flightEndTime)) UTC",
-        endICAO: "",
-        flightCompleted: true,
-        flightTime: "")
+                                  date: (dateFormatter.string(from: FlightComputer.shared.flightStartTime)),
+                                  gliderID: "\(ISoarFileManager.shared.defaults.string(forKey: "gliderID") ?? "Glider")",
+            startTimeUTC: "\(timeFormatter.string(from: FlightComputer.shared.flightStartTime)) UTC",
+            startICAO: "",
+            endTimeUTC: "\(timeFormatter.string(from: FlightComputer.shared.flightEndTime)) UTC",
+            endICAO: "",
+            flightCompleted: true,
+            flightTime: "")
         
         do {
             let fileURL = try FileManager.default

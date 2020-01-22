@@ -358,11 +358,9 @@ class MapScreen: UIViewController {
         }
         
         // Get User Default Values
-        let defaults = UserDefaults.standard
-        
         // Calculate Glider Sink Rate to Destination
-        let safetyAltitude = defaults.value(forKey: SettingsViewController.Settings.SafetyAltitudeKey) as! Double
-        let gliderRatio = defaults.value(forKey: SettingsViewController.Settings.GliderRatioKey) as! Double
+        let safetyAltitude = UserDefaultsManager.getSafetyAltitude()
+        let gliderRatio = UserDefaultsManager.getGliderRatio()
         
         // Calculate Glider Sink Rate to Destination Airport
         let gliderRatioMeter = gliderRatio * 1000       //Gleitzahl in Meter
@@ -460,7 +458,7 @@ class MapScreen: UIViewController {
     // MARK: Route Tracking
     // Check for Tracking Route Status ins Settings
     private func checkTrackingRouteStatus() {
-        showTrackingRoute = defaults.value(forKey: SettingsViewController.Settings.ShowTrackingRouteSwitchKey) as! Bool
+        showTrackingRoute = UserDefaultsManager.getShowTrackingRouteSwitchKey()
         if showTrackingRoute == true {
             // Delay Drawing and wait for Location
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

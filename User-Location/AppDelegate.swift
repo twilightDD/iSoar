@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.unregisterForRemoteNotifications()
         
         // Set up User Defaults
-        SettingsViewController.setupUserDefaults()
+        UserDefaultsManager.setupUserDefaults()
 
         // Setup Documents/Flights-Folder
         ISoarFileManager.checkForFlightsFolder()
