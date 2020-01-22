@@ -14,9 +14,7 @@ class FlightComputer {
     
     // MARK: - Lets and Vars
     static let shared = FlightComputer()
-    
-    let defaults = UserDefaults.standard
-    
+
     var gliderIsFlying: Bool = false
     
     var flightStartTime = Date()
@@ -61,18 +59,15 @@ class FlightComputer {
     // MARK: Audio Warnings
     // Audio Landing Gear Warning
     func gearWarning() {
-        guard let selectedDestinationAirport = MapScreen.shared?.selectedDestinationAirport else {
-            return
-        }
-        
-        let landingGearWarningSwitch = defaults.value(forKey: "landingGearWarningSwitch") as! Bool
-        
-        let distanceInKm = (MapScreen.shared?.currentDistance!)!/1000
-        
-        let upperGearWarningAltitude = selectedDestinationAirport.elevation + 400
-        let lowerGearWarningAltitude = selectedDestinationAirport.elevation + 200
-        
+        guard let selectedDestinationAirport = MapScreen.shared?.selectedDestinationAirport
+            else { return }
+
+        let landingGearWarningSwitch = UserDefaultsManager.getLandingGearWarningSwitch()
         if landingGearWarningSwitch == true {
+            let distanceInKm = (MapScreen.shared?.currentDistance!)!/1000
+
+            let upperGearWarningAltitude = selectedDestinationAirport.elevation + 400
+            let lowerGearWarningAltitude = selectedDestinationAirport.elevation + 200
             
             if distanceInKm < 1 && (MapScreen.shared?.currentLocation!.altitude)! < upperGearWarningAltitude && (MapScreen.shared?.currentLocation!.altitude)! > lowerGearWarningAltitude {
                 

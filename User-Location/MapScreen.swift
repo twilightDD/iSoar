@@ -29,7 +29,6 @@ class MapScreen: UIViewController {
     let locationManager = CLLocationManager()
     var currentLocation:CLLocation?
     var currentDistance:CLLocationDistance?
-    let defaults = UserDefaults.standard
     
     lazy var userLocationButton:UserLocationButton = createUserLocationButton()
     

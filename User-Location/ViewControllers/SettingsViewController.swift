@@ -12,7 +12,6 @@ import UIKit
 class SettingsViewController: UIViewController {
     
     // MARK: Lets and Vats
-    let defaults = UserDefaults.standard
     
     // Notification Observers
     var airportUpdateFailedNotification:NSObjectProtocol?

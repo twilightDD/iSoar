@@ -15,8 +15,6 @@ class ISoarFileManager {
     // MARK: Private Lets and Vars
     private static let shared = ISoarFileManager()
     
-    let defaults = UserDefaults.standard
-    
     private static let flightSubPath = "/Flights"
     private static let gpxSubPath = "/Tasks"
     
@@ -320,7 +318,7 @@ extension ISoarFileManager {
         // Create JSON
         let data = flightMetadata(uuid: "uuid",
                                   date: (dateFormatter.string(from: FlightComputer.shared.flightStartTime)),
-                                  gliderID: "\(ISoarFileManager.shared.defaults.string(forKey: "gliderID") ?? "Glider")",
+                                  gliderID: UserDefaultsManager.getGliderID(),
             startTimeUTC: "\(timeFormatter.string(from: FlightComputer.shared.flightStartTime)) UTC",
             startICAO: "",
             endTimeUTC: "\(timeFormatter.string(from: FlightComputer.shared.flightEndTime)) UTC",
