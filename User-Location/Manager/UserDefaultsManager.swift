@@ -8,30 +8,29 @@
 
 import Foundation
 
-
 class UserDefaultsManager {
 
-    //MARK: - Keys
+    // MARK: - Keys
     private static let GliderRatioKey = "gliderRatio"
     private static let SafetyAltitudeKey = "safetyAltitude"
     private static let GliderIDKey = "gliderID"
     private static let LandingGearWarningSwitchKey = "landingGearWarningSwitch"
     private static let ShowTrackingRouteSwitchKey = "showTrackingRouteSwitch"
 
-    //MARK: Defaults
-    private static let gliderIDDefault = "nicht gesetzt"
+    // MARK: Defaults
+    private static let gliderIDDefault = "D-XXXX"
     private static let gliderRadioDefault: Double = 20
-    private static let LandingGearWarningSwitchDefault: Bool = true
+    private static let landingGearWarningSwitchDefault: Bool = true
     private static let safetyAltitudeDefault: Double = 200
     private static let showTrackingRouteSwitchDefault: Bool = true
 
-    //MARK: - Lets and Vars
+    // MARK: - Lets and Vars
     private static let shared = UserDefaultsManager()
     private let userDefaults = UserDefaults.standard
 
-    //MARK: - Public Class Methods
+    // MARK: - Public Class Methods
     class func setupUserDefaults() {
-        // gibts denn überhaupt schon welche?
+        // Check for User Defaults
         if shared.userDefaults.value(forKey: GliderRatioKey) == nil {
             UserDefaultsManager.set(gliderRatio: gliderRadioDefault)
         }
@@ -49,7 +48,7 @@ class UserDefaultsManager {
         }
     }
 
-    //MARK: GliderID
+    // MARK: GliderID
     class func getGliderID()
         -> String {
             let gliderID = shared.userDefaults.value(forKey: GliderIDKey) as? String ?? gliderIDDefault
@@ -60,7 +59,7 @@ class UserDefaultsManager {
         shared.userDefaults.set(value, forKey: GliderIDKey)
     }
 
-    //MARK: GliderRatio
+    // MARK: GliderRatio
     class func getGliderRatio()
         -> Double {
             let gliderRatio = shared.userDefaults.value(forKey: GliderRatioKey) as? Double ?? gliderRadioDefault
@@ -71,10 +70,10 @@ class UserDefaultsManager {
         shared.userDefaults.set(gliderRatio, forKey: GliderRatioKey)
     }
 
-    //MARK: LandingGearWarningSwitch
+    // MARK: LandingGearWarningSwitch
     class func getLandingGearWarningSwitch()
         -> Bool {
-            let landingGearWarningSwitch = shared.userDefaults.value(forKey: LandingGearWarningSwitchKey) as? Bool ?? LandingGearWarningSwitchDefault
+            let landingGearWarningSwitch = shared.userDefaults.value(forKey: LandingGearWarningSwitchKey) as? Bool ?? landingGearWarningSwitchDefault
             return landingGearWarningSwitch
     }
 
@@ -82,7 +81,7 @@ class UserDefaultsManager {
         shared.userDefaults.set(landingGearWarningSwitch, forKey: LandingGearWarningSwitchKey)
     }
 
-    //MARK: SafetyAltitude
+    // MARK: SafetyAltitude
     class func getSafetyAltitude()
         -> Double {
             let safetyAltitude = shared.userDefaults.value(forKey: SafetyAltitudeKey) as? Double ?? safetyAltitudeDefault
@@ -93,7 +92,7 @@ class UserDefaultsManager {
         shared.userDefaults.set(safetyAltitude, forKey: SafetyAltitudeKey)
     }
 
-    //MARK: ShowTrackingRouteSwitch
+    // MARK: ShowTrackingRouteSwitch
     class func getShowTrackingRouteSwitchKey()
         -> Bool {
             let showTrackingRouteSwitchKey = shared.userDefaults.value(forKey: ShowTrackingRouteSwitchKey) as? Bool ?? showTrackingRouteSwitchDefault
@@ -103,6 +102,5 @@ class UserDefaultsManager {
     class func set(showTrackingRouteSwitch: Bool) {
         shared.userDefaults.set(showTrackingRouteSwitch, forKey: ShowTrackingRouteSwitchKey)
     }
-
 
 }
