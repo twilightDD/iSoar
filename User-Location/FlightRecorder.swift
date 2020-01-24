@@ -14,10 +14,6 @@ class FlightRecorder {
     
     // MARK: - Lets and Vars
     static let shared = FlightRecorder()
-    //var flightDataArray = [FlightRecorder.FlightData]()
-
-//    var formerLocation: CLLocation?
-//    var accumulatedDistance: CLLocationDistance = 0
 
     var recorderIsReadyToWrite = false
     
@@ -48,22 +44,11 @@ class FlightRecorder {
             recordLine.append(contentsOf: "\(currentLocation.altitude),")
             recordLine.append(contentsOf: "\(currentLocation.speed),")
             recordLine.append(contentsOf: "\(currentLocation.course),")
-
-//            var distance: CLLocationDistance = 0
-//            if let formerLocation = formerLocation {
-//                distance = currentLocation.distance(from: formerLocation)
-//                accumulatedDistance += distance
-//            }
-//            recordLine.append(contentsOf: String(format: "%.01f,", distance))
-//            recordLine.append(contentsOf: String(format: "%.01f", accumulatedDistance))
-
             recordLine.append(contentsOf: "\n")
 
             // Append Data to FlightRecorder File
             ISoarFileManager.appendTelemetryDataToFlightRecorderFile(recordLine)
         }
-
-        //formerLocation = currentLocation
 
     }
     
