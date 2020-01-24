@@ -24,13 +24,13 @@ class ISoarFileManager {
         
         return documentPath
     }()
-
+    
     private static let documentDirectoryURL: URL = {
         do {
             let url = try FileManager.default.url(for: .documentDirectory,
-                                           in: .userDomainMask,
-                                           appropriateFor: nil,
-                                           create: false)
+                                                  in: .userDomainMask,
+                                                  appropriateFor: nil,
+                                                  create: false)
             return url
         }
         catch let getURLError {
@@ -71,8 +71,6 @@ class ISoarFileManager {
     var finalRecorderFileURL: URL!
     
 }
-
-
 
 // MARK: - Extension - Check Directory Class Methods
 // Check if Tasks Folder exists in Documents Folder
@@ -145,30 +143,30 @@ extension ISoarFileManager {
 // Extension - Flight File Handling
 extension ISoarFileManager {
     // MARK:  Public Class Methods
-    class func flightFileNames()
+    // Scan Flight Meta Data File Names
+    class func flightMetaDataFileNames()
         -> [String] {
-            var flightFileNames = [String]()
+            var flightMetaDataFileNames = [String]()
             
-            // get files from disc
+            // Get Files from Disc
             var fileURLs = [URL]()
             do {
                 fileURLs = try FileManager.default.contentsOfDirectory(at: flightURL,
                                                                        includingPropertiesForKeys: [],
                                                                        options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
-                fileURLs = fileURLs.filter{ $0.pathExtension == "txt" }
+                fileURLs = fileURLs.filter{ $0.pathExtension == "json" }
             }
             catch let contentsOfDirectory {
                 fatalError("\(contentsOfDirectory.localizedDescription)")
             }
             
-            // parse fileNames
+            // Parse FileNames
             for fileURL in fileURLs {
-                let fileURLWithoutExtension = fileURL.deletingPathExtension()
-                let fileName = fileURLWithoutExtension.lastPathComponent
-                flightFileNames.append(fileName)
+                let fileName = fileURL.lastPathComponent
+                flightMetaDataFileNames.append(fileName)
             }
             
-            return flightFileNames
+            return flightMetaDataFileNames
     }
 }
 
@@ -178,24 +176,25 @@ extension ISoarFileManager {
     class func flightMetaDataFileData()
         -> Data? {
             var flightMetaDataFileData: Data?
-            let fileURL = documentDirectoryURL.appendingPathComponent("MyFile.json")
+            let fileURL = flightURL.appendingPathComponent("MyFile").appendingPathExtension("json")
 
             do {
                 flightMetaDataFileData = try Data(contentsOf: fileURL)
             } catch let readError {
                 print("\(readError.localizedDescription)")
             }
-
+            
             return flightMetaDataFileData
     }
-
-    class func createFlightRecorderFile()
+    
+    class func createFlightRecorderFiles()
         -> Bool {
             
             let dateFormatter = DateFormatter()
             let timeFormatter = DateFormatter()
-            dateFormatter.dateFormat = "y-MM-dd"
+            dateFormatter.dateFormat = "y.MM.dd"
             timeFormatter.dateFormat = "HH:mm"
+            dateFormatter.timeZone = NSTimeZone(abbreviation: "UTC") as TimeZone?
             timeFormatter.timeZone = NSTimeZone(abbreviation: "UTC") as TimeZone?
             
             let tempDirURL = URL(fileURLWithPath: NSTemporaryDirectory())
@@ -227,32 +226,26 @@ extension ISoarFileManager {
             }
             
             
-
+            
             
             // Create JSON
-            let data = FlightMetaData.init(uuid: "uuid",
-                                           date: (dateFormatter.string(from: FlightComputer.shared.flightStartTime)),
+            let data = FlightMetaData.init(flightUUID: FlightComputer.shared.flightUUID,
+                                           flightDate: (dateFormatter.string(from: FlightComputer.shared.flightStartTime)),
                                            gliderID: UserDefaultsManager.getGliderID(),
-                                           startTimeUTC: "\(timeFormatter.string(from: FlightComputer.shared.flightStartTime)) UTC",
-                startICAO: "",
-                endTimeUTC: "",
-                endICAO: "",
-                flightCompleted: false,
-                flightTime: "")
-
-
+                                           startTimeUTC: (timeFormatter.string(from: FlightComputer.shared.flightStartTime)),
+                                           startICAO: "",
+                                           endTimeUTC: "",
+                                           endICAO: "",
+                                           flightCompleted: false,
+                                           flightTime: "")
+            
+            
             do {
-                let fileURL = try FileManager.default
-                    .url(for: .documentDirectory,
-                         in: .userDomainMask,
-                         appropriateFor: nil,
-                         create: true)
-                    .appendingPathComponent("MyFile.json")
+                let fileURL = flightURL.appendingPathComponent(FlightComputer.shared.flightUUID).appendingPathExtension("json")
                 
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .prettyPrinted
-
-
+                
                 try encoder.encode(data)
                     .write(to: fileURL)
                 
@@ -260,11 +253,6 @@ extension ISoarFileManager {
                 fatalError()
             }
             // End Create JSON
-            
-            
-            
-            
-            
             
 
             
@@ -285,19 +273,21 @@ extension ISoarFileManager {
             return true
     }
     
-    // Close Flight Recorder File
-    class func closeFlightRecorderFile() {
+    // Close Flight Recorder Files
+    class func closeFlightRecorderFiles() {
         guard let fileHandle = shared.currentFlightRecordFileHandle
             else { return }
         
+        // Close Flight Telemetry Data File
         let dateFormatter = DateFormatter()
         let timeFormatter = DateFormatter()
-        dateFormatter.dateFormat = "y-MM-dd"
-        timeFormatter.dateFormat = "HHmm"
+        dateFormatter.dateFormat = "y.MM.dd"
+        timeFormatter.dateFormat = "HH:mm"
+        dateFormatter.timeZone = NSTimeZone(abbreviation: "UTC") as TimeZone?
         timeFormatter.timeZone = NSTimeZone(abbreviation: "UTC") as TimeZone?
         
         // Set Final Flight Recorder FileNameURL
-        ISoarFileManager.shared.finalRecorderFileURL = flightURL.appendingPathComponent("\(dateFormatter.string(from: FlightComputer.shared.flightStartTime)) \(timeFormatter.string(from: FlightComputer.shared.flightStartTime))-\(timeFormatter.string(from: FlightComputer.shared.flightEndTime))").appendingPathExtension("txt")
+        ISoarFileManager.shared.finalRecorderFileURL = flightURL.appendingPathComponent(FlightComputer.shared.flightUUID).appendingPathExtension("txt")
         
         fileHandle.closeFile()
         shared.currentFlightRecordFileHandle = nil
@@ -309,47 +299,35 @@ extension ISoarFileManager {
             fatalError("Failed writing to URL: \(String(describing: ISoarFileManager.shared.finalRecorderFileURL)), Error: " + error.localizedDescription)
         }
         
-        print(ISoarFileManager.shared.finalRecorderFileURL)
         
-        
-        
-        
-        // Read back from JSON File
-        do {
-            let fileURL = try FileManager.default
-                .url(for: .documentDirectory,
-                     in: .userDomainMask,
-                     appropriateFor: nil,
-                     create: false)
-                .appendingPathComponent("MyFile.json")
+//        // Close Flight Meta Data File
+//        // Read back from JSON File
+//        do {
+//            let fileURL = flightURL.appendingPathComponent("MyFile").appendingPathExtension("json")
+//
+//            let data = try Data(contentsOf: fileURL)
+//            let metaData = try JSONDecoder().decode(FlightMetaData.self,
+//                                                    from: data)
+//            print(metaData)
+//        } catch {
+//            print(error)
+//        }
+//        // Done
 
-            let data = try Data(contentsOf: fileURL)
-            let metaData = try JSONDecoder().decode(FlightMetaData.self,
-                                               from: data)
-            print(metaData)
-        } catch {
-            print(error)
-        }
-        // Done
         
         // Create JSON
-        let data = FlightMetaData(uuid: "uuid",
-                                  date: (dateFormatter.string(from: FlightComputer.shared.flightStartTime)),
+        let data = FlightMetaData(flightUUID: FlightComputer.shared.flightUUID,
+                                  flightDate: (dateFormatter.string(from: FlightComputer.shared.flightStartTime)),
                                   gliderID: UserDefaultsManager.getGliderID(),
-            startTimeUTC: "\(timeFormatter.string(from: FlightComputer.shared.flightStartTime)) UTC",
-            startICAO: "",
-            endTimeUTC: "\(timeFormatter.string(from: FlightComputer.shared.flightEndTime)) UTC",
-            endICAO: "",
-            flightCompleted: true,
-            flightTime: "")
+                                  startTimeUTC: (timeFormatter.string(from: FlightComputer.shared.flightStartTime)),
+                                  startICAO: "EDSR",
+                                  endTimeUTC: (timeFormatter.string(from: FlightComputer.shared.flightEndTime)),
+                                  endICAO: "EDSR",
+                                  flightCompleted: true,
+                                  flightTime: FlightComputer.shared.flightTime)
         
         do {
-            let fileURL = try FileManager.default
-                .url(for: .documentDirectory,
-                     in: .userDomainMask,
-                     appropriateFor: nil,
-                     create: true)
-                .appendingPathComponent("MyFile.json")
+            let fileURL = flightURL.appendingPathComponent(FlightComputer.shared.flightUUID).appendingPathExtension("json")
             
             let encoder = JSONEncoder()
             encoder.outputFormatting = .prettyPrinted
@@ -361,12 +339,6 @@ extension ISoarFileManager {
             fatalError()
         }
         // End Create JSON
-        
-        
-        
-        
-        
-        
         
     }
     
