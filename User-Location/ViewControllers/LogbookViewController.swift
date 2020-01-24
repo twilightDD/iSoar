@@ -71,7 +71,13 @@ extension LogbookViewController: UITableViewDataSource {
             
             let flightMetaDataOfInterest = flightMetaDatas[indexPath.row]
             
-            cell.flightName.text = flightMetaDataOfInterest.date
+            cell.flightDate.text = flightMetaDataOfInterest.flightDate
+            cell.gliderID.text = flightMetaDataOfInterest.gliderID
+            cell.startTime.text = flightMetaDataOfInterest.startTimeUTC
+            cell.startICAO.text = flightMetaDataOfInterest.startICAO
+            cell.endTime.text = flightMetaDataOfInterest.endTimeUTC
+            cell.endICAO.text = flightMetaDataOfInterest.endICAO
+            cell.flightTime.text = flightMetaDataOfInterest.flightTime
             
             return cell
     }

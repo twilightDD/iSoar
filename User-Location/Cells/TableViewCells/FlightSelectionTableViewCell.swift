@@ -12,7 +12,13 @@ class FlightSelectionTableViewCell: UITableViewCell {
     
     static let identifier = "FlightSelectionTableViewCell"
     
-    @IBOutlet weak var flightName: UILabel!
+    @IBOutlet weak var flightDate: UILabel!
+    @IBOutlet weak var startTime: UILabel!
+    @IBOutlet weak var endTime: UILabel!
+    @IBOutlet weak var gliderID: UILabel!
+    @IBOutlet weak var startICAO: UILabel!
+    @IBOutlet weak var endICAO: UILabel!
+    @IBOutlet weak var flightTime: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
