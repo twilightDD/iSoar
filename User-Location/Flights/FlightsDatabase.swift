@@ -12,17 +12,23 @@ import Foundation
 class FlightsDatabase {
     static let shared = FlightsDatabase()
     
-    class func flightFileNames()
+    class func getFlightMetaDataFileNames()
         -> [String] {
-            let flightFileNames = ISoarFileManager.flightFileNames()
-            
-            return flightFileNames
+            let fileNames = ISoarFileManager.flightMetaDataFileNames()
+           
+            return fileNames
     }
+
 
     class func metaData()
         -> FlightMetaData? {
+            
+            // ToDo: Ausgabe der Dateinamen
+            print(ISoarFileManager.flightMetaDataFileNames().description)
+            
+            
             var flightMetaData: FlightMetaData?
-
+            
             if let metaDataData = ISoarFileManager.flightMetaDataFileData() {
                 do {
                     flightMetaData = try JSONDecoder().decode(FlightMetaData.self,
@@ -40,8 +46,8 @@ class FlightsDatabase {
 // MARK: Extension - Struct
 
 struct FlightMetaData: Codable {
-    var uuid: String
-    var date: String
+    var flightUUID: String
+    var flightDate: String
     var gliderID: String
     var startTimeUTC: String
     var startICAO: String

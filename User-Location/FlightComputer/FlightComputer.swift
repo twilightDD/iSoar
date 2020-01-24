@@ -6,6 +6,7 @@
 //  Copyright © 2020 Denis Leupold. All rights reserved.
 //
 
+import Foundation
 import CoreLocation
 import AVFoundation
 
@@ -17,8 +18,10 @@ class FlightComputer {
 
     var gliderIsFlying: Bool = false
     
+    var flightUUID = UUID().uuidString
     var flightStartTime = Date()
     var flightEndTime = Date()
+    var flightTime = String()
     
     var playGearWarning = true
     var playOxygenWarning = true
@@ -27,26 +30,28 @@ class FlightComputer {
     // Check if Glider is flying or on ground
     func checkIfGliderIsFlying() {
         if gliderIsFlying == false {
-            // Check if Glider is faster than 7m/s, then set FlightMode to true
-            if MapScreen.shared!.currentLocation!.speed > 7 {
+            // Check if Glider is faster than 10m/s, then set FlightMode to true
+            if MapScreen.shared!.currentLocation!.speed > 10 {
                 gliderIsFlying = true
-                flightStartTime = Date()
+                flightUUID = UUID().uuidString
+                flightStartTime = TimeDateFormatter.shared.formattedDateWithoutSeconds()
                 
-                // Create FlightRecorder File
-                FlightRecorder.shared.recorderIsReadyToWrite = ISoarFileManager.createFlightRecorderFile()
+                // Create FlightRecorder Files
+                FlightRecorder.shared.recorderIsReadyToWrite = ISoarFileManager.createFlightRecorderFiles()
             }
             else {
                 return
             }
         }
         else {
-            // Check if Glider is slower than 7m/s, then set FlightMode to false
-            if MapScreen.shared!.currentLocation!.speed < 7 {
+            // Check if Glider is slower than 10m/s, then set FlightMode to false
+            if MapScreen.shared!.currentLocation!.speed < 10 {
                 gliderIsFlying = false
-                flightEndTime = Date()
+                flightEndTime = TimeDateFormatter.shared.formattedDateWithoutSeconds()
+                flightTime = TimeDateFormatter.shared.formattedTimeIntervall()
                 
-                // Close FlightRecorder File
-                ISoarFileManager.closeFlightRecorderFile()
+                // Close FlightRecorder Files
+                ISoarFileManager.closeFlightRecorderFiles()
                 FlightRecorder.shared.recorderIsReadyToWrite = false
             }
             else {
