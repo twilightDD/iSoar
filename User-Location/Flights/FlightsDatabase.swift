@@ -11,34 +11,25 @@ import Foundation
 //MARK: - FlightsDatabase
 class FlightsDatabase {
     static let shared = FlightsDatabase()
-    
-    class func getFlightMetaDataFileNames()
-        -> [String] {
-            let fileNames = ISoarFileManager.flightMetaDataFileNames()
-           
-            return fileNames
-    }
 
+    class func flightMetaDatas()
+        -> [FlightMetaData] {
+            var flightMetaDatas = [FlightMetaData]()
 
-    class func metaData()
-        -> FlightMetaData? {
-            
-            // ToDo: Ausgabe der Dateinamen
-            print(ISoarFileManager.flightMetaDataFileNames().description)
-            
-            
-            var flightMetaData: FlightMetaData?
-            
-            if let metaDataData = ISoarFileManager.flightMetaDataFileData() {
+            let flightMetaDataDatas = ISoarFileManager.flightMetaDataFileDatas()
+
+            for flightMetaDataData in flightMetaDataDatas {
                 do {
-                    flightMetaData = try JSONDecoder().decode(FlightMetaData.self,
-                                                              from: metaDataData)
+                    let flightMetaData = try JSONDecoder().decode(FlightMetaData.self,
+                                                                  from: flightMetaDataData)
+                    flightMetaDatas.append(flightMetaData)
+
                 } catch let jsonError {
                     print("\(jsonError.localizedDescription)")
                 }
             }
 
-            return flightMetaData
+            return flightMetaDatas
     }
 
 }

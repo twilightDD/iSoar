@@ -18,34 +18,30 @@ class LogbookViewController: UIViewController {
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
 
+
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.dataSource = self
         tableView.delegate = self
-
-        flightMetaDatas = [FlightMetaData]()
-        
     }
-    
+
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setupTableViewDatasource()
-        
     }
-    
-    // Setup TableViewDatasource
-    private func setupTableViewDatasource() {
-        flightMetaDatas.removeAll()
 
-        if let flightMetaData = FlightsDatabase.metaData() {
-            flightMetaDatas.append(flightMetaData)
-        }
+
+    //MARK -  TableViewDatasource
+    private func setupTableViewDatasource() {
+        flightMetaDatas = FlightsDatabase.flightMetaDatas()
 
         tableView.reloadData()
     }
+
 }
 
 // MARK: - Extension - UITableViewDataSource

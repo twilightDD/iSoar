@@ -140,16 +140,29 @@ extension ISoarFileManager {
     }
 }
 
-// Extension - Flight File Handling
+
+// MARK: - Extension Store Flight Recorder File
+// ToDo: Create Flight Recorder File in Flights Folder
 extension ISoarFileManager {
-    // MARK:  Public Class Methods
-    // Scan Flight Meta Data File Names
-    class func flightMetaDataFileNames()
-        -> [String] {
-            var flightMetaDataFileNames = [String]()
-            
-            // Get Files from Disc
+    class func flightMetaDataFileDatas()
+        -> [Data] {
+            var flightMetaDataFileDatas = [Data]()
+
+            let metaDataFileURLs = flightMetaDataURLs()
+            for metaDataFileURL in metaDataFileURLs {
+                if let fileData = dataOfFile(metaDataFileURL) {
+                    flightMetaDataFileDatas.append(fileData)
+                }
+            }
+
+            return flightMetaDataFileDatas
+    }
+
+
+    private class func flightMetaDataURLs()
+        -> [URL] {
             var fileURLs = [URL]()
+
             do {
                 fileURLs = try FileManager.default.contentsOfDirectory(at: flightURL,
                                                                        includingPropertiesForKeys: [],
@@ -159,24 +172,14 @@ extension ISoarFileManager {
             catch let contentsOfDirectory {
                 fatalError("\(contentsOfDirectory.localizedDescription)")
             }
-            
-            // Parse FileNames
-            for fileURL in fileURLs {
-                let fileName = fileURL.lastPathComponent
-                flightMetaDataFileNames.append(fileName)
-            }
-            
-            return flightMetaDataFileNames
-    }
-}
 
-// MARK: - Extension Store Flight Recorder File
-// ToDo: Create Flight Recorder File in Flights Folder
-extension ISoarFileManager {
-    class func flightMetaDataFileData()
+            return fileURLs
+    }
+
+
+    private class func dataOfFile(_ fileURL: URL)
         -> Data? {
             var flightMetaDataFileData: Data?
-            let fileURL = flightURL.appendingPathComponent("MyFile").appendingPathExtension("json")
 
             do {
                 flightMetaDataFileData = try Data(contentsOf: fileURL)
