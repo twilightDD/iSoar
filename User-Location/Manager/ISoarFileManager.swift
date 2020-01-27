@@ -316,15 +316,21 @@ extension ISoarFileManager {
 
         
         // Create JSON
+        let startTimeFormatted = TimeDateFormatter.yearMonthDayHourMinuteDateFrom(FlightComputer.shared.flightStartTime)
+        let endTimeFormatted =  TimeDateFormatter.yearMonthDayHourMinuteDateFrom(FlightComputer.shared.flightEndTime)
+
+        let flightTime = TimeDateFormatter.hourMinutesStringFrom(startTime: startTimeFormatted,
+                                                                 toEndTime: endTimeFormatted)
+
         let data = FlightMetaData(flightUUID: FlightComputer.shared.flightUUID,
-                                  flightDate: (dateFormatter.string(from: FlightComputer.shared.flightStartTime)),
+                                  flightDate: (dateFormatter.string(from: startTimeFormatted)),
                                   gliderID: UserDefaultsManager.getGliderID(),
-                                  startTimeUTC: (timeFormatter.string(from: FlightComputer.shared.flightStartTime)),
+                                  startTimeUTC: (timeFormatter.string(from: startTimeFormatted)),
                                   startICAO: "EDSR",
-                                  endTimeUTC: (timeFormatter.string(from: FlightComputer.shared.flightEndTime)),
+                                  endTimeUTC: (timeFormatter.string(from: endTimeFormatted)),
                                   endICAO: "EDSR",
                                   flightCompleted: true,
-                                  flightTime: FlightComputer.shared.flightTime)
+                                  flightTime: flightTime)
         
         do {
             let fileURL = flightURL.appendingPathComponent(FlightComputer.shared.flightUUID).appendingPathExtension("json")
