@@ -38,7 +38,8 @@ class LogbookViewController: UIViewController {
     //MARK -  TableViewDatasource
     private func setupTableViewDatasource() {
         flightMetaDatas = FlightsDatabase.flightMetaDatas()
-
+        FlightsDatabase.shared.sortFlightsByDescendingDate()
+        
         tableView.reloadData()
     }
 
