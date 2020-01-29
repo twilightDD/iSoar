@@ -12,7 +12,12 @@ import AVFoundation
 
 // MARK: - FlightComputer
 class FlightComputer {
-    
+
+    //MARK: - Magic Numbers
+    static let minimalDistanceForNearestAirport: Double = 500   // meters
+    static let minimalFlightSpeed: CLLocationSpeed = 10         // meters/second
+
+
     // MARK: - Lets and Vars
     static let shared = FlightComputer()
 
@@ -23,7 +28,7 @@ class FlightComputer {
     var flightEndTime = Date()
     var startICAO = String()
     var endICAO = String()
-    
+
     var playGearWarning = true
     var playOxygenWarning = true
     
@@ -32,7 +37,7 @@ class FlightComputer {
     func checkIfGliderIsFlying() {
         if gliderIsFlying == false {
             // Check if Glider is faster than 10m/s, then set FlightMode to true
-            if MapScreen.shared!.currentLocation!.speed > 10 {
+            if MapScreen.shared!.currentLocation!.speed > FlightComputer.minimalFlightSpeed {
                 gliderIsFlying = true
                 AirportDatabase.shared.updateDistance()
                 flightUUID = UUID().uuidString
@@ -47,7 +52,7 @@ class FlightComputer {
         }
         else {
             // Check if Glider is slower than 10m/s, then set FlightMode to false
-            if MapScreen.shared!.currentLocation!.speed < 10 {
+            if MapScreen.shared!.currentLocation!.speed < FlightComputer.minimalFlightSpeed {
                 gliderIsFlying = false
                 flightEndTime = Date()
 
