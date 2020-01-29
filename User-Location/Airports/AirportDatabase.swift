@@ -83,6 +83,16 @@ class AirportDatabase {
             return filteredAndSortedAirports
     }
 
+    func nearestAirport()
+        -> Airport? {
+            if let filterDestinationAirports = filterDestinationAirports(byName: nil,
+                                                                         sortedBy: .distance) {
+                return filterDestinationAirports[0]
+            }
+
+            return nil
+    }
+
     // Download Airports.json from Server
     func downloadAirportsFromServer() {
         // Create destination URL
@@ -235,6 +245,7 @@ extension AirportDatabase {
         var runwayDirections:String
         var url:String?
         var country:String?
+        /**In meters.*/
         var distance:CLLocationDistance?
         var phone:String?
         var additionalInfo:String?

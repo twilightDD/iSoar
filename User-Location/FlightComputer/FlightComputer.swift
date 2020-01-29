@@ -34,6 +34,7 @@ class FlightComputer {
             // Check if Glider is faster than 10m/s, then set FlightMode to true
             if MapScreen.shared!.currentLocation!.speed > 10 {
                 gliderIsFlying = true
+                AirportDatabase.shared.updateDistance()
                 flightUUID = UUID().uuidString
                 flightStartTime = Date()
                 

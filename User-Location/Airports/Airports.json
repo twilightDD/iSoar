@@ -1,5 +1,23 @@
 {
   "Airports": [
+      {
+        "additionalInfo": "",
+        "airportType": "AD",
+        "country": "USA",
+        "elevation": 190,
+        "icao": "APPL",
+        "latitude": 37.33494812,
+        "longitude": -122.0329212,
+        "name": "Apple Inc.",
+        "phone": "+4915253458550",
+        "radioFrequency": "123.456",
+        "radioName": "APPL",
+        "runwayDimensions": "520 x 20 m",
+        "runwayDirections": "08/26",
+        "runwaySurface": "Gold",
+        "url": "www.apple.de",
+        "validationDate": "20200202"
+      },
     {
       "additionalInfo": "",
       "airportType": "AD",

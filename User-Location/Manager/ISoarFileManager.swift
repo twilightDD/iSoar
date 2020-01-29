@@ -230,13 +230,14 @@ extension ISoarFileManager {
             
             
             
-            
+            let startICAO = FlightComputer.shared.icaoOfNearestAirport() ?? "----"
+
             // Create JSON
             let data = FlightMetaData.init(flightUUID: FlightComputer.shared.flightUUID,
                                            flightDate: (dateFormatter.string(from: FlightComputer.shared.flightStartTime)),
                                            gliderID: UserDefaultsManager.getGliderID(),
                                            startTimeUTC: (timeFormatter.string(from: FlightComputer.shared.flightStartTime)),
-                                           startICAO: "",
+                                           startICAO: startICAO,
                                            endTimeUTC: "",
                                            endICAO: "",
                                            flightCompleted: false,
