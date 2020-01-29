@@ -21,6 +21,8 @@ class FlightComputer {
     var flightUUID = UUID().uuidString
     var flightStartTime = Date()
     var flightEndTime = Date()
+    var startICAO = String()
+    var endICAO = String()
     
     var playGearWarning = true
     var playOxygenWarning = true
@@ -58,6 +60,16 @@ class FlightComputer {
         }
         
     }
+    
+//    // Check for nearest Aiport
+//    func checkForNearestAirport()
+//        -> String {
+//        // Check Airport Array
+//        // Sort for Distance
+//        // Grab first one
+//        // Check if Distance is < 500m
+//        // If Yes return ICAO
+//    }
     
     // MARK: Audio Warnings
     // Audio Landing Gear Warning
