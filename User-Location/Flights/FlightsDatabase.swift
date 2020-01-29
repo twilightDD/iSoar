@@ -34,12 +34,14 @@ class FlightsDatabase {
     }
     
     // Sort Flights in Logbook in descending Date Order
-    func sortFlightsByDescendingDate() {
-        let sortedFlightMetaDatas = FlightsDatabase.flightMetaDatas().sorted(by: { ($0.flightDate > $1.flightDate) })
-        print(sortedFlightMetaDatas)
-        
-        // ToDo: Store this sorted List in Array
-        
+    class func sortedFlightsByDescendingDate()
+        -> [FlightMetaData] {
+            var sortedFlightMetaDatas = FlightsDatabase.flightMetaDatas().sorted(by: { ($0.flightDate > $1.flightDate) })
+            sortedFlightMetaDatas = sortedFlightMetaDatas.sorted(by: { ($0.startTimeUTC > $1.startTimeUTC) })
+            print(sortedFlightMetaDatas)
+
+            // ToDo: Store this sorted List in Array
+            return sortedFlightMetaDatas
     }
     
 

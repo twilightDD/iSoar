@@ -62,14 +62,14 @@ class FlightComputer {
     }
     
 //    // Check for nearest Aiport
-//    func checkForNearestAirport()
-//        -> String {
-//        // Check Airport Array
-//        // Sort for Distance
-//        // Grab first one
-//        // Check if Distance is < 500m
-//        // If Yes return ICAO
-//    }
+    func icaoOfNearestAirport()
+        -> String? {
+            if let nearestAirport = AirportDatabase.shared.nearestAirport(),
+                (nearestAirport.distance ?? FlightComputer.minimalDistanceForNearestAirport + 1) < FlightComputer.minimalDistanceForNearestAirport {
+                return nearestAirport.icao
+            }
+            return nil
+    }
     
     // MARK: Audio Warnings
     // Audio Landing Gear Warning
