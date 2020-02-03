@@ -36,7 +36,7 @@ class TimeDateFormatter {
             return date
     }
 
-
+    // Year Month Day Hour Minute Date From Now
     class func yearMonthDayHourMinuteDateFromNow()
         -> Date {
             return yearMonthDayHourMinuteDateFrom(Date())
