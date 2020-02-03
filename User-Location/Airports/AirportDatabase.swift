@@ -51,48 +51,52 @@ class AirportDatabase {
     // Filter Destination Airports
     func filterDestinationAirports(byName searchString: String?, sortedBy sortIndicator: SortIndicator)
         -> [AirportDatabase.Airport]? {
-
+            
             var filteredAndSortedAirports = [AirportDatabase.Airport]()
-
+            
             // Filter
             var filteredArray = destinationAirports
-
+            
             if let searchString = searchString,
                 searchString.count > 0 {
                 filteredArray = destinationAirports.filter { (airport) -> Bool in
                     let airportNameContainsSearchString = airport.name.localizedStandardContains(searchString)
-                    return airportNameContainsSearchString
+                    let airportICAOContainsSearchString =  airport.icao.localizedStandardContains(searchString)
+                    let containsSearchString = airportNameContainsSearchString || airportICAOContainsSearchString
+                    
+                    return containsSearchString
                 }
             }
-
+            
             // Sorting Destination Airports
             switch sortIndicator {
-                case .name:
-                    filteredAndSortedAirports = filteredArray.sorted(by: { ($0.name < $1.name) })
-                case .distance:
-                    // in case we don't have a current location we don't have a distance: return unsorted filteredArray
-                    for destinationAirport in filteredArray {
-                        if destinationAirport.distance == nil {
-                            return filteredArray
-                        }
+            case .name:
+                filteredAndSortedAirports = filteredArray.sorted(by: { ($0.name < $1.name) })
+            case .distance:
+                // in case we don't have a current location we don't have a distance: return unsorted filteredArray
+                for destinationAirport in filteredArray {
+                    if destinationAirport.distance == nil {
+                        return filteredArray
                     }
-
+                }
+                
                 filteredAndSortedAirports = filteredArray.sorted(by: { ($0.distance! < $1.distance!) })
             }
-
+            
             return filteredAndSortedAirports
     }
-
+    
+    // Select nearest Airport from current Location
     func nearestAirport()
         -> Airport? {
             if let filterDestinationAirports = filterDestinationAirports(byName: nil,
                                                                          sortedBy: .distance) {
                 return filterDestinationAirports[0]
             }
-
+            
             return nil
     }
-
+    
     // Download Airports.json from Server
     func downloadAirportsFromServer() {
         // Create destination URL
@@ -279,7 +283,7 @@ extension AirportDatabase {
         mutating func updateDistance(_ newDistance:CLLocationDistance) {
             distance = newDistance
         }
-    
+        
     }
 }
 
