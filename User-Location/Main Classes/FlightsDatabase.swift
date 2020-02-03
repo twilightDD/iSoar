@@ -8,7 +8,7 @@
 
 import Foundation
 
-//MARK: - FlightsDatabase
+// MARK: - FlightsDatabase
 class FlightsDatabase {
     static let shared = FlightsDatabase()
     
@@ -36,14 +36,11 @@ class FlightsDatabase {
     // Sort Flights in Logbook in descending Date Order
     class func sortedFlightsByDescendingDate()
         -> [FlightMetaData] {
-            var sortedFlightMetaDatas = FlightsDatabase.flightMetaDatas().sorted(by: { ($0.flightDate > $1.flightDate) })
-            sortedFlightMetaDatas = sortedFlightMetaDatas.sorted(by: { ($0.startTimeUTC > $1.startTimeUTC) })
-            print(sortedFlightMetaDatas)
+            let sortedFlightMetaDatas = FlightsDatabase.flightMetaDatas().sorted(by: { ($0.flightDate > $1.flightDate) })
+//            sortedFlightMetaDatas = sortedFlightMetaDatas.sorted(by: { ($0.startTimeUTC > $1.startTimeUTC) })
 
-            // ToDo: Store this sorted List in Array
             return sortedFlightMetaDatas
     }
-    
 
 }
 

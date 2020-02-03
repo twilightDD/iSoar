@@ -24,8 +24,8 @@
 		E01CAFD4239964ED00FE1B90 /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01CAFD3239964ED00FE1B90 /* TasksViewController.swift */; };
 		E01D87E8239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01D87E7239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift */; };
 		E01D87EB239ABB5D00E9B5B6 /* TasksDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */; };
-		E056CABE23C7994E0092F6DE /* FlightComputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E056CABD23C7994E0092F6DE /* FlightComputer.swift */; };
-		E0766AF123A4CCAD002FA676 /* FlightRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0766AF023A4CCAD002FA676 /* FlightRecorder.swift */; };
+		E02052AF23E36A8200839B84 /* FlightComputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02052AE23E36A8200839B84 /* FlightComputer.swift */; };
+		E02052B123E36A9A00839B84 /* FlightRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02052B023E36A9A00839B84 /* FlightRecorder.swift */; };
 		E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086AB0A229C35890011C433 /* SettingsViewController.swift */; };
 		E0A215BB235E2D0D009F6953 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BA235E2D0D009F6953 /* TableViewController.swift */; };
 		E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */; };
@@ -74,8 +74,8 @@
 		E01CAFD3239964ED00FE1B90 /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		E01D87E7239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksDatabase.swift; sourceTree = "<group>"; };
-		E056CABD23C7994E0092F6DE /* FlightComputer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FlightComputer.swift; path = "User-Location/FlightComputer/FlightComputer.swift"; sourceTree = SOURCE_ROOT; };
-		E0766AF023A4CCAD002FA676 /* FlightRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FlightRecorder.swift; path = "User-Location/FlightRecorder.swift"; sourceTree = SOURCE_ROOT; };
+		E02052AE23E36A8200839B84 /* FlightComputer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightComputer.swift; sourceTree = "<group>"; };
+		E02052B023E36A9A00839B84 /* FlightRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightRecorder.swift; sourceTree = "<group>"; };
 		E086AB0A229C35890011C433 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E0A215BA235E2D0D009F6953 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionAirportTableViewCell.swift; sourceTree = "<group>"; };
@@ -152,22 +152,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		E007864723D2202600856865 /* Flights */ = {
-			isa = PBXGroup;
-			children = (
-				E007864823D2204600856865 /* FlightsDatabase.swift */,
-			);
-			path = Flights;
-			sourceTree = "<group>";
-		};
-		E01D87E9239ABB1C00E9B5B6 /* Tasks */ = {
-			isa = PBXGroup;
-			children = (
-				E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */,
-			);
-			path = Tasks;
-			sourceTree = "<group>";
-		};
 		E0526AB022BF7056001FC6B4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,14 +159,6 @@
 				D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		E0766AEF23A3F040002FA676 /* FlightRecorder */ = {
-			isa = PBXGroup;
-			children = (
-				E0766AF023A4CCAD002FA676 /* FlightRecorder.swift */,
-			);
-			path = FlightRecorder;
 			sourceTree = "<group>";
 		};
 		E0B52F702283753400E28A93 /* ViewControllers */ = {
@@ -210,12 +186,15 @@
 			path = Designs;
 			sourceTree = "<group>";
 		};
-		E0C138D923D21ABE00624F1C /* FlightComputer */ = {
+		E0C138D923D21ABE00624F1C /* Main Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E056CABD23C7994E0092F6DE /* FlightComputer.swift */,
+				E02052AE23E36A8200839B84 /* FlightComputer.swift */,
+				E02052B023E36A9A00839B84 /* FlightRecorder.swift */,
+				E007864823D2204600856865 /* FlightsDatabase.swift */,
+				E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */,
 			);
-			path = FlightComputer;
+			path = "Main Classes";
 			sourceTree = "<group>";
 		};
 		E0DA9414228D267500D3A854 /* Airports */ = {
@@ -254,11 +233,8 @@
 				D02B0E6322C15B95007C7162 /* Subclasses */,
 				E0B52F7522837BC800E28A93 /* Designs */,
 				E0526AB022BF7056001FC6B4 /* Extensions */,
-				E0C138D923D21ABE00624F1C /* FlightComputer */,
-				E0766AEF23A3F040002FA676 /* FlightRecorder */,
+				E0C138D923D21ABE00624F1C /* Main Classes */,
 				E0DA9414228D267500D3A854 /* Airports */,
-				E01D87E9239ABB1C00E9B5B6 /* Tasks */,
-				E007864723D2202600856865 /* Flights */,
 				E0B52F702283753400E28A93 /* ViewControllers */,
 				EDA236342130AA9A00739396 /* MapScreen.swift */,
 				EDA236222130AA7500739396 /* AppDelegate.swift */,
@@ -396,6 +372,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E02052AF23E36A8200839B84 /* FlightComputer.swift in Sources */,
 				D060C1F322B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift in Sources */,
 				E0B8142B2367450200D88B6C /* LogbookViewController.swift in Sources */,
 				E01D87EB239ABB5D00E9B5B6 /* TasksDatabase.swift in Sources */,
@@ -410,16 +387,15 @@
 				E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */,
 				E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */,
 				D0C5ED5B22A4769C009A0542 /* AirportDatabase.swift in Sources */,
+				E02052B123E36A9A00839B84 /* FlightRecorder.swift in Sources */,
 				E0E1D87A229476C00004DE81 /* DestinationSelectionViewController.swift in Sources */,
 				E011D4C123735CB9006F0CC3 /* OGNSocketConnectionManager.swift in Sources */,
 				D0BBE08623A18CEB00CAD9FF /* ISoarFileManager.swift in Sources */,
 				E014961A236F6B4C00C1AC0D /* MapLabel.swift in Sources */,
-				E0766AF123A4CCAD002FA676 /* FlightRecorder.swift in Sources */,
 				EDA236232130AA7500739396 /* AppDelegate.swift in Sources */,
 				E0B52F72228377F300E28A93 /* Buttons.swift in Sources */,
 				E007864B23D222EA00856865 /* FlightSelectionTableViewCell.swift in Sources */,
 				E01CAFD4239964ED00FE1B90 /* TasksViewController.swift in Sources */,
-				E056CABE23C7994E0092F6DE /* FlightComputer.swift in Sources */,
 				D0C2801D23D8FF4000518539 /* UserDefaultsManager.swift in Sources */,
 				E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */,
 				18BE3F7422CF688D00859347 /* GliderUserLocationAnnotationView.swift in Sources */,
@@ -572,7 +548,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = HCR82BSM8Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -599,7 +575,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = HCR82BSM8Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

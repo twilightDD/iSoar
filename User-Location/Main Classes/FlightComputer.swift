@@ -14,21 +14,20 @@ import AVFoundation
 class FlightComputer {
 
     //MARK: - Magic Numbers
-    static let minimalDistanceForNearestAirport: Double = 500   // meters
+    static let minimalDistanceForNearestAirport: Double = 300   // meters
     static let minimalFlightSpeed: CLLocationSpeed = 10         // meters/second
-
 
     // MARK: - Lets and Vars
     static let shared = FlightComputer()
 
     var gliderIsFlying: Bool = false
     
-    var flightUUID = UUID().uuidString
+    var flightUUIDString = UUID().uuidString
     var flightStartTime = Date()
     var flightEndTime = Date()
-    var startICAO = String()
-    var endICAO = String()
-
+    var startICAO: String?
+    var endICAO: String?
+    
     var playGearWarning = true
     var playOxygenWarning = true
     
@@ -39,9 +38,9 @@ class FlightComputer {
             // Check if Glider is faster than 10m/s, then set FlightMode to true
             if MapScreen.shared!.currentLocation!.speed > FlightComputer.minimalFlightSpeed {
                 gliderIsFlying = true
-                AirportDatabase.shared.updateDistance()
-                flightUUID = UUID().uuidString
+                flightUUIDString = UUID().uuidString
                 flightStartTime = Date()
+                startICAO = icaoOfNearestAirport()
                 
                 // Create FlightRecorder Files
                 FlightRecorder.shared.recorderIsReadyToWrite = ISoarFileManager.createFlightRecorderFiles()
@@ -55,6 +54,7 @@ class FlightComputer {
             if MapScreen.shared!.currentLocation!.speed < FlightComputer.minimalFlightSpeed {
                 gliderIsFlying = false
                 flightEndTime = Date()
+                endICAO = icaoOfNearestAirport()
 
                 // Close FlightRecorder Files
                 ISoarFileManager.closeFlightRecorderFiles()
@@ -70,6 +70,9 @@ class FlightComputer {
 //    // Check for nearest Aiport
     func icaoOfNearestAirport()
         -> String? {
+            // Update Distance from current Location to all Airports in Database
+            AirportDatabase.shared.updateDistance()
+            
             if let nearestAirport = AirportDatabase.shared.nearestAirport(),
                 (nearestAirport.distance ?? FlightComputer.minimalDistanceForNearestAirport + 1) < FlightComputer.minimalDistanceForNearestAirport {
                 return nearestAirport.icao
