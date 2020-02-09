@@ -57,7 +57,7 @@ class MapScreen: UIViewController {
     var DistanceInKM:CLLocationDistance = 0
     
     var showTrackingRoute = false
-        
+    
     // MARK: - Init & Co.
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -79,7 +79,7 @@ class MapScreen: UIViewController {
         super.viewWillAppear(animated)
         
         checkTrackingRouteStatus()
-
+        
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -237,6 +237,12 @@ class MapScreen: UIViewController {
         let tapOnDistanceLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnDistanceLabel))
         distanceLabel.addGestureRecognizer(tapOnDistanceLabelRecognizer)
         distanceLabel.isUserInteractionEnabled = true
+        
+        // Destination Airport Label
+        let tapOnDestinationAirportLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnDestinationAirportLabel))
+        destinationAirportLabel.addGestureRecognizer(tapOnDestinationAirportLabelRecognizer)
+        destinationAirportLabel.isUserInteractionEnabled = true
+        
     }
     
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
@@ -265,6 +271,14 @@ class MapScreen: UIViewController {
         showDistanceInKM = !showDistanceInKM
         
         updateDistanceLabel()
+    }
+    
+    @objc func tapOnDestinationAirportLabel(_ recognizer: UITapGestureRecognizer) {
+        
+        if selectedDestinationAirport != nil {
+            performSegue(withIdentifier: "AirportInfoSegue", sender: self)
+        }
+        
     }
     
     // MARK: - Action Funcs
@@ -474,8 +488,8 @@ class MapScreen: UIViewController {
         if let currentLocation = self.currentLocation {
             var currentLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
                                                                           longitude: currentLocation.coordinate.longitude)
-                currentFlightLine.appendCoordinates(&currentLocationCoordinate2D,
-                                                    count: 1)
+            currentFlightLine.appendCoordinates(&currentLocationCoordinate2D,
+                                                count: 1)
         }
         
     }
@@ -569,20 +583,20 @@ extension MapScreen: MGLMapViewDelegate {
         if let currentLocation = self.currentLocation {
             mapView.showsUserLocation = true
             mapView.setCenter(CLLocationCoordinate2D(
-            latitude: currentLocation.coordinate.latitude,
-            longitude: currentLocation.coordinate.longitude),
-                          zoomLevel: 9.6,
-                          animated: true)
+                latitude: currentLocation.coordinate.latitude,
+                longitude: currentLocation.coordinate.longitude),
+                              zoomLevel: 9.6,
+                              animated: true)
         }
-        // If not, set Center the Map to Airport Stuttgart
+            // If not, set Center the Map to Airport Stuttgart
         else {
             mapView.setCenter(CLLocationCoordinate2D(
-            latitude: 48.689497,
-            longitude: 9.219885),
-                          zoomLevel: 9.6,
-                          animated: true)
+                latitude: 48.689497,
+                longitude: 9.219885),
+                              zoomLevel: 9.6,
+                              animated: true)
         }
-
+        
         userLocationButton.updateArrowForTrackingMode(state: userFollow)
         
     }

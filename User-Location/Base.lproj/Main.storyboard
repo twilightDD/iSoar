@@ -892,6 +892,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YQK-pO-ANI"/>
                     </view>
+                    <navigationItem key="navigationItem" id="bos-Tq-aXa"/>
                     <connections>
                         <outlet property="additionalInfo" destination="1oh-9n-Pxz" id="4mT-tU-7lk"/>
                         <outlet property="airportName" destination="Ot4-9d-8Tg" id="UZC-46-RnX"/>
@@ -1019,6 +1020,7 @@
                         <outlet property="distanceLabel" destination="kA8-XT-cnZ" id="oOW-vk-Cx9"/>
                         <outlet property="mapView" destination="LKd-yy-DJC" id="icj-KO-Ca6"/>
                         <outlet property="speedLabel" destination="0jK-Zb-MHZ" id="57G-8b-Njv"/>
+                        <segue destination="3Br-pt-Icv" kind="show" identifier="AirportInfoSegue" id="eHJ-XT-RI9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -1041,4 +1043,7 @@
         <image name="tabbar_DestinationSelection" width="35" height="35"/>
         <image name="tasks" width="35" height="35"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="eHJ-XT-RI9"/>
+    </inferredMetricsTieBreakers>
 </document>
