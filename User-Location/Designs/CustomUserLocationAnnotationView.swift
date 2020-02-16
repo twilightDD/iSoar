@@ -28,7 +28,7 @@ class CustomUserLocationAnnotationView: MGLUserLocationAnnotationView {
             updateHeading()
         }
     }
-    
+
     // Update Heading
     private func updateHeading() {
         // Show the heading arrow, if the heading of the user is available.
@@ -37,7 +37,7 @@ class CustomUserLocationAnnotationView: MGLUserLocationAnnotationView {
             
             // Get the difference between the map’s current direction and the user’s heading, then convert it from degrees to radians.
             let rotation: CGFloat = -MGLRadiansFromDegrees(mapView!.direction - heading)
-            
+
             // If the difference would be perceptible, rotate the arrow.
             if abs(rotation) > 0.01 {
                 // Disable implicit animations of this rotation, which reduces lag between changes.
@@ -50,7 +50,7 @@ class CustomUserLocationAnnotationView: MGLUserLocationAnnotationView {
             arrow.isHidden = true
         }
     }
-    
+
     // Setup Layers
     private func setupLayers() {
         // This dot forms the base of the annotation.
@@ -65,7 +65,7 @@ class CustomUserLocationAnnotationView: MGLUserLocationAnnotationView {
             dot.borderColor = UIColor.white.cgColor
             layer.addSublayer(dot)
         }
-        
+
         // This arrow overlays the dot and is rotated with the user’s heading.
         if arrow == nil {
             arrow = CAShapeLayer()
@@ -83,10 +83,10 @@ class CustomUserLocationAnnotationView: MGLUserLocationAnnotationView {
         let pad: CGFloat = 3
         
         let top =    CGPoint(x: max * 0.5, y: 0)
-        let left =   CGPoint(x: 0 + pad,   y: max - pad)
+        let left =   CGPoint(x: 0 + pad, y: max - pad)
         let right =  CGPoint(x: max - pad, y: max - pad)
         let center = CGPoint(x: max * 0.5, y: max * 0.6)
-        
+
         let bezierPath = UIBezierPath()
         bezierPath.move(to: top)
         bezierPath.addLine(to: left)
@@ -94,7 +94,7 @@ class CustomUserLocationAnnotationView: MGLUserLocationAnnotationView {
         bezierPath.addLine(to: right)
         bezierPath.addLine(to: top)
         bezierPath.close()
-        
+
         return bezierPath.cgPath
     }
 }

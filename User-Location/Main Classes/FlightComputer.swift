@@ -13,7 +13,7 @@ import AVFoundation
 // MARK: - FlightComputer
 class FlightComputer {
 
-    //MARK: - Magic Numbers
+    // MARK: - Magic Numbers
     static let minimalDistanceForNearestAirport: Double = 300   // meters
     static let minimalFlightSpeed: CLLocationSpeed = 10         // meters/second
 
@@ -44,12 +44,10 @@ class FlightComputer {
                 
                 // Create FlightRecorder Files
                 FlightRecorder.shared.recorderIsReadyToWrite = ISoarFileManager.createFlightRecorderFiles()
-            }
-            else {
+            } else {
                 return
             }
-        }
-        else {
+        } else {
             // Check if Glider is slower than 10m/s, then set FlightMode to false
             if MapScreen.shared!.currentLocation!.speed < FlightComputer.minimalFlightSpeed {
                 gliderIsFlying = false
@@ -59,8 +57,7 @@ class FlightComputer {
                 // Close FlightRecorder Files
                 ISoarFileManager.closeFlightRecorderFiles()
                 FlightRecorder.shared.recorderIsReadyToWrite = false
-            }
-            else {
+            } else {
                 return
             }
         }
@@ -108,16 +105,13 @@ class FlightComputer {
                     
                     playGearWarning = false
                     
-                }
-                else {
+                } else {
                     return
                 }
-            }
-            else {
+            } else {
                 playGearWarning = true
             }
-        }
-        else {
+        } else {
             // Landing Gear Switch is off
         }
         
@@ -144,14 +138,12 @@ class FlightComputer {
                 
                 playOxygenWarning = false
                 
-            }
-            else {
+            } else {
                 return
             }
-        }
-        else {
+        } else {
             playOxygenWarning = true
         }
     }
-    
+
 }

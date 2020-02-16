@@ -28,18 +28,18 @@ class MapLabel: UILabel {
         textColor = UIColor(red: 150/255, green: 255/255, blue: 255/255, alpha: 1)
         //textColor = UIColor.white
     }
-    
+
 }
 
-//MARK: - LeftAttachedLabel
+// MARK: - LeftAttachedLabel
 class LeftAttachedLabel: MapLabel {
-    
+
     override func setupAttachedLabel() {
         super.setupAttachedLabel()
         layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
     }
 }
-//MARK: - RightAttachedLabel
+// MARK: - RightAttachedLabel
 class RightAttachedLabel: MapLabel {
     
     override func setupAttachedLabel() {

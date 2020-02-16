@@ -12,7 +12,7 @@ import Mapbox
 class UserLocationButton: UIButton {
     private var arrow: CAShapeLayer?
     private let buttonSize: CGFloat
-    
+
     // Initializer to create the user tracking mode button
     init(buttonSize: CGFloat) {
         self.buttonSize = buttonSize
@@ -53,26 +53,25 @@ class UserLocationButton: UIButton {
         bezierPath.addLine(to: CGPoint(x: max * 0.9, y: max))
         bezierPath.addLine(to: CGPoint(x: max * 0.5, y: 0))
         bezierPath.close()
-        
+
         return bezierPath.cgPath
     }
-    
+
     // MARK: - Functions
-    // ToDo: Rotation nor needed - Update the arrow's color and rotation when tracking mode is changed.
-    func updateArrowForTrackingMode(state:Bool) {
+    // TODO: Rotation nor needed - Update the arrow's color and rotation when tracking mode is changed.
+    func updateArrowForTrackingMode(state: Bool) {
         let activePrimaryColor = UIColor.red
         let disabledPrimaryColor = UIColor.clear
         let disabledSecondaryColor = UIColor.black
         //let rotatedArrow = CGFloat(0.66)
         if state {
             updateArrow(fillColor: disabledPrimaryColor, strokeColor: activePrimaryColor, rotation: 0)
-        }
-        else {
+        } else {
             updateArrow(fillColor: disabledPrimaryColor, strokeColor: disabledSecondaryColor, rotation: 0)
         }
     }
     
-    // ToDo: Rotate not needed - Setup Update Arror for User Tracking Mode
+    // TODO: Rotate not needed - Setup Update Arror for User Tracking Mode
     func updateArrowForTrackingMode(mode: MGLUserTrackingMode) {
         let activePrimaryColor = UIColor.red
         let disabledPrimaryColor = UIColor.clear

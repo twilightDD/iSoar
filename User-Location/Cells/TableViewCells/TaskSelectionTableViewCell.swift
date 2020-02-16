@@ -9,11 +9,11 @@
 import UIKit
 
 class TaskSelectionTableViewCell: UITableViewCell {
-    
+
     static let identifier = "TaskSelectionTableViewCell"
-    
+
     @IBOutlet weak var taskName: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }

@@ -12,7 +12,6 @@ class TasksViewController: UIViewController {
     
     // MARK: Lets and Vars
     // Datasource
-    // ToDo: Source!
     var tasksArray = [String]()
     
     // MARK: - IBOutlets
@@ -33,16 +32,16 @@ class TasksViewController: UIViewController {
         setupTableViewDatasource()
         
     }
-
     
+    // MARK: - Private Methods
     // Setup TableViewDatasource
     private func setupTableViewDatasource() {
         tasksArray = TasksDatabase.gpxFileNames()
-
+        
         tableView.reloadData()
     }
+    
 }
-
 
 // MARK: - Extension - UITableViewDataSource
 extension TasksViewController: UITableViewDataSource {
@@ -61,20 +60,44 @@ extension TasksViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell {
             
-            // get cell from tableView
+            // Get Cell from TableView
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskSelectionTableViewCell.identifier) as? TaskSelectionTableViewCell
                 else { fatalError("")}
-
+            
             let taskOfInterest = tasksArray[indexPath.row]
-
+            
+            // Texts in Cell
             cell.taskName.text = taskOfInterest
             
             return cell
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            //    Method when Task Cell tapped
+            //    wenn zelle getippt
+            //    greife auf hinterlegte .gpx zu
+            //    parse diese nach waypoints (xml parser)
+            //    füge diese waypoints in ein array ein
+            //    zeichne polyline zwischen den waypoints im array
+            //    berechne distance über alle waypoints
+            //    remove polyline
+            
+            
+            
+            
+            
+            
     }
     
 }
 
-//MARK: - Extension - UITableViewDelegate
+// MARK: - Extension - UITableViewDelegate
 extension TasksViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

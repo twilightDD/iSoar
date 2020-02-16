@@ -16,28 +16,27 @@ class OGNSocketConnectionManager {
     private var connection: NWConnection?
     private var queue = DispatchQueue(label: "NetworkQueue", qos: .utility)
     private lazy var userName = generateRandomUserName()
-    
+
     var receivedServerIdentification: Bool = false
     var isLoggedIn = false
     
     var latitude = MapScreen.shared?.currentLocation?.coordinate.latitude
     var longitude = MapScreen.shared?.currentLocation?.coordinate.longitude
-    
+
     // MARK: - Init&Co.
     // Generate Random Username
     private func generateRandomUserName()
         -> String {
             let length = 9
             let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-            let randomCharacters = (0..<length).map{_ in characters.randomElement()!}
+            let randomCharacters = (0..<length).map {_ in characters.randomElement()!}
             let username = String(randomCharacters)
             return username
     }
     
     // MARK: - Public Methods
     // Connect to Server Socket
-    func connectToServerSocket()
-    {
+    func connectToServerSocket() {
         connection = NWConnection(host: "aprs.glidernet.org",
                                   port: 14580,
                                   using: .tcp)
@@ -69,21 +68,21 @@ class OGNSocketConnectionManager {
             }
         }
         connection?.start(queue: .main)
-        
+
     }
-    
+
     // MARK: - Private Methods
     // Setup Receive Data
     private func setupReceive() {
         connection?.receive(minimumIncompleteLength: 1, maximumLength: 9000, completion: { (data, context, isComplete, error) in
-            
+
             print("Message received")
             
             if let rcvData = data,
-                let receivedData = String(data:rcvData, encoding: .utf8) {
+                let receivedData = String(data: rcvData, encoding: .utf8) {
                 print("Message: \(receivedData)")
             }
-            
+
             if self.receivedServerIdentification == false {
                 self.receivedServerIdentification = true
                 print("Received Server Ident: \(self.receivedServerIdentification)")
@@ -92,12 +91,12 @@ class OGNSocketConnectionManager {
                     self.login()
                 }
             }
-            
+
             if context?.identifier == "Final Message" && isComplete {
                 self.connection?.cancel()
                 return
             }
-            
+
             if let messageError = error {
                 print("Recieve error: \(messageError)")
             } else {
@@ -105,21 +104,20 @@ class OGNSocketConnectionManager {
             }
         })
     }
-    
+
     // Send Login String with generated Username and Current Location
     private func login() {
-        // ToDo: guard let for currentLocation
+        // TODO: guard let for currentLocation
         sendPaket("user \(userName) pass -1 vers iSoar 1.0_04 filter r/\(latitude!)/\(longitude!)/50\r\n")
         isLoggedIn = true
     }
-    
+
     // Send Filter Request to Server
-    private func sendPaket(_ packet:String)
-    {
+    private func sendPaket(_ packet: String) {
         let packetData = packet.data(using: .utf8)
-        
+
         print("Sent PaketData: \(packetData!)")
-        
+
         connection?.send(content: packetData, completion: .contentProcessed({ (error) in
             if let err = error {
                 print("Sending error \(err)")
@@ -127,7 +125,6 @@ class OGNSocketConnectionManager {
                 print("Filter Request successfully sent")
             }
         }))
-        
+
     }
 }
-

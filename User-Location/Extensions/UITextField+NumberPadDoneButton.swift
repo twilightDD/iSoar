@@ -20,12 +20,11 @@ extension UITextField {
             return self.doneAccessory
         }
         set (hasDone) {
-            if hasDone{
+            if hasDone {
                 addDoneButtonOnKeyboard()
             }
         }
     }
-
 
     func addDoneButtonOnKeyboard() {
         let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width,

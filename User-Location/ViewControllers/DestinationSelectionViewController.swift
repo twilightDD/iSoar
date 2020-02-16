@@ -18,8 +18,8 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     var sortSwitchIndex = 0
     
     // Notification Observers
-    var airportUpdateCompletedNotification:NSObjectProtocol?
-    var airportUpdateFailedNotification:NSObjectProtocol?
+    var airportUpdateCompletedNotification: NSObjectProtocol?
+    var airportUpdateFailedNotification: NSObjectProtocol?
     
     // Pull to Refresh of TableView
     private let refreshControl = UIRefreshControl()
@@ -58,7 +58,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
         AirportDatabase.shared.updateDistance()
         setupTableViewDatasource()
         
-        // ToDo: muss das bei jedem Anzeigen ausgeführt werden?
+        // TODO: muss das bei jedem Anzeigen ausgeführt werden?
         updateUIForSelectedDestinationAirport()
         searchBar.placeholder = "Filter Airfields"
         
@@ -97,6 +97,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
         
     }
     
+    // Remove Obeservers when View did Disappear
     override func viewDidDisappear(_ animated: Bool) {
         if let airportUpdateCompletedNotification = airportUpdateCompletedNotification {
             NotificationCenter.default.removeObserver(airportUpdateCompletedNotification)
@@ -114,8 +115,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
             countryImageTop.image = UIImage(named: destinationAirport.country!)
             airportName.text = destinationAirport.name
             airportInfoButton.isHidden = false
-        }
-        else {
+        } else {
             countryImageTop.image = UIImage(named: "destination")
             airportName.text = "Choose your Destination"
             airportInfoButton.isHidden = true
@@ -144,10 +144,9 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
             mailComposer.setMessageBody("Country:<br>Elevation AMSL:<br>ICAO Code:<br>Latitude:<br>Longitude:<br>Name:<br>Radio Frequency:<br>Radio Frequency Name:<br>Runway Dimensions: (1000 x 50) <br>Runway Direction: (01/19)<br>Runway Surface: Grass / Asphalt<br>URL: www.airport.org", isHTML: true)
             
             mailComposer.mailComposeDelegate = self
-            self.present(mailComposer, animated: true
-                , completion: nil)
-        }
-        else {
+            self.present(mailComposer, animated: true,
+                         completion: nil)
+        } else {
             let alert = UIAlertController(title: "Error creating Mail",
                                           message: "Mail is not configured in settings app.",
                                           preferredStyle: .alert)
@@ -182,7 +181,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     // Pull to Refresh of TableView
     @objc private func refreshAirportDatabase(_ sender: Any) {
         
-        if MapScreen.shared!.selectedDestinationAirport != nil{
+        if MapScreen.shared!.selectedDestinationAirport != nil {
             MapScreen.shared!.selectedDestinationAirport = nil
             
         }
@@ -193,13 +192,6 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     
     // Adjust TableView height if necessary
     @objc private func adjustForKeyboard(notification: Notification) {
-        // https://www.hackingwithswift.com/example-code/uikit/how-to-adjust-a-uiscrollview-to-fit-the-keyboard
-        //        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue
-        //            else { return }
-        //
-        //        let keyboardScreenEndFrame = keyboardValue.cgRectValue
-        //        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame,
-        //                                                from: view.window)
         
         if notification.name == UIResponder.keyboardWillHideNotification {
             tableView.contentInset = .zero
@@ -249,13 +241,13 @@ extension DestinationSelectionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell {
             
-            // get cell from tableView
+            // Get Cell from TableView
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DestinationSelectionAirportTableViewCell.identifier) as? DestinationSelectionAirportTableViewCell
                 else { fatalError("")}
             
             let airportOfInterest = destinationAirportArray[indexPath.row]
             
-            // texts in cell
+            // Texts in Cell
             cell.airportNameLabel.text = airportOfInterest.name
             cell.icaoLabel.text = airportOfInterest.icao
             cell.distanceLabel.text = distanceAsReadable(airportOfInterest.distance)
@@ -266,15 +258,12 @@ extension DestinationSelectionViewController: UITableViewDataSource {
             }
             cell.countryImageView.image = countryImage
             
-            
-            // checkbox for selected airport
+            // Checkbox for selected Airport
             if MapScreen.shared!.selectedDestinationAirport?.latitude == airportOfInterest.latitude,
-                MapScreen.shared!.selectedDestinationAirport?.longitude == airportOfInterest.longitude
-            {
+                MapScreen.shared!.selectedDestinationAirport?.longitude == airportOfInterest.longitude {
                 cell.accessoryType = .checkmark
                 cell.backgroundColor = UIColor.init(named: "destinationSelection_SelectedTableViewCell")
-            }
-            else {
+            } else {
                 cell.accessoryType = .none
                 cell.backgroundColor = nil
             }
@@ -284,7 +273,7 @@ extension DestinationSelectionViewController: UITableViewDataSource {
     
 }
 
-//MARK: - Extension - UITableViewDelegate
+// MARK: - Extension - UITableViewDelegate
 extension DestinationSelectionViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -297,8 +286,7 @@ extension DestinationSelectionViewController: UITableViewDelegate {
         if let formerSelectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport,
         newSelectedDestinationAirport.latitude == formerSelectedDestinationAirport.latitude && newSelectedDestinationAirport.longitude == formerSelectedDestinationAirport.longitude {
             MapScreen.shared!.selectedDestinationAirport = nil
-        }
-        else {
+        } else {
             MapScreen.shared!.selectedDestinationAirport = newSelectedDestinationAirport
             
         }
@@ -313,7 +301,7 @@ extension DestinationSelectionViewController: UITableViewDelegate {
     
 }
 
-//MARK: - Extension - UISearchBarDelegate
+// MARK: - Extension - UISearchBarDelegate
 extension DestinationSelectionViewController: UISearchBarDelegate {
     
     // Execute Search

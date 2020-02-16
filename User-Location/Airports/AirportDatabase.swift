@@ -8,27 +8,27 @@
 
 import CoreLocation
 
-//MARK: - AirportDatabase
+// MARK: - AirportDatabase
 class AirportDatabase {
     
-    //MARK: - Lets and Vars
+    // MARK: - Lets and Vars
     static let shared = AirportDatabase()
     private var destinationAirports = [AirportDatabase.Airport]()
     
-    private let libraryURL:URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
+    private let libraryURL: URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
     
     // Notifications
     static let airportUpdateCompletedNotificationName = Notification.Name(rawValue: "airportUpdateCompleted")
     
     static let airportUpdateFailedNotificationName = Notification.Name(rawValue: "airportUpdateFailed")
     
-    //MARK: - Init&Co.
-    private init(){
+    // MARK: - Init&Co.
+    private init() {
         checkForMapOjectsInLibraryFolder()
         loadAirports()
     }
     
-    //MARK: - Public Methods
+    // MARK: - Public Methods
     // updateDistance
     func updateDistance() {
         if let currentLocation = MapScreen.shared!.currentLocation {
@@ -58,6 +58,7 @@ class AirportDatabase {
             var filteredArray = destinationAirports
             
             if let searchString = searchString,
+
                 searchString.count > 0 {
                 filteredArray = destinationAirports.filter { (airport) -> Bool in
                     let airportNameContainsSearchString = airport.name.contains(searchString)
@@ -100,7 +101,7 @@ class AirportDatabase {
     // Download Airports.json from Server
     func downloadAirportsFromServer() {
         // Create destination URL
-        let libraryUrl:URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
+        let libraryUrl: URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
         let destinationFileUrl = libraryUrl.appendingPathComponent("Airports.json")
         
         // File Source URL
@@ -109,7 +110,7 @@ class AirportDatabase {
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
         
-        let request = URLRequest(url:fileURL!)
+        let request = URLRequest(url: fileURL!)
         
         let task = session.downloadTask(with: request) { [unowned self] (tempLocalUrl, response, error) in
             if let tempLocalUrl = tempLocalUrl, error == nil {
@@ -139,7 +140,7 @@ class AirportDatabase {
                 }
                 
             } else {
-                print("Error took place while downloading a file. Error description: %@", error!.localizedDescription);
+                print("Error took place while downloading a file. Error description: %@", error!.localizedDescription)
                 
                 // Post Notification for failed Update
                 NotificationCenter.default.post(name: AirportDatabase.airportUpdateFailedNotificationName,
@@ -150,7 +151,7 @@ class AirportDatabase {
         task.resume()
     }
     
-    //MARK: - Private Methods
+    // MARK: - Private Methods
     // Check if MapOjects.json exists in Library Folder
     private func checkForMapOjectsInLibraryFolder() {
         // Check if Airports.json exists in Library Folder
@@ -179,7 +180,7 @@ class AirportDatabase {
     }
     
     // Request for Location
-    func requestForLocation(){
+    func requestForLocation() {
         //Code Process
         print("Location granted")
     }
@@ -189,15 +190,14 @@ class AirportDatabase {
         // --- json laden
         
         // hier kommt der Inhalt der Datein rein
-        var jsonAsString:String?
+        var jsonAsString: String?
         
         let AirportsURL = libraryURL.appendingPathComponent("Airports.json")
         
         do {
             // URL laden und als String zurück geben
             try jsonAsString = String.init(contentsOf: AirportsURL)
-        }
-        catch {
+        } catch {
             print("went wrong")
         }
         
@@ -205,13 +205,12 @@ class AirportDatabase {
         let jsonAsData = jsonAsString?.data(using: .utf8)
         
         // hier kommt der Inhalt der Datei als Dictionary rein
-        var jsonAsDict = [String:Any]()
+        var jsonAsDict = [String: Any]()
         do {
             // Umwandeln des Data in ein Dictionary (nennt sich deserialisieren)
             jsonAsDict = try JSONSerialization.jsonObject(with: jsonAsData!,
-                                                          options: .allowFragments) as! [String : Any]
-        }
-        catch {
+                                                          options: .allowFragments) as! [String: Any]
+        } catch {
             print("json went wrong")
         }
         
@@ -226,39 +225,39 @@ class AirportDatabase {
     
 }
 
-//MARK: - Extentsion - Structs and Enums
+// MARK: - Extentsion - Structs and Enums
 
 extension AirportDatabase {
     
-    enum SortIndicator:Int {
+    enum SortIndicator: Int {
         case name       = 0
         case distance   = 1
     }
     
     struct Airport: Equatable {
-        //MARK: Lets and Vars
-        var valid:String
-        var icao:String
-        var name:String
-        var latitude:Double
-        var longitude:Double
-        var elevation:Double
-        var airportType:String
-        var runwaySurface:String
-        var runwayDimensions:String
-        var runwayDirections:String
-        var url:String?
-        var country:String?
+        // MARK: Lets and Vars
+        var valid: String
+        var icao: String
+        var name: String
+        var latitude: Double
+        var longitude: Double
+        var elevation: Double
+        var airportType: String
+        var runwaySurface: String
+        var runwayDimensions: String
+        var runwayDirections: String
+        var url: String?
+        var country: String?
         /**In meters.*/
-        var distance:CLLocationDistance?
-        var phone:String?
-        var additionalInfo:String?
-        var radioName:String?
-        var radioFrequency:String?
+        var distance: CLLocationDistance?
+        var phone: String?
+        var additionalInfo: String?
+        var radioName: String?
+        var radioFrequency: String?
         
         // var radios:[Radio] // hinzufügen => ProTipp: Struct ;)
         
-        //MARK: Init&Co.
+        // MARK: Init&Co.
         public init(dictionary: Dictionary<String, Any>) {
             self.valid = dictionary["valid"] as? String ?? ""
             self.icao = dictionary["icao"] as? String ?? ""
@@ -279,11 +278,10 @@ extension AirportDatabase {
             
         }
         
-        //MARK: Public Methods
-        mutating func updateDistance(_ newDistance:CLLocationDistance) {
+        // MARK: Public Methods
+        mutating func updateDistance(_ newDistance: CLLocationDistance) {
             distance = newDistance
         }
         
     }
 }
-

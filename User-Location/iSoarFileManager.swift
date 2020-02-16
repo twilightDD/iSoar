@@ -8,10 +8,10 @@
 
 import Foundation
 
-//MARK: - iSoarFileManager
+// MARK: - iSoarFileManager
 class iSoarFileManager {
     
-    //MARK: Private Lets and Vars
+    // MARK: Private Lets and Vars
     private static let flightSubPath = "/Flights"
     private static let gpxSubPath = "/Tasks"
     
@@ -50,7 +50,7 @@ class iSoarFileManager {
     
 }
 
-//MARK: - Extension - Check Directory Class Methods
+// MARK: - Extension - Check Directory Class Methods
 // Check if Tasks Folder exists in Documents Folder
 extension iSoarFileManager {
     class func checkForTasksFolder() {
@@ -61,10 +61,9 @@ extension iSoarFileManager {
                                                         withIntermediateDirectories: true,
                                                         attributes: nil)
             } catch {
-                print(error.localizedDescription);
+                print(error.localizedDescription)
             }
-        }
-        else {
+        } else {
             print("Tasks Folder exist in Documents Folder.")
         }
     }
@@ -78,18 +77,17 @@ extension iSoarFileManager {
                                                         withIntermediateDirectories: true,
                                                         attributes: nil)
             } catch {
-                print(error.localizedDescription);
+                print(error.localizedDescription)
             }
-        }
-        else {
+        } else {
             print("Flights Folder exist in Documents Folder.")
         }
     }
 }
 
-//MARK: - Extension - GPX File Handling
+// MARK: - Extension - GPX File Handling
 extension iSoarFileManager {
-    //MARK:  Public Class Methods
+    // MARK: Public Class Methods
     class func gpxFileNames()
         -> [String] {
             var gpxFileNames = [String]()
@@ -100,12 +98,10 @@ extension iSoarFileManager {
                 fileURLs = try FileManager.default.contentsOfDirectory(at: gpxURL,
                                                                        includingPropertiesForKeys: [],
                                                                        options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
-                fileURLs = fileURLs.filter{ $0.pathExtension == "gpx" }
-            }
-            catch let contentsOfDirectory {
+                fileURLs = fileURLs.filter {$0.pathExtension == "gpx"}
+            } catch let contentsOfDirectory {
                 fatalError("\(contentsOfDirectory.localizedDescription)")
             }
-            
             
             // parse fileNames
             for fileURL in fileURLs {

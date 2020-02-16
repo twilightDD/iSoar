@@ -11,7 +11,7 @@ import Foundation
 // MARK: - FlightsDatabase
 class FlightsDatabase {
     static let shared = FlightsDatabase()
-    
+
     // Parse obtained JSONs into an array
     class func flightMetaDatas()
         -> [FlightMetaData] {
@@ -29,10 +29,10 @@ class FlightsDatabase {
                     print("\(jsonError.localizedDescription)")
                 }
             }
-            
+
             return flightMetaDatas
     }
-    
+
     // Sort Flights in Logbook in descending Date Order
     class func sortedFlightsByDescendingDate()
         -> [FlightMetaData] {

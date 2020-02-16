@@ -11,10 +11,10 @@ import CoreLocation
 import CoreMotion
 import Mapbox
 
-//MARK: MapScreen
+// MARK: MapScreen
 class MapScreen: UIViewController {
     
-    static var shared:MapScreen?
+    static var shared: MapScreen?
     
     // MARK: IBOutlets
     @IBOutlet private var mapView: MGLMapView!
@@ -27,34 +27,34 @@ class MapScreen: UIViewController {
     
     // MARK: Lets and Vars
     let locationManager = CLLocationManager()
-    var currentLocation:CLLocation?
-    var currentDistance:CLLocationDistance?
+    var currentLocation: CLLocation?
+    var currentDistance: CLLocationDistance?
     
-    lazy var userLocationButton:UserLocationButton = createUserLocationButton()
+    lazy var userLocationButton: UserLocationButton = createUserLocationButton()
     
     //let altimeter = CMAltimeter()
     
-    var selectedDestinationAirport:AirportDatabase.Airport? {
+    var selectedDestinationAirport: AirportDatabase.Airport? {
         didSet {
             updateDirectionLabelsAndLine()
         }
         
     }
     
-    var currentDirectionLine:MGLPolyline?
+    var currentDirectionLine: MGLPolyline?
     var currentFlightLine = MGLPolyline()
     
     var userTrackingMode = true
     var userFollow = false
     
     var showAltitudeInMeters = true
-    var altitudeInMeters:CLLocationDistance = 0
+    var altitudeInMeters: CLLocationDistance = 0
     
     var showSpeedInKMH = true
-    var speedInKMH:CLLocationSpeed = 0
+    var speedInKMH: CLLocationSpeed = 0
     
     var showDistanceInKM = true
-    var DistanceInKM:CLLocationDistance = 0
+    var DistanceInKM: CLLocationDistance = 0
     
     var showTrackingRoute = false
     
@@ -107,7 +107,7 @@ class MapScreen: UIViewController {
         
         mapView.userTrackingMode = .followWithHeading
         mapView.showsUserHeadingIndicator = true
-        
+
         // MGLMapboxMetricsEnabledSettingShownInApp: YES - Info.plist
         // MGLMapboxMetricsEnabled = false
         // https://docs.mapbox.com/help/how-mapbox-works/mobile-apps/#telemetry
@@ -118,7 +118,7 @@ class MapScreen: UIViewController {
         mapView.resetNorth()
         
     }
-    
+
     // Check for Location Services
     func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled() {
@@ -134,7 +134,6 @@ class MapScreen: UIViewController {
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse:
             locationManager.startUpdatingLocation()
-            break
         case .denied:
             // Show alert instructing them how to turn on permissions
             break
@@ -145,7 +144,6 @@ class MapScreen: UIViewController {
             break
         case .authorizedAlways:
             locationManager.startUpdatingLocation()
-            break
         @unknown default:
             print("Didn't request permission for User Notifications")
         }
@@ -207,7 +205,7 @@ class MapScreen: UIViewController {
                                                                         attribute: .notAnAttribute,
                                                                         multiplier: 1,
                                                                         constant: userLocationButton.frame.size.width)]
-            
+
             self.view.addSubview(userLocationButton)
             self.view.addConstraints(constraints)
             
@@ -294,7 +292,7 @@ class MapScreen: UIViewController {
         }
     }
     
-    //MARK: - Private Methods
+    // MARK: - Private Methods
     // Update AltitudeLabel
     private func updateAltitudeLabel() {
         guard let currentLocation = currentLocation else {
@@ -304,8 +302,7 @@ class MapScreen: UIViewController {
         var altituteLabelText = ""
         if showAltitudeInMeters == true {
             altituteLabelText =  String(format: "%.0f m", currentLocation.altitude)
-        }
-        else {
+        } else {
             let altitudeInFeet = currentLocation.altitude * 3.28084
             altituteLabelText = String(format: "%.0f ft", altitudeInFeet)
         }
@@ -323,13 +320,11 @@ class MapScreen: UIViewController {
         
         if currentLocation.speed < 0 {
             speedLabelText = "---"
-        }
-        else {
+        } else {
             if showSpeedInKMH == true {
                 let speedInKMH = currentLocation.speed * 3.6
                 speedLabelText =  String(format: "%.0f km/h", speedInKMH)
-            }
-            else {
+            } else {
                 let speedInKT = currentLocation.speed * 1.852
                 speedLabelText = String(format: "%.0f kt", speedInKT)
             }
@@ -348,8 +343,7 @@ class MapScreen: UIViewController {
             
             let distanceInKm = currentDistance/1000
             distanceLabelText =  String(format: "%.0f Km", distanceInKm)
-        }
-        else {
+        } else {
             let distcanceInMi = currentDistance/1000/1.852
             distanceLabelText = String(format: "%.0f NM", distcanceInMi)
         }
@@ -382,13 +376,12 @@ class MapScreen: UIViewController {
         
         // Calculate altitude of Glider at Destination Airport
         let destinationAltitude = currentLocation.altitude - selectedDestinationAirport.elevation - safetyAltitude - gliderSinkRateToDestination
-        let destinationAltitudeShort = String(format:"%.0f m", destinationAltitude)
+        let destinationAltitudeShort = String(format: "%.0f m", destinationAltitude)
         self.destinationAltitudeLabel.text = destinationAltitudeShort
         
         if destinationAltitude > 0 {
             destinationAltitudeLabel.textColor = UIColor(red: 150/255, green: 255/255, blue: 255/255, alpha: 1)
-        }
-        else {
+        } else {
             destinationAltitudeLabel.textColor = .red
         }
     }
@@ -402,8 +395,7 @@ class MapScreen: UIViewController {
         
         if course < 0 {
             self.courseLabel.text = "---"
-        }
-        else {
+        } else {
             let courseShort = String(format: "%.0f°", course)
             self.courseLabel.text = courseShort
         }
@@ -414,8 +406,7 @@ class MapScreen: UIViewController {
         // ICAO
         if let selectedDestinationAirport = selectedDestinationAirport {
             destinationAirportLabel.text = selectedDestinationAirport.icao
-        }
-        else {
+        } else {
             destinationAirportLabel.text = "---"
         }
         
@@ -431,15 +422,14 @@ class MapScreen: UIViewController {
             // DestinationAltitude
             updateDestinationAltitudeLabel()
             
-            // ToDo: Calculate Gliding-Range - Does not work without Surface Elevation
+            // TODO: Calculate Gliding-Range - Does not work without Surface Elevation
             // let glidingRange = (currentLocation.altitude - safetyAltitude)*gliderRatio
             
             // Draw direct line between current location and destinationAirport.
             
-            
             let destinationAirportLocationCoordinate = CLLocationCoordinate2D(latitude: selectedDestinationAirport.latitude,
                                                                               longitude: selectedDestinationAirport.longitude)
-            let newDirectionCoordinates:[CLLocationCoordinate2D] = [currentLocation.coordinate, destinationAirportLocationCoordinate]
+            let newDirectionCoordinates: [CLLocationCoordinate2D] = [currentLocation.coordinate, destinationAirportLocationCoordinate]
             let newCurrentLine = MGLPolyline(coordinates: newDirectionCoordinates,
                                              count: UInt(newDirectionCoordinates.count))
             
@@ -455,8 +445,7 @@ class MapScreen: UIViewController {
             }
             
             currentDirectionLine = newCurrentLine
-        }
-        else {
+        } else {
             distanceLabel.text = "---"
             destinationAltitudeLabel.text = "---"
             destinationAltitudeLabel.textColor = UIColor(red: 150/255, green: 255/255, blue: 255/255, alpha: 1)
@@ -477,8 +466,7 @@ class MapScreen: UIViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 self.mapView.addAnnotation(self.currentFlightLine)
             }
-        }
-        else {
+        } else {
             mapView.removeAnnotation(currentFlightLine)
         }
     }
@@ -496,7 +484,7 @@ class MapScreen: UIViewController {
     
 }
 
-// ToDo: Documentation
+// TODO: Documentation
 class DLCalloutView: UIView, MGLCalloutView {
     var representedObject: MGLAnnotation
     
@@ -519,7 +507,7 @@ class DLCalloutView: UIView, MGLCalloutView {
     }
     
     func dismissCallout(animated: Bool) {
-        if (animated){
+        if (animated) {
             //do something cool
             removeFromSuperview()
         } else {
@@ -652,7 +640,7 @@ extension MapScreen: CLLocationManagerDelegate {
 }
 
 // MARK: - MapScreen:UIGestureRecognizerDelegate
-extension MapScreen:UIGestureRecognizerDelegate {
+extension MapScreen: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                            shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true

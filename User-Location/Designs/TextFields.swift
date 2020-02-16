@@ -9,12 +9,12 @@
 import UIKit
 
 class TextFields: UITextField {
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpTextField()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init( coder: aDecoder )
         setUpTextField()
@@ -25,12 +25,10 @@ class TextFields: UITextField {
         var textColor: UIColor
         var backgroundColor: UIColor
 
-
         if #available(iOS 13, *) {
             textColor = .label
             backgroundColor = .systemBackground
-        }
-        else {
+        } else {
             textColor = .darkText
             backgroundColor = .white
         }
@@ -38,5 +36,5 @@ class TextFields: UITextField {
         self.textColor       = textColor
         self.backgroundColor = backgroundColor
     }
-    
+
 }

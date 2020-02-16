@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: - TimeDateFormatter
 class TimeDateFormatter {
-    
+
     // MARK: Private Lets and Vars
     static let shared = TimeDateFormatter()
 
@@ -19,7 +19,7 @@ class TimeDateFormatter {
         formatter.allowedUnits = [.hour, .minute]
         formatter.unitsStyle = .positional
         formatter.zeroFormattingBehavior = .pad
-
+        
         return formatter
     }()
 
@@ -32,24 +32,23 @@ class TimeDateFormatter {
                                                      from: date)
             components.second = 0
             let date = calendar.date(from: components)! as Date
-
+            
             return date
     }
-
+    
     // Year Month Day Hour Minute Date From Now
     class func yearMonthDayHourMinuteDateFromNow()
         -> Date {
             return yearMonthDayHourMinuteDateFrom(Date())
     }
-
-
+    
     /**
      Creates a string with human readable time span.
-
+     
      I.E. "2:51"
-
+     
      - Parameter timeIntervall: the timeIntervall.
-
+     
      - Returns: The time span as string or "-" if an error occured on conversion.
      */
     class func hourMinutesStringFromTimeIntervall(_ timeIntervall: TimeInterval)
@@ -63,15 +62,14 @@ class TimeDateFormatter {
             return hourMinutesStringFromTimeIntervall
     }
 
-
     /**
      Creates a string with human readable time span.
-
+     
      I.E. "2:51"
-
+     
      - Parameter startTime: The start time.
      - Parameter endTime: The end time.
-
+     
      - Returns: The time span as string or "-" if an error occured on conversion.
      */
     class func hourMinutesStringFrom(startTime: Date, toEndTime endTime: Date)

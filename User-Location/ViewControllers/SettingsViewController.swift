@@ -14,9 +14,7 @@ class SettingsViewController: UIViewController {
     // MARK: Lets and Vats
     
     // Notification Observers
-    var airportUpdateFailedNotification:NSObjectProtocol?
-    
-   
+    var airportUpdateFailedNotification: NSObjectProtocol?
     
     // MARK: IBOutlets
     @IBOutlet weak var gliderRatioTextField: TextFields!
@@ -68,8 +66,8 @@ class SettingsViewController: UIViewController {
     
     // MARK: - Private Instance Methods
     // Read User Defaults and display them on screen
-    private func setupUI(){
-        
+    private func setupUI() {
+
         // Glider Ratio
         let gliderRatio = UserDefaultsManager.getGliderRatio()
         let gliderRatioString = String(format: "%.f", gliderRatio)
@@ -94,17 +92,16 @@ class SettingsViewController: UIViewController {
     }
     
     // Save Settings to User Defaults
-    private func saveSettings(){
+    private func saveSettings() {
         let gliderRatioString = gliderRatioTextField.text!
         let gliderRatioDouble = (gliderRatioString as NSString).doubleValue
         
         let safetyAltitudeString = safetyAltitudeTextField.text!
         let safetyAltitudeDouble = (safetyAltitudeString as NSString).doubleValue
-        
+
         UserDefaultsManager.set(gliderRatio: gliderRatioDouble)
         UserDefaultsManager.set(safetyAltitude: safetyAltitudeDouble)
         UserDefaultsManager.set(gliderID: gliderIDTextField.text!)
-        
     }
     
     // MARK: - Action Methods
@@ -112,7 +109,7 @@ class SettingsViewController: UIViewController {
     @IBAction func landingGearWarningSwitch(_ sender: UISwitch) {
         UserDefaultsManager.set(landingGearWarningSwitch: landingGearWarningSwitch.isOn)
     }
-    
+
     //Show Tracking Route Switch
     @IBAction func showTrackingRouteSwitch(_ sender: UISwitch) {
         UserDefaultsManager.set(showTrackingRouteSwitch: showTrackingRouteSwitch.isOn)
@@ -147,9 +144,9 @@ extension SettingsViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField)
         -> Bool {
             textField.resignFirstResponder()
-            return true;
+            return true
     }
-    
+
     // Execute when Textfield did End Editing
     func textFieldDidEndEditing(_ textField: UITextField) {
         saveSettings()

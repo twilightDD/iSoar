@@ -12,12 +12,10 @@ class LogbookViewController: UIViewController {
     
     // MARK: Lets and Vars
     // Datasource
-    // ToDo: Source!
     var flightMetaDatas = [FlightMetaData]()
     
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
-
 
     // MARK: - Init&Co.
     override func viewDidLoad() {
@@ -27,15 +25,13 @@ class LogbookViewController: UIViewController {
         tableView.delegate = self
     }
 
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setupTableViewDatasource()
     }
 
-
-    //MARK -  TableViewDatasource
+    // MARK: - TableViewDatasource
     private func setupTableViewDatasource() {
         flightMetaDatas = FlightsDatabase.sortedFlightsByDescendingDate()
     
@@ -80,10 +76,9 @@ extension LogbookViewController: UITableViewDataSource {
     
 }
 
-//MARK: - Extension - UITableViewDelegate
+// MARK: - Extension - UITableViewDelegate
 extension LogbookViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
     }
 }

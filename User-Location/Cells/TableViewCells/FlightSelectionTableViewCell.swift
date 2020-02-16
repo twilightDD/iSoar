@@ -9,9 +9,9 @@
 import UIKit
 
 class FlightSelectionTableViewCell: UITableViewCell {
-    
+
     static let identifier = "FlightSelectionTableViewCell"
-    
+
     @IBOutlet weak var flightDate: UILabel!
     @IBOutlet weak var startTime: UILabel!
     @IBOutlet weak var endTime: UILabel!
@@ -19,7 +19,7 @@ class FlightSelectionTableViewCell: UITableViewCell {
     @IBOutlet weak var startICAO: UILabel!
     @IBOutlet weak var endICAO: UILabel!
     @IBOutlet weak var flightTime: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }

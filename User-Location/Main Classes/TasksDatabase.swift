@@ -10,7 +10,7 @@ import Foundation
 
 var waypoints = [[String: String]]()
 
-//MARK: - TasksDatabase
+// MARK: - TasksDatabase
 class TasksDatabase {
     static let shared = TasksDatabase()
     
@@ -23,17 +23,16 @@ class TasksDatabase {
     
 }
 
-//MARK: - Extentsion - Structs and Enums
+// MARK: - Extentsion - Structs and Enums
 
 //extension TasksDatabase {
 
-// ToDo:
+// TODO:
 // extension TasksDatabase: XMLParserDelegate {
 
 struct Waypoint: Equatable {
-    //MARK: Lets and Vars
-    var latitude:String
-    var longitude:String
+    // MARK: Lets and Vars
+    var latitude: String
+    var longitude: String
     
 }
-

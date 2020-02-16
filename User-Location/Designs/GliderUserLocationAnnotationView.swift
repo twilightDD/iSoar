@@ -24,7 +24,7 @@ class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
         rotateGliderLayer()
     }
     
-    //MARK: - Private Methods
+    // MARK: - Private Methods
     private func setupGliderLayer () -> CALayer? {
         let gliderLayer = CALayer()
         guard let gliderImage = UIImage(named: "glider")?.cgImage
@@ -35,17 +35,17 @@ class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
         
         return gliderLayer
     }
-    
+
     // Rotate User Location image depending of course.
     private func rotateGliderLayer() {
         guard let gliderLayer = self.gliderLayer
             else { return }
         guard let course = MapScreen.shared!.currentLocation?.course
             else { return }
-        
+
         // Get the difference between the map’s current direction and the user’s heading, then convert it from degrees to radians.
         let rotation: CGFloat = -MGLRadiansFromDegrees(mapView!.direction - course)
-        
+
         // If the difference would be perceptible, rotate the arrow.
         if abs(rotation) > 0.01 {
             // Disable implicit animations of this rotation, which reduces lag between changes.

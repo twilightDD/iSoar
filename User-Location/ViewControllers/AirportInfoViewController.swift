@@ -51,8 +51,8 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
         longitudeValue.text = String(format: "%.6f", selectedDestinationAirport!.longitude)
         
         additionalInfo.text = selectedDestinationAirport?.additionalInfo
-        callButton.setTitle("\(selectedDestinationAirport!.phone!)",for: .normal)
-        urlButton.setTitle("\(selectedDestinationAirport!.url!)",for: .normal)
+        callButton.setTitle("\(selectedDestinationAirport!.phone!)", for: .normal)
+        urlButton.setTitle("\(selectedDestinationAirport!.url!)", for: .normal)
         
     }
     
@@ -66,10 +66,9 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
             mailComposer.setMessageBody("Country:<br>Elevation AMSL:<br>ICAO Code:<br>Latitude:<br>Longitude:<br>Name:<br>Radio Frequency:<br>Radio Frequency Name:<br>Runway Dimensions: (1000 x 50) <br>Runway Direction: (01/19)<br>Runway Surface: Grass / Asphalt<br>URL: www.airport.org", isHTML: true)
             
             mailComposer.mailComposeDelegate = self
-            self.present(mailComposer, animated: true
-                , completion: nil)
-        }
-        else {
+            self.present(mailComposer, animated: true,
+                         completion: nil)
+        } else {
             let alert = UIAlertController(title: "Error creating Mail", message: "Mail is not configured in settings app.", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))

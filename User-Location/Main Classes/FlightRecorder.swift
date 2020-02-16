@@ -11,19 +11,19 @@ import CoreLocation
 
 // MARK: - FlightRecorder
 class FlightRecorder {
-    
+
     // MARK: - Lets and Vars
     static let shared = FlightRecorder()
 
     var recorderIsReadyToWrite = false
-    
+
     // MARK: - Public Methods
     // Add Current Location Infos to FlightRecorder File
     func addFlightRecorderEntryForLocation(_ currentLocation: CLLocation) {
 
         let locationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
                                                                longitude: currentLocation.coordinate.longitude)
-        
+
         let currentTelemetryData = FlightData(unixTimeStamp: Date.currentTimeStamp,
                                     latitude: currentLocation.coordinate.latitude,
                                     longitude: currentLocation.coordinate.longitude,
@@ -51,24 +51,23 @@ class FlightRecorder {
         }
 
     }
-    
+
 }
 
 // MARK: - Extentsion - Structs and Enums
 extension FlightRecorder {
-    
+
     struct FlightData: Equatable {
-        //MARK: Lets and Vars
+        // MARK: Lets and Vars
         var unixTimeStamp: Int64
         var latitude: Double
         var longitude: Double
-        var locationCoordinate2D : CLLocationCoordinate2D
+        var locationCoordinate2D: CLLocationCoordinate2D
         var altitude: Double
         var speed: Double
         var course: Double
-        
     }
-    
+
 }
 
 extension CLLocationCoordinate2D: Equatable {
@@ -81,7 +80,6 @@ extension CLLocationCoordinate2D: Equatable {
 
 // Unix Date Extension
 extension Date {
-    static var currentTimeStamp: Int64{
-        return Int64(Date().timeIntervalSince1970 * 1000)
+    static var currentTimeStamp: Int64 {return Int64(Date().timeIntervalSince1970 * 1000)
     }
 }

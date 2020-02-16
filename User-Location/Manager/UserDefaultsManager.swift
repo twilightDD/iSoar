@@ -9,7 +9,7 @@
 import Foundation
 
 class UserDefaultsManager {
-
+    
     // MARK: - Keys
     private static let GliderRatioKey = "gliderRatio"
     private static let SafetyAltitudeKey = "safetyAltitude"
@@ -17,17 +17,17 @@ class UserDefaultsManager {
     private static let LandingGearWarningSwitchKey = "landingGearWarningSwitch"
     private static let ShowTrackingRouteSwitchKey = "showTrackingRouteSwitch"
 
-    // MARK: Defaults
+    // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
     private static let gliderRadioDefault: Double = 20
     private static let landingGearWarningSwitchDefault: Bool = true
     private static let safetyAltitudeDefault: Double = 200
     private static let showTrackingRouteSwitchDefault: Bool = true
-
+    
     // MARK: - Lets and Vars
     private static let shared = UserDefaultsManager()
     private let userDefaults = UserDefaults.standard
-
+    
     // MARK: - Public Class Methods
     class func setupUserDefaults() {
         // Check for User Defaults
@@ -65,7 +65,7 @@ class UserDefaultsManager {
             let gliderRatio = shared.userDefaults.value(forKey: GliderRatioKey) as? Double ?? gliderRadioDefault
             return gliderRatio
     }
-
+    
     class func set(gliderRatio: Double) {
         shared.userDefaults.set(gliderRatio, forKey: GliderRatioKey)
     }
@@ -76,7 +76,7 @@ class UserDefaultsManager {
             let landingGearWarningSwitch = shared.userDefaults.value(forKey: LandingGearWarningSwitchKey) as? Bool ?? landingGearWarningSwitchDefault
             return landingGearWarningSwitch
     }
-
+    
     class func set (landingGearWarningSwitch: Bool) {
         shared.userDefaults.set(landingGearWarningSwitch, forKey: LandingGearWarningSwitchKey)
     }
@@ -98,9 +98,9 @@ class UserDefaultsManager {
             let showTrackingRouteSwitchKey = shared.userDefaults.value(forKey: ShowTrackingRouteSwitchKey) as? Bool ?? showTrackingRouteSwitchDefault
             return showTrackingRouteSwitchKey
     }
-
+    
     class func set(showTrackingRouteSwitch: Bool) {
         shared.userDefaults.set(showTrackingRouteSwitch, forKey: ShowTrackingRouteSwitchKey)
     }
-
+    
 }
