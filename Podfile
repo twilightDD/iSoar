@@ -6,6 +6,8 @@ target 'Glider Tool' do
     use_frameworks!
 
   # Pods for Glider Tool
-    pod 'Mapbox-iOS-SDK', '~> 5.6.1'
+    pod 'SwiftLint'
+    pod 'Mapbox-iOS-SDK', '~> 5.7'
+
 
 end

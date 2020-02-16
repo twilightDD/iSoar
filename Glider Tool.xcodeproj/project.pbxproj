@@ -267,6 +267,7 @@
 				EDA2361D2130AA7500739396 /* Resources */,
 				E0A9449922B0221F003187D6 /* Embed Frameworks */,
 				5418E92BFF705C78367B7DCA /* [CP] Embed Pods Frameworks */,
+				E02BF30923F5F13500221709 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -364,6 +365,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Glider Tool/Pods-Glider Tool-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		E02BF30923F5F13500221709 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
