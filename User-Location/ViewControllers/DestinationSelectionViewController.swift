@@ -127,8 +127,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
         guard let sortIndicator = AirportDatabase.SortIndicator(rawValue: airportsSortedBySwitch.selectedSegmentIndex)
             else { fatalError("segmentIndex not suitable for sortIndicator.")}
         
-        if let destinationAirportArray = AirportDatabase.shared.filterDestinationAirports(byName: searchBar.text,
-                                                                                          sortedBy: sortIndicator) {
+        if let destinationAirportArray = AirportDatabase.shared.filterDestinationAirports(byName: searchBar.text, sortedBy: sortIndicator) {
             self.destinationAirportArray = destinationAirportArray
             
             tableView.reloadData()
@@ -258,7 +257,7 @@ extension DestinationSelectionViewController: UITableViewDataSource {
             }
             cell.countryImageView.image = countryImage
             
-            // Checkbox for selected Airport
+            // Set Checkmark and Background Color for selected Airport
             if MapScreen.shared!.selectedDestinationAirport?.latitude == airportOfInterest.latitude,
                 MapScreen.shared!.selectedDestinationAirport?.longitude == airportOfInterest.longitude {
                 cell.accessoryType = .checkmark
