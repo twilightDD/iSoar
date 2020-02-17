@@ -66,32 +66,31 @@ extension TasksViewController: UITableViewDataSource {
             
             let taskOfInterest = tasksArray[indexPath.row]
             
+            print(taskOfInterest)
+            
             // Texts in Cell
             cell.taskName.text = taskOfInterest
             
+            // Set Checkmark and Background Color for selected Task
+            if taskOfInterest == nil {
+                cell.accessoryType = .checkmark
+                cell.backgroundColor = UIColor(red: 230/255, green: 240/255, blue: 255/255, alpha: 1.0)
+            } else {
+                cell.accessoryType = .none
+                cell.backgroundColor = nil
+            }
+            
             return cell
             
-            
-            
-            
-            
-            
-            
-            
-            
-            //    Method when Task Cell tapped
             //    wenn zelle getippt
+            //    markiere zelle mit checkmark und hintergrundfarbe
             //    greife auf hinterlegte .gpx zu
             //    parse diese nach waypoints (xml parser)
             //    füge diese waypoints in ein array ein
             //    zeichne polyline zwischen den waypoints im array
             //    berechne distance über alle waypoints
+            //    wenn zelle nochmals getippt
             //    remove polyline
-            
-            
-            
-            
-            
             
     }
     
