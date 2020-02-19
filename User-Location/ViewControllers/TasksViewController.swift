@@ -66,12 +66,10 @@ extension TasksViewController: UITableViewDataSource {
             
             let taskOfInterest = tasksArray[indexPath.row]
             
-            print(taskOfInterest)
-            
             // Texts in Cell
             cell.taskName.text = taskOfInterest
             
-            // Set Checkmark and Background Color for selected Task
+            // TODO: Set Checkmark and Background Color for selected Task
             if taskOfInterest == nil {
                 cell.accessoryType = .checkmark
                 cell.backgroundColor = UIColor(red: 230/255, green: 240/255, blue: 255/255, alpha: 1.0)
@@ -82,15 +80,22 @@ extension TasksViewController: UITableViewDataSource {
             
             return cell
             
+            // Ausgabe des Tasks VC
             //    wenn zelle getippt
             //    markiere zelle mit checkmark und hintergrundfarbe
+            
+            // Aufgabe der TasksDatabase
+            //      currentTaskWaypointCoordinates = nil
             //    greife auf hinterlegte .gpx zu
             //    parse diese nach waypoints (xml parser)
             //    füge diese waypoints in ein array ein
-            //    zeichne polyline zwischen den waypoints im array
-            //    berechne distance über alle waypoints
+
+            // Aufgabe des MapScreen - MapScreen.shared?.drawTaskLines()
+            // mapView.removeAnnotation(currentTaskLine) - läuft
+            // mapView.addAnnotation(currentTaskLine) - läuft
+            
             //    wenn zelle nochmals getippt
-            //    remove polyline
+            //    remove polyline / set task = nil
             
     }
     
@@ -98,8 +103,10 @@ extension TasksViewController: UITableViewDataSource {
 
 // MARK: - Extension - UITableViewDelegate
 extension TasksViewController: UITableViewDelegate {
-    
+    // Cell selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        // Draw Polylines between Task Coordinates
+        MapScreen.shared?.drawTaskLines()
     }
 }
