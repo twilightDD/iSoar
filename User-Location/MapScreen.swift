@@ -32,8 +32,6 @@ class MapScreen: UIViewController {
     
     lazy var userLocationButton: UserLocationButton = createUserLocationButton()
     
-    //let altimeter = CMAltimeter()
-    
     var selectedDestinationAirport: AirportDatabase.Airport? {
         didSet {
             updateDirectionLabelsAndLine()
@@ -43,7 +41,8 @@ class MapScreen: UIViewController {
     
     var currentDirectionLine: MGLPolyline?
     var currentFlightLine = MGLPolyline()
-    
+    var currentTaskLine = MGLPolyline()
+
     var userTrackingMode = true
     var userFollow = false
     
@@ -107,7 +106,7 @@ class MapScreen: UIViewController {
         
         mapView.userTrackingMode = .followWithHeading
         mapView.showsUserHeadingIndicator = true
-
+        
         // MGLMapboxMetricsEnabledSettingShownInApp: YES - Info.plist
         // MGLMapboxMetricsEnabled = false
         // https://docs.mapbox.com/help/how-mapbox-works/mobile-apps/#telemetry
@@ -118,7 +117,7 @@ class MapScreen: UIViewController {
         mapView.resetNorth()
         
     }
-
+    
     // Check for Location Services
     func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled() {
@@ -205,7 +204,7 @@ class MapScreen: UIViewController {
                                                                         attribute: .notAnAttribute,
                                                                         multiplier: 1,
                                                                         constant: userLocationButton.frame.size.width)]
-
+            
             self.view.addSubview(userLocationButton)
             self.view.addConstraints(constraints)
             
@@ -243,34 +242,38 @@ class MapScreen: UIViewController {
         
     }
     
+    // Map Swipe recognized
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
             if userFollow == true {
                 self.userFollow = false
                 userLocationButton.updateArrowForTrackingMode(state: self.userFollow)
             }
-            print("Swipe recognized")
         }
     }
     
+    // Tap on Altitude-Label recognized
     @objc func tapOnAltitudeLabel(_ recognizer: UITapGestureRecognizer) {
         showAltitudeInMeters = !showAltitudeInMeters
         
         updateAltitudeLabel()
     }
     
+    // Tap on Speed-Label recognized
     @objc func tapOnSpeedLabel(_ recognizer: UITapGestureRecognizer) {
         showSpeedInKMH = !showSpeedInKMH
         
         updateSpeedLabel()
     }
     
+    // Tap on Distance-Label recognized
     @objc func tapOnDistanceLabel(_ recognizer: UITapGestureRecognizer) {
         showDistanceInKM = !showDistanceInKM
         
         updateDistanceLabel()
     }
     
+    // Tap on Destination Airport-Label recognized
     @objc func tapOnDestinationAirportLabel(_ recognizer: UITapGestureRecognizer) {
         
         if selectedDestinationAirport != nil {
@@ -422,18 +425,14 @@ class MapScreen: UIViewController {
             // DestinationAltitude
             updateDestinationAltitudeLabel()
             
-            // TODO: Calculate Gliding-Range - Does not work without Surface Elevation
-            // let glidingRange = (currentLocation.altitude - safetyAltitude)*gliderRatio
-            
-            // Draw direct line between current location and destinationAirport.
-            
+            // Draw DirectionLine between current Location and DestinationAirport
             let destinationAirportLocationCoordinate = CLLocationCoordinate2D(latitude: selectedDestinationAirport.latitude,
                                                                               longitude: selectedDestinationAirport.longitude)
             let newDirectionCoordinates: [CLLocationCoordinate2D] = [currentLocation.coordinate, destinationAirportLocationCoordinate]
-            let newCurrentLine = MGLPolyline(coordinates: newDirectionCoordinates,
-                                             count: UInt(newDirectionCoordinates.count))
+            let newCurrentDirectionLine = MGLPolyline(coordinates: newDirectionCoordinates,
+                                                      count: UInt(newDirectionCoordinates.count))
             
-            self.mapView.addAnnotation(newCurrentLine)
+            self.mapView.addAnnotation(newCurrentDirectionLine)
             
             // to avoid flickering we delay the removable of the "former" line a little bit; 16.12.19, ph
             if let currentDirectionLine = self.currentDirectionLine {
@@ -444,7 +443,7 @@ class MapScreen: UIViewController {
                 
             }
             
-            currentDirectionLine = newCurrentLine
+            currentDirectionLine = newCurrentDirectionLine
         } else {
             distanceLabel.text = "---"
             destinationAltitudeLabel.text = "---"
@@ -480,6 +479,17 @@ class MapScreen: UIViewController {
                                                 count: 1)
         }
         
+    }
+    
+    // MARK: Task Lines
+    // Draw Task Lines on Map
+    func drawTaskLines() {
+        // Remove existing Task Polyline
+        mapView.removeAnnotation(currentTaskLine)
+        
+        let currentTaskLine = MGLPolyline(coordinates: TasksDatabase.shared.currentTaskWaypointCoordinates, count: UInt(TasksDatabase.shared.currentTaskWaypointCoordinates.count))
+
+        mapView.addAnnotation(currentTaskLine)
     }
     
 }
