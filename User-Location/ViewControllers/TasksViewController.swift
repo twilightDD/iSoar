@@ -13,7 +13,8 @@ class TasksViewController: UIViewController {
     // MARK: Lets and Vars
     // Datasource
     var gpxFileNames = [String]()
-    
+    var selectedGPXFileName: String?
+
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
     
@@ -70,8 +71,7 @@ extension TasksViewController: UITableViewDataSource {
             // Texts in Cell
             cell.taskName.text = gpxFileNameOfInterest
             
-            // TODO: Set Checkmark and Background Color for selected Task
-            if gpxFileNameOfInterest == nil {
+            if gpxFileNameOfInterest == selectedGPXFileName {
                 cell.accessoryType = .checkmark
                 cell.backgroundColor = UIColor(red: 230/255, green: 240/255, blue: 255/255, alpha: 1.0)
             } else {
@@ -106,9 +106,26 @@ extension TasksViewController: UITableViewDataSource {
 extension TasksViewController: UITableViewDelegate {
     // Cell selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedGPXFileName = gpxFileNames[indexPath.row]
+        let newSelectedGPXFileName = gpxFileNames[indexPath.row]
+
+        if let selectedGPXFileName = self.selectedGPXFileName,
+            selectedGPXFileName == newSelectedGPXFileName {
+            self.selectedGPXFileName = nil
+        }
+        else {
+            self.selectedGPXFileName = newSelectedGPXFileName
+        }
+
+
+
+
         print("\(#function): \(selectedGPXFileName)")
+        
         // Draw Polylines between Task Coordinates
         MapScreen.shared?.drawTaskLines()
+
+        guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows
+            else { return }
+        tableView.reloadRows(at: indexPathsForVisibleRows, with: .none)
     }
 }
