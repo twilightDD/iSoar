@@ -12,7 +12,7 @@ class TasksViewController: UIViewController {
     
     // MARK: Lets and Vars
     // Datasource
-    var tasksArray = [String]()
+    var gpxFileNames = [String]()
     
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
@@ -36,7 +36,7 @@ class TasksViewController: UIViewController {
     // MARK: - Private Methods
     // Setup TableViewDatasource
     private func setupTableViewDatasource() {
-        tasksArray = TasksDatabase.gpxFileNames()
+        gpxFileNames = TasksDatabase.gpxFileNames()
         
         tableView.reloadData()
     }
@@ -53,7 +53,7 @@ extension TasksViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
         -> Int {
-            let numberOfRowsInSection = tasksArray.count
+            let numberOfRowsInSection = gpxFileNames.count
             return numberOfRowsInSection
     }
     
@@ -64,13 +64,14 @@ extension TasksViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskSelectionTableViewCell.identifier) as? TaskSelectionTableViewCell
                 else { fatalError("")}
             
-            let taskOfInterest = tasksArray[indexPath.row]
-            
+            let gpxFileNameOfInterest = gpxFileNames[indexPath.row]
+            print("\(#function): \(gpxFileNameOfInterest)")
+
             // Texts in Cell
-            cell.taskName.text = taskOfInterest
+            cell.taskName.text = gpxFileNameOfInterest
             
             // TODO: Set Checkmark and Background Color for selected Task
-            if taskOfInterest == nil {
+            if gpxFileNameOfInterest == nil {
                 cell.accessoryType = .checkmark
                 cell.backgroundColor = UIColor(red: 230/255, green: 240/255, blue: 255/255, alpha: 1.0)
             } else {
@@ -105,7 +106,8 @@ extension TasksViewController: UITableViewDataSource {
 extension TasksViewController: UITableViewDelegate {
     // Cell selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let selectedGPXFileName = gpxFileNames[indexPath.row]
+        print("\(#function): \(selectedGPXFileName)")
         // Draw Polylines between Task Coordinates
         MapScreen.shared?.drawTaskLines()
     }
