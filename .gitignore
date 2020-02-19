@@ -3,3 +3,6 @@
 
 #Pods
 Pods/*
+*.ipa
+report.xml
+*.dSYM.zip
