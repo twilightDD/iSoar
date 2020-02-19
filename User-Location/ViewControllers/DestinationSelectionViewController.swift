@@ -261,7 +261,7 @@ extension DestinationSelectionViewController: UITableViewDataSource {
             if MapScreen.shared!.selectedDestinationAirport?.latitude == airportOfInterest.latitude,
                 MapScreen.shared!.selectedDestinationAirport?.longitude == airportOfInterest.longitude {
                 cell.accessoryType = .checkmark
-                cell.backgroundColor = UIColor.init(named: "destinationSelection_SelectedTableViewCell")
+                cell.backgroundColor = UIColor(red: 230/255, green: 240/255, blue: 255/255, alpha: 1.0)
             } else {
                 cell.accessoryType = .none
                 cell.backgroundColor = nil
