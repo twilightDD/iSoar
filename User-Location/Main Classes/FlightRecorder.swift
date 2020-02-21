@@ -31,7 +31,6 @@ class FlightRecorder {
                                     altitude: currentLocation.altitude,
                                     speed: currentLocation.speed,
                                     course: currentLocation.course)
-        //flightDataArray.append(currentTelemetryData)
 
         // Write Data to FlightRecorder File
         FlightComputer.shared.checkIfGliderIsFlying()

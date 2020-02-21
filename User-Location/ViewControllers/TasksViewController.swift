@@ -66,11 +66,10 @@ extension TasksViewController: UITableViewDataSource {
                 else { fatalError("")}
             
             let gpxFileNameOfInterest = gpxFileNames[indexPath.row]
-            print("\(#function): \(gpxFileNameOfInterest)")
 
             // Texts in Cell
             cell.taskName.text = gpxFileNameOfInterest
-            
+             
             if gpxFileNameOfInterest == selectedGPXFileName {
                 cell.accessoryType = .checkmark
                 cell.backgroundColor = UIColor(red: 230/255, green: 240/255, blue: 255/255, alpha: 1.0)
@@ -80,10 +79,6 @@ extension TasksViewController: UITableViewDataSource {
             }
             
             return cell
-            
-            // Ausgabe des Tasks VC
-            //    wenn zelle getippt
-            //    markiere zelle mit checkmark und hintergrundfarbe
             
             // Aufgabe der TasksDatabase
             //      currentTaskWaypointCoordinates = nil
@@ -108,18 +103,24 @@ extension TasksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let newSelectedGPXFileName = gpxFileNames[indexPath.row]
 
+        // If the newly selected task equals the former:
+        // it means we want to cancel the task
+        // We deselect the active cell and set selectedGPXFileName = nil
         if let selectedGPXFileName = self.selectedGPXFileName,
             selectedGPXFileName == newSelectedGPXFileName {
             self.selectedGPXFileName = nil
-        }
-        else {
+        } else {
             self.selectedGPXFileName = newSelectedGPXFileName
+            
         }
+         
+        // TODO: Let FileManager read the Contents of the selected GPX File
+        ISoarFileManager.readContentOfSelectedGPXfile()
+        
+        
+        
+        
 
-
-
-
-        print("\(#function): \(selectedGPXFileName)")
         
         // Draw Polylines between Task Coordinates
         MapScreen.shared?.drawTaskLines()
@@ -128,4 +129,5 @@ extension TasksViewController: UITableViewDelegate {
             else { return }
         tableView.reloadRows(at: indexPathsForVisibleRows, with: .none)
     }
+
 }
