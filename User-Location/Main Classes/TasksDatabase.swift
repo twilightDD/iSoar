@@ -32,32 +32,7 @@ class TasksDatabase {
     
 }
 
-// MARK: - Private Methods
-// Read Content of GPX File
-//func readGPXfile() {
-//    //Convert the fileName to a computer readable filepath
-//    let filePath = getFilePath(fileName)
-//
-//    if filePath == nil {
-//        print ("File \"\(fileName).gpx\" does not exist in the project. Please make sure you imported the file and dont have any spelling errors")
-//        continue
-//    }
-//
-//    //Setup the parser and initialize it with the filepath's data
-//    let data = NSData(contentsOfFile: filePath!)
-//    let parser = XMLParser(data: data!)
-//    parser.delegate = self
-//
-//    //Parse the data, here the file will be read
-//    let success = parser.parse()
-//
-//    //Log an error if the parsing failed
-//    if !success {
-//        print ("Failed to parse the following file: \(fileName).gpx")
-//    }
-//    
-//}
-
+// MARK: - Methods
 // Parse Content for Latitude and Longitude
 func parseContent(parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: Double]) {
     //Check for the lines that have a <trkpt> or <wpt> tag

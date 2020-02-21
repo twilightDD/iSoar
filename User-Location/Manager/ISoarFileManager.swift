@@ -324,5 +324,36 @@ extension ISoarFileManager {
         // End Create JSON
 
     }
-
+    
+    // MARK: - Extension Read GPX File
+    // Read Content of GPX File
+    class func readContentOfSelectedGPXfile() {
+        
+        print("readContentOfSelectedGPXfile")
+        
+        //Convert the fileName to a computer readable filepath
+        let filePath = ISoarFileManager.gpxPath.appending("/hier der filename").appending(".gpx")
+    
+        print(filePath)
+        
+    }
+    //        if filePath == nil {
+    //            print ("File \"\(fileName).gpx\" does not exist in the project. Please make sure you imported the file and dont have any spelling errors")
+    //            continue
+    //        }
+    //
+    //    //Setup the parser and initialize it with the filepath's data
+    //    let data = NSData(contentsOfFile: filePath!)
+    //    let parser = XMLParser(data: data!)
+    //    parser.delegate = self
+    //
+    //    //Parse the data, here the file will be read
+    //    let success = parser.parse()
+    //
+    //    //Log an error if the parsing failed
+    //    if !success {
+    //        print ("Failed to parse the following file: \(fileName).gpx")
+    //    }
+    //
+    
 }
