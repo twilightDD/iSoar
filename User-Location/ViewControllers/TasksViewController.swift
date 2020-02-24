@@ -113,14 +113,8 @@ extension TasksViewController: UITableViewDelegate {
             self.selectedGPXFileName = newSelectedGPXFileName
             
         }
-         
-        // TODO: Let FileManager read the Contents of the selected GPX File
-        ISoarFileManager.readContentOfSelectedGPXfile()
         
-        
-        
-        
-
+        TasksDatabase.openGPXFile(newSelectedGPXFileName)
         
         // Draw Polylines between Task Coordinates
         MapScreen.shared?.drawTaskLines()
