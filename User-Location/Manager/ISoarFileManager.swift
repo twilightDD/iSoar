@@ -173,15 +173,15 @@ extension ISoarFileManager {
     // TODO: Docu
     private class func dataOfFile(_ fileURL: URL)
         -> Data? {
-            var flightMetaDataFileData: Data?
+            var fileData: Data?
 
             do {
-                flightMetaDataFileData = try Data(contentsOf: fileURL)
+                fileData = try Data(contentsOf: fileURL)
             } catch let readError {
                 print("\(readError.localizedDescription)")
             }
 
-            return flightMetaDataFileData
+            return fileData
     }
 
     // TODO: Docu
@@ -327,14 +327,15 @@ extension ISoarFileManager {
     
     // MARK: - Extension Read GPX File
     // Read Content of GPX File
-    class func readContentOfSelectedGPXfile() {
-        
-        print("readContentOfSelectedGPXfile")
-        
+    class func readContentOfSelectedGPXfile(_ fileName: String)
+        -> Data? {
+            
         //Convert the fileName to a computer readable filepath
-        let filePath = ISoarFileManager.gpxPath.appending("/hier der filename").appending(".gpx")
-    
-        print(filePath)
+        let fileURL = ISoarFileManager.gpxURL.appendingPathComponent(fileName).appendingPathExtension("gpx")
+            
+        let fileData = dataOfFile(fileURL)
+
+        return fileData
         
     }
     //        if filePath == nil {
