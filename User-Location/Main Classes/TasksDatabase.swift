@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 
 // MARK: - TasksDatabase
-class TasksDatabase {
+class TasksDatabase: NSObject {
     
     // MARK: - Lets and Vars
     static let shared = TasksDatabase()
@@ -30,29 +30,57 @@ class TasksDatabase {
             return gpxFileNames
     }
     
-}
-
-// MARK: - Methods
-// Parse Content for Latitude and Longitude
-func parseContent(parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: Double]) {
-    //Check for the lines that have a <trkpt> or <wpt> tag
-    if elementName == "trkpt" || elementName == "wpt" {
-        //Create a World map coordinate from the file
-        let waypointLatitude = attributeDict["lat"]!
-        let waypointLongitude = attributeDict["lon"]!
+    class func openGPXFile(_ fileName: String) {
+        shared.openGPXFile(fileName)
+    }
+    
+    private func openGPXFile(_ fileName: String) {
+        guard let filedata = ISoarFileManager.readContentOfSelectedGPXfile(fileName)
+            else {return}
         
-        TasksDatabase.shared.currentTaskWaypointCoordinates.append(CLLocationCoordinate2D(latitude: waypointLatitude, longitude: waypointLongitude))
+        let xmlParser = XMLParser.init(data: filedata)
+        xmlParser.delegate = self
+        xmlParser.parse()
+        
     }
     
 }
 
 // MARK: - Extentsion - Structs and Enums
 
-//extension TasksDatabase {
-
 struct Waypoint: Equatable {
     // MARK: Lets and Vars
     var latitude: String
     var longitude: String
     
+}
+
+extension TasksDatabase: XMLParserDelegate {
+    
+    // MARK: - Methods
+    // Parse Content for Latitude and Longitude
+    
+    func parser(_ parser: XMLParser,
+                didStartElement elementName: String,
+                namespaceURI: String?,
+                qualifiedName qName: String?,
+                attributes attributeDict: [String : String] = [:]) {
+        
+        //Check for the lines that have a <trkpt> or <wpt> tag
+        if elementName == "trkpt" || elementName == "wpt" {
+            //Create a World map coordinate from the file
+            if let waypointLatitude = attributeDict["lat"],
+                let waypointLongitude = attributeDict["lon"],
+                let latitude = CLLocationDegrees.init(waypointLatitude),
+                let longitude = CLLocationDegrees.init(waypointLongitude) {
+                
+                let waypointCoordinate = CLLocationCoordinate2D (latitude: latitude,
+                                                                 longitude: longitude)
+                
+                TasksDatabase.shared.currentTaskWaypointCoordinates.append(waypointCoordinate)
+                
+            }
+            
+        }
+    }
 }
