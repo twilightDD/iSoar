@@ -22,6 +22,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var gliderIDTextField: TextFields!
     @IBOutlet weak var landingGearWarningSwitch: UISwitch!
     @IBOutlet weak var showTrackingRouteSwitch: UISwitch!
+    @IBOutlet weak var showNearbyGlidersSwitch: UISwitch!
     
     // MARK: - Init&Co.
     override func viewDidLoad() {
@@ -89,6 +90,10 @@ class SettingsViewController: UIViewController {
         // Tracking Route Switch Setup
         let showTrackingRouteSwitchState = UserDefaultsManager.getShowTrackingRouteSwitchKey()
         showTrackingRouteSwitch.isOn = showTrackingRouteSwitchState
+        
+        // Show nearby Gliders Switch Setup
+        let showNearbyGlidersSwitchState = UserDefaultsManager.getShowNearbyGlidersSwitchKey()
+        showNearbyGlidersSwitch.isOn = showNearbyGlidersSwitchState
     }
     
     // Save Settings to User Defaults
@@ -113,6 +118,11 @@ class SettingsViewController: UIViewController {
     //Show Tracking Route Switch
     @IBAction func showTrackingRouteSwitch(_ sender: UISwitch) {
         UserDefaultsManager.set(showTrackingRouteSwitch: showTrackingRouteSwitch.isOn)
+    }
+    
+    //Show nearby Gliders Switch
+    @IBAction func showNearbyGlidersSwitch(_ sender: UISwitch) {
+        UserDefaultsManager.set(showNearbyGlidersSwitch: showNearbyGlidersSwitch.isOn)
     }
     
     // Download updated Airport Database File from Server

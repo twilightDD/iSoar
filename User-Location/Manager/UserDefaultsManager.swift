@@ -16,6 +16,7 @@ class UserDefaultsManager {
     private static let GliderIDKey = "gliderID"
     private static let LandingGearWarningSwitchKey = "landingGearWarningSwitch"
     private static let ShowTrackingRouteSwitchKey = "showTrackingRouteSwitch"
+    private static let ShowNearbyGlidersSwitchKey = "showNearbyGlidersSwitch"
 
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
@@ -23,6 +24,7 @@ class UserDefaultsManager {
     private static let landingGearWarningSwitchDefault: Bool = true
     private static let safetyAltitudeDefault: Double = 200
     private static let showTrackingRouteSwitchDefault: Bool = true
+    private static let showNearbyGlidersSwitchDefault: Bool = true
     
     // MARK: - Lets and Vars
     private static let shared = UserDefaultsManager()
@@ -45,6 +47,9 @@ class UserDefaultsManager {
         }
         if shared.userDefaults.value(forKey: ShowTrackingRouteSwitchKey) == nil {
             shared.userDefaults.set(true, forKey: ShowTrackingRouteSwitchKey)
+        }
+        if shared.userDefaults.value(forKey: ShowNearbyGlidersSwitchKey) == nil {
+            shared.userDefaults.set(true, forKey: ShowNearbyGlidersSwitchKey)
         }
     }
 
@@ -101,6 +106,17 @@ class UserDefaultsManager {
     
     class func set(showTrackingRouteSwitch: Bool) {
         shared.userDefaults.set(showTrackingRouteSwitch, forKey: ShowTrackingRouteSwitchKey)
+    }
+    
+    // MARK: ShowNearbyGlidersSwitch
+    class func getShowNearbyGlidersSwitchKey()
+        -> Bool {
+            let showNearbyGlidersSwitchKey = shared.userDefaults.value(forKey: ShowNearbyGlidersSwitchKey) as? Bool ?? showNearbyGlidersSwitchDefault
+            return showNearbyGlidersSwitchKey
+    }
+    
+    class func set(showNearbyGlidersSwitch: Bool) {
+        shared.userDefaults.set(showNearbyGlidersSwitch, forKey: ShowNearbyGlidersSwitchKey)
     }
     
 }
