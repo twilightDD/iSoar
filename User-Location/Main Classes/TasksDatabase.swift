@@ -16,12 +16,7 @@ class TasksDatabase: NSObject {
     static let shared = TasksDatabase()
     
     // TODO: only init! remove content! only for testing Task Lines
-    var currentTaskWaypointCoordinates = [
-        CLLocationCoordinate2D(latitude: 47.802914, longitude: 8.97955),
-        CLLocationCoordinate2D(latitude: 48, longitude: 8.85),
-        CLLocationCoordinate2D(latitude: 47.96, longitude: 9.1),
-        CLLocationCoordinate2D(latitude: 47.802914, longitude: 8.97955)
-    ]
+    var currentTaskWaypointCoordinates = [CLLocationCoordinate2D]()
     
     class func gpxFileNames()
         -> [String] {
@@ -64,7 +59,7 @@ extension TasksDatabase: XMLParserDelegate {
                 didStartElement elementName: String,
                 namespaceURI: String?,
                 qualifiedName qName: String?,
-                attributes attributeDict: [String : String] = [:]) {
+                attributes attributeDict: [String: String] = [:]) {
         
         //Check for the lines that have a <trkpt> or <wpt> tag
         if elementName == "trkpt" || elementName == "wpt" {
@@ -74,12 +69,14 @@ extension TasksDatabase: XMLParserDelegate {
                 let latitude = CLLocationDegrees.init(waypointLatitude),
                 let longitude = CLLocationDegrees.init(waypointLongitude) {
                 
-                let waypointCoordinate = CLLocationCoordinate2D (latitude: latitude,
+                let waypointCoordinate = CLLocationCoordinate2D(latitude: latitude,
                                                                  longitude: longitude)
                 
                 TasksDatabase.shared.currentTaskWaypointCoordinates.append(waypointCoordinate)
-                
+
             }
+            
+            print(TasksDatabase.shared.currentTaskWaypointCoordinates)
             
         }
     }
