@@ -23,6 +23,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var landingGearWarningSwitch: UISwitch!
     @IBOutlet weak var showTrackingRouteSwitch: UISwitch!
     @IBOutlet weak var showNearbyGlidersSwitch: UISwitch!
+    @IBOutlet weak var buddyFlarmIDTextField: TextFields!
     
     // MARK: - Init&Co.
     override func viewDidLoad() {
@@ -32,7 +33,8 @@ class SettingsViewController: UIViewController {
         gliderRatioTextField.delegate = self
         safetyAltitudeTextField.delegate = self
         gliderIDTextField.delegate = self
-        
+        buddyFlarmIDTextField.delegate = self
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,6 +96,10 @@ class SettingsViewController: UIViewController {
         // Show nearby Gliders Switch Setup
         let showNearbyGlidersSwitchState = UserDefaultsManager.getShowNearbyGlidersSwitchKey()
         showNearbyGlidersSwitch.isOn = showNearbyGlidersSwitchState
+        
+        // Buddy FlarmID
+        let buddyFlarmID = UserDefaultsManager.getBuddyFlarmID()
+        buddyFlarmIDTextField.text! = buddyFlarmID
     }
     
     // Save Settings to User Defaults
@@ -107,6 +113,7 @@ class SettingsViewController: UIViewController {
         UserDefaultsManager.set(gliderRatio: gliderRatioDouble)
         UserDefaultsManager.set(safetyAltitude: safetyAltitudeDouble)
         UserDefaultsManager.set(gliderID: gliderIDTextField.text!)
+        UserDefaultsManager.set(buddyFlarmID: buddyFlarmIDTextField.text!)
     }
     
     // MARK: - Action Methods
