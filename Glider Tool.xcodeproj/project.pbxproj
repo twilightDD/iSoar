@@ -32,6 +32,7 @@
 		E0B52F72228377F300E28A93 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F71228377F300E28A93 /* Buttons.swift */; };
 		E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F7622837C1500E28A93 /* TextFields.swift */; };
 		E0B8142B2367450200D88B6C /* LogbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B8142A2367450200D88B6C /* LogbookViewController.swift */; };
+		E0BD92EE24081E7E00B778AC /* NearbyGlidersDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BD92ED24081E7E00B778AC /* NearbyGlidersDatabase.swift */; };
 		E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */; };
 		E0E1D87A229476C00004DE81 /* DestinationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */; };
 		E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */; };
@@ -82,6 +83,7 @@
 		E0B52F71228377F300E28A93 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		E0B52F7622837C1500E28A93 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
 		E0B8142A2367450200D88B6C /* LogbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogbookViewController.swift; sourceTree = "<group>"; };
+		E0BD92ED24081E7E00B778AC /* NearbyGlidersDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyGlidersDatabase.swift; sourceTree = "<group>"; };
 		E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Rotate.swift"; sourceTree = "<group>"; };
 		E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionViewController.swift; sourceTree = "<group>"; };
 		E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportInfoViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				E02052B023E36A9A00839B84 /* FlightRecorder.swift */,
 				E007864823D2204600856865 /* FlightsDatabase.swift */,
 				E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */,
+				E0BD92ED24081E7E00B778AC /* NearbyGlidersDatabase.swift */,
 			);
 			path = "Main Classes";
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 			files = (
 				E02052AF23E36A8200839B84 /* FlightComputer.swift in Sources */,
 				D060C1F322B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift in Sources */,
+				E0BD92EE24081E7E00B778AC /* NearbyGlidersDatabase.swift in Sources */,
 				E0B8142B2367450200D88B6C /* LogbookViewController.swift in Sources */,
 				E01D87EB239ABB5D00E9B5B6 /* TasksDatabase.swift in Sources */,
 				E00E08CC23DB877A00BE04F6 /* TimeDateFormatter.swift in Sources */,
