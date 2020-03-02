@@ -20,9 +20,9 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var gliderRatioTextField: TextFields!
     @IBOutlet weak var safetyAltitudeTextField: TextFields!
     @IBOutlet weak var gliderIDTextField: TextFields!
-    @IBOutlet weak var landingGearWarningSwitch: UISwitch!
+    @IBOutlet weak var gearWarningSwitch: UISwitch!
     @IBOutlet weak var showTrackingRouteSwitch: UISwitch!
-    @IBOutlet weak var showNearbyGlidersSwitch: UISwitch!
+    @IBOutlet weak var showFlarmBuddySwitch: UISwitch!
     @IBOutlet weak var buddyFlarmIDTextField: TextFields!
     
     // MARK: - Init&Co.
@@ -85,17 +85,17 @@ class SettingsViewController: UIViewController {
         let gliderID = UserDefaultsManager.getGliderID()
         gliderIDTextField.text! = gliderID
         
-        // Landing Gear Warning Switch Setup
-        let landingGearWarningSwitchState = UserDefaultsManager.getLandingGearWarningSwitch()
-        landingGearWarningSwitch.isOn = landingGearWarningSwitchState
+        // Gear Warning Switch Setup
+        let gearWarningSwitchState = UserDefaultsManager.getGearWarningSwitch()
+        gearWarningSwitch.isOn = gearWarningSwitchState
         
         // Tracking Route Switch Setup
         let showTrackingRouteSwitchState = UserDefaultsManager.getShowTrackingRouteSwitchKey()
         showTrackingRouteSwitch.isOn = showTrackingRouteSwitchState
         
-        // Show nearby Gliders Switch Setup
-        let showNearbyGlidersSwitchState = UserDefaultsManager.getShowNearbyGlidersSwitchKey()
-        showNearbyGlidersSwitch.isOn = showNearbyGlidersSwitchState
+        // Show Flarm Buddy Switch Setup
+        let showFlarmBuddySwitchState = UserDefaultsManager.getShowNearbyGlidersSwitchKey()
+        showFlarmBuddySwitch.isOn = showFlarmBuddySwitchState
         
         // Buddy FlarmID
         let buddyFlarmID = UserDefaultsManager.getBuddyFlarmID()
@@ -117,9 +117,9 @@ class SettingsViewController: UIViewController {
     }
     
     // MARK: - Action Methods
-    // Landing Gear Warning Switch
-    @IBAction func landingGearWarningSwitch(_ sender: UISwitch) {
-        UserDefaultsManager.set(landingGearWarningSwitch: landingGearWarningSwitch.isOn)
+    // Gear Warning Switch
+    @IBAction func gearWarningSwitch(_ sender: UISwitch) {
+        UserDefaultsManager.set(gearWarningSwitch: gearWarningSwitch.isOn)
     }
 
     //Show Tracking Route Switch
@@ -128,8 +128,8 @@ class SettingsViewController: UIViewController {
     }
     
     //Show nearby Gliders Switch
-    @IBAction func showNearbyGlidersSwitch(_ sender: UISwitch) {
-        UserDefaultsManager.set(showNearbyGlidersSwitch: showNearbyGlidersSwitch.isOn)
+    @IBAction func showFlarmBuddySwitch(_ sender: UISwitch) {
+        UserDefaultsManager.set(showFlarmBuddySwitch: showFlarmBuddySwitch.isOn)
     }
     
     // Download updated Airport Database File from Server

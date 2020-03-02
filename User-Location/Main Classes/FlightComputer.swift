@@ -78,13 +78,13 @@ class FlightComputer {
     }
     
     // MARK: Audio Warnings
-    // Audio Landing Gear Warning
+    // Audio Gear Warning
     func gearWarning() {
         guard let selectedDestinationAirport = MapScreen.shared?.selectedDestinationAirport
             else { return }
 
-        let landingGearWarningSwitch = UserDefaultsManager.getLandingGearWarningSwitch()
-        if landingGearWarningSwitch == true {
+        let gearWarningSwitch = UserDefaultsManager.getGearWarningSwitch()
+        if gearWarningSwitch == true {
             let distanceInKm = (MapScreen.shared?.currentDistance!)!/1000
 
             let upperGearWarningAltitude = selectedDestinationAirport.elevation + 400
@@ -96,7 +96,7 @@ class FlightComputer {
                     
                     AudioServicesPlayAlertSound(SystemSoundID(1256))
                     
-                    let utterance = AVSpeechUtterance(string: "Check Landing Gear")
+                    let utterance = AVSpeechUtterance(string: "Check Gear")
                     utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
                     utterance.rate = 0.5
                     
@@ -112,7 +112,7 @@ class FlightComputer {
                 playGearWarning = true
             }
         } else {
-            // Landing Gear Switch is off
+            // Gear Switch is off
         }
         
     }

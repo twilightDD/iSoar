@@ -14,15 +14,15 @@ class UserDefaultsManager {
     private static let GliderRatioKey = "gliderRatio"
     private static let SafetyAltitudeKey = "safetyAltitude"
     private static let GliderIDKey = "gliderID"
-    private static let LandingGearWarningSwitchKey = "landingGearWarningSwitch"
+    private static let GearWarningSwitchKey = "gearWarningSwitch"
     private static let ShowTrackingRouteSwitchKey = "showTrackingRouteSwitch"
-    private static let ShowNearbyGlidersSwitchKey = "showNearbyGlidersSwitch"
+    private static let ShowFlarmBuddySwitchKey = "showFlarmBuddySwitch"
     private static let BuddyFlarmIDKey = "buddyFlarmID"
 
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
     private static let gliderRadioDefault: Double = 20
-    private static let landingGearWarningSwitchDefault: Bool = true
+    private static let gearWarningSwitchDefault: Bool = true
     private static let safetyAltitudeDefault: Double = 200
     private static let showTrackingRouteSwitchDefault: Bool = true
     private static let showNearbyGlidersSwitchDefault: Bool = true
@@ -44,14 +44,14 @@ class UserDefaultsManager {
         if shared.userDefaults.value(forKey: GliderIDKey) == nil {
             UserDefaultsManager.set(gliderID: gliderIDDefault)
         }
-        if shared.userDefaults.value(forKey: LandingGearWarningSwitchKey) == nil {
-            shared.userDefaults.set(true, forKey: LandingGearWarningSwitchKey)
+        if shared.userDefaults.value(forKey: GearWarningSwitchKey) == nil {
+            shared.userDefaults.set(true, forKey: GearWarningSwitchKey)
         }
         if shared.userDefaults.value(forKey: ShowTrackingRouteSwitchKey) == nil {
             shared.userDefaults.set(true, forKey: ShowTrackingRouteSwitchKey)
         }
-        if shared.userDefaults.value(forKey: ShowNearbyGlidersSwitchKey) == nil {
-            shared.userDefaults.set(true, forKey: ShowNearbyGlidersSwitchKey)
+        if shared.userDefaults.value(forKey: ShowFlarmBuddySwitchKey) == nil {
+            shared.userDefaults.set(true, forKey: ShowFlarmBuddySwitchKey)
         }
         if shared.userDefaults.value(forKey: BuddyFlarmIDKey) == nil {
             UserDefaultsManager.set(buddyFlarmID: buddyFlarmIDDefault)
@@ -80,15 +80,15 @@ class UserDefaultsManager {
         shared.userDefaults.set(gliderRatio, forKey: GliderRatioKey)
     }
 
-    // MARK: LandingGearWarningSwitch
-    class func getLandingGearWarningSwitch()
+    // MARK: GearWarningSwitch
+    class func getGearWarningSwitch()
         -> Bool {
-            let landingGearWarningSwitch = shared.userDefaults.value(forKey: LandingGearWarningSwitchKey) as? Bool ?? landingGearWarningSwitchDefault
-            return landingGearWarningSwitch
+            let gearWarningSwitch = shared.userDefaults.value(forKey: GearWarningSwitchKey) as? Bool ?? gearWarningSwitchDefault
+            return gearWarningSwitch
     }
     
-    class func set (landingGearWarningSwitch: Bool) {
-        shared.userDefaults.set(landingGearWarningSwitch, forKey: LandingGearWarningSwitchKey)
+    class func set (gearWarningSwitch: Bool) {
+        shared.userDefaults.set(gearWarningSwitch, forKey: GearWarningSwitchKey)
     }
 
     // MARK: SafetyAltitude
@@ -116,12 +116,12 @@ class UserDefaultsManager {
     // MARK: ShowNearbyGlidersSwitch
     class func getShowNearbyGlidersSwitchKey()
         -> Bool {
-            let showNearbyGlidersSwitchKey = shared.userDefaults.value(forKey: ShowNearbyGlidersSwitchKey) as? Bool ?? showNearbyGlidersSwitchDefault
+            let showNearbyGlidersSwitchKey = shared.userDefaults.value(forKey: ShowFlarmBuddySwitchKey) as? Bool ?? showNearbyGlidersSwitchDefault
             return showNearbyGlidersSwitchKey
     }
     
-    class func set(showNearbyGlidersSwitch: Bool) {
-        shared.userDefaults.set(showNearbyGlidersSwitch, forKey: ShowNearbyGlidersSwitchKey)
+    class func set(showFlarmBuddySwitch: Bool) {
+        shared.userDefaults.set(showFlarmBuddySwitch, forKey: ShowFlarmBuddySwitchKey)
     }
     
     // MARK: Buddy FlarmID
