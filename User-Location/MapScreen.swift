@@ -79,6 +79,8 @@ class MapScreen: UIViewController {
         
         checkTrackingRouteStatus()
         
+        OGNSocketConnectionManager.shared.connectToOGNServerSocket()
+        
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
