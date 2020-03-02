@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
-    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -24,67 +24,128 @@
                                     <outlet property="delegate" destination="AW2-mO-9uR" id="nT9-a1-OZ8"/>
                                 </connections>
                             </navigationBar>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8yb-8T-kXL">
-                                <rect key="frame" x="20" y="108" width="374" height="307"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8yb-8T-kXL">
+                                <rect key="frame" x="15" y="108" width="384" height="270"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="3iw-q3-i4A" userLabel="Label Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="233" height="307"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xpg-ro-0Oc" userLabel="Image Stack View">
+                                        <rect key="frame" x="0.0" y="0.0" width="25" height="270"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down.left" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="FeX-Ch-QLo">
+                                                <rect key="frame" x="0.0" y="3" width="25" height="18.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="WKn-2X-3mW"/>
+                                                    <constraint firstAttribute="height" constant="25" id="ZQ2-py-Pl2"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="0YC-k3-IcV">
+                                                <rect key="frame" x="0.0" y="36.5" width="25" height="22.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="PFU-4O-nv8"/>
+                                                    <constraint firstAttribute="height" constant="25" id="Wky-2c-tCd"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="airplane" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="AvJ-Dl-thS">
+                                                <rect key="frame" x="0.0" y="70.5" width="25" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="25" id="H6y-v9-rpj"/>
+                                                    <constraint firstAttribute="width" constant="25" id="yp7-hg-QhC"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.2" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="EaH-dC-i2c">
+                                                <rect key="frame" x="0.0" y="106.5" width="25" height="22.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="Kp8-Fp-hV7"/>
+                                                    <constraint firstAttribute="height" constant="25" id="wNd-4S-9VS"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="If3-rq-5ar">
+                                                <rect key="frame" x="0.0" y="140.5" width="25" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="25" id="Jn8-Pj-H1Z"/>
+                                                    <constraint firstAttribute="width" constant="25" id="YSy-tY-YbF"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GGl-Du-FaQ">
+                                                <rect key="frame" x="0.0" y="175.5" width="25" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="25" id="aX1-vd-OTP"/>
+                                                    <constraint firstAttribute="width" constant="25" id="awZ-mx-vg6"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ifs-kW-krG">
+                                                <rect key="frame" x="0.0" y="210.5" width="25" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="byQ-UP-mPb"/>
+                                                    <constraint firstAttribute="height" constant="25" id="tmd-It-rTm"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icloud.and.arrow.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="UwP-87-LyO">
+                                                <rect key="frame" x="0.0" y="245" width="25" height="26"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="25" id="bbI-hL-URl"/>
+                                                    <constraint firstAttribute="width" constant="25" id="gBM-wT-PFx"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3iw-q3-i4A" userLabel="Label Stack View">
+                                        <rect key="frame" x="35" y="0.0" width="198" height="270"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glider Ratio:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRc-6M-XsH">
-                                                <rect key="frame" x="0.0" y="0.0" width="233" height="34"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="198" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safety Altitude in m:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55b-9k-XZj">
-                                                <rect key="frame" x="0.0" y="39" width="233" height="34"/>
+                                                <rect key="frame" x="0.0" y="35" width="198" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glider ID:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BMn-n2-sUr">
-                                                <rect key="frame" x="0.0" y="78" width="233" height="34"/>
+                                                <rect key="frame" x="0.0" y="70" width="198" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buddy FlarmID:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pse-xM-3va" userLabel="Buddy FlarmID">
-                                                <rect key="frame" x="0.0" y="117" width="233" height="34"/>
+                                                <rect key="frame" x="0.0" y="105" width="198" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Landing Gear Warning:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LK7-KN-Q4d">
-                                                <rect key="frame" x="0.0" y="156" width="233" height="34"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gear Warning:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LK7-KN-Q4d">
+                                                <rect key="frame" x="0.0" y="140" width="198" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Tracking Route:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SH1-lu-hfJ">
-                                                <rect key="frame" x="0.0" y="195" width="233" height="34"/>
+                                                <rect key="frame" x="0.0" y="175" width="198" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show nearby Gliders:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aws-zu-29e" userLabel="Show Nearby Gliders:">
-                                                <rect key="frame" x="0.0" y="234" width="233" height="34"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Buddy on Map:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aws-zu-29e">
+                                                <rect key="frame" x="0.0" y="210" width="198" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Airport Database Update:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yzx-Ue-oFV">
-                                                <rect key="frame" x="0.0" y="273" width="233" height="34"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Airport DB Update:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yzx-Ue-oFV">
+                                                <rect key="frame" x="0.0" y="245" width="198" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="H2j-WP-BrR" userLabel="Setting Stack View">
-                                        <rect key="frame" x="238" y="0.0" width="136" height="307"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H2j-WP-BrR" userLabel="Setting Stack View">
+                                        <rect key="frame" x="243" y="0.0" width="141" height="270"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Uma-pM-80t" userLabel="Glider Ratio" customClass="TextFields" customModule="iSoar" customModuleProvider="target">
-                                                <rect key="frame" x="36" y="0.0" width="100" height="34"/>
+                                                <rect key="frame" x="41" y="0.0" width="100" height="25"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="oap-RJ-P4x"/>
@@ -96,7 +157,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="vi7-Ik-Pbz" userLabel="Safety Altitude" customClass="TextFields" customModule="iSoar" customModuleProvider="target">
-                                                <rect key="frame" x="36" y="39" width="100" height="34"/>
+                                                <rect key="frame" x="41" y="35" width="100" height="25"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="Z5l-Kk-bnP"/>
@@ -108,7 +169,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="aJN-ar-pUl" userLabel="Glider ID" customClass="TextFields" customModule="iSoar" customModuleProvider="target">
-                                                <rect key="frame" x="36" y="78" width="100" height="34"/>
+                                                <rect key="frame" x="41" y="70" width="100" height="25"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="xzw-8N-tn4"/>
@@ -120,7 +181,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="1Iz-WY-jQW" userLabel="Buddy FlarmID" customClass="TextFields" customModule="iSoar" customModuleProvider="target">
-                                                <rect key="frame" x="16" y="117" width="120" height="34"/>
+                                                <rect key="frame" x="21" y="105" width="120" height="25"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="KcP-0Y-6qS"/>
@@ -131,27 +192,26 @@
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="doneAccessory" value="NO"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JuI-97-a4S" userLabel="Landing Gear Warning Switch">
-                                                <rect key="frame" x="87" y="156" width="51" height="34"/>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JuI-97-a4S" userLabel="Gear Warning Switch">
+                                                <rect key="frame" x="92" y="140" width="51" height="25"/>
                                                 <connections>
-                                                    <action selector="landingGearWarningSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="nN4-fh-hST"/>
+                                                    <action selector="gearWarningSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="nN4-fh-hST"/>
                                                 </connections>
                                             </switch>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fpo-31-RHc">
-                                                <rect key="frame" x="87" y="195" width="51" height="34"/>
+                                                <rect key="frame" x="92" y="175" width="51" height="25"/>
                                                 <connections>
                                                     <action selector="showTrackingRouteSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="F4d-NP-Akg"/>
                                                 </connections>
                                             </switch>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KaZ-yB-IiE" userLabel="Show Nearby Gliders Switch">
-                                                <rect key="frame" x="87" y="234" width="51" height="34"/>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KaZ-yB-IiE" userLabel="Show Buddy on Map Switch">
+                                                <rect key="frame" x="92" y="210" width="51" height="25"/>
                                                 <connections>
-                                                    <action selector="showNearbyGlidersSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="6WL-jK-ca2"/>
-                                                    <action selector="showTrackingRouteSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="Fal-6V-htQ"/>
+                                                    <action selector="showFlarmBuddySwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="6WL-jK-ca2"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FdF-xH-HSc">
-                                                <rect key="frame" x="55" y="273" width="81" height="34"/>
+                                                <rect key="frame" x="60" y="245" width="81" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" title="Download"/>
                                                 <connections>
@@ -166,8 +226,8 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="ZtY-EE-Of7" firstAttribute="trailing" secondItem="8yb-8T-kXL" secondAttribute="trailing" constant="20" id="HLd-iC-Y0S"/>
-                            <constraint firstItem="8yb-8T-kXL" firstAttribute="leading" secondItem="ZtY-EE-Of7" secondAttribute="leading" constant="20" id="Sel-tt-YIM"/>
+                            <constraint firstItem="ZtY-EE-Of7" firstAttribute="trailing" secondItem="8yb-8T-kXL" secondAttribute="trailing" constant="15" id="HLd-iC-Y0S"/>
+                            <constraint firstItem="8yb-8T-kXL" firstAttribute="leading" secondItem="ZtY-EE-Of7" secondAttribute="leading" constant="15" id="Sel-tt-YIM"/>
                             <constraint firstItem="8yb-8T-kXL" firstAttribute="top" secondItem="8gb-FZ-fCz" secondAttribute="bottom" constant="20" id="dkC-aj-T0f"/>
                             <constraint firstItem="8gb-FZ-fCz" firstAttribute="top" secondItem="ZtY-EE-Of7" secondAttribute="top" id="gYf-Sf-vbs"/>
                             <constraint firstItem="8gb-FZ-fCz" firstAttribute="centerX" secondItem="8yb-8T-kXL" secondAttribute="centerX" id="o4X-IM-kVO"/>
@@ -178,18 +238,18 @@
                     <tabBarItem key="tabBarItem" title="Settings" image="settings" id="j3Q-jO-Tnc"/>
                     <connections>
                         <outlet property="buddyFlarmIDTextField" destination="1Iz-WY-jQW" id="Go4-2n-lue"/>
+                        <outlet property="gearWarningSwitch" destination="JuI-97-a4S" id="w9F-DV-3zy"/>
                         <outlet property="gliderIDTextField" destination="aJN-ar-pUl" id="2Tx-pG-xWm"/>
                         <outlet property="gliderRatioTextField" destination="Uma-pM-80t" id="L64-OO-bCX"/>
-                        <outlet property="landingGearWarningSwitch" destination="JuI-97-a4S" id="w9F-DV-3zy"/>
                         <outlet property="safetyAltitudeTextField" destination="vi7-Ik-Pbz" id="MFm-9G-hI4"/>
-                        <outlet property="showNearbyGlidersSwitch" destination="KaZ-yB-IiE" id="OQi-Gj-k4d"/>
+                        <outlet property="showFlarmBuddySwitch" destination="KaZ-yB-IiE" id="OQi-Gj-k4d"/>
                         <outlet property="showTrackingRouteSwitch" destination="fpo-31-RHc" id="KWe-xD-HBr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BSE-1G-sMQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="1JU-Wn-zlw" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="346" y="551"/>
+            <point key="canvasLocation" x="344.92753623188406" y="550.44642857142856"/>
         </scene>
         <!--Logbook-->
         <scene sceneID="kZz-qr-uGS">
@@ -608,14 +668,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskSelectionTableViewCell" id="DPU-HB-jDi" customClass="TaskSelectionTableViewCell" customModule="iSoar" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DPU-HB-jDi" id="BFo-Hu-pV9">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fmk-3Q-uW8">
-                                                    <rect key="frame" x="15" y="11" width="81" height="21"/>
+                                                    <rect key="frame" x="15" y="11" width="81" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1067,13 +1127,18 @@
     <resources>
         <image name="Germany" width="512" height="514"/>
         <image name="airplane" catalog="system" width="64" height="56"/>
+        <image name="arrow.down.left" catalog="system" width="64" height="54"/>
         <image name="arrow.down.right" catalog="system" width="64" height="54"/>
         <image name="arrow.up.right" catalog="system" width="64" height="54"/>
         <image name="calendar" catalog="system" width="64" height="52"/>
+        <image name="checkmark.circle" catalog="system" width="64" height="60"/>
         <image name="clock" catalog="system" width="64" height="60"/>
+        <image name="heart" catalog="system" width="64" height="54"/>
+        <image name="icloud.and.arrow.down" catalog="system" width="64" height="56"/>
         <image name="info.circle" catalog="system" width="64" height="60"/>
         <image name="logbook" width="35" height="35"/>
         <image name="map" width="65" height="30"/>
+        <image name="person.2" catalog="system" width="64" height="40"/>
         <image name="plus.circle" catalog="system" width="64" height="60"/>
         <image name="settings" width="35" height="35"/>
         <image name="tabbar_DestinationSelection" width="35" height="35"/>
