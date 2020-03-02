@@ -13,11 +13,12 @@ import CoreLocation
 class TasksDatabase: NSObject {
     
     // MARK: - Lets and Vars
-    static let shared = TasksDatabase()
+    private static let shared = TasksDatabase()
     
     // TODO: only init! remove content! only for testing Task Lines
     var currentTaskWaypointCoordinates = [CLLocationCoordinate2D]()
-    
+
+    // MARK: - Class Methods
     class func gpxFileNames()
         -> [String] {
             let gpxFileNames = ISoarFileManager.gpxFileNames()
@@ -25,18 +26,18 @@ class TasksDatabase: NSObject {
             return gpxFileNames
     }
     
-    class func openGPXFile(_ fileName: String) {
-        shared.openGPXFile(fileName)
+    class func openGPXFile(withFilename fileName: String) {
+        shared.openGPXFile(withFilename: fileName)
     }
-    
-    private func openGPXFile(_ fileName: String) {
+
+    // MARK: - Private Methods
+    private func openGPXFile(withFilename fileName: String) {
         guard let filedata = ISoarFileManager.readContentOfSelectedGPXfile(fileName)
             else {return}
         
         let xmlParser = XMLParser.init(data: filedata)
         xmlParser.delegate = self
         xmlParser.parse()
-        
     }
     
 }
@@ -50,11 +51,17 @@ struct Waypoint: Equatable {
     
 }
 
+// MARK: - Extension - XMLParserDelegate
 extension TasksDatabase: XMLParserDelegate {
-    
-    // MARK: - Methods
+
+    // parser start
+    func parserDidStartDocument(_ parser: XMLParser) {
+        MapScreen.shared?.removeCurrentTaskLine()
+
+        currentTaskWaypointCoordinates.removeAll()
+    }
+
     // Parse Content for Latitude and Longitude
-    
     func parser(_ parser: XMLParser,
                 didStartElement elementName: String,
                 namespaceURI: String?,
@@ -71,13 +78,14 @@ extension TasksDatabase: XMLParserDelegate {
                 
                 let waypointCoordinate = CLLocationCoordinate2D(latitude: latitude,
                                                                  longitude: longitude)
-                
-                TasksDatabase.shared.currentTaskWaypointCoordinates.append(waypointCoordinate)
-
+                currentTaskWaypointCoordinates.append(waypointCoordinate)
             }
-            
-            print(TasksDatabase.shared.currentTaskWaypointCoordinates)
-            
         }
     }
+
+    // Parser end
+    func parserDidEndDocument(_ parser: XMLParser) {
+        MapScreen.shared?.drawTaskLine(withCoordinates: currentTaskWaypointCoordinates)
+    }
+
 }

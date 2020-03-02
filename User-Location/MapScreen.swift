@@ -41,7 +41,7 @@ class MapScreen: UIViewController {
     
     var currentDirectionLine: MGLPolyline?
     var currentFlightLine = MGLPolyline()
-    var currentTaskLine = MGLPolyline()
+    var currentTaskLine: MGLPolyline?
 
     var userTrackingMode = true
     var userFollow = false
@@ -482,16 +482,22 @@ class MapScreen: UIViewController {
         }
         
     }
-    
-    // MARK: Task Lines
-    // Draw Task Lines on Map
-    func drawTaskLines() {
-        // Remove existing Task Polyline
-        mapView.removeAnnotation(currentTaskLine)
-        
-        let currentTaskLine = MGLPolyline(coordinates: TasksDatabase.shared.currentTaskWaypointCoordinates, count: UInt(TasksDatabase.shared.currentTaskWaypointCoordinates.count))
 
-        mapView.addAnnotation(currentTaskLine)
+    // MARK: Handle Task Lines
+    func removeCurrentTaskLine() {
+        // Remove existing Task Polyline
+        if let currentTaskLine = currentTaskLine {
+            mapView.removeAnnotation(currentTaskLine)
+            self.currentTaskLine = nil
+        }
+    }
+
+    func drawTaskLine(withCoordinates coordinates: [CLLocationCoordinate2D]) {
+        currentTaskLine = MGLPolyline(coordinates: coordinates,
+                                      count: UInt(coordinates.count))
+        if let currentTaskLine = currentTaskLine {
+            mapView.addAnnotation(currentTaskLine)
+        }
     }
     
 }

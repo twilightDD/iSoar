@@ -46,7 +46,7 @@ class TasksViewController: UIViewController {
 
 // MARK: - Extension - UITableViewDataSource
 extension TasksViewController: UITableViewDataSource {
-    
+
     func numberOfSections(in tableView: UITableView)
         -> Int {
             return 1
@@ -114,10 +114,7 @@ extension TasksViewController: UITableViewDelegate {
             
         }
         
-        TasksDatabase.openGPXFile(newSelectedGPXFileName)
-        
-        // Draw Polylines between Task Coordinates
-        MapScreen.shared?.drawTaskLines()
+        TasksDatabase.openGPXFile(withFilename: newSelectedGPXFileName)
 
         guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows
             else { return }
