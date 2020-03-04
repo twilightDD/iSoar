@@ -18,7 +18,7 @@ class OGNSocketConnectionManager {
     private var queue = DispatchQueue(label: "NetworkQueue", qos: .utility)
     private lazy var userName = generateRandomUserName()
     
-    var showNearbyGliders = false
+    var showFlarmBuddy = false
     
     var receivedServerIdentification: Bool = false
     var isLoggedIn = false
@@ -48,8 +48,8 @@ class OGNSocketConnectionManager {
         // Check if Nearby Gliders should be shown on Map
         print("We are loggin in: \(isLoggedIn)")
         
-        showNearbyGliders = UserDefaultsManager.getShowNearbyGlidersSwitchKey()
-        if showNearbyGliders == true && isLoggedIn == false {
+        showFlarmBuddy = UserDefaultsManager.getShowFlarmBuddySwitchKey()
+        if showFlarmBuddy == true && isLoggedIn == false {
             // Delay Login
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 // 10152 Full Feed, 14580 Filtered Feed
