@@ -96,42 +96,44 @@ class OGNSocketConnectionManager {
     // MARK: - Private Methods
     // Setup Receive Data
     private func setupReceive() {
-        connection?.receive(minimumIncompleteLength: 1, maximumLength: 9000, completion: { (data, context, isComplete, error) in
-            
-            if let rcvData = data,
-                let receivedData = String(data: rcvData, encoding: .utf8) {
-                print(receivedData)
-            }
-            
-            if self.receivedServerIdentification == false {
-                self.receivedServerIdentification = true
-                print("Received Server Ident: \(self.receivedServerIdentification)")
-                
-                if !self.isLoggedIn {
-                    self.login()
-                }
-            }
-            
-            if context?.identifier == "Final Message" && isComplete {
-                self.connection?.cancel()
-                return
-            }
-            
-            if let messageError = error {
-                print("Recieve error: \(messageError)")
-            } else {
-                self.setupReceive()
-            }
+        connection?.receive(minimumIncompleteLength: 1,
+                            maximumLength: 9000,
+                            completion: { [unowned self] (data, context, isComplete, error) in
+
+                                if let receivedData = data,
+                                    let receivedMessage = String(data: receivedData, encoding: .utf8) {
+                                    self.messageReceived(receivedMessage)
+                                }
+
+                                if self.receivedServerIdentification == false {
+                                    self.receivedServerIdentification = true
+                                    print("Received Server Ident: \(self.receivedServerIdentification)")
+
+                                    if !self.isLoggedIn {
+                                        self.login()
+                                    }
+                                }
+
+                                if context?.identifier == "Final Message" && isComplete {
+                                    self.connection?.cancel()
+                                    return
+                                }
+
+                                if let messageError = error {
+                                    print("Recieve error: \(messageError)")
+                                } else {
+                                    self.setupReceive()
+                                }
         })
     }
     
     // Send Login String with generated Username and Current Location
     private func login() {
         // Filter for unique FlarmID or multiple IDs seperated bei /
-        sendPaket("user \(userName) pass -1 vers \(version) filter b/\(buddyFlarmID)\n")
+        //sendPaket("user \(userName) pass -1 vers \(version) filter b/\(buddyFlarmID)\n")
         
         // Filter via Radius
-        //sendPaket("user \(userName) pass -1 vers \(version) filter r/\(latitude)/\(longitude)/\(regionInKm)\n")
+        sendPaket("user \(userName) pass -1 vers \(version) filter r/\(latitude)/\(longitude)/\(regionInKm)\n")
         
         isLoggedIn = true
     }
@@ -142,13 +144,68 @@ class OGNSocketConnectionManager {
         
         print("Sent PaketData: \(packetData!)")
         
-        connection?.send(content: packetData, completion: .contentProcessed({ (error) in
-            if let err = error {
-                print("Sending error \(err)")
-            } else {
-                print("Filter Request successfully sent")
-            }
+        connection?.send(content: packetData,
+                         completion: .contentProcessed( { (error) in
+                            if let err = error {
+                                print("Sending error \(err)")
+                            } else {
+                                print("Filter Request successfully sent")
+                            }
         }))
         
     }
+
+
+    private func messageReceived(_ receivedMessage: String) {
+        print("\(#function): \(receivedMessage)")
+
+        if receivedMessage.contains("FLR") == false{
+            return
+        }
+
+
+        let messages = receivedMessage.split(separator: "\r\n")
+        print("Teilnachrichten: \(messages.count)")
+
+
+        var helper = receivedMessage
+
+
+        if let anfang = helper.firstIndex(of: ">"),
+            let ende = helper.firstIndex(of: ":") {
+            let range = anfang..<ende
+            print("Range: \(range)")
+
+            helper.replaceSubrange(range, with: "")
+        }
+
+        
+        helper = helper.replacingOccurrences(of: ">", with: " ")
+        helper = helper.replacingOccurrences(of: ":\\", with: " ")
+        helper = helper.replacingOccurrences(of: ":/", with: " ")
+        helper = helper.replacingOccurrences(of: "h", with: " ")
+        helper = helper.replacingOccurrences(of: "N/", with: " ")
+        helper = helper.replacingOccurrences(of: "N\\", with: " ")
+        helper = helper.replacingOccurrences(of: "Eg", with: " ")
+        helper = helper.replacingOccurrences(of: "En", with: " ")
+        helper = helper.replacingOccurrences(of: "EX", with: " ")
+        helper = helper.replacingOccurrences(of: "E'", with: " ")
+        helper = helper.replacingOccurrences(of: "E\'", with: " ")
+        helper = helper.replacingOccurrences(of: "/", with: " ")
+        helper = helper.replacingOccurrences(of: "A=", with: " ")
+
+        helper = helper.replacingOccurrences(of: "\n", with: "")
+        helper = helper.replacingOccurrences(of: "\r", with: "")
+
+//        print("bereinigt: \(helper)")
+
+        let components = helper.split(separator: " ")
+        print("Componets:\n\(components)")
+    }
+
+
+
+
 }
+
+
