@@ -94,7 +94,7 @@ class SettingsViewController: UIViewController {
         showTrackingRouteSwitch.isOn = showTrackingRouteSwitchState
         
         // Show Flarm Buddy Switch Setup
-        let showFlarmBuddySwitchState = UserDefaultsManager.getShowNearbyGlidersSwitchKey()
+        let showFlarmBuddySwitchState = UserDefaultsManager.getShowFlarmBuddySwitchKey()
         showFlarmBuddySwitch.isOn = showFlarmBuddySwitchState
         
         // Buddy FlarmID
