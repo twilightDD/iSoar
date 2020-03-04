@@ -25,7 +25,7 @@ class UserDefaultsManager {
     private static let gearWarningSwitchDefault: Bool = true
     private static let safetyAltitudeDefault: Double = 200
     private static let showTrackingRouteSwitchDefault: Bool = true
-    private static let showNearbyGlidersSwitchDefault: Bool = true
+    private static let showFlarmBuddySwitchDefault: Bool = true
     private static let buddyFlarmIDDefault = "FLRDxxxxx"
     
     // MARK: - Lets and Vars
@@ -114,10 +114,10 @@ class UserDefaultsManager {
     }
     
     // MARK: ShowNearbyGlidersSwitch
-    class func getShowNearbyGlidersSwitchKey()
+    class func getShowFlarmBuddySwitchKey()
         -> Bool {
-            let showNearbyGlidersSwitchKey = shared.userDefaults.value(forKey: ShowFlarmBuddySwitchKey) as? Bool ?? showNearbyGlidersSwitchDefault
-            return showNearbyGlidersSwitchKey
+            let showFlarmBuddySwitchKey = shared.userDefaults.value(forKey: ShowFlarmBuddySwitchKey) as? Bool ?? showFlarmBuddySwitchDefault
+            return showFlarmBuddySwitchKey
     }
     
     class func set(showFlarmBuddySwitch: Bool) {
