@@ -109,16 +109,19 @@ extension TasksViewController: UITableViewDelegate {
         if let selectedGPXFileName = self.selectedGPXFileName,
             selectedGPXFileName == newSelectedGPXFileName {
             self.selectedGPXFileName = nil
+            MapScreen.shared?.removeCurrentTaskLine()
+            
         } else {
             self.selectedGPXFileName = newSelectedGPXFileName
             
+            TasksDatabase.openGPXFile(withFilename: newSelectedGPXFileName)
+            
         }
         
-        TasksDatabase.openGPXFile(withFilename: newSelectedGPXFileName)
-
         guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows
             else { return }
         tableView.reloadRows(at: indexPathsForVisibleRows, with: .none)
+        
     }
 
 }
