@@ -155,21 +155,18 @@ class OGNSocketConnectionManager {
         
     }
 
-
     private func messageReceived(_ receivedMessage: String) {
         print("\(#function): \(receivedMessage)")
 
-        if receivedMessage.contains("FLR") == false{
+        if receivedMessage.hasPrefix("FLR") == false
+            || receivedMessage.hasPrefix("ICA") == false {
             return
         }
-
 
         let messages = receivedMessage.split(separator: "\r\n")
         print("Teilnachrichten: \(messages.count)")
 
-
         var helper = receivedMessage
-
 
         if let anfang = helper.firstIndex(of: ">"),
             let ende = helper.firstIndex(of: ":") {
@@ -179,33 +176,12 @@ class OGNSocketConnectionManager {
             helper.replaceSubrange(range, with: "")
         }
 
+        helper = helper.replacingOccurrences(of: ">", with: " ").replacingOccurrences(of: ":\\", with: " ").replacingOccurrences(of: ":/", with: " ").replacingOccurrences(of: "h", with: " ").replacingOccurrences(of: "N/", with: " ").replacingOccurrences(of: "N\\", with: " ").replacingOccurrences(of: "Eg", with: " ").replacingOccurrences(of: "En", with: " ").replacingOccurrences(of: "EX", with: " ").replacingOccurrences(of: "E'", with: " ").replacingOccurrences(of: "E\'", with: " ").replacingOccurrences(of: "/", with: " ").replacingOccurrences(of: "A=", with: " ").replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "\r", with: "")
         
-        helper = helper.replacingOccurrences(of: ">", with: " ")
-        helper = helper.replacingOccurrences(of: ":\\", with: " ")
-        helper = helper.replacingOccurrences(of: ":/", with: " ")
-        helper = helper.replacingOccurrences(of: "h", with: " ")
-        helper = helper.replacingOccurrences(of: "N/", with: " ")
-        helper = helper.replacingOccurrences(of: "N\\", with: " ")
-        helper = helper.replacingOccurrences(of: "Eg", with: " ")
-        helper = helper.replacingOccurrences(of: "En", with: " ")
-        helper = helper.replacingOccurrences(of: "EX", with: " ")
-        helper = helper.replacingOccurrences(of: "E'", with: " ")
-        helper = helper.replacingOccurrences(of: "E\'", with: " ")
-        helper = helper.replacingOccurrences(of: "/", with: " ")
-        helper = helper.replacingOccurrences(of: "A=", with: " ")
-
-        helper = helper.replacingOccurrences(of: "\n", with: "")
-        helper = helper.replacingOccurrences(of: "\r", with: "")
-
 //        print("bereinigt: \(helper)")
 
         let components = helper.split(separator: " ")
         print("Componets:\n\(components)")
     }
 
-
-
-
 }
-
-
