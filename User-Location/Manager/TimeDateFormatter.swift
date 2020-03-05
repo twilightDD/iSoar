@@ -10,10 +10,10 @@ import Foundation
 
 // MARK: - TimeDateFormatter
 class TimeDateFormatter {
-
+    
     // MARK: Private Lets and Vars
     static let shared = TimeDateFormatter()
-
+    
     private lazy var timeIntervallToHourMinutesDateComponentsFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute]
@@ -22,7 +22,7 @@ class TimeDateFormatter {
         
         return formatter
     }()
-
+    
     // MARK: - Public Methods
     // Create Date without Seconds
     class func yearMonthDayHourMinuteDateFrom(_ date: Date)
@@ -54,14 +54,14 @@ class TimeDateFormatter {
     class func hourMinutesStringFromTimeIntervall(_ timeIntervall: TimeInterval)
         -> String {
             var hourMinutesStringFromTimeIntervall = "-"
-
+            
             if let formattedTimeDifference = shared.timeIntervallToHourMinutesDateComponentsFormatter.string(from: timeIntervall) {
                 hourMinutesStringFromTimeIntervall = formattedTimeDifference
             }
-
+            
             return hourMinutesStringFromTimeIntervall
     }
-
+    
     /**
      Creates a string with human readable time span.
      

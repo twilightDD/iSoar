@@ -18,7 +18,7 @@ class UserDefaultsManager {
     private static let ShowTrackingRouteSwitchKey = "showTrackingRouteSwitch"
     private static let ShowFlarmBuddySwitchKey = "showFlarmBuddySwitch"
     private static let BuddyFlarmIDKey = "buddyFlarmID"
-
+    
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
     private static let gliderRadioDefault: Double = 20
@@ -57,18 +57,18 @@ class UserDefaultsManager {
             UserDefaultsManager.set(buddyFlarmID: buddyFlarmIDDefault)
         }
     }
-
+    
     // MARK: GliderID
     class func getGliderID()
         -> String {
             let gliderID = shared.userDefaults.value(forKey: GliderIDKey) as? String ?? gliderIDDefault
             return gliderID
     }
-
+    
     class func set(gliderID value: String) {
         shared.userDefaults.set(value, forKey: GliderIDKey)
     }
-
+    
     // MARK: GliderRatio
     class func getGliderRatio()
         -> Double {
@@ -79,7 +79,7 @@ class UserDefaultsManager {
     class func set(gliderRatio: Double) {
         shared.userDefaults.set(gliderRatio, forKey: GliderRatioKey)
     }
-
+    
     // MARK: GearWarningSwitch
     class func getGearWarningSwitch()
         -> Bool {
@@ -90,18 +90,18 @@ class UserDefaultsManager {
     class func set (gearWarningSwitch: Bool) {
         shared.userDefaults.set(gearWarningSwitch, forKey: GearWarningSwitchKey)
     }
-
+    
     // MARK: SafetyAltitude
     class func getSafetyAltitude()
         -> Double {
             let safetyAltitude = shared.userDefaults.value(forKey: SafetyAltitudeKey) as? Double ?? safetyAltitudeDefault
             return safetyAltitude
     }
-
+    
     class func set(safetyAltitude: Double) {
         shared.userDefaults.set(safetyAltitude, forKey: SafetyAltitudeKey)
     }
-
+    
     // MARK: ShowTrackingRouteSwitch
     class func getShowTrackingRouteSwitchKey()
         -> Bool {
@@ -130,7 +130,7 @@ class UserDefaultsManager {
             let buddyFlarmID = shared.userDefaults.value(forKey: BuddyFlarmIDKey) as? String ?? buddyFlarmIDDefault
             return buddyFlarmID
     }
-
+    
     class func set(buddyFlarmID value: String) {
         shared.userDefaults.set(value, forKey: BuddyFlarmIDKey)
     }

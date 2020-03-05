@@ -99,26 +99,26 @@ class OGNSocketConnectionManager {
         connection?.receive(minimumIncompleteLength: 1,
                             maximumLength: 9000,
                             completion: { [unowned self] (data, context, isComplete, error) in
-
+                                
                                 if let receivedData = data,
                                     let receivedMessage = String(data: receivedData, encoding: .utf8) {
                                     self.messageReceived(receivedMessage)
                                 }
-
+                                
                                 if self.receivedServerIdentification == false {
                                     self.receivedServerIdentification = true
                                     print("Received Server Ident: \(self.receivedServerIdentification)")
-
+                                    
                                     if !self.isLoggedIn {
                                         self.login()
                                     }
                                 }
-
+                                
                                 if context?.identifier == "Final Message" && isComplete {
                                     self.connection?.cancel()
                                     return
                                 }
-
+                                
                                 if let messageError = error {
                                     print("Recieve error: \(messageError)")
                                 } else {
@@ -151,37 +151,37 @@ class OGNSocketConnectionManager {
                             } else {
                                 print("Filter Request successfully sent")
                             }
-        }))
+                         }))
         
     }
-
+    
     private func messageReceived(_ receivedMessage: String) {
         print("\(#function): \(receivedMessage)")
-
+        
         if receivedMessage.hasPrefix("FLR") == false
             || receivedMessage.hasPrefix("ICA") == false {
             return
         }
-
+        
         let messages = receivedMessage.split(separator: "\r\n")
         print("Teilnachrichten: \(messages.count)")
-
+        
         var helper = receivedMessage
-
+        
         if let anfang = helper.firstIndex(of: ">"),
             let ende = helper.firstIndex(of: ":") {
             let range = anfang..<ende
             print("Range: \(range)")
-
+            
             helper.replaceSubrange(range, with: "")
         }
-
+        
         helper = helper.replacingOccurrences(of: ">", with: " ").replacingOccurrences(of: ":\\", with: " ").replacingOccurrences(of: ":/", with: " ").replacingOccurrences(of: "h", with: " ").replacingOccurrences(of: "N/", with: " ").replacingOccurrences(of: "N\\", with: " ").replacingOccurrences(of: "Eg", with: " ").replacingOccurrences(of: "En", with: " ").replacingOccurrences(of: "EX", with: " ").replacingOccurrences(of: "E'", with: " ").replacingOccurrences(of: "E\'", with: " ").replacingOccurrences(of: "/", with: " ").replacingOccurrences(of: "A=", with: " ").replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "\r", with: "")
         
-//        print("bereinigt: \(helper)")
-
+        //        print("bereinigt: \(helper)")
+        
         let components = helper.split(separator: " ")
         print("Componets:\n\(components)")
     }
-
+    
 }
