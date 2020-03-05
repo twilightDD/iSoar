@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
   <testsuite name="fastlane.lanes">
+    
+    
+    
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.009433">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.009458">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: increment_build_number" time="2.390038">
+      <testcase classname="fastlane.lanes" name="1: increment_build_number" time="3.0483">
         
       </testcase>
     

@@ -6,3 +6,6 @@ Pods/*
 *.ipa
 report.xml
 *.dSYM.zip
+
+#fastlane
+**/report.xml
