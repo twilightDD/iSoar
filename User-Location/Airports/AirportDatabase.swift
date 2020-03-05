@@ -59,7 +59,7 @@ class AirportDatabase {
             
             if let searchString = searchString,
 
-                searchString.count > 0 {
+                searchString.isEmpty == false {
                 filteredArray = destinationAirports.filter { (airport) -> Bool in
                     let airportNameContainsSearchString = airport.name.contains(searchString)
                     let airportICAOContainsSearchString = airport.icao.contains(searchString)
