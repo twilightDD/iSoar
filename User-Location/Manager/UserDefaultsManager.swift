@@ -18,6 +18,7 @@ class UserDefaultsManager {
     private static let ShowTrackingRouteSwitchKey = "showTrackingRouteSwitch"
     private static let ShowFlarmBuddySwitchKey = "showFlarmBuddySwitch"
     private static let BuddyFlarmIDKey = "buddyFlarmID"
+    private static let ShowNearbyGlidersSwitchKey = "showNearbyGlidersSwitch"
     
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
@@ -27,6 +28,7 @@ class UserDefaultsManager {
     private static let showTrackingRouteSwitchDefault: Bool = true
     private static let showFlarmBuddySwitchDefault: Bool = true
     private static let buddyFlarmIDDefault = "FLRDxxxxx"
+    private static let showNearbyGlidersSwitchDefault: Bool = true
     
     // MARK: - Lets and Vars
     private static let shared = UserDefaultsManager()
@@ -55,6 +57,9 @@ class UserDefaultsManager {
         }
         if shared.userDefaults.value(forKey: BuddyFlarmIDKey) == nil {
             UserDefaultsManager.set(buddyFlarmID: buddyFlarmIDDefault)
+        }
+        if shared.userDefaults.value(forKey: ShowNearbyGlidersSwitchKey) == nil {
+            shared.userDefaults.set(true, forKey: ShowNearbyGlidersSwitchKey)
         }
     }
     
@@ -113,7 +118,7 @@ class UserDefaultsManager {
         shared.userDefaults.set(showTrackingRouteSwitch, forKey: ShowTrackingRouteSwitchKey)
     }
     
-    // MARK: ShowNearbyGlidersSwitch
+    // MARK: ShowFlarmBuddySwitch
     class func getShowFlarmBuddySwitchKey()
         -> Bool {
             let showFlarmBuddySwitchKey = shared.userDefaults.value(forKey: ShowFlarmBuddySwitchKey) as? Bool ?? showFlarmBuddySwitchDefault
@@ -133,6 +138,17 @@ class UserDefaultsManager {
     
     class func set(buddyFlarmID value: String) {
         shared.userDefaults.set(value, forKey: BuddyFlarmIDKey)
+    }
+    
+    // MARK: ShowNearbyGlidersSwitch
+    class func getShowNearbyGlidersSwitch()
+        -> Bool {
+            let showNearbyGlidersSwitch = shared.userDefaults.value(forKey: ShowNearbyGlidersSwitchKey) as? Bool ?? showNearbyGlidersSwitchDefault
+            return showNearbyGlidersSwitch
+    }
+    
+    class func set (showNearbyGlidersSwitch: Bool) {
+        shared.userDefaults.set(showNearbyGlidersSwitch, forKey: ShowNearbyGlidersSwitchKey)
     }
     
 }

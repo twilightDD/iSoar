@@ -24,7 +24,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var showTrackingRouteSwitch: UISwitch!
     @IBOutlet weak var showFlarmBuddySwitch: UISwitch!
     @IBOutlet weak var buddyFlarmIDTextField: TextFields!
-    
+    @IBOutlet weak var showNearbyGlidersSwitch: UISwitch!
+
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,6 +101,11 @@ class SettingsViewController: UIViewController {
         // Buddy FlarmID
         let buddyFlarmID = UserDefaultsManager.getBuddyFlarmID()
         buddyFlarmIDTextField.text! = buddyFlarmID
+        
+        // Show nearby Gliders Switch Setup
+        let showNearbyGlidersSwitchState = UserDefaultsManager.getShowTrackingRouteSwitchKey()
+        showNearbyGlidersSwitch.isOn = showNearbyGlidersSwitchState
+        
     }
     
     // Save Settings to User Defaults
