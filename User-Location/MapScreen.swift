@@ -71,7 +71,7 @@ class MapScreen: UIViewController {
         setupMapBox()
         
         setupGestureRecognizers()
-        
+          
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,6 +102,10 @@ class MapScreen: UIViewController {
         
         mapView.delegate = self
         
+        MGLOfflineStorage.shared.invalidateAmbientCache { _ in
+            print("MapBox Cache invalidated")
+        }
+        
         mapView.tintColor = .red
         mapView.allowsRotating = false
         mapView.allowsTilting = false
@@ -117,7 +121,7 @@ class MapScreen: UIViewController {
         mapView.attributionButton.tintColor = .lightGray
         
         mapView.resetNorth()
-        
+
     }
     
     // Check for Location Services
