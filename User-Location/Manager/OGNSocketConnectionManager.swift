@@ -27,7 +27,7 @@ class OGNSocketConnectionManager {
     
     var latitude: Double = 47.8
     var longitude: Double = 8.9
-    var regionInKm: Double = 200
+    var regionInKm: Double = 20
     var buddyFlarmID: String = UserDefaultsManager.getBuddyFlarmID()
     
     // MARK: - Init&Co.
@@ -155,14 +155,16 @@ class OGNSocketConnectionManager {
         
     }
     
+    // Received Message from Sender
+    // https://github.com/svoop/ogn_client-ruby/wiki/SenderBeacon
     private func messageReceived(_ receivedMessage: String) {
         print("\(#function): \(receivedMessage)")
         
-        if receivedMessage.hasPrefix("FLR") == false
-            || receivedMessage.hasPrefix("ICA") == false {
-            return
-        }
+        guard receivedMessage.hasPrefix("FLR") ||
+            receivedMessage.hasPrefix("ICA")
+            else { return }
         
+        print("FOUND PREFIX")
         let messages = receivedMessage.split(separator: "\r\n")
         print("Teilnachrichten: \(messages.count)")
         
@@ -176,9 +178,24 @@ class OGNSocketConnectionManager {
             helper.replaceSubrange(range, with: "")
         }
         
-        helper = helper.replacingOccurrences(of: ">", with: " ").replacingOccurrences(of: ":\\", with: " ").replacingOccurrences(of: ":/", with: " ").replacingOccurrences(of: "h", with: " ").replacingOccurrences(of: "N/", with: " ").replacingOccurrences(of: "N\\", with: " ").replacingOccurrences(of: "Eg", with: " ").replacingOccurrences(of: "En", with: " ").replacingOccurrences(of: "EX", with: " ").replacingOccurrences(of: "E'", with: " ").replacingOccurrences(of: "E\'", with: " ").replacingOccurrences(of: "/", with: " ").replacingOccurrences(of: "A=", with: " ").replacingOccurrences(of: "\n", with: "").replacingOccurrences(of: "\r", with: "")
+        helper = helper
+            .replacingOccurrences(of: ">", with: " ")
+            .replacingOccurrences(of: ":\\", with: " ")
+            .replacingOccurrences(of: ":/", with: " ")
+            .replacingOccurrences(of: "h", with: " ")
+            .replacingOccurrences(of: "N/", with: " ")
+            .replacingOccurrences(of: "N\\", with: " ")
+            .replacingOccurrences(of: "Eg", with: " ")
+            .replacingOccurrences(of: "En", with: " ")
+            .replacingOccurrences(of: "EX", with: " ")
+            .replacingOccurrences(of: "E'", with: " ")
+            .replacingOccurrences(of: "E\'", with: " ")
+            .replacingOccurrences(of: "/", with: " ")
+            .replacingOccurrences(of: "A=", with: " ")
+            .replacingOccurrences(of: "\n", with: "")
+            .replacingOccurrences(of: "\r", with: "")
         
-        //        print("bereinigt: \(helper)")
+        print("bereinigt: \(helper)")
         
         let components = helper.split(separator: " ")
         print("Componets:\n\(components)")
