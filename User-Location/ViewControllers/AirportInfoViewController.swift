@@ -103,7 +103,7 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
     
     @IBAction func urlButton(_ sender: Any) {
         
-        if let url = URL(string: "http://\(selectedDestinationAirport!.url!)") {
+        if let url = URL(string: "https://\(selectedDestinationAirport!.url!)") {
             UIApplication.shared.open(url)
 
         }
