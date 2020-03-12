@@ -61,8 +61,8 @@ class AirportDatabase {
 
                 searchString.isEmpty == false {
                 filteredArray = destinationAirports.filter { (airport) -> Bool in
-                    let airportNameContainsSearchString = airport.name.contains(searchString)
-                    let airportICAOContainsSearchString = airport.icao.contains(searchString)
+                    let airportNameContainsSearchString = airport.name.localizedCaseInsensitiveContains(searchString)
+                    let airportICAOContainsSearchString = airport.icao.localizedCaseInsensitiveContains(searchString)
                     let containsSearchString = airportNameContainsSearchString || airportICAOContainsSearchString
                     
                     return containsSearchString
