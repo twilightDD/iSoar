@@ -102,10 +102,6 @@ class MapScreen: UIViewController {
         
         mapView.delegate = self
         
-        MGLOfflineStorage.shared.invalidateAmbientCache { _ in
-            print("MapBox Cache invalidated")
-        }
-        
         mapView.tintColor = .red
         mapView.allowsRotating = false
         mapView.allowsTilting = false
