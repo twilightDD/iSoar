@@ -103,7 +103,7 @@ class SettingsViewController: UIViewController {
         buddyFlarmIDTextField.text! = buddyFlarmID
         
         // Show nearby Gliders Switch Setup
-        let showNearbyGlidersSwitchState = UserDefaultsManager.getShowTrackingRouteSwitchKey()
+        let showNearbyGlidersSwitchState = UserDefaultsManager.getShowNearbyGlidersSwitch()
         showNearbyGlidersSwitch.isOn = showNearbyGlidersSwitchState
         
     }
@@ -125,17 +125,38 @@ class SettingsViewController: UIViewController {
     // MARK: - Action Methods
     // Gear Warning Switch
     @IBAction func gearWarningSwitch(_ sender: UISwitch) {
-        UserDefaultsManager.set(gearWarningSwitch: gearWarningSwitch.isOn)
+        UserDefaultsManager.set(gearWarningSwitch: sender.isOn)
     }
 
     //Show Tracking Route Switch
     @IBAction func showTrackingRouteSwitch(_ sender: UISwitch) {
-        UserDefaultsManager.set(showTrackingRouteSwitch: showTrackingRouteSwitch.isOn)
+        UserDefaultsManager.set(showTrackingRouteSwitch: sender.isOn)
     }
     
-    //Show nearby Gliders Switch
+    //Show buddy Gliders Switch
     @IBAction func showFlarmBuddySwitch(_ sender: UISwitch) {
-        UserDefaultsManager.set(showFlarmBuddySwitch: showFlarmBuddySwitch.isOn)
+        UserDefaultsManager.set(showFlarmBuddySwitch: sender.isOn)
+        if sender.isOn {
+            showNearbyGlidersSwitch.setOn(true, animated: true)
+            
+            OGNSocketConnectionManager.shared.cancelConnection()
+            MapScreen.shared?.messages.removeAll()
+            MapScreen.shared?.mapView.removeAnnotations(MapScreen.shared?.mapView.annotations ?? [])
+            
+            showNearbyGlidersSwitch(showNearbyGlidersSwitch)
+        } else {
+            OGNSocketConnectionManager.shared.cancelConnection()
+        }
+    }
+    
+    @IBAction func showNearbyGlidersSwitch(_ sender: UISwitch) {
+        UserDefaultsManager.set(showNearbyGlidersSwitch: sender.isOn)
+        if sender.isOn {
+            OGNSocketConnectionManager.shared.connectToOGNServerSocket()
+        } else {
+            showFlarmBuddySwitch.setOn(false, animated: true)
+            showFlarmBuddySwitch(showFlarmBuddySwitch)
+        }
     }
     
     // Download updated Airport Database File from Server
