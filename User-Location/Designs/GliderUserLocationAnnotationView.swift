@@ -56,3 +56,15 @@ class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
         }
     }
 }
+
+// Create a subclass of MGLUserLocationAnnotationView
+class NearbyGliderAnnotationView: MGLAnnotationView {
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+         guard let gliderImage = UIImage(named: "nearbyGlider")?.cgImage else { return }
+         layer.contents = gliderImage
+         layer.bounds = CGRect(x: 0, y: 0, width: gliderImage.width, height: gliderImage.height)
+    }
+
+}

@@ -17,7 +17,7 @@ class MapScreen: UIViewController {
     static var shared: MapScreen?
     
     // MARK: IBOutlets
-    @IBOutlet private var mapView: MGLMapView!
+    @IBOutlet var mapView: MGLMapView!
     @IBOutlet private weak var courseLabel: UILabel!
     @IBOutlet private weak var altitudeLabel: UILabel!
     @IBOutlet private weak var speedLabel: UILabel!
@@ -57,6 +57,8 @@ class MapScreen: UIViewController {
     
     var showTrackingRoute = false
     
+    var messages = Set<OGNMessage>()
+    
     // MARK: - Init & Co.
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -71,7 +73,6 @@ class MapScreen: UIViewController {
         setupMapBox()
         
         setupGestureRecognizers()
-          
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,6 +81,7 @@ class MapScreen: UIViewController {
         checkTrackingRouteStatus()
         
         OGNSocketConnectionManager.shared.connectToOGNServerSocket()
+        OGNSocketConnectionManager.shared.delegate = self
         
     }
     
@@ -101,6 +103,10 @@ class MapScreen: UIViewController {
         self.mapView.styleURL = url
         
         mapView.delegate = self
+        
+        MGLOfflineStorage.shared.invalidateAmbientCache { error in
+            print("Cache invalidated")
+        }
         
         mapView.tintColor = .red
         mapView.allowsRotating = false
@@ -458,6 +464,46 @@ class MapScreen: UIViewController {
         }
     }
     
+    // MARK: Nearby Glider Annotation Creation
+    // Add Messages
+    func addMessage(message: OGNMessage) {
+        if messages.contains(message) {
+            messages.remove(message)
+        }
+        messages.insert(message)
+        drawAnnotationsOnMap()
+    }
+    
+    // Draw Nearby Gliders on Map
+    func drawAnnotationsOnMap() {
+        let mapAnnotations = mapView.annotations ?? []
+        // remove old annotions from map
+        for mapAnnotation in mapAnnotations {
+            if !messages.contains(where: { (message) -> Bool in
+                message.flarmID == mapAnnotation.title
+            }) {
+                mapView.removeAnnotation(mapAnnotation)
+            }
+        }
+        
+        // Add or Update New Nearby Glider Annotations
+        for message in messages {
+            if !mapAnnotations.contains(where: { (mapAnnotation) -> Bool in
+                mapAnnotation.title == message.flarmID
+            }) {
+                let annotation = MGLPointAnnotation()
+                annotation.title = message.flarmID
+                annotation.coordinate = CLLocationCoordinate2D(latitude: message.location.latitude, longitude: message.location.longitude)
+                mapView.addAnnotation(annotation)
+            } else {
+                if let existingAnnotation = mapView.annotations?.first(where: { $0.title == message.flarmID }) {
+                    (existingAnnotation as? MGLPointAnnotation)?.coordinate = CLLocationCoordinate2D(latitude: message.location.latitude, longitude: message.location.longitude)
+                }
+            }
+        }
+        
+    }
+    
     // MARK: Route Tracking
     // Check for Tracking Route Status ins Settings
     private func checkTrackingRouteStatus() {
@@ -565,6 +611,11 @@ extension MapScreen: MGLMapViewDelegate {
         mapView.deselectAnnotation(annotation, animated: true)
     }
     
+    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+        print("annotation selected")
+    }
+    
+    // TODO: wird das noch benötigt?
     private func mapView(MapView: MGLMapView!, annotation: MGLAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         //https://stackoverflow.com/questions/51904284/how-do-you-create-a-custom-callout-for-mapbox-annotations
         //        if control == annotation.rightCalloutAccessoryView {
@@ -578,7 +629,19 @@ extension MapScreen: MGLMapViewDelegate {
         if annotation is MGLUserLocation && mapView.userLocation != nil {
             return GliderUserLocationAnnotationView()
         }
-        return nil
+
+        let identifier = annotation.title ?? ""
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier ?? "")
+
+        if annotationView == nil {
+            annotationView = NearbyGliderAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView!.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
+        } else {
+            annotationView?.annotation = annotation
+        }
+
+        return annotationView
+            
     }
     
     // Map finished loading
@@ -604,7 +667,6 @@ extension MapScreen: MGLMapViewDelegate {
         }
         
         userLocationButton.updateArrowForTrackingMode(state: userFollow)
-        
     }
     
 }
@@ -663,4 +725,12 @@ extension MapScreen: UIGestureRecognizerDelegate {
                            shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
+}
+
+extension MapScreen: OGNSocketConnectionManagerDelegate {
+    
+    func messageReceived(message: OGNMessage) {
+        addMessage(message: message)
+    }
+    
 }
