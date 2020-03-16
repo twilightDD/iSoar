@@ -57,7 +57,7 @@ class MapScreen: UIViewController {
     
     var showTrackingRoute = false
     
-    var messages = Set<OGNMessage>()
+    var messages = Set<GliderTelemetryData>()
     
     // MARK: - Init & Co.
     required init?(coder aDecoder: NSCoder) {
@@ -466,7 +466,7 @@ class MapScreen: UIViewController {
     
     // MARK: Nearby Glider Annotation Creation
     // Add Messages
-    func addMessage(message: OGNMessage) {
+    func addMessage(message: GliderTelemetryData) {
         if messages.contains(message) {
             messages.remove(message)
         }
@@ -729,7 +729,7 @@ extension MapScreen: UIGestureRecognizerDelegate {
 
 extension MapScreen: OGNSocketConnectionManagerDelegate {
     
-    func messageReceived(message: OGNMessage) {
+    func messageReceived(message: GliderTelemetryData) {
         addMessage(message: message)
     }
     

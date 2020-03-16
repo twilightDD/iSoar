@@ -24,7 +24,7 @@ class OGNSocketConnectionManager {
     
     var version: String = "iSoar \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?")_\(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?")"
 
-    var regionInKm: Double = 20
+    var regionInKm: Double = 200
     var buddyFlarmID: String = UserDefaultsManager.getBuddyFlarmID()
     
     weak var delegate: OGNSocketConnectionManagerDelegate?
@@ -167,20 +167,22 @@ class OGNSocketConnectionManager {
     // https://github.com/svoop/ogn_client-ruby/wiki/SenderBeacon
     private func messageReceived(_ receivedMessage: String) {
         print("Original OGN Message: \(receivedMessage)")
-        
-        guard receivedMessage.hasPrefix("FLR") ||
-            receivedMessage.hasPrefix("ICA")
-            else { return }
-        
-        print("Found FLR / ICA Prefix in Message")
+
         let splittedMessages = receivedMessage.split(separator: "\r\n")
-        print("Teilnachrichten: \(splittedMessages.count)")
-                
-        // TODO: Nicht die original Nachricht parsen, sondern alle der Teilnachrichten!
-        let message = OGNMessage.parseResponse(response: receivedMessage)
-        delegate?.messageReceived(message: message)
-        
-        print(message)
+        print("Anzahl Teilnachrichten: \(splittedMessages.count)")
+
+        for splittedMessage in splittedMessages {
+            guard splittedMessage.hasPrefix("FLR")
+                || splittedMessage.hasPrefix("ICA")
+                else { continue }
+
+            let gliderSpecificMessage = String(splittedMessage)
+            if let telemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
+                print("Found FLR / ICA Prefix in Message \n\(telemetryData)")
+                delegate?.messageReceived(message: telemetryData)
+            }
+
+        }
     }
     
 }

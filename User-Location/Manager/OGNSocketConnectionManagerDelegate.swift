@@ -10,6 +10,6 @@ import Foundation
 
 protocol OGNSocketConnectionManagerDelegate: class {
     
-    func messageReceived(message: OGNMessage)
+    func messageReceived(message: GliderTelemetryData)
     
 }
