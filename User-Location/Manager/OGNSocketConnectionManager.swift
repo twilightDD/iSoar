@@ -16,19 +16,18 @@ class OGNSocketConnectionManager {
     
     private var connection: NWConnection?
     private var queue = DispatchQueue(label: "NetworkQueue", qos: .utility)
-    private lazy var userName = generateRandomUserName()
+    private var userName: String {
+        return generateRandomUserName()
+    }
     
-    var showFlarmBuddy = false
-    
-    var receivedServerIdentification: Bool = false
     var isLoggedIn = false
     
     var version: String = "iSoar \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?")_\(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?")"
-    
-    var latitude: Double = 47.8
-    var longitude: Double = 8.9
+
     var regionInKm: Double = 20
     var buddyFlarmID: String = UserDefaultsManager.getBuddyFlarmID()
+    
+    weak var delegate: OGNSocketConnectionManagerDelegate?
     
     // MARK: - Init&Co.
     // Generate Random Username
@@ -46,10 +45,9 @@ class OGNSocketConnectionManager {
     // Connect to Server Socket
     func connectToOGNServerSocket() {
         // Check if Nearby Gliders should be shown on Map
-        print("We are loggin in: \(isLoggedIn)")
+        print("We are loggin into the OGN Server: \(isLoggedIn)")
         
-        showFlarmBuddy = UserDefaultsManager.getShowFlarmBuddySwitchKey()
-        if showFlarmBuddy == true && isLoggedIn == false {
+        if UserDefaultsManager.getShowNearbyGlidersSwitch() && !isLoggedIn {
             // Delay Login
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 // 10152 Full Feed, 14580 Filtered Feed
@@ -76,6 +74,7 @@ class OGNSocketConnectionManager {
                         //The connection in the process of being established
                         print("Connection: failed")
                         self.isLoggedIn = false
+                        self.login()
                     case .cancelled:
                         //The connection has been cancelled
                         print("Connection: cancelled")
@@ -105,13 +104,8 @@ class OGNSocketConnectionManager {
                                     self.messageReceived(receivedMessage)
                                 }
                                 
-                                if self.receivedServerIdentification == false {
-                                    self.receivedServerIdentification = true
-                                    print("Received Server Ident: \(self.receivedServerIdentification)")
-                                    
-                                    if !self.isLoggedIn {
-                                        self.login()
-                                    }
+                                if !self.isLoggedIn {
+                                    self.login()
                                 }
                                 
                                 if context?.identifier == "Final Message" && isComplete {
@@ -129,13 +123,27 @@ class OGNSocketConnectionManager {
     
     // Send Login String with generated Username and Current Location
     private func login() {
-        // Filter for unique FlarmID or multiple IDs seperated bei /
-        //sendPaket("user \(userName) pass -1 vers \(version) filter b/\(buddyFlarmID)\n")
-        
-        // Filter via Radius
-        sendPaket("user \(userName) pass -1 vers \(version) filter r/\(latitude)/\(longitude)/\(regionInKm)\n")
+        guard let currentLocation = MapScreen.shared?.currentLocation, !isLoggedIn else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.login()
+            }
+            return
+        }
+
+        if UserDefaultsManager.getShowFlarmBuddySwitchKey() {
+            // Filter for unique FlarmID or multiple IDs seperated bei /
+            sendPaket("user \(userName) pass -1 vers \(version) filter b/\(buddyFlarmID)\n")
+        } else {
+            // Filter via Radius
+            sendPaket("user \(userName) pass -1 vers \(version) filter r/\(currentLocation.coordinate.latitude)/\(currentLocation.coordinate.longitude)/\(regionInKm)\n")
+        }
         
         isLoggedIn = true
+    }
+    
+    // Disconnect from Server
+    func cancelConnection() {
+        connection?.cancel()
     }
     
     // Send Filter Request to Server
@@ -155,50 +163,24 @@ class OGNSocketConnectionManager {
         
     }
     
-    // Received Message from Sender
+    // Received Message from OGN Server
     // https://github.com/svoop/ogn_client-ruby/wiki/SenderBeacon
     private func messageReceived(_ receivedMessage: String) {
-        print("\(#function): \(receivedMessage)")
+        print("Original OGN Message: \(receivedMessage)")
         
         guard receivedMessage.hasPrefix("FLR") ||
             receivedMessage.hasPrefix("ICA")
             else { return }
         
-        print("FOUND PREFIX")
-        let messages = receivedMessage.split(separator: "\r\n")
-        print("Teilnachrichten: \(messages.count)")
+        print("Found FLR / ICA Prefix in Message")
+        let splittedMessages = receivedMessage.split(separator: "\r\n")
+        print("Teilnachrichten: \(splittedMessages.count)")
+                
+        // TODO: Nicht die original Nachricht parsen, sondern alle der Teilnachrichten!
+        let message = OGNMessageParser().parseResponse(response: receivedMessage)
+        delegate?.messageReceived(message: message)
         
-        var helper = receivedMessage
-        
-        if let anfang = helper.firstIndex(of: ">"),
-            let ende = helper.firstIndex(of: ":") {
-            let range = anfang..<ende
-            print("Range: \(range)")
-            
-            helper.replaceSubrange(range, with: "")
-        }
-        
-        helper = helper
-            .replacingOccurrences(of: ">", with: " ")
-            .replacingOccurrences(of: ":\\", with: " ")
-            .replacingOccurrences(of: ":/", with: " ")
-            .replacingOccurrences(of: "h", with: " ")
-            .replacingOccurrences(of: "N/", with: " ")
-            .replacingOccurrences(of: "N\\", with: " ")
-            .replacingOccurrences(of: "Eg", with: " ")
-            .replacingOccurrences(of: "En", with: " ")
-            .replacingOccurrences(of: "EX", with: " ")
-            .replacingOccurrences(of: "E'", with: " ")
-            .replacingOccurrences(of: "E\'", with: " ")
-            .replacingOccurrences(of: "/", with: " ")
-            .replacingOccurrences(of: "A=", with: " ")
-            .replacingOccurrences(of: "\n", with: "")
-            .replacingOccurrences(of: "\r", with: "")
-        
-        print("bereinigt: \(helper)")
-        
-        let components = helper.split(separator: " ")
-        print("Componets:\n\(components)")
+        print(message)
     }
     
 }
