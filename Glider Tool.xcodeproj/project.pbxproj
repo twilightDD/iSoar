@@ -26,7 +26,6 @@
 		E01D87EB239ABB5D00E9B5B6 /* TasksDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */; };
 		E02052AF23E36A8200839B84 /* FlightComputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02052AE23E36A8200839B84 /* FlightComputer.swift */; };
 		E02052B123E36A9A00839B84 /* FlightRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02052B023E36A9A00839B84 /* FlightRecorder.swift */; };
-		E06936D6241B8A8A0073D078 /* OGNMessageParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06936D5241B8A8A0073D078 /* OGNMessageParser.swift */; };
 		E06936D8241B8CA00073D078 /* OGNMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06936D7241B8CA00073D078 /* OGNMessage.swift */; };
 		E06936DA241B9AEC0073D078 /* OGNSocketConnectionManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06936D9241B9AEC0073D078 /* OGNSocketConnectionManagerDelegate.swift */; };
 		E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086AB0A229C35890011C433 /* SettingsViewController.swift */; };
@@ -79,7 +78,6 @@
 		E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksDatabase.swift; sourceTree = "<group>"; };
 		E02052AE23E36A8200839B84 /* FlightComputer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightComputer.swift; sourceTree = "<group>"; };
 		E02052B023E36A9A00839B84 /* FlightRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightRecorder.swift; sourceTree = "<group>"; };
-		E06936D5241B8A8A0073D078 /* OGNMessageParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OGNMessageParser.swift; sourceTree = "<group>"; };
 		E06936D7241B8CA00073D078 /* OGNMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OGNMessage.swift; sourceTree = "<group>"; };
 		E06936D9241B9AEC0073D078 /* OGNSocketConnectionManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OGNSocketConnectionManagerDelegate.swift; sourceTree = "<group>"; };
 		E086AB0A229C35890011C433 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 				D0BBE08523A18CEB00CAD9FF /* ISoarFileManager.swift */,
 				E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */,
 				E06936D9241B9AEC0073D078 /* OGNSocketConnectionManagerDelegate.swift */,
-				E06936D5241B8A8A0073D078 /* OGNMessageParser.swift */,
 				D0C2801A23D8F46B00518539 /* UserDefaultsManager.swift */,
 				E06936D7241B8CA00073D078 /* OGNMessage.swift */,
 			);
@@ -416,7 +413,6 @@
 				E06936D8241B8CA00073D078 /* OGNMessage.swift in Sources */,
 				D0C5ED5B22A4769C009A0542 /* AirportDatabase.swift in Sources */,
 				E02052B123E36A9A00839B84 /* FlightRecorder.swift in Sources */,
-				E06936D6241B8A8A0073D078 /* OGNMessageParser.swift in Sources */,
 				E0E1D87A229476C00004DE81 /* DestinationSelectionViewController.swift in Sources */,
 				E011D4C123735CB9006F0CC3 /* OGNSocketConnectionManager.swift in Sources */,
 				D0BBE08623A18CEB00CAD9FF /* ISoarFileManager.swift in Sources */,

@@ -177,7 +177,7 @@ class OGNSocketConnectionManager {
         print("Teilnachrichten: \(splittedMessages.count)")
                 
         // TODO: Nicht die original Nachricht parsen, sondern alle der Teilnachrichten!
-        let message = OGNMessageParser().parseResponse(response: receivedMessage)
+        let message = OGNMessage.parseResponse(response: receivedMessage)
         delegate?.messageReceived(message: message)
         
         print(message)
