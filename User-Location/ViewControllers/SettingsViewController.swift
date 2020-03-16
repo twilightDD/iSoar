@@ -139,6 +139,7 @@ class SettingsViewController: UIViewController {
         if sender.isOn {
             showNearbyGlidersSwitch.setOn(true, animated: true)
             
+            // Disconnect from OGN Server, empty Messages Set and remove all nearby Glider Annotaions from Map
             OGNSocketConnectionManager.shared.cancelConnection()
             MapScreen.shared?.messages.removeAll()
             MapScreen.shared?.mapView.removeAnnotations(MapScreen.shared?.mapView.annotations ?? [])
@@ -152,10 +153,16 @@ class SettingsViewController: UIViewController {
     @IBAction func showNearbyGlidersSwitch(_ sender: UISwitch) {
         UserDefaultsManager.set(showNearbyGlidersSwitch: sender.isOn)
         if sender.isOn {
+            // Connect to OGN Server with Radius Filter
             OGNSocketConnectionManager.shared.connectToOGNServerSocket()
         } else {
             showFlarmBuddySwitch.setOn(false, animated: true)
             showFlarmBuddySwitch(showFlarmBuddySwitch)
+            
+            // Disconnect from OGN Server, empty Messages Set and remove all nearby Glider Annotaions from Map
+            OGNSocketConnectionManager.shared.cancelConnection()
+            MapScreen.shared?.messages.removeAll()
+            MapScreen.shared?.mapView.removeAnnotations(MapScreen.shared?.mapView.annotations ?? [])
         }
     }
     
