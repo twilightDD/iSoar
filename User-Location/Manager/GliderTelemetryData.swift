@@ -19,8 +19,8 @@ struct GliderTelemetryData: Hashable {
     var heading: Double
     var isHeadingValid: Bool
     var speed: Double
-    var altitude: String
-    var climbRate: String
+    var altitude: Double
+    var climbRate: Double
 
     // MARK: - Hashable
     static func == (lhs: GliderTelemetryData, rhs: GliderTelemetryData) -> Bool {
@@ -36,13 +36,15 @@ struct GliderTelemetryData: Hashable {
         -> GliderTelemetryData? {
 
             let telemetryDataArray = parseAndCleanup(response: response)
+            
+            print(telemetryDataArray)
 
             // TODO: Magic Number - nicht cool. Add docu! 16.3.20, ph
             guard telemetryDataArray.count >= 10
                 else { return nil }
 
             let flarmID = telemetryDataArray[0]
-            let timestamp = telemetryDataArray[1]
+            //let timestamp = telemetryDataArray[1]
 
             let latitude = String(telemetryDataArray[2])
             let longitude = String(telemetryDataArray[3])
@@ -57,11 +59,9 @@ struct GliderTelemetryData: Hashable {
 
             let speed = speedFrom(speed: telemetryDataArray[5])
 
-            // TODO: Calculate Altitude from ft to m by dividing with 3,281
-            // let altitude: Double = 0
+            let altitude = altitudeFrom(altitude: telemetryDataArray[6])
 
-            // TODO: Calculate ClimbRate from fpm to ms by dividing with 197
-            // let climbRate: Double = 0
+            let climbRate = climbRateFrom(climbRate: telemetryDataArray[9])
 
             //let flarmID = responseArray[OGNMessageComponents.flarmID]
             let telemetryData = GliderTelemetryData(flarmID: flarmID,
@@ -70,8 +70,8 @@ struct GliderTelemetryData: Hashable {
                                                     heading: heading,
                                                     isHeadingValid: isHeadingValid,
                                                     speed: speed,
-                                                    altitude: telemetryDataArray[6],
-                                                    climbRate: telemetryDataArray[9]
+                                                    altitude: altitude,
+                                                    climbRate: climbRate
             )
             return telemetryData
     }
@@ -98,6 +98,7 @@ struct GliderTelemetryData: Hashable {
                 .replacingOccurrences(of: "N\\", with: " ")
                 .replacingOccurrences(of: "Eg", with: " ")
                 .replacingOccurrences(of: "En", with: " ")
+                .replacingOccurrences(of: "Ez", with: " ")
                 .replacingOccurrences(of: "EX", with: " ")
                 .replacingOccurrences(of: "E'", with: " ")
                 .replacingOccurrences(of: "E\'", with: " ")
@@ -135,6 +136,7 @@ struct GliderTelemetryData: Hashable {
             return locationCoordinate
     }
 
+    // Convert Degrees to radians
     private static func convertToDegrees(string: String)
         -> Double {
             // Longitude Degree String
@@ -159,7 +161,8 @@ struct GliderTelemetryData: Hashable {
 
             return thirdResult
     }
-
+    
+    // Convert Heading
     private static func headingFrom(heading headingString: String)
         -> Double {
             guard let heading = Double.init(headingString)
@@ -169,17 +172,40 @@ struct GliderTelemetryData: Hashable {
             let headingCorrected = heading - 1
             return headingCorrected
     }
-
+    
+    // Convert Speed - from knots to km\m - by multiplying with 1.852
     private static func speedFrom(speed speedString: String)
         -> Double {
             if var speed = Double.init(speedString) {
-                speed = 1.852 * speed // knots in km/h
+                speed = speed * 1.852 // knots in km\m
                 return speed
             }
 
             return 0
     }
+    
+    // Convert Altitude - from feet to meter - by dividing with 3.281
+    private static func altitudeFrom(altitude altitudeString: String)
+        -> Double {
+            if var altitude = Double.init(altitudeString) {
+                altitude = altitude / 3.281 // feet in meter
+                return altitude
+            }
 
+            return 0
+    }
+    
+    // Convert ClimbRate - from fpm to m\s - by dividing with 197
+    private static func climbRateFrom(climbRate climbRateString: String)
+        -> Double {
+            if var climbRate = Double.init(climbRateString) {
+                climbRate = climbRate / 197
+                return climbRate
+            }
+
+            return 0
+    }
+    
 }
 
 enum OGNMessageComponents: Int {
