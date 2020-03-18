@@ -24,7 +24,7 @@ class OGNSocketConnectionManager {
     
     var version: String = "iSoar \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?")_\(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?")"
 
-    var regionInKm: Double = 200
+    var regionInKm: Double = 100
     var buddyFlarmID: String = UserDefaultsManager.getBuddyFlarmID()
     
     weak var delegate: OGNSocketConnectionManagerDelegate?
@@ -164,7 +164,7 @@ class OGNSocketConnectionManager {
     }
     
     // Received Message from OGN Server
-    // https://github.com/svoop/ogn_client-ruby/wiki/SenderBeacon
+    // Response: https://github.com/svoop/ogn_client-ruby/wiki/SenderBeacon
     private func messageReceived(_ receivedMessage: String) {
         print("Original OGN Message: \(receivedMessage)")
 

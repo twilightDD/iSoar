@@ -80,7 +80,7 @@ struct GliderTelemetryData: Hashable {
         -> [String] {
 
             var finalResponse = response
-            // convert response to array of strings
+            // Convert response to Array of Strings
             if let anfang = finalResponse.firstIndex(of: ">"),
                 let ende = finalResponse.firstIndex(of: ":") {
                 let range = anfang..<ende
@@ -136,27 +136,38 @@ struct GliderTelemetryData: Hashable {
             return locationCoordinate
     }
 
-    // Convert Degrees to radians
+    // Convert from Degrees Decimal Minutes (DDM) to Decimal-Degrees (DD) - DDM to DMS to DD
+    // Response: https://github.com/svoop/ogn_client-ruby/wiki/SenderBeacon
+    // Formula: http://www.mwegner.de/geo/geo-koordinaten/umrechnung-grad-minute-sekunde-dezimalgrad.html
+    // Online Coverter: https://www.pgc.umn.edu/apps/convert/
+    // To avoid calculating DDM to DMS to DD - https://support.esri.com/en/technical-article/000007058
     private static func convertToDegrees(string: String)
         -> Double {
-            // Longitude Degree String
             var degreeString = ""
 
+            // Degree String
             if let range = string.range(of: ".") {
                 degreeString = String(string[string.startIndex..<range.lowerBound].dropLast(2))
+                print("DegreeString: \(degreeString)")
             }
 
-            // Longitude Minutes String
+            // Minutes String
             var minutesString = ""
             if let range = string.range(of: ".") {
                 minutesString = String(string[string.startIndex..<range.lowerBound].suffix(2))
+                print("MinuteString: \(minutesString)")
             }
 
-            // Latitude Seconds String
+            // Seconds String
+            // Convert eg. 4658.70 - the .70 minutes = 42 Seconds
             let seconds: Double = Double(Int(string.suffix(2)) ?? 0) / 100.0 * 60.0
+            print("SecondsString: \(seconds)")
 
+            // First: divide Seconds by 60 and add Minutes
             let firstResult = (seconds / 60) + (Double(minutesString) ?? 0.0)
+            // Second: Divide the Result by 60
             let secondResult = firstResult / 60
+            // Third: Add Degrees to the Result
             let thirdResult = secondResult + (Double(degreeString) ?? 0.0)
 
             return thirdResult
@@ -169,6 +180,7 @@ struct GliderTelemetryData: Hashable {
                 else { return 0 }
 
             // TODO: Magic Number - nicht cool. Add docu! 16.3.20, ph
+            // Cause we are getting Courses from 0 to 360 degrees from OGN, we substract 1
             let headingCorrected = heading - 1
             return headingCorrected
     }
@@ -208,9 +220,10 @@ struct GliderTelemetryData: Hashable {
     
 }
 
-enum OGNMessageComponents: Int {
-//    typealias RawValue = Int
-
-    case flarmID = 0
-
-}
+// TODO: brauchen wir das?
+//enum OGNMessageComponents: Int {
+//  typealias RawValue = Int
+//
+//    case flarmID = 0
+//
+//}
