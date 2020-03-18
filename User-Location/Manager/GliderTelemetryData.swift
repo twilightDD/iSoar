@@ -125,14 +125,14 @@ struct GliderTelemetryData: Hashable {
     private static func locationCoordinateFrom(latitude: String, longitude: String)
         -> CLLocationCoordinate2D {
             // Calculate Latitude from Degrees, Minutes and Seconds
-            let thirdLatitudeResult = convertToDegrees(string: latitude)
+            let latitudeResult = convertToDecimalDegrees(string: latitude)
 
             // Calculate Longitude from Degrees, Minutes and Seconds
-            let thirdLongitudeResult = convertToDegrees(string: longitude)
+            let longitudeResult = convertToDecimalDegrees(string: longitude)
 
             // Location Result
-            let locationCoordinate = CLLocationCoordinate2D(latitude: thirdLatitudeResult,
-                                                            longitude: thirdLongitudeResult)
+            let locationCoordinate = CLLocationCoordinate2D(latitude: latitudeResult,
+                                                            longitude: longitudeResult)
             return locationCoordinate
     }
 
@@ -140,7 +140,7 @@ struct GliderTelemetryData: Hashable {
     // Online Coverter: https://www.pgc.umn.edu/apps/convert/
     // Formula DMS to DD: http://www.mwegner.de/geo/geo-koordinaten/umrechnung-grad-minute-sekunde-dezimalgrad.html
     // To avoid calculating DDM to DMS to DD - https://support.esri.com/en/technical-article/000007058
-    private static func convertToDegrees(string: String)
+    private static func convertToDecimalDegrees(string: String)
         -> Double {
             var degreeString = ""
 
