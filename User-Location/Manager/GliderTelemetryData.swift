@@ -136,10 +136,9 @@ struct GliderTelemetryData: Hashable {
             return locationCoordinate
     }
 
-    // Convert from Degrees Decimal Minutes (DDM) to Decimal-Degrees (DD) - DDM to DMS to DD
-    // Response: https://github.com/svoop/ogn_client-ruby/wiki/SenderBeacon
-    // Formula: http://www.mwegner.de/geo/geo-koordinaten/umrechnung-grad-minute-sekunde-dezimalgrad.html
+    // Convert from Degrees Decimal Minutes (DDM) to Decimal-Degrees (DD) - (actually we do DDM to DMS to DD)
     // Online Coverter: https://www.pgc.umn.edu/apps/convert/
+    // Formula DMS to DD: http://www.mwegner.de/geo/geo-koordinaten/umrechnung-grad-minute-sekunde-dezimalgrad.html
     // To avoid calculating DDM to DMS to DD - https://support.esri.com/en/technical-article/000007058
     private static func convertToDegrees(string: String)
         -> Double {
@@ -159,10 +158,13 @@ struct GliderTelemetryData: Hashable {
             }
 
             // Seconds String
+            // The latitude and longitude are expressed in degrees, minutes and decimal fractions of minutes, NOT degrees-minutes-seconds! - http://wa8lmf.net/aprs/APRS_symbols.htm
+            // So we have to convert decimal fractions of minutes to seconds
             // Convert eg. 4658.70 - the .70 minutes = 42 Seconds
             let seconds: Double = Double(Int(string.suffix(2)) ?? 0) / 100.0 * 60.0
             print("SecondsString: \(seconds)")
 
+            // Formula: http://www.mwegner.de/geo/geo-koordinaten/umrechnung-grad-minute-sekunde-dezimalgrad.html
             // First: divide Seconds by 60 and add Minutes
             let firstResult = (seconds / 60) + (Double(minutesString) ?? 0.0)
             // Second: Divide the Result by 60
