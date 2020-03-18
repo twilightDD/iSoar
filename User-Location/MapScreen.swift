@@ -555,7 +555,7 @@ class DLCalloutView: UIView, MGLCalloutView {
     lazy var leftAccessoryView = UIView()
     lazy var rightAccessoryView = UIView()
     
-    var delegate: MGLCalloutViewDelegate?
+    weak var delegate: MGLCalloutViewDelegate?
     
     required init(annotation: MGLAnnotation) {
         self.representedObject = annotation
