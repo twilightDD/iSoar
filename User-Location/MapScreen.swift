@@ -641,9 +641,8 @@ extension MapScreen: MGLMapViewDelegate {
         }
 
         // Other Glider Annotations
-        //TODO: guard let identifier = annotation.title is optional?!?!?!?!?; 18.03.2020, ph
-        // Not needed anymore, but VERY interesting.
-        guard let identifier = annotation.title
+        // Notice: nil is needed here! MGLAnnotation is an ObjC-Protocol. Fuck it!; 19.3.2020, ph
+        guard let identifier = annotation.title ?? nil
             else { return nil }
 
         let newAnnotationView = NearbyGliderAnnotationView(annotation: annotation,
