@@ -37,7 +37,7 @@ struct GliderTelemetryData: Hashable {
 
             let telemetryDataArray = parseAndCleanup(response: response)
             
-            print(telemetryDataArray)
+            //print(telemetryDataArray)
 
             // TODO: Magic Number - nicht cool. Add docu! 16.3.20, ph
             guard telemetryDataArray.count >= 10
@@ -63,7 +63,6 @@ struct GliderTelemetryData: Hashable {
 
             let climbRate = climbRateFrom(climbRate: telemetryDataArray[9])
 
-            //let flarmID = responseArray[OGNMessageComponents.flarmID]
             let telemetryData = GliderTelemetryData(flarmID: flarmID,
                                                     timestamp: telemetryDataArray[1],
                                                     location: location,
@@ -84,7 +83,7 @@ struct GliderTelemetryData: Hashable {
             if let anfang = finalResponse.firstIndex(of: ">"),
                 let ende = finalResponse.firstIndex(of: ":") {
                 let range = anfang..<ende
-                print("Range: \(range)")
+               // print("Range: \(range)")
 
                 finalResponse.replaceSubrange(range, with: "")
             }
@@ -147,14 +146,14 @@ struct GliderTelemetryData: Hashable {
             // Degree String
             if let range = string.range(of: ".") {
                 degreeString = String(string[string.startIndex..<range.lowerBound].dropLast(2))
-                print("DegreeString: \(degreeString)")
+               // print("DegreeString: \(degreeString)")
             }
 
             // Minutes String
             var minutesString = ""
             if let range = string.range(of: ".") {
                 minutesString = String(string[string.startIndex..<range.lowerBound].suffix(2))
-                print("MinuteString: \(minutesString)")
+                //print("MinuteString: \(minutesString)")
             }
 
             // Seconds String
@@ -162,7 +161,7 @@ struct GliderTelemetryData: Hashable {
             // So we have to convert decimal fractions of minutes to seconds
             // Convert eg. 4658.70 - the .70 minutes = 42 Seconds
             let seconds: Double = Double(Int(string.suffix(2)) ?? 0) / 100.0 * 60.0
-            print("SecondsString: \(seconds)")
+            //print("SecondsString: \(seconds)")
 
             // Formula: http://www.mwegner.de/geo/geo-koordinaten/umrechnung-grad-minute-sekunde-dezimalgrad.html
             // First: divide Seconds by 60 and add Minutes
@@ -178,13 +177,11 @@ struct GliderTelemetryData: Hashable {
     // Convert Heading
     private static func headingFrom(heading headingString: String)
         -> Double {
-            guard let heading = Double.init(headingString)
-                else { return 0 }
+            if let heading = Double.init(headingString) {
+                return heading
+            }
 
-            // TODO: Magic Number - nicht cool. Add docu! 16.3.20, ph
-            // Cause we are getting Courses from 0 to 360 degrees from OGN, we substract 1
-            let headingCorrected = heading - 1
-            return headingCorrected
+            return 0
     }
     
     // Convert Speed - from knots to km\m - by multiplying with 1.852
@@ -212,9 +209,9 @@ struct GliderTelemetryData: Hashable {
     // Convert ClimbRate - from fpm to m\s - by dividing with 197
     private static func climbRateFrom(climbRate climbRateString: String)
         -> Double {
-            if var climbRate = Double.init(climbRateString) {
-                climbRate = climbRate / 197
-                return climbRate
+            if let climbRate = Double.init(climbRateString) {
+                let climbRateCorrected = climbRate / 197
+                return climbRateCorrected
             }
 
             return 0

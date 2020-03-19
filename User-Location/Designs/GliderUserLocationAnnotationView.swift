@@ -9,7 +9,8 @@
 import Foundation
 import Mapbox
 
-// Create a subclass of MGLUserLocationAnnotationView.
+
+//MARK: - GliderUserLocationAnnotationView
 class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
 
     // MARK: - Lets and Vats
@@ -43,7 +44,8 @@ class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
         guard let course = MapScreen.shared!.currentLocation?.course
             else { return }
 
-        // Get the difference between the map’s current direction and the user’s heading, then convert it from degrees to radians.
+        /* Get the difference between the map’s current direction and the user’s heading,
+         then convert it from degrees to radians. */
         let rotation: CGFloat = -MGLRadiansFromDegrees(mapView!.direction - course)
 
         // If the difference would be perceptible, rotate the arrow.
@@ -57,14 +59,43 @@ class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
     }
 }
 
-// Create a subclass of MGLUserLocationAnnotationView
+//MARK: -
+//MARK: - NearbyGliderAnnotationView
 class NearbyGliderAnnotationView: MGLAnnotationView {
-    
+
+    //MARK: Lets and Vars
+    var _heading: Double = 0
+    var heading: Double {
+        get {
+            let head = _heading
+            return head
+        }
+        set {
+            _heading = newValue
+
+            // Rotate image depending on heading of glider
+            let rotation: CGFloat = MGLRadiansFromDegrees(heading)
+            CATransaction.begin()
+            CATransaction.setDisableActions(true)
+            layer.setAffineTransform(CGAffineTransform.identity.rotated(by: rotation))
+            CATransaction.commit()
+
+            // Debug output
+//            if abs(rotation) > 0.01 {
+//                print("updated nearby glider rotaion: \(annotation?.title!) - \(heading)")
+//            }
+        }
+    }
+
+
+    //MARK: - Layout Methods
     override func layoutSubviews() {
         super.layoutSubviews()
-         guard let gliderImage = UIImage(named: "nearbyGlider")?.cgImage else { return }
-         layer.contents = gliderImage
-         layer.bounds = CGRect(x: 0, y: 0, width: gliderImage.width, height: gliderImage.height)
+        guard let gliderImage = UIImage(named: "nearbyGlider")?.cgImage
+            else { return }
+
+        layer.contents = gliderImage
+        layer.bounds = CGRect(x: 0, y: 0, width: gliderImage.width, height: gliderImage.height)
     }
 
 }

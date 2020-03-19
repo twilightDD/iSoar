@@ -24,7 +24,7 @@ class OGNSocketConnectionManager {
     
     var version: String = "iSoar \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?")_\(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?")"
 
-    var regionInKm: Double = 100
+    var regionInKm: Double = 5000
     var buddyFlarmID: String = UserDefaultsManager.getBuddyFlarmID()
     
     weak var delegate: OGNSocketConnectionManagerDelegate?
@@ -153,23 +153,23 @@ class OGNSocketConnectionManager {
         print("Sent PaketData: \(packetData!)")
         
         connection?.send(content: packetData,
-                         completion: .contentProcessed( { (error) in
+                         completion: .contentProcessed { (error) in
                             if let err = error {
                                 print("Sending error \(err)")
                             } else {
                                 print("Filter Request successfully sent")
                             }
-                         }))
+            })
         
     }
     
     // Received Message from OGN Server
     // Response: https://github.com/svoop/ogn_client-ruby/wiki/SenderBeacon
     private func messageReceived(_ receivedMessage: String) {
-        print("Original OGN Message: \(receivedMessage)")
+       // print("Original OGN Message: \(receivedMessage)")
 
         let splittedMessages = receivedMessage.split(separator: "\r\n")
-        print("Anzahl Teilnachrichten: \(splittedMessages.count)")
+//        print("Anzahl Teilnachrichten: \(splittedMessages.count)")
 
         for splittedMessage in splittedMessages {
             guard splittedMessage.hasPrefix("FLR")
@@ -178,7 +178,7 @@ class OGNSocketConnectionManager {
 
             let gliderSpecificMessage = String(splittedMessage)
             if let telemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
-                print("Found FLR / ICA Prefix in Message \n\(telemetryData)")
+//                print("Found FLR / ICA Prefix in Message \n\(telemetryData)")
                 delegate?.messageReceived(message: telemetryData)
             }
 

@@ -471,7 +471,10 @@ class MapScreen: UIViewController {
             messages.remove(message)
         }
         messages.insert(message)
-        drawAnnotationsOnMap()
+        drawAnnotationsOnMap() // every time, a "message" is added, ALL annotations will be updated.
+        // Ausweg:
+        // aufruf von drawAnnotationsOnMap(newGliderTelemetryData)
+        // und eben func drawAnnotationsOnMap(_ newGliderTelemetryData: GliderTelemetryData) {} anpassen auf nur eine Message
     }
     
     // Draw Nearby Gliders on Map
@@ -488,20 +491,24 @@ class MapScreen: UIViewController {
         
         // Add or Update New Nearby Glider Annotations
         for message in messages {
-            if !mapAnnotations.contains(where: { (mapAnnotation) -> Bool in
-                mapAnnotation.title == message.flarmID
-            }) {
+            let newCoordinate = CLLocationCoordinate2D(latitude: message.location.latitude,
+                                                       longitude: message.location.longitude)
+
+            if let existingAnnotation = mapView.annotations?.first(where: { $0.title == message.flarmID }) as? MGLPointAnnotation {
+                existingAnnotation.coordinate = newCoordinate
+                if let viewForExistingAnnotaion = mapView.view(for: existingAnnotation) as? NearbyGliderAnnotationView {
+                    viewForExistingAnnotaion.heading = message.heading
+                }
+
+                //existingAnnotation.heading = message.heading
+
+            } else {
                 let annotation = MGLPointAnnotation()
                 annotation.title = message.flarmID
-                annotation.coordinate = CLLocationCoordinate2D(latitude: message.location.latitude, longitude: message.location.longitude)
+                annotation.coordinate = newCoordinate
                 mapView.addAnnotation(annotation)
-            } else {
-                if let existingAnnotation = mapView.annotations?.first(where: { $0.title == message.flarmID }) {
-                    (existingAnnotation as? MGLPointAnnotation)?.coordinate = CLLocationCoordinate2D(latitude: message.location.latitude, longitude: message.location.longitude)
-                }
             }
         }
-        
     }
     
     // MARK: Route Tracking
@@ -626,22 +633,28 @@ extension MapScreen: MGLMapViewDelegate {
     
     // Substitute our custom view for the user location annotation
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+
+        // User Annotation -> myself
         if annotation is MGLUserLocation && mapView.userLocation != nil {
-            return GliderUserLocationAnnotationView()
+            let gliderUserLocationAnnotationView = GliderUserLocationAnnotationView()
+            return gliderUserLocationAnnotationView
         }
 
-        let identifier = annotation.title ?? ""
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier ?? "")
+        // Other Glider Annotations
+        //TODO: guard let identifier = annotation.title is optional?!?!?!?!?; 18.03.2020, ph
+        // Not needed anymore, but VERY interesting.
+        guard let identifier = annotation.title
+            else { return nil }
 
-        if annotationView == nil {
-            annotationView = NearbyGliderAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            annotationView!.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
-        } else {
-            annotationView?.annotation = annotation
+        let newAnnotationView = NearbyGliderAnnotationView(annotation: annotation,
+                                                           reuseIdentifier: identifier)
+        newAnnotationView.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
+
+        if let message = messages.first(where: { (gliderTelemetryData) -> Bool in return annotation.title == gliderTelemetryData.flarmID }) {
+            newAnnotationView.heading = message.heading
         }
 
-        return annotationView
-            
+        return newAnnotationView
     }
     
     // Map finished loading
