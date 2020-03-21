@@ -619,16 +619,15 @@ extension MapScreen: MGLMapViewDelegate {
     }
     
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
-        print("annotation selected")
+        print("Annotation selected: \(annotation.title)")
+        let alert = UIAlertController(title: annotation.title ?? "", message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
-    // TODO: wird das noch benötigt?
-    private func mapView(MapView: MGLMapView!, annotation: MGLAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    // TODO: Callout
+    private func mapView(MapView: MGLMapView, annotation: MGLAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         //https://stackoverflow.com/questions/51904284/how-do-you-create-a-custom-callout-for-mapbox-annotations
-        //        if control == annotation.rightCalloutAccessoryView {
-        //            performSegue(withIdentifier: "AirportInfoSegue", sender: self)
-        //            print("Opening AirportInfoViewController")
-        //        }
     }
     
     // Substitute our custom view for the user location annotation
