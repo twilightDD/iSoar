@@ -104,9 +104,9 @@ class MapScreen: UIViewController {
         
         mapView.delegate = self
         
-        MGLOfflineStorage.shared.invalidateAmbientCache { error in
-            print("Cache invalidated")
-        }
+//        MGLOfflineStorage.shared.invalidateAmbientCache { error in
+//            print("Cache invalidated")
+//        }
         
         mapView.tintColor = .red
         mapView.allowsRotating = false
@@ -505,6 +505,7 @@ class MapScreen: UIViewController {
             } else {
                 let annotation = MGLPointAnnotation()
                 annotation.title = message.flarmID
+                annotation.subtitle = String("Altitude: \(message.altitude)m\nClimb: \(message.climbRate)m")
                 annotation.coordinate = newCoordinate
                 mapView.addAnnotation(annotation)
             }
@@ -620,7 +621,7 @@ extension MapScreen: MGLMapViewDelegate {
     
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         print("Annotation selected: \(annotation.title)")
-        let alert = UIAlertController(title: annotation.title ?? "", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: annotation.title ?? "", message: annotation.subtitle ?? "", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
