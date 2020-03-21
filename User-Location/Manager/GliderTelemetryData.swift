@@ -14,10 +14,10 @@ struct GliderTelemetryData: Hashable {
 
     // MARK: Lets and Vars
     var flarmID: String
-    var timestamp: String
+    var timestamp: Int64
     var location: CLLocationCoordinate2D
+    var type: String
     var heading: Double
-    var isHeadingValid: Bool
     var speed: Double
     var altitude: Double
     var climbRate: Double
@@ -37,37 +37,35 @@ struct GliderTelemetryData: Hashable {
 
             let telemetryDataArray = parseAndCleanup(response: response)
             
-            //print(telemetryDataArray)
+            print("TelemetryDataArray: \(telemetryDataArray)")
 
             // TODO: Magic Number - nicht cool. Add docu! 16.3.20, ph
             guard telemetryDataArray.count >= 10
                 else { return nil }
 
             let flarmID = telemetryDataArray[0]
-            //let timestamp = telemetryDataArray[1]
+            let timestamp = Date.currentUnixTimeStamp
 
             let latitude = String(telemetryDataArray[2])
             let longitude = String(telemetryDataArray[3])
             let location = locationCoordinateFrom(latitude: latitude,
                                                   longitude: longitude)
+            
+            let type = String(telemetryDataArray[4])
+            
+            let heading = Double(telemetryDataArray[5]) ?? 0
 
-            let heading = headingFrom(heading: telemetryDataArray[4])
-            var isHeadingValid = true
-            if heading.isEqual(to: 0) {
-                isHeadingValid = false
-            }
+            let speed = speedFrom(speed: telemetryDataArray[6])
 
-            let speed = speedFrom(speed: telemetryDataArray[5])
+            let altitude = altitudeFrom(altitude: telemetryDataArray[7])
 
-            let altitude = altitudeFrom(altitude: telemetryDataArray[6])
-
-            let climbRate = climbRateFrom(climbRate: telemetryDataArray[9])
+            let climbRate = climbRateFrom(climbRate: telemetryDataArray[10])
 
             let telemetryData = GliderTelemetryData(flarmID: flarmID,
-                                                    timestamp: telemetryDataArray[1],
+                                                    timestamp: timestamp,
                                                     location: location,
+                                                    type: type,
                                                     heading: heading,
-                                                    isHeadingValid: isHeadingValid,
                                                     speed: speed,
                                                     altitude: altitude,
                                                     climbRate: climbRate
@@ -95,13 +93,13 @@ struct GliderTelemetryData: Hashable {
                 .replacingOccurrences(of: "h", with: " ")
                 .replacingOccurrences(of: "N/", with: " ")
                 .replacingOccurrences(of: "N\\", with: " ")
-                .replacingOccurrences(of: "Eg", with: " ")
-                .replacingOccurrences(of: "En", with: " ")
-                .replacingOccurrences(of: "Ez", with: " ")
-                .replacingOccurrences(of: "EX", with: " ")
-                .replacingOccurrences(of: "E'", with: " ")
-                .replacingOccurrences(of: "E\'", with: " ")
-                .replacingOccurrences(of: "E^", with: " ")
+                .replacingOccurrences(of: "Eg", with: " NA ")
+                .replacingOccurrences(of: "En", with: " NA ")
+                .replacingOccurrences(of: "Ez", with: " NA ")
+                .replacingOccurrences(of: "EX", with: " heli ")
+                .replacingOccurrences(of: "E'", with: " plane ")
+                .replacingOccurrences(of: "E\'", with: " NA ")
+                .replacingOccurrences(of: "E^", with: " plane ")
                 .replacingOccurrences(of: "/", with: " ")
                 .replacingOccurrences(of: "A=", with: " ")
                 .replacingOccurrences(of: "\n", with: "")
@@ -117,7 +115,8 @@ struct GliderTelemetryData: Hashable {
             for responseSubsequence in splittedFinalResponse {
                 responseArray.append(String(responseSubsequence))
             }
-
+            
+            print(responseArray)
             return responseArray
     }
 
@@ -178,6 +177,7 @@ struct GliderTelemetryData: Hashable {
     private static func headingFrom(heading headingString: String)
         -> Double {
             if let heading = Double.init(headingString) {
+                // TODO: truncate decimal
                 return heading
             }
 
@@ -189,6 +189,7 @@ struct GliderTelemetryData: Hashable {
         -> Double {
             if var speed = Double.init(speedString) {
                 speed = speed * 1.852 // knots in km\m
+                // TODO: truncate decimal
                 return speed
             }
 
@@ -200,6 +201,7 @@ struct GliderTelemetryData: Hashable {
         -> Double {
             if var altitude = Double.init(altitudeString) {
                 altitude = altitude / 3.281 // feet in meter
+                // TODO: truncate decimal
                 return altitude
             }
 
@@ -211,6 +213,7 @@ struct GliderTelemetryData: Hashable {
         -> Double {
             if let climbRate = Double.init(climbRateString) {
                 let climbRateCorrected = climbRate / 197
+                // TODO: truncate after 1 decimal
                 return climbRateCorrected
             }
 
@@ -218,11 +221,3 @@ struct GliderTelemetryData: Hashable {
     }
     
 }
-
-// TODO: brauchen wir das?
-//enum OGNMessageComponents: Int {
-//  typealias RawValue = Int
-//
-//    case flarmID = 0
-//
-//}
