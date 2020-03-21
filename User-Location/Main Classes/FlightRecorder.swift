@@ -24,7 +24,7 @@ class FlightRecorder {
         let locationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
                                                                longitude: currentLocation.coordinate.longitude)
 
-        let currentTelemetryData = FlightData(unixTimeStamp: Date.currentTimeStamp,
+        let currentTelemetryData = FlightData(unixTimeStamp: Date.currentUnixTimeStamp,
                                     latitude: currentLocation.coordinate.latitude,
                                     longitude: currentLocation.coordinate.longitude,
                                     locationCoordinate2D: locationCoordinate2D,
@@ -79,6 +79,6 @@ extension CLLocationCoordinate2D: Equatable {
 
 // Unix Date Extension
 extension Date {
-    static var currentTimeStamp: Int64 {return Int64(Date().timeIntervalSince1970 * 1000)
+    static var currentUnixTimeStamp: Int64 {return Int64(Date().timeIntervalSince1970)
     }
 }
