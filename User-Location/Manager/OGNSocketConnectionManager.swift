@@ -22,9 +22,11 @@ class OGNSocketConnectionManager {
     
     var isLoggedIn = false
     
+    private var loginTimeStamp = Date.currentUnixTimeStamp
+    
     var version: String = "iSoar \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?")_\(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?")"
 
-    var regionInKm: Double = 5000
+    var regionInKm: Double = 200
     var buddyFlarmID: String = UserDefaultsManager.getBuddyFlarmID()
     
     weak var delegate: OGNSocketConnectionManagerDelegate?
@@ -59,16 +61,16 @@ class OGNSocketConnectionManager {
                     switch (NewConnectionState) {
                     case .setup:
                         //The connection has been initialized but not started
-                        print("setup")
+                        print("Connection: setup")
                     case .waiting:
                         //The connection has been initialized but not started
-                        print("waiting")
+                        print("Connection: waiting")
                     case .preparing:
                         //The connection in the process of being established
-                        print("Connection: Preparing")
+                        print("Connection: preparing")
                     case .ready:
                         //The connection is established and ready to send and recieve data.
-                        print("Connection: Ready")
+                        print("Connection: ready")
                         self.setupReceive()
                     case .failed:
                         //The connection in the process of being established
@@ -139,6 +141,7 @@ class OGNSocketConnectionManager {
         }
         
         isLoggedIn = true
+        loginTimeStamp = Date.currentUnixTimeStamp
     }
     
     // Disconnect from Server
@@ -169,7 +172,7 @@ class OGNSocketConnectionManager {
        // print("Original OGN Message: \(receivedMessage)")
 
         let splittedMessages = receivedMessage.split(separator: "\r\n")
-//        print("Anzahl Teilnachrichten: \(splittedMessages.count)")
+        // print("Anzahl Teilnachrichten: \(splittedMessages.count)")
 
         for splittedMessage in splittedMessages {
             guard splittedMessage.hasPrefix("FLR")
@@ -178,7 +181,7 @@ class OGNSocketConnectionManager {
 
             let gliderSpecificMessage = String(splittedMessage)
             if let telemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
-//                print("Found FLR / ICA Prefix in Message \n\(telemetryData)")
+               // print("Found FLR / ICA Prefix in Message \n\(telemetryData)")
                 delegate?.messageReceived(message: telemetryData)
             }
 
