@@ -11,7 +11,7 @@ import CoreLocation
 
 // MARK: - OGNMessage
 struct GliderTelemetryData: Hashable {
-
+    
     // MARK: Lets and Vars
     var flarmID: String
     var timestamp: Int64
@@ -21,7 +21,7 @@ struct GliderTelemetryData: Hashable {
     var speed: Double
     var altitude: Double
     var climbRate: Double
-
+    
     // MARK: - Hashable
     static func == (lhs: GliderTelemetryData, rhs: GliderTelemetryData) -> Bool {
         return lhs.flarmID == rhs.flarmID
@@ -30,22 +30,22 @@ struct GliderTelemetryData: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(flarmID)
     }
-
+    
     // MARK: - Init&Co.
     static func telemetryDataFromOGNGliderResponse(_ response: String)
         -> GliderTelemetryData? {
-
+            
             let telemetryDataArray = parseAndCleanup(response: response)
             
-            print("TelemetryDataArray: \(telemetryDataArray)")
-
+            // print("TelemetryDataArray: \(telemetryDataArray)")
+            
             // TODO: Magic Number - nicht cool. Add docu! 16.3.20, ph
             guard telemetryDataArray.count >= 10
                 else { return nil }
-
+            
             let flarmID = telemetryDataArray[0]
             let timestamp = Date.currentUnixTimeStamp
-
+            
             let latitude = String(telemetryDataArray[2])
             let longitude = String(telemetryDataArray[3])
             let location = locationCoordinateFrom(latitude: latitude,
@@ -54,13 +54,13 @@ struct GliderTelemetryData: Hashable {
             let type = String(telemetryDataArray[4])
             
             let heading = Double(telemetryDataArray[5]) ?? 0
-
+            
             let speed = speedFrom(speed: telemetryDataArray[6])
-
+            
             let altitude = altitudeFrom(altitude: telemetryDataArray[7])
-
+            
             let climbRate = climbRateFrom(climbRate: telemetryDataArray[10])
-
+            
             let telemetryData = GliderTelemetryData(flarmID: flarmID,
                                                     timestamp: timestamp,
                                                     location: location,
@@ -72,20 +72,20 @@ struct GliderTelemetryData: Hashable {
             )
             return telemetryData
     }
-
+    
     private static func parseAndCleanup(response: String)
         -> [String] {
-
+            
             var finalResponse = response
             // Convert response to Array of Strings
             if let anfang = finalResponse.firstIndex(of: ">"),
                 let ende = finalResponse.firstIndex(of: ":") {
                 let range = anfang..<ende
-               // print("Range: \(range)")
-
+                // print("Range: \(range)")
+                
                 finalResponse.replaceSubrange(range, with: "")
             }
-
+            
             finalResponse = finalResponse
                 .replacingOccurrences(of: ">", with: " ")
                 .replacingOccurrences(of: ":\\", with: " ")
@@ -105,35 +105,35 @@ struct GliderTelemetryData: Hashable {
                 .replacingOccurrences(of: "\n", with: "")
                 .replacingOccurrences(of: "\r", with: "")
                 .replacingOccurrences(of: "fpm", with: "")
-
+            
             //print("bereinigt: \(finalResponse)")
-
+            
             // Split response into parts and convert it to "array of strings"; 16.3.20, ph
             let splittedFinalResponse = finalResponse.split(separator: " ")
-
+            
             var responseArray = [String]()
             for responseSubsequence in splittedFinalResponse {
                 responseArray.append(String(responseSubsequence))
             }
             
-            print(responseArray)
+            // print(responseArray)
             return responseArray
     }
-
+    
     private static func locationCoordinateFrom(latitude: String, longitude: String)
         -> CLLocationCoordinate2D {
             // Calculate Latitude from Degrees, Minutes and Seconds
             let latitudeResult = convertToDecimalDegrees(string: latitude)
-
+            
             // Calculate Longitude from Degrees, Minutes and Seconds
             let longitudeResult = convertToDecimalDegrees(string: longitude)
-
+            
             // Location Result
             let locationCoordinate = CLLocationCoordinate2D(latitude: latitudeResult,
                                                             longitude: longitudeResult)
             return locationCoordinate
     }
-
+    
     // Convert from Degrees Decimal Minutes (DDM) to Decimal-Degrees (DD) - (actually we do DDM to DMS to DD)
     // Online Coverter: https://www.pgc.umn.edu/apps/convert/
     // Formula DMS to DD: http://www.mwegner.de/geo/geo-koordinaten/umrechnung-grad-minute-sekunde-dezimalgrad.html
@@ -141,27 +141,27 @@ struct GliderTelemetryData: Hashable {
     private static func convertToDecimalDegrees(string: String)
         -> Double {
             var degreeString = ""
-
+            
             // Degree String
             if let range = string.range(of: ".") {
                 degreeString = String(string[string.startIndex..<range.lowerBound].dropLast(2))
-               // print("DegreeString: \(degreeString)")
+                // print("DegreeString: \(degreeString)")
             }
-
+            
             // Minutes String
             var minutesString = ""
             if let range = string.range(of: ".") {
                 minutesString = String(string[string.startIndex..<range.lowerBound].suffix(2))
                 //print("MinuteString: \(minutesString)")
             }
-
+            
             // Seconds String
             // The latitude and longitude are expressed in degrees, minutes and decimal fractions of minutes, NOT degrees-minutes-seconds! - http://wa8lmf.net/aprs/APRS_symbols.htm
             // So we have to convert decimal fractions of minutes to seconds
             // Convert eg. 4658.70 - the .70 minutes = 42 Seconds
             let seconds: Double = Double(Int(string.suffix(2)) ?? 0) / 100.0 * 60.0
             //print("SecondsString: \(seconds)")
-
+            
             // Formula: http://www.mwegner.de/geo/geo-koordinaten/umrechnung-grad-minute-sekunde-dezimalgrad.html
             // First: divide Seconds by 60 and add Minutes
             let firstResult = (seconds / 60) + (Double(minutesString) ?? 0.0)
@@ -169,7 +169,7 @@ struct GliderTelemetryData: Hashable {
             let secondResult = firstResult / 60
             // Third: Add Degrees to the Result
             let thirdResult = secondResult + (Double(degreeString) ?? 0.0)
-
+            
             return thirdResult
     }
     
@@ -177,47 +177,61 @@ struct GliderTelemetryData: Hashable {
     private static func headingFrom(heading headingString: String)
         -> Double {
             if let heading = Double.init(headingString) {
-                // TODO: truncate decimal
                 return heading
             }
-
+            
             return 0
     }
     
-    // Convert Speed - from knots to km\m - by multiplying with 1.852
+    // Convert Speed
     private static func speedFrom(speed speedString: String)
         -> Double {
             if var speed = Double.init(speedString) {
-                speed = speed * 1.852 // knots in km\m
-                // TODO: truncate decimal
+                // Convert Knots to Km\h - by multiplying with 1.852
+                speed = speed * 1.852
+                // TODO: Truncate decimals
+                
+                let formatter = NumberFormatter()
+                formatter.maximumFractionDigits = 0
+                
                 return speed
             }
-
+            
             return 0
     }
     
-    // Convert Altitude - from feet to meter - by dividing with 3.281
+    // Convert Altitude
     private static func altitudeFrom(altitude altitudeString: String)
         -> Double {
             if var altitude = Double.init(altitudeString) {
-                altitude = altitude / 3.281 // feet in meter
-                // TODO: truncate decimal
+                // Convert from Feet to Meter - by dividing with 3.281
+                altitude = altitude / 3.281
+                // Truncate decimals
                 return altitude
             }
-
+            
             return 0
     }
     
-    // Convert ClimbRate - from fpm to m\s - by dividing with 197
+    // Convert ClimbRate
     private static func climbRateFrom(climbRate climbRateString: String)
         -> Double {
-            if let climbRate = Double.init(climbRateString) {
-                let climbRateCorrected = climbRate / 197
-                // TODO: truncate after 1 decimal
-                return climbRateCorrected
+            if var climbRate = Double.init(climbRateString) {
+                // Convert Feet per Minute to Meter per Second -  by dividing with 197
+                climbRate = climbRate / 197
+                // Truncate after 1 decimal
+                climbRate = climbRate.truncate(places: 1)
+                return climbRate
             }
-
+            
             return 0
+
     }
     
+}
+
+extension Double {
+    func truncate(places: Int) -> Double {
+        return Double(floor(pow(10.0, Double(places)) * self)/pow(10.0, Double(places)))
+    }
 }
