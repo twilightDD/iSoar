@@ -9,8 +9,7 @@
 import Foundation
 import Mapbox
 
-
-//MARK: - GliderUserLocationAnnotationView
+// MARK: - GliderUserLocationAnnotationView
 class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
 
     // MARK: - Lets and Vats
@@ -59,11 +58,10 @@ class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
     }
 }
 
-//MARK: -
-//MARK: - NearbyGliderAnnotationView
+// MARK: - NearbyGliderAnnotationView
 class NearbyGliderAnnotationView: MGLAnnotationView {
 
-    //MARK: Lets and Vars
+    // MARK: Lets and Vars
     var _heading: Double = 0
     var heading: Double {
         get {
@@ -80,15 +78,10 @@ class NearbyGliderAnnotationView: MGLAnnotationView {
             layer.setAffineTransform(CGAffineTransform.identity.rotated(by: rotation))
             CATransaction.commit()
 
-            // Debug output
-//            if abs(rotation) > 0.01 {
-//                print("updated nearby glider rotaion: \(annotation?.title!) - \(heading)")
-//            }
         }
     }
 
-
-    //MARK: - Layout Methods
+    // MARK: - Layout Methods
     override func layoutSubviews() {
         super.layoutSubviews()
         guard let gliderImage = UIImage(named: "nearbyGlider")?.cgImage
