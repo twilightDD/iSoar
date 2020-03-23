@@ -186,15 +186,15 @@ struct GliderTelemetryData: Hashable {
     // Convert Speed
     private static func speedFrom(speed speedString: String)
         -> Double {
-            if var speed = Double.init(speedString) {
+            if let speed = Double.init(speedString) {
                 // Convert Knots to Km\h - by multiplying with 1.852
-                speed = speed * 1.852
+                let speedConverted = speed * 1.852
                 // TODO: Truncate decimals
                 
                 let formatter = NumberFormatter()
                 formatter.maximumFractionDigits = 0
                 
-                return speed
+                return speedConverted
             }
             
             return 0
@@ -203,11 +203,11 @@ struct GliderTelemetryData: Hashable {
     // Convert Altitude
     private static func altitudeFrom(altitude altitudeString: String)
         -> Double {
-            if var altitude = Double.init(altitudeString) {
+            if let altitude = Double.init(altitudeString) {
                 // Convert from Feet to Meter - by dividing with 3.281
-                altitude = altitude / 3.281
+                let altitudeConverted = altitude / 3.281
                 // Truncate decimals
-                return altitude
+                return altitudeConverted
             }
             
             return 0
@@ -216,12 +216,12 @@ struct GliderTelemetryData: Hashable {
     // Convert ClimbRate
     private static func climbRateFrom(climbRate climbRateString: String)
         -> Double {
-            if var climbRate = Double.init(climbRateString) {
+            if let climbRate = Double.init(climbRateString) {
                 // Convert Feet per Minute to Meter per Second -  by dividing with 197
-                climbRate = climbRate / 197
+                var climbRateConverted = climbRate / 197
                 // Truncate after 1 decimal
-                climbRate = climbRate.truncate(places: 1)
-                return climbRate
+                climbRateConverted = climbRateConverted.truncate(places: 1)
+                return climbRateConverted
             }
             
             return 0
