@@ -601,37 +601,54 @@ extension MapScreen: MGLMapViewDelegate {
         return 2.0
     }
     
+    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation)
+        -> Bool {
+            
+            return true
+    }
+
     // Instantiate and return our custom callout view
     // https://stackoverflow.com/questions/26713582/didselectannotationview-not-called
-    func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation) -> MGLCalloutView? {
-        let callOutView =  DLCalloutView(annotation: annotation)
-        return callOutView
+    func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation)
+        -> MGLCalloutView? {
+            let callOutView =  CustomCalloutView.init(representedObject: annotation)
+
+            return callOutView
+
+            //        return callOutView
     }
-    
-    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
-        return true
-    }
+
     
     // Hide the callout
+    func mapView(_ mapView: MGLMapView,
+                 annotation: MGLAnnotation,
+                 calloutAccessoryControlTapped control: UIControl) {
+        print("Tapped the calloutAccessoryControlTapped for: \(annotation)")
+        mapView.deselectAnnotation(annotation, animated: true)
+    }
     func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
         // Optionally handle taps on the callout.
         print("Tapped the callout for: \(annotation)")
         mapView.deselectAnnotation(annotation, animated: true)
     }
     
-    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
-        print("Annotation selected: \(annotation.title)")
-        let alert = UIAlertController(title: annotation.title ?? "", message: annotation.subtitle ?? "", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
+//    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+//        print("Annotation selected: \(annotation.title)")
+//        let alert = UIAlertController(title: annotation.title ?? "", message: annotation.subtitle ?? "", preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//        self.present(alert, animated: true, completion: nil)
+//    }
+
+
+
+
     // TODO: Callout
     private func mapView(MapView: MGLMapView, annotation: MGLAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         //https://stackoverflow.com/questions/51904284/how-do-you-create-a-custom-callout-for-mapbox-annotations
     }
     
     // Substitute our custom view for the user location annotation
+
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
 
         // User Annotation -> myself
