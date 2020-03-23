@@ -120,6 +120,8 @@
 		D023099C2429586600A68F34 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D0945070235E564B0089E3C8 /* Cells */,
+				E0B52F7522837BC800E28A93 /* Designs */,
 				D023099D2429587500A68F34 /* MapBox CallOuts */,
 			);
 			path = Views;
@@ -260,9 +262,7 @@
 				D023099C2429586600A68F34 /* Views */,
 				E00E08CB23DB877A00BE04F6 /* TimeDateFormatter.swift */,
 				D0C2801C23D8FE0D00518539 /* Manager */,
-				D0945070235E564B0089E3C8 /* Cells */,
 				D02B0E6322C15B95007C7162 /* Subclasses */,
-				E0B52F7522837BC800E28A93 /* Designs */,
 				E0526AB022BF7056001FC6B4 /* Extensions */,
 				E0C138D923D21ABE00624F1C /* Main Classes */,
 				E0DA9414228D267500D3A854 /* Airports */,
