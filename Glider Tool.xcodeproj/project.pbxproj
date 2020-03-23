@@ -10,6 +10,8 @@
 		18BE3F7422CF688D00859347 /* GliderUserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE3F7322CF688D00859347 /* GliderUserLocationAnnotationView.swift */; };
 		4FA79AEE7ECE155E0BFA301B /* Pods_Glider_Tool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1EF2983B88025FDC2840F2 /* Pods_Glider_Tool.framework */; };
 		D023099B2429555B00A68F34 /* CustomCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D023099A2429555B00A68F34 /* CustomCalloutView.swift */; };
+		D02309A12429590B00A68F34 /* NearbyGliderCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D02309A02429590B00A68F34 /* NearbyGliderCalloutView.xib */; };
+		D02309A32429591A00A68F34 /* NearbyGliderCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02309A22429591A00A68F34 /* NearbyGliderCalloutView.swift */; };
 		D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02B0E6422C15BB7007C7162 /* UserLocationButton.swift */; };
 		D060C1F322B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */; };
 		D074B51522968C7A00A573AE /* Airports.json in Resources */ = {isa = PBXBuildFile; fileRef = D074B51422968C7A00A573AE /* Airports.json */; };
@@ -63,6 +65,8 @@
 		75CB3E8DFF8D455C8F1742A5 /* Pods-Glider Tool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Glider Tool.debug.xcconfig"; path = "Target Support Files/Pods-Glider Tool/Pods-Glider Tool.debug.xcconfig"; sourceTree = "<group>"; };
 		AF3E6C1CC85039594789B3C8 /* Pods-Glider Tool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Glider Tool.release.xcconfig"; path = "Target Support Files/Pods-Glider Tool/Pods-Glider Tool.release.xcconfig"; sourceTree = "<group>"; };
 		D023099A2429555B00A68F34 /* CustomCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalloutView.swift; sourceTree = "<group>"; };
+		D02309A02429590B00A68F34 /* NearbyGliderCalloutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NearbyGliderCalloutView.xib; sourceTree = "<group>"; };
+		D02309A22429591A00A68F34 /* NearbyGliderCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyGliderCalloutView.swift; sourceTree = "<group>"; };
 		D02B0E6422C15BB7007C7162 /* UserLocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationButton.swift; sourceTree = "<group>"; };
 		D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUserLocationAnnotationView.swift; sourceTree = "<group>"; };
 		D074B51422968C7A00A573AE /* Airports.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Airports.json; sourceTree = "<group>"; };
@@ -113,6 +117,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D023099C2429586600A68F34 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D023099D2429587500A68F34 /* MapBox CallOuts */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D023099D2429587500A68F34 /* MapBox CallOuts */ = {
+			isa = PBXGroup;
+			children = (
+				D023099A2429555B00A68F34 /* CustomCalloutView.swift */,
+				D02309A22429591A00A68F34 /* NearbyGliderCalloutView.swift */,
+				D02309A02429590B00A68F34 /* NearbyGliderCalloutView.xib */,
+			);
+			path = "MapBox CallOuts";
+			sourceTree = "<group>";
+		};
 		D02B0E6322C15B95007C7162 /* Subclasses */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,6 +257,7 @@
 		EDA236212130AA7500739396 /* User-Location */ = {
 			isa = PBXGroup;
 			children = (
+				D023099C2429586600A68F34 /* Views */,
 				E00E08CB23DB877A00BE04F6 /* TimeDateFormatter.swift */,
 				D0C2801C23D8FE0D00518539 /* Manager */,
 				D0945070235E564B0089E3C8 /* Cells */,
@@ -245,7 +268,6 @@
 				E0DA9414228D267500D3A854 /* Airports */,
 				E0B52F702283753400E28A93 /* ViewControllers */,
 				EDA236342130AA9A00739396 /* MapScreen.swift */,
-				D023099A2429555B00A68F34 /* CustomCalloutView.swift */,
 				EDA236222130AA7500739396 /* AppDelegate.swift */,
 				EDA236262130AA7500739396 /* Main.storyboard */,
 				EDA236292130AA7600739396 /* Assets.xcassets */,
@@ -328,6 +350,7 @@
 			files = (
 				EDA2362D2130AA7600739396 /* LaunchScreen.storyboard in Resources */,
 				EDA2362A2130AA7600739396 /* Assets.xcassets in Resources */,
+				D02309A12429590B00A68F34 /* NearbyGliderCalloutView.xib in Resources */,
 				EDA236282130AA7500739396 /* Main.storyboard in Resources */,
 				D074B51522968C7A00A573AE /* Airports.json in Resources */,
 			);
@@ -404,6 +427,7 @@
 				E0B8142B2367450200D88B6C /* LogbookViewController.swift in Sources */,
 				E01D87EB239ABB5D00E9B5B6 /* TasksDatabase.swift in Sources */,
 				D023099B2429555B00A68F34 /* CustomCalloutView.swift in Sources */,
+				D02309A32429591A00A68F34 /* NearbyGliderCalloutView.swift in Sources */,
 				E00E08CC23DB877A00BE04F6 /* TimeDateFormatter.swift in Sources */,
 				D0C2A9E32367954A00FEF926 /* UITextField+NumberPadDoneButton.swift in Sources */,
 				E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */,
