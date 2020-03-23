@@ -6,11 +6,9 @@
 //  Copyright © 2020 Denis Leupold. All rights reserved.
 //
 
-
 // https://docs.mapbox.com/ios/maps/examples/custom-callout/
 
 import Mapbox
-
 
 class CustomCalloutView: UIView, MGLCalloutView {
     var representedObject: MGLAnnotation

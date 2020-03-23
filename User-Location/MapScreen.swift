@@ -57,7 +57,7 @@ class MapScreen: UIViewController {
     
     var showTrackingRoute = false
     
-    var messages = Set<GliderTelemetryData>()
+    var GliderTelemetryDatas = Set<GliderTelemetryData>()
     
     // MARK: - Init & Co.
     required init?(coder aDecoder: NSCoder) {
@@ -467,10 +467,10 @@ class MapScreen: UIViewController {
     // MARK: Nearby Glider Annotation Creation
     // Add Messages
     func addMessage(message: GliderTelemetryData) {
-        if messages.contains(message) {
-            messages.remove(message)
+        if GliderTelemetryDatas.contains(message) {
+            GliderTelemetryDatas.remove(message)
         }
-        messages.insert(message)
+        GliderTelemetryDatas.insert(message)
         drawAnnotationsOnMap() // every time, a "message" is added, ALL annotations will be updated.
         // Ausweg:
         // aufruf von drawAnnotationsOnMap(newGliderTelemetryData)
@@ -480,9 +480,9 @@ class MapScreen: UIViewController {
     // Draw Nearby Gliders on Map
     func drawAnnotationsOnMap() {
         let mapAnnotations = mapView.annotations ?? []
-        // remove old annotions from map
+        // Remove old Annotions from Map
         for mapAnnotation in mapAnnotations {
-            if !messages.contains(where: { (message) -> Bool in
+            if !GliderTelemetryDatas.contains(where: { (message) -> Bool in
                 message.flarmID == mapAnnotation.title
             }) {
                 mapView.removeAnnotation(mapAnnotation)
@@ -490,22 +490,22 @@ class MapScreen: UIViewController {
         }
         
         // Add or Update New Nearby Glider Annotations
-        for message in messages {
-            let newCoordinate = CLLocationCoordinate2D(latitude: message.location.latitude,
-                                                       longitude: message.location.longitude)
+        for GliderTelemetryData in GliderTelemetryDatas {
+            let newCoordinate = CLLocationCoordinate2D(latitude: GliderTelemetryData.location.latitude,
+                                                       longitude: GliderTelemetryData.location.longitude)
 
-            if let existingAnnotation = mapView.annotations?.first(where: { $0.title == message.flarmID }) as? MGLPointAnnotation {
+            if let existingAnnotation = mapView.annotations?.first(where: { $0.title == GliderTelemetryData.flarmID }) as? MGLPointAnnotation {
                 existingAnnotation.coordinate = newCoordinate
                 if let viewForExistingAnnotaion = mapView.view(for: existingAnnotation) as? NearbyGliderAnnotationView {
-                    viewForExistingAnnotaion.heading = message.heading
+                    viewForExistingAnnotaion.heading = GliderTelemetryData.heading
                 }
 
                 //existingAnnotation.heading = message.heading
 
             } else {
                 let annotation = MGLPointAnnotation()
-                annotation.title = message.flarmID
-                annotation.subtitle = String("Altitude: \(message.altitude)m\nClimb: \(message.climbRate)m")
+                annotation.title = GliderTelemetryData.flarmID
+                annotation.subtitle = String("Altitude: \(GliderTelemetryData.altitude)m\nClimb: \(GliderTelemetryData.climbRate)m")
                 annotation.coordinate = newCoordinate
                 mapView.addAnnotation(annotation)
             }
@@ -611,21 +611,20 @@ extension MapScreen: MGLMapViewDelegate {
     // https://stackoverflow.com/questions/26713582/didselectannotationview-not-called
     func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation)
         -> MGLCalloutView? {
-            let views = Bundle.main.loadNibNamed("NearbyGliderCalloutView",
-                                                 owner: nil,
-                                                 options: nil)
+//            let views = Bundle.main.loadNibNamed("NearbyGliderCalloutView",
+//                                                 owner: nil,
+//                                                 options: nil)
+//
+//            guard let nearbyGliderCalloutView = views?[0] as? NearbyGliderCalloutView
+//                else { fatalError("Must be a NearbyGliderCalloutView.") }
+//
+//            nearbyGliderCalloutView.representedObject = annotation
+//            return nearbyGliderCalloutView
 
-            guard let nearbyGliderCalloutView = views?[0] as? NearbyGliderCalloutView
-                else { fatalError("Must be a NearbyGliderCalloutView.") }
-
-            nearbyGliderCalloutView.representedObject = annotation
-            return nearbyGliderCalloutView
-
-//            let callOutView =  CustomCalloutView.init(representedObject: annotation)
-//            return callOutView
+            let callOutView = CustomCalloutView.init(representedObject: annotation)
+            return callOutView
     }
 
-    
     // Hide the callout
     func mapView(_ mapView: MGLMapView,
                  annotation: MGLAnnotation,
@@ -646,13 +645,10 @@ extension MapScreen: MGLMapViewDelegate {
 //        self.present(alert, animated: true, completion: nil)
 //    }
 
-
-
-
     // TODO: Callout
-    private func mapView(MapView: MGLMapView, annotation: MGLAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        //https://stackoverflow.com/questions/51904284/how-do-you-create-a-custom-callout-for-mapbox-annotations
-    }
+//    private func mapView(MapView: MGLMapView, annotation: MGLAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+//        //https://stackoverflow.com/questions/51904284/how-do-you-create-a-custom-callout-for-mapbox-annotations
+//    }
     
     // Substitute our custom view for the user location annotation
 
@@ -673,7 +669,7 @@ extension MapScreen: MGLMapViewDelegate {
                                                            reuseIdentifier: identifier)
         newAnnotationView.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
 
-        if let message = messages.first(where: { (gliderTelemetryData) -> Bool in return annotation.title == gliderTelemetryData.flarmID }) {
+        if let message = GliderTelemetryDatas.first(where: { (gliderTelemetryData) -> Bool in return annotation.title == gliderTelemetryData.flarmID }) {
             newAnnotationView.heading = message.heading
         }
 
