@@ -6,14 +6,13 @@
 //  Copyright © 2020 Denis Leupold. All rights reserved.
 //
 
-
 // https://docs.mapbox.com/ios/maps/examples/custom-callout/
 
 import Mapbox
 
 class NearbyGliderCalloutView: UIView, MGLCalloutView {
 
-    @IBOutlet weak var icaoLabel: UILabel!
+    @IBOutlet weak var flarmIDLabel: UILabel!
 
     var representedObject: MGLAnnotation
 
@@ -73,10 +72,9 @@ class NearbyGliderCalloutView: UIView, MGLCalloutView {
 
         delegate?.calloutViewWillAppear?(self)
 
-        icaoLabel.text = representedObject.title!
+        flarmIDLabel.text = representedObject.title!
 
         view.addSubview(self)
-
 
         delegate?.calloutViewDidAppear?(self)
 
@@ -150,24 +148,24 @@ class NearbyGliderCalloutView: UIView, MGLCalloutView {
 
     // MARK: - Custom view styling
 
-    override func draw(_ rect: CGRect) {
-        // Draw the pointed tip at the bottom.
-        let fillColor: UIColor = .darkGray
-
-        let tipLeft = rect.origin.x + (rect.size.width / 2.0) - (tipWidth / 2.0)
-        let tipBottom = CGPoint(x: rect.origin.x + (rect.size.width / 2.0), y: rect.origin.y + rect.size.height)
-        let heightWithoutTip = rect.size.height - tipHeight - 1
-
-        let currentContext = UIGraphicsGetCurrentContext()!
-
-        let tipPath = CGMutablePath()
-        tipPath.move(to: CGPoint(x: tipLeft, y: heightWithoutTip))
-        tipPath.addLine(to: CGPoint(x: tipBottom.x, y: tipBottom.y))
-        tipPath.addLine(to: CGPoint(x: tipLeft + tipWidth, y: heightWithoutTip))
-        tipPath.closeSubpath()
-
-        fillColor.setFill()
-        currentContext.addPath(tipPath)
-        currentContext.fillPath()
-    }
+//    override func draw(_ rect: CGRect) {
+//        // Draw the pointed tip at the bottom.
+//        let fillColor: UIColor = .darkGray
+//
+//        let tipLeft = rect.origin.x + (rect.size.width / 2.0) - (tipWidth / 2.0)
+//        let tipBottom = CGPoint(x: rect.origin.x + (rect.size.width / 2.0), y: rect.origin.y + rect.size.height)
+//        let heightWithoutTip = rect.size.height - tipHeight - 1
+//
+//        let currentContext = UIGraphicsGetCurrentContext()!
+//
+//        let tipPath = CGMutablePath()
+//        tipPath.move(to: CGPoint(x: tipLeft, y: heightWithoutTip))
+//        tipPath.addLine(to: CGPoint(x: tipBottom.x, y: tipBottom.y))
+//        tipPath.addLine(to: CGPoint(x: tipLeft + tipWidth, y: heightWithoutTip))
+//        tipPath.closeSubpath()
+//
+//        fillColor.setFill()
+//        currentContext.addPath(tipPath)
+//        currentContext.fillPath()
+//    }
 }
