@@ -50,10 +50,12 @@ class NearbyGliderCalloutView: UIView, MGLCalloutView {
     //let mainBody: UIButton
 
     required init(representedObject: MGLAnnotation) {
-        self.representedObject = representedObject
+        fatalError("Not implemented yet. See init(decoder:)")
+//        self.representedObject = representedObject
+
 //        self.mainBody = UIButton(type: .system)
 
-        super.init(frame: .zero)
+//        super.init(frame: .zero)
 
 //        backgroundColor = .clear
 //
@@ -67,8 +69,8 @@ class NearbyGliderCalloutView: UIView, MGLCalloutView {
 
     required init?(coder decoder: NSCoder) {
         self.representedObject = MGLPointAnnotation()
+
         super.init(coder: decoder)
-//        fatalError("init(coder:) has not been implemented")
     }
 
     override func layoutSubviews() {
@@ -85,7 +87,12 @@ class NearbyGliderCalloutView: UIView, MGLCalloutView {
 
         delegate?.calloutViewWillAppear?(self)
 
-        flarmIDLabel.text = representedObject.title!
+        guard let nearbyGliderAnnotaion = representedObject as? NearbyGliderAnnotaion
+            else { fatalError("Must be a NearbyGliderAnnotaion.") }
+        
+        flarmIDLabel.text = nearbyGliderAnnotaion.gliderTelemetryData.flarmID
+        altitudeLabel.text = "\(nearbyGliderAnnotaion.gliderTelemetryData.altitude)"
+        climbRateLabel.text = "\(nearbyGliderAnnotaion.gliderTelemetryData.climbRate)"
 
         view.addSubview(self)
 

@@ -615,8 +615,10 @@ extension MapScreen: MGLMapViewDelegate {
 
             guard let nearbyGliderCalloutView = views?[0] as? NearbyGliderCalloutView
                 else { fatalError("Must be a NearbyGliderCalloutView.") }
+            guard let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotaion
+                else { fatalError("Must be a NearbyGliderAnnotaion") }
 
-            nearbyGliderCalloutView.representedObject = annotation
+            nearbyGliderCalloutView.representedObject = nearbyGliderAnnotation
             
             return nearbyGliderCalloutView
     }
