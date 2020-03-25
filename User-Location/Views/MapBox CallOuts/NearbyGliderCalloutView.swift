@@ -12,6 +12,11 @@ import Mapbox
 
 class NearbyGliderCalloutView: UIView, MGLCalloutView {
 
+    class func nibName() -> String {
+        let typeString: String = String(describing: self)
+        return typeString
+    }
+
     @IBOutlet weak var flarmIDLabel: UILabel!
     @IBOutlet weak var altitudeLabel: UILabel!
     @IBOutlet weak var climbRateLabel: UILabel!
