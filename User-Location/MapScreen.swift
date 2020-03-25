@@ -618,12 +618,8 @@ extension MapScreen: MGLMapViewDelegate {
                 else { fatalError("Must be a NearbyGliderCalloutView.") }
 
             nearbyGliderCalloutView.representedObject = annotation
-            nearbyGliderCalloutView.layer.cornerRadius = 5
             
             return nearbyGliderCalloutView
-
-//            let callOutView = CustomCalloutView.init(representedObject: annotation)
-//            return callOutView
     }
 
     // Hide the callout
@@ -687,7 +683,7 @@ extension MapScreen: MGLMapViewDelegate {
             mapView.setCenter(CLLocationCoordinate2D(
                 latitude: currentLocation.coordinate.latitude,
                 longitude: currentLocation.coordinate.longitude),
-                              zoomLevel: 9.6,
+                              zoomLevel: 5,
                               animated: true)
         }
             // If not, set Center the Map to Airport Stuttgart

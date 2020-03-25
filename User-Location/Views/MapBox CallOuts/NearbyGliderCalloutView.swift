@@ -66,6 +66,12 @@ class NearbyGliderCalloutView: UIView, MGLCalloutView {
 //        fatalError("init(coder:) has not been implemented")
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        roundCorners(radius: 5)
+    }
+
     // MARK: - MGLCalloutView API
     func presentCallout(from rect: CGRect,
                         in view: UIView,
@@ -118,7 +124,7 @@ class NearbyGliderCalloutView: UIView, MGLCalloutView {
     }
 
     func dismissCallout(animated: Bool) {
-        if (superview != nil) {
+        if superview != nil {
             if animated {
                 UIView.animate(withDuration: 0.2, animations: { [weak self] in
                     self?.alpha = 0
@@ -148,9 +154,23 @@ class NearbyGliderCalloutView: UIView, MGLCalloutView {
         }
     }
 
-    // MARK: - Custom view styling
 
+
+    // MARK: - Custom view styling
+    func roundCorners(radius: CGFloat,
+                      corners: UIRectCorner = .allCorners) {
+        // Hint: corners = [.topLeft, .topRight]
+        let path = UIBezierPath(roundedRect: bounds,
+                                byRoundingCorners: corners,
+                                cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
+    }
+
+//Keep it! 25.03.2020, ph
 //    override func draw(_ rect: CGRect) {
+//
 //        // Draw the pointed tip at the bottom.
 //        let fillColor: UIColor = .darkGray
 //
@@ -170,4 +190,5 @@ class NearbyGliderCalloutView: UIView, MGLCalloutView {
 //        currentContext.addPath(tipPath)
 //        currentContext.fillPath()
 //    }
+
 }
