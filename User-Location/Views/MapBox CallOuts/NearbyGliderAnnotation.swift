@@ -10,7 +10,7 @@ import Foundation
 
 import Mapbox
 
-class NearbyGliderAnnotaion: MGLPointAnnotation {
+class NearbyGliderAnnotation: MGLPointAnnotation {
     var gliderTelemetryData: GliderTelemetryData
 
     required init(gliderTelemetryData: GliderTelemetryData) {

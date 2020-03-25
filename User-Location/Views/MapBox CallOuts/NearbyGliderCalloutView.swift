@@ -87,7 +87,7 @@ class NearbyGliderCalloutView: UIView, MGLCalloutView {
 
         delegate?.calloutViewWillAppear?(self)
 
-        guard let nearbyGliderAnnotaion = representedObject as? NearbyGliderAnnotaion
+        guard let nearbyGliderAnnotaion = representedObject as? NearbyGliderAnnotation
             else { fatalError("Must be a NearbyGliderAnnotaion.") }
         
         flarmIDLabel.text = nearbyGliderAnnotaion.gliderTelemetryData.flarmID

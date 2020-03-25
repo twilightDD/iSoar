@@ -494,14 +494,14 @@ class MapScreen: UIViewController {
                                                        longitude: gliderTelemetryData.location.longitude)
 
             if let existingAnnotation = mapView.annotations?.first(where: { $0.title == gliderTelemetryData.flarmID })
-                as? NearbyGliderAnnotaion {
+                as? NearbyGliderAnnotation {
                 existingAnnotation.coordinate = newCoordinate
                 if let viewForExistingAnnotaion = mapView.view(for: existingAnnotation) as? NearbyGliderAnnotationView {
                     viewForExistingAnnotaion.heading = gliderTelemetryData.heading
                 }
             }
             else {
-                let annotation = NearbyGliderAnnotaion.init(gliderTelemetryData: gliderTelemetryData)
+                let annotation = NearbyGliderAnnotation.init(gliderTelemetryData: gliderTelemetryData)
                 
                 annotation.coordinate = newCoordinate
 
@@ -615,7 +615,7 @@ extension MapScreen: MGLMapViewDelegate {
 
             guard let nearbyGliderCalloutView = views?[0] as? NearbyGliderCalloutView
                 else { fatalError("Must be a NearbyGliderCalloutView.") }
-            guard let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotaion
+            guard let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotation
                 else { fatalError("Must be a NearbyGliderAnnotaion") }
 
             nearbyGliderCalloutView.representedObject = nearbyGliderAnnotation
