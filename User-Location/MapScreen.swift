@@ -53,11 +53,10 @@ class MapScreen: UIViewController {
     var speedInKMH: CLLocationSpeed = 0
     
     var showDistanceInKM = true
-    var DistanceInKM: CLLocationDistance = 0
     
     var showTrackingRoute = false
     
-    var GliderTelemetryDatas = Set<GliderTelemetryData>()
+    var gliderTelemetryDatas = Set<GliderTelemetryData>()
     
     // MARK: - Init & Co.
     required init?(coder aDecoder: NSCoder) {
@@ -467,10 +466,10 @@ class MapScreen: UIViewController {
     // MARK: Nearby Glider Annotation Creation
     // Add Messages
     func addMessage(message: GliderTelemetryData) {
-        if GliderTelemetryDatas.contains(message) {
-            GliderTelemetryDatas.remove(message)
+        if gliderTelemetryDatas.contains(message) {
+            gliderTelemetryDatas.remove(message)
         }
-        GliderTelemetryDatas.insert(message)
+        gliderTelemetryDatas.insert(message)
         drawAnnotationsOnMap() // every time, a "message" is added, ALL annotations will be updated.
         // Ausweg:
         // aufruf von drawAnnotationsOnMap(newGliderTelemetryData)
@@ -482,7 +481,7 @@ class MapScreen: UIViewController {
         let mapAnnotations = mapView.annotations ?? []
         // Remove old Annotions from Map
         for mapAnnotation in mapAnnotations {
-            if !GliderTelemetryDatas.contains(where: { (message) -> Bool in
+            if !gliderTelemetryDatas.contains(where: { (message) -> Bool in
                 message.flarmID == mapAnnotation.title
             }) {
                 mapView.removeAnnotation(mapAnnotation)
@@ -490,7 +489,7 @@ class MapScreen: UIViewController {
         }
         
         // Add or Update New Nearby Glider Annotations
-        for GliderTelemetryData in GliderTelemetryDatas {
+        for GliderTelemetryData in gliderTelemetryDatas {
             let newCoordinate = CLLocationCoordinate2D(latitude: GliderTelemetryData.location.latitude,
                                                        longitude: GliderTelemetryData.location.longitude)
 
@@ -671,7 +670,7 @@ extension MapScreen: MGLMapViewDelegate {
                                                            reuseIdentifier: identifier)
         newAnnotationView.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
 
-        if let message = GliderTelemetryDatas.first(where: { (gliderTelemetryData) -> Bool in return annotation.title == gliderTelemetryData.flarmID }) {
+        if let message = gliderTelemetryDatas.first(where: { (gliderTelemetryData) -> Bool in return annotation.title == gliderTelemetryData.flarmID }) {
             newAnnotationView.heading = message.heading
         }
 

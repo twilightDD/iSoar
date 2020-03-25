@@ -141,7 +141,7 @@ class SettingsViewController: UIViewController {
             
             // Disconnect from OGN Server, empty Messages Set and remove all nearby Glider Annotaions from Map
             OGNSocketConnectionManager.shared.cancelConnection()
-            MapScreen.shared?.GliderTelemetryDatas.removeAll()
+            MapScreen.shared?.gliderTelemetryDatas.removeAll()
             MapScreen.shared?.mapView.removeAnnotations(MapScreen.shared?.mapView.annotations ?? [])
             
             showNearbyGlidersSwitch(showNearbyGlidersSwitch)
@@ -161,7 +161,7 @@ class SettingsViewController: UIViewController {
             
             // Disconnect from OGN Server, empty Messages Set and remove all nearby Glider Annotaions from Map
             OGNSocketConnectionManager.shared.cancelConnection()
-            MapScreen.shared?.GliderTelemetryDatas.removeAll()
+            MapScreen.shared?.gliderTelemetryDatas.removeAll()
             MapScreen.shared?.mapView.removeAnnotations(MapScreen.shared?.mapView.annotations ?? [])
         }
     }
