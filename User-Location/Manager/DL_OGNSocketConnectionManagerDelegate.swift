@@ -1,5 +1,5 @@
 //
-//  OGNSocketConnectionManagerDelegate.swift
+//  DL_OGNSocketConnectionManagerDelegate.swift
 //  Glider Tool
 //
 //  Created by sonic on 13.03.20.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-protocol OGNSocketConnectionManagerDelegate: class {
-    
+protocol DL_OGNSocketConnectionManagerDelegate: class {
+
     func messageReceived(message: GliderTelemetryData)
     
 }

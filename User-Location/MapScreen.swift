@@ -465,11 +465,11 @@ class MapScreen: UIViewController {
     
     // MARK: Nearby Glider Annotation Creation
     // Add Messages
-    func addMessage(message: GliderTelemetryData) {
-        if gliderTelemetryDatas.contains(message) {
-            gliderTelemetryDatas.remove(message)
+    func addGliderTelemetryData(_ gliderTelemetryData: GliderTelemetryData) {
+        if gliderTelemetryDatas.contains(gliderTelemetryData) {
+            gliderTelemetryDatas.remove(gliderTelemetryData)
         }
-        gliderTelemetryDatas.insert(message)
+        gliderTelemetryDatas.insert(gliderTelemetryData)
         drawAnnotationsOnMap() // every time, a "message" is added, ALL annotations will be updated.
         // Ausweg:
         // aufruf von drawAnnotationsOnMap(newGliderTelemetryData)
@@ -578,7 +578,7 @@ class DLCalloutView: UIView, MGLCalloutView {
     }
     
     func dismissCallout(animated: Bool) {
-        if (animated) {
+        if animated {
             //do something cool
             removeFromSuperview()
         } else {
@@ -756,10 +756,10 @@ extension MapScreen: UIGestureRecognizerDelegate {
     }
 }
 
-extension MapScreen: OGNSocketConnectionManagerDelegate {
+extension MapScreen: DL_OGNSocketConnectionManagerDelegate {
     
     func messageReceived(message: GliderTelemetryData) {
-        addMessage(message: message)
+        addGliderTelemetryData(message)
     }
     
 }

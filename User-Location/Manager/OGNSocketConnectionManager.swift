@@ -29,7 +29,7 @@ class OGNSocketConnectionManager {
     var regionInKm: Double = 200
     var buddyFlarmID: String = UserDefaultsManager.getBuddyFlarmID()
     
-    weak var delegate: OGNSocketConnectionManagerDelegate?
+    weak var delegate: DL_OGNSocketConnectionManagerDelegate?
     
     // MARK: - Init&Co.
     // Generate Random Username
