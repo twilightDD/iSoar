@@ -13,6 +13,8 @@ import Mapbox
 class NearbyGliderCalloutView: UIView, MGLCalloutView {
 
     @IBOutlet weak var flarmIDLabel: UILabel!
+    @IBOutlet weak var altitudeLabel: UILabel!
+    @IBOutlet weak var climbRateLabel: UILabel!
 
     var representedObject: MGLAnnotation
 

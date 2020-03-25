@@ -10,11 +10,25 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NearbyGliderCalloutView" customModule="iSoar" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="175" height="75"/>
+            <rect key="frame" x="0.0" y="0.0" width="150" height="75"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="FlarmID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37V-X1-X2T">
-                    <rect key="frame" x="36" y="7" width="102" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FlarmID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37V-X1-X2T">
+                    <rect key="frame" x="24" y="7" width="102" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Altitude" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0YM-CM-DWn">
+                    <rect key="frame" x="24" y="27" width="60" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ClimbRate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3c-fb-nTd">
+                    <rect key="frame" x="24" y="49" width="79" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <nil key="highlightedColor"/>
@@ -23,15 +37,17 @@
             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="37V-X1-X2T" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="CTh-yI-vxY"/>
-                <constraint firstItem="37V-X1-X2T" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="36" id="jsc-KI-F1R"/>
+                <constraint firstItem="37V-X1-X2T" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="jsc-KI-F1R"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="37V-X1-X2T" secondAttribute="bottom" constant="47" id="ngD-oA-5pw"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="altitudeLabel" destination="0YM-CM-DWn" id="Hc7-2s-FIC"/>
+                <outlet property="climbRateLabel" destination="i3c-fb-nTd" id="9Ue-8t-h7F"/>
                 <outlet property="flarmIDLabel" destination="37V-X1-X2T" id="7s8-Sw-xDJ"/>
             </connections>
-            <point key="canvasLocation" x="-7.9710144927536239" y="207.25446428571428"/>
+            <point key="canvasLocation" x="10" y="205"/>
         </view>
     </objects>
 </document>
