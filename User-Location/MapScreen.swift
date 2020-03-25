@@ -489,23 +489,22 @@ class MapScreen: UIViewController {
         }
         
         // Add or Update New Nearby Glider Annotations
-        for GliderTelemetryData in gliderTelemetryDatas {
-            let newCoordinate = CLLocationCoordinate2D(latitude: GliderTelemetryData.location.latitude,
-                                                       longitude: GliderTelemetryData.location.longitude)
+        for gliderTelemetryData in gliderTelemetryDatas {
+            let newCoordinate = CLLocationCoordinate2D(latitude: gliderTelemetryData.location.latitude,
+                                                       longitude: gliderTelemetryData.location.longitude)
 
-            if let existingAnnotation = mapView.annotations?.first(where: { $0.title == GliderTelemetryData.flarmID }) as? MGLPointAnnotation {
+            if let existingAnnotation = mapView.annotations?.first(where: { $0.title == gliderTelemetryData.flarmID })
+                as? NearbyGliderAnnotaion {
                 existingAnnotation.coordinate = newCoordinate
                 if let viewForExistingAnnotaion = mapView.view(for: existingAnnotation) as? NearbyGliderAnnotationView {
-                    viewForExistingAnnotaion.heading = GliderTelemetryData.heading
+                    viewForExistingAnnotaion.heading = gliderTelemetryData.heading
                 }
-
-                //existingAnnotation.heading = message.heading
-
-            } else {
-                let annotation = MGLPointAnnotation()
-                annotation.title = GliderTelemetryData.flarmID
-                annotation.subtitle = String("Altitude: \(GliderTelemetryData.altitude)m\nClimb: \(GliderTelemetryData.climbRate)m")
+            }
+            else {
+                let annotation = NearbyGliderAnnotaion.init(gliderTelemetryData: gliderTelemetryData)
+                
                 annotation.coordinate = newCoordinate
+
                 mapView.addAnnotation(annotation)
             }
         }
