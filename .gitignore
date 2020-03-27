@@ -9,3 +9,7 @@ report.xml
 
 #fastlane
 **/report.xml
+.swiftlint.yml
+
+#certificates
+SGXTB6BA6R.*
