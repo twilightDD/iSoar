@@ -26,7 +26,7 @@ class OGNSocketConnectionManager {
     
     var version: String = "iSoar \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?")_\(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?")"
 
-    var regionInKm: Double = 200
+    var regionInKm: Double = 50
     var buddyFlarmID: String = UserDefaultsManager.getBuddyFlarmID()
     
     weak var delegate: DL_OGNSocketConnectionManagerDelegate?
