@@ -10,7 +10,6 @@
 
 import Mapbox
 
-
 // MARK: - NearbyGliderCalloutView
 class NearbyGliderCalloutView: UIView {
     
@@ -41,25 +40,21 @@ class NearbyGliderCalloutView: UIView {
     
     weak var delegate: MGLCalloutViewDelegate?
     
-    
     // MARK: IBOutlets
     @IBOutlet weak var flarmIDLabel: UILabel!
     @IBOutlet weak var altitudeLabel: UILabel!
     @IBOutlet weak var climbRateLabel: UILabel!
-    
     
     // MARK: - Init&Co.
     required init(representedObject: MGLAnnotation) {
         fatalError("Not implemented yet. See init(decoder:)")
     }
     
-    
     required init?(coder decoder: NSCoder) {
         self.representedObject = MGLPointAnnotation()
         
         super.init(coder: decoder)
     }
-    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -81,7 +76,6 @@ class NearbyGliderCalloutView: UIView {
     
 }
 
-
 // MARK: - Extension - MGLCalloutView Protocol
 extension NearbyGliderCalloutView: MGLCalloutView {
     
@@ -96,8 +90,8 @@ extension NearbyGliderCalloutView: MGLCalloutView {
             else { fatalError("Must be a NearbyGliderAnnotaion.") }
         
         flarmIDLabel.text = nearbyGliderAnnotaion.gliderTelemetryData.flarmID
-        altitudeLabel.text = "\(nearbyGliderAnnotaion.gliderTelemetryData.altitude)"
-        climbRateLabel.text = "\(nearbyGliderAnnotaion.gliderTelemetryData.climbRate)"
+        altitudeLabel.text = String(format: "%.0fm", nearbyGliderAnnotaion.gliderTelemetryData.altitude)
+        climbRateLabel.text = "\(nearbyGliderAnnotaion.gliderTelemetryData.climbRate)m"
         
         view.addSubview(self)
         
@@ -136,7 +130,6 @@ extension NearbyGliderCalloutView: MGLCalloutView {
     }
     
 }
-
 
 // MARK: - Extension - NibName()
 extension NearbyGliderCalloutView {

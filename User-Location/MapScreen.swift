@@ -464,18 +464,20 @@ class MapScreen: UIViewController {
     }
     
     // MARK: Nearby Glider Annotation Creation
-    // Add Messages
+    // Add GliderTelemetryData
     func addGliderTelemetryData(_ gliderTelemetryData: GliderTelemetryData) {
         if gliderTelemetryDatas.contains(gliderTelemetryData) {
             gliderTelemetryDatas.remove(gliderTelemetryData)
         }
         gliderTelemetryDatas.insert(gliderTelemetryData)
-        drawAnnotationsOnMap() // every time, a "message" is added, ALL annotations will be updated.
+        drawAnnotationsOnMap()
+        
+        // every time, a "GliderTelemetryData" is added, ALL annotations will be updated.
         // Ausweg:
         // aufruf von drawAnnotationsOnMap(newGliderTelemetryData)
         // und eben func drawAnnotationsOnMap(_ newGliderTelemetryData: GliderTelemetryData) {} anpassen auf nur eine Message
     }
-    
+
     // Draw Nearby Gliders on Map
     func drawAnnotationsOnMap() {
         let mapAnnotations = mapView.annotations ?? []
@@ -499,8 +501,7 @@ class MapScreen: UIViewController {
                 if let viewForExistingAnnotaion = mapView.view(for: existingAnnotation) as? NearbyGliderAnnotationView {
                     viewForExistingAnnotaion.heading = gliderTelemetryData.heading
                 }
-            }
-            else {
+            } else {
                 let annotation = NearbyGliderAnnotation.init(gliderTelemetryData: gliderTelemetryData)
                 
                 annotation.coordinate = newCoordinate
@@ -554,37 +555,37 @@ class MapScreen: UIViewController {
     
 }
 
-// TODO: Documentation
-class DLCalloutView: UIView, MGLCalloutView {
-    var representedObject: MGLAnnotation
-    
-    lazy var leftAccessoryView = UIView()
-    lazy var rightAccessoryView = UIView()
-    
-    weak var delegate: MGLCalloutViewDelegate?
-    
-    required init(annotation: MGLAnnotation) {
-        self.representedObject = annotation
-        let rect = CGRect(x: 250, y: 250, width: 250, height: 250)
-        super.init(frame: rect)
-    }
-    
-    required init?(coder decoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    func presentCallout(from rect: CGRect, in view: UIView, constrainedTo constrainedRect: CGRect, animated: Bool) {
-        view.addSubview(self)
-    }
-    
-    func dismissCallout(animated: Bool) {
-        if animated {
-            //do something cool
-            removeFromSuperview()
-        } else {
-            removeFromSuperview()
-        }
-    }
-}
+// TODO: Could be removed
+//class DLCalloutView: UIView, MGLCalloutView {
+//    var representedObject: MGLAnnotation
+//
+//    lazy var leftAccessoryView = UIView()
+//    lazy var rightAccessoryView = UIView()
+//
+//    weak var delegate: MGLCalloutViewDelegate?
+//
+//    required init(annotation: MGLAnnotation) {
+//        self.representedObject = annotation
+//        let rect = CGRect(x: 250, y: 250, width: 250, height: 250)
+//        super.init(frame: rect)
+//    }
+//
+//    required init?(coder decoder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//    func presentCallout(from rect: CGRect, in view: UIView, constrainedTo constrainedRect: CGRect, animated: Bool) {
+//        view.addSubview(self)
+//    }
+//
+//    func dismissCallout(animated: Bool) {
+//        if animated {
+//            //do something cool
+//            removeFromSuperview()
+//        } else {
+//            removeFromSuperview()
+//        }
+//    }
+//}
 
 // MARK: - MGLMapViewDelegate methods
 extension MapScreen: MGLMapViewDelegate {
@@ -615,6 +616,8 @@ extension MapScreen: MGLMapViewDelegate {
 
             guard let nearbyGliderCalloutView = views?[0] as? NearbyGliderCalloutView
                 else { fatalError("Must be a NearbyGliderCalloutView.") }
+            
+            // TODO: Hier bricht es ab und zu beim Tap auf eine Annotation
             guard let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotation
                 else { fatalError("Must be a NearbyGliderAnnotaion") }
 
@@ -635,21 +638,8 @@ extension MapScreen: MGLMapViewDelegate {
         print("Tapped the callout for: \(annotation)")
         mapView.deselectAnnotation(annotation, animated: true)
     }
-    
-//    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
-//        print("Annotation selected: \(annotation.title)")
-//        let alert = UIAlertController(title: annotation.title ?? "", message: annotation.subtitle ?? "", preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//        self.present(alert, animated: true, completion: nil)
-//    }
-
-    // TODO: Callout
-//    private func mapView(MapView: MGLMapView, annotation: MGLAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-//        //https://stackoverflow.com/questions/51904284/how-do-you-create-a-custom-callout-for-mapbox-annotations
-//    }
-    
+        
     // Substitute our custom view for the user location annotation
-
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
 
         // User Annotation -> myself
@@ -684,7 +674,7 @@ extension MapScreen: MGLMapViewDelegate {
             mapView.setCenter(CLLocationCoordinate2D(
                 latitude: currentLocation.coordinate.latitude,
                 longitude: currentLocation.coordinate.longitude),
-                              zoomLevel: 5,
+                              zoomLevel: 9.6,
                               animated: true)
         }
             // If not, set Center the Map to Airport Stuttgart

@@ -12,18 +12,17 @@ import Mapbox
 
 class NearbyGliderAnnotation: MGLPointAnnotation {
     var gliderTelemetryData: GliderTelemetryData
-
+    
     required init(gliderTelemetryData: GliderTelemetryData) {
         self.gliderTelemetryData = gliderTelemetryData
-
+        
         super.init()
-
+        
         self.title = gliderTelemetryData.flarmID
     }
-
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
 }
