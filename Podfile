@@ -7,7 +7,5 @@ target 'Glider Tool' do
 
   # Pods for Glider Tool
     pod 'SwiftLint', '~> 0.39.1'
-    pod 'Mapbox-iOS-SDK', '~> 5.7'
-
 
 end
