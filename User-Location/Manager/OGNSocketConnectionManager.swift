@@ -58,7 +58,7 @@ class OGNSocketConnectionManager {
                                                using: .tcp)
                 
                 self.connection?.stateUpdateHandler = { NewConnectionState in
-                    switch (NewConnectionState) {
+                    switch NewConnectionState {
                     case .setup:
                         //The connection has been initialized but not started
                         print("Connection: setup")
