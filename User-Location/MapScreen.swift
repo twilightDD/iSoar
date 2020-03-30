@@ -752,5 +752,16 @@ extension MapScreen: DL_OGNSocketConnectionManagerDelegate {
     func messageReceived(message: GliderTelemetryData) {
         addGliderTelemetryData(message)
     }
+
+    func updateNearbyGlider() {
+        // kuck mal ob ich schon eine annotation für den Flieger habe
+        // ja: updaten
+        // nein: hinzufügen
+    }
+    func removeNearbyGlider() {
+        // kuck mal ob ich schon eine annotation für den Flieger habe
+        // ja: entfernen
+        // nein: nix tun
+    }
     
 }
