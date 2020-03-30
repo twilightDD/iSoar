@@ -158,8 +158,8 @@ class AirportDatabase {
         let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0] as String
         let url = NSURL(fileURLWithPath: path)
         
-        let AirportsInLibraryFolder = libraryURL.appendingPathComponent("Airports.json")
-        let AirportsInBundle = URL(fileURLWithPath: Bundle.main.path(forResource: "Airports", ofType: "json")!)
+        let airportsInLibraryFolder = libraryURL.appendingPathComponent("Airports.json")
+        let airportsInBundle = URL(fileURLWithPath: Bundle.main.path(forResource: "Airports", ofType: "json")!)
         
         if let pathComponent = url.appendingPathComponent("Airports.json") {
             
@@ -170,10 +170,10 @@ class AirportDatabase {
             } else {
                 print("Airports.json not found in Library Folder. Copy...")
                 do {
-                    try FileManager.default.copyItem(at: AirportsInBundle, to: AirportsInLibraryFolder)
+                    try FileManager.default.copyItem(at: airportsInBundle, to: airportsInLibraryFolder)
                     print("Airports.json copied to Library Folder.")
-                } catch (let writeError) {
-                    print("Error creating a file: \(AirportsInLibraryFolder) : \(writeError)")
+                } catch let writeError {
+                    print("Error creating a file: \(airportsInLibraryFolder) : \(writeError)")
                 }
             }
         }
@@ -192,11 +192,11 @@ class AirportDatabase {
         // hier kommt der Inhalt der Datein rein
         var jsonAsString: String?
         
-        let AirportsURL = libraryURL.appendingPathComponent("Airports.json")
+        let airportsURL = libraryURL.appendingPathComponent("Airports.json")
         
         do {
             // URL laden und als String zurück geben
-            try jsonAsString = String.init(contentsOf: AirportsURL)
+            try jsonAsString = String.init(contentsOf: airportsURL)
         } catch {
             print("went wrong")
         }

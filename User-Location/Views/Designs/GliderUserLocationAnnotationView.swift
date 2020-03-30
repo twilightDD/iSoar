@@ -62,14 +62,14 @@ class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
 class NearbyGliderAnnotationView: MGLAnnotationView {
 
     // MARK: Lets and Vars
-    var _heading: Double = 0
+    private var headingStore: Double = 0
     var heading: Double {
         get {
-            let head = _heading
+            let head = headingStore
             return head
         }
         set {
-            _heading = newValue
+            headingStore = newValue
 
             // Rotate image depending on heading of glider
             let rotation: CGFloat = MGLRadiansFromDegrees(heading)
