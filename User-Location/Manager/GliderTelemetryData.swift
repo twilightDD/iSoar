@@ -70,12 +70,14 @@ struct GliderTelemetryData: Hashable {
                                                     altitude: altitude,
                                                     climbRate: climbRate
             )
+
+            //print("telemetryData: ID \(telemetryDataArray[0]) time: \(telemetryDataArray[1])")
             return telemetryData
     }
     
     private static func parseAndCleanup(response: String)
         -> [String] {
-            
+            //TODO: Docu, which index represents which value; 30032020, ph
             var finalResponse = response
             // Convert response to Array of Strings
             if let anfang = finalResponse.firstIndex(of: ">"),
