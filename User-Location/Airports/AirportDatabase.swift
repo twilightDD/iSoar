@@ -80,7 +80,12 @@ class AirportDatabase {
                         return filteredArray
                     }
                 }
-                
+           
+                // TODO: To avoid For Where Violation Code must be:
+//                for destinationAirport in filteredArray where destinationAirport.distance == nil {
+//                    return filteredArray
+//                }
+
                 filteredAndSortedAirports = filteredArray.sorted(by: { ($0.distance! < $1.distance!) })
             }
             
@@ -135,7 +140,7 @@ class AirportDatabase {
                     NotificationCenter.default.post(name: AirportDatabase.airportUpdateCompletedNotificationName,
                                                     object: nil)
                     
-                } catch (let writeError) {
+                } catch let writeError {
                     print("Error creating a file: \(destinationFileUrl) : \(writeError)")
                 }
                 
