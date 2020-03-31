@@ -26,7 +26,6 @@ class OGNSocketConnectionManager {
     
     var version: String = "iSoar \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?")_\(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?")"
 
-    //TODO: ifdef; 30.03.2020, ph
     var regionInKm: Double = 500
     
     var buddyFlarmID: String = UserDefaultsManager.getBuddyFlarmID()
@@ -34,16 +33,6 @@ class OGNSocketConnectionManager {
     weak var delegate: DL_OGNSocketConnectionManagerDelegate?
     
     // MARK: - Init&Co.
-    // Generate Random Username
-    private func generateRandomUserName()
-        -> String {
-            let length = 9
-            let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-            let randomCharacters = (0..<length).map {_ in characters.randomElement()!}
-            let username = String(randomCharacters)
-            
-            return username
-    }
     
     // MARK: - Public Methods
     // Connect to Server Socket
@@ -97,6 +86,17 @@ class OGNSocketConnectionManager {
     }
     
     // MARK: - Private Methods
+    // Generate random alphanumerical Username witch 9 characters
+    private func generateRandomUserName()
+        -> String {
+            let length = 9
+            let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            let randomCharacters = (0..<length).map {_ in characters.randomElement()!}
+            let username = String(randomCharacters)
+            
+            return username
+    }
+    
     // Setup Receive Data
     private func setupReceive() {
         connection?.receive(minimumIncompleteLength: 1,
