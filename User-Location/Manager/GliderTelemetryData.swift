@@ -13,7 +13,7 @@ import CoreLocation
 struct GliderTelemetryData: Hashable {
     
     // MARK: Lets and Vars
-    var flarmID: String = "keine flarmID"
+    var flarmID: String = "No FlarmID"
     var timestamp: Int64 = 0
     var location: CLLocationCoordinate2D = CLLocationCoordinate2D()
     var type: String = ""
@@ -31,13 +31,32 @@ struct GliderTelemetryData: Hashable {
         hasher.combine(flarmID)
     }
     
+    // MARK: - DOCU
+    // Parsed and cleaned Telemetry Data Array from OGN
+    // Index 0 - flarmID
+    // Index 1 - timeStamp
+    // Index 2 - Latitude
+    // Index 3 - Longitude
+    // Index 4 - Type
+    // Index 5 - Heading
+    // Index 6 - Speed
+    // Index 7 - Altitude
+    // Index 8 - Position precision enhancement
+    // Index 9 - Device ID
+    // Index 10 - ClimbRate in "feet per minute"
+    // Index 11 - TurnRate in "half turn per 2 minutes"
+    // Index 12 - Signal to Noise Ratio
+    // Index 13 - CRC error rate
+    // Index 14 - Frequency offset
+    // Index 15 - Optional GPS signal quality - Horizontal accuracy x Vertical accuracy
+    
     // MARK: - Init&Co.
+    // MARK: - Public Methods
     static func telemetryDataFromOGNGliderResponse(_ response: String)
         -> GliderTelemetryData? {
-            
             let telemetryDataArray = parseAndCleanup(response: response)
             
-            // print("TelemetryDataArray: \(telemetryDataArray)")
+            //print("TelemetryDataArray: \(telemetryDataArray)")
             
             // TODO: Magic Number - nicht cool. Add docu! 16.3.20, ph
             guard telemetryDataArray.count >= 10
@@ -45,22 +64,17 @@ struct GliderTelemetryData: Hashable {
             
             let flarmID = telemetryDataArray[0]
             let timestamp = Date.currentUnixTimeStamp
-            
             let latitude = String(telemetryDataArray[2])
             let longitude = String(telemetryDataArray[3])
             let location = locationCoordinateFrom(latitude: latitude,
                                                   longitude: longitude)
-            
             let type = String(telemetryDataArray[4])
-            
             let heading = Double(telemetryDataArray[5]) ?? 0
-            
             let speed = speedFrom(speed: telemetryDataArray[6])
-            
             let altitude = altitudeFrom(altitude: telemetryDataArray[7])
-            
             let climbRate = climbRateFrom(climbRate: telemetryDataArray[10])
             
+            // Extract the interesting Data from TelemetryData
             let telemetryData = GliderTelemetryData(flarmID: flarmID,
                                                     timestamp: timestamp,
                                                     location: location,
@@ -70,24 +84,25 @@ struct GliderTelemetryData: Hashable {
                                                     altitude: altitude,
                                                     climbRate: climbRate
             )
-
-            //print("telemetryData: ID \(telemetryDataArray[0]) time: \(telemetryDataArray[1])")
+            
             return telemetryData
     }
     
+    // MARK: - Private Methods
+    // Parse and cleanup
     private static func parseAndCleanup(response: String)
         -> [String] {
-            //TODO: Docu, which index represents which value; 30032020, ph
             var finalResponse = response
             // Convert response to Array of Strings
-            if let anfang = finalResponse.firstIndex(of: ">"),
-                let ende = finalResponse.firstIndex(of: ":") {
-                let range = anfang..<ende
+            if let start = finalResponse.firstIndex(of: ">"),
+                let end = finalResponse.firstIndex(of: ":") {
+                let range = start..<end
                 // print("Range: \(range)")
                 
                 finalResponse.replaceSubrange(range, with: "")
             }
             
+            // Replace all unwanted symbols from String
             finalResponse = finalResponse
                 .replacingOccurrences(of: ">", with: " ")
                 .replacingOccurrences(of: ":\\", with: " ")
@@ -95,12 +110,12 @@ struct GliderTelemetryData: Hashable {
                 .replacingOccurrences(of: "h", with: " ")
                 .replacingOccurrences(of: "N/", with: " ")
                 .replacingOccurrences(of: "N\\", with: " ")
-                .replacingOccurrences(of: "Eg", with: " NA ")
-                .replacingOccurrences(of: "En", with: " NA ")
-                .replacingOccurrences(of: "Ez", with: " NA ")
+                .replacingOccurrences(of: "Eg", with: " plane ")
+                .replacingOccurrences(of: "En", with: " plane ")
+                .replacingOccurrences(of: "Ez", with: " plane ")
                 .replacingOccurrences(of: "EX", with: " heli ")
                 .replacingOccurrences(of: "E'", with: " plane ")
-                .replacingOccurrences(of: "E\'", with: " NA ")
+                .replacingOccurrences(of: "E\'", with: " plane ")
                 .replacingOccurrences(of: "E^", with: " plane ")
                 .replacingOccurrences(of: "/", with: " ")
                 .replacingOccurrences(of: "A=", with: " ")
@@ -110,9 +125,10 @@ struct GliderTelemetryData: Hashable {
             
             //print("bereinigt: \(finalResponse)")
             
-            // Split response into parts and convert it to "array of strings"; 16.3.20, ph
+            // Split response into parts seperated by spaces
             let splittedFinalResponse = finalResponse.split(separator: " ")
             
+            // Insert parts into an Array - responseArray
             var responseArray = [String]()
             for responseSubsequence in splittedFinalResponse {
                 responseArray.append(String(responseSubsequence))
@@ -122,6 +138,7 @@ struct GliderTelemetryData: Hashable {
             return responseArray
     }
     
+    // Calculate Latitude and Logitude from Strigs
     private static func locationCoordinateFrom(latitude: String, longitude: String)
         -> CLLocationCoordinate2D {
             // Calculate Latitude from Degrees, Minutes and Seconds
@@ -133,6 +150,7 @@ struct GliderTelemetryData: Hashable {
             // Location Result
             let locationCoordinate = CLLocationCoordinate2D(latitude: latitudeResult,
                                                             longitude: longitudeResult)
+            
             return locationCoordinate
     }
     
@@ -191,10 +209,6 @@ struct GliderTelemetryData: Hashable {
             if let speed = Double.init(speedString) {
                 // Convert Knots to Km\h - by multiplying with 1.852
                 let speedConverted = speed * 1.852
-                // TODO: Truncate decimals
-                
-                let formatter = NumberFormatter()
-                formatter.maximumFractionDigits = 0
                 
                 return speedConverted
             }
@@ -208,7 +222,7 @@ struct GliderTelemetryData: Hashable {
             if let altitude = Double.init(altitudeString) {
                 // Convert from Feet to Meter - by dividing with 3.281
                 let altitudeConverted = altitude / 3.281
-                // Truncate decimals
+
                 return altitudeConverted
             }
             
@@ -219,7 +233,7 @@ struct GliderTelemetryData: Hashable {
     private static func climbRateFrom(climbRate climbRateString: String)
         -> Double {
             if let climbRate = Double.init(climbRateString) {
-                // Convert Feet per Minute to Meter per Second -  by dividing with 197
+                // Convert Feet per Minute to Meter per Second - by dividing with 197
                 var climbRateConverted = climbRate / 197
                 // Truncate after 1 decimal
                 climbRateConverted = climbRateConverted.truncate(places: 1)
@@ -227,11 +241,13 @@ struct GliderTelemetryData: Hashable {
             }
             
             return 0
-
+            
     }
     
 }
 
+// MARK: - Extensions
+// Truncate Decimal Places
 extension Double {
     func truncate(places: Int) -> Double {
         return Double(floor(pow(10.0, Double(places)) * self)/pow(10.0, Double(places)))
