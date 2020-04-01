@@ -45,7 +45,7 @@ class OGNSocketConnectionManager {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 // 10152 Full Feed, 14580 Filtered Feed
                 self.connection = NWConnection(host: "aprs.glidernet.org",
-                                               port: 14580,
+                                               port: 10152,
                                                using: .tcp)
                 
                 self.connection?.stateUpdateHandler = { newConnectionState in
