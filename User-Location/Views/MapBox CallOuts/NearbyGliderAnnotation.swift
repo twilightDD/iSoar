@@ -26,7 +26,9 @@ class NearbyGliderAnnotation: MGLPointAnnotation {
 
             if let annotationView = self.annotationView {
                 annotationView.heading = gliderTelemetryData.heading
+//                annotationView.alpha = 0.2
             }
+
         }
     }
     
