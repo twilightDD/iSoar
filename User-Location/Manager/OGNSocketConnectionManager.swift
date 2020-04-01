@@ -168,7 +168,6 @@ class OGNSocketConnectionManager {
     }
     
     // Received Message from OGN Server
-    // Response: https://github.com/svoop/ogn_client-ruby/wiki/SenderBeacon
     private func messageReceived(_ receivedMessage: String) {
        // print("Original OGN Message: \(receivedMessage)")
 
