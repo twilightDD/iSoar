@@ -52,10 +52,16 @@ struct GliderTelemetryData: Hashable {
             
             let flarmID = telemetryDataArray[ResponseElements.flarmID.rawValue]
             let timestamp = Date.currentUnixTimeStamp
+
             let latitude = String(telemetryDataArray[ResponseElements.latitude.rawValue])
-            let longitude = String(telemetryDataArray[4])
+            let latitudeHemisphere = String(telemetryDataArray[ResponseElements.latitudeHemisphere.rawValue])
+            let longitude = String(telemetryDataArray[ResponseElements.longitude.rawValue])
+            let longitudeHemisphere = String(telemetryDataArray[ResponseElements.longitudeHemisphere.rawValue])
             let location = locationCoordinateFrom(latitude: latitude,
-                                                  longitude: longitude)
+                                                 latitudeHemisphere: latitudeHemisphere,
+                                                 longitude: longitude,
+                                                 longitudeHemisphere: longitudeHemisphere)
+
             let type = String(telemetryDataArray[6])
             let heading = Double(telemetryDataArray[7]) ?? 0
             let speed = speedFrom(speed: telemetryDataArray[8])
@@ -81,6 +87,8 @@ struct GliderTelemetryData: Hashable {
     // Parse and cleanup
     private static func parseAndCleanup(response: String)
         -> [String] {
+            // For element desciption see: https://github.com/svoop/ogn_client-ruby/wiki/SenderBeacon
+
             var finalResponse = response
             // Convert response to Array of Strings
             if let start = finalResponse.firstIndex(of: ">"),
@@ -137,13 +145,23 @@ struct GliderTelemetryData: Hashable {
     }
     
     // Calculate Latitude and Logitude from Strigs
-    private static func locationCoordinateFrom(latitude: String, longitude: String)
+    private static func locationCoordinateFrom(latitude: String,
+                                               latitudeHemisphere: String,
+                                               longitude: String,
+                                               longitudeHemisphere: String)
         -> CLLocationCoordinate2D {
             // Calculate Latitude from Degrees, Minutes and Seconds
-            let latitudeResult = convertToDecimalDegrees(string: latitude)
+            
+            var latitudeResult = convertToDecimalDegrees(string: latitude)
+            if latitudeHemisphere == "S" {
+                latitudeResult *= -1
+            }
             
             // Calculate Longitude from Degrees, Minutes and Seconds
-            let longitudeResult = convertToDecimalDegrees(string: longitude)
+            var longitudeResult = convertToDecimalDegrees(string: longitude)
+            if longitudeHemisphere == "W" {
+                longitudeResult *= -1
+            }
             
             // Location Result
             let locationCoordinate = CLLocationCoordinate2D(latitude: latitudeResult,
@@ -256,12 +274,15 @@ extension Double {
 //TODO: Rename and expande extention; 01042020, ph
 // MARK: - Extension - ResponseElements
 enum ResponseElements: Int, CaseIterable {
+
+    // For element desciption see: https://github.com/svoop/ogn_client-ruby/wiki/SenderBeacon
+
     case flarmID = 0
     case timeStamp = 1
     case latitude = 2
     case latitudeHemisphere = 3 // N(orth) or S(outh)
-    // Index 4 - Longitude
-    // Index 5 - Longitude Hemisphere - East or West
+    case longitude = 4
+    case longitudeHemisphere = 5 // E(ast) or W(est)
     // Index 6 - Type
     // Index 7 - Heading
     // Index 8 - Speed
