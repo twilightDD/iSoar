@@ -57,6 +57,7 @@ class MapScreen: UIViewController {
     var showTrackingRoute = false
     
     var gliderTelemetryDatas = Set<GliderTelemetryData>()
+    var nearbyGliderAnnotations = [String: NearbyGliderAnnotation]()
     
     // MARK: - Init & Co.
     required init?(coder aDecoder: NSCoder) {
@@ -462,54 +463,7 @@ class MapScreen: UIViewController {
             }
         }
     }
-    
-    // MARK: Nearby Glider Annotation Creation
-    // Add GliderTelemetryData
-    func addGliderTelemetryData(_ gliderTelemetryData: GliderTelemetryData) {
-        if gliderTelemetryDatas.contains(gliderTelemetryData) {
-            gliderTelemetryDatas.remove(gliderTelemetryData)
-        }
-        gliderTelemetryDatas.insert(gliderTelemetryData)
-        drawAnnotationsOnMap()
-        
-        // every time, a "GliderTelemetryData" is added, ALL annotations will be updated.
-        // Ausweg:
-        // aufruf von drawAnnotationsOnMap(newGliderTelemetryData)
-        // und eben func drawAnnotationsOnMap(_ newGliderTelemetryData: GliderTelemetryData) {} anpassen auf nur eine Message
-    }
 
-    // Draw Nearby Gliders on Map
-    func drawAnnotationsOnMap() {
-        let mapAnnotations = mapView.annotations ?? []
-        // Remove old Annotions from Map
-        for mapAnnotation in mapAnnotations {
-            if !gliderTelemetryDatas.contains(where: { (message) -> Bool in
-                message.flarmID == mapAnnotation.title
-            }) {
-                mapView.removeAnnotation(mapAnnotation)
-            }
-        }
-        
-        // Add or Update New Nearby Glider Annotations
-        for gliderTelemetryData in gliderTelemetryDatas {
-            let newCoordinate = CLLocationCoordinate2D(latitude: gliderTelemetryData.location.latitude,
-                                                       longitude: gliderTelemetryData.location.longitude)
-
-            if let existingAnnotation = mapView.annotations?.first(where: { $0.title == gliderTelemetryData.flarmID })
-                as? NearbyGliderAnnotation {
-                existingAnnotation.coordinate = newCoordinate
-                if let viewForExistingAnnotaion = mapView.view(for: existingAnnotation) as? NearbyGliderAnnotationView {
-                    viewForExistingAnnotaion.heading = gliderTelemetryData.heading
-                }
-            } else {
-                let annotation = NearbyGliderAnnotation.init(gliderTelemetryData: gliderTelemetryData)
-                
-                annotation.coordinate = newCoordinate
-
-                mapView.addAnnotation(annotation)
-            }
-        }
-    }
     
     // MARK: Route Tracking
     // Check for Tracking Route Status ins Settings
@@ -640,28 +594,34 @@ extension MapScreen: MGLMapViewDelegate {
     }
         
     // Substitute our custom view for the user location annotation
-    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation)
+        -> MGLAnnotationView? {
 
-        // User Annotation -> myself
-        if annotation is MGLUserLocation && mapView.userLocation != nil {
-            let gliderUserLocationAnnotationView = GliderUserLocationAnnotationView()
-            return gliderUserLocationAnnotationView
-        }
+            // User Annotation -> myself
+            if annotation is MGLUserLocation && mapView.userLocation != nil {
+                let gliderUserLocationAnnotationView = GliderUserLocationAnnotationView()
+                return gliderUserLocationAnnotationView
+            }
 
-        // Other Glider Annotations
-        // Notice: nil is needed here! MGLAnnotation is an ObjC-Protocol. Fuck it!; 19.3.2020, ph
-        guard let identifier = annotation.title ?? nil
-            else { return nil }
+            // Other Glider Annotations
+            // Notice: nil is needed here! MGLAnnotation is an ObjC-Protocol. Fuck it!; 19.3.2020, ph
+            guard let identifier = annotation.title ?? nil
+                else { return nil }
 
-        let newAnnotationView = NearbyGliderAnnotationView(annotation: annotation,
-                                                           reuseIdentifier: identifier)
-        newAnnotationView.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
+            let newAnnotationView = NearbyGliderAnnotationView(annotation: annotation,
+                                                               reuseIdentifier: identifier)
+            newAnnotationView.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
 
-        if let message = gliderTelemetryDatas.first(where: { (gliderTelemetryData) -> Bool in return annotation.title == gliderTelemetryData.flarmID }) {
-            newAnnotationView.heading = message.heading
-        }
+            if let nearbyGliderAnnotation = nearbyGliderAnnotations[identifier] {
+                nearbyGliderAnnotation.annotationView = newAnnotationView
+            }
 
-        return newAnnotationView
+
+//            if let message = gliderTelemetryDatas.first(where: { (gliderTelemetryData) -> Bool in return annotation.title == gliderTelemetryData.flarmID }) {
+//                newAnnotationView.heading = message.heading
+//            }
+
+            return newAnnotationView
     }
     
     // Map finished loading
@@ -673,7 +633,7 @@ extension MapScreen: MGLMapViewDelegate {
             mapView.showsUserLocation = true
             mapView.setCenter(CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude,
                                                      longitude: currentLocation.coordinate.longitude),
-                              zoomLevel: 9.6,
+                              zoomLevel: 5,
                               animated: true)
         }
             // If not, set Center the Map to Airport Stuttgart
@@ -748,7 +708,16 @@ extension MapScreen: UIGestureRecognizerDelegate {
 extension MapScreen: DL_OGNSocketConnectionManagerDelegate {
     
     func messageReceived(message: GliderTelemetryData) {
-        addGliderTelemetryData(message)
+        let gliderTelemetryData = message //TODO: Refactor method signature; 02042020, ph
+
+        var nearbyGliderAnnotation = nearbyGliderAnnotations[gliderTelemetryData.flarmID]
+        if nearbyGliderAnnotation == nil {
+            nearbyGliderAnnotation = NearbyGliderAnnotation.init(gliderTelemetryData: gliderTelemetryData)
+            nearbyGliderAnnotations[gliderTelemetryData.flarmID] = nearbyGliderAnnotation
+            mapView.addAnnotation(nearbyGliderAnnotation!)
+        }
+
+        nearbyGliderAnnotation!.gliderTelemetryData = gliderTelemetryData
     }
 
     func updateNearbyGlider() {

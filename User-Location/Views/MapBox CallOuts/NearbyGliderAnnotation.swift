@@ -11,10 +11,27 @@ import Foundation
 import Mapbox
 
 class NearbyGliderAnnotation: MGLPointAnnotation {
-    var gliderTelemetryData: GliderTelemetryData
+    weak var annotationView: NearbyGliderAnnotationView?
+
+    private var gliderTelemetryDataStore: GliderTelemetryData
+    var gliderTelemetryData: GliderTelemetryData {
+        get {
+            let store = gliderTelemetryDataStore
+            return store
+        }
+        set {
+            gliderTelemetryDataStore = newValue
+
+            coordinate = gliderTelemetryDataStore.location
+
+            if let annotationView = self.annotationView {
+                annotationView.heading = gliderTelemetryData.heading
+            }
+        }
+    }
     
     required init(gliderTelemetryData: GliderTelemetryData) {
-        self.gliderTelemetryData = gliderTelemetryData
+        self.gliderTelemetryDataStore = gliderTelemetryData
         
         super.init()
         
