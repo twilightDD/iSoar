@@ -16,6 +16,8 @@ struct GliderTelemetryData: Hashable {
     var flarmID: String = "No FlarmID"
     var timestamp: Int64 = 0
     var location: CLLocationCoordinate2D = CLLocationCoordinate2D()
+    var northsouthhemisphere: String = ""
+    var eastwesthemisphere: String = ""
     var type: String = ""
     var heading: Double = 0
     var speed: Double = 0
@@ -36,19 +38,21 @@ struct GliderTelemetryData: Hashable {
     // Index 0 - flarmID
     // Index 1 - timeStamp
     // Index 2 - Latitude
-    // Index 3 - Longitude
-    // Index 4 - Type
-    // Index 5 - Heading
-    // Index 6 - Speed
-    // Index 7 - Altitude
-    // Index 8 - Position precision enhancement
-    // Index 9 - Device ID
-    // Index 10 - ClimbRate in "feet per minute"
-    // Index 11 - TurnRate in "half turn per 2 minutes"
-    // Index 12 - Signal to Noise Ratio
-    // Index 13 - CRC error rate
-    // Index 14 - Frequency offset
-    // Index 15 - Optional GPS signal quality - Horizontal accuracy x Vertical accuracy
+    // Index 3 - Latitude Hemisphere - North or South
+    // Index 4 - Longitude
+    // Index 5 - Longitude Hemisphere - East or West
+    // Index 6 - Type
+    // Index 7 - Heading
+    // Index 8 - Speed
+    // Index 9 - Altitude
+    // Index 10 - Position precision enhancement
+    // Index 11 - Device ID
+    // Index 12 - ClimbRate in "feet per minute"
+    // Index 13 - TurnRate in "half turn per 2 minutes"
+    // Index 14 - Signal to Noise Ratio
+    // Index 15 - CRC error rate
+    // Index 16 - Frequency offset
+    // Index 17 - Optional GPS signal quality - Horizontal accuracy x Vertical accuracy
     
     // MARK: - Init&Co.
     // MARK: - Public Methods
@@ -56,7 +60,7 @@ struct GliderTelemetryData: Hashable {
         -> GliderTelemetryData? {
             let telemetryDataArray = parseAndCleanup(response: response)
             
-            //print("TelemetryDataArray: \(telemetryDataArray)")
+            // print("TelemetryDataArray: \(telemetryDataArray)")
             
             // TODO: Magic Number - nicht cool. Add docu! 16.3.20, ph
             guard telemetryDataArray.count >= 10
@@ -65,19 +69,23 @@ struct GliderTelemetryData: Hashable {
             let flarmID = telemetryDataArray[0]
             let timestamp = Date.currentUnixTimeStamp
             let latitude = String(telemetryDataArray[2])
-            let longitude = String(telemetryDataArray[3])
+            let northsouthhemisphere = String(telemetryDataArray[3])
+            let longitude = String(telemetryDataArray[4])
+            let eastwesthemisphere = String(telemetryDataArray[5])
             let location = locationCoordinateFrom(latitude: latitude,
                                                   longitude: longitude)
-            let type = String(telemetryDataArray[4])
-            let heading = Double(telemetryDataArray[5]) ?? 0
-            let speed = speedFrom(speed: telemetryDataArray[6])
-            let altitude = altitudeFrom(altitude: telemetryDataArray[7])
-            let climbRate = climbRateFrom(climbRate: telemetryDataArray[10])
+            let type = String(telemetryDataArray[6])
+            let heading = Double(telemetryDataArray[7]) ?? 0
+            let speed = speedFrom(speed: telemetryDataArray[8])
+            let altitude = altitudeFrom(altitude: telemetryDataArray[9])
+            let climbRate = climbRateFrom(climbRate: telemetryDataArray[12])
             
             // Extract the interesting Data from TelemetryData
             let telemetryData = GliderTelemetryData(flarmID: flarmID,
                                                     timestamp: timestamp,
                                                     location: location,
+                                                    northsouthhemisphere: northsouthhemisphere,
+                                                    eastwesthemisphere: eastwesthemisphere,
                                                     type: type,
                                                     heading: heading,
                                                     speed: speed,
@@ -85,6 +93,7 @@ struct GliderTelemetryData: Hashable {
                                                     climbRate: climbRate
             )
             
+            // print(telemetryData)
             return telemetryData
     }
     
@@ -108,15 +117,24 @@ struct GliderTelemetryData: Hashable {
                 .replacingOccurrences(of: ":\\", with: " ")
                 .replacingOccurrences(of: ":/", with: " ")
                 .replacingOccurrences(of: "h", with: " ")
-                .replacingOccurrences(of: "N/", with: " ")
-                .replacingOccurrences(of: "N\\", with: " ")
-                .replacingOccurrences(of: "Eg", with: " plane ")
-                .replacingOccurrences(of: "En", with: " plane ")
-                .replacingOccurrences(of: "Ez", with: " plane ")
-                .replacingOccurrences(of: "EX", with: " heli ")
-                .replacingOccurrences(of: "E'", with: " plane ")
-                .replacingOccurrences(of: "E\'", with: " plane ")
-                .replacingOccurrences(of: "E^", with: " plane ")
+                .replacingOccurrences(of: "N/", with: " N ")
+                .replacingOccurrences(of: "N\\", with: " N ")
+                .replacingOccurrences(of: "S/", with: " S ")
+                .replacingOccurrences(of: "S\\", with: " S ")
+                .replacingOccurrences(of: "Eg", with: " E plane ")
+                .replacingOccurrences(of: "En", with: " E plane ")
+                .replacingOccurrences(of: "Ez", with: " E plane ")
+                .replacingOccurrences(of: "EX", with: " E heli ")
+                .replacingOccurrences(of: "E'", with: " E plane ")
+                .replacingOccurrences(of: "E\'", with: " E plane ")
+                .replacingOccurrences(of: "E^", with: " E plane ")
+                .replacingOccurrences(of: "Wg", with: " W plane ")
+                .replacingOccurrences(of: "Wn", with: " W plane ")
+                .replacingOccurrences(of: "Wz", with: " W plane ")
+                .replacingOccurrences(of: "WX", with: " W heli ")
+                .replacingOccurrences(of: "W'", with: " W plane ")
+                .replacingOccurrences(of: "W\'", with: " W plane ")
+                .replacingOccurrences(of: "W^", with: " W plane ")
                 .replacingOccurrences(of: "/", with: " ")
                 .replacingOccurrences(of: "A=", with: " ")
                 .replacingOccurrences(of: "\n", with: "")
