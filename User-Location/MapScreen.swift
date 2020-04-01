@@ -671,17 +671,15 @@ extension MapScreen: MGLMapViewDelegate {
         // If yes, set Center the Map to User Location
         if let currentLocation = self.currentLocation {
             mapView.showsUserLocation = true
-            mapView.setCenter(CLLocationCoordinate2D(
-                latitude: currentLocation.coordinate.latitude,
-                longitude: currentLocation.coordinate.longitude),
+            mapView.setCenter(CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude,
+                                                     longitude: currentLocation.coordinate.longitude),
                               zoomLevel: 9.6,
                               animated: true)
         }
             // If not, set Center the Map to Airport Stuttgart
         else {
-            mapView.setCenter(CLLocationCoordinate2D(
-                latitude: 48.689497,
-                longitude: 9.219885),
+            mapView.setCenter(CLLocationCoordinate2D(latitude: 48.689497,
+                                                     longitude: 9.219885),
                               zoomLevel: 9.6,
                               animated: true)
         }
