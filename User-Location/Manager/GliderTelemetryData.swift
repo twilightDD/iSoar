@@ -32,27 +32,8 @@ struct GliderTelemetryData: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(flarmID)
     }
-    
-    // MARK: - DOCU
-    // Parsed and cleaned Telemetry Data Array from OGN
-    // Index 0 - flarmID
-    // Index 1 - timeStamp
-    // Index 2 - Latitude
-    // Index 3 - Latitude Hemisphere - North or South
-    // Index 4 - Longitude
-    // Index 5 - Longitude Hemisphere - East or West
-    // Index 6 - Type
-    // Index 7 - Heading
-    // Index 8 - Speed
-    // Index 9 - Altitude
-    // Index 10 - Position precision enhancement
-    // Index 11 - Device ID
-    // Index 12 - ClimbRate in "feet per minute"
-    // Index 13 - TurnRate in "half turn per 2 minutes"
-    // Index 14 - Signal to Noise Ratio
-    // Index 15 - CRC error rate
-    // Index 16 - Frequency offset
-    // Index 17 - Optional GPS signal quality - Horizontal accuracy x Vertical accuracy
+
+
     
     // MARK: - Init&Co.
     // MARK: - Public Methods
@@ -61,14 +42,17 @@ struct GliderTelemetryData: Hashable {
             let telemetryDataArray = parseAndCleanup(response: response)
             
             print("TelemetryDataArray: \(telemetryDataArray)")
+
+            //TODO: Magic number => remove comment sign; 01042020, ph
+            guard telemetryDataArray.count >= 11// ResponseElements.allCases.count
+                else {
+                    print("telemetryDataArray has to less enties: \(telemetryDataArray.count)\n\(telemetryDataArray)")
+                    return nil
+            }
             
-            // TODO: Magic Number - nicht cool. Add docu! 16.3.20, ph
-            guard telemetryDataArray.count >= 10
-                else { return nil }
-            
-            let flarmID = telemetryDataArray[0]
+            let flarmID = telemetryDataArray[ResponseElements.flarmID.rawValue]
             let timestamp = Date.currentUnixTimeStamp
-            let latitude = String(telemetryDataArray[2])
+            let latitude = String(telemetryDataArray[ResponseElements.latitude.rawValue])
             let longitude = String(telemetryDataArray[4])
             let location = locationCoordinateFrom(latitude: latitude,
                                                   longitude: longitude)
@@ -266,4 +250,29 @@ extension Double {
     func truncate(places: Int) -> Double {
         return Double(floor(pow(10.0, Double(places)) * self)/pow(10.0, Double(places)))
     }
+}
+
+
+//TODO: Rename and expande extention; 01042020, ph
+// MARK: - Extension - ResponseElements
+enum ResponseElements: Int, CaseIterable {
+    case flarmID = 0
+    case timeStamp = 1
+    case latitude = 2
+    case latitudeHemisphere = 3 // N(orth) or S(outh)
+    // Index 4 - Longitude
+    // Index 5 - Longitude Hemisphere - East or West
+    // Index 6 - Type
+    // Index 7 - Heading
+    // Index 8 - Speed
+    // Index 9 - Altitude
+    // Index 10 - Position precision enhancement
+    // Index 11 - Device ID
+    // Index 12 - ClimbRate in "feet per minute"
+    // Index 13 - TurnRate in "half turn per 2 minutes"
+    // Index 14 - Signal to Noise Ratio
+    // Index 15 - CRC error rate
+    // Index 16 - Frequency offset
+    // Index 17 - Optional GPS signal quality - Horizontal accuracy x Vertical accuracy
+
 }
