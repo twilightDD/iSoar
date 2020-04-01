@@ -9,6 +9,17 @@
 import Foundation
 import Network
 
+// MARK: - DL_OGNSocketConnectionManagerDelegate
+protocol DL_OGNSocketConnectionManagerDelegate: class {
+
+    func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData)
+    func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData)
+
+}
+
+
+// MARK: -
+// MARK: - OGNSocketConnectionManager
 class OGNSocketConnectionManager {
 
     // MARK: - Lets and Vars
@@ -97,10 +108,9 @@ class OGNSocketConnectionManager {
     }
     
     // Setup Receive Data
-    private func setupReceive() {
-        connection?.receive(minimumIncompleteLength: 1,
-                            maximumLength: 9000,
-                            completion: { [unowned self] (data, context, isComplete, error) in
+    private func setupReceive() { connection?.receive(minimumIncompleteLength: 1,
+                                                      maximumLength: 9000,
+                                                      completion: { [unowned self] (data, context, isComplete, error) in
                                 
                                 if let receivedData = data,
                                     let receivedMessage = String(data: receivedData, encoding: .utf8) {
