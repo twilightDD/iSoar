@@ -10,6 +10,7 @@ import Foundation
 
 protocol DL_OGNSocketConnectionManagerDelegate: class {
 
-    func messageReceived(message: GliderTelemetryData)
+    func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData)
+    func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData)
     
 }

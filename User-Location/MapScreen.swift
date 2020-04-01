@@ -706,10 +706,8 @@ extension MapScreen: UIGestureRecognizerDelegate {
 }
 
 extension MapScreen: DL_OGNSocketConnectionManagerDelegate {
-    
-    func messageReceived(message: GliderTelemetryData) {
-        let gliderTelemetryData = message //TODO: Refactor method signature; 02042020, ph
 
+    func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
         var nearbyGliderAnnotation = nearbyGliderAnnotations[gliderTelemetryData.flarmID]
         if nearbyGliderAnnotation == nil {
             nearbyGliderAnnotation = NearbyGliderAnnotation.init(gliderTelemetryData: gliderTelemetryData)
@@ -720,15 +718,11 @@ extension MapScreen: DL_OGNSocketConnectionManagerDelegate {
         nearbyGliderAnnotation!.gliderTelemetryData = gliderTelemetryData
     }
 
-    func updateNearbyGlider() {
-        // kuck mal ob ich schon eine annotation für den Flieger habe
-        // ja: updaten
-        // nein: hinzufügen
-    }
-    func removeNearbyGlider() {
+    func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
         // kuck mal ob ich schon eine annotation für den Flieger habe
         // ja: entfernen
         // nein: nix tun
+        fatalError("Not implemented yet.")
     }
     
 }

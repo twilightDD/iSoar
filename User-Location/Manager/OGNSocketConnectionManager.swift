@@ -181,8 +181,7 @@ class OGNSocketConnectionManager {
 
             let gliderSpecificMessage = String(splittedMessage)
             if let telemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
-               // print("Found FLR / ICA Prefix in Message \n\(telemetryData)")
-                delegate?.messageReceived(message: telemetryData)
+                delegate?.updateNearbyGlider(gliderTelemetryData: telemetryData)
             }
 
         }
