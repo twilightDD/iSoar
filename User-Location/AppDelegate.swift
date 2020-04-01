@@ -14,6 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+        Presets.printPresetsWaringsIfNeeded()
         
         //Prevent Display to fall asleep
         UIApplication.shared.isIdleTimerDisabled = true

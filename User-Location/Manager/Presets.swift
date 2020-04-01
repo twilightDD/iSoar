@@ -11,6 +11,16 @@ import Network
 
 struct Presets {
 
+    static func printPresetsWaringsIfNeeded() {
+        #if DEBUG
+        print("#######################")
+        print("")
+        print("USES DIFFERENT PRESETS FOR DEBUGGING")
+        print("")
+        print("#######################")
+        #endif
+    }
+
     struct OGNSocketConnection {
 
         /// Base URL String for aprs.glidernet.org
@@ -20,7 +30,7 @@ struct Presets {
         /// For using filtered requests.
         static let hostPortFiltered: NWEndpoint.Port = 14580 //
 
-        #if debug
+        #if DEBUG
         /// Default Radius für NearbyGlider (for debug purpose)
         static let regionInKm: Double = 500
         #else
