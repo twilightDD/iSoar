@@ -713,6 +713,7 @@ extension MapScreen: DL_OGNSocketConnectionManagerDelegate {
     func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
         if let nearbyGliderAnnotation = nearbyGliderAnnotations[gliderTelemetryData.flarmID] {
             mapView.removeAnnotation(nearbyGliderAnnotation)
+            nearbyGliderAnnotations[gliderTelemetryData.flarmID] = nil
         }
     }
     
