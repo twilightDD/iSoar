@@ -597,31 +597,23 @@ extension MapScreen: MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation)
         -> MGLAnnotationView? {
 
+            var annotationView: MGLAnnotationView?
+
             // User Annotation -> myself
             if annotation is MGLUserLocation && mapView.userLocation != nil {
-                let gliderUserLocationAnnotationView = GliderUserLocationAnnotationView()
-                return gliderUserLocationAnnotationView
+                annotationView = GliderUserLocationAnnotationView()
+            }
+            else if annotation is NearbyGliderAnnotation {
+                // Notice: nil is needed here! MGLAnnotation is an ObjC-Protocol. Fuck it!; 19.3.2020, ph
+                guard let flarmID = annotation.title ?? nil
+                    else { return nil }
+
+                annotationView = NearbyGliderAnnotationView(annotation: annotation,
+                                                            reuseIdentifier: flarmID)
+                annotationView!.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
             }
 
-            // Other Glider Annotations
-            // Notice: nil is needed here! MGLAnnotation is an ObjC-Protocol. Fuck it!; 19.3.2020, ph
-            guard let identifier = annotation.title ?? nil
-                else { return nil }
-
-            let newAnnotationView = NearbyGliderAnnotationView(annotation: annotation,
-                                                               reuseIdentifier: identifier)
-            newAnnotationView.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
-
-            if let nearbyGliderAnnotation = nearbyGliderAnnotations[identifier] {
-                nearbyGliderAnnotation.annotationView = newAnnotationView
-            }
-
-
-//            if let message = gliderTelemetryDatas.first(where: { (gliderTelemetryData) -> Bool in return annotation.title == gliderTelemetryData.flarmID }) {
-//                newAnnotationView.heading = message.heading
-//            }
-
-            return newAnnotationView
+            return annotationView
     }
     
     // Map finished loading

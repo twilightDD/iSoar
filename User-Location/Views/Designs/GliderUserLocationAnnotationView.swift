@@ -61,6 +61,7 @@ class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
 // MARK: - NearbyGliderAnnotationView
 class NearbyGliderAnnotationView: MGLAnnotationView {
 
+
     // MARK: Lets and Vars
     private var headingStore: Double = 0
     var heading: Double {
@@ -80,6 +81,21 @@ class NearbyGliderAnnotationView: MGLAnnotationView {
 
         }
     }
+
+    // MARK: - Init&Co
+    override init(annotation: MGLAnnotation?, reuseIdentifier: String?) {
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+
+        if let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotation {
+            nearbyGliderAnnotation.annotationView = self
+        }
+
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
 
     // MARK: - Layout Methods
     override func layoutSubviews() {
