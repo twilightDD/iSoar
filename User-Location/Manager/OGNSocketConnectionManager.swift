@@ -10,7 +10,7 @@ import Foundation
 import Network
 
 class OGNSocketConnectionManager {
-    
+
     // MARK: - Lets and Vars
     static let shared = OGNSocketConnectionManager()
     
@@ -26,8 +26,8 @@ class OGNSocketConnectionManager {
     
     var version: String = "iSoar \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?")_\(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?")"
 
-    var regionInKm: Double = 500
-    
+    var regionInKm: Double = Presets.OGNSocketConnection.regionInKm
+
     var buddyFlarmID: String = UserDefaultsManager.getBuddyFlarmID()
     
     weak var delegate: DL_OGNSocketConnectionManagerDelegate?
@@ -43,9 +43,8 @@ class OGNSocketConnectionManager {
         if UserDefaultsManager.getShowNearbyGlidersSwitch() && !isLoggedIn {
             // Delay Login
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                // 10152 Full Feed, 14580 Filtered Feed
-                self.connection = NWConnection(host: "aprs.glidernet.org",
-                                               port: 10152,
+                self.connection = NWConnection(host: Presets.OGNSocketConnection.host,
+                                               port: Presets.OGNSocketConnection.hostPortFiltered,
                                                using: .tcp)
                 
                 self.connection?.stateUpdateHandler = { newConnectionState in
