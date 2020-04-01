@@ -60,7 +60,7 @@ struct GliderTelemetryData: Hashable {
         -> GliderTelemetryData? {
             let telemetryDataArray = parseAndCleanup(response: response)
             
-            // print("TelemetryDataArray: \(telemetryDataArray)")
+            print("TelemetryDataArray: \(telemetryDataArray)")
             
             // TODO: Magic Number - nicht cool. Add docu! 16.3.20, ph
             guard telemetryDataArray.count >= 10
@@ -69,9 +69,7 @@ struct GliderTelemetryData: Hashable {
             let flarmID = telemetryDataArray[0]
             let timestamp = Date.currentUnixTimeStamp
             let latitude = String(telemetryDataArray[2])
-            let northsouthhemisphere = String(telemetryDataArray[3])
             let longitude = String(telemetryDataArray[4])
-            let eastwesthemisphere = String(telemetryDataArray[5])
             let location = locationCoordinateFrom(latitude: latitude,
                                                   longitude: longitude)
             let type = String(telemetryDataArray[6])
@@ -84,8 +82,6 @@ struct GliderTelemetryData: Hashable {
             let telemetryData = GliderTelemetryData(flarmID: flarmID,
                                                     timestamp: timestamp,
                                                     location: location,
-                                                    northsouthhemisphere: northsouthhemisphere,
-                                                    eastwesthemisphere: eastwesthemisphere,
                                                     type: type,
                                                     heading: heading,
                                                     speed: speed,
