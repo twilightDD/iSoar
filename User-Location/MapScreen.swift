@@ -711,10 +711,9 @@ extension MapScreen: DL_OGNSocketConnectionManagerDelegate {
     }
 
     func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
-        // kuck mal ob ich schon eine annotation für den Flieger habe
-        // ja: entfernen
-        // nein: nix tun
-        fatalError("Not implemented yet.")
+        if let nearbyGliderAnnotation = nearbyGliderAnnotations[gliderTelemetryData.flarmID] {
+            mapView.removeAnnotation(nearbyGliderAnnotation)
+        }
     }
     
 }
