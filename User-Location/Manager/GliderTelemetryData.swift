@@ -16,8 +16,6 @@ struct GliderTelemetryData: Hashable {
     var flarmID: String = "No FlarmID"
     var timestamp: Int64 = 0
     var location: CLLocationCoordinate2D = CLLocationCoordinate2D()
-    var northsouthhemisphere: String = ""
-    var eastwesthemisphere: String = ""
     var type: String = ""
     var heading: Double = 0
     var speed: Double = 0
@@ -33,15 +31,13 @@ struct GliderTelemetryData: Hashable {
         hasher.combine(flarmID)
     }
 
-
-    
     // MARK: - Init&Co.
     // MARK: - Public Methods
     static func telemetryDataFromOGNGliderResponse(_ response: String)
         -> GliderTelemetryData? {
             let telemetryDataArray = parseAndCleanup(response: response)
             
-            print("TelemetryDataArray: \(telemetryDataArray)")
+            // print("TelemetryDataArray: \(telemetryDataArray)")
 
             //TODO: Magic number => remove comment sign; 01042020, ph
             guard telemetryDataArray.count >= 11// ResponseElements.allCases.count
