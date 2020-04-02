@@ -571,9 +571,9 @@ extension MapScreen: MGLMapViewDelegate {
             guard let nearbyGliderCalloutView = views?[0] as? NearbyGliderCalloutView
                 else { fatalError("Must be a NearbyGliderCalloutView.") }
             
-            // TODO: Hier bricht es ab und zu beim Tap auf eine Annotation
+            // TODO: Hier vielleicht nochmal ne Abfrage welche Art Annotation das ist
             guard let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotation
-                else { fatalError("Must be a NearbyGliderAnnotaion") }
+                else { return nil }
 
             nearbyGliderCalloutView.representedObject = nearbyGliderAnnotation
             
