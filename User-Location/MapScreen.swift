@@ -625,14 +625,14 @@ extension MapScreen: MGLMapViewDelegate {
             mapView.showsUserLocation = true
             mapView.setCenter(CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude,
                                                      longitude: currentLocation.coordinate.longitude),
-                              zoomLevel: 5,
+                              zoomLevel: Presets.MapScreen.zoomLevel,
                               animated: true)
         }
             // If not, set Center the Map to Airport Stuttgart
         else {
             mapView.setCenter(CLLocationCoordinate2D(latitude: 48.689497,
                                                      longitude: 9.219885),
-                              zoomLevel: 9.6,
+                              zoomLevel: Presets.MapScreen.zoomLevel,
                               animated: true)
         }
         
