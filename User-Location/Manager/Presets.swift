@@ -25,7 +25,7 @@ struct Presets {
 
         /// Base URL String for aprs.glidernet.org
         static let host: NWEndpoint.Host = "aprs.glidernet.org"
-        // May not use any filter options.
+        /// May not use any filter options.
         static let hostPort: NWEndpoint.Port = 10152
         /// For using filtered requests.
         static let hostPortFiltered: NWEndpoint.Port = 14580 //
@@ -36,6 +36,17 @@ struct Presets {
         #else
         /// Default Radius für NearbyGlider
         static let regionInKm: Double = 20
+        #endif
+    }
+    
+    struct MapScreen {
+
+        #if DEBUG
+        /// Default Radius für MapScreen ZoomLevel (for debug purpose)
+        static let zoomLevel: Double = 5
+        #else
+        /// Default Radius für MapScreen ZoomLevel
+        static let zoomLevel: Double = 9.6
         #endif
     }
 
