@@ -62,11 +62,11 @@ struct GliderTelemetryData: Hashable {
                                                  longitude: longitude,
                                                  longitudeHemisphere: longitudeHemisphere)
 
-            let type = String(telemetryDataArray[6])
+            let type = String(telemetryDataArray[ResponseElements.type.rawValue])
             let heading = Double(telemetryDataArray[7]) ?? 0
-            let speed = speedFrom(speed: telemetryDataArray[8])
-            let altitude = altitudeFrom(altitude: telemetryDataArray[9])
-            let climbRate = climbRateFrom(climbRate: telemetryDataArray[12])
+            let speed = speedFrom(speed: telemetryDataArray[ResponseElements.speed.rawValue])
+            let altitude = altitudeFrom(altitude: telemetryDataArray[ResponseElements.altitude.rawValue])
+            let climbRate = climbRateFrom(climbRate: telemetryDataArray[ResponseElements.climbRate.rawValue])
             
             // Extract the interesting Data from TelemetryData
             let telemetryData = GliderTelemetryData(flarmID: flarmID,
@@ -283,17 +283,17 @@ enum ResponseElements: Int, CaseIterable {
     case latitudeHemisphere = 3 // N(orth) or S(outh)
     case longitude = 4
     case longitudeHemisphere = 5 // E(ast) or W(est)
-    // Index 6 - Type
-    // Index 7 - Heading
-    // Index 8 - Speed
-    // Index 9 - Altitude
-    // Index 10 - Position precision enhancement
-    // Index 11 - Device ID
-    // Index 12 - ClimbRate in "feet per minute"
-    // Index 13 - TurnRate in "half turn per 2 minutes"
-    // Index 14 - Signal to Noise Ratio
-    // Index 15 - CRC error rate
-    // Index 16 - Frequency offset
-    // Index 17 - Optional GPS signal quality - Horizontal accuracy x Vertical accuracy
+    case type = 6
+    case heading = 7
+    case speed = 8
+    case altitude = 9
+    case position = 10
+    case deviceID = 11
+    case climbRate = 12
+    case turnRate = 13
+    case signal = 14
+    case crc = 15
+    case frequency = 16
+    case quality = 17
 
 }
