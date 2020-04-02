@@ -17,7 +17,6 @@ protocol DL_OGNSocketConnectionManagerDelegate: class {
 
 }
 
-
 // MARK: -
 // MARK: - OGNSocketConnectionManager
 class OGNSocketConnectionManager {

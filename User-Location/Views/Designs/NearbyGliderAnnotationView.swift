@@ -46,7 +46,6 @@ class NearbyGliderAnnotationView: MGLAnnotationView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     // MARK: - Layout Methods
     override func layoutSubviews() {
         super.layoutSubviews()
