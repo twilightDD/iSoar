@@ -34,8 +34,11 @@ class FlightComputer {
     // Check if Glider is flying or on ground
     func checkIfGliderIsFlying() {
         if gliderIsFlying == false {
+
             // Check if Glider is faster than 10m/s, then set FlightMode to true
-            if MapScreenViewController.shared!.currentLocation!.speed > Presets.FlightComputer.minimalFlightSpeed {
+            if let currentLocation = LocationManager.currentLocation,
+                currentLocation.speed > Presets.FlightComputer.minimalFlightSpeed {
+
                 gliderIsFlying = true
                 flightUUIDString = UUID().uuidString
                 flightStartTime = Date()
@@ -43,12 +46,13 @@ class FlightComputer {
                 
                 // Create FlightRecorder Files
                 FlightRecorder.shared.recorderIsReadyToWrite = ISoarFileManager.createFlightRecorderFiles()
-            } else {
-                return
             }
-        } else {
+        }
+        else {
             // Check if Glider is slower than 10m/s, then set FlightMode to false
-            if MapScreenViewController.shared!.currentLocation!.speed < Presets.FlightComputer.minimalFlightSpeed {
+            if let currentLocation = LocationManager.currentLocation,
+                currentLocation.speed < Presets.FlightComputer.minimalFlightSpeed {
+
                 gliderIsFlying = false
                 flightEndTime = Date()
                 endICAO = icaoOfNearestAirport()
@@ -56,8 +60,6 @@ class FlightComputer {
                 // Close FlightRecorder Files
                 ISoarFileManager.closeFlightRecorderFiles()
                 FlightRecorder.shared.recorderIsReadyToWrite = false
-            } else {
-                return
             }
         }
         
@@ -89,7 +91,10 @@ class FlightComputer {
             let upperGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.upperGearWarningAltitude
             let lowerGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.lowerGearWarningAltitude
             
-            if distanceInKm < 1 && (MapScreenViewController.shared?.currentLocation!.altitude)! < upperGearWarningAltitude && (MapScreenViewController.shared?.currentLocation!.altitude)! > lowerGearWarningAltitude {
+            if let currentLocation = LocationManager.currentLocation,
+                distanceInKm < 1
+                    && (currentLocation.altitude < upperGearWarningAltitude
+                        && currentLocation.altitude > lowerGearWarningAltitude) {
                 
                 if playGearWarning == true {
                     
@@ -103,48 +108,41 @@ class FlightComputer {
                     synthesizer.speak(utterance)
                     
                     playGearWarning = false
-                    
+
                 } else {
-                    return
+                    playGearWarning = true
                 }
             } else {
-                playGearWarning = true
+                // Gear Switch is off
             }
-        } else {
-            // Gear Switch is off
         }
         
     }
     
     // Audio for Oxygen Level Warning
     func oxygenWarning() {
-        guard let currentLocation = MapScreenViewController.shared?.currentLocation else {
-            return
-        }
-        
+        guard let currentLocation = LocationManager.currentLocation
+            else { return }
+
         if currentLocation.altitude > 3500 {
-            
+
             if playOxygenWarning == true {
-                
                 AudioServicesPlayAlertSound(SystemSoundID(1256))
-                
+
                 let utterance = AVSpeechUtterance(string: "Check Oxygen Level")
                 utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
                 utterance.rate = 0.5
-                
+
                 let synthesizer = AVSpeechSynthesizer()
                 synthesizer.speak(utterance)
-                
+
                 playOxygenWarning = false
-                
             } else {
-                return
+                playOxygenWarning = true
             }
-        } else {
-            playOxygenWarning = true
         }
     }
-    
+
     // Collision Warning
     func collisionWarning() {
         // Check if Glider is flying / If false we dont need to warn
@@ -167,7 +165,6 @@ class FlightComputer {
         } else {
             // Glider not flying
         }
-        
     }
-    
+
 }

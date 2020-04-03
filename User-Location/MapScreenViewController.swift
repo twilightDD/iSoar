@@ -26,8 +26,7 @@ class MapScreenViewController: UIViewController {
     @IBOutlet private weak var destinationAirportLabel: UILabel!
     
     // MARK: Lets and Vars
-    let locationManager = CLLocationManager()
-    var currentLocation: CLLocation?
+//    var currentLocation: CLLocation?
     var currentDistance: CLLocationDistance?
     
     lazy var userLocationButton: UserLocationButton = createUserLocationButton()
@@ -259,8 +258,9 @@ class MapScreenViewController: UIViewController {
         userLocationButton.updateArrowForTrackingMode(state: self.userFollow)
         
         if self.userFollow == true {
-            if let _ = self.currentLocation {
-                self.mapView.setCenter(self.currentLocation!.coordinate, animated: true)
+            if let currentLocation = LocationManager.currentLocation {
+                self.mapView.setCenter(currentLocation.coordinate,
+                                       animated: true)
             }
         }
     }
@@ -268,9 +268,8 @@ class MapScreenViewController: UIViewController {
     // MARK: - Private Methods
     // Update AltitudeLabel
     private func updateAltitudeLabel() {
-        guard let currentLocation = currentLocation else {
-            return
-        }
+        guard let currentLocation = LocationManager.currentLocation
+            else { return }
         
         var altituteLabelText = ""
         if showAltitudeInMeters == true {
@@ -285,15 +284,15 @@ class MapScreenViewController: UIViewController {
     
     // Update SpeedLabel
     private func updateSpeedLabel() {
-        guard let currentLocation = currentLocation else {
-            return
-        }
+        guard let currentLocation = LocationManager.currentLocation
+            else { return }
         
         var speedLabelText = ""
         
         if currentLocation.speed < 0 {
             speedLabelText = "---"
-        } else {
+        }
+        else {
             if showSpeedInKMH == true {
                 let speedInKMH = currentLocation.speed * 3.6
                 speedLabelText =  String(format: "%.0f km/h", speedInKMH)
@@ -302,6 +301,7 @@ class MapScreenViewController: UIViewController {
                 speedLabelText = String(format: "%.0f kt", speedInKT)
             }
         }
+
         speedLabel.text = speedLabelText
     }
     
@@ -327,15 +327,11 @@ class MapScreenViewController: UIViewController {
     
     // Update DestinationAltitudeLabel
     private func updateDestinationAltitudeLabel() {
-        guard let currentLocation = currentLocation else {
-            return
-        }
-        guard let currentDistance = currentDistance else {
-            return
-        }
-        guard  let selectedDestinationAirport = selectedDestinationAirport else {
-            return
-        }
+        guard let currentLocation = LocationManager.currentLocation,
+            let currentDistance = currentDistance,
+            let selectedDestinationAirport = selectedDestinationAirport
+            else { return }
+
         
         // Get User Default Values
         // Calculate Glider Sink Rate to Destination
@@ -361,11 +357,13 @@ class MapScreenViewController: UIViewController {
     
     // Update Course Label
     private func updateCourseLabel() {
-        guard let course = currentLocation?.course else {
-            self.courseLabel.text = "---"
-            return
+        guard let currentLocation = LocationManager.currentLocation
+            else {
+                self.courseLabel.text = "---"
+                return
         }
-        
+
+        let course = currentLocation.course
         if course < 0 {
             self.courseLabel.text = "---"
         } else {
@@ -384,7 +382,8 @@ class MapScreenViewController: UIViewController {
         }
         
         if let selectedDestinationAirport = selectedDestinationAirport,
-            let currentLocation = currentLocation {
+            let currentLocation = LocationManager.currentLocation {
+
             // Distance
             let destinationAirportLocation = CLLocation(latitude: selectedDestinationAirport.latitude,
                                                         longitude: selectedDestinationAirport.longitude)
@@ -414,7 +413,8 @@ class MapScreenViewController: UIViewController {
             }
             
             currentDirectionLine = newCurrentDirectionLine
-        } else {
+        }
+        else {
             distanceLabel.text = "---"
             destinationAltitudeLabel.text = "---"
             destinationAltitudeLabel.textColor = UIColor(red: 150/255, green: 255/255, blue: 255/255, alpha: 1)
@@ -442,7 +442,7 @@ class MapScreenViewController: UIViewController {
     
     // Draw Tracking Route Polyline on Map
     private func drawTrackingRoute() {
-        if let currentLocation = self.currentLocation {
+        if let currentLocation = LocationManager.currentLocation {
             var currentLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
                                                                           longitude: currentLocation.coordinate.longitude)
             currentFlightLine.appendCoordinates(&currentLocationCoordinate2D,
@@ -582,7 +582,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
         // Center Map to User Location
         // Check if User Location is available.
         // If yes, set Center the Map to User Location
-        if let currentLocation = self.currentLocation {
+        if let currentLocation = LocationManager.currentLocation {
             mapView.showsUserLocation = true
             mapView.setCenter(CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude,
                                                      longitude: currentLocation.coordinate.longitude),
@@ -606,10 +606,10 @@ extension MapScreenViewController: MGLMapViewDelegate {
 extension MapScreenViewController: LocationManagerDelegate {
     
     func locationManager(didUpdateLocations locations: [CLLocation]) {
-        guard let currentLocation = locations.last else { return }
-        
-        self.currentLocation = currentLocation
-        
+        guard let currentLocation = locations.last // Alternativ: LocationManager.currentLocation
+            else { return }
+
+
         // Get User Tracking State - If true - set Map center on User Location
         if self.userFollow == true {
             self.mapView.setCenter(currentLocation.coordinate, animated: true)

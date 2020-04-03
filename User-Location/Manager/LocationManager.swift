@@ -23,9 +23,22 @@ protocol LocationManagerDelegate: AnyObject {
 class LocationManager: NSObject {
 
     // MARK: Lets and Vars
+    // Statics
     static private let shared = LocationManager()
 
-    //Private
+    // Public Class Vars
+    static var currentLocation: CLLocation? = {
+        let currentLocation = shared.currentLocation
+        return currentLocation
+    }()
+
+    static var currentDistance: CLLocationDistance? = {
+        let currentDistance = shared.currentDistance
+        return currentDistance
+    }()
+
+
+    // Private
     private let locationManager = CLLocationManager()
 
     private(set) var currentLocation: CLLocation?
@@ -96,10 +109,16 @@ extension LocationManager: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]) {
-        guard let delegate = self.delegate
+
+        guard let currentLocation = locations.last
             else { return }
 
-        delegate.locationManager(didUpdateLocations: locations)
+        self.currentLocation = currentLocation
+
+        // Inform delegate
+        if let delegate = self.delegate {
+            delegate.locationManager(didUpdateLocations: locations)
+        }
         
     }
 

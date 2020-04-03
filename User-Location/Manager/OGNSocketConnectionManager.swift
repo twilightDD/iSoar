@@ -161,7 +161,11 @@ extension OGNSocketConnectionManager {
     
     // Send Login String with generated Username and Current Location
     private func login() {
-        guard let currentLocation = MapScreenViewController.shared?.currentLocation, !isLoggedIn else {
+
+        // TODO: Wot? Wozu der Neuversuch? Keine Doku = Doofe Fragen; 04042020, ph
+        // TODO: if loggedIn == true { return } ist besser?!; 040402020, ph
+        guard let currentLocation = LocationManager.currentLocation,
+            !isLoggedIn else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.login()
             }

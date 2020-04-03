@@ -40,7 +40,7 @@ class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
     private func rotateGliderLayer() {
         guard let gliderLayer = self.gliderLayer
             else { return }
-        guard let course = MapScreenViewController.shared!.currentLocation?.course
+        guard let course = LocationManager.currentLocation?.course
             else { return }
 
         /* Get the difference between the map’s current direction and the user’s heading,
