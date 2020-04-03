@@ -76,7 +76,7 @@ class FlightComputer {
             return nil
     }
     
-    // MARK: Audio Warnings
+    // MARK: - Audio Warnings
     // Audio Gear Warning
     func gearWarning() {
         guard let selectedDestinationAirport = MapScreen.shared?.selectedDestinationAirport
@@ -144,5 +144,30 @@ class FlightComputer {
             playOxygenWarning = true
         }
     }
-
+    
+    // Collision Warning
+    func collisionWarning() {
+        // Check if Glider is flying / If false we dont need to warn
+        if gliderIsFlying == true {
+            // Check if Collision Warning Switch is on / If false we dont need to warn
+            let collisionWarningSwitch = UserDefaultsManager.getCollisionWarningSwitch()
+            if collisionWarningSwitch == true {
+                AudioServicesPlayAlertSound(SystemSoundID(1256))
+                
+                let utterance = AVSpeechUtterance(string: "Warning, Traffic ahead")
+                utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+                utterance.rate = 0.5
+                
+                let synthesizer = AVSpeechSynthesizer()
+                synthesizer.speak(utterance)
+            } else {
+                // Collision Warning Switch is on
+            }
+            
+        } else {
+            // Glider not flying
+        }
+        
+    }
+    
 }
