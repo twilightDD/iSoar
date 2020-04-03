@@ -15,7 +15,6 @@ class FlightComputer {
 
     // MARK: - Magic Numbers
     static let minimalDistanceForNearestAirport: Double = 300   // meters
-    static let minimalFlightSpeed: CLLocationSpeed = 10         // meters/second
 
     // MARK: - Lets and Vars
     static let shared = FlightComputer()
@@ -36,7 +35,7 @@ class FlightComputer {
     func checkIfGliderIsFlying() {
         if gliderIsFlying == false {
             // Check if Glider is faster than 10m/s, then set FlightMode to true
-            if MapScreen.shared!.currentLocation!.speed > FlightComputer.minimalFlightSpeed {
+            if MapScreen.shared!.currentLocation!.speed > Presets.FlightComputer.minimalFlightSpeed {
                 gliderIsFlying = true
                 flightUUIDString = UUID().uuidString
                 flightStartTime = Date()
@@ -49,7 +48,7 @@ class FlightComputer {
             }
         } else {
             // Check if Glider is slower than 10m/s, then set FlightMode to false
-            if MapScreen.shared!.currentLocation!.speed < FlightComputer.minimalFlightSpeed {
+            if MapScreen.shared!.currentLocation!.speed < Presets.FlightComputer.minimalFlightSpeed {
                 gliderIsFlying = false
                 flightEndTime = Date()
                 endICAO = icaoOfNearestAirport()
@@ -64,7 +63,7 @@ class FlightComputer {
         
     }
     
-//    // Check for nearest Aiport
+    // Check for nearest Aiport
     func icaoOfNearestAirport()
         -> String? {
             // Update Distance from current Location to all Airports in Database
@@ -87,8 +86,8 @@ class FlightComputer {
         if gearWarningSwitch == true {
             let distanceInKm = (MapScreen.shared?.currentDistance!)!/1000
 
-            let upperGearWarningAltitude = selectedDestinationAirport.elevation + 400
-            let lowerGearWarningAltitude = selectedDestinationAirport.elevation + 200
+            let upperGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.upperGearWarningAltitude
+            let lowerGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.lowerGearWarningAltitude
             
             if distanceInKm < 1 && (MapScreen.shared?.currentLocation!.altitude)! < upperGearWarningAltitude && (MapScreen.shared?.currentLocation!.altitude)! > lowerGearWarningAltitude {
                 

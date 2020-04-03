@@ -8,6 +8,7 @@
 
 import Foundation
 import Network
+import CoreLocation
 
 struct Presets {
 
@@ -28,7 +29,7 @@ struct Presets {
         /// May not use any filter options.
         static let hostPort: NWEndpoint.Port = 10152
         /// For using filtered requests.
-        static let hostPortFiltered: NWEndpoint.Port = 14580 //
+        static let hostPortFiltered: NWEndpoint.Port = 14580
 
         #if DEBUG
         /// Default Radius für NearbyGlider (for debug purpose)
@@ -49,5 +50,16 @@ struct Presets {
         static let zoomLevel: Double = 9.6
         #endif
     }
-
+    
+    struct FlightComputer {
+        
+        /// Minimal Speed in Meter per Seconds to check if Glider is flying or not
+        static let minimalFlightSpeed: CLLocationSpeed = 10
+        /// Represents the upper Altitude Range Limit above the Airport in which User is warned
+        static let upperGearWarningAltitude: Double = 400
+        /// Represents the lower Altitude Range Limit above the Airport in which User is warned
+        static let lowerGearWarningAltitude: Double = 200
+        
+    }
+    
 }
