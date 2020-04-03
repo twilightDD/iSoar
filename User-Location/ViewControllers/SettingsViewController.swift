@@ -171,8 +171,10 @@ class SettingsViewController: UIViewController {
             collisionWarningSwitch.setOn(false, animated: true)
             collisionWarningSwitch(collisionWarningSwitch)
             
-            // Disconnect from OGN Server, empty Messages Set and remove all nearby Glider Annotaions from Map
+            // Disconnect from OGN Server
             OGNSocketConnectionManager.shared.cancelConnection()
+            
+            // Empty Messages Set and remove all nearby Glider Annotaions from Map
             MapScreen.shared?.gliderTelemetryDatas.removeAll()
             MapScreen.shared?.mapView.removeAnnotations(MapScreen.shared?.mapView.annotations ?? [])
         }
