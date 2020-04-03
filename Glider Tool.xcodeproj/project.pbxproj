@@ -10,6 +10,7 @@
 		18BE3F7422CF688D00859347 /* GliderUserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE3F7322CF688D00859347 /* GliderUserLocationAnnotationView.swift */; };
 		4FA79AEE7ECE155E0BFA301B /* Pods_Glider_Tool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1EF2983B88025FDC2840F2 /* Pods_Glider_Tool.framework */; };
 		D0015F0F242C082F00D2AEFF /* NearbyGliderAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0015F0E242C082F00D2AEFF /* NearbyGliderAnnotation.swift */; };
+		D022F00C2437DB5900CA9DB4 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022F00B2437DB5900CA9DB4 /* LocationManager.swift */; };
 		D023099B2429555B00A68F34 /* CustomCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D023099A2429555B00A68F34 /* CustomCalloutView.swift */; };
 		D02309A12429590B00A68F34 /* NearbyGliderCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D02309A02429590B00A68F34 /* NearbyGliderCalloutView.xib */; };
 		D02309A32429591A00A68F34 /* NearbyGliderCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02309A22429591A00A68F34 /* NearbyGliderCalloutView.swift */; };
@@ -67,6 +68,7 @@
 		75CB3E8DFF8D455C8F1742A5 /* Pods-Glider Tool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Glider Tool.debug.xcconfig"; path = "Target Support Files/Pods-Glider Tool/Pods-Glider Tool.debug.xcconfig"; sourceTree = "<group>"; };
 		AF3E6C1CC85039594789B3C8 /* Pods-Glider Tool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Glider Tool.release.xcconfig"; path = "Target Support Files/Pods-Glider Tool/Pods-Glider Tool.release.xcconfig"; sourceTree = "<group>"; };
 		D0015F0E242C082F00D2AEFF /* NearbyGliderAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyGliderAnnotation.swift; sourceTree = "<group>"; };
+		D022F00B2437DB5900CA9DB4 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		D023099A2429555B00A68F34 /* CustomCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCalloutView.swift; sourceTree = "<group>"; };
 		D02309A02429590B00A68F34 /* NearbyGliderCalloutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NearbyGliderCalloutView.xib; sourceTree = "<group>"; };
 		D02309A22429591A00A68F34 /* NearbyGliderCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyGliderCalloutView.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				D0C2801A23D8F46B00518539 /* UserDefaultsManager.swift */,
 				E06936D7241B8CA00073D078 /* GliderTelemetryData.swift */,
 				D0829D3E24351FEC009E40EC /* Presets.swift */,
+				D022F00B2437DB5900CA9DB4 /* LocationManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */,
 				E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */,
 				E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */,
+				D022F00C2437DB5900CA9DB4 /* LocationManager.swift in Sources */,
 				E06936D8241B8CA00073D078 /* GliderTelemetryData.swift in Sources */,
 				D0C5ED5B22A4769C009A0542 /* AirportDatabase.swift in Sources */,
 				E02052B123E36A9A00839B84 /* FlightRecorder.swift in Sources */,

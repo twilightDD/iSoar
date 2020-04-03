@@ -70,7 +70,7 @@ class MapScreenViewController: UIViewController {
 
         OGNSocketConnectionManager.registerForUpdates(self)
 
-        checkLocationServices()
+        LocationManager.registerForLocationUpdates(self)
         
         setupMapBox()
         
@@ -91,12 +91,6 @@ class MapScreenViewController: UIViewController {
     }
     
     // MARK: - Setup functions
-    // Set up Location Manager
-    func setupLocationManager() {
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        locationManager.allowsBackgroundLocationUpdates = true
-    }
     
     // Set up MapBox MapView
     func setupMapBox() {
@@ -122,36 +116,7 @@ class MapScreenViewController: UIViewController {
         mapView.resetNorth()
 
     }
-    
-    // Check for Location Services
-    func checkLocationServices() {
-        if CLLocationManager.locationServicesEnabled() {
-            setupLocationManager()
-            checkLocationAuthorization()
-        } else {
-            // Show alert letting the user know they have to turn this on.
-        }
-    }
-    
-    // Check for Location Authorization
-    func checkLocationAuthorization() {
-        switch CLLocationManager.authorizationStatus() {
-        case .authorizedWhenInUse:
-            locationManager.startUpdatingLocation()
-        case .denied:
-            // Show alert instructing them how to turn on permissions
-            break
-        case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-        case .restricted:
-            // Show an alert letting them know what's up
-            break
-        case .authorizedAlways:
-            locationManager.startUpdatingLocation()
-        @unknown default:
-            print("Didn't request permission for User Notifications")
-        }
-    }
+
     
     // Create User Location Button
     func createUserLocationButton()
@@ -637,10 +602,10 @@ extension MapScreenViewController: MGLMapViewDelegate {
     
 }
 
-// MARK: - MapScreen: CLLocationManagerDelegate
-extension MapScreenViewController: CLLocationManagerDelegate {
+// MARK: - MapScreen - LocationManagerDelegate
+extension MapScreenViewController: LocationManagerDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last else { return }
         
         self.currentLocation = currentLocation
@@ -677,12 +642,7 @@ extension MapScreenViewController: CLLocationManagerDelegate {
         drawTrackingRoute()
         
     }
-    
-    // Check for Location Authorization
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        checkLocationAuthorization()
-    }
-    
+
 }
 
 // MARK: - MapScreen:UIGestureRecognizerDelegate
