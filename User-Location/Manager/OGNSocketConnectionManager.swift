@@ -11,23 +11,23 @@ import Network
 
 // MARK: - DL_OGNSocketConnectionManagerDelegate
 protocol DL_OGNSocketConnectionManagerDelegate: class {
-    
+
     func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData)
     func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData)
-    
+
 }
 
 // MARK: -
 // MARK: - OGNSocketConnectionManager
 class OGNSocketConnectionManager {
-    
+
     // MARK: - Lets and Vars
     // Statics
-    static let shared = OGNSocketConnectionManager()
-    
+    static private let shared = OGNSocketConnectionManager()
+
     // Public
     weak var delegate: DL_OGNSocketConnectionManagerDelegate?
-    
+
     // Private
     private var connection: NWConnection?
     private var queue = DispatchQueue(label: "NetworkQueue", qos: .utility)
@@ -35,20 +35,38 @@ class OGNSocketConnectionManager {
         let userName = generateRandomUserName()
         return userName
     }
-    
+
     private var isLoggedIn = false
     private var loginTimeStamp = Date.currentUnixTimeStamp //TODO: wozu wird der gebraucht?; 03042020, ph
-    
+
     private var buddyFlarmID: String = UserDefaultsManager.getBuddyFlarmID()
     private var regionInKm: Double = Presets.OGNSocketConnection.regionInKm
-    
-    
-    
+
+
     // MARK: - Init&Co.
+
     
-    // MARK: - Public Methods
+    // MARK: - Public Class Methods
+    class func registerForUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
+        shared.delegate = delegate
+    }
+    
+    class func start() {
+        shared.connectToOGNServerSocket()
+    }
+
+    class func stop() {
+        shared.cancelConnection()
+    }
+}
+
+
+// MARK: - Extension - Instance Methods
+extension OGNSocketConnectionManager {
+
+    //MARK: Private Instance Methods
     // Connect to Server Socket
-    func connectToOGNServerSocket() {
+    private func connectToOGNServerSocket() {
         // Check if Nearby Gliders should be shown on Map
         print("We are loggin into the OGN Server: \(isLoggedIn)")
         
@@ -95,13 +113,12 @@ class OGNSocketConnectionManager {
         }
         
     }
-    
+
     // Disconnect from Server
-    func cancelConnection() {
+    private func cancelConnection() {
         connection?.cancel()
     }
-    
-    // MARK: - Private Methods
+
     // Generate random alphanumerical Username witch 9 characters
     private func generateRandomUserName()
         -> String {
@@ -117,21 +134,21 @@ class OGNSocketConnectionManager {
     private func setupReceive() { connection?.receive(minimumIncompleteLength: 1,
                                                       maximumLength: 9000,
                                                       completion: { [unowned self] (data, context, isComplete, error) in
-                                                        
+
                                                         if let receivedData = data,
                                                             let receivedMessage = String(data: receivedData, encoding: .utf8) {
                                                             self.messageReceived(receivedMessage)
                                                         }
-                                                        
+
                                                         if !self.isLoggedIn {
                                                             self.login()
                                                         }
-                                                        
+
                                                         if context?.identifier == "Final Message" && isComplete {
                                                             self.connection?.cancel()
                                                             return
                                                         }
-                                                        
+
                                                         if let messageError = error {
                                                             print("Recieve error: \(messageError)")
                                                         } else {
@@ -148,7 +165,7 @@ class OGNSocketConnectionManager {
             }
             return
         }
-        
+
         let appVersion = Presets.OGNSocketConnection.appVersion
         if UserDefaultsManager.getShowFlarmBuddySwitchKey() {
             // Filter for unique FlarmID or multiple IDs seperated bei /
@@ -164,7 +181,7 @@ class OGNSocketConnectionManager {
         loginTimeStamp = Date.currentUnixTimeStamp
     }
     
-    
+
     
     // Send Filter Request to Server
     private func sendPaket(_ packet: String) {
@@ -183,15 +200,15 @@ class OGNSocketConnectionManager {
     // Received Message from OGN Server
     private func messageReceived(_ receivedMessage: String) {
         // print("Original OGN Message: \(receivedMessage)")
-        
+
         let splittedMessages = receivedMessage.split(separator: "\r\n")
         // print("Anzahl Teilnachrichten: \(splittedMessages.count)")
-        
+
         for splittedMessage in splittedMessages {
             guard splittedMessage.hasPrefix("FLR")
                 || splittedMessage.hasPrefix("ICA")
                 else { continue }
-            
+
             let gliderSpecificMessage = String(splittedMessage)
             if let telemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
                 delegate?.updateNearbyGlider(gliderTelemetryData: telemetryData)

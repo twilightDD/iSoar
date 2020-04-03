@@ -67,7 +67,9 @@ class MapScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        OGNSocketConnectionManager.registerForUpdates(self)
+
         checkLocationServices()
         
         setupMapBox()
@@ -79,9 +81,8 @@ class MapScreenViewController: UIViewController {
         super.viewWillAppear(animated)
         
         checkTrackingRouteStatus()
-        
-        OGNSocketConnectionManager.shared.connectToOGNServerSocket()
-        OGNSocketConnectionManager.shared.delegate = self
+
+
         
     }
     
