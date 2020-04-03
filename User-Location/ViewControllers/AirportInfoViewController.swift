@@ -27,9 +27,9 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
     @IBOutlet weak var surfaceValue: UILabel!
     @IBOutlet weak var additionalInfo: UILabel!
     @IBOutlet weak var countryValue: UILabel!
-    @IBOutlet weak var urlValue: UILabel!
     @IBOutlet weak var callButton: UIButton!
     @IBOutlet weak var urlButton: UIButton!
+    @IBOutlet weak var validationDate: UILabel!
     
     // MARK: - Init
     override func viewDidLoad() {
@@ -45,15 +45,12 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
         countryValue.text = selectedDestinationAirport?.country
         countryImage.image = UIImage(named: countryValue.text!)
         elevation.text =  String(format: "%.0f m", selectedDestinationAirport!.elevation)
-        
         latitudeValue.text = String(format: "%.6f", selectedDestinationAirport!.latitude)
-        
         longitudeValue.text = String(format: "%.6f", selectedDestinationAirport!.longitude)
-        
         additionalInfo.text = selectedDestinationAirport?.additionalInfo
         callButton.setTitle("\(selectedDestinationAirport!.phone!)", for: .normal)
         urlButton.setTitle("\(selectedDestinationAirport!.url!)", for: .normal)
-        
+        validationDate.text = selectedDestinationAirport?.validationDate
     }
     
     // MARK: - Methods

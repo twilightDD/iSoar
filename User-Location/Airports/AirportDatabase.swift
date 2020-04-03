@@ -241,7 +241,7 @@ extension AirportDatabase {
     
     struct Airport: Equatable {
         // MARK: Lets and Vars
-        var valid: String
+        var validationDate: String
         var icao: String
         var name: String
         var latitude: Double
@@ -264,7 +264,7 @@ extension AirportDatabase {
         
         // MARK: Init&Co.
         public init(dictionary: Dictionary<String, Any>) {
-            self.valid = dictionary["valid"] as? String ?? ""
+            self.validationDate = dictionary["validationDate"] as? String ?? ""
             self.icao = dictionary["icao"] as? String ?? ""
             self.name = dictionary["name"] as? String ?? ""
             self.latitude = dictionary["latitude"] as? Double ?? 0

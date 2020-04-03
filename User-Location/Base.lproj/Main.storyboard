@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -688,14 +688,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskSelectionTableViewCell" id="DPU-HB-jDi" customClass="TaskSelectionTableViewCell" customModule="iSoar" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DPU-HB-jDi" id="BFo-Hu-pV9">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fmk-3Q-uW8">
-                                                    <rect key="frame" x="15" y="11" width="81" height="21"/>
+                                                    <rect key="frame" x="15" y="11" width="81" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -774,7 +774,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Vwd-wo-QJT" userLabel="Airport Info Stack View">
-                                <rect key="frame" x="20" y="102" width="374" height="303.5"/>
+                                <rect key="frame" x="20" y="102" width="374" height="352.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="WFc-Ye-C4Z" userLabel="ICAO Stack View">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="21.5"/>
@@ -975,6 +975,34 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="2tX-lg-bsb" userLabel="Spacer Stack View">
+                                        <rect key="frame" x="0.0" y="306.5" width="374" height="21.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IVq-Vj-l3b">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="21.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="GyD-ui-RQf" userLabel="Validated: Stack View">
+                                        <rect key="frame" x="0.0" y="331" width="374" height="21.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Validated:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ick-Ek-XYh">
+                                                <rect key="frame" x="0.0" y="0.0" width="152" height="21.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ValidationDate" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5n-fv-N8c" userLabel="Validated">
+                                                <rect key="frame" x="152" y="0.0" width="222" height="21.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Pw8-Qv-A5D" userLabel="Country Image">
@@ -1025,6 +1053,7 @@
                         <outlet property="runwayDirectionsValue" destination="w7Z-PL-8gs" id="nHu-bm-NAE"/>
                         <outlet property="surfaceValue" destination="3qx-M0-7lJ" id="cSH-MH-67n"/>
                         <outlet property="urlButton" destination="xhF-00-YRx" id="hWh-ba-CxZ"/>
+                        <outlet property="validationDate" destination="D5n-fv-N8c" id="qkX-14-hw2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NNL-hG-AEc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1144,30 +1173,30 @@
             <point key="canvasLocation" x="-1975.36231884058" y="551.11607142857144"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Germany" width="512" height="514"/>
-        <image name="airplane" catalog="system" width="64" height="56"/>
-        <image name="arrow.down.left" catalog="system" width="64" height="54"/>
-        <image name="arrow.down.right" catalog="system" width="64" height="54"/>
-        <image name="arrow.up.right" catalog="system" width="64" height="54"/>
-        <image name="calendar" catalog="system" width="64" height="52"/>
-        <image name="checkmark.circle" catalog="system" width="64" height="60"/>
-        <image name="clock" catalog="system" width="64" height="60"/>
-        <image name="exclamationmark.triangle" catalog="system" width="64" height="56"/>
-        <image name="heart" catalog="system" width="64" height="54"/>
-        <image name="icloud.and.arrow.down" catalog="system" width="64" height="56"/>
-        <image name="info.circle" catalog="system" width="64" height="60"/>
-        <image name="logbook" width="35" height="35"/>
-        <image name="map" width="65" height="30"/>
-        <image name="mappin.and.ellipse" catalog="system" width="58" height="64"/>
-        <image name="person.2" catalog="system" width="64" height="40"/>
-        <image name="plus.circle" catalog="system" width="64" height="60"/>
-        <image name="settings" width="35" height="35"/>
-        <image name="speaker" catalog="system" width="64" height="60"/>
-        <image name="tabbar_DestinationSelection" width="35" height="35"/>
-        <image name="tasks" width="35" height="35"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="eHJ-XT-RI9"/>
     </inferredMetricsTieBreakers>
+    <resources>
+        <image name="Germany" width="512" height="514"/>
+        <image name="airplane" catalog="system" width="128" height="115"/>
+        <image name="arrow.down.left" catalog="system" width="128" height="111"/>
+        <image name="arrow.down.right" catalog="system" width="128" height="111"/>
+        <image name="arrow.up.right" catalog="system" width="128" height="111"/>
+        <image name="calendar" catalog="system" width="128" height="106"/>
+        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
+        <image name="clock" catalog="system" width="128" height="121"/>
+        <image name="exclamationmark.triangle" catalog="system" width="128" height="112"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="icloud.and.arrow.down" catalog="system" width="128" height="112"/>
+        <image name="info.circle" catalog="system" width="128" height="121"/>
+        <image name="logbook" width="35" height="35"/>
+        <image name="map" width="65" height="30"/>
+        <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
+        <image name="person.2" catalog="system" width="128" height="81"/>
+        <image name="plus.circle" catalog="system" width="128" height="121"/>
+        <image name="settings" width="35" height="35"/>
+        <image name="speaker" catalog="system" width="128" height="121"/>
+        <image name="tabbar_DestinationSelection" width="35" height="35"/>
+        <image name="tasks" width="35" height="35"/>
+    </resources>
 </document>
