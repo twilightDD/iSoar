@@ -109,7 +109,7 @@ extension TasksViewController: UITableViewDelegate {
         if let selectedGPXFileName = self.selectedGPXFileName,
             selectedGPXFileName == newSelectedGPXFileName {
             self.selectedGPXFileName = nil
-            MapScreen.shared?.removeCurrentTaskLine()
+            MapScreenViewController.shared?.removeCurrentTaskLine()
             
         } else {
             self.selectedGPXFileName = newSelectedGPXFileName

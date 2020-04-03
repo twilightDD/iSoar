@@ -111,7 +111,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     // MARK: - Private Methods
     // updateUIForSelectedDestinationAirport
     private func updateUIForSelectedDestinationAirport() {
-        if let destinationAirport = MapScreen.shared?.selectedDestinationAirport {
+        if let destinationAirport = MapScreenViewController.shared?.selectedDestinationAirport {
             countryImageTop.image = UIImage(named: destinationAirport.country!)
             airportName.text = destinationAirport.name
             airportInfoButton.isHidden = false
@@ -180,8 +180,8 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     // Pull to Refresh of TableView
     @objc private func refreshAirportDatabase(_ sender: Any) {
         
-        if MapScreen.shared!.selectedDestinationAirport != nil {
-            MapScreen.shared!.selectedDestinationAirport = nil
+        if MapScreenViewController.shared!.selectedDestinationAirport != nil {
+            MapScreenViewController.shared!.selectedDestinationAirport = nil
             
         }
         
@@ -258,8 +258,8 @@ extension DestinationSelectionViewController: UITableViewDataSource {
             cell.countryImageView.image = countryImage
             
             // Set Checkmark and Background Color for selected Airport
-            if MapScreen.shared!.selectedDestinationAirport?.latitude == airportOfInterest.latitude,
-                MapScreen.shared!.selectedDestinationAirport?.longitude == airportOfInterest.longitude {
+            if MapScreenViewController.shared!.selectedDestinationAirport?.latitude == airportOfInterest.latitude,
+                MapScreenViewController.shared!.selectedDestinationAirport?.longitude == airportOfInterest.longitude {
                 cell.accessoryType = .checkmark
                 cell.backgroundColor = UIColor(red: 230/255, green: 240/255, blue: 255/255, alpha: 1.0)
             } else {
@@ -282,11 +282,11 @@ extension DestinationSelectionViewController: UITableViewDelegate {
         // If the newly selected destination equals the former:
         // it means we want to cancel the navigation
         // We deselect the active cell and set selectedDestinationAirport = nil
-        if let formerSelectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport,
+        if let formerSelectedDestinationAirport = MapScreenViewController.shared!.selectedDestinationAirport,
         newSelectedDestinationAirport.latitude == formerSelectedDestinationAirport.latitude && newSelectedDestinationAirport.longitude == formerSelectedDestinationAirport.longitude {
-            MapScreen.shared!.selectedDestinationAirport = nil
+            MapScreenViewController.shared!.selectedDestinationAirport = nil
         } else {
-            MapScreen.shared!.selectedDestinationAirport = newSelectedDestinationAirport
+            MapScreenViewController.shared!.selectedDestinationAirport = newSelectedDestinationAirport
             
         }
         

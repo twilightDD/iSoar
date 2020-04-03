@@ -1,5 +1,5 @@
 //
-//  MapScreen.swift
+//  MapScreenViewController.swift
 //  Glider Tool
 //
 //  Created by Denis Leupold on 8/24/18.
@@ -12,9 +12,9 @@ import CoreMotion
 import Mapbox
 
 // MARK: MapScreen
-class MapScreen: UIViewController {
+class MapScreenViewController: UIViewController {
     
-    static var shared: MapScreen?
+    static var shared: MapScreenViewController?
     
     // MARK: IBOutlets
     @IBOutlet var mapView: MGLMapView!
@@ -62,7 +62,7 @@ class MapScreen: UIViewController {
     // MARK: - Init & Co.
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        MapScreen.shared = self
+        MapScreenViewController.shared = self
     }
     
     override func viewDidLoad() {
@@ -537,7 +537,7 @@ class MapScreen: UIViewController {
 //}
 
 // MARK: - MGLMapViewDelegate methods
-extension MapScreen: MGLMapViewDelegate {
+extension MapScreenViewController: MGLMapViewDelegate {
     
     // Set the Direction Line color
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
@@ -637,7 +637,7 @@ extension MapScreen: MGLMapViewDelegate {
 }
 
 // MARK: - MapScreen: CLLocationManagerDelegate
-extension MapScreen: CLLocationManagerDelegate {
+extension MapScreenViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last else { return }
@@ -685,14 +685,14 @@ extension MapScreen: CLLocationManagerDelegate {
 }
 
 // MARK: - MapScreen:UIGestureRecognizerDelegate
-extension MapScreen: UIGestureRecognizerDelegate {
+extension MapScreenViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                            shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 }
 
-extension MapScreen: DL_OGNSocketConnectionManagerDelegate {
+extension MapScreenViewController: DL_OGNSocketConnectionManagerDelegate {
 
     func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
         var nearbyGliderAnnotation = nearbyGliderAnnotations[gliderTelemetryData.flarmID]

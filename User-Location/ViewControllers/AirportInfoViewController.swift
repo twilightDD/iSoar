@@ -11,7 +11,7 @@ import MessageUI
 
 class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
-    var selectedDestinationAirport = MapScreen.shared!.selectedDestinationAirport
+    var selectedDestinationAirport = MapScreenViewController.shared!.selectedDestinationAirport
         
     // MARK: - IBOutlets
     @IBOutlet weak var airportName: UILabel!
@@ -90,7 +90,7 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
     
     @IBAction func callButton(_ sender: Any) {
         
-        let phone = MapScreen.shared?.selectedDestinationAirport?.phone
+        let phone = MapScreenViewController.shared?.selectedDestinationAirport?.phone
         
         if let url = URL(string: "tel://\(phone!))"),
             UIApplication.shared.canOpenURL(url) {

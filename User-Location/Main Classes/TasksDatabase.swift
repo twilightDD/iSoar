@@ -56,7 +56,7 @@ extension TasksDatabase: XMLParserDelegate {
 
     // parser start
     func parserDidStartDocument(_ parser: XMLParser) {
-        MapScreen.shared?.removeCurrentTaskLine()
+        MapScreenViewController.shared?.removeCurrentTaskLine()
 
         currentTaskWaypointCoordinates.removeAll()
     }
@@ -85,7 +85,7 @@ extension TasksDatabase: XMLParserDelegate {
 
     // Parser end
     func parserDidEndDocument(_ parser: XMLParser) {
-        MapScreen.shared?.drawTaskLine(withCoordinates: currentTaskWaypointCoordinates)
+        MapScreenViewController.shared?.drawTaskLine(withCoordinates: currentTaskWaypointCoordinates)
     }
 
 }

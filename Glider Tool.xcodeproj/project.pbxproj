@@ -46,7 +46,7 @@
 		EDA236282130AA7500739396 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDA236262130AA7500739396 /* Main.storyboard */; };
 		EDA2362A2130AA7600739396 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDA236292130AA7600739396 /* Assets.xcassets */; };
 		EDA2362D2130AA7600739396 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDA2362B2130AA7600739396 /* LaunchScreen.storyboard */; };
-		EDA236352130AA9A00739396 /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA236342130AA9A00739396 /* MapScreen.swift */; };
+		EDA236352130AA9A00739396 /* MapScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA236342130AA9A00739396 /* MapScreenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -105,7 +105,7 @@
 		EDA236292130AA7600739396 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EDA2362C2130AA7600739396 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EDA2362E2130AA7600739396 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EDA236342130AA9A00739396 /* MapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreen.swift; sourceTree = "<group>"; };
+		EDA236342130AA9A00739396 /* MapScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreenViewController.swift; sourceTree = "<group>"; };
 		EE1EF2983B88025FDC2840F2 /* Pods_Glider_Tool.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Glider_Tool.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -273,7 +273,7 @@
 				E0C138D923D21ABE00624F1C /* Main Classes */,
 				E0DA9414228D267500D3A854 /* Airports */,
 				E0B52F702283753400E28A93 /* ViewControllers */,
-				EDA236342130AA9A00739396 /* MapScreen.swift */,
+				EDA236342130AA9A00739396 /* MapScreenViewController.swift */,
 				EDA236222130AA7500739396 /* AppDelegate.swift */,
 				EDA236262130AA7500739396 /* Main.storyboard */,
 				EDA236292130AA7600739396 /* Assets.xcassets */,
@@ -440,7 +440,7 @@
 				E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */,
 				E0A215BB235E2D0D009F6953 /* TableViewController.swift in Sources */,
 				E007864923D2204600856865 /* FlightsDatabase.swift in Sources */,
-				EDA236352130AA9A00739396 /* MapScreen.swift in Sources */,
+				EDA236352130AA9A00739396 /* MapScreenViewController.swift in Sources */,
 				E01D87E8239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift in Sources */,
 				D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */,
 				E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */,

@@ -135,7 +135,7 @@ class OGNSocketConnectionManager {
     
     // Send Login String with generated Username and Current Location
     private func login() {
-        guard let currentLocation = MapScreen.shared?.currentLocation, !isLoggedIn else {
+        guard let currentLocation = MapScreenViewController.shared?.currentLocation, !isLoggedIn else {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.login()
             }

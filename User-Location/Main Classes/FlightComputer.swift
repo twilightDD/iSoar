@@ -35,7 +35,7 @@ class FlightComputer {
     func checkIfGliderIsFlying() {
         if gliderIsFlying == false {
             // Check if Glider is faster than 10m/s, then set FlightMode to true
-            if MapScreen.shared!.currentLocation!.speed > Presets.FlightComputer.minimalFlightSpeed {
+            if MapScreenViewController.shared!.currentLocation!.speed > Presets.FlightComputer.minimalFlightSpeed {
                 gliderIsFlying = true
                 flightUUIDString = UUID().uuidString
                 flightStartTime = Date()
@@ -48,7 +48,7 @@ class FlightComputer {
             }
         } else {
             // Check if Glider is slower than 10m/s, then set FlightMode to false
-            if MapScreen.shared!.currentLocation!.speed < Presets.FlightComputer.minimalFlightSpeed {
+            if MapScreenViewController.shared!.currentLocation!.speed < Presets.FlightComputer.minimalFlightSpeed {
                 gliderIsFlying = false
                 flightEndTime = Date()
                 endICAO = icaoOfNearestAirport()
@@ -79,17 +79,17 @@ class FlightComputer {
     // MARK: - Audio Warnings
     // Audio Gear Warning
     func gearWarning() {
-        guard let selectedDestinationAirport = MapScreen.shared?.selectedDestinationAirport
+        guard let selectedDestinationAirport = MapScreenViewController.shared?.selectedDestinationAirport
             else { return }
 
         let gearWarningSwitch = UserDefaultsManager.getGearWarningSwitch()
         if gearWarningSwitch == true {
-            let distanceInKm = (MapScreen.shared?.currentDistance!)!/1000
+            let distanceInKm = (MapScreenViewController.shared?.currentDistance!)!/1000
 
             let upperGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.upperGearWarningAltitude
             let lowerGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.lowerGearWarningAltitude
             
-            if distanceInKm < 1 && (MapScreen.shared?.currentLocation!.altitude)! < upperGearWarningAltitude && (MapScreen.shared?.currentLocation!.altitude)! > lowerGearWarningAltitude {
+            if distanceInKm < 1 && (MapScreenViewController.shared?.currentLocation!.altitude)! < upperGearWarningAltitude && (MapScreenViewController.shared?.currentLocation!.altitude)! > lowerGearWarningAltitude {
                 
                 if playGearWarning == true {
                     
@@ -118,7 +118,7 @@ class FlightComputer {
     
     // Audio for Oxygen Level Warning
     func oxygenWarning() {
-        guard let currentLocation = MapScreen.shared?.currentLocation else {
+        guard let currentLocation = MapScreenViewController.shared?.currentLocation else {
             return
         }
         
