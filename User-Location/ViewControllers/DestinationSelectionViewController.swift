@@ -14,23 +14,23 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     
     // MARK: Lets and Vars
     // Datasource
-    var destinationAirportArray = [AirportDatabase.Airport]()
-    var sortSwitchIndex = 0
+    private var destinationAirportArray = [AirportDatabase.Airport]()
+    private var sortSwitchIndex = 0
     
     // Notification Observers
-    var airportUpdateCompletedNotification: NSObjectProtocol?
-    var airportUpdateFailedNotification: NSObjectProtocol?
+    private var airportUpdateCompletedNotification: NSObjectProtocol?
+    private var airportUpdateFailedNotification: NSObjectProtocol?
     
     // Pull to Refresh of TableView
     private let refreshControl = UIRefreshControl()
     
     // MARK: - IBOutlets
-    @IBOutlet weak var countryImageTop: UIImageView!
-    @IBOutlet weak var airportName: UILabel!
-    @IBOutlet weak var airportInfoButton: UIButton!
-    @IBOutlet weak var airportsSortedBySwitch: UISegmentedControl!
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak private var countryImageTop: UIImageView!
+    @IBOutlet weak private var airportName: UILabel!
+    @IBOutlet weak private var airportInfoButton: UIButton!
+    @IBOutlet weak private var airportsSortedBySwitch: UISegmentedControl!
+    @IBOutlet weak private var searchBar: UISearchBar!
+    @IBOutlet weak private var tableView: UITableView!
     
     // MARK: - Init&Co.
     override func viewDidLoad() {
