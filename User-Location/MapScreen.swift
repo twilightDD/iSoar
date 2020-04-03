@@ -104,10 +104,6 @@ class MapScreen: UIViewController {
         
         mapView.delegate = self
         
-//        MGLOfflineStorage.shared.invalidateAmbientCache { error in
-//            print("Cache invalidated")
-//        }
-        
         mapView.tintColor = .red
         mapView.allowsRotating = false
         mapView.allowsTilting = false
@@ -463,7 +459,6 @@ class MapScreen: UIViewController {
             }
         }
     }
-
     
     // MARK: Route Tracking
     // Check for Tracking Route Status ins Settings
