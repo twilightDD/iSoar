@@ -68,7 +68,7 @@ class MapScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        OGNSocketConnectionManager.registerForUpdates(self)
+        OGNSocketConnectionManager.registerForSocketUpdates(self)
 
         LocationManager.registerForLocationUpdates(self)
         

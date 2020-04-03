@@ -42,15 +42,16 @@ class OGNSocketConnectionManager {
     private var buddyFlarmID: String = UserDefaultsManager.getBuddyFlarmID()
     private var regionInKm: Double = Presets.OGNSocketConnection.regionInKm
 
-
-    // MARK: - Init&Co.
-
     
     // MARK: - Public Class Methods
-    class func registerForUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
+    class func registerForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
         shared.delegate = delegate
     }
-    
+
+    class  func unregisterForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
+        shared.delegate = nil
+    }
+
     class func start() {
         shared.connectToOGNServerSocket()
     }
@@ -58,13 +59,14 @@ class OGNSocketConnectionManager {
     class func stop() {
         shared.cancelConnection()
     }
+
 }
 
 
 // MARK: - Extension - Instance Methods
 extension OGNSocketConnectionManager {
 
-    //MARK: Private Instance Methods
+    // MARK: Private Instance Methods
     // Connect to Server Socket
     private func connectToOGNServerSocket() {
         // Check if Nearby Gliders should be shown on Map
