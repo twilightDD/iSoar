@@ -25,10 +25,10 @@
                                 </connections>
                             </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8yb-8T-kXL">
-                                <rect key="frame" x="15" y="108" width="384" height="305"/>
+                                <rect key="frame" x="15" y="108" width="384" height="340"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xpg-ro-0Oc" userLabel="Image Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="25" height="305"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="25" height="340"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down.left" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="FeX-Ch-QLo">
                                                 <rect key="frame" x="0.0" y="3" width="25" height="18.5"/>
@@ -86,8 +86,15 @@
                                                     <constraint firstAttribute="height" constant="25" id="tmd-It-rTm"/>
                                                 </constraints>
                                             </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speaker" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="P8B-uX-HjN">
+                                                <rect key="frame" x="0.0" y="281" width="25" height="22.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="25" id="CHz-u6-qZI"/>
+                                                    <constraint firstAttribute="width" constant="25" id="i3e-qm-9Zf"/>
+                                                </constraints>
+                                            </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icloud.and.arrow.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Itw-In-cBI">
-                                                <rect key="frame" x="0.0" y="280" width="25" height="26"/>
+                                                <rect key="frame" x="0.0" y="315" width="25" height="26"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="25" id="DCV-p3-TON"/>
                                                     <constraint firstAttribute="height" constant="25" id="tNR-lW-ZnH"/>
@@ -96,7 +103,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3iw-q3-i4A" userLabel="Label Stack View">
-                                        <rect key="frame" x="35" y="0.0" width="198" height="305"/>
+                                        <rect key="frame" x="35" y="0.0" width="198" height="340"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glider Ratio:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRc-6M-XsH">
                                                 <rect key="frame" x="0.0" y="0.0" width="198" height="25"/>
@@ -146,19 +153,25 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Airport DB Update:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yzx-Ue-oFV">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collision Warning:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPv-EA-dpE" userLabel="Collision Warning:">
                                                 <rect key="frame" x="0.0" y="280" width="198" height="25"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Airport DB Update:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yzx-Ue-oFV">
+                                                <rect key="frame" x="0.0" y="315" width="198" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H2j-WP-BrR" userLabel="Setting Stack View">
-                                        <rect key="frame" x="243" y="0.0" width="141" height="305"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="H2j-WP-BrR" userLabel="Setting Stack View">
+                                        <rect key="frame" x="243" y="0.0" width="141" height="340"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Uma-pM-80t" userLabel="Glider Ratio" customClass="TextFields" customModule="iSoar" customModuleProvider="target">
-                                                <rect key="frame" x="41" y="0.0" width="100" height="25"/>
+                                                <rect key="frame" x="41" y="0.0" width="100" height="18"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="oap-RJ-P4x"/>
@@ -170,7 +183,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="vi7-Ik-Pbz" userLabel="Safety Altitude" customClass="TextFields" customModule="iSoar" customModuleProvider="target">
-                                                <rect key="frame" x="41" y="35" width="100" height="25"/>
+                                                <rect key="frame" x="41" y="36" width="100" height="17.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="Z5l-Kk-bnP"/>
@@ -182,7 +195,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="aJN-ar-pUl" userLabel="Glider ID" customClass="TextFields" customModule="iSoar" customModuleProvider="target">
-                                                <rect key="frame" x="41" y="70" width="100" height="25"/>
+                                                <rect key="frame" x="41" y="71.5" width="100" height="18"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="xzw-8N-tn4"/>
@@ -194,7 +207,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="1Iz-WY-jQW" userLabel="Buddy FlarmID" customClass="TextFields" customModule="iSoar" customModuleProvider="target">
-                                                <rect key="frame" x="21" y="105" width="120" height="25"/>
+                                                <rect key="frame" x="21" y="107.5" width="120" height="17.5"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="KcP-0Y-6qS"/>
@@ -206,31 +219,37 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JuI-97-a4S" userLabel="Gear Warning Switch">
-                                                <rect key="frame" x="92" y="140" width="51" height="25"/>
+                                                <rect key="frame" x="92" y="143" width="51" height="18"/>
                                                 <connections>
                                                     <action selector="gearWarningSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="nN4-fh-hST"/>
                                                 </connections>
                                             </switch>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fpo-31-RHc">
-                                                <rect key="frame" x="92" y="175" width="51" height="25"/>
+                                                <rect key="frame" x="92" y="179" width="51" height="18"/>
                                                 <connections>
                                                     <action selector="showTrackingRouteSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="F4d-NP-Akg"/>
                                                 </connections>
                                             </switch>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zeF-FY-LEj" userLabel="Show nearby Gliders">
-                                                <rect key="frame" x="92" y="210" width="51" height="25"/>
+                                                <rect key="frame" x="92" y="215" width="51" height="17.5"/>
                                                 <connections>
                                                     <action selector="showNearbyGlidersSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="au2-lq-IYT"/>
                                                 </connections>
                                             </switch>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KaZ-yB-IiE" userLabel="Show Buddy on Map Switch">
-                                                <rect key="frame" x="92" y="245" width="51" height="25"/>
+                                                <rect key="frame" x="92" y="250.5" width="51" height="18"/>
                                                 <connections>
                                                     <action selector="showFlarmBuddySwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="6WL-jK-ca2"/>
                                                 </connections>
                                             </switch>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8lZ-JP-TNh" userLabel="Collision Warning Switch">
+                                                <rect key="frame" x="92" y="286.5" width="51" height="17.5"/>
+                                                <connections>
+                                                    <action selector="collisionWarningSwitch:" destination="AW2-mO-9uR" eventType="valueChanged" id="8hk-C3-ENS"/>
+                                                </connections>
+                                            </switch>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FdF-xH-HSc">
-                                                <rect key="frame" x="60" y="280" width="81" height="25"/>
+                                                <rect key="frame" x="60" y="322" width="81" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <state key="normal" title="Download"/>
                                                 <connections>
@@ -257,6 +276,7 @@
                     <tabBarItem key="tabBarItem" title="Settings" image="settings" id="j3Q-jO-Tnc"/>
                     <connections>
                         <outlet property="buddyFlarmIDTextField" destination="1Iz-WY-jQW" id="Go4-2n-lue"/>
+                        <outlet property="collisionWarningSwitch" destination="8lZ-JP-TNh" id="mGM-2u-bGG"/>
                         <outlet property="gearWarningSwitch" destination="JuI-97-a4S" id="w9F-DV-3zy"/>
                         <outlet property="gliderIDTextField" destination="aJN-ar-pUl" id="2Tx-pG-xWm"/>
                         <outlet property="gliderRatioTextField" destination="Uma-pM-80t" id="L64-OO-bCX"/>
@@ -269,7 +289,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BSE-1G-sMQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="1JU-Wn-zlw" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="344.92753623188406" y="550.44642857142856"/>
+            <point key="canvasLocation" x="343.47826086956525" y="550.44642857142856"/>
         </scene>
         <!--Logbook-->
         <scene sceneID="kZz-qr-uGS">

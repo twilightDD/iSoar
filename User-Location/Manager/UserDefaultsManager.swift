@@ -19,6 +19,7 @@ class UserDefaultsManager {
     private static let ShowFlarmBuddySwitchKey = "showFlarmBuddySwitch"
     private static let BuddyFlarmIDKey = "buddyFlarmID"
     private static let ShowNearbyGlidersSwitchKey = "showNearbyGlidersSwitch"
+    private static let CollisionWarningSwitchKey = "collisionWarningSwitch"
     
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
@@ -29,6 +30,7 @@ class UserDefaultsManager {
     private static let showFlarmBuddySwitchDefault: Bool = true
     private static let buddyFlarmIDDefault = "FLRDxxxxx"
     private static let showNearbyGlidersSwitchDefault: Bool = true
+    private static let collisionWarningSwitchDefault: Bool = true
     
     // MARK: - Lets and Vars
     private static let shared = UserDefaultsManager()
@@ -60,6 +62,9 @@ class UserDefaultsManager {
         }
         if shared.userDefaults.value(forKey: ShowNearbyGlidersSwitchKey) == nil {
             shared.userDefaults.set(true, forKey: ShowNearbyGlidersSwitchKey)
+        }
+        if shared.userDefaults.value(forKey: CollisionWarningSwitchKey) == nil {
+            shared.userDefaults.set(true, forKey: CollisionWarningSwitchKey)
         }
     }
     
@@ -151,4 +156,15 @@ class UserDefaultsManager {
         shared.userDefaults.set(showNearbyGlidersSwitch, forKey: ShowNearbyGlidersSwitchKey)
     }
     
+    // MARK: CollisionWarningSwitch
+    class func getCollisionWarningSwitch()
+        -> Bool {
+            let collisionWarningSwitch = shared.userDefaults.value(forKey: CollisionWarningSwitchKey) as? Bool ?? collisionWarningSwitchDefault
+            return collisionWarningSwitch
+    }
+    
+    class func set(collisionWarningSwitch: Bool) {
+        shared.userDefaults.set(collisionWarningSwitch, forKey: CollisionWarningSwitchKey)
+    }
+
 }
