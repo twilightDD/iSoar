@@ -31,6 +31,8 @@ struct Presets {
         /// For using filtered requests.
         static let hostPortFiltered: NWEndpoint.Port = 14580
 
+        static let appVersion: String = "iSoar \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?")_\(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?")"
+
         #if DEBUG
         /// Default Radius für NearbyGlider (for debug purpose)
         static let regionInKm: Double = 200
