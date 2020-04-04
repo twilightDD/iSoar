@@ -31,12 +31,12 @@ class MapScreenViewController: UIViewController {
     
     lazy var userLocationButton: UserLocationButton = createUserLocationButton()
     
-    var selectedDestinationAirport: AirportDatabase.Airport? {
-        didSet {
-            updateDirectionLabelsAndLine()
-        }
-        
-    }
+//    var selectedDestinationAirport: AirportDatabase.Airport? {
+//        didSet {
+//            updateDirectionLabelsAndLine()
+//        }
+//        
+//    }
     
     var currentDirectionLine: MGLPolyline?
     var currentFlightLine = MGLPolyline()
@@ -59,10 +59,10 @@ class MapScreenViewController: UIViewController {
     var nearbyGliderAnnotations = [String: NearbyGliderAnnotation]()
     
     // MARK: - Init & Co.
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        MapScreenViewController.shared = self
-    }
+//    required init?(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        MapScreenViewController.shared = self
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -245,7 +245,7 @@ class MapScreenViewController: UIViewController {
     // Tap on Destination Airport-Label recognized
     @objc func tapOnDestinationAirportLabel(_ recognizer: UITapGestureRecognizer) {
         
-        if selectedDestinationAirport != nil {
+        if DestinationSelectionViewController.destinationAirport != nil {
             performSegue(withIdentifier: "AirportInfoSegue", sender: self)
         }
         
@@ -329,7 +329,7 @@ class MapScreenViewController: UIViewController {
     private func updateDestinationAltitudeLabel() {
         guard let currentLocation = LocationManager.currentLocation,
             let currentDistance = currentDistance,
-            let selectedDestinationAirport = selectedDestinationAirport
+            let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport()
             else { return }
 
         
@@ -375,13 +375,13 @@ class MapScreenViewController: UIViewController {
     // Update Direction Labels and Line
     private func updateDirectionLabelsAndLine() {
         // ICAO
-        if let selectedDestinationAirport = selectedDestinationAirport {
+        if let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport() {
             destinationAirportLabel.text = selectedDestinationAirport.icao
         } else {
             destinationAirportLabel.text = "---"
         }
         
-        if let selectedDestinationAirport = selectedDestinationAirport,
+        if let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
             let currentLocation = LocationManager.currentLocation {
 
             // Distance

@@ -81,7 +81,7 @@ class FlightComputer {
     // MARK: - Audio Warnings
     // Audio Gear Warning
     func gearWarning() {
-        guard let selectedDestinationAirport = MapScreenViewController.shared?.selectedDestinationAirport
+        guard let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport()
             else { return }
 
         let gearWarningSwitch = UserDefaultsManager.getGearWarningSwitch()

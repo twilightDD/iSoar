@@ -13,7 +13,22 @@ import MessageUI
 class DestinationSelectionViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     // MARK: Lets and Vars
+    // Statics
+    static private var shared: DestinationSelectionViewController?
+
+    // Public
+    class func destinationAirport()
+        -> AirportDatabase.Airport? {
+            let destinationAirport = shared?.selectedDestinationAirport
+            return destinationAirport
+    }
+
+    // Private
+
     // Datasource
+    private var selectedDestinationAirport: AirportDatabase.Airport?
+    private var formerSelectedDestinationAirport: AirportDatabase.Airport?
+
     private var destinationAirportArray = [AirportDatabase.Airport]()
     private var sortSwitchIndex = 0
     
@@ -35,6 +50,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
+        DestinationSelectionViewController.shared = self
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -107,11 +123,12 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
             NotificationCenter.default.removeObserver(airportUpdateFailedNotification)
         }
     }
+
     
     // MARK: - Private Methods
     // updateUIForSelectedDestinationAirport
     private func updateUIForSelectedDestinationAirport() {
-        if let destinationAirport = MapScreenViewController.shared?.selectedDestinationAirport {
+        if let destinationAirport = self.selectedDestinationAirport {
             countryImageTop.image = UIImage(named: destinationAirport.country!)
             airportName.text = destinationAirport.name
             airportInfoButton.isHidden = false
@@ -179,14 +196,9 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     
     // Pull to Refresh of TableView
     @objc private func refreshAirportDatabase(_ sender: Any) {
-        
-        if MapScreenViewController.shared!.selectedDestinationAirport != nil {
-            MapScreenViewController.shared!.selectedDestinationAirport = nil
-            
-        }
+        selectedDestinationAirport = nil
         
         AirportDatabase.shared.downloadAirportsFromServer()
-        
     }
     
     // Adjust TableView height if necessary
@@ -258,8 +270,8 @@ extension DestinationSelectionViewController: UITableViewDataSource {
             cell.countryImageView.image = countryImage
             
             // Set Checkmark and Background Color for selected Airport
-            if MapScreenViewController.shared!.selectedDestinationAirport?.latitude == airportOfInterest.latitude,
-                MapScreenViewController.shared!.selectedDestinationAirport?.longitude == airportOfInterest.longitude {
+            if selectedDestinationAirport?.latitude == airportOfInterest.latitude,
+                selectedDestinationAirport?.longitude == airportOfInterest.longitude {
                 cell.accessoryType = .checkmark
                 cell.backgroundColor = UIColor(red: 230/255, green: 240/255, blue: 255/255, alpha: 1.0)
             } else {
@@ -282,11 +294,12 @@ extension DestinationSelectionViewController: UITableViewDelegate {
         // If the newly selected destination equals the former:
         // it means we want to cancel the navigation
         // We deselect the active cell and set selectedDestinationAirport = nil
-        if let formerSelectedDestinationAirport = MapScreenViewController.shared!.selectedDestinationAirport,
-        newSelectedDestinationAirport.latitude == formerSelectedDestinationAirport.latitude && newSelectedDestinationAirport.longitude == formerSelectedDestinationAirport.longitude {
-            MapScreenViewController.shared!.selectedDestinationAirport = nil
+        if let formerSelectedDestinationAirport = self.formerSelectedDestinationAirport,
+            newSelectedDestinationAirport.latitude == formerSelectedDestinationAirport.latitude
+                && newSelectedDestinationAirport.longitude == formerSelectedDestinationAirport.longitude {
+            selectedDestinationAirport = nil
         } else {
-            MapScreenViewController.shared!.selectedDestinationAirport = newSelectedDestinationAirport
+            selectedDestinationAirport = newSelectedDestinationAirport
             
         }
         
@@ -295,7 +308,6 @@ extension DestinationSelectionViewController: UITableViewDelegate {
         guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows
             else { return }
         tableView.reloadRows(at: indexPathsForVisibleRows, with: .none)
-        
     }
     
 }

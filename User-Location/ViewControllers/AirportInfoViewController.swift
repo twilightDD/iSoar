@@ -10,8 +10,6 @@ import UIKit
 import MessageUI
 
 class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDelegate {
-    
-    var selectedDestinationAirport = MapScreenViewController.shared!.selectedDestinationAirport
         
     // MARK: - IBOutlets
     @IBOutlet weak var airportName: UILabel!
@@ -35,22 +33,24 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        airportName.text = selectedDestinationAirport?.name
-        icao.text = selectedDestinationAirport!.icao
-        radioNameValue.text =  selectedDestinationAirport?.radioName
-        radioFrequencyValue.text =  selectedDestinationAirport?.radioFrequency
-        runwayDirectionsValue.text = selectedDestinationAirport?.runwayDirections
-        dimensionsValue.text = selectedDestinationAirport?.runwayDimensions
-        surfaceValue.text = selectedDestinationAirport?.runwaySurface
-        countryValue.text = selectedDestinationAirport?.country
-        countryImage.image = UIImage(named: countryValue.text!)
-        elevation.text =  String(format: "%.0f m", selectedDestinationAirport!.elevation)
-        latitudeValue.text = String(format: "%.6f", selectedDestinationAirport!.latitude)
-        longitudeValue.text = String(format: "%.6f", selectedDestinationAirport!.longitude)
-        additionalInfo.text = selectedDestinationAirport?.additionalInfo
-        callButton.setTitle("\(selectedDestinationAirport!.phone!)", for: .normal)
-        urlButton.setTitle("\(selectedDestinationAirport!.url!)", for: .normal)
-        validationDate.text = selectedDestinationAirport?.validationDate
+        if let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport() {
+            airportName.text = selectedDestinationAirport.name
+            icao.text = selectedDestinationAirport.icao
+            radioNameValue.text =  selectedDestinationAirport.radioName
+            radioFrequencyValue.text =  selectedDestinationAirport.radioFrequency
+            runwayDirectionsValue.text = selectedDestinationAirport.runwayDirections
+            dimensionsValue.text = selectedDestinationAirport.runwayDimensions
+            surfaceValue.text = selectedDestinationAirport.runwaySurface
+            countryValue.text = selectedDestinationAirport.country
+            countryImage.image = UIImage(named: countryValue.text!)
+            elevation.text =  String(format: "%.0f m", selectedDestinationAirport.elevation)
+            latitudeValue.text = String(format: "%.6f", selectedDestinationAirport.latitude)
+            longitudeValue.text = String(format: "%.6f", selectedDestinationAirport.longitude)
+            additionalInfo.text = selectedDestinationAirport.additionalInfo
+            callButton.setTitle("\(selectedDestinationAirport.phone!)", for: .normal)
+            urlButton.setTitle("\(selectedDestinationAirport.url!)", for: .normal)
+            validationDate.text = selectedDestinationAirport.validationDate
+        }
     }
     
     // MARK: - Methods
@@ -90,7 +90,7 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
     
     @IBAction func callButton(_ sender: Any) {
         
-        let phone = MapScreenViewController.shared?.selectedDestinationAirport?.phone
+        let phone = DestinationSelectionViewController.destinationAirport()?.phone
         
         if let url = URL(string: "tel://\(phone!))"),
             UIApplication.shared.canOpenURL(url) {
@@ -99,10 +99,12 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
     }
     
     @IBAction func urlButton(_ sender: Any) {
-        
-        if let url = URL(string: "https://\(selectedDestinationAirport!.url!)") {
-            UIApplication.shared.open(url)
-
+        //TODO: Hier hast du einfach Glück, weil eine URL mit Leerzeichen nicht gültig ist; 040402020, ph
+        if let destinationAirportURLString = DestinationSelectionViewController.destinationAirport()?.url {
+            let urlString = "https://\(destinationAirportURLString)"
+            if let url = URL(string: urlString) {
+                UIApplication.shared.open(url)
+            }
         }
     }
     
