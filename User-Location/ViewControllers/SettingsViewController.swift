@@ -27,8 +27,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet private weak var showOnlyBuddyNearbyGliderSwitch: UISwitch!
     @IBOutlet private weak var collisionWarningSwitch: UISwitch!
     @IBOutlet private weak var downloadAirportUpdates: UIButton!
-
-
+    
+    
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,7 +72,7 @@ class SettingsViewController: UIViewController {
     // MARK: - Private Instance Methods
     // Read User Defaults and display them on screen
     private func setupUI() {
-
+        
         // Glider Ratio
         let gliderRatio = UserDefaultsManager.getGliderRatio()
         let gliderRatioString = String(format: "%.f", gliderRatio)
@@ -118,11 +118,11 @@ class SettingsViewController: UIViewController {
         let gliderRatioString = gliderRatioTextField.text!
         let gliderRatioDouble = (gliderRatioString as NSString).doubleValue
         UserDefaultsManager.set(gliderRatio: gliderRatioDouble)
-
+        
         let safetyAltitudeString = safetyAltitudeTextField.text!
         let safetyAltitudeDouble = (safetyAltitudeString as NSString).doubleValue
         UserDefaultsManager.set(safetyAltitude: safetyAltitudeDouble)
-
+        
         UserDefaultsManager.set(gliderID: gliderIDTextField.text!)
         UserDefaultsManager.set(buddyFlarmID: buddyFlarmIDTextField.text!)
     }
@@ -131,11 +131,11 @@ class SettingsViewController: UIViewController {
     @IBAction func gearWarningSwitchAction(_ sender: UISwitch) {
         UserDefaultsManager.set(gearWarningSwitch: sender.isOn)
     }
-
+    
     @IBAction func showTrackingRouteSwitchAction(_ sender: UISwitch) {
         UserDefaultsManager.set(showTrackingRouteSwitch: sender.isOn)
     }
-
+    
     @IBAction func showAllNearbyGlidersSwitchAction(_ sender: UISwitch) {
         UserDefaultsManager.set(showNearbyGlidersSwitch: sender.isOn)
         if sender.isOn {
@@ -145,33 +145,33 @@ class SettingsViewController: UIViewController {
             // Set showFlarmBuddySwitch also to false
             showOnlyBuddyNearbyGliderSwitch.setOn(false, animated: true)
             showOnlyBuddyNearbyGliderSwitchAction(showOnlyBuddyNearbyGliderSwitch)
-
+            
             // Set collisionWarningSwitch also to false
             collisionWarningSwitch.setOn(false, animated: true)
             collisionWarningSwitchAction(collisionWarningSwitch)
-
+            
             // Disconnect from OGN Server
             OGNSocketConnectionManager.stop()
         }
     }
-
+    
     @IBAction func showOnlyBuddyNearbyGliderSwitchAction(_ sender: UISwitch) {
         UserDefaultsManager.set(showFlarmBuddySwitch: sender.isOn)
         if sender.isOn {
             // Set showNearbyGlidersSwitch also to true
             showAllNearbyGlidersSwitch.setOn(true, animated: true)
-
+            
             // Disconnect from OGN Server, empty Messages Set and remove all nearby Glider Annotaions from Map
             OGNSocketConnectionManager.stop()
-
-
+            
+            
             showAllNearbyGlidersSwitchAction(showAllNearbyGlidersSwitch)
         } else {
             OGNSocketConnectionManager.stop()
         }
     }
-
-
+    
+    
     @IBAction func collisionWarningSwitchAction(_ sender: UISwitch) {
         UserDefaultsManager.set(collisionWarningSwitch: sender.isOn)
         // If Collision Warning Switch is turned on (true)
@@ -217,7 +217,7 @@ extension SettingsViewController: UITextFieldDelegate {
             textField.resignFirstResponder()
             return true
     }
-
+    
     // Execute when Textfield did End Editing
     func textFieldDidEndEditing(_ textField: UITextField) {
         saveSettings()
