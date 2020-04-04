@@ -221,13 +221,26 @@ extension OGNSocketConnectionManager {
         for splittedMessage in splittedMessages {
             guard splittedMessage.hasPrefix("FLR")
                 || splittedMessage.hasPrefix("ICA")
-                else { continue }
+                else {
+                    //print("\(#function): splittedMessage dismissed:   \(splittedMessage)")
+                    continue }
             
             let gliderSpecificMessage = String(splittedMessage)
             if let telemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
                 delegate?.updateNearbyGlider(gliderTelemetryData: telemetryData)
             }
+//            else {
+//                print("~~~~~~~~~~~~~~~~~")
+//                print("TelemetryData konnten nicht geparst werden.")
+//                print("original OGN Message (receivedMessage) war:")
+//                print("\(receivedMessage)")
+//                print("~~~~~~~~~~~~~~~~~")
+//                print("~~~~~~~~~~~~~~~~~")
+//                print("~~~~~~~~~~~~~~~~~")
+//
+//            }
         }
+
     }
     
 }
