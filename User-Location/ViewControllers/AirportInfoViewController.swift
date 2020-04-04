@@ -12,64 +12,62 @@ import MessageUI
 class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDelegate {
         
     // MARK: - IBOutlets
-    @IBOutlet weak var airportName: UILabel!
+    @IBOutlet weak var airportNameLabel: UILabel!
     // ------
-    @IBOutlet weak var icao: UILabel!
-    @IBOutlet weak var radioNameValue: UILabel!
-    @IBOutlet weak var radioFrequencyValue: UILabel!
-    @IBOutlet weak var elevation: UILabel!
-    @IBOutlet weak var runwayDirectionsValue: UILabel!
-    @IBOutlet weak var runwayDimensionsValue: UILabel!
-    @IBOutlet weak var runwaySurfaceValue: UILabel!
+    @IBOutlet weak var icaoLabel: UILabel!
+    @IBOutlet weak var radioNameLabel: UILabel!
+    @IBOutlet weak var radioFrequencyLabel: UILabel!
+    @IBOutlet weak var elevationLabel: UILabel!
+    @IBOutlet weak var runwayDirectionsLabel: UILabel!
+    @IBOutlet weak var runwayDimensionsLabel: UILabel!
+    @IBOutlet weak var runwaySurfaceLabel: UILabel!
     // ------
-    @IBOutlet weak var countryValue: UILabel!
-    @IBOutlet weak var countryImage: UIImageView!
-    @IBOutlet weak var latitudeValue: UILabel!
-    @IBOutlet weak var longitudeValue: UILabel!
+    @IBOutlet weak var countryLabel: UILabel!
+    @IBOutlet weak var countryImageView: UIImageView!
+    @IBOutlet weak var latitudeLabel: UILabel!
+    @IBOutlet weak var longitudeLabel: UILabel!
     // ------
     @IBOutlet weak var callButton: UIButton!
     @IBOutlet weak var urlButton: UIButton!
-    @IBOutlet weak var additionalInfo: UILabel!
+    @IBOutlet weak var additionalInfoLabel: UILabel!
     // ------
-    @IBOutlet weak var validationDate: UILabel!
+    @IBOutlet weak var validationDateLabel: UILabel!
     
     // MARK: - Init
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport() {
-            airportName.text = selectedDestinationAirport.name
+            airportNameLabel.text = selectedDestinationAirport.name
             // ------
-            icao.text = selectedDestinationAirport.icao
-            radioNameValue.text =  selectedDestinationAirport.radioName
-            radioFrequencyValue.text =  selectedDestinationAirport.radioFrequency
-            elevation.text =  String(format: "%.0f m", selectedDestinationAirport.elevation)
-            runwayDirectionsValue.text = selectedDestinationAirport.runwayDirections
-            runwayDimensionsValue.text = selectedDestinationAirport.runwayDimensions
-            runwaySurfaceValue.text = selectedDestinationAirport.runwaySurface
+            icaoLabel.text = selectedDestinationAirport.icao
+            radioNameLabel.text =  selectedDestinationAirport.radioName
+            radioFrequencyLabel.text =  selectedDestinationAirport.radioFrequency
+            elevationLabel.text =  String(format: "%.0f m", selectedDestinationAirport.elevation)
+            runwayDirectionsLabel.text = selectedDestinationAirport.runwayDirections
+            runwayDimensionsLabel.text = selectedDestinationAirport.runwayDimensions
+            runwaySurfaceLabel.text = selectedDestinationAirport.runwaySurface
             // ------
-            countryValue.text = selectedDestinationAirport.country
-            countryImage.image = UIImage(named: countryValue.text!)
-            latitudeValue.text = String(format: "%.6f", selectedDestinationAirport.latitude)
-            longitudeValue.text = String(format: "%.6f", selectedDestinationAirport.longitude)
+            countryLabel.text = selectedDestinationAirport.country
+            countryImageView.image = UIImage(named: countryLabel.text!)
+            latitudeLabel.text = String(format: "%.6f", selectedDestinationAirport.latitude)
+            longitudeLabel.text = String(format: "%.6f", selectedDestinationAirport.longitude)
             // ------
             if let phoneNumber = selectedDestinationAirport.phone {
                 callButton.setTitle("\(phoneNumber)", for: .normal)
-            }
-            else {
+            } else {
                 callButton.setTitle("Keine Nummer", for: .normal)
                 callButton.isEnabled = false
             }
             if let url = selectedDestinationAirport.url {
                 urlButton.setTitle("\(url)", for: .normal)
-            }
-            else {
+            } else {
                 urlButton.setTitle("Keine URL", for: .normal)
                 urlButton.isEnabled = false
             }
-            additionalInfo.text = selectedDestinationAirport.additionalInfo
+            additionalInfoLabel.text = selectedDestinationAirport.additionalInfo
             // ------
-            validationDate.text = selectedDestinationAirport.validationDate
+            validationDateLabel.text = selectedDestinationAirport.validationDate
         }
     }
     
@@ -79,7 +77,7 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
         if MFMailComposeViewController.canSendMail() {
             let mailComposer = MFMailComposeViewController()
             mailComposer.setToRecipients(["mail@isoar.de"])
-            mailComposer.setSubject("Report new Data for \(icao.text!)")
+            mailComposer.setSubject("Report new Data for \(icaoLabel.text!)")
             mailComposer.setMessageBody("Country:<br>Elevation AMSL:<br>ICAO Code:<br>Latitude:<br>Longitude:<br>Name:<br>Radio Frequency:<br>Radio Frequency Name:<br>Runway Dimensions: (1000 x 50) <br>Runway Direction: (01/19)<br>Runway Surface: Grass / Asphalt<br>URL: www.airport.org", isHTML: true)
             
             mailComposer.mailComposeDelegate = self
@@ -100,15 +98,15 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
     }
     
     // MARK: - Action Methods
-    @IBAction func dismissButton(_ sender: Any) {
+    @IBAction func dismissButtonAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func reportNewDataButton(_ sender: Any) {
+    @IBAction func reportNewDataButtonAction(_ sender: Any) {
         reportNewAirportData()
     }
     
-    @IBAction func callButton(_ sender: Any) {
+    @IBAction func callButtonAction(_ sender: Any) {
 
         if let phoneString = DestinationSelectionViewController.destinationAirport()?.phone,
             let phoneURL = URL(string: "tel://\(phoneString))"),
@@ -117,7 +115,7 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
         }
     }
     
-    @IBAction func urlButton(_ sender: Any) {
+    @IBAction func urlButtonAction(_ sender: Any) {
         //TODO: Hier hast du einfach Glück, weil eine URL mit Leerzeichen nicht gültig ist; 040402020, ph
         if let destinationAirportURLString = DestinationSelectionViewController.destinationAirport()?.url {
             let urlString = "https://\(destinationAirportURLString)"
