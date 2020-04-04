@@ -10,10 +10,23 @@ import Foundation
 
 // MARK: - FlightsDatabase
 class FlightsDatabase {
-    static let shared = FlightsDatabase()
+    static private let shared = FlightsDatabase()
 
+
+    // MARK: - Public Class Methods
+    // Sort Flights in Logbook in descending Date Order
+    class func sortedFlightsByDescendingDate()
+        -> [FlightMetaData] {
+            let sortedFlightMetaDatas = FlightsDatabase.flightMetaDatas().sorted(by: { ($0.flightDate > $1.flightDate) })
+            //            sortedFlightMetaDatas = sortedFlightMetaDatas.sorted(by: { ($0.startTimeUTC > $1.startTimeUTC) })
+
+            return sortedFlightMetaDatas
+    }
+
+    
+    // MARK: - Private Class Methods
     // Parse obtained JSONs into an array
-    class func flightMetaDatas()
+    private class func flightMetaDatas()
         -> [FlightMetaData] {
             var flightMetaDatas = [FlightMetaData]()
 
@@ -31,15 +44,6 @@ class FlightsDatabase {
             }
 
             return flightMetaDatas
-    }
-
-    // Sort Flights in Logbook in descending Date Order
-    class func sortedFlightsByDescendingDate()
-        -> [FlightMetaData] {
-            let sortedFlightMetaDatas = FlightsDatabase.flightMetaDatas().sorted(by: { ($0.flightDate > $1.flightDate) })
-//            sortedFlightMetaDatas = sortedFlightMetaDatas.sorted(by: { ($0.startTimeUTC > $1.startTimeUTC) })
-
-            return sortedFlightMetaDatas
     }
 
 }

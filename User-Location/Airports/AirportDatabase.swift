@@ -12,15 +12,16 @@ import CoreLocation
 class AirportDatabase {
     
     // MARK: - Lets and Vars
+    // Statics
     static let shared = AirportDatabase()
-    private var destinationAirports = [AirportDatabase.Airport]()
-    
-    private let libraryURL: URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
-    
-    // Notifications
+    // ... Notifications
     static let airportUpdateCompletedNotificationName = Notification.Name(rawValue: "airportUpdateCompleted")
-    
     static let airportUpdateFailedNotificationName = Notification.Name(rawValue: "airportUpdateFailed")
+
+    // Private
+    private var destinationAirports = [AirportDatabase.Airport]()
+    private let libraryURL: URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
+
     
     // MARK: - Init&Co.
     private init() {
@@ -30,6 +31,7 @@ class AirportDatabase {
     
     // MARK: - Public Methods
     // updateDistance
+    // TODO: make private (use class method / shared....()); 04042020, ph
     func updateDistance() {
         if let currentLocation = LocationManager.currentLocation() {
             var puffer = [AirportDatabase.Airport]()
@@ -49,6 +51,7 @@ class AirportDatabase {
     }
     
     // Filter Destination Airports
+    // TODO: make private (use class method / shared....()); 04042020, ph
     func filterDestinationAirports(byName searchString: String?, sortedBy sortIndicator: SortIndicator)
         -> [AirportDatabase.Airport]? {
             
@@ -93,6 +96,7 @@ class AirportDatabase {
     }
     
     // Select nearest Airport from current Location
+    // TODO: make private (use class method / shared....()); 04042020, ph
     func nearestAirport()
         -> Airport? {
             if let filterDestinationAirports = filterDestinationAirports(byName: nil,
@@ -104,6 +108,7 @@ class AirportDatabase {
     }
     
     // Download Airports.json from Server
+    // TODO: make private (use class method / shared....()); 04042020, ph
     func downloadAirportsFromServer() {
         // Create destination URL
         let libraryUrl: URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
@@ -182,12 +187,6 @@ class AirportDatabase {
                 }
             }
         }
-    }
-    
-    // Request for Location
-    func requestForLocation() {
-        //Code Process
-        print("Location granted")
     }
     
     // Load Airports from json

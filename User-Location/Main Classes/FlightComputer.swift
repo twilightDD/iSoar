@@ -14,21 +14,22 @@ import AVFoundation
 class FlightComputer {
 
     // MARK: - Magic Numbers
+    // TODO: move to presets; 04042020, ph
     static let minimalDistanceForNearestAirport: Double = 300   // meters
 
     // MARK: - Lets and Vars
     static let shared = FlightComputer()
 
-    var gliderIsFlying: Bool = false
+    private var gliderIsFlying: Bool = false
     
-    var flightUUIDString = UUID().uuidString
-    var flightStartTime = Date()
-    var flightEndTime = Date()
-    var startICAO: String?
-    var endICAO: String?
+    private(set) var flightUUIDString = UUID().uuidString
+    private(set) var flightStartTime = Date()
+    private(set) var flightEndTime = Date()
+    private(set) var startICAO: String?
+    private(set) var endICAO: String?
     
-    var playGearWarning = true
-    var playOxygenWarning = true
+    private var playGearWarning = true
+    private var playOxygenWarning = true
     
     // MARK: - Public Methods
     // Check if Glider is flying or on ground
@@ -64,9 +65,11 @@ class FlightComputer {
         }
         
     }
-    
+
+
+    // MARK: - Private Methods
     // Check for nearest Aiport
-    func icaoOfNearestAirport()
+    private func icaoOfNearestAirport()
         -> String? {
             // Update Distance from current Location to all Airports in Database
             AirportDatabase.shared.updateDistance()
@@ -79,7 +82,7 @@ class FlightComputer {
     }
     
     // MARK: - Audio Warnings
-    // Audio Gear Warning
+    // TODO: make private - why should MapScreenViewController call this method? 04042020, ph
     func gearWarning() {
         guard let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
             let currentLocation = LocationManager.currentLocation(),
@@ -117,6 +120,7 @@ class FlightComputer {
     }
     
     // Audio for Oxygen Level Warning
+    // TODO: make private - why should MapScreenViewController call this method? 04042020, ph
     func oxygenWarning() {
         guard let currentLocation = LocationManager.currentLocation()
             else { return }
@@ -141,7 +145,8 @@ class FlightComputer {
     }
 
     // Collision Warning
-    func collisionWarning() {
+
+    private func collisionWarning() {
         // Check if Glider is flying / If false we dont need to warn
         if gliderIsFlying == true {
             // Check if Collision Warning Switch is on / If false we dont need to warn

@@ -15,10 +15,13 @@ class FlightRecorder {
     // MARK: - Lets and Vars
     static let shared = FlightRecorder()
 
+    // TODO: Why FlightComputer sets this value? 04042020, ph
     var recorderIsReadyToWrite = false
 
     // MARK: - Public Methods
     // Add Current Location Infos to FlightRecorder File
+    /* TODO: Why calls MapScreenViewController this method?
+     LocationManager should to it in a different way; 04042020, ph */
     func addFlightRecorderEntryForLocation(_ currentLocation: CLLocation) {
 
         let locationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
@@ -56,7 +59,7 @@ class FlightRecorder {
 // MARK: - Extentsion - Structs and Enums
 extension FlightRecorder {
 
-    struct FlightData: Equatable {
+    private struct FlightData: Equatable {
         // MARK: Lets and Vars
         var unixTimeStamp: Int64
         var latitude: Double
@@ -78,6 +81,7 @@ extension CLLocationCoordinate2D: Equatable {
 }
 
 // Unix Date Extension
+// TODO: Move to a separate file (its an extension for Type Date); 040402020, ph
 extension Date {
     static var currentUnixTimeStamp: Int64 {return Int64(Date().timeIntervalSince1970)
     }

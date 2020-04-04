@@ -29,8 +29,7 @@ class TasksDatabase: NSObject {
     // Private
     private var taskWaypoints = [CLLocationCoordinate2D]()
 
-    // MARK: - Class Methods
-
+    // MARK: - Public Class Methods
     class func registerForTaskUpdates(_ delegate: TasksDatabaseProtocol) {
         shared.delegate = delegate
     }
@@ -55,7 +54,7 @@ class TasksDatabase: NSObject {
         }
     }
 
-    // MARK: - Private Methods
+    // MARK: - Private Instance Methods
     private func openGPXFile(withFilename fileName: String) {
         guard let filedata = ISoarFileManager.readContentOfSelectedGPXfile(fileName)
             else {return}
@@ -69,16 +68,9 @@ class TasksDatabase: NSObject {
         taskWaypoints.removeAll()
         delegate?.newTask(withCoordinates: taskWaypoints)
     }
+
 }
 
-// MARK: - Extentsion - Structs and Enums
-
-struct Waypoint: Equatable {
-    // MARK: Lets and Vars
-    var latitude: String
-    var longitude: String
-    
-}
 
 // MARK: - Extension - XMLParserDelegate
 extension TasksDatabase: XMLParserDelegate {
@@ -117,3 +109,4 @@ extension TasksDatabase: XMLParserDelegate {
     }
 
 }
+
