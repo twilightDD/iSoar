@@ -90,10 +90,8 @@ extension TasksViewController: UITableViewDelegate {
         // If the newly selected task equals the former:
         // it means we want to cancel the task
         // We deselect the active cell and set selectedGPXFileName = nil
-        if let selectedGPXFileName = self.selectedGPXFileName,
-            selectedGPXFileName == newSelectedGPXFileName {
+        if newSelectedGPXFileName == self.selectedGPXFileName {
             self.selectedGPXFileName = nil
-
             TasksDatabase.noGPXFileSelected()
         } else {
             self.selectedGPXFileName = newSelectedGPXFileName
