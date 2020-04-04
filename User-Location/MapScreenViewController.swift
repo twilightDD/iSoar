@@ -66,6 +66,7 @@ class MapScreenViewController: UIViewController {
         super.viewDidLoad()
 
         OGNSocketConnectionManager.registerForSocketUpdates(self)
+        OGNSocketConnectionManager.start()
         LocationManager.registerForLocationUpdates(self)
         TasksDatabase.registerForTaskUpdates(self)
         
@@ -321,8 +322,8 @@ class MapScreenViewController: UIViewController {
         
         // Get User Default Values
         // Calculate Glider Sink Rate to Destination
-        let safetyAltitude = UserDefaultsManager.getSafetyAltitude()
-        let gliderRatio = UserDefaultsManager.getGliderRatio()
+        let safetyAltitude = UserDefaultsManager.safetyAltitude()
+        let gliderRatio = UserDefaultsManager.gliderRatio()
         
         // Calculate Glider Sink Rate to Destination Airport
         let gliderRatioMeter = gliderRatio * 1000       //Gleitzahl in Meter
@@ -411,7 +412,7 @@ class MapScreenViewController: UIViewController {
     // MARK: Route Tracking
     // Check for Tracking Route Status ins Settings
     private func checkTrackingRouteStatus() {
-        showTrackingRoute = UserDefaultsManager.getShowTrackingRouteSwitchKey()
+        showTrackingRoute = UserDefaultsManager.showTrackingRouteState()
         if showTrackingRoute == true {
             // Delay Drawing and wait for Location
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

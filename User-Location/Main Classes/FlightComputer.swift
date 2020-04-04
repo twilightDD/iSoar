@@ -86,7 +86,7 @@ class FlightComputer {
             let currentDistance = LocationManager.currentDistance()
             else { return }
 
-        let gearWarningSwitch = UserDefaultsManager.getGearWarningSwitch()
+        let gearWarningSwitch = UserDefaultsManager.gearWarningState()
         if gearWarningSwitch == true {
 
             let distanceInKm = currentDistance / 1000
@@ -145,7 +145,7 @@ class FlightComputer {
         // Check if Glider is flying / If false we dont need to warn
         if gliderIsFlying == true {
             // Check if Collision Warning Switch is on / If false we dont need to warn
-            let collisionWarningSwitch = UserDefaultsManager.getCollisionWarningSwitch()
+            let collisionWarningSwitch = UserDefaultsManager.collisionWarningState()
             if collisionWarningSwitch == true {
                 AudioServicesPlayAlertSound(SystemSoundID(1256))
                 

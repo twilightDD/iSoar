@@ -227,7 +227,7 @@ extension ISoarFileManager {
             // Create JSON
             let data = FlightMetaData.init(flightUUID: FlightComputer.shared.flightUUIDString,
                                            flightDate: (dateFormatter.string(from: startTimeFormatted)),
-                                           gliderID: UserDefaultsManager.getGliderID(),
+                                           gliderID: UserDefaultsManager.gliderID(),
                                            startTimeUTC: (timeFormatter.string(from: startTimeFormatted)),
                                            startICAO: FlightComputer.shared.startICAO ?? "----",
                                            endTimeUTC: "",
@@ -299,7 +299,7 @@ extension ISoarFileManager {
         
         let data = FlightMetaData(flightUUID: FlightComputer.shared.flightUUIDString,
                                   flightDate: (dateFormatter.string(from: startTimeFormatted)),
-                                  gliderID: UserDefaultsManager.getGliderID(),
+                                  gliderID: UserDefaultsManager.gliderID(),
                                   startTimeUTC: (timeFormatter.string(from: startTimeFormatted)),
                                   startICAO: FlightComputer.shared.startICAO ?? "----",
                                   endTimeUTC: (timeFormatter.string(from: endTimeFormatted)),

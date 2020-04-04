@@ -40,7 +40,7 @@ class OGNSocketConnectionManager {
     private var isLoggedIn = false
     private var loginTimeStamp = Date.currentUnixTimeStamp //TODO: wozu wird der gebraucht?; 03042020, ph
 
-    private var buddyFlarmID: String = UserDefaultsManager.getBuddyFlarmID()
+    private var buddyFlarmID: String = UserDefaultsManager.flarmBuddyFlarmID()
     private var regionInKm: Double = Presets.OGNSocketConnection.regionInKm
 
     
@@ -73,7 +73,7 @@ extension OGNSocketConnectionManager {
         // Check if Nearby Gliders should be shown on Map
         print("We are loggin into the OGN Server: \(isLoggedIn)")
         
-        if UserDefaultsManager.getShowNearbyGlidersSwitch() && !isLoggedIn {
+        if UserDefaultsManager.showAllNearbyGlidersState() && !isLoggedIn {
             // Delay Login
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.connection = NWConnection(host: Presets.OGNSocketConnection.host,
@@ -176,7 +176,7 @@ extension OGNSocketConnectionManager {
         }
 
         let appVersion = Presets.OGNSocketConnection.appVersion
-        if UserDefaultsManager.getShowFlarmBuddySwitchKey() {
+        if UserDefaultsManager.showOnlyFlarmBuddyNearbyGliderState() {
             // Filter for unique FlarmID or multiple IDs seperated bei /
             let packet = "user \(userName) pass -1 vers \(appVersion) filter b/\(buddyFlarmID)\n"
             sendPaket(packet)

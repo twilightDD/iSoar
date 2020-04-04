@@ -74,41 +74,41 @@ class SettingsViewController: UIViewController {
     private func setupUI() {
         
         // Glider Ratio
-        let gliderRatio = UserDefaultsManager.getGliderRatio()
+        let gliderRatio = UserDefaultsManager.gliderRatio()
         let gliderRatioString = String(format: "%.f", gliderRatio)
         gliderRatioTextField.text = gliderRatioString
         
         // Safety Altitude
-        let safetyAltitude = UserDefaultsManager.getSafetyAltitude()
+        let safetyAltitude = UserDefaultsManager.safetyAltitude()
         let safetyAltitudeString = String(format: "%.f", safetyAltitude)
         safetyAltitudeTextField.text = safetyAltitudeString
         
         // Glider ID
-        let gliderID = UserDefaultsManager.getGliderID()
+        let gliderID = UserDefaultsManager.gliderID()
         gliderIDTextField.text = gliderID
         
         // Gear Warning Switch Setup
-        let gearWarningSwitchState = UserDefaultsManager.getGearWarningSwitch()
+        let gearWarningSwitchState = UserDefaultsManager.gearWarningState()
         gearWarningSwitch.isOn = gearWarningSwitchState
         
         // Tracking Route Switch Setup
-        let showTrackingRouteSwitchState = UserDefaultsManager.getShowTrackingRouteSwitchKey()
+        let showTrackingRouteSwitchState = UserDefaultsManager.showTrackingRouteState()
         showTrackingRouteSwitch.isOn = showTrackingRouteSwitchState
         
         // Show Flarm Buddy Switch Setup
-        let showFlarmBuddySwitchState = UserDefaultsManager.getShowFlarmBuddySwitchKey()
+        let showFlarmBuddySwitchState = UserDefaultsManager.showOnlyFlarmBuddyNearbyGliderState()
         showOnlyBuddyNearbyGliderSwitch.isOn = showFlarmBuddySwitchState
         
         // Buddy FlarmID
-        let buddyFlarmID = UserDefaultsManager.getBuddyFlarmID()
+        let buddyFlarmID = UserDefaultsManager.flarmBuddyFlarmID()
         buddyFlarmIDTextField.text = buddyFlarmID
         
         // Show nearby Gliders Switch Setup
-        let showNearbyGlidersSwitchState = UserDefaultsManager.getShowNearbyGlidersSwitch()
+        let showNearbyGlidersSwitchState = UserDefaultsManager.showAllNearbyGlidersState()
         showAllNearbyGlidersSwitch.isOn = showNearbyGlidersSwitchState
         
         // Collision Warning Switch Setup
-        let collsionWarningSwitchState = UserDefaultsManager.getCollisionWarningSwitch()
+        let collsionWarningSwitchState = UserDefaultsManager.collisionWarningState()
         collisionWarningSwitch.isOn = collsionWarningSwitchState
         
     }
@@ -124,20 +124,20 @@ class SettingsViewController: UIViewController {
         UserDefaultsManager.set(safetyAltitude: safetyAltitudeDouble)
         
         UserDefaultsManager.set(gliderID: gliderIDTextField.text!)
-        UserDefaultsManager.set(buddyFlarmID: buddyFlarmIDTextField.text!)
+        UserDefaultsManager.set(flarmBuddyFlarmID: buddyFlarmIDTextField.text!)
     }
     
     // MARK: - Action Methods
     @IBAction func gearWarningSwitchAction(_ sender: UISwitch) {
-        UserDefaultsManager.set(gearWarningSwitch: sender.isOn)
+        UserDefaultsManager.set(gearWarningState: sender.isOn)
     }
     
     @IBAction func showTrackingRouteSwitchAction(_ sender: UISwitch) {
-        UserDefaultsManager.set(showTrackingRouteSwitch: sender.isOn)
+        UserDefaultsManager.set(showTrackingRouteState: sender.isOn)
     }
     
     @IBAction func showAllNearbyGlidersSwitchAction(_ sender: UISwitch) {
-        UserDefaultsManager.set(showNearbyGlidersSwitch: sender.isOn)
+        UserDefaultsManager.set(showAllNearbyGlidersState: sender.isOn)
         if sender.isOn {
             // Connect to OGN Server with Radius Filter
             OGNSocketConnectionManager.start()
@@ -156,7 +156,7 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func showOnlyBuddyNearbyGliderSwitchAction(_ sender: UISwitch) {
-        UserDefaultsManager.set(showFlarmBuddySwitch: sender.isOn)
+        UserDefaultsManager.set(showOnlyFlarmBuddyNearbyGliderState: sender.isOn)
         if sender.isOn {
             // Set showNearbyGlidersSwitch also to true
             showAllNearbyGlidersSwitch.setOn(true, animated: true)
@@ -173,7 +173,7 @@ class SettingsViewController: UIViewController {
     
     
     @IBAction func collisionWarningSwitchAction(_ sender: UISwitch) {
-        UserDefaultsManager.set(collisionWarningSwitch: sender.isOn)
+        UserDefaultsManager.set(collisionWarningState: sender.isOn)
         // If Collision Warning Switch is turned on (true)
         if sender.isOn && showAllNearbyGlidersSwitch.isOn == false {
             // Turn on Show Nearby Gliders Switch also (true)
