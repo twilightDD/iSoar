@@ -72,8 +72,10 @@ extension OGNSocketConnectionManager {
     private func connectToOGNServerSocket() {
         // Check if Nearby Gliders should be shown on Map
         print("We are loggin into the OGN Server: \(isLoggedIn)")
-        
-        if UserDefaultsManager.showAllNearbyGlidersState() && !isLoggedIn {
+
+        let showAllNearbyGlidersState = UserDefaultsManager.showAllNearbyGlidersState()
+        if showAllNearbyGlidersState == true
+            && isLoggedIn == false {
             // Delay Login
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.connection = NWConnection(host: Presets.OGNSocketConnection.host,
