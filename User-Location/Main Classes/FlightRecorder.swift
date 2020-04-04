@@ -79,10 +79,3 @@ extension CLLocationCoordinate2D: Equatable {
                 lhs.longitude == rhs.longitude
     }
 }
-
-// Unix Date Extension
-// TODO: Move to a separate file (its an extension for Type Date); 040402020, ph
-extension Date {
-    static var currentUnixTimeStamp: Int64 {return Int64(Date().timeIntervalSince1970)
-    }
-}

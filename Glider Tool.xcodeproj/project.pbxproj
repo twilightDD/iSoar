@@ -19,6 +19,7 @@
 		D074B51522968C7A00A573AE /* Airports.json in Resources */ = {isa = PBXBuildFile; fileRef = D074B51422968C7A00A573AE /* Airports.json */; };
 		D0829D3F24351FEC009E40EC /* Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0829D3E24351FEC009E40EC /* Presets.swift */; };
 		D0829D412435532F009E40EC /* NearbyGliderAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0829D402435532F009E40EC /* NearbyGliderAnnotationView.swift */; };
+		D0B7A84124390D940006F5EF /* Date+UnixTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B7A84024390D940006F5EF /* Date+UnixTime.swift */; };
 		D0BBE08623A18CEB00CAD9FF /* ISoarFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BBE08523A18CEB00CAD9FF /* ISoarFileManager.swift */; };
 		D0C2801D23D8FF4000518539 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2801A23D8F46B00518539 /* UserDefaultsManager.swift */; };
 		D0C2A9E32367954A00FEF926 /* UITextField+NumberPadDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */; };
@@ -77,6 +78,7 @@
 		D074B51422968C7A00A573AE /* Airports.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Airports.json; sourceTree = "<group>"; };
 		D0829D3E24351FEC009E40EC /* Presets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presets.swift; sourceTree = "<group>"; };
 		D0829D402435532F009E40EC /* NearbyGliderAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyGliderAnnotationView.swift; sourceTree = "<group>"; };
+		D0B7A84024390D940006F5EF /* Date+UnixTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+UnixTime.swift"; sourceTree = "<group>"; };
 		D0BBE08523A18CEB00CAD9FF /* ISoarFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISoarFileManager.swift; sourceTree = "<group>"; };
 		D0C2801A23D8F46B00518539 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+NumberPadDoneButton.swift"; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 			children = (
 				E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */,
 				D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */,
+				D0B7A84024390D940006F5EF /* Date+UnixTime.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 				D0C2801D23D8FF4000518539 /* UserDefaultsManager.swift in Sources */,
 				E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */,
 				18BE3F7422CF688D00859347 /* GliderUserLocationAnnotationView.swift in Sources */,
+				D0B7A84124390D940006F5EF /* Date+UnixTime.swift in Sources */,
 				E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
