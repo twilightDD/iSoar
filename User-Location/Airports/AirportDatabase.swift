@@ -13,7 +13,7 @@ class AirportDatabase {
     
     // MARK: - Lets and Vars
     // Statics
-    static let shared = AirportDatabase()
+    static private let shared = AirportDatabase()
     // ... Notifications
     static let airportUpdateCompletedNotificationName = Notification.Name(rawValue: "airportUpdateCompleted")
     static let airportUpdateFailedNotificationName = Notification.Name(rawValue: "airportUpdateFailed")
@@ -32,7 +32,6 @@ class AirportDatabase {
     // MARK: - Public Class Methods
     class func nearestAirport ()
         -> AirportDatabase.Airport? {
-            shared.updateDistance()
             let nearestAirport = shared.nearestAirport()
             return nearestAirport
     }
@@ -44,11 +43,20 @@ class AirportDatabase {
             return icaoOfNearestAirport
     }
 
+    class func filteredDestinationAirports(byName searchString: String?,
+                                           sortedBy sortIndicator: SortIndicator)
+        -> [AirportDatabase.Airport]? {
+            let filteredDestinationAirports = shared.filteredDestinationAirports(byName: searchString,
+                                                                               sortedBy: sortIndicator)
+            return filteredDestinationAirports
+    }
 
-    // MARK: - Public Methods
-    // updateDistance
-    // TODO: make private (use class method / shared....()); 04042020, ph
-    func updateDistance() {
+    class func downloadAirportsFromServer() {
+        shared.downloadAirportsFromServer()
+    }
+
+    // MARK: - Private Methods
+    private func updateDistance() {
         if let currentLocation = LocationManager.currentLocation() {
             var puffer = [AirportDatabase.Airport]()
             for var destinationAirport in destinationAirports {
@@ -65,13 +73,13 @@ class AirportDatabase {
             destinationAirports = puffer
         }
     }
-    
-    // Filter Destination Airports
-    // TODO: make private (use class method / shared....()); 04042020, ph
-    func filterDestinationAirports(byName searchString: String?,
-                                   sortedBy sortIndicator: SortIndicator)
+
+    private func filteredDestinationAirports(byName searchString: String?,
+                                             sortedBy sortIndicator: SortIndicator)
         -> [AirportDatabase.Airport]? {
-            
+
+            updateDistance()
+
             var filteredAndSortedAirports = [AirportDatabase.Airport]()
             
             // Filter
@@ -109,22 +117,19 @@ class AirportDatabase {
             
             return filteredAndSortedAirports
     }
-    
-    // Select nearest Airport from current Location
-    // TODO: make private (use class method / shared....()); 04042020, ph
-    func nearestAirport()
+
+    private func nearestAirport()
         -> Airport? {
-            if let filterDestinationAirports = filterDestinationAirports(byName: nil,
+            updateDistance()
+            if let filterDestinationAirports = filteredDestinationAirports(byName: nil,
                                                                          sortedBy: .distance) {
-                return filterDestinationAirports[0]
+                return filterDestinationAirports.first
             }
             
             return nil
     }
-    
-    // Download Airports.json from Server
-    // TODO: make private (use class method / shared....()); 04042020, ph
-    func downloadAirportsFromServer() {
+
+    private func downloadAirportsFromServer() {
         // Create destination URL
         let libraryUrl: URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
         let destinationFileUrl = libraryUrl.appendingPathComponent("Airports.json")
@@ -161,10 +166,12 @@ class AirportDatabase {
                                                     object: nil)
                     
                 } catch let writeError {
+                    // TODO: UserInfo; 04042020, ph
                     print("Error creating a file: \(destinationFileUrl) : \(writeError)")
                 }
                 
             } else {
+                // TODO: UserInfo; 04042020, ph
                 print("Error took place while downloading a file. Error description: %@", error!.localizedDescription)
                 
                 // Post Notification for failed Update

@@ -196,7 +196,7 @@ class SettingsViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Yes",
                                       style: .default,
                                       handler: { action in
-                                        AirportDatabase.shared.downloadAirportsFromServer()
+                                        AirportDatabase.downloadAirportsFromServer()
         }))
         alert.addAction(UIAlertAction(title: "No",
                                       style: .cancel,

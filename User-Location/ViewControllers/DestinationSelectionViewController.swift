@@ -70,8 +70,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        AirportDatabase.shared.updateDistance()
+
         setupTableViewDatasource()
         
         // TODO: muss das bei jedem Anzeigen ausgeführt werden?
@@ -144,7 +143,8 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
         guard let sortIndicator = AirportDatabase.SortIndicator(rawValue: airportsSortedBySwitch.selectedSegmentIndex)
             else { fatalError("segmentIndex not suitable for sortIndicator.")}
         
-        if let destinationAirportArray = AirportDatabase.shared.filterDestinationAirports(byName: searchBar.text, sortedBy: sortIndicator) {
+        if let destinationAirportArray = AirportDatabase.filteredDestinationAirports(byName: searchBar.text,
+                                                                                     sortedBy: sortIndicator) {
             self.destinationAirportArray = destinationAirportArray
             
             tableView.reloadData()
@@ -198,7 +198,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     @objc private func refreshAirportDatabase(_ sender: Any) {
         selectedDestinationAirport = nil
         
-        AirportDatabase.shared.downloadAirportsFromServer()
+        AirportDatabase.downloadAirportsFromServer()
     }
     
     // Adjust TableView height if necessary
