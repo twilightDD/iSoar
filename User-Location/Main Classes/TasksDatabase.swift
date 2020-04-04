@@ -46,25 +46,29 @@ class TasksDatabase: NSObject {
             return gpxFileNames
     }
 
-    class func noGPXFileSelected() {
-        shared.taskWaypoints.removeAll()
-        shared.delegate?.newTask(withCoordinates: shared.taskWaypoints)
-    }
 
-    class func openGPXFile(withFilename fileName: String) {
-        shared.openGPXFile(withFilename: fileName)
+    class func openGPXFile(withFilename fileName: String?) {
+        if let guardedFileName = fileName {
+            shared.openGPXFile(withFilename: guardedFileName)
+        } else {
+            shared.noGPXFileSelected()
+        }
     }
 
     // MARK: - Private Methods
     private func openGPXFile(withFilename fileName: String) {
         guard let filedata = ISoarFileManager.readContentOfSelectedGPXfile(fileName)
             else {return}
-        
+
         let xmlParser = XMLParser.init(data: filedata)
         xmlParser.delegate = self
         xmlParser.parse()
     }
-    
+
+    private func noGPXFileSelected() {
+        taskWaypoints.removeAll()
+        delegate?.newTask(withCoordinates: taskWaypoints)
+    }
 }
 
 // MARK: - Extentsion - Structs and Enums

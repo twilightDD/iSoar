@@ -92,11 +92,12 @@ extension TasksViewController: UITableViewDelegate {
         // We deselect the active cell and set selectedGPXFileName = nil
         if newSelectedGPXFileName == self.selectedGPXFileName {
             self.selectedGPXFileName = nil
-            TasksDatabase.noGPXFileSelected()
-        } else {
-            self.selectedGPXFileName = newSelectedGPXFileName
-            TasksDatabase.openGPXFile(withFilename: newSelectedGPXFileName)
         }
+        else {
+            self.selectedGPXFileName = newSelectedGPXFileName
+        }
+        
+        TasksDatabase.openGPXFile(withFilename: self.selectedGPXFileName)
         
         guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows
             else { return }
