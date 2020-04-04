@@ -97,13 +97,16 @@ class FlightComputer {
         let gearWarningSwitch = UserDefaultsManager.gearWarningState()
         if gearWarningSwitch == true {
 
-            let distanceInKm = currentDistance / 1000
             let upperGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.upperGearWarningAltitude
             let lowerGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.lowerGearWarningAltitude
-            
-            if distanceInKm < 1
-                && (currentLocation.altitude < upperGearWarningAltitude
-                    && currentLocation.altitude > lowerGearWarningAltitude) {
+
+            let distanceWarningNeeded = true //  currentDistance < Presets.FlightComputer.gearWarningDistance
+            let upperWarningNeeded = true // currentLocation.altitude < upperGearWarningAltitude
+            let lowerWarningNeeded = true // currentLocation.altitude > lowerGearWarningAltitude
+
+            if distanceWarningNeeded == true,
+                upperWarningNeeded == true,
+                lowerWarningNeeded == true {
                 
                 if playGearWarning == true {
                     AudioServicesPlayAlertSound(SystemSoundID(1256))
@@ -133,6 +136,7 @@ class FlightComputer {
         if currentLocation.altitude > 3500 {
 
             if playOxygenWarning == true {
+                print("\(#function) should play playOxygenWarning")
                 AudioServicesPlayAlertSound(SystemSoundID(1256))
 
                 let utterance = AVSpeechUtterance(string: "Check Oxygen Level")
@@ -144,6 +148,7 @@ class FlightComputer {
 
                 playOxygenWarning = false
             } else {
+                print("\(#function) should NOT play playOxygenWarning")
                 playOxygenWarning = true
             }
         }

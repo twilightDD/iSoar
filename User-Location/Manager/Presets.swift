@@ -55,15 +55,20 @@ struct Presets {
     
     struct FlightComputer {
 
-        /// Represents the lower Altitude Range Limit above the Airport in which User is warned
-        static let lowerGearWarningAltitude: Double = 200
         /// TODO: Add docu; 04042020, ph
         static let minimalDistanceForNearestAirport: Double = 300
+
         /// Minimal Speed in Meter per Seconds to check if Glider is flying or not
         static let minimalFlightSpeed: CLLocationSpeed = 10
+
+        // Landing Gear Warning
+        /// Represents the lower distance Limit above the Airport in which user is warned
+        static let gearWarningDistance: Double = 1000
+        /// Represents the lower Altitude Range Limit above the Airport in which User is warned
+        static let lowerGearWarningAltitude: Double = 200
         /// Represents the upper Altitude Range Limit above the Airport in which User is warned
         static let upperGearWarningAltitude: Double = 400
-        
+
     }
     
 }
