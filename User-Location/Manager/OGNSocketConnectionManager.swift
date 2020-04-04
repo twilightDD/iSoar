@@ -14,6 +14,7 @@ protocol DL_OGNSocketConnectionManagerDelegate: class {
 
     func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData)
     func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData)
+    func removeAllNearbyGlider()
 
 }
 
@@ -119,6 +120,8 @@ extension OGNSocketConnectionManager {
     // Disconnect from Server
     private func cancelConnection() {
         connection?.cancel()
+
+        delegate?.removeAllNearbyGlider()
     }
 
     // Generate random alphanumerical Username witch 9 characters

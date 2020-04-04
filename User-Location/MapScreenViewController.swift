@@ -654,5 +654,15 @@ extension MapScreenViewController: DL_OGNSocketConnectionManagerDelegate {
             nearbyGliderAnnotations[gliderTelemetryData.flarmID] = nil
         }
     }
+
+    func removeAllNearbyGlider() {
+        var nearbyGliderAnnotationsToRemove = [NearbyGliderAnnotation]()
+        for (_, nearbyGliderAnnotationToRemove) in nearbyGliderAnnotations {
+            nearbyGliderAnnotationsToRemove.append(nearbyGliderAnnotationToRemove)
+        }
+
+        mapView.removeAnnotations(nearbyGliderAnnotationsToRemove)
+        nearbyGliderAnnotations.removeAll()
+    }
     
 }
