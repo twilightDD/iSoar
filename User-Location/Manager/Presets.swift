@@ -61,6 +61,11 @@ struct Presets {
         /// Minimal Speed in Meter per Seconds to check if Glider is flying or not
         static let minimalFlightSpeed: CLLocationSpeed = 10
 
+        // Oxygen Warning
+        /// Represents the Oxygen Warning Altitude
+        static let oxygenWarningAltitude: CLLocationDistance = 3500
+
+
         // Landing Gear Warning
         /// Represents the lower distance Limit above the Airport in which user is warned
         static let gearWarningDistance: Double = 1000

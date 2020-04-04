@@ -25,8 +25,8 @@ class FlightComputer {
     private(set) var endICAO: String?
 
 
-    private var playGearWarning = true
-    private var playOxygenWarning = true
+    private var shouldPlayGearWarning = true
+    private var shouldPlayOxygenWarning = true
 
 
     // MARK: - Init&CO.
@@ -87,8 +87,7 @@ class FlightComputer {
     }
     
     // MARK: - Audio Warnings
-    // TODO: make private - why should MapScreenViewController call this method? 04042020, ph
-    func gearWarning() {
+    private func checkForGearWarning() {
         guard let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
             let currentLocation = LocationManager.currentLocation(),
             let currentDistance = LocationManager.currentDistance()
@@ -100,15 +99,15 @@ class FlightComputer {
             let upperGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.upperGearWarningAltitude
             let lowerGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.lowerGearWarningAltitude
 
-            let distanceWarningNeeded = true //  currentDistance < Presets.FlightComputer.gearWarningDistance
-            let upperWarningNeeded = true // currentLocation.altitude < upperGearWarningAltitude
-            let lowerWarningNeeded = true // currentLocation.altitude > lowerGearWarningAltitude
+            let distanceWarningNeeded = currentDistance < Presets.FlightComputer.gearWarningDistance
+            let upperWarningNeeded = currentLocation.altitude < upperGearWarningAltitude
+            let lowerWarningNeeded = currentLocation.altitude > lowerGearWarningAltitude
 
             if distanceWarningNeeded == true,
                 upperWarningNeeded == true,
                 lowerWarningNeeded == true {
                 
-                if playGearWarning == true {
+                if shouldPlayGearWarning == true {
                     AudioServicesPlayAlertSound(SystemSoundID(1256))
                     
                     let utterance = AVSpeechUtterance(string: "Check Gear")
@@ -118,25 +117,23 @@ class FlightComputer {
                     let synthesizer = AVSpeechSynthesizer()
                     synthesizer.speak(utterance)
                     
-                    playGearWarning = false
-                } else {
-                    playGearWarning = true
+                    shouldPlayGearWarning = false
                 }
+            } else {
+                shouldPlayGearWarning = true
             }
 
         }
     }
     
     // Audio for Oxygen Level Warning
-    // TODO: make private - why should MapScreenViewController call this method? 04042020, ph
-    func oxygenWarning() {
+    private func checkForOxygenWarning() {
         guard let currentLocation = LocationManager.currentLocation()
             else { return }
 
-        if currentLocation.altitude > 3500 {
-
-            if playOxygenWarning == true {
-                print("\(#function) should play playOxygenWarning")
+        let oxygenWarningNeeded = currentLocation.altitude > Presets.FlightComputer.oxygenWarningAltitude
+        if oxygenWarningNeeded == true {
+            if shouldPlayOxygenWarning == true {
                 AudioServicesPlayAlertSound(SystemSoundID(1256))
 
                 let utterance = AVSpeechUtterance(string: "Check Oxygen Level")
@@ -146,11 +143,10 @@ class FlightComputer {
                 let synthesizer = AVSpeechSynthesizer()
                 synthesizer.speak(utterance)
 
-                playOxygenWarning = false
-            } else {
-                print("\(#function) should NOT play playOxygenWarning")
-                playOxygenWarning = true
+                shouldPlayOxygenWarning = false
             }
+        } else {
+            shouldPlayOxygenWarning = true
         }
     }
 
@@ -185,10 +181,10 @@ class FlightComputer {
 extension FlightComputer: LocationManagerDelegate {
 
     func locationManager(didUpdateLocations locations: [CLLocation]) {
-        gearWarning()
+        checkForGearWarning()
 
         // Oxygen Warning
-        oxygenWarning()
+        checkForOxygenWarning()
 
     }
 
