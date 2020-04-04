@@ -245,7 +245,7 @@ class MapScreenViewController: UIViewController {
     // Tap on Destination Airport-Label recognized
     @objc func tapOnDestinationAirportLabel(_ recognizer: UITapGestureRecognizer) {
         
-        if DestinationSelectionViewController.destinationAirport != nil {
+        if let _ = DestinationSelectionViewController.destinationAirport() {
             performSegue(withIdentifier: "AirportInfoSegue", sender: self)
         }
         
