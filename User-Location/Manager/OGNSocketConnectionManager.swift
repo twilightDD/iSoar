@@ -11,24 +11,24 @@ import Network
 
 // MARK: - DL_OGNSocketConnectionManagerDelegate
 protocol DL_OGNSocketConnectionManagerDelegate: class {
-
+    
     func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData)
     func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData)
     func removeAllNearbyGlider()
-
+    
 }
 
 // MARK: -
 // MARK: - OGNSocketConnectionManager
 class OGNSocketConnectionManager {
-
+    
     // MARK: - Lets and Vars
     // Statics
     static private let shared = OGNSocketConnectionManager()
-
+    
     // Public
     weak var delegate: DL_OGNSocketConnectionManagerDelegate?
-
+    
     // Private
     private var connection: NWConnection?
     private var queue = DispatchQueue(label: "NetworkQueue", qos: .utility)
@@ -36,43 +36,43 @@ class OGNSocketConnectionManager {
         let userName = generateRandomUserName()
         return userName
     }
-
+    
     private var isLoggedIn = false
     private var loginTimeStamp = Date.currentUnixTimeStamp //TODO: wozu wird der gebraucht?; 03042020, ph
-
+    
     private var buddyFlarmID: String = UserDefaultsManager.flarmBuddyFlarmID()
     private var regionInKm: Double = Presets.OGNSocketConnection.regionInKm
-
+    
     
     // MARK: - Public Class Methods
     class func registerForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
         shared.delegate = delegate
     }
-
+    
     class  func unregisterForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
         shared.delegate = nil
     }
-
+    
     class func start() {
         shared.connectToOGNServerSocket()
     }
-
+    
     class func stop() {
         shared.cancelConnection()
     }
-
+    
 }
 
 
 // MARK: - Extension - Instance Methods
 extension OGNSocketConnectionManager {
-
+    
     // MARK: Private Instance Methods
     // Connect to Server Socket
     private func connectToOGNServerSocket() {
         // Check if Nearby Gliders should be shown on Map
         print("We are loggin into the OGN Server: \(isLoggedIn)")
-
+        
         let showAllNearbyGlidersState = UserDefaultsManager.showAllNearbyGlidersState()
         if showAllNearbyGlidersState == true
             && isLoggedIn == false {
@@ -118,14 +118,14 @@ extension OGNSocketConnectionManager {
         }
         
     }
-
+    
     // Disconnect from Server
     private func cancelConnection() {
         connection?.cancel()
-
+        
         delegate?.removeAllNearbyGlider()
     }
-
+    
     // Generate random alphanumerical Username witch 9 characters
     private func generateRandomUserName()
         -> String {
@@ -138,45 +138,48 @@ extension OGNSocketConnectionManager {
     }
     
     // Setup Receive Data
-    private func setupReceive() { connection?.receive(minimumIncompleteLength: 1,
-                                                      maximumLength: 9000,
-                                                      completion: { [unowned self] (data, context, isComplete, error) in
-
-                                                        if let receivedData = data,
-                                                            let receivedMessage = String(data: receivedData, encoding: .utf8) {
-                                                            self.messageReceived(receivedMessage)
-                                                        }
-
-                                                        if !self.isLoggedIn {
-                                                            self.login()
-                                                        }
-
-                                                        if context?.identifier == "Final Message" && isComplete {
-                                                            self.connection?.cancel()
-                                                            return
-                                                        }
-
-                                                        if let messageError = error {
-                                                            print("Recieve error: \(messageError)")
-                                                        } else {
-                                                            self.setupReceive()
-                                                        }
-    })
+    private func setupReceive() {
+        connection?.receive(minimumIncompleteLength: 1,
+                            maximumLength: 9000,
+                            completion: { [unowned self] (data, context, isComplete, error) in
+                                
+                                if let receivedData = data,
+                                    let receivedMessage = String(data: receivedData, encoding: .utf8) {
+                                    self.messageReceived(receivedMessage)
+                                }
+                                
+                                if self.isLoggedIn == false {
+                                    self.login()
+                                }
+                                
+                                let contextIdentifier = context?.identifier
+                                if  contextIdentifier == "Final Message"
+                                    && isComplete == true {
+                                    self.connection?.cancel()
+                                    return
+                                }
+                                
+                                if let messageError = error {
+                                    print("Recieve error: \(messageError)")
+                                } else {
+                                    self.setupReceive()
+                                }
+        })
     }
     
     // Send Login String with generated Username and Current Location
     private func login() {
-
+        
         // TODO: Wot? Wozu der Neuversuch? Keine Doku = Doofe Fragen; 04042020, ph
         // TODO: if loggedIn == true { return } ist besser?!; 040402020, ph
         guard let currentLocation = LocationManager.currentLocation(),
             !isLoggedIn else {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.login()
-            }
-            return
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.login()
+                }
+                return
         }
-
+        
         let appVersion = Presets.OGNSocketConnection.appVersion
         if UserDefaultsManager.showOnlyFlarmBuddyNearbyGliderState() {
             // Filter for unique FlarmID or multiple IDs seperated bei /
@@ -192,7 +195,7 @@ extension OGNSocketConnectionManager {
         loginTimeStamp = Date.currentUnixTimeStamp
     }
     
-
+    
     
     // Send Filter Request to Server
     private func sendPaket(_ packet: String) {
@@ -203,7 +206,7 @@ extension OGNSocketConnectionManager {
                             if let err = error {
                                 print("\(#function) Sending error \(err)")
                             } else {
-                                print("\(#function) Filter Request successfully sent")
+                                print("\(#function) Filter Request successfully sent:\n\(packet)")
                             }
             })
     }
@@ -211,15 +214,15 @@ extension OGNSocketConnectionManager {
     // Received Message from OGN Server
     private func messageReceived(_ receivedMessage: String) {
         // print("Original OGN Message: \(receivedMessage)")
-
+        
         let splittedMessages = receivedMessage.split(separator: "\r\n")
         // print("Anzahl Teilnachrichten: \(splittedMessages.count)")
-
+        
         for splittedMessage in splittedMessages {
             guard splittedMessage.hasPrefix("FLR")
                 || splittedMessage.hasPrefix("ICA")
                 else { continue }
-
+            
             let gliderSpecificMessage = String(splittedMessage)
             if let telemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
                 delegate?.updateNearbyGlider(gliderTelemetryData: telemetryData)
