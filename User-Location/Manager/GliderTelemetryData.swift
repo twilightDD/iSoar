@@ -13,15 +13,15 @@ import CoreLocation
 struct GliderTelemetryData: Hashable {
     
     // MARK: Lets and Vars
-    var flarmID: String = "No FlarmID"
-    var timestamp: Int64 = 0
-    var location: CLLocationCoordinate2D = CLLocationCoordinate2D()
-    var type: String = ""
-    var heading: Double = 0
-    var speed: Double = 0
-    var altitude: Double = 0
-    var climbRate: Double = 0
-    
+    private(set) var flarmID: String = "No FlarmID"
+    private(set) var timestamp: Int64 = 0
+    private(set) var location: CLLocationCoordinate2D = CLLocationCoordinate2D()
+    private(set) var type: String = ""
+    private(set) var heading: Double = 0
+    private(set) var speed: Double = 0
+    private(set) var altitude: Double = 0
+    private(set) var climbRate: Double = 0
+
     // MARK: - Hashable
     static func == (lhs: GliderTelemetryData, rhs: GliderTelemetryData) -> Bool {
         return lhs.flarmID == rhs.flarmID
