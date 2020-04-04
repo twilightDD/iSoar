@@ -13,10 +13,6 @@ import AVFoundation
 // MARK: - FlightComputer
 class FlightComputer {
 
-    // MARK: - Magic Numbers
-    // TODO: move to presets; 04042020, ph
-    static let minimalDistanceForNearestAirport: Double = 300   // meters
-
     // MARK: - Lets and Vars
     static let shared = FlightComputer()
 
@@ -75,7 +71,7 @@ class FlightComputer {
             AirportDatabase.shared.updateDistance()
             
             if let nearestAirport = AirportDatabase.shared.nearestAirport(),
-                (nearestAirport.distance ?? FlightComputer.minimalDistanceForNearestAirport + 1) < FlightComputer.minimalDistanceForNearestAirport {
+                (nearestAirport.distance ?? Presets.FlightComputer.minimalDistanceForNearestAirport + 1) < Presets.FlightComputer.minimalDistanceForNearestAirport {
                 return nearestAirport.icao
             }
             return nil
