@@ -39,8 +39,7 @@ struct GliderTelemetryData: Hashable {
             
             // print("TelemetryDataArray: \(telemetryDataArray)")
 
-            //TODO: Magic number => remove comment sign; 01042020, ph
-            guard telemetryDataArray.count >= 11// ResponseElements.allCases.count
+            guard telemetryDataArray.count >= ResponseElements.allCases.count
                 else {
                     print("telemetryDataArray has to less enties: \(telemetryDataArray.count)\ntelemetryDataArray: \(telemetryDataArray)\nresponse string: \(response)")
                     return nil
@@ -59,7 +58,7 @@ struct GliderTelemetryData: Hashable {
                                                  longitudeHemisphere: longitudeHemisphere)
 
             let type = String(telemetryDataArray[ResponseElements.type.rawValue])
-            let heading = Double(telemetryDataArray[7]) ?? 0
+            let heading = Double(telemetryDataArray[ResponseElements.heading.rawValue]) ?? 0
             let speed = speedFrom(speed: telemetryDataArray[ResponseElements.speed.rawValue])
             let altitude = altitudeFrom(altitude: telemetryDataArray[ResponseElements.altitude.rawValue])
             let climbRate = climbRateFrom(climbRate: telemetryDataArray[ResponseElements.climbRate.rawValue])
@@ -266,8 +265,6 @@ extension Double {
     }
 }
 
-
-//TODO: Rename and expande extention; 01042020, ph
 // MARK: - Extension - ResponseElements
 enum ResponseElements: Int, CaseIterable {
 
@@ -279,7 +276,7 @@ enum ResponseElements: Int, CaseIterable {
     case latitudeHemisphere = 3 // N(orth) or S(outh)
     case longitude = 4
     case longitudeHemisphere = 5 // E(ast) or W(est)
-    case type = 6
+    case type = 6 // TODO: rename to aircraftType; 04042020, ph
     case heading = 7
     case speed = 8
     case altitude = 9
