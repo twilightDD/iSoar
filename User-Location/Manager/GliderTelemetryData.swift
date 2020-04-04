@@ -42,7 +42,7 @@ struct GliderTelemetryData: Hashable {
             //TODO: Magic number => remove comment sign; 01042020, ph
             guard telemetryDataArray.count >= 11// ResponseElements.allCases.count
                 else {
-                    print("telemetryDataArray has to less enties: \(telemetryDataArray.count)\n\(telemetryDataArray)")
+                    print("telemetryDataArray has to less enties: \(telemetryDataArray.count)\ntelemetryDataArray: \(telemetryDataArray)\nresponse string: \(response)")
                     return nil
             }
             
