@@ -28,7 +28,23 @@ class AirportDatabase {
         checkForMapOjectsInLibraryFolder()
         loadAirports()
     }
-    
+
+    // MARK: - Public Class Methods
+    class func nearestAirport ()
+        -> AirportDatabase.Airport? {
+            shared.updateDistance()
+            let nearestAirport = shared.nearestAirport()
+            return nearestAirport
+    }
+
+    class func icaoOfNearestAirport()
+        -> String? {
+            let nearestAirport = AirportDatabase.nearestAirport()
+            let icaoOfNearestAirport = nearestAirport?.icao
+            return icaoOfNearestAirport
+    }
+
+
     // MARK: - Public Methods
     // updateDistance
     // TODO: make private (use class method / shared....()); 04042020, ph

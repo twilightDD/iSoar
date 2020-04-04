@@ -46,12 +46,14 @@ class FlightComputer {
                 currentLocation.speed > Presets.FlightComputer.minimalFlightSpeed {
 
                 gliderIsFlying = true
-                flightUUIDString = UUID().uuidString
+                flightUUIDString = UUID().uuidString //?
                 flightStartTime = Date()
-                startICAO = icaoOfNearestAirport()
+                startICAO = AirportDatabase.icaoOfNearestAirport()
                 
                 // Create FlightRecorder Files
+                //TODO: Ziel ist: FlightRecorder.startRecording()
                 FlightRecorder.shared.recorderIsReadyToWrite = ISoarFileManager.createFlightRecorderFiles()
+
             }
         }
         else {
@@ -61,9 +63,10 @@ class FlightComputer {
 
                 gliderIsFlying = false
                 flightEndTime = Date()
-                endICAO = icaoOfNearestAirport()
+                endICAO = AirportDatabase.icaoOfNearestAirport()
 
                 // Close FlightRecorder Files
+                //TODO: Ziel ist: FlightRecorder.stopRecording()
                 ISoarFileManager.closeFlightRecorderFiles()
                 FlightRecorder.shared.recorderIsReadyToWrite = false
             }
@@ -73,19 +76,7 @@ class FlightComputer {
 
 
     // MARK: - Private Methods
-    // Check for nearest Aiport
-    private func icaoOfNearestAirport()
-        -> String? {
-            // Update Distance from current Location to all Airports in Database
-            AirportDatabase.shared.updateDistance()
-            
-            if let nearestAirport = AirportDatabase.shared.nearestAirport(),
-                (nearestAirport.distance ?? Presets.FlightComputer.minimalDistanceForNearestAirport + 1) < Presets.FlightComputer.minimalDistanceForNearestAirport {
-                return nearestAirport.icao
-            }
-            return nil
-    }
-    
+
     // MARK: - Check Warning Methods
     private func checkForGearWarning() {
         guard let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
