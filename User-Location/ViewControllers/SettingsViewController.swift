@@ -20,12 +20,13 @@ class SettingsViewController: UIViewController {
     @IBOutlet private weak var gliderRatioTextField: TextFields!
     @IBOutlet private weak var safetyAltitudeTextField: TextFields!
     @IBOutlet private weak var gliderIDTextField: TextFields!
+    @IBOutlet private weak var buddyFlarmIDTextField: TextFields!
     @IBOutlet private weak var gearWarningSwitch: UISwitch!
     @IBOutlet private weak var showTrackingRouteSwitch: UISwitch!
-    @IBOutlet private weak var showFlarmBuddySwitch: UISwitch!
-    @IBOutlet private weak var buddyFlarmIDTextField: TextFields!
-    @IBOutlet private weak var showNearbyGlidersSwitch: UISwitch!
+    @IBOutlet private weak var showAllNearbyGlidersSwitch: UISwitch!
+    @IBOutlet private weak var showOnlyBuddyNearbyGliderSwitch: UISwitch!
     @IBOutlet private weak var collisionWarningSwitch: UISwitch!
+    @IBOutlet private weak var downloadAirportUpdates: UIButton!
 
 
     // MARK: - Init&Co.
@@ -96,7 +97,7 @@ class SettingsViewController: UIViewController {
         
         // Show Flarm Buddy Switch Setup
         let showFlarmBuddySwitchState = UserDefaultsManager.getShowFlarmBuddySwitchKey()
-        showFlarmBuddySwitch.isOn = showFlarmBuddySwitchState
+        showOnlyBuddyNearbyGliderSwitch.isOn = showFlarmBuddySwitchState
         
         // Buddy FlarmID
         let buddyFlarmID = UserDefaultsManager.getBuddyFlarmID()
@@ -104,7 +105,7 @@ class SettingsViewController: UIViewController {
         
         // Show nearby Gliders Switch Setup
         let showNearbyGlidersSwitchState = UserDefaultsManager.getShowNearbyGlidersSwitch()
-        showNearbyGlidersSwitch.isOn = showNearbyGlidersSwitchState
+        showAllNearbyGlidersSwitch.isOn = showNearbyGlidersSwitchState
         
         // Collision Warning Switch Setup
         let collsionWarningSwitchState = UserDefaultsManager.getCollisionWarningSwitch()
@@ -127,62 +128,58 @@ class SettingsViewController: UIViewController {
     }
     
     // MARK: - Action Methods
-    // Gear Warning Switch
-    @IBAction func gearWarningSwitch(_ sender: UISwitch) {
+    @IBAction func gearWarningSwitchAction(_ sender: UISwitch) {
         UserDefaultsManager.set(gearWarningSwitch: sender.isOn)
     }
 
-    //Show Tracking Route Switch
-    @IBAction func showTrackingRouteSwitch(_ sender: UISwitch) {
+    @IBAction func showTrackingRouteSwitchAction(_ sender: UISwitch) {
         UserDefaultsManager.set(showTrackingRouteSwitch: sender.isOn)
     }
-    
-    // Show only Buddy Gliders Switch
-    @IBAction func showFlarmBuddySwitch(_ sender: UISwitch) {
-        UserDefaultsManager.set(showFlarmBuddySwitch: sender.isOn)
-        if sender.isOn {
-            // Set showNearbyGlidersSwitch also to true
-            showNearbyGlidersSwitch.setOn(true, animated: true)
-            
-            // Disconnect from OGN Server, empty Messages Set and remove all nearby Glider Annotaions from Map
-            OGNSocketConnectionManager.stop()
 
-            
-            showNearbyGlidersSwitch(showNearbyGlidersSwitch)
-        } else {
-            OGNSocketConnectionManager.stop()
-        }
-    }
-    
-    // Show Nearby Gliders Switch
-    @IBAction func showNearbyGlidersSwitch(_ sender: UISwitch) {
+    @IBAction func showAllNearbyGlidersSwitchAction(_ sender: UISwitch) {
         UserDefaultsManager.set(showNearbyGlidersSwitch: sender.isOn)
         if sender.isOn {
             // Connect to OGN Server with Radius Filter
             OGNSocketConnectionManager.start()
         } else {
             // Set showFlarmBuddySwitch also to false
-            showFlarmBuddySwitch.setOn(false, animated: true)
-            showFlarmBuddySwitch(showFlarmBuddySwitch)
-            
+            showOnlyBuddyNearbyGliderSwitch.setOn(false, animated: true)
+            showOnlyBuddyNearbyGliderSwitchAction(showOnlyBuddyNearbyGliderSwitch)
+
             // Set collisionWarningSwitch also to false
             collisionWarningSwitch.setOn(false, animated: true)
-            collisionWarningSwitch(collisionWarningSwitch)
-            
+            collisionWarningSwitchAction(collisionWarningSwitch)
+
             // Disconnect from OGN Server
             OGNSocketConnectionManager.stop()
         }
     }
-    
-    // Collision Warning Switch
-    @IBAction func collisionWarningSwitch(_ sender: UISwitch) {
+
+    @IBAction func showOnlyBuddyNearbyGliderSwitchAction(_ sender: UISwitch) {
+        UserDefaultsManager.set(showFlarmBuddySwitch: sender.isOn)
+        if sender.isOn {
+            // Set showNearbyGlidersSwitch also to true
+            showAllNearbyGlidersSwitch.setOn(true, animated: true)
+
+            // Disconnect from OGN Server, empty Messages Set and remove all nearby Glider Annotaions from Map
+            OGNSocketConnectionManager.stop()
+
+
+            showAllNearbyGlidersSwitchAction(showAllNearbyGlidersSwitch)
+        } else {
+            OGNSocketConnectionManager.stop()
+        }
+    }
+
+
+    @IBAction func collisionWarningSwitchAction(_ sender: UISwitch) {
         UserDefaultsManager.set(collisionWarningSwitch: sender.isOn)
         // If Collision Warning Switch is turned on (true)
-        if sender.isOn && showNearbyGlidersSwitch.isOn == false {
+        if sender.isOn && showAllNearbyGlidersSwitch.isOn == false {
             // Turn on Show Nearby Gliders Switch also (true)
-            showNearbyGlidersSwitch.setOn(true, animated: true)
+            showAllNearbyGlidersSwitch.setOn(true, animated: true)
             // Execute Methods of the showNearbyGlidersSwitch
-            showNearbyGlidersSwitch(showNearbyGlidersSwitch)
+            showAllNearbyGlidersSwitchAction(showAllNearbyGlidersSwitch)
         } else {
             // Collision Warning Switch is turned off (false)
         }
@@ -190,7 +187,7 @@ class SettingsViewController: UIViewController {
     }
     
     // Download updated Airport Database File from Server
-    @IBAction func downloadAirportUpdates(_ sender: UIButton) {
+    @IBAction func downloadAirportUpdatesAction(_ sender: UIButton) {
         
         let alert = UIAlertController(title: "Download Airport Updates",
                                       message: "Do you want to download an updated Airport Database from Server?",
