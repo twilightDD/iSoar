@@ -273,9 +273,9 @@ extension AirportDatabase {
             self.runwaySurface = dictionary["runwaySurface"] as? String ?? ""
             self.runwayDimensions = dictionary["runwayDimensions"] as? String ?? ""
             self.runwayDirections = dictionary["runwayDirections"] as? String ?? ""
-            self.url = dictionary["url"] as? String ?? ""
+            self.url = dictionary["url"] as? String ?? nil
             self.country = dictionary["country"] as? String ?? ""
-            self.phone = dictionary["phone"] as? String ?? ""
+            self.phone = dictionary["phone"] as? String ?? nil
             self.additionalInfo = dictionary["additionalInfo"] as? String ?? ""
             self.radioName = dictionary["radioName"] as? String ?? ""
             self.radioFrequency = dictionary["radioFrequency"] as? String ?? ""

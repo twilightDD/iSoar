@@ -13,20 +13,24 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
         
     // MARK: - IBOutlets
     @IBOutlet weak var airportName: UILabel!
-    @IBOutlet weak var countryImage: UIImageView!
-    @IBOutlet weak var elevation: UILabel!
-    @IBOutlet weak var latitudeValue: UILabel!
-    @IBOutlet weak var longitudeValue: UILabel!
+    // ------
     @IBOutlet weak var icao: UILabel!
     @IBOutlet weak var radioNameValue: UILabel!
     @IBOutlet weak var radioFrequencyValue: UILabel!
+    @IBOutlet weak var elevation: UILabel!
     @IBOutlet weak var runwayDirectionsValue: UILabel!
-    @IBOutlet weak var dimensionsValue: UILabel!
-    @IBOutlet weak var surfaceValue: UILabel!
-    @IBOutlet weak var additionalInfo: UILabel!
+    @IBOutlet weak var runwayDimensionsValue: UILabel!
+    @IBOutlet weak var runwaySurfaceValue: UILabel!
+    // ------
     @IBOutlet weak var countryValue: UILabel!
+    @IBOutlet weak var countryImage: UIImageView!
+    @IBOutlet weak var latitudeValue: UILabel!
+    @IBOutlet weak var longitudeValue: UILabel!
+    // ------
     @IBOutlet weak var callButton: UIButton!
     @IBOutlet weak var urlButton: UIButton!
+    @IBOutlet weak var additionalInfo: UILabel!
+    // ------
     @IBOutlet weak var validationDate: UILabel!
     
     // MARK: - Init
@@ -35,20 +39,36 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
         
         if let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport() {
             airportName.text = selectedDestinationAirport.name
+            // ------
             icao.text = selectedDestinationAirport.icao
             radioNameValue.text =  selectedDestinationAirport.radioName
             radioFrequencyValue.text =  selectedDestinationAirport.radioFrequency
+            elevation.text =  String(format: "%.0f m", selectedDestinationAirport.elevation)
             runwayDirectionsValue.text = selectedDestinationAirport.runwayDirections
-            dimensionsValue.text = selectedDestinationAirport.runwayDimensions
-            surfaceValue.text = selectedDestinationAirport.runwaySurface
+            runwayDimensionsValue.text = selectedDestinationAirport.runwayDimensions
+            runwaySurfaceValue.text = selectedDestinationAirport.runwaySurface
+            // ------
             countryValue.text = selectedDestinationAirport.country
             countryImage.image = UIImage(named: countryValue.text!)
-            elevation.text =  String(format: "%.0f m", selectedDestinationAirport.elevation)
             latitudeValue.text = String(format: "%.6f", selectedDestinationAirport.latitude)
             longitudeValue.text = String(format: "%.6f", selectedDestinationAirport.longitude)
+            // ------
+            if let phoneNumber = selectedDestinationAirport.phone {
+                callButton.setTitle("\(phoneNumber)", for: .normal)
+            }
+            else {
+                callButton.setTitle("Keine Nummer", for: .normal)
+                callButton.isEnabled = false
+            }
+            if let url = selectedDestinationAirport.url {
+                urlButton.setTitle("\(url)", for: .normal)
+            }
+            else {
+                urlButton.setTitle("Keine URL", for: .normal)
+                urlButton.isEnabled = false
+            }
             additionalInfo.text = selectedDestinationAirport.additionalInfo
-            callButton.setTitle("\(selectedDestinationAirport.phone!)", for: .normal)
-            urlButton.setTitle("\(selectedDestinationAirport.url!)", for: .normal)
+            // ------
             validationDate.text = selectedDestinationAirport.validationDate
         }
     }
@@ -89,12 +109,11 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
     }
     
     @IBAction func callButton(_ sender: Any) {
-        
-        let phone = DestinationSelectionViewController.destinationAirport()?.phone
-        
-        if let url = URL(string: "tel://\(phone!))"),
-            UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+
+        if let phoneString = DestinationSelectionViewController.destinationAirport()?.phone,
+            let phoneURL = URL(string: "tel://\(phoneString))"),
+            UIApplication.shared.canOpenURL(phoneURL) {
+            UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
         }
     }
     
