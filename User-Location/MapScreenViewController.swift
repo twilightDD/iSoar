@@ -129,25 +129,14 @@ class MapScreenViewController: UIViewController {
             userLocationButton.layer.borderWidth = 1
             userLocationButton.layer.borderColor = UIColor.red.cgColor
             // userLocationButton.layer.cornerRadius = 5
-            
-            var leadingConstraint: NSLayoutConstraint
-            if #available(iOS 11.0, *) {
-                leadingConstraint = NSLayoutConstraint(item: userLocationButton,
+
+            let leadingConstraint = NSLayoutConstraint(item: userLocationButton,
                                                        attribute: .leading,
                                                        relatedBy: .equal,
                                                        toItem: self.view.safeAreaLayoutGuide,
                                                        attribute: .leading,
                                                        multiplier: 1,
                                                        constant: 10)
-            } else {
-                leadingConstraint = NSLayoutConstraint(item: userLocationButton,
-                                                       attribute: .leading,
-                                                       relatedBy: .equal,
-                                                       toItem: self.view,
-                                                       attribute: .leading,
-                                                       multiplier: 1,
-                                                       constant: 10)
-            }
             
             let constraints: [NSLayoutConstraint] = [NSLayoutConstraint(item: userLocationButton,
                                                                         attribute: .top,
