@@ -13,27 +13,27 @@ import MessageUI
 // MARK: - AirportInfoViewController
 class AirportInfoViewController: UIViewController {
         
-    // MARK:  IBOutlets
-    @IBOutlet weak var airportNameLabel: UILabel!
+    // MARK: IBOutlets
+    @IBOutlet private weak var airportNameLabel: UILabel!
     // ------
-    @IBOutlet weak var icaoLabel: UILabel!
-    @IBOutlet weak var radioNameLabel: UILabel!
-    @IBOutlet weak var radioFrequencyLabel: UILabel!
-    @IBOutlet weak var elevationLabel: UILabel!
-    @IBOutlet weak var runwayDirectionsLabel: UILabel!
-    @IBOutlet weak var runwayDimensionsLabel: UILabel!
-    @IBOutlet weak var runwaySurfaceLabel: UILabel!
+    @IBOutlet private weak var icaoLabel: UILabel!
+    @IBOutlet private weak var radioNameLabel: UILabel!
+    @IBOutlet private weak var radioFrequencyLabel: UILabel!
+    @IBOutlet private weak var elevationLabel: UILabel!
+    @IBOutlet private weak var runwayDirectionsLabel: UILabel!
+    @IBOutlet private weak var runwayDimensionsLabel: UILabel!
+    @IBOutlet private weak var runwaySurfaceLabel: UILabel!
     // ------
-    @IBOutlet weak var countryLabel: UILabel!
-    @IBOutlet weak var countryImageView: UIImageView!
-    @IBOutlet weak var latitudeLabel: UILabel!
-    @IBOutlet weak var longitudeLabel: UILabel!
+    @IBOutlet private weak var countryLabel: UILabel!
+    @IBOutlet private weak var countryImageView: UIImageView!
+    @IBOutlet private weak var latitudeLabel: UILabel!
+    @IBOutlet private weak var longitudeLabel: UILabel!
     // ------
-    @IBOutlet weak var callButton: UIButton!
-    @IBOutlet weak var urlButton: UIButton!
-    @IBOutlet weak var additionalInfoLabel: UILabel!
+    @IBOutlet private weak var callButton: UIButton!
+    @IBOutlet private weak var urlButton: UIButton!
+    @IBOutlet private weak var additionalInfoLabel: UILabel!
     // ------
-    @IBOutlet weak var validationDateLabel: UILabel!
+    @IBOutlet private weak var validationDateLabel: UILabel!
     
     // MARK: - Init
     override func viewDidLoad() {
