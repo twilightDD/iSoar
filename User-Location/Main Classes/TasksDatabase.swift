@@ -9,6 +9,13 @@
 import Foundation
 import CoreLocation
 
+
+protocol TasksDatabaseProtocol: AnyObject {
+
+    func newTask(withCoordinates coordinates: [CLLocationCoordinate2D])
+
+}
+
 // MARK: - TasksDatabase
 class TasksDatabase: NSObject {
     
@@ -16,6 +23,8 @@ class TasksDatabase: NSObject {
     // Static
     private static let shared = TasksDatabase()
 
+    // Public
+    weak var delegate: TasksDatabaseProtocol?
 
     // Private
     private var taskWaypoints = [CLLocationCoordinate2D]()
@@ -59,6 +68,7 @@ extension TasksDatabase: XMLParserDelegate {
     // parser start
     func parserDidStartDocument(_ parser: XMLParser) {
         taskWaypoints.removeAll()
+        delegate?.newTask(withCoordinates: taskWaypoints) // empty array!
     }
 
     // Parse Content for Latitude and Longitude
@@ -85,6 +95,7 @@ extension TasksDatabase: XMLParserDelegate {
 
     // Parser end
     func parserDidEndDocument(_ parser: XMLParser) {
+        delegate?.newTask(withCoordinates: taskWaypoints)
     }
 
 }
