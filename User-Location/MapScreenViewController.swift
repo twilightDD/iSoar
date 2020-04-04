@@ -462,20 +462,21 @@ extension MapScreenViewController: MGLMapViewDelegate {
     // https://stackoverflow.com/questions/26713582/didselectannotationview-not-called
     func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation)
         -> MGLCalloutView? {
-            let views = Bundle.main.loadNibNamed(NearbyGliderCalloutView.nibName(),
-                                                 owner: nil,
-                                                 options: nil)
 
-            guard let nearbyGliderCalloutView = views?[0] as? NearbyGliderCalloutView
-                else { fatalError("Must be a NearbyGliderCalloutView.") }
-            
-            // TODO: Hier vielleicht nochmal ne Abfrage welche Art Annotation das ist
-            guard let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotation
-                else { return nil }
+            if let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotation {
+                let views = Bundle.main.loadNibNamed(NearbyGliderCalloutView.nibName(),
+                                                     owner: nil,
+                                                     options: nil)
 
-            nearbyGliderCalloutView.representedObject = nearbyGliderAnnotation
-            
-            return nearbyGliderCalloutView
+                guard let nearbyGliderCalloutView = views?[0] as? NearbyGliderCalloutView
+                    else { fatalError("Must be a NearbyGliderCalloutView.") }
+
+                nearbyGliderCalloutView.representedObject = nearbyGliderAnnotation
+
+                return nearbyGliderCalloutView
+            }
+
+            return nil
     }
 
     // Hide the callout
