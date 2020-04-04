@@ -86,7 +86,7 @@ class FlightComputer {
             return nil
     }
     
-    // MARK: - Audio Warnings
+    // MARK: - Check Warning Methods
     private func checkForGearWarning() {
         guard let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
             let currentLocation = LocationManager.currentLocation(),
@@ -108,15 +108,7 @@ class FlightComputer {
                 lowerWarningNeeded == true {
                 
                 if shouldPlayGearWarning == true {
-                    AudioServicesPlayAlertSound(SystemSoundID(1256))
-                    
-                    let utterance = AVSpeechUtterance(string: "Check Gear")
-                    utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-                    utterance.rate = 0.5
-                    
-                    let synthesizer = AVSpeechSynthesizer()
-                    synthesizer.speak(utterance)
-                    
+                    speak(string: "Check Gear")
                     shouldPlayGearWarning = false
                 }
             } else {
@@ -134,15 +126,7 @@ class FlightComputer {
         let oxygenWarningNeeded = currentLocation.altitude > Presets.FlightComputer.oxygenWarningAltitude
         if oxygenWarningNeeded == true {
             if shouldPlayOxygenWarning == true {
-                AudioServicesPlayAlertSound(SystemSoundID(1256))
-
-                let utterance = AVSpeechUtterance(string: "Check Oxygen Level")
-                utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-                utterance.rate = 0.5
-
-                let synthesizer = AVSpeechSynthesizer()
-                synthesizer.speak(utterance)
-
+                speak(string: "Check Oxygen Level")
                 shouldPlayOxygenWarning = false
             }
         } else {
@@ -158,14 +142,8 @@ class FlightComputer {
             // Check if Collision Warning Switch is on / If false we dont need to warn
             let collisionWarningSwitch = UserDefaultsManager.collisionWarningState()
             if collisionWarningSwitch == true {
-                AudioServicesPlayAlertSound(SystemSoundID(1256))
-                
-                let utterance = AVSpeechUtterance(string: "Warning, Traffic ahead")
-                utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-                utterance.rate = 0.5
-                
-                let synthesizer = AVSpeechSynthesizer()
-                synthesizer.speak(utterance)
+                speak(string: "Warning, Traffic ahead")
+
             } else {
                 // Collision Warning Switch is on
             }
@@ -175,9 +153,23 @@ class FlightComputer {
         }
     }
 
+
+    // MARK: Audio Methods
+    private func speak(string: String) {
+        AudioServicesPlayAlertSound(SystemSoundID(1256))
+
+        let speechUtterance = AVSpeechUtterance(string: string)
+        speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        speechUtterance.rate = 0.5
+
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.speak(speechUtterance)
+    }
+
 }
 
 
+// MARK: - Extension - LocationManagerDelegate
 extension FlightComputer: LocationManagerDelegate {
 
     func locationManager(didUpdateLocations locations: [CLLocation]) {
