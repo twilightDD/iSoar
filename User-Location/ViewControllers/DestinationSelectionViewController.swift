@@ -304,6 +304,7 @@ extension DestinationSelectionViewController: UITableViewDelegate {
         }
         
         updateUIForSelectedDestinationAirport()
+        LocationManager.updateCurrentDistanceToDestinationAirport()
         
         guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows
             else { return }

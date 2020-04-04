@@ -81,23 +81,23 @@ class FlightComputer {
     // MARK: - Audio Warnings
     // Audio Gear Warning
     func gearWarning() {
-        guard let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport()
+        guard let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
+            let currentLocation = LocationManager.currentLocation(),
+            let currentDistance = LocationManager.currentDistance()
             else { return }
 
         let gearWarningSwitch = UserDefaultsManager.getGearWarningSwitch()
         if gearWarningSwitch == true {
-            let distanceInKm = (MapScreenViewController.shared?.currentDistance!)!/1000
 
+            let distanceInKm = currentDistance / 1000
             let upperGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.upperGearWarningAltitude
             let lowerGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.lowerGearWarningAltitude
             
-            if let currentLocation = LocationManager.currentLocation(),
-                distanceInKm < 1
-                    && (currentLocation.altitude < upperGearWarningAltitude
-                        && currentLocation.altitude > lowerGearWarningAltitude) {
+            if distanceInKm < 1
+                && (currentLocation.altitude < upperGearWarningAltitude
+                    && currentLocation.altitude > lowerGearWarningAltitude) {
                 
                 if playGearWarning == true {
-                    
                     AudioServicesPlayAlertSound(SystemSoundID(1256))
                     
                     let utterance = AVSpeechUtterance(string: "Check Gear")
@@ -108,15 +108,12 @@ class FlightComputer {
                     synthesizer.speak(utterance)
                     
                     playGearWarning = false
-
                 } else {
                     playGearWarning = true
                 }
-            } else {
-                // Gear Switch is off
             }
+
         }
-        
     }
     
     // Audio for Oxygen Level Warning

@@ -39,6 +39,22 @@ class LocationManager: NSObject {
             return currentDistance
     }
 
+    class func updateCurrentDistanceToDestinationAirport() {
+        guard let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
+            let currentLocation = LocationManager.currentLocation()
+            else {
+                shared.currentDistance = nil
+                return
+        }
+
+        let destinationAirportLocation = CLLocation(latitude: selectedDestinationAirport.latitude,
+                                                    longitude: selectedDestinationAirport.longitude)
+
+
+        let newCurrentDistance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
+        shared.currentDistance = newCurrentDistance
+    }
+
 
     // Private
     private let locationManager = CLLocationManager()
@@ -116,6 +132,8 @@ extension LocationManager: CLLocationManagerDelegate {
             else { return }
 
         self.currentLocation = currentLocation
+
+        LocationManager.updateCurrentDistanceToDestinationAirport()
 
         // Inform delegate
         if let delegate = self.delegate {

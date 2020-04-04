@@ -27,7 +27,7 @@ class MapScreenViewController: UIViewController {
     
     // MARK: Lets and Vars
 //    var currentLocation: CLLocation?
-    var currentDistance: CLLocationDistance?
+    //var currentDistance: CLLocationDistance?
     
     lazy var userLocationButton: UserLocationButton = createUserLocationButton()
     
@@ -307,17 +307,16 @@ class MapScreenViewController: UIViewController {
     
     // Update DistanceLabel
     private func updateDistanceLabel() {
-        guard let currentDistance = currentDistance else {
+        guard let currentDistance = LocationManager.currentDistance() else {
             return
         }
         
         var distanceLabelText = ""
         if showDistanceInKM == true {
-            
-            let distanceInKm = currentDistance/1000
+            let distanceInKm = currentDistance / 1000
             distanceLabelText =  String(format: "%.0f Km", distanceInKm)
         } else {
-            let distcanceInMi = currentDistance/1000/1.852
+            let distcanceInMi = currentDistance / 1000 / 1.852
             distanceLabelText = String(format: "%.0f NM", distcanceInMi)
         }
         
@@ -328,7 +327,7 @@ class MapScreenViewController: UIViewController {
     // Update DestinationAltitudeLabel
     private func updateDestinationAltitudeLabel() {
         guard let currentLocation = LocationManager.currentLocation(),
-            let currentDistance = currentDistance,
+            let currentDistance = LocationManager.currentDistance(),
             let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport()
             else { return }
 
@@ -384,11 +383,6 @@ class MapScreenViewController: UIViewController {
         if let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
             let currentLocation = LocationManager.currentLocation() {
 
-            // Distance
-            let destinationAirportLocation = CLLocation(latitude: selectedDestinationAirport.latitude,
-                                                        longitude: selectedDestinationAirport.longitude)
-            
-            currentDistance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
             updateDistanceLabel()
             
             // DestinationAltitude
@@ -397,7 +391,8 @@ class MapScreenViewController: UIViewController {
             // Draw DirectionLine between current Location and DestinationAirport
             let destinationAirportLocationCoordinate = CLLocationCoordinate2D(latitude: selectedDestinationAirport.latitude,
                                                                               longitude: selectedDestinationAirport.longitude)
-            let newDirectionCoordinates: [CLLocationCoordinate2D] = [currentLocation.coordinate, destinationAirportLocationCoordinate]
+            let newDirectionCoordinates: [CLLocationCoordinate2D] = [currentLocation.coordinate,
+                                                                     destinationAirportLocationCoordinate]
             let newCurrentDirectionLine = MGLPolyline(coordinates: newDirectionCoordinates,
                                                       count: UInt(newDirectionCoordinates.count))
             
