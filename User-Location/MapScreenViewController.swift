@@ -17,7 +17,7 @@ class MapScreenViewController: UIViewController {
     static var shared: MapScreenViewController?
     
     // MARK: IBOutlets
-    @IBOutlet var mapView: MGLMapView!
+    @IBOutlet private weak var mapView: MGLMapView!
     @IBOutlet private weak var courseLabel: UILabel!
     @IBOutlet private weak var altitudeLabel: UILabel!
     @IBOutlet private weak var speedLabel: UILabel!
