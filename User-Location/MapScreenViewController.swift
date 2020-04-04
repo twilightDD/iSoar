@@ -438,37 +438,6 @@ class MapScreenViewController: UIViewController {
     
 }
 
-// TODO: Could be removed
-//class DLCalloutView: UIView, MGLCalloutView {
-//    var representedObject: MGLAnnotation
-//
-//    lazy var leftAccessoryView = UIView()
-//    lazy var rightAccessoryView = UIView()
-//
-//    weak var delegate: MGLCalloutViewDelegate?
-//
-//    required init(annotation: MGLAnnotation) {
-//        self.representedObject = annotation
-//        let rect = CGRect(x: 250, y: 250, width: 250, height: 250)
-//        super.init(frame: rect)
-//    }
-//
-//    required init?(coder decoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    func presentCallout(from rect: CGRect, in view: UIView, constrainedTo constrainedRect: CGRect, animated: Bool) {
-//        view.addSubview(self)
-//    }
-//
-//    func dismissCallout(animated: Bool) {
-//        if animated {
-//            //do something cool
-//            removeFromSuperview()
-//        } else {
-//            removeFromSuperview()
-//        }
-//    }
-//}
 
 // MARK: - MGLMapViewDelegate methods
 extension MapScreenViewController: MGLMapViewDelegate {
