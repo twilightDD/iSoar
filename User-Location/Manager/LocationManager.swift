@@ -39,6 +39,7 @@ class LocationManager: NSObject {
             return currentDistance
     }
 
+    //TODO: add destAirport to signature, 04042020, ph
     class func updateCurrentDistanceToDestinationAirport() {
         guard let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
             let currentLocation = LocationManager.currentLocation()
@@ -59,8 +60,8 @@ class LocationManager: NSObject {
     // Private
     private let locationManager = CLLocationManager()
 
-    private(set) var currentLocation: CLLocation?
-    private(set) var currentDistance: CLLocationDistance?
+    private var currentLocation: CLLocation?
+    private var currentDistance: CLLocationDistance?
 
     private weak var delegate: LocationManagerDelegate?
 
