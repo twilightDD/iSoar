@@ -68,7 +68,8 @@ class AirportDatabase {
     
     // Filter Destination Airports
     // TODO: make private (use class method / shared....()); 04042020, ph
-    func filterDestinationAirports(byName searchString: String?, sortedBy sortIndicator: SortIndicator)
+    func filterDestinationAirports(byName searchString: String?,
+                                   sortedBy sortIndicator: SortIndicator)
         -> [AirportDatabase.Airport]? {
             
             var filteredAndSortedAirports = [AirportDatabase.Airport]()
@@ -93,17 +94,15 @@ class AirportDatabase {
             case .name:
                 filteredAndSortedAirports = filteredArray.sorted(by: { ($0.name < $1.name) })
             case .distance:
-                // in case we don't have a current location we don't have a distance: return unsorted filteredArray
-                for destinationAirport in filteredArray {
-                    if destinationAirport.distance == nil {
-                        return filteredArray
-                    }
+                for destinationAirport in filteredArray where destinationAirport.distance == nil {
+                    return filteredArray
                 }
-           
-                // TODO: To avoid For Where Violation Code must be:
-//                for destinationAirport in filteredArray where destinationAirport.distance == nil {
-//                    return filteredArray
-//                }
+                // In case of a malfuction of where clousure above, use this code:
+                //                for destinationAirport in filteredArray {
+                //                    if destinationAirport.distance == nil {
+                //                        return filteredArray
+                //                    }
+                //                }
 
                 filteredAndSortedAirports = filteredArray.sorted(by: { ($0.distance! < $1.distance!) })
             }
