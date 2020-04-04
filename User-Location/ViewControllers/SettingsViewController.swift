@@ -117,12 +117,12 @@ class SettingsViewController: UIViewController {
     private func saveSettings() {
         let gliderRatioString = gliderRatioTextField.text!
         let gliderRatioDouble = (gliderRatioString as NSString).doubleValue
-        
+        UserDefaultsManager.set(gliderRatio: gliderRatioDouble)
+
         let safetyAltitudeString = safetyAltitudeTextField.text!
         let safetyAltitudeDouble = (safetyAltitudeString as NSString).doubleValue
-
-        UserDefaultsManager.set(gliderRatio: gliderRatioDouble)
         UserDefaultsManager.set(safetyAltitude: safetyAltitudeDouble)
+
         UserDefaultsManager.set(gliderID: gliderIDTextField.text!)
         UserDefaultsManager.set(buddyFlarmID: buddyFlarmIDTextField.text!)
     }
