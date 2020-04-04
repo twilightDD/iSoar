@@ -92,7 +92,7 @@ class AirportInfoViewController: UIViewController {
     }
     
     @IBAction func urlButtonAction(_ sender: Any) {
-        //TODO: Hier hast du einfach Glück, weil eine URL mit Leerzeichen nicht gültig ist; 040402020, ph
+        
         if let destinationAirportURLString = DestinationSelectionViewController.destinationAirport()?.url {
             let urlString = "https://\(destinationAirportURLString)"
             if let url = URL(string: urlString) {
