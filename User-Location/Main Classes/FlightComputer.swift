@@ -23,10 +23,19 @@ class FlightComputer {
     private(set) var flightEndTime = Date()
     private(set) var startICAO: String?
     private(set) var endICAO: String?
-    
+
+
     private var playGearWarning = true
     private var playOxygenWarning = true
-    
+
+
+    // MARK: - Init&CO.
+     init() {
+        print("FlightComputer init")
+        LocationManager.registerForLocationUpdates(self)
+    }
+
+
     // MARK: - Public Methods
     // Check if Glider is flying or on ground
     func checkIfGliderIsFlying() {
@@ -163,6 +172,19 @@ class FlightComputer {
         } else {
             // Glider not flying
         }
+    }
+
+}
+
+
+extension FlightComputer: LocationManagerDelegate {
+
+    func locationManager(didUpdateLocations locations: [CLLocation]) {
+        gearWarning()
+
+        // Oxygen Warning
+        oxygenWarning()
+
     }
 
 }

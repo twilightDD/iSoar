@@ -597,15 +597,15 @@ extension MapScreenViewController: LocationManagerDelegate {
         updateDirectionLabelsAndLine()
         
         // Operating Stuff
-        // Gear Warning
-        FlightComputer.shared.gearWarning()
-        
-        // Oxygen Warning
-        FlightComputer.shared.oxygenWarning()
-        
+//        // Gear Warning
+//        FlightComputer.shared.gearWarning()
+//
+//        // Oxygen Warning
+//        FlightComputer.shared.oxygenWarning()
+
         // FlightRecorder
         FlightRecorder.shared.addFlightRecorderEntryForLocation(currentLocation)
-        
+
         // updateFlightRecorderLine()
         drawTrackingRoute()
         

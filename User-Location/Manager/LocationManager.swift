@@ -63,18 +63,26 @@ class LocationManager: NSObject {
     private var currentLocation: CLLocation?
     private var currentDistance: CLLocationDistance?
 
-    private weak var delegate: LocationManagerDelegate?
+    private var delegates = NSHashTable<AnyObject>.weakObjects()
 
 
     // MARK: - Public Class Methods
     class func registerForLocationUpdates(_ delegate: LocationManagerDelegate) {
-        shared.delegate = delegate
+        print("\(#function) - willAdd delegates.count = \(shared.delegates.count)")
+        shared.delegates.add(delegate)
+        print("\(#function) - did Add delegates.count = \(shared.delegates.count)")
         shared.checkLocationServices()
     }
 
-    class func unRegisterForLocationUpdates() {
-        shared.delegate = nil
-        shared.locationManager.stopUpdatingLocation()
+    class func unRegisterForLocationUpdates(_ delegate: LocationManagerDelegate) {
+        print("\(#function) - willRemove delegates.count = \(shared.delegates.count)")
+        shared.delegates.remove(delegate)
+        print("\(#function) - did Remove delegates.count = \(shared.delegates.count)")
+
+        if shared.delegates.count < 1 {
+            print("\(#function) - will stopUpdatingLocation")
+            shared.locationManager.stopUpdatingLocation()
+        }
     }
 
 }
@@ -85,7 +93,9 @@ extension LocationManager {
 
     // Check for Location Services
     private func checkLocationServices() {
-        if CLLocationManager.locationServicesEnabled() {
+
+        let locationServicesEnabled = CLLocationManager.locationServicesEnabled()
+        if locationServicesEnabled == true {
             setupLocationManager()
             checkLocationAuthorization()
         } else {
@@ -137,8 +147,10 @@ extension LocationManager: CLLocationManagerDelegate {
         LocationManager.updateCurrentDistanceToDestinationAirport()
 
         // Inform delegate
-        if let delegate = self.delegate {
-            delegate.locationManager(didUpdateLocations: locations)
+        for delegate in delegates.allObjects {
+            if let locationManagerDelegate = delegate as? LocationManagerDelegate {
+                locationManagerDelegate.locationManager(didUpdateLocations: locations)
+            }
         }
         
     }
