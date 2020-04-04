@@ -9,9 +9,11 @@
 import UIKit
 import MessageUI
 
-class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDelegate {
+
+// MARK: - AirportInfoViewController
+class AirportInfoViewController: UIViewController {
         
-    // MARK: - IBOutlets
+    // MARK:  IBOutlets
     @IBOutlet weak var airportNameLabel: UILabel!
     // ------
     @IBOutlet weak var icaoLabel: UILabel!
@@ -71,32 +73,6 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
         }
     }
     
-    // MARK: - Methods
-    // Report new Data
-    private func reportNewAirportData() {
-        if MFMailComposeViewController.canSendMail() {
-            let mailComposer = MFMailComposeViewController()
-            mailComposer.setToRecipients(["mail@isoar.de"])
-            mailComposer.setSubject("Report new Data for \(icaoLabel.text!)")
-            mailComposer.setMessageBody("Country:<br>Elevation AMSL:<br>ICAO Code:<br>Latitude:<br>Longitude:<br>Name:<br>Radio Frequency:<br>Radio Frequency Name:<br>Runway Dimensions: (1000 x 50) <br>Runway Direction: (01/19)<br>Runway Surface: Grass / Asphalt<br>URL: www.airport.org", isHTML: true)
-            
-            mailComposer.mailComposeDelegate = self
-            self.present(mailComposer, animated: true,
-                         completion: nil)
-        } else {
-            let alert = UIAlertController(title: "Error creating Mail", message: "Mail is not configured in settings app.", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            
-            self.present(alert, animated: true)
-        }
-    }
-    
-    // Mail Composer Controller
-    internal func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true)
-    }
-    
     // MARK: - Action Methods
     @IBAction func dismissButtonAction(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -125,4 +101,37 @@ class AirportInfoViewController: UIViewController, MFMailComposeViewControllerDe
         }
     }
     
+}
+
+
+// MARK: - Extension - MFMailComposeViewControllerDelegate
+extension AirportInfoViewController: MFMailComposeViewControllerDelegate {
+
+    // MARK: Private Methods
+    private func reportNewAirportData() {
+
+        if MFMailComposeViewController.canSendMail() {
+            let mailComposer = MFMailComposeViewController()
+            mailComposer.setToRecipients(["mail@isoar.de"])
+            mailComposer.setSubject("Report new Data for \(icaoLabel.text!)")
+            mailComposer.setMessageBody("Country:<br>Elevation AMSL:<br>ICAO Code:<br>Latitude:<br>Longitude:<br>Name:<br>Radio Frequency:<br>Radio Frequency Name:<br>Runway Dimensions: (1000 x 50) <br>Runway Direction: (01/19)<br>Runway Surface: Grass / Asphalt<br>URL: www.airport.org", isHTML: true)
+
+            mailComposer.mailComposeDelegate = self
+            self.present(mailComposer, animated: true,
+                         completion: nil)
+        } else {
+            let alert = UIAlertController(title: "Error creating Mail", message: "Mail is not configured in settings app.", preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+
+            self.present(alert, animated: true)
+        }
+    }
+
+    // MARK: MFMailComposeViewControllerDelegate Methods
+    internal func mailComposeController(_ controller: MFMailComposeViewController,
+                                        didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
+
 }
