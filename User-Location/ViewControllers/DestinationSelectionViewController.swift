@@ -73,7 +73,6 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
 
         setupTableViewDatasource()
         
-        // TODO: muss das bei jedem Anzeigen ausgeführt werden?
         updateUIForSelectedDestinationAirport()
         searchBar.placeholder = "Filter Airfields"
         
