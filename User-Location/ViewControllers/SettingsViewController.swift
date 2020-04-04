@@ -76,16 +76,16 @@ class SettingsViewController: UIViewController {
         // Glider Ratio
         let gliderRatio = UserDefaultsManager.getGliderRatio()
         let gliderRatioString = String(format: "%.f", gliderRatio)
-        gliderRatioTextField.text! = gliderRatioString
+        gliderRatioTextField.text = gliderRatioString
         
         // Safety Altitude
         let safetyAltitude = UserDefaultsManager.getSafetyAltitude()
         let safetyAltitudeString = String(format: "%.f", safetyAltitude)
-        safetyAltitudeTextField.text! = safetyAltitudeString
+        safetyAltitudeTextField.text = safetyAltitudeString
         
         // Glider ID
         let gliderID = UserDefaultsManager.getGliderID()
-        gliderIDTextField.text! = gliderID
+        gliderIDTextField.text = gliderID
         
         // Gear Warning Switch Setup
         let gearWarningSwitchState = UserDefaultsManager.getGearWarningSwitch()
@@ -101,7 +101,7 @@ class SettingsViewController: UIViewController {
         
         // Buddy FlarmID
         let buddyFlarmID = UserDefaultsManager.getBuddyFlarmID()
-        buddyFlarmIDTextField.text! = buddyFlarmID
+        buddyFlarmIDTextField.text = buddyFlarmID
         
         // Show nearby Gliders Switch Setup
         let showNearbyGlidersSwitchState = UserDefaultsManager.getShowNearbyGlidersSwitch()
