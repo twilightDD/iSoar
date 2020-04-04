@@ -14,7 +14,7 @@ import Mapbox
 // MARK: MapScreen
 class MapScreenViewController: UIViewController {
     
-    static var shared: MapScreenViewController?
+    static private var shared: MapScreenViewController?
     
     // MARK: IBOutlets
     @IBOutlet private weak var mapView: MGLMapView!
@@ -66,8 +66,8 @@ class MapScreenViewController: UIViewController {
         super.viewDidLoad()
 
         OGNSocketConnectionManager.registerForSocketUpdates(self)
-
         LocationManager.registerForLocationUpdates(self)
+        TasksDatabase.registerForTaskUpdates(self)
         
         setupMapBox()
         
@@ -433,22 +433,7 @@ class MapScreenViewController: UIViewController {
         
     }
 
-    // MARK: Handle Task Lines
-    func removeCurrentTaskLine() {
-        // Remove existing Task Polyline
-        if let currentTaskLine = currentTaskLine {
-            mapView.removeAnnotation(currentTaskLine)
-            self.currentTaskLine = nil
-        }
-    }
 
-    func drawTaskLine(withCoordinates coordinates: [CLLocationCoordinate2D]) {
-        currentTaskLine = MGLPolyline(coordinates: coordinates,
-                                      count: UInt(coordinates.count))
-        if let currentTaskLine = currentTaskLine {
-            mapView.addAnnotation(currentTaskLine)
-        }
-    }
     
 }
 
@@ -584,7 +569,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
     
 }
 
-// MARK: - MapScreen - LocationManagerDelegate
+// MARK: - Extension - LocationManagerDelegate
 extension MapScreenViewController: LocationManagerDelegate {
     
     func locationManager(didUpdateLocations locations: [CLLocation]) {
@@ -625,6 +610,26 @@ extension MapScreenViewController: LocationManagerDelegate {
         
     }
 
+}
+
+
+// MARK: - Extension - TasksDatabaseProtocol
+extension MapScreenViewController: TasksDatabaseProtocol {
+
+    func newTask(withCoordinates coordinates: [CLLocationCoordinate2D]) {
+        if let currentTaskLine = currentTaskLine {
+            mapView.removeAnnotation(currentTaskLine)
+            self.currentTaskLine = nil
+        }
+
+        if coordinates.isEmpty == false {
+            currentTaskLine = MGLPolyline(coordinates: coordinates,
+                                          count: UInt(coordinates.count))
+            if let currentTaskLine = currentTaskLine {
+                mapView.addAnnotation(currentTaskLine)
+            }
+        }
+    }
 }
 
 // MARK: - MapScreen:UIGestureRecognizerDelegate

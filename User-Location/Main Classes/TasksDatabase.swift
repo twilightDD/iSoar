@@ -30,13 +30,27 @@ class TasksDatabase: NSObject {
     private var taskWaypoints = [CLLocationCoordinate2D]()
 
     // MARK: - Class Methods
+
+    class func registerForTaskUpdates(_ delegate: TasksDatabaseProtocol) {
+        shared.delegate = delegate
+    }
+
+    class func unRegisterForTaskUpdates() {
+        shared.delegate = nil
+    }
+
     class func gpxFileNames()
         -> [String] {
             let gpxFileNames = ISoarFileManager.gpxFileNames()
             
             return gpxFileNames
     }
-    
+
+    class func noGPXFileSelected() {
+        shared.taskWaypoints.removeAll()
+        shared.delegate?.newTask(withCoordinates: shared.taskWaypoints)
+    }
+
     class func openGPXFile(withFilename fileName: String) {
         shared.openGPXFile(withFilename: fileName)
     }
