@@ -35,7 +35,7 @@ struct Presets {
 
         #if DEBUG
         /// Default Radius für NearbyGlider (for debug purpose)
-        static let regionInKm: Double = 200
+        static let regionInKm: Double = 500
         #else
         /// Default Radius für NearbyGlider
         static let regionInKm: Double = 50
