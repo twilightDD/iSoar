@@ -13,10 +13,12 @@ import CoreLocation
 class TasksDatabase: NSObject {
     
     // MARK: - Lets and Vars
+    // Static
     private static let shared = TasksDatabase()
-    
-    // TODO: only init! remove content! only for testing Task Lines
-    var currentTaskWaypointCoordinates = [CLLocationCoordinate2D]()
+
+
+    // Private
+    private var taskWaypoints = [CLLocationCoordinate2D]()
 
     // MARK: - Class Methods
     class func gpxFileNames()
@@ -56,9 +58,7 @@ extension TasksDatabase: XMLParserDelegate {
 
     // parser start
     func parserDidStartDocument(_ parser: XMLParser) {
-        MapScreenViewController.shared?.removeCurrentTaskLine()
-
-        currentTaskWaypointCoordinates.removeAll()
+        taskWaypoints.removeAll()
     }
 
     // Parse Content for Latitude and Longitude
@@ -78,14 +78,13 @@ extension TasksDatabase: XMLParserDelegate {
                 
                 let waypointCoordinate = CLLocationCoordinate2D(latitude: latitude,
                                                                  longitude: longitude)
-                currentTaskWaypointCoordinates.append(waypointCoordinate)
+                taskWaypoints.append(waypointCoordinate)
             }
         }
     }
 
     // Parser end
     func parserDidEndDocument(_ parser: XMLParser) {
-        MapScreenViewController.shared?.drawTaskLine(withCoordinates: currentTaskWaypointCoordinates)
     }
 
 }
