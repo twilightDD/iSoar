@@ -117,8 +117,7 @@ class FlightComputer {
 
         }
     }
-    
-    // Audio for Oxygen Level Warning
+
     private func checkForOxygenWarning() {
         guard let currentLocation = LocationManager.currentLocation()
             else { return }
@@ -133,8 +132,6 @@ class FlightComputer {
             shouldPlayOxygenWarning = true
         }
     }
-
-    // Collision Warning
 
     private func collisionWarning() {
         // Check if Glider is flying / If false we dont need to warn
@@ -174,10 +171,7 @@ extension FlightComputer: LocationManagerDelegate {
 
     func locationManager(didUpdateLocations locations: [CLLocation]) {
         checkForGearWarning()
-
-        // Oxygen Warning
         checkForOxygenWarning()
-
     }
 
 }
