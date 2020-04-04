@@ -12,11 +12,11 @@ class TasksViewController: UIViewController {
     
     // MARK: Lets and Vars
     // Datasource
-    var gpxFileNames = [String]()
-    var selectedGPXFileName: String?
-
+    private var gpxFileNames = [String]()
+    private var selectedGPXFileName: String?
+    
     // MARK: - IBOutlets
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
     
     // MARK: - Init&Co.
     override func viewDidLoad() {
@@ -24,14 +24,12 @@ class TasksViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setupTableViewDatasource()
-        
     }
     
     // MARK: - Private Methods
@@ -46,7 +44,7 @@ class TasksViewController: UIViewController {
 
 // MARK: - Extension - UITableViewDataSource
 extension TasksViewController: UITableViewDataSource {
-
+    
     func numberOfSections(in tableView: UITableView)
         -> Int {
             return 1
@@ -66,10 +64,10 @@ extension TasksViewController: UITableViewDataSource {
                 else { fatalError("")}
             
             let gpxFileNameOfInterest = gpxFileNames[indexPath.row]
-
+            
             // Texts in Cell
             cell.taskName.text = gpxFileNameOfInterest
-             
+            
             if gpxFileNameOfInterest == selectedGPXFileName {
                 cell.accessoryType = .checkmark
                 cell.backgroundColor = UIColor(red: 230/255, green: 240/255, blue: 255/255, alpha: 1.0)
@@ -79,30 +77,16 @@ extension TasksViewController: UITableViewDataSource {
             }
             
             return cell
-            
-            // Aufgabe der TasksDatabase
-            //      currentTaskWaypointCoordinates = nil
-            //    greife auf hinterlegte .gpx zu
-            //    parse diese nach waypoints (xml parser)
-            //    füge diese waypoints in ein array ein
-
-            // Aufgabe des MapScreen - MapScreen.shared?.drawTaskLines()
-            // mapView.removeAnnotation(currentTaskLine) - läuft
-            // mapView.addAnnotation(currentTaskLine) - läuft
-            
-            //    wenn zelle nochmals getippt
-            //    remove polyline / set task = nil
-            
     }
     
 }
 
 // MARK: - Extension - UITableViewDelegate
 extension TasksViewController: UITableViewDelegate {
-    // Cell selected
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let newSelectedGPXFileName = gpxFileNames[indexPath.row]
-
+        
         // If the newly selected task equals the former:
         // it means we want to cancel the task
         // We deselect the active cell and set selectedGPXFileName = nil
@@ -110,18 +94,14 @@ extension TasksViewController: UITableViewDelegate {
             selectedGPXFileName == newSelectedGPXFileName {
             self.selectedGPXFileName = nil
             MapScreenViewController.shared?.removeCurrentTaskLine()
-            
         } else {
             self.selectedGPXFileName = newSelectedGPXFileName
-            
             TasksDatabase.openGPXFile(withFilename: newSelectedGPXFileName)
-            
         }
         
         guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows
             else { return }
         tableView.reloadRows(at: indexPathsForVisibleRows, with: .none)
-        
     }
-
+    
 }
