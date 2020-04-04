@@ -14,19 +14,20 @@ class SettingsViewController: UIViewController {
     // MARK: Lets and Vats
     
     // Notification Observers
-    var airportUpdateFailedNotification: NSObjectProtocol?
+    private var airportUpdateFailedNotification: NSObjectProtocol?
     
     // MARK: IBOutlets
-    @IBOutlet weak var gliderRatioTextField: TextFields!
-    @IBOutlet weak var safetyAltitudeTextField: TextFields!
-    @IBOutlet weak var gliderIDTextField: TextFields!
-    @IBOutlet weak var gearWarningSwitch: UISwitch!
-    @IBOutlet weak var showTrackingRouteSwitch: UISwitch!
-    @IBOutlet weak var showFlarmBuddySwitch: UISwitch!
-    @IBOutlet weak var buddyFlarmIDTextField: TextFields!
-    @IBOutlet weak var showNearbyGlidersSwitch: UISwitch!
-    @IBOutlet weak var collisionWarningSwitch: UISwitch!
-    
+    @IBOutlet private weak var gliderRatioTextField: TextFields!
+    @IBOutlet private weak var safetyAltitudeTextField: TextFields!
+    @IBOutlet private weak var gliderIDTextField: TextFields!
+    @IBOutlet private weak var gearWarningSwitch: UISwitch!
+    @IBOutlet private weak var showTrackingRouteSwitch: UISwitch!
+    @IBOutlet private weak var showFlarmBuddySwitch: UISwitch!
+    @IBOutlet private weak var buddyFlarmIDTextField: TextFields!
+    @IBOutlet private weak var showNearbyGlidersSwitch: UISwitch!
+    @IBOutlet private weak var collisionWarningSwitch: UISwitch!
+
+
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +37,6 @@ class SettingsViewController: UIViewController {
         safetyAltitudeTextField.delegate = self
         gliderIDTextField.delegate = self
         buddyFlarmIDTextField.delegate = self
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,7 +57,6 @@ class SettingsViewController: UIViewController {
                                                           handler: nil))
                             
                             self.present(alert, animated: true)
-                            
         }
     }
     
