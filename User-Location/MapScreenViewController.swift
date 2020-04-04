@@ -26,11 +26,9 @@ class MapScreenViewController: UIViewController {
     @IBOutlet private weak var destinationAirportLabel: UILabel!
     
     // MARK: Lets and Vars
-//    var currentLocation: CLLocation?
-    //var currentDistance: CLLocationDistance?
     
-    lazy var userLocationButton: UserLocationButton = createUserLocationButton()
-    
+    lazy private var userLocationButton: UserLocationButton = createUserLocationButton()
+
 //    var selectedDestinationAirport: AirportDatabase.Airport? {
 //        didSet {
 //            updateDirectionLabelsAndLine()
@@ -38,25 +36,25 @@ class MapScreenViewController: UIViewController {
 //        
 //    }
     
-    var currentDirectionLine: MGLPolyline?
-    var currentFlightLine = MGLPolyline()
-    var currentTaskLine: MGLPolyline?
+    private var currentDirectionLine: MGLPolyline?
+    private var currentFlightLine = MGLPolyline()
+    private var currentTaskLine: MGLPolyline?
 
-    var userTrackingMode = true
-    var userFollow = false
+    private var userTrackingMode = true
+    private var userFollow = false
     
-    var showAltitudeInMeters = true
-    var altitudeInMeters: CLLocationDistance = 0
+    private var showAltitudeInMeters = true
+    private var altitudeInMeters: CLLocationDistance = 0
     
-    var showSpeedInKMH = true
-    var speedInKMH: CLLocationSpeed = 0
+    private var showSpeedInKMH = true
+    private var speedInKMH: CLLocationSpeed = 0
     
-    var showDistanceInKM = true
+    private var showDistanceInKM = true
     
-    var showTrackingRoute = false
+    private var showTrackingRoute = false
     
-    var gliderTelemetryDatas = Set<GliderTelemetryData>()
-    var nearbyGliderAnnotations = [String: NearbyGliderAnnotation]()
+    private var gliderTelemetryDatas = Set<GliderTelemetryData>()
+    private var nearbyGliderAnnotations = [String: NearbyGliderAnnotation]()
     
     // MARK: - Init & Co.
 //    required init?(coder aDecoder: NSCoder) {
