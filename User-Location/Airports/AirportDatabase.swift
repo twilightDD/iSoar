@@ -31,7 +31,7 @@ class AirportDatabase {
     // MARK: - Public Methods
     // updateDistance
     func updateDistance() {
-        if let currentLocation = LocationManager.currentLocation {
+        if let currentLocation = LocationManager.currentLocation() {
             var puffer = [AirportDatabase.Airport]()
             for var destinationAirport in destinationAirports {
                 

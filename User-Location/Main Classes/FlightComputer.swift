@@ -36,7 +36,7 @@ class FlightComputer {
         if gliderIsFlying == false {
 
             // Check if Glider is faster than 10m/s, then set FlightMode to true
-            if let currentLocation = LocationManager.currentLocation,
+            if let currentLocation = LocationManager.currentLocation(),
                 currentLocation.speed > Presets.FlightComputer.minimalFlightSpeed {
 
                 gliderIsFlying = true
@@ -50,7 +50,7 @@ class FlightComputer {
         }
         else {
             // Check if Glider is slower than 10m/s, then set FlightMode to false
-            if let currentLocation = LocationManager.currentLocation,
+            if let currentLocation = LocationManager.currentLocation(),
                 currentLocation.speed < Presets.FlightComputer.minimalFlightSpeed {
 
                 gliderIsFlying = false
@@ -91,7 +91,7 @@ class FlightComputer {
             let upperGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.upperGearWarningAltitude
             let lowerGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.lowerGearWarningAltitude
             
-            if let currentLocation = LocationManager.currentLocation,
+            if let currentLocation = LocationManager.currentLocation(),
                 distanceInKm < 1
                     && (currentLocation.altitude < upperGearWarningAltitude
                         && currentLocation.altitude > lowerGearWarningAltitude) {
@@ -121,7 +121,7 @@ class FlightComputer {
     
     // Audio for Oxygen Level Warning
     func oxygenWarning() {
-        guard let currentLocation = LocationManager.currentLocation
+        guard let currentLocation = LocationManager.currentLocation()
             else { return }
 
         if currentLocation.altitude > 3500 {

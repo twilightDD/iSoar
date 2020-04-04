@@ -27,15 +27,17 @@ class LocationManager: NSObject {
     static private let shared = LocationManager()
 
     // Public Class Vars
-    static var currentLocation: CLLocation? = {
-        let currentLocation = shared.currentLocation
-        return currentLocation
-    }()
+    class func currentLocation()
+        -> CLLocation? {
+            let currentLocation = shared.currentLocation
+            return currentLocation
+    }
 
-    static var currentDistance: CLLocationDistance? = {
-        let currentDistance = shared.currentDistance
-        return currentDistance
-    }()
+    class func currentDistance()
+        -> CLLocationDistance? {
+            let currentDistance = shared.currentDistance
+            return currentDistance
+    }
 
 
     // Private
