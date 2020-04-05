@@ -312,6 +312,7 @@ extension DestinationSelectionViewController: UITableViewDelegate {
             newSelectedDestinationAirport.latitude == formerSelectedDestinationAirport.latitude
                 && newSelectedDestinationAirport.longitude == formerSelectedDestinationAirport.longitude {
             selectedDestinationAirport = nil
+            self.formerSelectedDestinationAirport = nil
         } else {
             selectedDestinationAirport = newSelectedDestinationAirport
             formerSelectedDestinationAirport = newSelectedDestinationAirport
