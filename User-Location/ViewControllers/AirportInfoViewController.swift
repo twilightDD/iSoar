@@ -9,7 +9,6 @@
 import UIKit
 import MessageUI
 
-
 // MARK: - AirportInfoViewController
 class AirportInfoViewController: UIViewController {
         
@@ -58,13 +57,13 @@ class AirportInfoViewController: UIViewController {
             if let phoneNumber = selectedDestinationAirport.phone {
                 callButton.setTitle("\(phoneNumber)", for: .normal)
             } else {
-                callButton.setTitle("Keine Nummer", for: .normal)
+                callButton.setTitle("Please report Phone Number", for: .normal)
                 callButton.isEnabled = false
             }
             if let url = selectedDestinationAirport.url {
                 urlButton.setTitle("\(url)", for: .normal)
             } else {
-                urlButton.setTitle("Keine URL", for: .normal)
+                urlButton.setTitle("Please report URL", for: .normal)
                 urlButton.isEnabled = false
             }
             additionalInfoLabel.text = selectedDestinationAirport.additionalInfo
@@ -102,7 +101,6 @@ class AirportInfoViewController: UIViewController {
     }
     
 }
-
 
 // MARK: - Extension - MFMailComposeViewControllerDelegate
 extension AirportInfoViewController: MFMailComposeViewControllerDelegate {
