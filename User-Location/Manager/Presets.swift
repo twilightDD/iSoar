@@ -55,7 +55,7 @@ struct Presets {
     
     struct FlightComputer {
 
-        /// TODO: Add docu; 04042020, ph
+        /// Check for nearest Airport and set it for Start-Airport and End-Airport in the LogBook
         static let minimalDistanceForNearestAirport: Double = 300
 
         /// Minimal Speed in Meter per Seconds to check if Glider is flying or not
@@ -64,7 +64,6 @@ struct Presets {
         // Oxygen Warning
         /// Represents the Oxygen Warning Altitude
         static let oxygenWarningAltitude: CLLocationDistance = 3500
-
 
         // Landing Gear Warning
         /// Represents the lower distance Limit above the Airport in which user is warned
