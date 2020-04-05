@@ -65,6 +65,7 @@ class MapScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        FlightComputer.start()
         OGNSocketConnectionManager.registerForSocketUpdates(self)
         OGNSocketConnectionManager.start()
         LocationManager.registerForLocationUpdates(self)
@@ -565,16 +566,6 @@ extension MapScreenViewController: LocationManagerDelegate {
         
         // Direction
         updateDirectionLabelsAndLine()
-        
-        // Operating Stuff
-//        // Gear Warning
-//        FlightComputer.shared.gearWarning()
-//
-//        // Oxygen Warning
-//        FlightComputer.shared.oxygenWarning()
-
-        // FlightRecorder
-        FlightRecorder.shared.addFlightRecorderEntryForLocation(currentLocation)
 
         // updateFlightRecorderLine()
         drawTrackingRoute()

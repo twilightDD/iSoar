@@ -14,70 +14,61 @@ import AVFoundation
 class FlightComputer {
 
     // MARK: - Lets and Vars
-    static let shared = FlightComputer()
+    // Statics
+    static private let shared = FlightComputer()
 
-    private var gliderIsFlying: Bool = false
-    
-    private(set) var flightUUIDString = UUID().uuidString
-    private(set) var flightStartTime = Date()
-    private(set) var flightEndTime = Date()
-    private(set) var startICAO: String?
-    private(set) var endICAO: String?
-
+    // Private
+    private var isGliderFlying: Bool = false
 
     private var shouldPlayGearWarning = true
     private var shouldPlayOxygenWarning = true
 
 
-    // MARK: - Init&CO.
-     init() {
-        print("FlightComputer init")
-        LocationManager.registerForLocationUpdates(self)
+    // MARK: - Public Class Methods
+    class func start() {
+        let shared = FlightComputer.shared
+        LocationManager.registerForLocationUpdates(shared)
+    }
+
+    class func stop() {
+        let shared = FlightComputer.shared
+        LocationManager.unRegisterForLocationUpdates(shared)
+    }
+
+    class func isGliderFlying()
+        -> Bool {
+            let isGliderFlying = shared.isGliderFlying
+            return isGliderFlying
     }
 
 
-    // MARK: - Public Methods
-    // Check if Glider is flying or on ground
-    func checkIfGliderIsFlying() {
-        if gliderIsFlying == false {
+    // MARK: - Private Instance Methods
+    private func checkIfGliderIsFlying() {
+        if isGliderFlying == false {
 
-            // Check if Glider is faster than 10m/s, then set FlightMode to true
+            // Check if Glider is faster than 10m/s, then set gliderIsFlying to true and start FlightRecording
             if let currentLocation = LocationManager.currentLocation(),
                 currentLocation.speed > Presets.FlightComputer.minimalFlightSpeed {
 
-                gliderIsFlying = true
-                flightUUIDString = UUID().uuidString //?
-                flightStartTime = Date()
-                startICAO = AirportDatabase.icaoOfNearestAirport()
-                
-                // Create FlightRecorder Files
-                //TODO: Ziel ist: FlightRecorder.startRecording()
-                FlightRecorder.shared.recorderIsReadyToWrite = ISoarFileManager.createFlightRecorderFiles()
+                isGliderFlying = true
 
+                FlightRecorder.startRecording()
             }
-        }
-        else {
+        } else {
             // Check if Glider is slower than 10m/s, then set FlightMode to false
             if let currentLocation = LocationManager.currentLocation(),
                 currentLocation.speed < Presets.FlightComputer.minimalFlightSpeed {
 
-                gliderIsFlying = false
-                flightEndTime = Date()
-                endICAO = AirportDatabase.icaoOfNearestAirport()
+                isGliderFlying = false
 
-                // Close FlightRecorder Files
-                //TODO: Ziel ist: FlightRecorder.stopRecording()
-                ISoarFileManager.closeFlightRecorderFiles()
-                FlightRecorder.shared.recorderIsReadyToWrite = false
+                FlightRecorder.stopRecording()
             }
         }
         
     }
 
 
-    // MARK: - Private Methods
-
-    // MARK: - Check Warning Methods
+    // MARK: Check Warning Methods
     private func checkForGearWarning() {
         guard let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
             let currentLocation = LocationManager.currentLocation(),
@@ -126,7 +117,7 @@ class FlightComputer {
 
     private func collisionWarning() {
         // Check if Glider is flying / If false we dont need to warn
-        if gliderIsFlying == true {
+        if isGliderFlying == true {
             // Check if Collision Warning Switch is on / If false we dont need to warn
             let collisionWarningSwitch = UserDefaultsManager.collisionWarningState()
             if collisionWarningSwitch == true {
@@ -163,6 +154,7 @@ extension FlightComputer: LocationManagerDelegate {
     func locationManager(didUpdateLocations locations: [CLLocation]) {
         checkForGearWarning()
         checkForOxygenWarning()
+        checkIfGliderIsFlying()
     }
 
 }

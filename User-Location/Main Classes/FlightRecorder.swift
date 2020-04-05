@@ -13,40 +13,74 @@ import CoreLocation
 class FlightRecorder {
 
     // MARK: - Lets and Vars
-    static let shared = FlightRecorder()
+    // Statics
+    static private let shared = FlightRecorder()
 
-    // TODO: Why FlightComputer sets this value? 04042020, ph
-    var recorderIsReadyToWrite = false
+    // Private
+    private var canRecordFlight = false
 
-    // MARK: - Public Methods
-    // Add Current Location Infos to FlightRecorder File
-    /* TODO: Why calls MapScreenViewController this method?
-     LocationManager should to it in a different way; 04042020, ph */
-    func addFlightRecorderEntryForLocation(_ currentLocation: CLLocation) {
+    private var flightUUIDString = UUID().uuidString
+    private var flightStartDate = Date()
+    private var flightEndDate = Date()
+    private var startICAO: String?
+    private var endICAO: String?
 
-        let locationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
-                                                               longitude: currentLocation.coordinate.longitude)
 
-        let currentTelemetryData = FlightData(unixTimeStamp: Date.currentUnixTimeStamp,
-                                    latitude: currentLocation.coordinate.latitude,
-                                    longitude: currentLocation.coordinate.longitude,
-                                    locationCoordinate2D: locationCoordinate2D,
-                                    altitude: currentLocation.altitude,
-                                    speed: currentLocation.speed,
-                                    course: currentLocation.course)
+    // MARK: - Public Class Methods
+    class func startRecording() {
+        LocationManager.registerForLocationUpdates(shared)
 
-        // Write Data to FlightRecorder File
-        FlightComputer.shared.checkIfGliderIsFlying()
-        if recorderIsReadyToWrite == true {
+        shared.startRecording()
+    }
+    
+    class func stopRecording() {
+        shared.stopRecording()
+
+        LocationManager.unRegisterForLocationUpdates(shared)
+    }
+
+
+    // MARK: - Private Methods
+    private func startRecording() {
+        flightUUIDString = UUID().uuidString
+        flightStartDate = Date()
+        startICAO = AirportDatabase.icaoOfNearestAirport()
+
+        let createFlightRecorderFiles = ISoarFileManager.createFlightRecorderFiles(flightUUIDString: flightUUIDString,
+                                                                                   flightStartDate: flightStartDate,
+                                                                                   startICAO: startICAO)
+        canRecordFlight = createFlightRecorderFiles
+    }
+
+    private func stopRecording() {
+        flightEndDate = Date()
+        endICAO = AirportDatabase.icaoOfNearestAirport()
+
+        ISoarFileManager.closeFlightRecorderFiles(flightUUIDString: flightUUIDString,
+                                                  flightStartDate: flightStartDate,
+                                                  flightEndDate: flightEndDate,
+                                                  startICAO: startICAO,
+                                                  endICAO: endICAO)
+
+        canRecordFlight = false
+    }
+
+
+
+    private func addFlightRecorderEntryForLocation(_ currentLocation: CLLocation) {
+
+        if FlightComputer.isGliderFlying() == true,
+            canRecordFlight == true {
             // Prepare Data for FlightRecorder File
-            var recordLine = ""
-            recordLine.append(contentsOf: "\(currentTelemetryData.unixTimeStamp),")
-            recordLine.append(contentsOf: "\(locationCoordinate2D.latitude),")
-            recordLine.append(contentsOf: "\(locationCoordinate2D.longitude),")
-            recordLine.append(contentsOf: "\(currentLocation.altitude),")
-            recordLine.append(contentsOf: "\(currentLocation.speed),")
-            recordLine.append(contentsOf: "\(currentLocation.course),")
-            recordLine.append(contentsOf: "\n")
+            let unixTimeStamp = Date.currentUnixTimeStamp
+            let recordLine = String()
+                .appending("\(unixTimeStamp),")
+                .appending("\(currentLocation.coordinate.latitude),")
+                .appending("\(currentLocation.coordinate.longitude),")
+                .appending("\(currentLocation.altitude),")
+                .appending("\(currentLocation.speed),")
+                .appending("\(currentLocation.course),")
+                .appending("\n")
 
             // Append Data to FlightRecorder File
             ISoarFileManager.appendTelemetryDataToFlightRecorderFile(recordLine)
@@ -56,19 +90,15 @@ class FlightRecorder {
 
 }
 
-// MARK: - Extentsion - Structs and Enums
-extension FlightRecorder {
 
-    private struct FlightData: Equatable {
-        // MARK: Lets and Vars
-        var unixTimeStamp: Int64
-        var latitude: Double
-        var longitude: Double
-        var locationCoordinate2D: CLLocationCoordinate2D
-        var altitude: Double
-        var speed: Double
-        var course: Double
+// MARK: - Extension - LocationManagerDelegate
+extension FlightRecorder: LocationManagerDelegate {
+    func locationManager(didUpdateLocations locations: [CLLocation]) {
+        guard let currentLocation = locations.last // Alternativ: LocationManager.currentLocation
+            else { return }
+        addFlightRecorderEntryForLocation(currentLocation)
     }
+
 
 }
 
