@@ -118,7 +118,7 @@ class MapScreenViewController: UIViewController {
     func createUserLocationButton()
         -> UserLocationButton {
             let userLocationButton = UserLocationButton(buttonSize: 40)
-            userLocationButton.addTarget(self, action: #selector(self.locationButtonTapped), for: .touchUpInside)
+            userLocationButton.addTarget(self, action: #selector(self.locationButtonTappedAction), for: .touchUpInside)
             userLocationButton.tintColor = self.mapView.tintColor
             
             // Setup constraints such that the button is placed within
@@ -239,7 +239,7 @@ class MapScreenViewController: UIViewController {
     
     // MARK: - Action Funcs
     // Set up User tracking mode button.
-    @IBAction func locationButtonTapped(sender: UserLocationButton) {
+    @IBAction func locationButtonTappedAction(sender: UserLocationButton) {
         self.userFollow = !self.userFollow
         userLocationButton.updateArrowForTrackingMode(state: self.userFollow)
         

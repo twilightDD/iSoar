@@ -217,17 +217,17 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     
     // MARK: - Action Methods
     // Sort Switch
-    @IBAction func sortSwitch(_ sender: UISegmentedControl) {
+    @IBAction func sortSwitchAction(_ sender: UISegmentedControl) {
         setupTableViewDatasource()
     }
     
     // Report missing Airport Button
-    @IBAction func reportMissingAirport(_ sender: UIButton) {
+    @IBAction func reportMissingAirportAction(_ sender: UIButton) {
         reportMissingAirport()
     }
     
     // Airport Info Button
-    @IBAction func airportInfoButton(_ sender: Any) {
+    @IBAction func airportInfoButtonAction(_ sender: Any) {
         performSegue(withIdentifier: "AirportInfoSegue", sender: self)
     }
     
