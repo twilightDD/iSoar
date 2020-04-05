@@ -292,9 +292,6 @@ extension DestinationSelectionViewController: UITableViewDelegate {
         // If the newly selected destination equals the former:
         // it means we want to cancel the navigation
         // We deselect the active cell and set selectedDestinationAirport = nil
-        
-        // TODO: Remove Printouts
-        print("Vorher Selectiert: \(self.formerSelectedDestinationAirport?.latitude ?? 0 ) *** Nachher Selektiert: \(newSelectedDestinationAirport.latitude)")
 
         if let formerSelectedDestinationAirport = self.formerSelectedDestinationAirport,
             newSelectedDestinationAirport.latitude == formerSelectedDestinationAirport.latitude
@@ -303,7 +300,6 @@ extension DestinationSelectionViewController: UITableViewDelegate {
         } else {
             selectedDestinationAirport = newSelectedDestinationAirport
             formerSelectedDestinationAirport = newSelectedDestinationAirport
-            
         }
         
         updateUIForSelectedDestinationAirport()
