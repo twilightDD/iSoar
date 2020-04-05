@@ -307,6 +307,14 @@ extension AirportDatabase {
         mutating func updateDistance(_ newDistance: CLLocationDistance) {
             distance = newDistance
         }
-        
+
+        // TODO: Check, where we could use it: 05042020, ph
+        func locationCoordinate2D()
+            -> CLLocationCoordinate2D {
+                let locationCoordinate2D = CLLocationCoordinate2D.init(latitude: latitude,
+                                                                       longitude: longitude)
+                return locationCoordinate2D
+        }
     }
+    
 }
