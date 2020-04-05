@@ -166,12 +166,12 @@ class AirportDatabase {
                                                     object: nil)
                     
                 } catch let writeError {
-                    // TODO: UserInfo; 04042020, ph
+                    // TODO: @dl UserInfo; 04042020, ph
                     print("Error creating a file: \(destinationFileUrl) : \(writeError)")
                 }
                 
             } else {
-                // TODO: UserInfo; 04042020, ph
+                // TODO: @dl UserInfo; 04042020, ph
                 print("Error took place while downloading a file. Error description: %@", error!.localizedDescription)
                 
                 // Post Notification for failed Update
