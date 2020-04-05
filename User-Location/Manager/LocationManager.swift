@@ -66,8 +66,18 @@ class LocationManager: NSObject {
         -> CLLocationDistance? {
             guard let currentLocation = LocationManager.currentLocation()
                 else { return nil }
+
             let newCurrentDistance = currentLocation.distance(from: location) // result is in meters
             return newCurrentDistance
+    }
+
+    class func altitudeDifferenceFromCurrentLocationTo(altitude: CLLocationDistance)
+        -> CLLocationDistance? {
+            guard let currentLocation = LocationManager.currentLocation()
+                else { return nil }
+
+            let altitudeDifference = currentLocation.altitude - altitude
+            return altitudeDifference
     }
 
 }
