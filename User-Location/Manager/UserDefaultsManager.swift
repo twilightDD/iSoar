@@ -12,9 +12,10 @@ class UserDefaultsManager {
     
     // MARK: - Keys
     private static let CollisionWarningStateKey = "collisionWarningState"
-    private static let FlarmBuddyFlarmIDKey = "flarmBuddyFlarmID"
+    private static let BuddyFlarmIDKey = "buddyFlarmID"
     private static let GliderRatioKey = "gliderRatio"
     private static let GliderIDKey = "gliderID"
+    private static let OwnFlarmIDKey = "ownFlarmID"
     private static let GearWarningStateKey = "gearWarningState"
     private static let SafetyAltitudeKey = "safetyAltitude"
     private static let ShowAllNearbyGlidersStateKey = "showAllNearbyGlidersState"
@@ -23,6 +24,7 @@ class UserDefaultsManager {
     
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
+    private static let ownFlarmIDDefault = "FLRDxxxxx"
     private static let gliderRadioDefault: Double = 20
     private static let gearWarningSwitchDefault: Bool = true
     private static let safetyAltitudeDefault: Double = 200
@@ -48,6 +50,9 @@ class UserDefaultsManager {
         if shared.userDefaults.value(forKey: GliderIDKey) == nil {
             UserDefaultsManager.set(gliderID: gliderIDDefault)
         }
+        if shared.userDefaults.value(forKey: OwnFlarmIDKey) == nil {
+            UserDefaultsManager.set(ownFlarmID: ownFlarmIDDefault)
+        }
         if shared.userDefaults.value(forKey: GearWarningStateKey) == nil {
             shared.userDefaults.set(true, forKey: GearWarningStateKey)
         }
@@ -57,7 +62,7 @@ class UserDefaultsManager {
         if shared.userDefaults.value(forKey: ShowFlarmBuddyStateKey) == nil {
             shared.userDefaults.set(true, forKey: ShowFlarmBuddyStateKey)
         }
-        if shared.userDefaults.value(forKey: FlarmBuddyFlarmIDKey) == nil {
+        if shared.userDefaults.value(forKey: BuddyFlarmIDKey) == nil {
             UserDefaultsManager.set(flarmBuddyFlarmID: buddyFlarmIDDefault)
         }
         if shared.userDefaults.value(forKey: ShowAllNearbyGlidersStateKey) == nil {
@@ -77,6 +82,17 @@ class UserDefaultsManager {
     
     class func set(gliderID value: String) {
         shared.userDefaults.set(value, forKey: GliderIDKey)
+    }
+    
+    // MARK: Own FlarmID
+    class func ownFlarmID()
+        -> String {
+            let ownFlarmID = shared.userDefaults.value(forKey: OwnFlarmIDKey) as? String ?? ownFlarmIDDefault
+            return ownFlarmID
+    }
+    
+    class func set(ownFlarmID value: String) {
+        shared.userDefaults.set(value, forKey: OwnFlarmIDKey)
     }
     
     // MARK: GliderRatio
@@ -135,14 +151,14 @@ class UserDefaultsManager {
     }
     
     // MARK: Buddy FlarmID
-    class func flarmBuddyFlarmID()
+    class func buddyFlarmID()
         -> String {
-            let buddyFlarmID = shared.userDefaults.value(forKey: FlarmBuddyFlarmIDKey) as? String ?? buddyFlarmIDDefault
+            let buddyFlarmID = shared.userDefaults.value(forKey: BuddyFlarmIDKey) as? String ?? buddyFlarmIDDefault
             return buddyFlarmID
     }
     
     class func set(flarmBuddyFlarmID flarmID: String) {
-        shared.userDefaults.set(flarmID, forKey: FlarmBuddyFlarmIDKey)
+        shared.userDefaults.set(flarmID, forKey: BuddyFlarmIDKey)
     }
     
     // MARK: ShowNearbyGlidersSwitch

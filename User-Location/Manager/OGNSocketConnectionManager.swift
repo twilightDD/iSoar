@@ -40,7 +40,7 @@ class OGNSocketConnectionManager {
     private var isLoggedIn = false
     private var loginTimeStamp = Date.currentUnixTimeStamp //TODO: wozu wird der gebraucht?; 03042020, ph
     
-    private var buddyFlarmID: String = UserDefaultsManager.flarmBuddyFlarmID()
+    private var buddyFlarmID: String = UserDefaultsManager.buddyFlarmID()
     private var regionInKm: Double = Presets.OGNSocketConnection.regionInKm
     
     // MARK: - Public Class Methods

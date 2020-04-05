@@ -20,6 +20,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet private weak var gliderRatioTextField: TextFields!
     @IBOutlet private weak var safetyAltitudeTextField: TextFields!
     @IBOutlet private weak var gliderIDTextField: TextFields!
+    @IBOutlet weak var ownFlarmIDTextField: TextFields!
     @IBOutlet private weak var buddyFlarmIDTextField: TextFields!
     @IBOutlet private weak var gearWarningSwitch: UISwitch!
     @IBOutlet private weak var showTrackingRouteSwitch: UISwitch!
@@ -36,6 +37,7 @@ class SettingsViewController: UIViewController {
         gliderRatioTextField.delegate = self
         safetyAltitudeTextField.delegate = self
         gliderIDTextField.delegate = self
+        ownFlarmIDTextField.delegate = self
         buddyFlarmIDTextField.delegate = self
     }
     
@@ -86,6 +88,10 @@ class SettingsViewController: UIViewController {
         let gliderID = UserDefaultsManager.gliderID()
         gliderIDTextField.text = gliderID
         
+        // Own FlarmID
+        let ownFlarmID = UserDefaultsManager.ownFlarmID()
+        ownFlarmIDTextField.text = ownFlarmID
+        
         // Gear Warning Switch Setup
         let gearWarningSwitchState = UserDefaultsManager.gearWarningState()
         gearWarningSwitch.isOn = gearWarningSwitchState
@@ -99,7 +105,7 @@ class SettingsViewController: UIViewController {
         showOnlyBuddyNearbyGliderSwitch.isOn = showFlarmBuddySwitchState
         
         // Buddy FlarmID
-        let buddyFlarmID = UserDefaultsManager.flarmBuddyFlarmID()
+        let buddyFlarmID = UserDefaultsManager.buddyFlarmID()
         buddyFlarmIDTextField.text = buddyFlarmID
         
         // Show nearby Gliders Switch Setup
@@ -123,6 +129,7 @@ class SettingsViewController: UIViewController {
         UserDefaultsManager.set(safetyAltitude: safetyAltitudeDouble)
         
         UserDefaultsManager.set(gliderID: gliderIDTextField.text!)
+        UserDefaultsManager.set(ownFlarmID: ownFlarmIDTextField.text!)
         UserDefaultsManager.set(flarmBuddyFlarmID: buddyFlarmIDTextField.text!)
     }
     
