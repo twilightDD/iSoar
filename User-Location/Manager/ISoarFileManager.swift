@@ -63,13 +63,14 @@ class ISoarFileManager {
     
     // MARK: Lets and Vars
     var currentFlightRecordFileHandle: FileHandle?
-    var temporaryFlightRecorderFileURL: URL!
+    var temporaryFlightRecorderFileURL: URL?
     
 }
 
 // MARK: - Extension - Check Directory Class Methods
 extension ISoarFileManager {
-    // Check if Tasks Folder exists in Documents Folder
+
+    //MARK: Public Class Methods
     class func checkForTasksFolder() {
         if !FileManager.default.fileExists(atPath: gpxPath) {
             print("Tasks Folder dont exist in Documents Folder. Creating...")
@@ -84,8 +85,7 @@ extension ISoarFileManager {
             print("Tasks Folder exist in Documents Folder.")
         }
     }
-    
-    // Check if Flights Folder exists in Documents Folder
+
     class func checkForFlightsFolder() {
         if !FileManager.default.fileExists(atPath: flightRecorderDirectoryPath) {
             print("Flights Folder dont exist in Documents Folder. Creating...")
@@ -100,10 +100,10 @@ extension ISoarFileManager {
             print("Flights Folder exist in Documents Folder.")
         }
     }
+
 }
 
-// MARK: - Extension - File Handlings
-// Extension - GPX File Handling
+// MARK: - Extension -  GPX File Handling
 extension ISoarFileManager {
     // MARK: Public Class Methods
     class func gpxFileNames()
@@ -130,11 +130,26 @@ extension ISoarFileManager {
             
             return gpxFileNames
     }
+
+    class func readContentOfSelectedGPXfile(_ fileName: String)
+        -> Data? {
+
+            let fileURL = ISoarFileManager.gpxURL
+                .appendingPathComponent(fileName)
+                .appendingPathExtension("gpx") // TODO: use key; 05042020, ph
+
+            let fileData = dataOfFile(fileURL)
+
+            return fileData
+
+    }
 }
 
 // MARK: - Extension Store Flight Recorder File
 // Create Flight Recorder File in Flights Folder
 extension ISoarFileManager {
+
+    // MARK: Public Class Methods
     class func flightMetaDataFileDatas()
         -> [Data] {
             var flightMetaDataFileDatas = [Data]()
@@ -148,8 +163,7 @@ extension ISoarFileManager {
             
             return flightMetaDataFileDatas
     }
-    
-    // Get file URLs
+
     private class func flightMetaDataURLs()
         -> [URL] {
             var fileURLs = [URL]()
@@ -165,21 +179,7 @@ extension ISoarFileManager {
             
             return fileURLs
     }
-    
-    // Read Content of File
-    private class func dataOfFile(_ fileURL: URL)
-        -> Data? {
-            var fileData: Data?
-            
-            do {
-                fileData = try Data(contentsOf: fileURL)
-            } catch let readError {
-                print("\(readError.localizedDescription)")
-            }
-            
-            return fileData
-    }
-    
+
     // Create JSON for Telemetry Data of current Flight
     // TODO: Replace fatalErrors by userInfo; 05042020, ph
     class func createFlightRecorderFiles(flightUUIDString: String,
@@ -299,9 +299,11 @@ extension ISoarFileManager {
             .appendingPathExtension("txt") // TODO: use key and rename to csv; 05042020, ph
 
         do {
-            try FileManager.default.moveItem(at: shared.temporaryFlightRecorderFileURL,
+            guard let temporaryFlightRecorderFileURL = shared.temporaryFlightRecorderFileURL
+                else { fatalError() }
+            try FileManager.default.moveItem(at: temporaryFlightRecorderFileURL,
                                              to: finalFlightRecorderFileURL)
-            // TODO: remove temporary file; 05042020, ph
+            // TODO: remove temporary file here; 05042020, ph
         } catch {
             fatalError("Failed writing to URL: \(String(describing: finalFlightRecorderFileURL)), Error: " + error.localizedDescription)
         }
@@ -341,21 +343,24 @@ extension ISoarFileManager {
 
 }
 
-    // MARK: - Extension Read GPX File
-    // Read Content of GPX File
+
+// MARK: - Extension - General Helper Methods
 extension ISoarFileManager {
 
-    class func readContentOfSelectedGPXfile(_ fileName: String)
-        -> Data? {
+    // MARK: Public Class Methods
 
-            let fileURL = ISoarFileManager.gpxURL
-                .appendingPathComponent(fileName)
-                .appendingPathExtension("gpx") // TODO: use key; 05042020, ph
-            
-            let fileData = dataOfFile(fileURL)
-            
+    // MARK: Private Class Methods
+    private class func dataOfFile(_ fileURL: URL)
+        -> Data? {
+            var fileData: Data?
+
+            do {
+                fileData = try Data(contentsOf: fileURL)
+            } catch let readError {
+                print("\(readError.localizedDescription)")
+            }
+
             return fileData
-            
     }
-    
+
 }
