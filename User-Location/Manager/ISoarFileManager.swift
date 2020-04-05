@@ -241,7 +241,7 @@ extension ISoarFileManager {
             do {
                 let fileURL = flightRecorderDirectoryURL
                     .appendingPathComponent(flightUUIDString)
-                    .appendingPathExtension("json")
+                    .appendingPathExtension("json") // TODO: use key; 05042020, ph
                 
                 let encoder = JSONEncoder()
                 encoder.outputFormatting = .prettyPrinted
@@ -296,7 +296,7 @@ extension ISoarFileManager {
         // Create Final FlightRecorder File
         let finalFlightRecorderFileURL = flightRecorderDirectoryURL
             .appendingPathComponent(flightUUIDString)
-            .appendingPathExtension("txt")
+            .appendingPathExtension("txt") // TODO: use key and rename to csv; 05042020, ph
 
         do {
             try FileManager.default.moveItem(at: shared.temporaryFlightRecorderFileURL,
@@ -326,7 +326,7 @@ extension ISoarFileManager {
         do {
             let flightMetaDataFileURL = flightRecorderDirectoryURL
                 .appendingPathComponent(flightUUIDString)
-                .appendingPathExtension("json")
+                .appendingPathExtension("json") // TODO: use key; 05042020, ph
             
             let encoder = JSONEncoder()
             encoder.outputFormatting = .prettyPrinted
@@ -338,13 +338,19 @@ extension ISoarFileManager {
             fatalError("\(#function) ERROR: \(error.localizedDescription)")
         }
     }
-    
+
+}
+
     // MARK: - Extension Read GPX File
     // Read Content of GPX File
+extension ISoarFileManager {
+
     class func readContentOfSelectedGPXfile(_ fileName: String)
         -> Data? {
-            //Convert the fileName to a computer readable filepath
-            let fileURL = ISoarFileManager.gpxURL.appendingPathComponent(fileName).appendingPathExtension("gpx")
+
+            let fileURL = ISoarFileManager.gpxURL
+                .appendingPathComponent(fileName)
+                .appendingPathExtension("gpx") // TODO: use key; 05042020, ph
             
             let fileData = dataOfFile(fileURL)
             
