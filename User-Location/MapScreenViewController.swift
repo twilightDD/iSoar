@@ -288,6 +288,50 @@ class MapScreenViewController: UIViewController {
         
         speedLabel.text = speedLabelText
     }
+
+    // Update Course Label
+    private func updateCourseLabel() {
+        guard let currentLocation = LocationManager.currentLocation()
+            else {
+                self.courseLabel.text = "---"
+                return
+        }
+
+        let course = currentLocation.course
+        if course < 0 {
+            self.courseLabel.text = "---"
+        } else {
+            let courseShort = String(format: "%.0f°", course)
+            self.courseLabel.text = courseShort
+        }
+    }
+
+
+    // MARK: Route Tracking
+    // Check for Tracking Route Status ins Settings
+    private func checkTrackingRouteStatus() {
+        showTrackingRoute = UserDefaultsManager.showTrackingRouteState()
+        if showTrackingRoute == true {
+            // Delay Drawing and wait for Location
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.mapView.addAnnotation(self.travelledFlightLine)
+            }
+        } else {
+            mapView.removeAnnotation(travelledFlightLine)
+        }
+    }
+
+    // Draw Tracking Route Polyline on Map
+    private func drawTrackingRoute() {
+        if let currentLocation = LocationManager.currentLocation() {
+            var currentLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
+                                                                          longitude: currentLocation.coordinate.longitude)
+            travelledFlightLine.appendCoordinates(&currentLocationCoordinate2D,
+                                                  count: 1)
+        }
+
+    }
+
     
     //MARK: Update Destination Airport UI
     private func updateDestinationAirportUI() {
@@ -405,94 +449,6 @@ class MapScreenViewController: UIViewController {
 
     }
 
-    private func updateDirectionLabelsAndLine() {
-
-
-        //
-        if let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
-            let currentLocation = LocationManager.currentLocation() {
-
-            //updateDestinationAirportDistanceLabel()
-
-            // DestinationAltitude
-            // updateDestinationAirportAltitudeLabel()
-
-            // Draw DirectionLine between current Location and DestinationAirport
-            let destinationAirportLocationCoordinate = CLLocationCoordinate2D(latitude: selectedDestinationAirport.latitude,
-                                                                              longitude: selectedDestinationAirport.longitude)
-            let newDirectionCoordinates: [CLLocationCoordinate2D] = [currentLocation.coordinate,
-                                                                     destinationAirportLocationCoordinate]
-            let newCurrentDirectionLine = MGLPolyline(coordinates: newDirectionCoordinates,
-                                                      count: UInt(newDirectionCoordinates.count))
-
-            self.mapView.addAnnotation(newCurrentDirectionLine)
-
-            // to avoid flickering we delay the removable of the "former" line a little bit; 16.12.19, ph
-            if let currentDirectionLine = self.currentDestinationAirportDirectionLine {
-                let seconds = 0.025
-                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                    self.mapView.removeAnnotation(currentDirectionLine)
-                }
-
-            }
-
-            currentDestinationAirportDirectionLine = newCurrentDirectionLine
-        } else {
-            destinationAirportDistanceLabel.text = "---"
-            destinationAirportAltitudeLabel.text = "---"
-            destinationAirportAltitudeLabel.textColor = UIColor(red: 150/255, green: 255/255, blue: 255/255, alpha: 1)
-
-            if let currentDirectionLine = currentDestinationAirportDirectionLine {
-                mapView.remove(currentDirectionLine)
-                self.currentDestinationAirportDirectionLine = nil
-            }
-        }
-    }
-
-    // MARK: Update UI
-    // Update Course Label
-    private func updateCourseLabel() {
-        guard let currentLocation = LocationManager.currentLocation()
-            else {
-                self.courseLabel.text = "---"
-                return
-        }
-
-        let course = currentLocation.course
-        if course < 0 {
-            self.courseLabel.text = "---"
-        } else {
-            let courseShort = String(format: "%.0f°", course)
-            self.courseLabel.text = courseShort
-        }
-    }
-
-    
-    // MARK: Route Tracking
-    // Check for Tracking Route Status ins Settings
-    private func checkTrackingRouteStatus() {
-        showTrackingRoute = UserDefaultsManager.showTrackingRouteState()
-        if showTrackingRoute == true {
-            // Delay Drawing and wait for Location
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.mapView.addAnnotation(self.travelledFlightLine)
-            }
-        } else {
-            mapView.removeAnnotation(travelledFlightLine)
-        }
-    }
-    
-    // Draw Tracking Route Polyline on Map
-    private func drawTrackingRoute() {
-        if let currentLocation = LocationManager.currentLocation() {
-            var currentLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
-                                                                          longitude: currentLocation.coordinate.longitude)
-            travelledFlightLine.appendCoordinates(&currentLocationCoordinate2D,
-                                                count: 1)
-        }
-        
-    }
-    
 }
 
 // MARK: - MGLMapViewDelegate methods
