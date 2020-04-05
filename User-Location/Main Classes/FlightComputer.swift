@@ -69,7 +69,7 @@ class FlightComputer {
     private func checkForGearWarning() {
         guard let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
             let currentLocation = LocationManager.currentLocation(),
-            let currentDistance = LocationManager.currentDistance()
+            let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport()
             else { return }
 
         let gearWarningSwitch = UserDefaultsManager.gearWarningState()

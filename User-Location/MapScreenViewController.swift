@@ -292,9 +292,8 @@ class MapScreenViewController: UIViewController {
     
     // Update DistanceLabel
     private func updateDistanceLabel() {
-        guard let currentDistance = LocationManager.currentDistance() else {
-            return
-        }
+        guard let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport()
+            else { return }
         
         var distanceLabelText = ""
         if showDistanceInKM == true {
@@ -312,7 +311,7 @@ class MapScreenViewController: UIViewController {
     // Update DestinationAltitudeLabel
     private func updateDestinationAltitudeLabel() {
         guard let currentLocation = LocationManager.currentLocation(),
-            let currentDistance = LocationManager.currentDistance(),
+            let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport(),
             let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport()
             else { return }
 

@@ -122,7 +122,22 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
         }
     }
 
-    // MARK: - Private Methods
+    // MARK: - Public Class Methods
+    class func distanceToDestinationAirport()
+        -> CLLocationDistance? {
+            guard let selectedDestinationAirport = shared?.selectedDestinationAirport
+                else { return nil }
+
+            let destinationAirportLocation = CLLocation(latitude: selectedDestinationAirport.latitude,
+                                                        longitude: selectedDestinationAirport.longitude)
+            let distanceToDestinationAirport = LocationManager.distanceFromCurrentLocationTo(location: destinationAirportLocation)
+
+            return distanceToDestinationAirport
+    }
+
+
+
+    // MARK: - Private Instance Methods
     // updateUIForSelectedDestinationAirport
     private func updateUIForSelectedDestinationAirport() {
         if let destinationAirport = self.selectedDestinationAirport {
@@ -303,7 +318,6 @@ extension DestinationSelectionViewController: UITableViewDelegate {
         }
         
         updateUIForSelectedDestinationAirport()
-        LocationManager.updateCurrentDistanceToDestinationAirport()
         
         guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows
             else { return }

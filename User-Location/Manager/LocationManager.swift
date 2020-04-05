@@ -31,28 +31,7 @@ class LocationManager: NSObject {
             return currentLocation
     }
 
-    class func currentDistance()
-        -> CLLocationDistance? {
-            let currentDistance = shared.currentDistance
-            return currentDistance
-    }
-
-    //TODO: add destAirport to signature, 04042020, ph
-    class func updateCurrentDistanceToDestinationAirport() {
-        guard let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
-            let currentLocation = LocationManager.currentLocation()
-            else {
-                shared.currentDistance = nil
-                return
-        }
-
-        let destinationAirportLocation = CLLocation(latitude: selectedDestinationAirport.latitude,
-                                                    longitude: selectedDestinationAirport.longitude)
-
-        let newCurrentDistance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
-        shared.currentDistance = newCurrentDistance
-    }
-
+    
     // Private
     private let locationManager = CLLocationManager()
 
@@ -78,6 +57,17 @@ class LocationManager: NSObject {
             print("\(#function) - will stopUpdatingLocation")
             shared.locationManager.stopUpdatingLocation()
         }
+    }
+
+    /**
+     Returns nil, if currentLocation is nil.
+     */
+    class func distanceFromCurrentLocationTo(location: CLLocation)
+        -> CLLocationDistance? {
+            guard let currentLocation = LocationManager.currentLocation()
+                else { return nil }
+            let newCurrentDistance = currentLocation.distance(from: location) // result is in meters
+            return newCurrentDistance
     }
 
 }
@@ -136,8 +126,6 @@ extension LocationManager: CLLocationManagerDelegate {
             else { return }
 
         self.currentLocation = currentLocation
-
-        LocationManager.updateCurrentDistanceToDestinationAirport()
 
         // Inform delegate
         for delegate in delegates.allObjects {
