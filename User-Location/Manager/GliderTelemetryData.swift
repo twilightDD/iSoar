@@ -57,7 +57,7 @@ struct GliderTelemetryData: Hashable {
                                                  longitude: longitude,
                                                  longitudeHemisphere: longitudeHemisphere)
 
-            let type = String(telemetryDataArray[ResponseElements.type.rawValue])
+            let type = String(telemetryDataArray[ResponseElements.aircraftType.rawValue])
             let heading = Double(telemetryDataArray[ResponseElements.heading.rawValue]) ?? 0
             let speed = speedFrom(speed: telemetryDataArray[ResponseElements.speed.rawValue])
             let altitude = altitudeFrom(altitude: telemetryDataArray[ResponseElements.altitude.rawValue])
@@ -276,7 +276,7 @@ enum ResponseElements: Int, CaseIterable {
     case latitudeHemisphere = 3 // N(orth) or S(outh)
     case longitude = 4
     case longitudeHemisphere = 5 // E(ast) or W(est)
-    case type = 6 // TODO: rename to aircraftType; 04042020, ph
+    case aircraftType = 6
     case heading = 7
     case speed = 8
     case altitude = 9
