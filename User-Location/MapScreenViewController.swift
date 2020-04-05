@@ -21,9 +21,9 @@ class MapScreenViewController: UIViewController {
     @IBOutlet private weak var courseLabel: UILabel!
     @IBOutlet private weak var altitudeLabel: UILabel!
     @IBOutlet private weak var speedLabel: UILabel!
-    @IBOutlet private weak var distanceLabel: UILabel!
-    @IBOutlet private weak var destinationAltitudeLabel: UILabel!
-    @IBOutlet private weak var destinationAirportLabel: UILabel!
+    @IBOutlet private weak var destinationAirportICAOLabel: UILabel!
+    @IBOutlet private weak var destinationAirportDistanceLabel: UILabel!
+    @IBOutlet private weak var destinationAirportAltitudeLabel: UILabel!
     
     // MARK: Lets and Vars
     
@@ -36,8 +36,8 @@ class MapScreenViewController: UIViewController {
 //        
 //    }
     
-    private var currentDirectionLine: MGLPolyline?
-    private var currentFlightLine = MGLPolyline()
+    private var currentDestinationAirportDirectionLine: MGLPolyline?
+    private var travelledFlightLine = MGLPolyline()
     private var currentTaskLine: MGLPolyline?
 
     private var userTrackingMode = true
@@ -52,8 +52,7 @@ class MapScreenViewController: UIViewController {
     private var showDistanceInKM = true
     
     private var showTrackingRoute = false
-    
-    private var gliderTelemetryDatas = Set<GliderTelemetryData>()
+
     private var nearbyGliderAnnotations = [String: NearbyGliderAnnotation]()
     
     // MARK: - Init & Co.
@@ -187,13 +186,13 @@ class MapScreenViewController: UIViewController {
         
         // Distance Label
         let tapOnDistanceLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnDistanceLabel))
-        distanceLabel.addGestureRecognizer(tapOnDistanceLabelRecognizer)
-        distanceLabel.isUserInteractionEnabled = true
+        destinationAirportDistanceLabel.addGestureRecognizer(tapOnDistanceLabelRecognizer)
+        destinationAirportDistanceLabel.isUserInteractionEnabled = true
         
         // Destination Airport Label
         let tapOnDestinationAirportLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnDestinationAirportLabel))
-        destinationAirportLabel.addGestureRecognizer(tapOnDestinationAirportLabelRecognizer)
-        destinationAirportLabel.isUserInteractionEnabled = true
+        destinationAirportICAOLabel.addGestureRecognizer(tapOnDestinationAirportLabelRecognizer)
+        destinationAirportICAOLabel.isUserInteractionEnabled = true
         
     }
     
@@ -225,7 +224,7 @@ class MapScreenViewController: UIViewController {
     @objc func tapOnDistanceLabel(_ recognizer: UITapGestureRecognizer) {
         showDistanceInKM = !showDistanceInKM
         
-        updateDistanceLabel()
+        updateDestinationAirportDistanceLabel()
     }
     
     // Tap on Destination Airport-Label recognized
@@ -290,53 +289,167 @@ class MapScreenViewController: UIViewController {
         speedLabel.text = speedLabelText
     }
     
-    // Update DistanceLabel
-    private func updateDistanceLabel() {
-        guard let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport()
-            else { return }
-        
-        var distanceLabelText = ""
-        if showDistanceInKM == true {
-            let distanceInKm = currentDistance / 1000
-            distanceLabelText =  String(format: "%.0f Km", distanceInKm)
-        } else {
-            let distcanceInMi = currentDistance / 1000 / 1.852
-            distanceLabelText = String(format: "%.0f NM", distcanceInMi)
+    //MARK: Update Destination Airport UI
+    private func updateDestinationAirportUI() {
+        let destinationAirport = DestinationSelectionViewController.destinationAirport()
+        // labels
+        updateDestinationAirportICAOLabel(destinationAirport: destinationAirport)
+        updateDestinationAirportDistanceLabel()
+        updateDestinationAirportAltitudeLabel(destinationAirport: destinationAirport)
+
+        // directionLine
+        updateDestinationAirportDirectionLine(destinationAirport: destinationAirport)
+    }
+
+    private func updateDestinationAirportICAOLabel(destinationAirport: AirportDatabase.Airport?) {
+        if let icaoString = destinationAirport?.icao {
+            destinationAirportICAOLabel.text = icaoString
         }
-        
-        distanceLabel.text = distanceLabelText
-        
+        else {
+            destinationAirportICAOLabel.text = "---"
+        }
+    }
+
+    private func updateDestinationAirportDistanceLabel() {
+        if let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport() {
+            var distanceLabelText = ""
+            if showDistanceInKM == true {
+                let distanceInKm = currentDistance / 1000
+                distanceLabelText =  String(format: "%.0f Km", distanceInKm)
+            } else {
+                let distcanceInMi = currentDistance / 1000 / 1.852
+                distanceLabelText = String(format: "%.0f NM", distcanceInMi)
+            }
+
+            destinationAirportDistanceLabel.text = distanceLabelText
+        }
+        else {
+            destinationAirportDistanceLabel.text = "---"
+        }
     }
     
-    // Update DestinationAltitudeLabel
-    private func updateDestinationAltitudeLabel() {
-        guard let currentLocation = LocationManager.currentLocation(),
-            let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport(),
-            let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport()
-            else { return }
+    private func updateDestinationAirportAltitudeLabel(destinationAirport: AirportDatabase.Airport?) {
+        guard let destinationAirportGuarded = destinationAirport,
+            let altitudeDifference = LocationManager.altitudeDifferenceFromCurrentLocationTo(altitude: destinationAirportGuarded.elevation),
+            let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport()
+            else {
+                destinationAirportAltitudeLabel.text = "---"
+                destinationAirportAltitudeLabel.textColor = UIColor(red: 150/255,
+                                                                    green: 255/255,
+                                                                    blue: 255/255,
+                                                                    alpha: 1) // TODO: use preset for color; 05042020, ph
+                return
+        }
+
 
         // Get User Default Values
-        // Calculate Glider Sink Rate to Destination
         let safetyAltitude = UserDefaultsManager.safetyAltitude()
         let gliderRatio = UserDefaultsManager.gliderRatio()
-        
-        // Calculate Glider Sink Rate to Destination Airport
+
+        // Glider sink rate to destinationAirport
         let gliderRatioMeter = gliderRatio * 1000       //Gleitzahl in Meter
         let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    //Sinkrate pro Meter
         let gliderSinkRateToDestination = currentDistance * gliderSinkRatePerMeter   //Sinkrate to Destination in Meter
-        
-        // Calculate altitude of Glider at Destination Airport
-        let destinationAltitude = currentLocation.altitude - selectedDestinationAirport.elevation - safetyAltitude - gliderSinkRateToDestination
+
+        // Altitude of glider at destinationAirport
+        let destinationAltitude = altitudeDifference - safetyAltitude - gliderSinkRateToDestination
         let destinationAltitudeShort = String(format: "%.0f m", destinationAltitude)
-        self.destinationAltitudeLabel.text = destinationAltitudeShort
-        
+        self.destinationAirportAltitudeLabel.text = destinationAltitudeShort
+
+        // Update Text Color
         if destinationAltitude > 0 {
-            destinationAltitudeLabel.textColor = UIColor(red: 150/255, green: 255/255, blue: 255/255, alpha: 1)
+            // TODO: use preset for color; 05042020, ph
+            destinationAirportAltitudeLabel.textColor = UIColor(red: 150/255, green: 255/255, blue: 255/255, alpha: 1)
         } else {
-            destinationAltitudeLabel.textColor = .red
+            destinationAirportAltitudeLabel.textColor = .red
         }
     }
-    
+
+
+
+
+    private func updateDestinationAirportDirectionLine(destinationAirport unguardedDestinationAirport: AirportDatabase.Airport?) {
+        // Do we have a destination and a currentLocation?
+        guard let destinationAirport = unguardedDestinationAirport,
+            let currentLocationCoordinate2D = LocationManager.currentLocation()?.coordinate
+            else {
+                // ... if not: remove destinationLine, if existing
+                if let destinationAirportDirectionLine = currentDestinationAirportDirectionLine {
+                    mapView.remove(destinationAirportDirectionLine)
+                    currentDestinationAirportDirectionLine = nil
+                }
+                return
+        }
+
+        // ... if yes: update exsting respective create new destinationLine
+
+        // get new directionLineLocationCoordinate2Ds
+        let destinationAirportCoordinate2D = destinationAirport.locationCoordinate2D()
+        let directionLineLocationCoordinate2Ds = [currentLocationCoordinate2D, destinationAirportCoordinate2D]
+        let pointer = UnsafeMutablePointer(mutating: directionLineLocationCoordinate2Ds)
+
+        if let existingDestinationAirportDirectionLine = currentDestinationAirportDirectionLine {
+            existingDestinationAirportDirectionLine.setCoordinates(pointer,
+                                                           count: UInt(directionLineLocationCoordinate2Ds.count))
+            currentDestinationAirportDirectionLine = existingDestinationAirportDirectionLine
+        }
+        else {
+            // neu
+            let newDestinationAirportDirectionLine = MGLPolyline.init(coordinates: pointer,
+                                                                   count: UInt(directionLineLocationCoordinate2Ds.count))
+            mapView.add(newDestinationAirportDirectionLine)
+            currentDestinationAirportDirectionLine = newDestinationAirportDirectionLine
+        }
+
+
+
+    }
+
+    private func updateDirectionLabelsAndLine() {
+
+
+        //
+        if let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
+            let currentLocation = LocationManager.currentLocation() {
+
+            //updateDestinationAirportDistanceLabel()
+
+            // DestinationAltitude
+            // updateDestinationAirportAltitudeLabel()
+
+            // Draw DirectionLine between current Location and DestinationAirport
+            let destinationAirportLocationCoordinate = CLLocationCoordinate2D(latitude: selectedDestinationAirport.latitude,
+                                                                              longitude: selectedDestinationAirport.longitude)
+            let newDirectionCoordinates: [CLLocationCoordinate2D] = [currentLocation.coordinate,
+                                                                     destinationAirportLocationCoordinate]
+            let newCurrentDirectionLine = MGLPolyline(coordinates: newDirectionCoordinates,
+                                                      count: UInt(newDirectionCoordinates.count))
+
+            self.mapView.addAnnotation(newCurrentDirectionLine)
+
+            // to avoid flickering we delay the removable of the "former" line a little bit; 16.12.19, ph
+            if let currentDirectionLine = self.currentDestinationAirportDirectionLine {
+                let seconds = 0.025
+                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
+                    self.mapView.removeAnnotation(currentDirectionLine)
+                }
+
+            }
+
+            currentDestinationAirportDirectionLine = newCurrentDirectionLine
+        } else {
+            destinationAirportDistanceLabel.text = "---"
+            destinationAirportAltitudeLabel.text = "---"
+            destinationAirportAltitudeLabel.textColor = UIColor(red: 150/255, green: 255/255, blue: 255/255, alpha: 1)
+
+            if let currentDirectionLine = currentDestinationAirportDirectionLine {
+                mapView.remove(currentDirectionLine)
+                self.currentDestinationAirportDirectionLine = nil
+            }
+        }
+    }
+
+    // MARK: Update UI
     // Update Course Label
     private func updateCourseLabel() {
         guard let currentLocation = LocationManager.currentLocation()
@@ -353,55 +466,7 @@ class MapScreenViewController: UIViewController {
             self.courseLabel.text = courseShort
         }
     }
-    
-    // Update Direction Labels and Line
-    private func updateDirectionLabelsAndLine() {
-        // ICAO
-        if let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport() {
-            destinationAirportLabel.text = selectedDestinationAirport.icao
-        } else {
-            destinationAirportLabel.text = "---"
-        }
-        
-        if let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
-            let currentLocation = LocationManager.currentLocation() {
 
-            updateDistanceLabel()
-            
-            // DestinationAltitude
-            updateDestinationAltitudeLabel()
-            
-            // Draw DirectionLine between current Location and DestinationAirport
-            let destinationAirportLocationCoordinate = CLLocationCoordinate2D(latitude: selectedDestinationAirport.latitude,
-                                                                              longitude: selectedDestinationAirport.longitude)
-            let newDirectionCoordinates: [CLLocationCoordinate2D] = [currentLocation.coordinate,
-                                                                     destinationAirportLocationCoordinate]
-            let newCurrentDirectionLine = MGLPolyline(coordinates: newDirectionCoordinates,
-                                                      count: UInt(newDirectionCoordinates.count))
-            
-            self.mapView.addAnnotation(newCurrentDirectionLine)
-            
-            // to avoid flickering we delay the removable of the "former" line a little bit; 16.12.19, ph
-            if let currentDirectionLine = self.currentDirectionLine {
-                let seconds = 0.025
-                DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-                    self.mapView.removeAnnotation(currentDirectionLine)
-                }
-                
-            }
-            
-            currentDirectionLine = newCurrentDirectionLine
-        } else {
-            distanceLabel.text = "---"
-            destinationAltitudeLabel.text = "---"
-            destinationAltitudeLabel.textColor = UIColor(red: 150/255, green: 255/255, blue: 255/255, alpha: 1)
-            
-            if let currentDirectionLine = currentDirectionLine {
-                mapView.remove(currentDirectionLine)
-                self.currentDirectionLine = nil
-            }
-        }
-    }
     
     // MARK: Route Tracking
     // Check for Tracking Route Status ins Settings
@@ -410,10 +475,10 @@ class MapScreenViewController: UIViewController {
         if showTrackingRoute == true {
             // Delay Drawing and wait for Location
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.mapView.addAnnotation(self.currentFlightLine)
+                self.mapView.addAnnotation(self.travelledFlightLine)
             }
         } else {
-            mapView.removeAnnotation(currentFlightLine)
+            mapView.removeAnnotation(travelledFlightLine)
         }
     }
     
@@ -422,7 +487,7 @@ class MapScreenViewController: UIViewController {
         if let currentLocation = LocationManager.currentLocation() {
             var currentLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
                                                                           longitude: currentLocation.coordinate.longitude)
-            currentFlightLine.appendCoordinates(&currentLocationCoordinate2D,
+            travelledFlightLine.appendCoordinates(&currentLocationCoordinate2D,
                                                 count: 1)
         }
         
@@ -553,7 +618,9 @@ extension MapScreenViewController: LocationManagerDelegate {
         updateCourseLabel()
         
         // Direction
-        updateDirectionLabelsAndLine()
+//        updateDirectionLabelsAndLine()
+        updateDestinationAirportUI()
+
 
         // updateFlightRecorderLine()
         drawTrackingRoute()
