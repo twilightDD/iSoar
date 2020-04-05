@@ -9,14 +9,12 @@
 import Foundation
 import CoreLocation
 
-
 // MARK: - Protocol - LocationManagerDelegate
 protocol LocationManagerDelegate: AnyObject {
 
     func locationManager(didUpdateLocations locations: [CLLocation])
 
 }
-
 
 // MARK: -
 // MARK: - LocationManager
@@ -51,11 +49,9 @@ class LocationManager: NSObject {
         let destinationAirportLocation = CLLocation(latitude: selectedDestinationAirport.latitude,
                                                     longitude: selectedDestinationAirport.longitude)
 
-
         let newCurrentDistance = currentLocation.distance(from: destinationAirportLocation) // result is in meters
         shared.currentDistance = newCurrentDistance
     }
-
 
     // Private
     private let locationManager = CLLocationManager()
@@ -64,7 +60,6 @@ class LocationManager: NSObject {
     private var currentDistance: CLLocationDistance?
 
     private var delegates = NSHashTable<AnyObject>.weakObjects()
-
 
     // MARK: - Public Class Methods
     class func registerForLocationUpdates(_ delegate: LocationManagerDelegate) {
@@ -87,7 +82,6 @@ class LocationManager: NSObject {
 
 }
 
-
 // MARK: - Extension - Private Instance Methods
 extension LocationManager {
 
@@ -106,20 +100,20 @@ extension LocationManager {
     // Check for Location Authorization
     private func checkLocationAuthorization() {
         switch CLLocationManager.authorizationStatus() {
-            case .authorizedWhenInUse:
-                locationManager.startUpdatingLocation()
-            case .denied:
-                // Show alert instructing them how to turn on permissions
-                break
-            case .notDetermined:
-                locationManager.requestWhenInUseAuthorization()
-            case .restricted:
-                // Show an alert letting them know what's up
-                break
-            case .authorizedAlways:
-                locationManager.startUpdatingLocation()
-            @unknown default:
-                print("Didn't request permission for User Notifications")
+        case .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
+        case .denied:
+            // Show alert instructing them how to turn on permissions
+            break
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        case .restricted:
+            // Show an alert letting them know what's up
+            break
+        case .authorizedAlways:
+            locationManager.startUpdatingLocation()
+        @unknown default:
+            print("Didn't request permission for User Notifications")
         }
     }
 
@@ -131,7 +125,6 @@ extension LocationManager {
     }
 
 }
-
 
 // MARK: - LocationManager - CLLocationManagerDelegate
 extension LocationManager: CLLocationManagerDelegate {
@@ -154,7 +147,6 @@ extension LocationManager: CLLocationManagerDelegate {
         }
         
     }
-
 
     // Check for Location Authorization
     func locationManager(_ manager: CLLocationManager,

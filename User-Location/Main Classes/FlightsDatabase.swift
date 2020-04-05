@@ -12,7 +12,6 @@ import Foundation
 class FlightsDatabase {
     static private let shared = FlightsDatabase()
 
-
     // MARK: - Public Class Methods
     // Sort Flights in Logbook in descending Date Order
     class func sortedFlightsByDescendingDate()
@@ -23,7 +22,6 @@ class FlightsDatabase {
             return sortedFlightMetaDatas
     }
 
-    
     // MARK: - Private Class Methods
     // Parse obtained JSONs into an array
     private class func flightMetaDatas()

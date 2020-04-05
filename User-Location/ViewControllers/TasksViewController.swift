@@ -92,8 +92,7 @@ extension TasksViewController: UITableViewDelegate {
         // We deselect the active cell and set selectedGPXFileName = nil
         if newSelectedGPXFileName == self.selectedGPXFileName {
             self.selectedGPXFileName = nil
-        }
-        else {
+        } else {
             self.selectedGPXFileName = newSelectedGPXFileName
         }
         

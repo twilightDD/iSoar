@@ -28,7 +28,6 @@ class SettingsViewController: UIViewController {
     @IBOutlet private weak var collisionWarningSwitch: UISwitch!
     @IBOutlet private weak var downloadAirportUpdates: UIButton!
     
-    
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -164,13 +163,11 @@ class SettingsViewController: UIViewController {
             // Disconnect from OGN Server, empty Messages Set and remove all nearby Glider Annotaions from Map
             OGNSocketConnectionManager.stop()
             
-            
             showAllNearbyGlidersSwitchAction(showAllNearbyGlidersSwitch)
         } else {
             OGNSocketConnectionManager.stop()
         }
     }
-    
     
     @IBAction func collisionWarningSwitchAction(_ sender: UISwitch) {
         UserDefaultsManager.set(collisionWarningState: sender.isOn)

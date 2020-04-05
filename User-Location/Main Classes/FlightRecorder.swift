@@ -25,7 +25,6 @@ class FlightRecorder {
     private var startICAO: String?
     private var endICAO: String?
 
-
     // MARK: - Public Class Methods
     class func startRecording() {
         LocationManager.registerForLocationUpdates(shared)
@@ -38,7 +37,6 @@ class FlightRecorder {
 
         LocationManager.unRegisterForLocationUpdates(shared)
     }
-
 
     // MARK: - Private Methods
     private func startRecording() {
@@ -65,8 +63,6 @@ class FlightRecorder {
         canRecordFlight = false
     }
 
-
-
     private func addFlightRecorderEntryForLocation(_ currentLocation: CLLocation) {
 
         if FlightComputer.isGliderFlying() == true,
@@ -90,7 +86,6 @@ class FlightRecorder {
 
 }
 
-
 // MARK: - Extension - LocationManagerDelegate
 extension FlightRecorder: LocationManagerDelegate {
     func locationManager(didUpdateLocations locations: [CLLocation]) {
@@ -98,7 +93,6 @@ extension FlightRecorder: LocationManagerDelegate {
             else { return }
         addFlightRecorderEntryForLocation(currentLocation)
     }
-
 
 }
 

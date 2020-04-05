@@ -9,7 +9,6 @@
 import Foundation
 import CoreLocation
 
-
 protocol TasksDatabaseProtocol: AnyObject {
 
     func newTask(withCoordinates coordinates: [CLLocationCoordinate2D])
@@ -45,7 +44,6 @@ class TasksDatabase: NSObject {
             return gpxFileNames
     }
 
-
     class func openGPXFile(withFilename fileName: String?) {
         if let guardedFileName = fileName {
             shared.openGPXFile(withFilename: guardedFileName)
@@ -70,7 +68,6 @@ class TasksDatabase: NSObject {
     }
 
 }
-
 
 // MARK: - Extension - XMLParserDelegate
 extension TasksDatabase: XMLParserDelegate {
@@ -109,4 +106,3 @@ extension TasksDatabase: XMLParserDelegate {
     }
 
 }
-

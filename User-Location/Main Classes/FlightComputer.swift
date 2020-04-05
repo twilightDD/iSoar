@@ -23,7 +23,6 @@ class FlightComputer {
     private var shouldPlayGearWarning = true
     private var shouldPlayOxygenWarning = true
 
-
     // MARK: - Public Class Methods
     class func start() {
         let shared = FlightComputer.shared
@@ -40,7 +39,6 @@ class FlightComputer {
             let isGliderFlying = shared.isGliderFlying
             return isGliderFlying
     }
-
 
     // MARK: - Private Instance Methods
     private func checkIfGliderIsFlying() {
@@ -66,7 +64,6 @@ class FlightComputer {
         }
         
     }
-
 
     // MARK: Check Warning Methods
     private func checkForGearWarning() {
@@ -132,7 +129,6 @@ class FlightComputer {
         }
     }
 
-
     // MARK: Audio Methods
     private func speak(string: String) {
         AudioServicesPlayAlertSound(SystemSoundID(1256))
@@ -146,7 +142,6 @@ class FlightComputer {
     }
 
 }
-
 
 // MARK: - Extension - LocationManagerDelegate
 extension FlightComputer: LocationManagerDelegate {

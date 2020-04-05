@@ -22,7 +22,6 @@ class AirportDatabase {
     private var destinationAirports = [AirportDatabase.Airport]()
     private let libraryURL: URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
 
-    
     // MARK: - Init&Co.
     private init() {
         checkForMapOjectsInLibraryFolder()

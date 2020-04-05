@@ -81,8 +81,6 @@ class MapScreenViewController: UIViewController {
         
         checkTrackingRouteStatus()
 
-
-        
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -116,7 +114,6 @@ class MapScreenViewController: UIViewController {
 
     }
 
-    
     // Create User Location Button
     func createUserLocationButton()
         -> UserLocationButton {
@@ -280,8 +277,7 @@ class MapScreenViewController: UIViewController {
         
         if currentLocation.speed < 0 {
             speedLabelText = "---"
-        }
-        else {
+        } else {
             if showSpeedInKMH == true {
                 let speedInKMH = currentLocation.speed * 3.6
                 speedLabelText =  String(format: "%.0f km/h", speedInKMH)
@@ -290,7 +286,7 @@ class MapScreenViewController: UIViewController {
                 speedLabelText = String(format: "%.0f kt", speedInKT)
             }
         }
-
+        
         speedLabel.text = speedLabelText
     }
     
@@ -320,7 +316,6 @@ class MapScreenViewController: UIViewController {
             let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport()
             else { return }
 
-        
         // Get User Default Values
         // Calculate Glider Sink Rate to Destination
         let safetyAltitude = UserDefaultsManager.safetyAltitude()
@@ -397,8 +392,7 @@ class MapScreenViewController: UIViewController {
             }
             
             currentDirectionLine = newCurrentDirectionLine
-        }
-        else {
+        } else {
             distanceLabel.text = "---"
             destinationAltitudeLabel.text = "---"
             destinationAltitudeLabel.textColor = UIColor(red: 150/255, green: 255/255, blue: 255/255, alpha: 1)
@@ -434,11 +428,8 @@ class MapScreenViewController: UIViewController {
         }
         
     }
-
-
     
 }
-
 
 // MARK: - MGLMapViewDelegate methods
 extension MapScreenViewController: MGLMapViewDelegate {
@@ -502,8 +493,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
             // User Annotation -> myself
             if annotation is MGLUserLocation && mapView.userLocation != nil {
                 annotationView = GliderUserLocationAnnotationView()
-            }
-            else if annotation is NearbyGliderAnnotation {
+            } else if annotation is NearbyGliderAnnotation {
                 // Notice: nil is needed here! MGLAnnotation is an ObjC-Protocol. Fuck it!; 19.3.2020, ph
                 guard let flarmID = annotation.title ?? nil
                     else { return nil }
@@ -548,7 +538,6 @@ extension MapScreenViewController: LocationManagerDelegate {
         guard let currentLocation = locations.last // Alternativ: LocationManager.currentLocation
             else { return }
 
-
         // Get User Tracking State - If true - set Map center on User Location
         if self.userFollow == true {
             self.mapView.setCenter(currentLocation.coordinate, animated: true)
@@ -573,7 +562,6 @@ extension MapScreenViewController: LocationManagerDelegate {
     }
 
 }
-
 
 // MARK: - Extension - TasksDatabaseProtocol
 extension MapScreenViewController: TasksDatabaseProtocol {

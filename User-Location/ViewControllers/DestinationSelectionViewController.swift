@@ -122,7 +122,6 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
         }
     }
 
-    
     // MARK: - Private Methods
     // updateUIForSelectedDestinationAirport
     private func updateUIForSelectedDestinationAirport() {

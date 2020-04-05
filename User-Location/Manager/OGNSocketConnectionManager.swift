@@ -43,7 +43,6 @@ class OGNSocketConnectionManager {
     private var buddyFlarmID: String = UserDefaultsManager.flarmBuddyFlarmID()
     private var regionInKm: Double = Presets.OGNSocketConnection.regionInKm
     
-    
     // MARK: - Public Class Methods
     class func registerForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
         shared.delegate = delegate
@@ -62,7 +61,6 @@ class OGNSocketConnectionManager {
     }
     
 }
-
 
 // MARK: - Extension - Instance Methods
 extension OGNSocketConnectionManager {
@@ -84,31 +82,31 @@ extension OGNSocketConnectionManager {
                 
                 self.connection?.stateUpdateHandler = { newConnectionState in
                     switch newConnectionState {
-                        case .setup:
-                            //The connection has been initialized but not started
-                            print("Connection: setup")
-                        case .waiting:
-                            //The connection has been initialized but not started
-                            print("Connection: waiting")
-                        case .preparing:
-                            //The connection in the process of being established
-                            print("Connection: preparing")
-                        case .ready:
-                            //The connection is established and ready to send and recieve data.
-                            print("Connection: ready")
-                            self.setupReceive()
-                        case .failed:
-                            //The connection in the process of being established
-                            print("Connection: failed")
-                            self.isLoggedIn = false
-                            self.login()
-                        case .cancelled:
-                            //The connection has been cancelled
-                            print("Connection: cancelled")
-                            self.isLoggedIn = false
-                        default:
-                            //The connection has disconnected or encountered an error
-                            print("waiting or failed")
+                    case .setup:
+                        //The connection has been initialized but not started
+                        print("Connection: setup")
+                    case .waiting:
+                        //The connection has been initialized but not started
+                        print("Connection: waiting")
+                    case .preparing:
+                        //The connection in the process of being established
+                        print("Connection: preparing")
+                    case .ready:
+                        //The connection is established and ready to send and recieve data.
+                        print("Connection: ready")
+                        self.setupReceive()
+                    case .failed:
+                        //The connection in the process of being established
+                        print("Connection: failed")
+                        self.isLoggedIn = false
+                        self.login()
+                    case .cancelled:
+                        //The connection has been cancelled
+                        print("Connection: cancelled")
+                        self.isLoggedIn = false
+                    default:
+                        //The connection has disconnected or encountered an error
+                        print("waiting or failed")
                     }
                 }
                 self.connection?.start(queue: .main)
@@ -193,8 +191,6 @@ extension OGNSocketConnectionManager {
         isLoggedIn = true
         loginTimeStamp = Date.currentUnixTimeStamp
     }
-    
-    
     
     // Send Filter Request to Server
     private func sendPaket(_ packet: String) {
