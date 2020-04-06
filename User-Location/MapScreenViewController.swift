@@ -32,7 +32,7 @@ class MapScreenViewController: UIViewController {
     private var currentDestinationAirportDirectionLine: MGLPolyline?
     private var travelledFlightLine = MGLPolyline()
     private var currentTaskLine: MGLPolyline?
-    
+
     private var userTrackingMode = true
     private var userFollow = false
     
@@ -45,13 +45,13 @@ class MapScreenViewController: UIViewController {
     private var showDistanceInKM = true
     
     private var showTrackingRoute = false
-    
+
     private var nearbyGliderAnnotations = [String: NearbyGliderAnnotation]()
     
     // MARK: - Init & Co.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         FlightComputer.start()
         OGNSocketConnectionManager.registerForSocketUpdates(self)
         OGNSocketConnectionManager.start()
@@ -67,7 +67,7 @@ class MapScreenViewController: UIViewController {
         super.viewWillAppear(animated)
         
         checkTrackingRouteStatus()
-        
+
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -97,7 +97,7 @@ class MapScreenViewController: UIViewController {
         
         mapView.resetNorth()
     }
-    
+
     func createUserLocationButton()
         -> UserLocationButton {
             let userLocationButton = UserLocationButton(buttonSize: 40)
@@ -111,7 +111,7 @@ class MapScreenViewController: UIViewController {
             userLocationButton.layer.borderWidth = 1
             userLocationButton.layer.borderColor = UIColor.red.cgColor
             // userLocationButton.layer.cornerRadius = 5
-            
+
             let leadingConstraint = NSLayoutConstraint(item: userLocationButton,
                                                        attribute: .leading,
                                                        relatedBy: .equal,
@@ -188,22 +188,22 @@ class MapScreenViewController: UIViewController {
             }
         }
     }
-    
+
     @objc func tapOnAltitudeLabel(_ recognizer: UITapGestureRecognizer) {
         showAltitudeInMeters = !showAltitudeInMeters
         updateAltitudeLabel()
     }
-    
+
     @objc func tapOnSpeedLabel(_ recognizer: UITapGestureRecognizer) {
         showSpeedInKMH = !showSpeedInKMH
         updateSpeedLabel()
     }
-    
+
     @objc func tapOnDistanceLabel(_ recognizer: UITapGestureRecognizer) {
         showDistanceInKM = !showDistanceInKM
         updateDestinationAirportDistanceLabel()
     }
-    
+
     @objc func tapOnDestinationAirportLabel(_ recognizer: UITapGestureRecognizer) {
         if DestinationSelectionViewController.destinationAirport() != nil {
             performSegue(withIdentifier: "AirportInfoSegue", sender: self)
@@ -224,6 +224,18 @@ class MapScreenViewController: UIViewController {
     }
     
     // MARK: - Private Methods
+
+    private func updateUI() {
+        // UI for currentLocation
+        updateAltitudeLabel()
+        updateSpeedLabel()
+        updateCourseLabel()
+        drawTrackingRoute()
+
+        // UI for Direction
+        updateDestinationAirportUI()
+    }
+
     private func updateAltitudeLabel() {
         guard let currentLocation = LocationManager.currentLocation()
             else { return }
@@ -238,7 +250,7 @@ class MapScreenViewController: UIViewController {
         
         altitudeLabel.text = altituteLabelText
     }
-    
+
     private func updateSpeedLabel() {
         guard let currentLocation = LocationManager.currentLocation()
             else { return }
@@ -259,14 +271,14 @@ class MapScreenViewController: UIViewController {
         
         speedLabel.text = speedLabelText
     }
-    
+
     private func updateCourseLabel() {
         guard let currentLocation = LocationManager.currentLocation()
             else {
                 self.courseLabel.text = "---"
                 return
         }
-        
+
         let course = currentLocation.course
         if course < 0 {
             self.courseLabel.text = "---"
@@ -275,8 +287,8 @@ class MapScreenViewController: UIViewController {
             self.courseLabel.text = courseShort
         }
     }
-    
-    
+
+
     // MARK: Route Tracking
     private func checkTrackingRouteStatus() {
         showTrackingRoute = UserDefaultsManager.showTrackingRouteState()
@@ -289,7 +301,7 @@ class MapScreenViewController: UIViewController {
             mapView.removeAnnotation(travelledFlightLine)
         }
     }
-    
+
     private func drawTrackingRoute() {
         if let currentLocation = LocationManager.currentLocation() {
             var currentLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
@@ -297,9 +309,9 @@ class MapScreenViewController: UIViewController {
             travelledFlightLine.appendCoordinates(&currentLocationCoordinate2D,
                                                   count: 1)
         }
-        
+
     }
-    
+
     // MARK: Update Destination Airport UI
     private func updateDestinationAirportUI() {
         let destinationAirport = DestinationSelectionViewController.destinationAirport()
@@ -307,11 +319,11 @@ class MapScreenViewController: UIViewController {
         updateDestinationAirportICAOLabel(destinationAirport: destinationAirport)
         updateDestinationAirportDistanceLabel()
         updateDestinationAirportAltitudeLabel(destinationAirport: destinationAirport)
-        
+
         // directionLine
         updateDestinationAirportDirectionLine(destinationAirport: destinationAirport)
     }
-    
+
     private func updateDestinationAirportICAOLabel(destinationAirport: AirportDatabase.Airport?) {
         if let icaoString = destinationAirport?.icao {
             destinationAirportICAOLabel.text = icaoString
@@ -319,7 +331,7 @@ class MapScreenViewController: UIViewController {
             destinationAirportICAOLabel.text = "---"
         }
     }
-    
+
     private func updateDestinationAirportDistanceLabel() {
         if let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport() {
             var distanceLabelText = ""
@@ -330,7 +342,7 @@ class MapScreenViewController: UIViewController {
                 let distcanceInMi = currentDistance / 1000 / 1.852
                 distanceLabelText = String(format: "%.0f NM", distcanceInMi)
             }
-            
+
             destinationAirportDistanceLabel.text = distanceLabelText
         } else {
             destinationAirportDistanceLabel.text = "---"
@@ -349,21 +361,21 @@ class MapScreenViewController: UIViewController {
                                                                     alpha: 1) // TODO: use preset for color; 05042020, ph
                 return
         }
-        
+
         // Get User Default Values
         let safetyAltitude = UserDefaultsManager.safetyAltitude()
         let gliderRatio = UserDefaultsManager.gliderRatio()
-        
+
         // Glider sink rate to destinationAirport
         let gliderRatioMeter = gliderRatio * 1000       //Gleitzahl in Meter
         let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    //Sinkrate pro Meter
         let gliderSinkRateToDestination = currentDistance * gliderSinkRatePerMeter   //Sinkrate to Destination in Meter
-        
+
         // Altitude of glider at destinationAirport
         let destinationAltitude = altitudeDifference - safetyAltitude - gliderSinkRateToDestination
         let destinationAltitudeShort = String(format: "%.0f m", destinationAltitude)
         self.destinationAirportAltitudeLabel.text = destinationAltitudeShort
-        
+
         // Update Text Color
         if destinationAltitude > 0 {
             // TODO: use preset for color; 05042020, ph
@@ -372,7 +384,7 @@ class MapScreenViewController: UIViewController {
             destinationAirportAltitudeLabel.textColor = .red
         }
     }
-    
+
     private func updateDestinationAirportDirectionLine(destinationAirport unguardedDestinationAirport: AirportDatabase.Airport?) {
         // Do we have a destination and a currentLocation?
         guard let destinationAirport = unguardedDestinationAirport,
@@ -385,14 +397,14 @@ class MapScreenViewController: UIViewController {
                 }
                 return
         }
-        
+
         // ... if yes: update exsting respective create new destinationLine
-        
+
         // get new directionLineLocationCoordinate2Ds
         let destinationAirportCoordinate2D = destinationAirport.locationCoordinate2D()
         let directionLineLocationCoordinate2Ds = [currentLocationCoordinate2D, destinationAirportCoordinate2D]
         let pointer = UnsafeMutablePointer(mutating: directionLineLocationCoordinate2Ds)
-        
+
         if let existingDestinationAirportDirectionLine = currentDestinationAirportDirectionLine {
             existingDestinationAirportDirectionLine.setCoordinates(pointer,
                                                                    count: UInt(directionLineLocationCoordinate2Ds.count))
@@ -405,7 +417,7 @@ class MapScreenViewController: UIViewController {
             currentDestinationAirportDirectionLine = newDestinationAirportDirectionLine
         }
     }
-    
+
 }
 
 // MARK: - MGLMapViewDelegate methods
@@ -427,28 +439,28 @@ extension MapScreenViewController: MGLMapViewDelegate {
         -> Bool {
             return true
     }
-    
+
     // Instantiate and return our custom callout view
     // https://stackoverflow.com/questions/26713582/didselectannotationview-not-called
     func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation)
         -> MGLCalloutView? {
-            
+
             if let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotation {
                 let views = Bundle.main.loadNibNamed(NearbyGliderCalloutView.nibName(),
                                                      owner: nil,
                                                      options: nil)
-                
+
                 guard let nearbyGliderCalloutView = views?[0] as? NearbyGliderCalloutView
                     else { fatalError("Must be a NearbyGliderCalloutView.") }
-                
+
                 nearbyGliderCalloutView.representedObject = nearbyGliderAnnotation
-                
+
                 return nearbyGliderCalloutView
             }
-            
+
             return nil
     }
-    
+
     // Hide the callout
     func mapView(_ mapView: MGLMapView,
                  annotation: MGLAnnotation,
@@ -456,19 +468,19 @@ extension MapScreenViewController: MGLMapViewDelegate {
         print("Tapped the calloutAccessoryControlTapped for: \(annotation)")
         mapView.deselectAnnotation(annotation, animated: true)
     }
-    
+
     func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
         // Optionally handle taps on the callout.
         print("Tapped the callout for: \(annotation)")
         mapView.deselectAnnotation(annotation, animated: true)
     }
-    
+
     // Substitute our custom view for the user location annotation
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation)
         -> MGLAnnotationView? {
-            
+
             var annotationView: MGLAnnotationView?
-            
+
             // User Annotation -> myself
             if annotation is MGLUserLocation && mapView.userLocation != nil {
                 annotationView = GliderUserLocationAnnotationView()
@@ -476,12 +488,12 @@ extension MapScreenViewController: MGLMapViewDelegate {
                 // Notice: nil is needed here! MGLAnnotation is an ObjC-Protocol. Fuck it!; 19.3.2020, ph
                 guard let flarmID = annotation.title ?? nil
                     else { return nil }
-                
+
                 annotationView = NearbyGliderAnnotationView(annotation: annotation,
                                                             reuseIdentifier: flarmID)
                 annotationView!.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
             }
-            
+
             return annotationView
     }
     
@@ -516,41 +528,26 @@ extension MapScreenViewController: LocationManagerDelegate {
     func locationManager(didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last // Alternativ: LocationManager.currentLocation
             else { return }
-        
+
         // Get User Tracking State - If true - set Map center on User Location
         if self.userFollow == true {
             self.mapView.setCenter(currentLocation.coordinate, animated: true)
         }
-        
-        // Current Altitude and Location depending stuff
-        // Altitude
-        updateAltitudeLabel()
-        
-        // Speed
-        updateSpeedLabel()
-        
-        // Steering Course
-        updateCourseLabel()
-        
-        // Direction
-        updateDestinationAirportUI()
-        
-        // updateFlightRecorderLine()
-        drawTrackingRoute()
-        
+
+        updateUI()
     }
-    
+
 }
 
 // MARK: - Extension - TasksDatabaseProtocol
 extension MapScreenViewController: TasksDatabaseProtocol {
-    
+
     func newTask(withCoordinates coordinates: [CLLocationCoordinate2D]) {
         if let currentTaskLine = currentTaskLine {
             mapView.removeAnnotation(currentTaskLine)
             self.currentTaskLine = nil
         }
-        
+
         if coordinates.isEmpty == false {
             currentTaskLine = MGLPolyline(coordinates: coordinates,
                                           count: UInt(coordinates.count))
@@ -570,7 +567,7 @@ extension MapScreenViewController: UIGestureRecognizerDelegate {
 }
 
 extension MapScreenViewController: DL_OGNSocketConnectionManagerDelegate {
-    
+
     func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
         var nearbyGliderAnnotation = nearbyGliderAnnotations[gliderTelemetryData.flarmID]
         if nearbyGliderAnnotation == nil {
@@ -578,23 +575,23 @@ extension MapScreenViewController: DL_OGNSocketConnectionManagerDelegate {
             nearbyGliderAnnotations[gliderTelemetryData.flarmID] = nearbyGliderAnnotation
             mapView.addAnnotation(nearbyGliderAnnotation!)
         }
-        
+
         nearbyGliderAnnotation!.gliderTelemetryData = gliderTelemetryData
     }
-    
+
     func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
         if let nearbyGliderAnnotation = nearbyGliderAnnotations[gliderTelemetryData.flarmID] {
             mapView.removeAnnotation(nearbyGliderAnnotation)
             nearbyGliderAnnotations[gliderTelemetryData.flarmID] = nil
         }
     }
-    
+
     func removeAllNearbyGlider() {
         var nearbyGliderAnnotationsToRemove = [NearbyGliderAnnotation]()
         for (_, nearbyGliderAnnotationToRemove) in nearbyGliderAnnotations {
             nearbyGliderAnnotationsToRemove.append(nearbyGliderAnnotationToRemove)
         }
-        
+
         mapView.removeAnnotations(nearbyGliderAnnotationsToRemove)
         nearbyGliderAnnotations.removeAll()
     }
