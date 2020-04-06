@@ -40,9 +40,6 @@ class OGNSocketConnectionManager {
     private var isLoggedIn = false
     private var loginTimeStamp = Date.currentUnixTimeStamp //TODO: wozu wird der gebraucht?; 03042020, ph
     
-    private var buddyFlarmID: String = UserDefaultsManager.buddyFlarmID()
-    private var regionInKm: Double = Presets.OGNSocketConnection.regionInKm
-    
     // MARK: - Public Class Methods
     class func registerForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
         shared.delegate = delegate
@@ -180,11 +177,11 @@ extension OGNSocketConnectionManager {
         let appVersion = Presets.OGNSocketConnection.appVersion
         if UserDefaultsManager.showOnlyBuddySwitchState() {
             // Filter for unique FlarmID or multiple IDs seperated bei /
-            let packet = "user \(userName) pass -1 vers \(appVersion) filter b/\(buddyFlarmID)\n"
+            let packet = "user \(userName) pass -1 vers \(appVersion) filter b/\(UserDefaultsManager.buddyFlarmID())\n"
             sendPaket(packet)
         } else {
             // Filter via Radius
-            let packet = "user \(userName) pass -1 vers \(appVersion) filter r/\(currentLocation.coordinate.latitude)/\(currentLocation.coordinate.longitude)/\(regionInKm)\n"
+            let packet = "user \(userName) pass -1 vers \(appVersion) filter r/\(currentLocation.coordinate.latitude)/\(currentLocation.coordinate.longitude)/\(Presets.OGNSocketConnection.regionInKm)\n"
             sendPaket(packet)
         }
         
@@ -219,6 +216,8 @@ extension OGNSocketConnectionManager {
                 else {
                     //print("\(#function): splittedMessage dismissed:   \(splittedMessage)")
                     continue }
+            
+            // TODO: Check if Prefix is own FlarmID - if yes discard message
             
             let gliderSpecificMessage = String(splittedMessage)
             if let telemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
