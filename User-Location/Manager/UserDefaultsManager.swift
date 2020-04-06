@@ -19,7 +19,7 @@ class UserDefaultsManager {
     private static let GearWarningStateKey = "gearWarningState"
     private static let SafetyAltitudeKey = "safetyAltitude"
     private static let ShowAllNearbyGlidersStateKey = "showAllNearbyGlidersState"
-    private static let ShowFlarmBuddyStateKey = "showFlarmBuddyState"
+    private static let ShowOnlyBuddyStateKey = "showOnlyBuddyState"
     private static let ShowTrackingRouteStateKey = "showTrackingRouteState"
     
     // MARK: - Defaults
@@ -59,8 +59,8 @@ class UserDefaultsManager {
         if shared.userDefaults.value(forKey: ShowTrackingRouteStateKey) == nil {
             shared.userDefaults.set(true, forKey: ShowTrackingRouteStateKey)
         }
-        if shared.userDefaults.value(forKey: ShowFlarmBuddyStateKey) == nil {
-            shared.userDefaults.set(true, forKey: ShowFlarmBuddyStateKey)
+        if shared.userDefaults.value(forKey: ShowOnlyBuddyStateKey) == nil {
+            shared.userDefaults.set(true, forKey: ShowOnlyBuddyStateKey)
         }
         if shared.userDefaults.value(forKey: BuddyFlarmIDKey) == nil {
             UserDefaultsManager.set(flarmBuddyFlarmID: buddyFlarmIDDefault)
@@ -139,15 +139,15 @@ class UserDefaultsManager {
         shared.userDefaults.set(showTrackingRouteState, forKey: ShowTrackingRouteStateKey)
     }
     
-    // MARK: ShowFlarmBuddySwitch
-    class func showOnlyFlarmBuddyNearbyGliderState()
+    // MARK: Show Buddy Switch
+    class func showOnlyBuddySwitchState()
         -> Bool {
-            let showFlarmBuddySwitchKey = shared.userDefaults.value(forKey: ShowFlarmBuddyStateKey) as? Bool ?? showFlarmBuddySwitchDefault
-            return showFlarmBuddySwitchKey
+            let showOnlyBuddySwitchKey = shared.userDefaults.value(forKey: ShowOnlyBuddyStateKey) as? Bool ?? showFlarmBuddySwitchDefault
+            return showOnlyBuddySwitchKey
     }
     
-    class func set(showOnlyFlarmBuddyNearbyGliderState: Bool) {
-        shared.userDefaults.set(showOnlyFlarmBuddyNearbyGliderState, forKey: ShowFlarmBuddyStateKey)
+    class func set(showOnlyBuddySwitchState: Bool) {
+        shared.userDefaults.set(showOnlyBuddySwitchState, forKey: ShowOnlyBuddyStateKey)
     }
     
     // MARK: Buddy FlarmID

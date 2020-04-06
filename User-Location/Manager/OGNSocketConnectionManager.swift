@@ -178,7 +178,7 @@ extension OGNSocketConnectionManager {
         }
         
         let appVersion = Presets.OGNSocketConnection.appVersion
-        if UserDefaultsManager.showOnlyFlarmBuddyNearbyGliderState() {
+        if UserDefaultsManager.showOnlyBuddySwitchState() {
             // Filter for unique FlarmID or multiple IDs seperated bei /
             let packet = "user \(userName) pass -1 vers \(appVersion) filter b/\(buddyFlarmID)\n"
             sendPaket(packet)
