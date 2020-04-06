@@ -20,7 +20,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet private weak var gliderRatioTextField: TextFields!
     @IBOutlet private weak var safetyAltitudeTextField: TextFields!
     @IBOutlet private weak var gliderIDTextField: TextFields!
-    @IBOutlet weak var ownFlarmIDTextField: TextFields!
+    @IBOutlet private weak var ownFlarmIDTextField: TextFields!
     @IBOutlet private weak var buddyFlarmIDTextField: TextFields!
     @IBOutlet private weak var gearWarningSwitch: UISwitch!
     @IBOutlet private weak var showTrackingRouteSwitch: UISwitch!
