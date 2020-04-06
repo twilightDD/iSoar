@@ -211,13 +211,18 @@ extension OGNSocketConnectionManager {
         // print("Anzahl Teilnachrichten: \(splittedMessages.count)")
         
         for splittedMessage in splittedMessages {
-            guard splittedMessage.hasPrefix("FLR")
+             guard splittedMessage.hasPrefix("FLR")
                 || splittedMessage.hasPrefix("ICA")
                 else {
-                    //print("\(#function): splittedMessage dismissed:   \(splittedMessage)")
+                    // print("\(#function): No FLR or ICA Prefix found in Message:   \(splittedMessage)")
                     continue }
             
-            // TODO: Check if Prefix is own FlarmID - if yes discard message
+            // Check if Prefix is own FlarmID - if yes discard message
+            // TODO: Maybe switch behavior
+            guard !splittedMessage.hasPrefix(UserDefaultsManager.ownFlarmID())
+            else {
+                print("\(#function): Own FlarmID found in Message:   \(splittedMessage)")
+                continue }
             
             let gliderSpecificMessage = String(splittedMessage)
             if let telemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
