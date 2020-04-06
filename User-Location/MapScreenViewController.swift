@@ -314,7 +314,13 @@ class MapScreenViewController: UIViewController {
 
     // MARK: Update Destination Airport UI
     private func updateDestinationAirportUI() {
-        let destinationAirport = DestinationSelectionViewController.destinationAirport()
+        guard let destinationAirport = DestinationSelectionViewController.destinationAirport(),
+            let _ = LocationManager.currentLocation()
+            else {
+                resetUpdateDestinationAirportUI()
+                return
+        }
+
         // labels
         updateDestinationAirportICAOLabel(destinationAirport: destinationAirport)
         updateDestinationAirportDistanceLabel()
@@ -324,12 +330,25 @@ class MapScreenViewController: UIViewController {
         updateDestinationAirportDirectionLine(destinationAirport: destinationAirport)
     }
 
-    private func updateDestinationAirportICAOLabel(destinationAirport: AirportDatabase.Airport?) {
-        if let icaoString = destinationAirport?.icao {
-            destinationAirportICAOLabel.text = icaoString
-        } else {
-            destinationAirportICAOLabel.text = "---"
+    private func resetUpdateDestinationAirportUI() {
+        // labels
+        destinationAirportICAOLabel.text = "---"
+        destinationAirportDistanceLabel.text = "---"
+        destinationAirportAltitudeLabel.text = "---"
+        destinationAirportAltitudeLabel.textColor = UIColor(red: 150/255,
+                                                            green: 255/255,
+                                                            blue: 255/255,
+                                                            alpha: 1) // TODO: use preset for color; 05042020, ph
+
+        // directionLine
+        if let destinationAirportDirectionLine = currentDestinationAirportDirectionLine {
+            mapView.remove(destinationAirportDirectionLine)
+            currentDestinationAirportDirectionLine = nil
         }
+    }
+
+    private func updateDestinationAirportICAOLabel(destinationAirport: AirportDatabase.Airport) {
+        destinationAirportICAOLabel.text = destinationAirport.icao
     }
 
     private func updateDestinationAirportDistanceLabel() {
@@ -349,18 +368,10 @@ class MapScreenViewController: UIViewController {
         }
     }
     
-    private func updateDestinationAirportAltitudeLabel(destinationAirport: AirportDatabase.Airport?) {
-        guard let destinationAirportGuarded = destinationAirport,
-            let altitudeDifference = LocationManager.altitudeDifferenceFromCurrentLocationTo(altitude: destinationAirportGuarded.elevation),
+    private func updateDestinationAirportAltitudeLabel(destinationAirport: AirportDatabase.Airport) {
+        guard let altitudeDifference = LocationManager.altitudeDifferenceFromCurrentLocationTo(altitude: destinationAirport.elevation),
             let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport()
-            else {
-                destinationAirportAltitudeLabel.text = "---"
-                destinationAirportAltitudeLabel.textColor = UIColor(red: 150/255,
-                                                                    green: 255/255,
-                                                                    blue: 255/255,
-                                                                    alpha: 1) // TODO: use preset for color; 05042020, ph
-                return
-        }
+            else { return }
 
         // Get User Default Values
         let safetyAltitude = UserDefaultsManager.safetyAltitude()
@@ -385,26 +396,17 @@ class MapScreenViewController: UIViewController {
         }
     }
 
-    private func updateDestinationAirportDirectionLine(destinationAirport unguardedDestinationAirport: AirportDatabase.Airport?) {
-        // Do we have a destination and a currentLocation?
-        guard let destinationAirport = unguardedDestinationAirport,
-            let currentLocationCoordinate2D = LocationManager.currentLocation()?.coordinate
-            else {
-                // ... if not: remove destinationLine, if existing
-                if let destinationAirportDirectionLine = currentDestinationAirportDirectionLine {
-                    mapView.remove(destinationAirportDirectionLine)
-                    currentDestinationAirportDirectionLine = nil
-                }
-                return
-        }
-
-        // ... if yes: update exsting respective create new destinationLine
+    private func updateDestinationAirportDirectionLine(destinationAirport: AirportDatabase.Airport) {
+        guard let currentLocationCoordinate2D = LocationManager.currentLocation()?.coordinate
+            else { return }
 
         // get new directionLineLocationCoordinate2Ds
         let destinationAirportCoordinate2D = destinationAirport.locationCoordinate2D()
-        let directionLineLocationCoordinate2Ds = [currentLocationCoordinate2D, destinationAirportCoordinate2D]
+        let directionLineLocationCoordinate2Ds = [currentLocationCoordinate2D,
+                                                  destinationAirportCoordinate2D]
         let pointer = UnsafeMutablePointer(mutating: directionLineLocationCoordinate2Ds)
 
+        // Update existing or create new line
         if let existingDestinationAirportDirectionLine = currentDestinationAirportDirectionLine {
             existingDestinationAirportDirectionLine.setCoordinates(pointer,
                                                                    count: UInt(directionLineLocationCoordinate2Ds.count))
