@@ -15,20 +15,20 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     // MARK: Lets and Vars
     // Statics
     static private var shared: DestinationSelectionViewController?
-
+    
     // Public
     class func destinationAirport()
         -> AirportDatabase.Airport? {
             let destinationAirport = shared?.selectedDestinationAirport
             return destinationAirport
     }
-
+    
     // Private
-
+    
     // Datasource
     private var selectedDestinationAirport: AirportDatabase.Airport?
     private var formerSelectedDestinationAirport: AirportDatabase.Airport?
-
+    
     private var destinationAirportArray = [AirportDatabase.Airport]()
     private var sortSwitchIndex = 0
     
@@ -70,7 +70,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         setupTableViewDatasource()
         
         updateUIForSelectedDestinationAirport()
@@ -97,16 +97,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
                          object: nil,
                          queue: OperationQueue.main) { [unowned self] (notification) in
                             
-                            let alert = UIAlertController(title: "Download failed",
-                                                          message: "It seems your Device has no active internet Connection.",
-                                                          preferredStyle: .alert)
-                            
-                            alert.addAction(UIAlertAction(title: "OK",
-                                                          style: .default,
-                                                          handler: {(alert: UIAlertAction!) in self.refreshControl.endRefreshing()}))
-                            
-                            self.present(alert, animated: true)
-                            
+                            self.refreshControl.endRefreshing()
         }
         
     }
@@ -121,7 +112,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
             NotificationCenter.default.removeObserver(airportUpdateFailedNotification)
         }
     }
-
+    
     // MARK: - Private Methods
     // updateUIForSelectedDestinationAirport
     private func updateUIForSelectedDestinationAirport() {

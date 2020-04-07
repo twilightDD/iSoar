@@ -181,7 +181,7 @@ class AirportDatabase {
                 print("Error took place while downloading a file. Error description: %@", error!.localizedDescription)
                 
                 DispatchQueue.main.async {
-                    NotificationBanner.show("Airport Database Update failed. Check Internet!")
+                    NotificationBanner.show("Update failed. Check Internet Connection!")
                 }
                 
                 // TODO: benötigen wir das noch?
