@@ -75,6 +75,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
         
         updateUIForSelectedDestinationAirport()
         searchBar.placeholder = "Filter Airfields"
+        searchBar.placeholder = "Search in \(self.destinationAirportArray.count) Airfields"
         
         // MARK: - Register Observers for notfications
         // Airport Update Completed
@@ -86,9 +87,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
                             self.updateUIForSelectedDestinationAirport()
                             self.setupTableViewDatasource()
                             self.refreshControl.endRefreshing()
-                            
-                            // self.searchController.searchBar.placeholder = "Search \(self.destinationAirportArray.count) Airfields"
-                            
+                            self.searchBar.placeholder = "Search in \(self.destinationAirportArray.count) Airfields"
         }
         
         // Airport Update Failed
@@ -300,6 +299,9 @@ extension DestinationSelectionViewController: UITableViewDelegate {
         guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows
             else { return }
         tableView.reloadRows(at: indexPathsForVisibleRows, with: .none)
+        
+        // Dismiss Keyboard when Airport is selected
+        searchBar.resignFirstResponder()
     }
     
 }
