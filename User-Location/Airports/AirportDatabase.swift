@@ -17,43 +17,43 @@ class AirportDatabase {
     // ... Notifications
     static let airportUpdateCompletedNotificationName = Notification.Name(rawValue: "airportUpdateCompleted")
     static let airportUpdateFailedNotificationName = Notification.Name(rawValue: "airportUpdateFailed")
-
+    
     // Private
     private var destinationAirports = [AirportDatabase.Airport]()
     private let libraryURL: URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
-
+    
     // MARK: - Init&Co.
     private init() {
         checkForMapOjectsInLibraryFolder()
         loadAirports()
     }
-
+    
     // MARK: - Public Class Methods
     class func nearestAirport ()
         -> AirportDatabase.Airport? {
             let nearestAirport = shared.nearestAirport()
             return nearestAirport
     }
-
+    
     class func icaoOfNearestAirport()
         -> String? {
             let nearestAirport = AirportDatabase.nearestAirport()
             let icaoOfNearestAirport = nearestAirport?.icao
             return icaoOfNearestAirport
     }
-
+    
     class func filteredDestinationAirports(byName searchString: String?,
                                            sortedBy sortIndicator: SortIndicator)
         -> [AirportDatabase.Airport]? {
             let filteredDestinationAirports = shared.filteredDestinationAirports(byName: searchString,
-                                                                               sortedBy: sortIndicator)
+                                                                                 sortedBy: sortIndicator)
             return filteredDestinationAirports
     }
-
+    
     class func downloadAirportsFromServer() {
         shared.downloadAirportsFromServer()
     }
-
+    
     // MARK: - Private Methods
     private func updateDistance() {
         if let currentLocation = LocationManager.currentLocation() {
@@ -72,20 +72,20 @@ class AirportDatabase {
             destinationAirports = puffer
         }
     }
-
+    
     private func filteredDestinationAirports(byName searchString: String?,
                                              sortedBy sortIndicator: SortIndicator)
         -> [AirportDatabase.Airport]? {
-
+            
             updateDistance()
-
+            
             var filteredAndSortedAirports = [AirportDatabase.Airport]()
             
             // Filter
             var filteredArray = destinationAirports
             
             if let searchString = searchString,
-
+                
                 searchString.isEmpty == false {
                 filteredArray = destinationAirports.filter { (airport) -> Bool in
                     let airportNameContainsSearchString = airport.name.localizedCaseInsensitiveContains(searchString)
@@ -110,24 +110,24 @@ class AirportDatabase {
                 //                        return filteredArray
                 //                    }
                 //                }
-
+                
                 filteredAndSortedAirports = filteredArray.sorted(by: { ($0.distance! < $1.distance!) })
             }
             
             return filteredAndSortedAirports
     }
-
+    
     private func nearestAirport()
         -> Airport? {
             updateDistance()
             if let filterDestinationAirports = filteredDestinationAirports(byName: nil,
-                                                                         sortedBy: .distance) {
+                                                                           sortedBy: .distance) {
                 return filterDestinationAirports.first
             }
             
             return nil
     }
-
+    
     private func downloadAirportsFromServer() {
         // Create destination URL
         let libraryUrl: URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
@@ -160,19 +160,31 @@ class AirportDatabase {
                     self.loadAirports()
                     self.updateDistance()
                     
+                    // TODO: benötigen wir das noch?
                     // Post Notification for comoleted Update
                     NotificationCenter.default.post(name: AirportDatabase.airportUpdateCompletedNotificationName,
                                                     object: nil)
                     
+                    // TODO: User-Info - Banner via Dispatch ok?
+                    DispatchQueue.main.async {
+                        NotificationBanner.show("Airport Database successfully updated.")
+                    }
+                    
                 } catch let writeError {
-                    // TODO: @dl UserInfo; 04042020, ph
                     print("Error creating a file: \(destinationFileUrl) : \(writeError)")
+                    
+                    DispatchQueue.main.async {
+                        NotificationBanner.show("Error creating file.")
+                    }
                 }
-                
             } else {
-                // TODO: @dl UserInfo; 04042020, ph
                 print("Error took place while downloading a file. Error description: %@", error!.localizedDescription)
                 
+                DispatchQueue.main.async {
+                    NotificationBanner.show("Airport Database Update failed. Check Internet!")
+                }
+                
+                // TODO: benötigen wir das noch?
                 // Post Notification for failed Update
                 NotificationCenter.default.post(name: AirportDatabase.airportUpdateFailedNotificationName,
                                                 object: nil)

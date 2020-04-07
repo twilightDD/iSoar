@@ -24,6 +24,7 @@
 		D0C2801D23D8FF4000518539 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2801A23D8F46B00518539 /* UserDefaultsManager.swift */; };
 		D0C2A9E32367954A00FEF926 /* UITextField+NumberPadDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */; };
 		D0C5ED5B22A4769C009A0542 /* AirportDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5ED5A22A4769C009A0542 /* AirportDatabase.swift */; };
+		E001B84F243C810700559D7B /* NotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E001B84E243C810700559D7B /* NotificationBanner.swift */; };
 		E007864923D2204600856865 /* FlightsDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E007864823D2204600856865 /* FlightsDatabase.swift */; };
 		E007864B23D222EA00856865 /* FlightSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E007864A23D222EA00856865 /* FlightSelectionTableViewCell.swift */; };
 		E00E08CC23DB877A00BE04F6 /* TimeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00E08CB23DB877A00BE04F6 /* TimeDateFormatter.swift */; };
@@ -83,6 +84,7 @@
 		D0C2801A23D8F46B00518539 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+NumberPadDoneButton.swift"; sourceTree = "<group>"; };
 		D0C5ED5A22A4769C009A0542 /* AirportDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportDatabase.swift; sourceTree = "<group>"; };
+		E001B84E243C810700559D7B /* NotificationBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBanner.swift; sourceTree = "<group>"; };
 		E007864823D2204600856865 /* FlightsDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsDatabase.swift; sourceTree = "<group>"; };
 		E007864A23D222EA00856865 /* FlightSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		E00E08CB23DB877A00BE04F6 /* TimeDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimeDateFormatter.swift; path = Manager/TimeDateFormatter.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				E02052AE23E36A8200839B84 /* FlightComputer.swift */,
+				E001B84E243C810700559D7B /* NotificationBanner.swift */,
 				E02052B023E36A9A00839B84 /* FlightRecorder.swift */,
 				E007864823D2204600856865 /* FlightsDatabase.swift */,
 				E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */,
@@ -450,6 +453,7 @@
 				E01D87E8239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift in Sources */,
 				D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */,
 				E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */,
+				E001B84F243C810700559D7B /* NotificationBanner.swift in Sources */,
 				E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */,
 				D022F00C2437DB5900CA9DB4 /* LocationManager.swift in Sources */,
 				E06936D8241B8CA00073D078 /* GliderTelemetryData.swift in Sources */,
