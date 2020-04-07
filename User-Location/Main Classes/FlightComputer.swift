@@ -66,6 +66,7 @@ class FlightComputer {
     }
 
     // MARK: Check Warning Methods
+    // Check for Gear Warning
     private func checkForGearWarning() {
         guard let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
             let currentLocation = LocationManager.currentLocation(),
@@ -97,6 +98,7 @@ class FlightComputer {
         }
     }
 
+    // Check for Oxygen Warning
     private func checkForOxygenWarning() {
         guard let currentLocation = LocationManager.currentLocation()
             else { return }
@@ -112,7 +114,8 @@ class FlightComputer {
         }
     }
 
-    private func collisionWarning() {
+    // Check for Collision Warning
+    private func checkForCollisionWarning() {
         // Check if Glider is flying / If false we dont need to warn
         if isGliderFlying == true {
             // Check if Collision Warning Switch is on / If false we dont need to warn
