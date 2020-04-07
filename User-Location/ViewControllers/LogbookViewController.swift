@@ -16,7 +16,7 @@ class LogbookViewController: UIViewController {
     
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
-
+    
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,20 +24,20 @@ class LogbookViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setupTableViewDatasource()
     }
-
+    
     // MARK: - TableViewDatasource
     private func setupTableViewDatasource() {
         flightMetaDatas = FlightsDatabase.sortedFlightsByDescendingDate()
-    
+        
         tableView.reloadData()
     }
-
+    
 }
 
 // MARK: - Extension - UITableViewDataSource
@@ -80,5 +80,24 @@ extension LogbookViewController: UITableViewDataSource {
 extension LogbookViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    }
+    
+    // Make TableRow deleteable via Swipe to left
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, complete in
+            
+            // TODO: Find Filenames and delete them
+            self.flightMetaDatas.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            complete(true)
+        }
+        
+        // Set Image and Background Color
+        deleteAction.image = UIImage(systemName: "trash")
+        deleteAction.backgroundColor = UIColor.red
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        return configuration
     }
 }
