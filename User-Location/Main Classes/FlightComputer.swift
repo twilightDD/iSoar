@@ -87,7 +87,7 @@ class FlightComputer {
                 lowerWarningNeeded == true {
                 
                 if shouldPlayGearWarning == true {
-                    speak(string: "Check Gear")
+                    speak(string: Presets.FlightComputer.gearWarningSpokenText)
                     shouldPlayGearWarning = false
                 }
             } else {
@@ -104,7 +104,7 @@ class FlightComputer {
         let oxygenWarningNeeded = currentLocation.altitude > Presets.FlightComputer.oxygenWarningAltitude
         if oxygenWarningNeeded == true {
             if shouldPlayOxygenWarning == true {
-                speak(string: "Check Oxygen Level")
+                speak(string: Presets.FlightComputer.oxygenWarningSpokenText)
                 shouldPlayOxygenWarning = false
             }
         } else {
@@ -118,10 +118,9 @@ class FlightComputer {
             // Check if Collision Warning Switch is on / If false we dont need to warn
             let collisionWarningSwitch = UserDefaultsManager.collisionWarningState()
             if collisionWarningSwitch == true {
-                speak(string: "Warning, Traffic ahead")
-
+                speak(string: Presets.FlightComputer.collisionWarningSpokenText)
             } else {
-                // Collision Warning Switch is on
+                // Collision Warning Switch is off
             }
             
         } else {
