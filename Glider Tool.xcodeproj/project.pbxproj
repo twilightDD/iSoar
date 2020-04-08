@@ -313,7 +313,6 @@
 				EDA2361D2130AA7500739396 /* Resources */,
 				E0A9449922B0221F003187D6 /* Embed Frameworks */,
 				E02BF30923F5F13500221709 /* ShellScript */,
-				304AC57616EE8B974B37A349 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -374,23 +373,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		304AC57616EE8B974B37A349 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Glider Tool/Pods-Glider Tool-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Glider Tool/Pods-Glider Tool-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Glider Tool/Pods-Glider Tool-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		4399A159E3FDA00445A927E9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
