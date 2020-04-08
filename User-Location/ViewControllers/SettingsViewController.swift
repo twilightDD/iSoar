@@ -131,18 +131,25 @@ class SettingsViewController: UIViewController {
         UserDefaultsManager.set(gliderID: gliderIDTextField.text!)
         UserDefaultsManager.set(ownFlarmID: ownFlarmIDTextField.text!)
         
-        // If Buddy FlarmID has changed a Reconnect is needed
-        if buddyFlarmIDTextField.text != UserDefaultsManager.buddyFlarmID()
-            && UserDefaultsManager.showOnlyBuddySwitchState() == true {
-            // Disconnect from OGN Server
-            OGNSocketConnectionManager.stop()
-            // Reconnect
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                OGNSocketConnectionManager.start()
+        // If Buddy FlarmID has changed
+        if buddyFlarmIDTextField.text != UserDefaultsManager.buddyFlarmID() {
+            // If Show Only Buddy Switch is on (state = true) - Reconnect to OGN Server
+            if UserDefaultsManager.showOnlyBuddySwitchState() == true {
+                // Set new Buddy FlarmID to UserDefaults
+                UserDefaultsManager.set(flarmBuddyFlarmID: buddyFlarmIDTextField.text!)
+                // Disconnect from OGN Server
+                OGNSocketConnectionManager.stop()
+                // Reconnect to OGN Server
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    OGNSocketConnectionManager.start()
+                }
+            } else {
+                // If Show Only Buddy Switch is off - just set the new Buddy FlarmID to UserDefaults
+                UserDefaultsManager.set(flarmBuddyFlarmID: buddyFlarmIDTextField.text!)
             }
+        } else {
+            // Buddy FlarmID has not changed
         }
-        // Set new Buddy FlarmID to UserDefaults
-        UserDefaultsManager.set(flarmBuddyFlarmID: buddyFlarmIDTextField.text!)
     }
     
     // MARK: - Action Methods
