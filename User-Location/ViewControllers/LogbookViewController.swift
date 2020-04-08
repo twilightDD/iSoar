@@ -83,21 +83,24 @@ extension LogbookViewController: UITableViewDelegate {
     }
     
     // Make TableRow deleteable via Swipe to left
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, complete in
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+        -> UISwipeActionsConfiguration? {
+            let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, complete in
+                // Hand over flightUUID to FileManager for deletion of Flight Files
+                let flightUUID = self.flightMetaDatas[indexPath.row].flightUUID
+                ISoarFileManager.deleteFlightFiles(flightUUID)
+                
+                self.flightMetaDatas.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                complete(true)
+            }
             
-            // TODO: Find Filenames and delete them
-            self.flightMetaDatas.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
-            complete(true)
-        }
-        
-        // Set Image and Background Color
-        deleteAction.image = UIImage(systemName: "trash")
-        deleteAction.backgroundColor = UIColor.red
-        
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-        configuration.performsFirstActionWithFullSwipe = true
-        return configuration
+            // Set Image and Background Color of Delete Action
+            deleteAction.image = UIImage(systemName: "trash")
+            deleteAction.backgroundColor = UIColor.red
+            
+            let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+            configuration.performsFirstActionWithFullSwipe = true
+            return configuration
     }
 }
