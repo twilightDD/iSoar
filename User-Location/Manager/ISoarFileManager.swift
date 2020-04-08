@@ -313,7 +313,7 @@ extension ISoarFileManager {
             fatalError("Failed writing to URL: \(String(describing: finalFlightRecorderFileURL)), Error: " + error.localizedDescription)
         }
         
-        // Update  Meta Data File of flight
+        // Update Meta Data File of flight
         let startTimeFormatted = TimeDateFormatter.yearMonthDayHourMinuteDateFrom(flightStartDate)
         let endTimeFormatted =  TimeDateFormatter.yearMonthDayHourMinuteDateFrom(flightEndDate)
         let flightTime = TimeDateFormatter.hourMinutesStringFrom(startTime: startTimeFormatted,
@@ -345,6 +345,30 @@ extension ISoarFileManager {
         }
     }
     
+    // TODO: Check Syntax with ph
+    // Delete Flight Files in Flights Folder
+    class func deleteFlightFiles(_ flightUUID: String) {
+        
+        let jsonPath: String = "\(flightRecorderDirectoryPath)/\(flightUUID).\(jsonPathExtension)"
+        let csvPath: String = "\(flightRecorderDirectoryPath)/\(flightUUID).\(csvPathExtension)"
+        
+        let fileManager = FileManager.default
+        
+        if fileManager.fileExists(atPath: jsonPath) {
+            do {
+                try fileManager.removeItem(atPath: jsonPath)
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+        if fileManager.fileExists(atPath: csvPath) {
+            do {
+                try fileManager.removeItem(atPath: csvPath)
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
 
 // MARK: - Extension - General Helper Methods

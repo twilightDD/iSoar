@@ -15,20 +15,20 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     // MARK: Lets and Vars
     // Statics
     static private var shared: DestinationSelectionViewController?
-
+    
     // Public
     class func destinationAirport()
         -> AirportDatabase.Airport? {
             let destinationAirport = shared?.selectedDestinationAirport
             return destinationAirport
     }
-
+    
     // Private
-
+    
     // Datasource
     private var selectedDestinationAirport: AirportDatabase.Airport?
     private var formerSelectedDestinationAirport: AirportDatabase.Airport?
-
+    
     private var destinationAirportArray = [AirportDatabase.Airport]()
     private var sortSwitchIndex = 0
     
@@ -70,11 +70,12 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         setupTableViewDatasource()
         
         updateUIForSelectedDestinationAirport()
         searchBar.placeholder = "Filter Airfields"
+        searchBar.placeholder = "Search in \(self.destinationAirportArray.count) Airfields"
         
         // MARK: - Register Observers for notfications
         // Airport Update Completed
@@ -86,9 +87,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
                             self.updateUIForSelectedDestinationAirport()
                             self.setupTableViewDatasource()
                             self.refreshControl.endRefreshing()
-                            
-                            // self.searchController.searchBar.placeholder = "Search \(self.destinationAirportArray.count) Airfields"
-                            
+                            self.searchBar.placeholder = "Search in \(self.destinationAirportArray.count) Airfields"
         }
         
         // Airport Update Failed
@@ -97,16 +96,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
                          object: nil,
                          queue: OperationQueue.main) { [unowned self] (notification) in
                             
-                            let alert = UIAlertController(title: "Download failed",
-                                                          message: "It seems your Device has no active internet Connection.",
-                                                          preferredStyle: .alert)
-                            
-                            alert.addAction(UIAlertAction(title: "OK",
-                                                          style: .default,
-                                                          handler: {(alert: UIAlertAction!) in self.refreshControl.endRefreshing()}))
-                            
-                            self.present(alert, animated: true)
-                            
+                            self.refreshControl.endRefreshing()
         }
         
     }
@@ -135,9 +125,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
             return distanceToDestinationAirport
     }
 
-
-
-    // MARK: - Private Instance Methods
+    // MARK: - Private Methods
     // updateUIForSelectedDestinationAirport
     private func updateUIForSelectedDestinationAirport() {
         if let destinationAirport = self.selectedDestinationAirport {
@@ -307,10 +295,6 @@ extension DestinationSelectionViewController: UITableViewDelegate {
         // If the newly selected destination equals the former:
         // it means we want to cancel the navigation
         // We deselect the active cell and set selectedDestinationAirport = nil
-
-        
-        print("Vorher Selectiert: \(self.formerSelectedDestinationAirport?.latitude ?? 0 ) *** Nachher Selektiert: \(newSelectedDestinationAirport.latitude)")
-        
         
         if let formerSelectedDestinationAirport = self.formerSelectedDestinationAirport,
             newSelectedDestinationAirport.latitude == formerSelectedDestinationAirport.latitude
@@ -327,6 +311,9 @@ extension DestinationSelectionViewController: UITableViewDelegate {
         guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows
             else { return }
         tableView.reloadRows(at: indexPathsForVisibleRows, with: .none)
+        
+        // Dismiss Keyboard when Airport is selected
+        searchBar.resignFirstResponder()
     }
     
 }

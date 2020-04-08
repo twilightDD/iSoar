@@ -64,6 +64,8 @@ struct Presets {
         // Oxygen Warning
         /// Represents the Oxygen Warning Altitude
         static let oxygenWarningAltitude: CLLocationDistance = 3500
+        /// Represents the spoken Text of the acoustic Warning
+        static let oxygenWarningSpokenText: String = "Warning, Oxygen Level low"
 
         // Landing Gear Warning
         /// Represents the lower distance Limit above the Airport in which user is warned
@@ -72,6 +74,14 @@ struct Presets {
         static let lowerGearWarningAltitude: Double = 200
         /// Represents the upper Altitude Range Limit above the Airport in which User is warned
         static let upperGearWarningAltitude: Double = 400
+        /// Represents the spoken Text of the acoustic Warning
+        static let gearWarningSpokenText: String = "Warning, check Gear"
+        
+        // Collision Warning
+        /// Represents the distance Limit of Nearby Gliders in which the user is warned
+        static let collisionWarningDistance: Double = 1000
+        /// Represents the spoken Text of the acoustic Warning
+        static let collisionWarningSpokenText: String = "Warning, Traffic ahead"
 
     }
     

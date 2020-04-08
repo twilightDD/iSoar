@@ -20,11 +20,12 @@ class SettingsViewController: UIViewController {
     @IBOutlet private weak var gliderRatioTextField: TextFields!
     @IBOutlet private weak var safetyAltitudeTextField: TextFields!
     @IBOutlet private weak var gliderIDTextField: TextFields!
+    @IBOutlet private weak var ownFlarmIDTextField: TextFields!
     @IBOutlet private weak var buddyFlarmIDTextField: TextFields!
     @IBOutlet private weak var gearWarningSwitch: UISwitch!
     @IBOutlet private weak var showTrackingRouteSwitch: UISwitch!
     @IBOutlet private weak var showAllNearbyGlidersSwitch: UISwitch!
-    @IBOutlet private weak var showOnlyBuddyNearbyGliderSwitch: UISwitch!
+    @IBOutlet private weak var showOnlyBuddySwitch: UISwitch!
     @IBOutlet private weak var collisionWarningSwitch: UISwitch!
     @IBOutlet private weak var downloadAirportUpdates: UIButton!
     
@@ -36,6 +37,7 @@ class SettingsViewController: UIViewController {
         gliderRatioTextField.delegate = self
         safetyAltitudeTextField.delegate = self
         gliderIDTextField.delegate = self
+        ownFlarmIDTextField.delegate = self
         buddyFlarmIDTextField.delegate = self
     }
     
@@ -86,6 +88,10 @@ class SettingsViewController: UIViewController {
         let gliderID = UserDefaultsManager.gliderID()
         gliderIDTextField.text = gliderID
         
+        // Own FlarmID
+        let ownFlarmID = UserDefaultsManager.ownFlarmID()
+        ownFlarmIDTextField.text = ownFlarmID
+        
         // Gear Warning Switch Setup
         let gearWarningSwitchState = UserDefaultsManager.gearWarningState()
         gearWarningSwitch.isOn = gearWarningSwitchState
@@ -95,11 +101,11 @@ class SettingsViewController: UIViewController {
         showTrackingRouteSwitch.isOn = showTrackingRouteSwitchState
         
         // Show Flarm Buddy Switch Setup
-        let showFlarmBuddySwitchState = UserDefaultsManager.showOnlyFlarmBuddyNearbyGliderState()
-        showOnlyBuddyNearbyGliderSwitch.isOn = showFlarmBuddySwitchState
+        let showFlarmBuddySwitchState = UserDefaultsManager.showOnlyBuddySwitchState()
+        showOnlyBuddySwitch.isOn = showFlarmBuddySwitchState
         
         // Buddy FlarmID
-        let buddyFlarmID = UserDefaultsManager.flarmBuddyFlarmID()
+        let buddyFlarmID = UserDefaultsManager.buddyFlarmID()
         buddyFlarmIDTextField.text = buddyFlarmID
         
         // Show nearby Gliders Switch Setup
@@ -123,7 +129,27 @@ class SettingsViewController: UIViewController {
         UserDefaultsManager.set(safetyAltitude: safetyAltitudeDouble)
         
         UserDefaultsManager.set(gliderID: gliderIDTextField.text!)
-        UserDefaultsManager.set(flarmBuddyFlarmID: buddyFlarmIDTextField.text!)
+        UserDefaultsManager.set(ownFlarmID: ownFlarmIDTextField.text!)
+        
+        // If Buddy FlarmID has changed
+        if buddyFlarmIDTextField.text != UserDefaultsManager.buddyFlarmID() {
+            // If Show Only Buddy Switch is on (state = true) - Reconnect to OGN Server
+            if UserDefaultsManager.showOnlyBuddySwitchState() == true {
+                // Set new Buddy FlarmID to UserDefaults
+                UserDefaultsManager.set(flarmBuddyFlarmID: buddyFlarmIDTextField.text!)
+                // Disconnect from OGN Server
+                OGNSocketConnectionManager.stop()
+                // Reconnect to OGN Server
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    OGNSocketConnectionManager.start()
+                }
+            } else {
+                // If Show Only Buddy Switch is off - just set the new Buddy FlarmID to UserDefaults
+                UserDefaultsManager.set(flarmBuddyFlarmID: buddyFlarmIDTextField.text!)
+            }
+        } else {
+            // Buddy FlarmID has not changed
+        }
     }
     
     // MARK: - Action Methods
@@ -137,50 +163,60 @@ class SettingsViewController: UIViewController {
     
     @IBAction func showAllNearbyGlidersSwitchAction(_ sender: UISwitch) {
         UserDefaultsManager.set(showAllNearbyGlidersState: sender.isOn)
-        if sender.isOn {
+        if sender.isOn == true {
             // Connect to OGN Server with Radius Filter
             OGNSocketConnectionManager.start()
         } else {
-            // Set showFlarmBuddySwitch also to false
-            showOnlyBuddyNearbyGliderSwitch.setOn(false, animated: true)
-            showOnlyBuddyNearbyGliderSwitchAction(showOnlyBuddyNearbyGliderSwitch)
+            // Set showOnlyBuddySwitch also to off and showOnlyBuddySwitchState to false
+            showOnlyBuddySwitch.setOn(false, animated: true)
+            UserDefaultsManager.set(showOnlyBuddySwitchState: false)
             
-            // Set collisionWarningSwitch also to false
+            // Set collisionWarningSwitch also to off and collisionWarningState to false
             collisionWarningSwitch.setOn(false, animated: true)
-            collisionWarningSwitchAction(collisionWarningSwitch)
+            UserDefaultsManager.set(collisionWarningState: false)
             
             // Disconnect from OGN Server
             OGNSocketConnectionManager.stop()
         }
     }
     
-    @IBAction func showOnlyBuddyNearbyGliderSwitchAction(_ sender: UISwitch) {
-        UserDefaultsManager.set(showOnlyFlarmBuddyNearbyGliderState: sender.isOn)
-        if sender.isOn {
-            // Set showNearbyGlidersSwitch also to true
+    @IBAction func showOnlyBuddySwitchAction(_ sender: UISwitch) {
+        UserDefaultsManager.set(showOnlyBuddySwitchState: sender.isOn)
+        if sender.isOn == true {
+            // Set showNearbyGlidersSwitch also to true and showAllNearbyGlidersState to true
             showAllNearbyGlidersSwitch.setOn(true, animated: true)
+            UserDefaultsManager.set(showAllNearbyGlidersState: true)
             
-            // Disconnect from OGN Server, empty Messages Set and remove all nearby Glider Annotaions from Map
+            // Disconnect from OGN Server
             OGNSocketConnectionManager.stop()
             
-            showAllNearbyGlidersSwitchAction(showAllNearbyGlidersSwitch)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                OGNSocketConnectionManager.start()
+            }
         } else {
+            // Disconnect from OGN Server
             OGNSocketConnectionManager.stop()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                OGNSocketConnectionManager.start()
+            }
         }
     }
     
     @IBAction func collisionWarningSwitchAction(_ sender: UISwitch) {
         UserDefaultsManager.set(collisionWarningState: sender.isOn)
         // If Collision Warning Switch is turned on (true)
-        if sender.isOn && showAllNearbyGlidersSwitch.isOn == false {
-            // Turn on Show Nearby Gliders Switch also (true)
+        if sender.isOn == true && showAllNearbyGlidersSwitch.isOn == false {
+            // Set showNearbyGlidersSwitch also to true and showAllNearbyGlidersState to true
             showAllNearbyGlidersSwitch.setOn(true, animated: true)
-            // Execute Methods of the showNearbyGlidersSwitch
-            showAllNearbyGlidersSwitchAction(showAllNearbyGlidersSwitch)
+            UserDefaultsManager.set(showAllNearbyGlidersState: true)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                OGNSocketConnectionManager.start()
+            }
         } else {
-            // Collision Warning Switch is turned off (false)
+            // Collision Warning Switch is turned off (false) or Nearby Glider Switch already on
         }
-        
     }
     
     // Download updated Airport Database File from Server

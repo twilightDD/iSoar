@@ -40,9 +40,6 @@ class OGNSocketConnectionManager {
     private var isLoggedIn = false
     private var loginTimeStamp = Date.currentUnixTimeStamp //TODO: wozu wird der gebraucht?; 03042020, ph
     
-    private var buddyFlarmID: String = UserDefaultsManager.flarmBuddyFlarmID()
-    private var regionInKm: Double = Presets.OGNSocketConnection.regionInKm
-    
     // MARK: - Public Class Methods
     class func registerForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
         shared.delegate = delegate
@@ -178,13 +175,13 @@ extension OGNSocketConnectionManager {
         }
         
         let appVersion = Presets.OGNSocketConnection.appVersion
-        if UserDefaultsManager.showOnlyFlarmBuddyNearbyGliderState() {
+        if UserDefaultsManager.showOnlyBuddySwitchState() {
             // Filter for unique FlarmID or multiple IDs seperated bei /
-            let packet = "user \(userName) pass -1 vers \(appVersion) filter b/\(buddyFlarmID)\n"
+            let packet = "user \(userName) pass -1 vers \(appVersion) filter b/\(UserDefaultsManager.buddyFlarmID())\n"
             sendPaket(packet)
         } else {
             // Filter via Radius
-            let packet = "user \(userName) pass -1 vers \(appVersion) filter r/\(currentLocation.coordinate.latitude)/\(currentLocation.coordinate.longitude)/\(regionInKm)\n"
+            let packet = "user \(userName) pass -1 vers \(appVersion) filter r/\(currentLocation.coordinate.latitude)/\(currentLocation.coordinate.longitude)/\(Presets.OGNSocketConnection.regionInKm)\n"
             sendPaket(packet)
         }
         
@@ -214,11 +211,18 @@ extension OGNSocketConnectionManager {
         // print("Anzahl Teilnachrichten: \(splittedMessages.count)")
         
         for splittedMessage in splittedMessages {
-            guard splittedMessage.hasPrefix("FLR")
+             guard splittedMessage.hasPrefix("FLR")
                 || splittedMessage.hasPrefix("ICA")
                 else {
-                    //print("\(#function): splittedMessage dismissed:   \(splittedMessage)")
+                    // print("\(#function): No FLR or ICA Prefix found in Message:   \(splittedMessage)")
                     continue }
+            
+            // Check if Prefix is own FlarmID - if yes discard message
+            // TODO: Maybe switch behavior
+            guard !splittedMessage.hasPrefix(UserDefaultsManager.ownFlarmID())
+            else {
+                print("\(#function): Own FlarmID found in Message:   \(splittedMessage)")
+                continue }
             
             let gliderSpecificMessage = String(splittedMessage)
             if let telemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
