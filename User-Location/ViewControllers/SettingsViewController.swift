@@ -130,6 +130,18 @@ class SettingsViewController: UIViewController {
         
         UserDefaultsManager.set(gliderID: gliderIDTextField.text!)
         UserDefaultsManager.set(ownFlarmID: ownFlarmIDTextField.text!)
+        
+        // If Buddy FlarmID has changed a Reconnect is needed
+        if buddyFlarmIDTextField.text != UserDefaultsManager.buddyFlarmID()
+            && UserDefaultsManager.showOnlyBuddySwitchState() == true {
+            // Disconnect from OGN Server
+            OGNSocketConnectionManager.stop()
+            // Reconnect
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                OGNSocketConnectionManager.start()
+            }
+        }
+        // Set new Buddy FlarmID to UserDefaults
         UserDefaultsManager.set(flarmBuddyFlarmID: buddyFlarmIDTextField.text!)
     }
     
@@ -177,7 +189,7 @@ class SettingsViewController: UIViewController {
         } else {
             // Disconnect from OGN Server
             OGNSocketConnectionManager.stop()
-
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 OGNSocketConnectionManager.start()
             }
