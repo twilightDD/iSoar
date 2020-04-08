@@ -21,9 +21,7 @@ class FlightRecorder {
 
     private var flightUUIDString = UUID().uuidString
     private var flightStartDate = Date()
-    private var flightEndDate = Date()
     private var startICAO: String?
-    private var endICAO: String?
 
     // MARK: - Public Class Methods
     class func startRecording() {
@@ -42,7 +40,7 @@ class FlightRecorder {
     private func startRecording() {
         flightUUIDString = UUID().uuidString
         flightStartDate = Date()
-        startICAO = AirportDatabase.icaoOfNearestAirport()
+        startICAO = icaoOfNearestAirportWithinMaximalDistance()
 
         let createFlightRecorderFiles = ISoarFileManager.createFlightRecorderFiles(flightUUIDString: flightUUIDString,
                                                                                    flightStartDate: flightStartDate,
@@ -51,8 +49,8 @@ class FlightRecorder {
     }
 
     private func stopRecording() {
-        flightEndDate = Date()
-        endICAO = AirportDatabase.icaoOfNearestAirport()
+        let flightEndDate = Date()
+        let endICAO = icaoOfNearestAirportWithinMaximalDistance()
 
         ISoarFileManager.closeFlightRecorderFiles(flightUUIDString: flightUUIDString,
                                                   flightStartDate: flightStartDate,
@@ -82,6 +80,18 @@ class FlightRecorder {
             ISoarFileManager.appendTelemetryDataToFlightRecorderFile(recordLine)
         }
 
+    }
+
+    private func icaoOfNearestAirportWithinMaximalDistance()
+        -> String? {
+            if let nearestAirport = AirportDatabase.nearestAirport(),
+                let distance = LocationManager.distanceFromCurrentLocationTo(location: nearestAirport.location()) {
+                if distance <= Presets.FlightComputer.maximalDistanceFromNearestAirport {
+                    return nearestAirport.icao
+                }
+            }
+
+            return nil
     }
 
 }

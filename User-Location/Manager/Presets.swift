@@ -56,7 +56,7 @@ struct Presets {
     struct FlightComputer {
 
         /// Check for nearest Airport and set it for Start-Airport and End-Airport in the LogBook
-        static let minimalDistanceForNearestAirport: Double = 300
+        static let maximalDistanceFromNearestAirport: CLLocationDistance = 300
 
         /// Minimal Speed in Meter per Seconds to check if Glider is flying or not
         static let minimalFlightSpeed: CLLocationSpeed = 10

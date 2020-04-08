@@ -35,13 +35,6 @@ class AirportDatabase {
             return nearestAirport
     }
     
-    class func icaoOfNearestAirport()
-        -> String? {
-            let nearestAirport = AirportDatabase.nearestAirport()
-            let icaoOfNearestAirport = nearestAirport?.icao
-            return icaoOfNearestAirport
-    }
-    
     class func filteredDestinationAirports(byName searchString: String?,
                                            sortedBy sortIndicator: SortIndicator)
         -> [AirportDatabase.Airport]? {
@@ -326,6 +319,14 @@ extension AirportDatabase {
                 let locationCoordinate2D = CLLocationCoordinate2D.init(latitude: latitude,
                                                                        longitude: longitude)
                 return locationCoordinate2D
+        }
+
+        // TODO: Check, where we could use it: 08042020, ph
+        func location()
+            -> CLLocation {
+                let location = CLLocation.init(latitude: latitude,
+                                               longitude: longitude)
+                return location
         }
     }
     
