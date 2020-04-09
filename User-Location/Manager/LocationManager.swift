@@ -42,19 +42,19 @@ class LocationManager: NSObject {
 
     // MARK: - Public Class Methods
     class func registerForLocationUpdates(_ delegate: LocationManagerDelegate) {
-        print("\(#function) - willAdd delegates.count = \(shared.delegates.count)")
+        // print("\(#function) - willAdd delegates.count = \(shared.delegates.count)")
         shared.delegates.add(delegate)
-        print("\(#function) - did Add delegates.count = \(shared.delegates.count)")
+        // print("\(#function) - did Add delegates.count = \(shared.delegates.count)")
         shared.checkLocationServices()
     }
 
     class func unRegisterForLocationUpdates(_ delegate: LocationManagerDelegate) {
-        print("\(#function) - willRemove delegates.count = \(shared.delegates.count)")
+        // print("\(#function) - willRemove delegates.count = \(shared.delegates.count)")
         shared.delegates.remove(delegate)
-        print("\(#function) - did Remove delegates.count = \(shared.delegates.count)")
+        // print("\(#function) - did Remove delegates.count = \(shared.delegates.count)")
 
         if shared.delegates.count < 1 {
-            print("\(#function) - will stopUpdatingLocation")
+            // print("\(#function) - will stopUpdatingLocation")
             shared.locationManager.stopUpdatingLocation()
         }
     }

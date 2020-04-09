@@ -221,7 +221,7 @@ extension OGNSocketConnectionManager {
             // TODO: Maybe switch behavior
             guard !splittedMessage.hasPrefix(UserDefaultsManager.ownFlarmID())
             else {
-                print("\(#function): Own FlarmID found in Message:   \(splittedMessage)")
+                // print("\(#function): Own FlarmID found in Message: \(splittedMessage)")
                 continue }
             
             let gliderSpecificMessage = String(splittedMessage)

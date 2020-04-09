@@ -41,7 +41,7 @@ struct GliderTelemetryData: Hashable {
 
             guard telemetryDataArray.count >= ResponseElements.allCases.count
                 else {
-                    print("telemetryDataArray has to less enties: \(telemetryDataArray.count)\ntelemetryDataArray: \(telemetryDataArray)\nresponse string: \(response)")
+                    // print("telemetryDataArray has to less enties: \(telemetryDataArray.count)\ntelemetryDataArray: \(telemetryDataArray)\nresponse string: \(response)")
                     return nil
             }
             
