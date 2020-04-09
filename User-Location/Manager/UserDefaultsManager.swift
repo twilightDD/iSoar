@@ -24,13 +24,13 @@ class UserDefaultsManager {
     
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
-    private static let ownFlarmIDDefault = "FLRDxxxxx"
+    private static let ownFlarmIDDefault = "FLRxxxxxx"
     private static let gliderRadioDefault: Double = 20
     private static let gearWarningSwitchDefault: Bool = true
     private static let safetyAltitudeDefault: Double = 200
     private static let showTrackingRouteSwitchDefault: Bool = true
     private static let showFlarmBuddySwitchDefault: Bool = true
-    private static let buddyFlarmIDDefault = "FLRDxxxxx"
+    private static let buddyFlarmIDDefault = "FLRxxxxxx"
     private static let showNearbyGlidersSwitchDefault: Bool = true
     private static let collisionWarningSwitchDefault: Bool = true
     
