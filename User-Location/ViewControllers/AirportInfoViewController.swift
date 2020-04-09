@@ -50,7 +50,6 @@ class AirportInfoViewController: UIViewController {
             runwaySurfaceLabel.text = selectedDestinationAirport.runwaySurface
             // ------
             countryLabel.text = selectedDestinationAirport.country
-            countryImageView.image = UIImage(named: countryLabel.text!)
             latitudeLabel.text = String(format: "%.6f", selectedDestinationAirport.latitude)
             longitudeLabel.text = String(format: "%.6f", selectedDestinationAirport.longitude)
             // ------
