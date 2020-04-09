@@ -21,6 +21,7 @@ struct GliderTelemetryData: Hashable {
     private(set) var speed: Double = 0
     private(set) var altitude: Double = 0
     private(set) var climbRate: Double = 0
+    private(set) var distanceToMe: CLLocationDistance = 0
 
     // MARK: - Hashable
     static func == (lhs: GliderTelemetryData, rhs: GliderTelemetryData) -> Bool {
@@ -63,6 +64,10 @@ struct GliderTelemetryData: Hashable {
             let altitude = altitudeFrom(altitude: telemetryDataArray[ResponseElements.altitude.rawValue])
             let climbRate = climbRateFrom(climbRate: telemetryDataArray[ResponseElements.climbRate.rawValue])
             
+            // TODO: Calculate via "func location()" Method!
+            let distanceToMe = LocationManager.distanceFromCurrentLocationTo(location: CLLocation.init(latitude: location.latitude,
+                                                                                                   longitude: location.longitude)) ?? 0
+            
             // Extract the interesting Data from TelemetryData
             let telemetryData = GliderTelemetryData(flarmID: flarmID,
                                                     timestamp: timestamp,
@@ -71,10 +76,11 @@ struct GliderTelemetryData: Hashable {
                                                     heading: heading,
                                                     speed: speed,
                                                     altitude: altitude,
-                                                    climbRate: climbRate
+                                                    climbRate: climbRate,
+                                                    distanceToMe: distanceToMe
             )
             
-            // print(telemetryData)
+            print(telemetryData)
             return telemetryData
     }
     
