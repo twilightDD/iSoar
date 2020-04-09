@@ -19,7 +19,7 @@ class FlightRecorder {
     // Private
     private var canRecordFlight = false
 
-    private var flightUUIDString = UUID().uuidString
+    private var currentUnixTimeStamp = String.init(Date.currentUnixTimeStamp)
     private var flightStartDate = Date()
     private var startICAO: String?
 
@@ -38,11 +38,11 @@ class FlightRecorder {
 
     // MARK: - Private Methods
     private func startRecording() {
-        flightUUIDString = UUID().uuidString
+        currentUnixTimeStamp = String.init(Date.currentUnixTimeStamp)
         flightStartDate = Date()
         startICAO = icaoOfNearestAirportWithinMaximalDistance()
 
-        let createFlightRecorderFiles = ISoarFileManager.createFlightRecorderFiles(flightUUIDString: flightUUIDString,
+        let createFlightRecorderFiles = ISoarFileManager.createFlightRecorderFiles(currentUnixTimpStamp: currentUnixTimeStamp,
                                                                                    flightStartDate: flightStartDate,
                                                                                    startICAO: startICAO)
         canRecordFlight = createFlightRecorderFiles
@@ -52,7 +52,7 @@ class FlightRecorder {
         let flightEndDate = Date()
         let endICAO = icaoOfNearestAirportWithinMaximalDistance()
 
-        ISoarFileManager.closeFlightRecorderFiles(flightUUIDString: flightUUIDString,
+        ISoarFileManager.closeFlightRecorderFiles(currentUnixTimeStamp: currentUnixTimeStamp,
                                                   flightStartDate: flightStartDate,
                                                   flightEndDate: flightEndDate,
                                                   startICAO: startICAO,

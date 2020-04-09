@@ -11,45 +11,44 @@ import Foundation
 // MARK: - FlightsDatabase
 class FlightsDatabase {
     static private let shared = FlightsDatabase()
-
+    
     // MARK: - Public Class Methods
     // Sort Flights in Logbook in descending Date Order
-    class func sortedFlightsByDescendingDate()
+    class func sortedFlightsByDescendingTimeStamp()
         -> [FlightMetaData] {
-            let sortedFlightMetaDatas = FlightsDatabase.flightMetaDatas().sorted(by: { ($0.flightDate > $1.flightDate) })
-            //            sortedFlightMetaDatas = sortedFlightMetaDatas.sorted(by: { ($0.startTimeUTC > $1.startTimeUTC) })
-
+            let sortedFlightMetaDatas = FlightsDatabase.flightMetaDatas().sorted(by: { ($0.currentUnixTimeStamp > $1.currentUnixTimeStamp) })
+            
             return sortedFlightMetaDatas
     }
-
+    
     // MARK: - Private Class Methods
     // Parse obtained JSONs into an array
     private class func flightMetaDatas()
         -> [FlightMetaData] {
             var flightMetaDatas = [FlightMetaData]()
-
+            
             let flightMetaDataDatas = ISoarFileManager.flightMetaDataFileDatas()
-
+            
             for flightMetaDataData in flightMetaDataDatas {
                 do {
                     let flightMetaData = try JSONDecoder().decode(FlightMetaData.self,
                                                                   from: flightMetaDataData)
                     flightMetaDatas.append(flightMetaData)
-
+                    
                 } catch let jsonError {
                     print("\(jsonError.localizedDescription)")
                 }
             }
-
+            
             return flightMetaDatas
     }
-
+    
 }
 
 // MARK: Extension - Struct
 
 struct FlightMetaData: Codable {
-    var flightUUID: String
+    var currentUnixTimeStamp: String
     var flightDate: String
     var gliderID: String
     var startTimeUTC: String

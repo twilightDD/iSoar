@@ -33,7 +33,7 @@ class LogbookViewController: UIViewController {
     
     // MARK: - TableViewDatasource
     private func setupTableViewDatasource() {
-        flightMetaDatas = FlightsDatabase.sortedFlightsByDescendingDate()
+        flightMetaDatas = FlightsDatabase.sortedFlightsByDescendingTimeStamp()
         
         tableView.reloadData()
     }
@@ -86,10 +86,10 @@ extension LogbookViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
         -> UISwipeActionsConfiguration? {
             let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, complete in
-                // Hand over flightUUID to FileManager for deletion of Flight Files
+                // Hand over currentUnixTimeStamp to FileManager for deletion of Flight Files
                 if self.flightMetaDatas.isEmpty == false {
-                    let flightUUID = self.flightMetaDatas[indexPath.row].flightUUID
-                    ISoarFileManager.deleteFlightFiles(flightUUID)
+                    let currentUnixTimeStamp = self.flightMetaDatas[indexPath.row].currentUnixTimeStamp
+                    ISoarFileManager.deleteFlightFiles(currentUnixTimeStamp)
                     
                     self.flightMetaDatas.remove(at: indexPath.row)
                     self.tableView.deleteRows(at: [indexPath], with: .automatic)

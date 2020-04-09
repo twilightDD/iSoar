@@ -187,7 +187,7 @@ extension ISoarFileManager {
     
     // Create JSON for Telemetry Data of current Flight
     // TODO: Replace fatalErrors by userInfo; 05042020, ph
-    class func createFlightRecorderFiles(flightUUIDString: String,
+    class func createFlightRecorderFiles(currentUnixTimpStamp: String,
                                          flightStartDate: Date,
                                          startICAO: String?)
         -> Bool {
@@ -203,7 +203,7 @@ extension ISoarFileManager {
             // Temporary Flight Recorder File for
             let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
             let temporaryFlightRecorderFileURL = temporaryDirectoryURL
-                .appendingPathComponent(flightUUIDString)
+                .appendingPathComponent(currentUnixTimpStamp)
                 .appendingPathExtension(csvPathExtension)
             
             shared.temporaryFlightRecorderFileURL = temporaryFlightRecorderFileURL
@@ -233,7 +233,7 @@ extension ISoarFileManager {
             let startTimeFormatted = TimeDateFormatter.yearMonthDayHourMinuteDateFrom(flightStartDate)
             
             // Create JSON
-            let flightMetaData = FlightMetaData.init(flightUUID: flightUUIDString,
+            let flightMetaData = FlightMetaData.init(currentUnixTimeStamp: currentUnixTimpStamp,
                                                      flightDate: dateFormatter.string(from: startTimeFormatted),
                                                      gliderID: UserDefaultsManager.gliderID(),
                                                      startTimeUTC: timeFormatter.string(from: startTimeFormatted),
@@ -245,7 +245,7 @@ extension ISoarFileManager {
             
             do {
                 let fileURL = flightRecorderDirectoryURL
-                    .appendingPathComponent(flightUUIDString)
+                    .appendingPathComponent(currentUnixTimpStamp)
                     .appendingPathExtension(jsonPathExtension)
                 
                 let encoder = JSONEncoder()
@@ -278,7 +278,7 @@ extension ISoarFileManager {
     
     // Close Flight Recorder Files
     // TODO: Replace fatalErrors by userInfo; 05042020, ph
-    class func closeFlightRecorderFiles(flightUUIDString: String,
+    class func closeFlightRecorderFiles(currentUnixTimeStamp: String,
                                         flightStartDate: Date,
                                         flightEndDate: Date,
                                         startICAO: String?,
@@ -300,7 +300,7 @@ extension ISoarFileManager {
         
         // Create Final FlightRecorder File
         let finalFlightRecorderFileURL = flightRecorderDirectoryURL
-            .appendingPathComponent(flightUUIDString)
+            .appendingPathComponent(currentUnixTimeStamp)
             .appendingPathExtension(csvPathExtension)
         
         do {
@@ -319,7 +319,7 @@ extension ISoarFileManager {
         let flightTime = TimeDateFormatter.hourMinutesStringFrom(startTime: startTimeFormatted,
                                                                  toEndTime: endTimeFormatted)
         
-        let flightMetaData = FlightMetaData(flightUUID: flightUUIDString,
+        let flightMetaData = FlightMetaData(currentUnixTimeStamp: currentUnixTimeStamp,
                                             flightDate: (dateFormatter.string(from: startTimeFormatted)),
                                             gliderID: UserDefaultsManager.gliderID(),
                                             startTimeUTC: (timeFormatter.string(from: startTimeFormatted)),
@@ -331,7 +331,7 @@ extension ISoarFileManager {
         
         do {
             let flightMetaDataFileURL = flightRecorderDirectoryURL
-                .appendingPathComponent(flightUUIDString)
+                .appendingPathComponent(currentUnixTimeStamp)
                 .appendingPathExtension(jsonPathExtension)
             
             let encoder = JSONEncoder()
@@ -347,10 +347,10 @@ extension ISoarFileManager {
     
     // TODO: Check Syntax with ph
     // Delete Flight Files in Flights Folder
-    class func deleteFlightFiles(_ flightUUID: String) {
+    class func deleteFlightFiles(_ currentUnixTimeStamp: String) {
         
-        let jsonPath: String = "\(flightRecorderDirectoryPath)/\(flightUUID).\(jsonPathExtension)"
-        let csvPath: String = "\(flightRecorderDirectoryPath)/\(flightUUID).\(csvPathExtension)"
+        let jsonPath: String = "\(flightRecorderDirectoryPath)/\(currentUnixTimeStamp).\(jsonPathExtension)"
+        let csvPath: String = "\(flightRecorderDirectoryPath)/\(currentUnixTimeStamp).\(csvPathExtension)"
         
         let fileManager = FileManager.default
         
