@@ -11,8 +11,8 @@ import Foundation
 extension Date {
 
     static var currentUnixTimeStamp: Int64 {
-        let currentUnisTimeStamp = Int64(Date().timeIntervalSince1970)
-        return currentUnisTimeStamp
+        let currentUnixTimeStamp = Int64(Date().timeIntervalSince1970)
+        return currentUnixTimeStamp
     }
 
 }
