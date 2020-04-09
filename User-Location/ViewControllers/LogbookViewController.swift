@@ -87,12 +87,16 @@ extension LogbookViewController: UITableViewDelegate {
         -> UISwipeActionsConfiguration? {
             let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, complete in
                 // Hand over flightUUID to FileManager for deletion of Flight Files
-                let flightUUID = self.flightMetaDatas[indexPath.row].flightUUID
-                ISoarFileManager.deleteFlightFiles(flightUUID)
-                
-                self.flightMetaDatas.remove(at: indexPath.row)
-                self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                complete(true)
+                if self.flightMetaDatas.isEmpty == false {
+                    let flightUUID = self.flightMetaDatas[indexPath.row].flightUUID
+                    ISoarFileManager.deleteFlightFiles(flightUUID)
+                    
+                    self.flightMetaDatas.remove(at: indexPath.row)
+                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    complete(true)
+                } else {
+                    print("flightMetaDatas empty")
+                }
             }
             
             // Set Image and Background Color of Delete Action
