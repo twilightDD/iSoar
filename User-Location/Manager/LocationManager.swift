@@ -31,8 +31,7 @@ class LocationManager: NSObject {
             return currentLocation
     }
 
-    
-    // Private
+    // Private Lets and Vars
     private let locationManager = CLLocationManager()
 
     private var currentLocation: CLLocation?

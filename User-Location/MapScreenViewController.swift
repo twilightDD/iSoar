@@ -288,7 +288,6 @@ class MapScreenViewController: UIViewController {
         }
     }
 
-
     // MARK: Route Tracking
     private func checkTrackingRouteStatus() {
         showTrackingRoute = UserDefaultsManager.showTrackingRouteState()
