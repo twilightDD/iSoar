@@ -1,5 +1,5 @@
 //
-//  TasksDatabase.swift
+//  FlightsDatabase.swift
 //  Glider Tool
 //
 //  Created by sonic on 06.12.19.
