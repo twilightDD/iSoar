@@ -97,12 +97,6 @@ class AirportDatabase {
                 for destinationAirport in filteredArray where destinationAirport.distance == nil {
                     return filteredArray
                 }
-                // In case of a malfuction of where clousure above, use this code:
-                //                for destinationAirport in filteredArray {
-                //                    if destinationAirport.distance == nil {
-                //                        return filteredArray
-                //                    }
-                //                }
                 
                 filteredAndSortedAirports = filteredArray.sorted(by: { ($0.distance! < $1.distance!) })
             }
@@ -110,6 +104,7 @@ class AirportDatabase {
             return filteredAndSortedAirports
     }
     
+    // Search for nearest Airport
     private func nearestAirport()
         -> Airport? {
             updateDistance()
@@ -284,8 +279,6 @@ extension AirportDatabase {
         var additionalInfo: String?
         var radioName: String?
         var radioFrequency: String?
-        
-        // var radios:[Radio] // hinzufügen => ProTipp: Struct ;)
         
         // MARK: Init&Co.
         public init(dictionary: Dictionary<String, Any>) {
