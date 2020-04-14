@@ -24,7 +24,7 @@ class AirportDatabase {
     
     // MARK: - Init&Co.
     private init() {
-        checkForMapOjectsInLibraryFolder()
+        checkForAirportsJSONInLibraryFolder()
         loadAirports()
     }
     
@@ -122,12 +122,12 @@ class AirportDatabase {
         let destinationFileUrl = libraryUrl.appendingPathComponent("Airports.json")
         
         // File Source URL
-        let fileURL = URL(string: "https://www.leupold.me/Airports.json")
+        let airportsJSONFileURL = Presets.AirportDatabase.airportsJSONFileURL
         
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
         
-        let request = URLRequest(url: fileURL!)
+        let request = URLRequest(url: airportsJSONFileURL!)
         
         let task = session.downloadTask(with: request) { [unowned self] (tempLocalUrl, response, error) in
             if let tempLocalUrl = tempLocalUrl, error == nil {
@@ -184,7 +184,7 @@ class AirportDatabase {
     
     // MARK: - Private Methods
     // Check if MapOjects.json exists in Library Folder
-    private func checkForMapOjectsInLibraryFolder() {
+    private func checkForAirportsJSONInLibraryFolder() {
         // Check if Airports.json exists in Library Folder
         let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0] as String
         let url = NSURL(fileURLWithPath: path)
