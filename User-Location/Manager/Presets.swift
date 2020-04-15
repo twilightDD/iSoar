@@ -38,7 +38,7 @@ struct Presets {
         static let regionInKm: Double = 500
         #else
         /// Default Radius für NearbyGlider
-        static let regionInKm: Double = 50
+        static let regionInKm: Double = 25
         #endif
     }
     
@@ -86,7 +86,7 @@ struct Presets {
     }
     
     struct AirportDatabase {
-        static let airportsJSONFileURL = URL(string: "https://www.isoar.de/Airports.json")
+        static let airportsJSONFileURL = URL(string: "https://www.isoar.de/_b13/Airports.json")
     }
     
 }
