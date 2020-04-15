@@ -134,37 +134,56 @@ class AirportDatabase {
                 // Success
                 print("Downloading Airprt Database Update...")
                 if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                    print("Successfully downloaded. Status code: \(statusCode)")
+                    // If successfully downloaded new Airports.json from server
+                    if statusCode == 200 {
+                        print("Downloaded successfully. Status code: \(statusCode)")
+                        
+                        do {
+                            try FileManager.default.removeItem(at: destinationFileUrl)
+                            try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
+                            
+                            // Clear all Airports from Array
+                            self.destinationAirports.removeAll()
+                            
+                            // Create Destination Airport List from new Airports.json
+                            self.loadAirports()
+                            self.updateDistance()
+                            
+                            // TODO: benötigen wir das noch?
+                            // Post Notification for comoleted Update
+                            NotificationCenter.default.post(name: AirportDatabase.airportUpdateCompletedNotificationName,
+                                                            object: nil)
+                            
+                            // TODO: User-Info - Banner via Dispatch ok?
+                            DispatchQueue.main.async {
+                                NotificationBanner.show("Airport Database successfully updated.")
+                            }
+                            
+                        } catch let writeError {
+                            print("Error creating a file: \(destinationFileUrl) : \(writeError)")
+                            
+                            DispatchQueue.main.async {
+                                NotificationBanner.show("Error creating file.")
+                            }
+                        }
+                        
+                        // If Download fails
+                    } else {
+                        print("Download failed. Status code: \(statusCode)")
+                        
+                        DispatchQueue.main.async {
+                            NotificationBanner.show("Update server not reachable.")
+                        }
+                        
+                        // TODO: benötigen wir das noch?
+                        // Post Notification for failed Update
+                        NotificationCenter.default.post(name: AirportDatabase.airportUpdateFailedNotificationName,
+                                                        object: nil)
+                        
+                    }
                 }
                 
-                do {
-                    try FileManager.default.removeItem(at: destinationFileUrl)
-                    try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
-                    
-                    // Clear Airports.shared.destinationAirports
-                    self.destinationAirports.removeAll()
-                    
-                    // Create Destination Airport List from new Airports.json
-                    self.loadAirports()
-                    self.updateDistance()
-                    
-                    // TODO: benötigen wir das noch?
-                    // Post Notification for comoleted Update
-                    NotificationCenter.default.post(name: AirportDatabase.airportUpdateCompletedNotificationName,
-                                                    object: nil)
-                    
-                    // TODO: User-Info - Banner via Dispatch ok?
-                    DispatchQueue.main.async {
-                        NotificationBanner.show("Airport Database successfully updated.")
-                    }
-                    
-                } catch let writeError {
-                    print("Error creating a file: \(destinationFileUrl) : \(writeError)")
-                    
-                    DispatchQueue.main.async {
-                        NotificationBanner.show("Error creating file.")
-                    }
-                }
+                // If no Internet Connection
             } else {
                 print("Error took place while downloading a file. Error description: %@", error!.localizedDescription)
                 
@@ -236,7 +255,7 @@ class AirportDatabase {
             jsonAsDict = try JSONSerialization.jsonObject(with: jsonAsData!,
                                                           options: .allowFragments) as! [String: Any]
         } catch {
-            print("json went wrong")
+            NotificationBanner.show("Airport Database not found.")
         }
         
         if let airports = jsonAsDict["Airports"] as? [Dictionary<String, Any>] {
@@ -305,7 +324,7 @@ extension AirportDatabase {
         mutating func updateDistance(_ newDistance: CLLocationDistance) {
             distance = newDistance
         }
-
+        
         // TODO: Check, where we could use it: 05042020, ph
         func locationCoordinate2D()
             -> CLLocationCoordinate2D {
@@ -313,7 +332,7 @@ extension AirportDatabase {
                                                                        longitude: longitude)
                 return locationCoordinate2D
         }
-
+        
         // TODO: Check, where we could use it: 08042020, ph
         func location()
             -> CLLocation {
