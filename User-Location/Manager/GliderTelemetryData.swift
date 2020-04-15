@@ -21,7 +21,7 @@ struct GliderTelemetryData: Hashable {
     private(set) var speed: Double = 0
     private(set) var altitude: Double = 0
     private(set) var climbRate: Double = 0
-    private(set) var distanceToMe: CLLocationDistance?
+    private(set) var isInCollisionRange: Bool = false
 
     // MARK: - Hashable
     static func == (lhs: GliderTelemetryData, rhs: GliderTelemetryData) -> Bool {
@@ -63,9 +63,13 @@ struct GliderTelemetryData: Hashable {
             let speed = speedFrom(speed: telemetryDataArray[ResponseElements.speed.rawValue])
             let altitude = altitudeFrom(altitude: telemetryDataArray[ResponseElements.altitude.rawValue])
             let climbRate = climbRateFrom(climbRate: telemetryDataArray[ResponseElements.climbRate.rawValue])
-            
-            let distanceToMe = LocationManager.distanceFromCurrentLocationTo(location: CLLocation.init(latitude: location.latitude,
-                                                                                                       longitude: location.longitude))
+
+            var isInCollisionRange = false
+            if let distanceToMe = LocationManager.distanceFromCurrentLocationTo(location: CLLocation.init(latitude: location.latitude,
+                                                                                                          longitude: location.longitude)) {
+                isInCollisionRange = distanceToMe < Presets.FlightComputer.collisionWarningDistance
+            }
+
             
             // Extract the interesting Data from TelemetryData
             let telemetryData = GliderTelemetryData(flarmID: flarmID,
@@ -76,10 +80,10 @@ struct GliderTelemetryData: Hashable {
                                                     speed: speed,
                                                     altitude: altitude,
                                                     climbRate: climbRate,
-                                                    distanceToMe: distanceToMe
+                                                    isInCollisionRange: isInCollisionRange
             )
             
-            // print(telemetryData)
+             print(telemetryData)
             return telemetryData
     }
     

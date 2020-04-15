@@ -23,10 +23,13 @@ class FlightComputer {
     private var shouldPlayGearWarning = true
     private var shouldPlayOxygenWarning = true
 
+    private var alreadyWarnedFlarmIDs = Set<String>()
+
     // MARK: - Public Class Methods
     class func start() {
         let shared = FlightComputer.shared
         LocationManager.registerForLocationUpdates(shared)
+        OGNSocketConnectionManager.registerForSocketUpdates(shared)
     }
 
     class func stop() {
@@ -51,6 +54,7 @@ class FlightComputer {
                 isGliderFlying = true
 
                 FlightRecorder.startRecording()
+                OGNSocketConnectionManager.registerForSocketUpdates(self)
             }
         } else {
             // Check if Glider is slower than 10m/s, then set FlightMode to false
@@ -58,8 +62,11 @@ class FlightComputer {
                 currentLocation.speed < Presets.FlightComputer.minimalFlightSpeed {
 
                 isGliderFlying = false
+                OGNSocketConnectionManager.unregisterForSocketUpdates(self)
+
 
                 FlightRecorder.stopRecording()
+                //OGN unRegister
             }
         }
         
@@ -152,6 +159,33 @@ extension FlightComputer: LocationManagerDelegate {
         checkForGearWarning()
         checkForOxygenWarning()
         checkIfGliderIsFlying()
+    }
+
+}
+
+extension FlightComputer: DL_OGNSocketConnectionManagerDelegate {
+
+    func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
+        if gliderTelemetryData.isInCollisionRange == true,
+            alreadyWarnedFlarmIDs.contains(gliderTelemetryData.flarmID) == false {
+            alreadyWarnedFlarmIDs.update(with: gliderTelemetryData.flarmID)
+            speak(string: Presets.FlightComputer.collisionWarningSpokenText)
+        }
+
+        if gliderTelemetryData.isInCollisionRange == false,
+            alreadyWarnedFlarmIDs.contains(gliderTelemetryData.flarmID) == true {
+            alreadyWarnedFlarmIDs.remove(gliderTelemetryData.flarmID)
+        }
+    }
+
+
+    func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
+        alreadyWarnedFlarmIDs.remove(gliderTelemetryData.flarmID)
+    }
+
+
+    func removeAllNearbyGlider() {
+        alreadyWarnedFlarmIDs.removeAll()
     }
 
 }

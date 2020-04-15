@@ -25,11 +25,11 @@ class OGNSocketConnectionManager {
     // MARK: - Lets and Vars
     // Statics
     static private let shared = OGNSocketConnectionManager()
-    
-    // Public
-    weak var delegate: DL_OGNSocketConnectionManagerDelegate?
-    
+
+
     // Private
+    private var delegates = NSHashTable<AnyObject>.weakObjects()
+
     private var connection: NWConnection?
     private var queue = DispatchQueue(label: "NetworkQueue", qos: .utility)
     private var userName: String {
@@ -42,11 +42,11 @@ class OGNSocketConnectionManager {
     
     // MARK: - Public Class Methods
     class func registerForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
-        shared.delegate = delegate
+        shared.delegates.add(delegate)
     }
     
     class  func unregisterForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
-        shared.delegate = nil
+        shared.delegates.remove(delegate)
     }
     
     class func start() {
@@ -117,8 +117,12 @@ extension OGNSocketConnectionManager {
     // Disconnect from Server
     private func cancelConnection() {
         connection?.cancel()
-        
-        delegate?.removeAllNearbyGlider()
+
+        for delegate in delegates.allObjects {
+            if let socketConnectionManagerDelegate = delegate as? DL_OGNSocketConnectionManagerDelegate {
+                socketConnectionManagerDelegate.removeAllNearbyGlider()
+            }
+        }
     }
     
     // Generate random alphanumerical Username witch 9 characters
@@ -226,7 +230,14 @@ extension OGNSocketConnectionManager {
             
             let gliderSpecificMessage = String(splittedMessage)
             if let telemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
-                delegate?.updateNearbyGlider(gliderTelemetryData: telemetryData)
+
+                // Inform delegates
+                for delegate in delegates.allObjects {
+                    if let socketConnectionManagerDelegate = delegate as? DL_OGNSocketConnectionManagerDelegate {
+                        socketConnectionManagerDelegate.updateNearbyGlider(gliderTelemetryData: telemetryData)
+                    }
+                }
+
             }
 //            else {
 //                print("~~~~~~~~~~~~~~~~~")
