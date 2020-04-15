@@ -21,7 +21,7 @@ struct GliderTelemetryData: Hashable {
     private(set) var speed: Double = 0
     private(set) var altitude: Double = 0
     private(set) var climbRate: Double = 0
-    private(set) var distanceToMe: CLLocationDistance = 0
+    private(set) var distanceToMe: CLLocationDistance?
 
     // MARK: - Hashable
     static func == (lhs: GliderTelemetryData, rhs: GliderTelemetryData) -> Bool {
@@ -49,13 +49,13 @@ struct GliderTelemetryData: Hashable {
             let flarmID = telemetryDataArray[ResponseElements.flarmID.rawValue]
             let timestamp = Date.currentUnixTimeStamp
 
-            let latitude = String(telemetryDataArray[ResponseElements.latitude.rawValue])
+            let latitudeString = String(telemetryDataArray[ResponseElements.latitude.rawValue])
             let latitudeHemisphere = String(telemetryDataArray[ResponseElements.latitudeHemisphere.rawValue])
-            let longitude = String(telemetryDataArray[ResponseElements.longitude.rawValue])
+            let longitudeString = String(telemetryDataArray[ResponseElements.longitude.rawValue])
             let longitudeHemisphere = String(telemetryDataArray[ResponseElements.longitudeHemisphere.rawValue])
-            let location = locationCoordinateFrom(latitude: latitude,
+            let location = locationCoordinate2D(latitude: latitudeString,
                                                  latitudeHemisphere: latitudeHemisphere,
-                                                 longitude: longitude,
+                                                 longitude: longitudeString,
                                                  longitudeHemisphere: longitudeHemisphere)
 
             let type = String(telemetryDataArray[ResponseElements.aircraftType.rawValue])
@@ -64,9 +64,8 @@ struct GliderTelemetryData: Hashable {
             let altitude = altitudeFrom(altitude: telemetryDataArray[ResponseElements.altitude.rawValue])
             let climbRate = climbRateFrom(climbRate: telemetryDataArray[ResponseElements.climbRate.rawValue])
             
-            // TODO: Calculate via "func location()" Method!
             let distanceToMe = LocationManager.distanceFromCurrentLocationTo(location: CLLocation.init(latitude: location.latitude,
-                                                                                                   longitude: location.longitude)) ?? 0
+                                                                                                       longitude: location.longitude))
             
             // Extract the interesting Data from TelemetryData
             let telemetryData = GliderTelemetryData(flarmID: flarmID,
@@ -80,7 +79,7 @@ struct GliderTelemetryData: Hashable {
                                                     distanceToMe: distanceToMe
             )
             
-            print(telemetryData)
+            // print(telemetryData)
             return telemetryData
     }
     
@@ -146,10 +145,10 @@ struct GliderTelemetryData: Hashable {
     }
     
     // Calculate Latitude and Logitude from Strigs
-    private static func locationCoordinateFrom(latitude: String,
-                                               latitudeHemisphere: String,
-                                               longitude: String,
-                                               longitudeHemisphere: String)
+    private static func locationCoordinate2D(latitude: String,
+                                             latitudeHemisphere: String,
+                                             longitude: String,
+                                             longitudeHemisphere: String)
         -> CLLocationCoordinate2D {
             // Calculate Latitude from Degrees, Minutes and Seconds
             
