@@ -13,9 +13,6 @@ class SettingsViewController: UIViewController {
     
     // MARK: Lets and Vats
     
-    // Notification Observers
-    private var airportUpdateFailedNotification: NSObjectProtocol?
-    
     // MARK: IBOutlets
     @IBOutlet private weak var gliderRatioTextField: TextFields!
     @IBOutlet private weak var safetyAltitudeTextField: TextFields!
@@ -39,33 +36,6 @@ class SettingsViewController: UIViewController {
         gliderIDTextField.delegate = self
         ownFlarmIDTextField.delegate = self
         buddyFlarmIDTextField.delegate = self
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // Register observer for notfications
-        airportUpdateFailedNotification = NotificationCenter.default
-            .addObserver(forName: AirportDatabase.airportUpdateFailedNotificationName,
-                         object: nil,
-                         queue: OperationQueue.main) { [unowned self] (notification) in
-                            
-                            let alert = UIAlertController(title: "Download failed",
-                                                          message: "It seems your Device has no active internet Connection.",
-                                                          preferredStyle: .alert)
-                            
-                            alert.addAction(UIAlertAction(title: "OK",
-                                                          style: .default,
-                                                          handler: nil))
-                            
-                            self.present(alert, animated: true)
-        }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        if let airportUpdateFailedNotification = airportUpdateFailedNotification {
-            NotificationCenter.default.removeObserver(airportUpdateFailedNotification)
-        }
     }
     
     // MARK: - Public Class Methods
