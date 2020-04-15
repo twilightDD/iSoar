@@ -175,7 +175,6 @@ class AirportDatabase {
                             NotificationBanner.show("Update server not reachable.")
                         }
                         
-                        // TODO: benötigen wir das noch?
                         // Post Notification for failed Update
                         NotificationCenter.default.post(name: AirportDatabase.airportUpdateFailedNotificationName,
                                                         object: nil)
@@ -191,7 +190,6 @@ class AirportDatabase {
                     NotificationBanner.show("Update failed. Check Internet Connection!")
                 }
                 
-                // TODO: benötigen wir das noch?
                 // Post Notification for failed Update
                 NotificationCenter.default.post(name: AirportDatabase.airportUpdateFailedNotificationName,
                                                 object: nil)
