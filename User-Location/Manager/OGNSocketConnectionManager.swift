@@ -27,6 +27,7 @@ class OGNSocketConnectionManager {
     static private let shared = OGNSocketConnectionManager()
     
     // Public
+    // TODO: 20200416 das müsste dann weg? da wir es weiter unten über die HashTable lösen?!
     weak var delegate: DL_OGNSocketConnectionManagerDelegate?
     
     // Private
@@ -38,15 +39,26 @@ class OGNSocketConnectionManager {
     }
     
     private var isLoggedIn = false
-    private var loginTimeStamp = Date.currentUnixTimeStamp //TODO: wozu wird der gebraucht?; 03042020, ph
+    private var loginTimeStamp = Date.currentUnixTimeStamp
+    
+    private var delegates = NSHashTable<AnyObject>.weakObjects()
     
     // MARK: - Public Class Methods
     class func registerForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
-        shared.delegate = delegate
+        // shared.delegate = delegate
+        
+        print("\(#function) - willAdd delegates.count = \(shared.delegates.count)")
+        shared.delegates.add(delegate)
+        print("\(#function) - did Add delegates.count = \(shared.delegates.count)")
+        print(shared.delegates)
     }
     
-    class  func unregisterForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
-        shared.delegate = nil
+    class func unregisterForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
+        //shared.delegate = nil
+        
+        // print("\(#function) - willRemove delegates.count = \(shared.delegates.count)")
+        shared.delegates.remove(delegate)
+        // print("\(#function) - did Remove delegates.count = \(shared.delegates.count)")
     }
     
     class func start() {
@@ -118,6 +130,7 @@ extension OGNSocketConnectionManager {
     private func cancelConnection() {
         connection?.cancel()
         
+        // TODO: 20200416 das müsste dann über delegateS laufen?!
         delegate?.removeAllNearbyGlider()
     }
     
@@ -219,13 +232,15 @@ extension OGNSocketConnectionManager {
             
             // Check if Prefix is own FlarmID - if yes discard message
             // TODO: Maybe switch behavior
-            guard !splittedMessage.hasPrefix(UserDefaultsManager.ownFlarmID())
+            guard splittedMessage.hasPrefix(UserDefaultsManager.ownFlarmID()) == false
             else {
                 // print("\(#function): Own FlarmID found in Message: \(splittedMessage)")
                 continue }
             
             let gliderSpecificMessage = String(splittedMessage)
             if let telemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
+                
+                // TODO: 20200416 das müsste dann über delegateS laufen?!
                 delegate?.updateNearbyGlider(gliderTelemetryData: telemetryData)
             }
 //            else {
