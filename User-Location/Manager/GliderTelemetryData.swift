@@ -21,8 +21,8 @@ struct GliderTelemetryData: Hashable {
     private(set) var speed: Double = 0
     private(set) var altitude: Double = 0
     private(set) var climbRate: Double = 0
-    private(set) var isInCollisionRange: Bool = false
-    
+    private(set) var distanceToMe: CLLocationDistance?
+
     // MARK: - Hashable
     static func == (lhs: GliderTelemetryData, rhs: GliderTelemetryData) -> Bool {
         return lhs.flarmID == rhs.flarmID
@@ -31,7 +31,7 @@ struct GliderTelemetryData: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(flarmID)
     }
-    
+
     // MARK: - Init&Co.
     // MARK: - Public Methods
     static func telemetryDataFromOGNGliderResponse(_ response: String)
@@ -39,7 +39,7 @@ struct GliderTelemetryData: Hashable {
             let telemetryDataArray = parseAndCleanup(response: response)
             
             // print("TelemetryDataArray: \(telemetryDataArray)")
-            
+
             guard telemetryDataArray.count >= ResponseElements.allCases.count
                 else {
                     // print("telemetryDataArray has to less enties: \(telemetryDataArray.count)\ntelemetryDataArray: \(telemetryDataArray)\nresponse string: \(response)")
@@ -48,27 +48,24 @@ struct GliderTelemetryData: Hashable {
             
             let flarmID = telemetryDataArray[ResponseElements.flarmID.rawValue]
             let timestamp = Date.currentUnixTimeStamp
-            
+
             let latitudeString = String(telemetryDataArray[ResponseElements.latitude.rawValue])
             let latitudeHemisphere = String(telemetryDataArray[ResponseElements.latitudeHemisphere.rawValue])
             let longitudeString = String(telemetryDataArray[ResponseElements.longitude.rawValue])
             let longitudeHemisphere = String(telemetryDataArray[ResponseElements.longitudeHemisphere.rawValue])
             let location = locationCoordinate2D(latitude: latitudeString,
-                                                latitudeHemisphere: latitudeHemisphere,
-                                                longitude: longitudeString,
-                                                longitudeHemisphere: longitudeHemisphere)
-            
+                                                 latitudeHemisphere: latitudeHemisphere,
+                                                 longitude: longitudeString,
+                                                 longitudeHemisphere: longitudeHemisphere)
+
             let type = String(telemetryDataArray[ResponseElements.aircraftType.rawValue])
             let heading = Double(telemetryDataArray[ResponseElements.heading.rawValue]) ?? 0
             let speed = speedFrom(speed: telemetryDataArray[ResponseElements.speed.rawValue])
             let altitude = altitudeFrom(altitude: telemetryDataArray[ResponseElements.altitude.rawValue])
             let climbRate = climbRateFrom(climbRate: telemetryDataArray[ResponseElements.climbRate.rawValue])
             
-            var isInCollisionRange = false
-            if let distanceToMe = LocationManager.distanceFromCurrentLocationTo(location: CLLocation.init(latitude: location.latitude,
-                                                                                                          longitude: location.longitude)) {
-                isInCollisionRange = distanceToMe < Presets.FlightComputer.collisionWarningDistance
-            }
+            let distanceToMe = LocationManager.distanceFromCurrentLocationTo(location: CLLocation.init(latitude: location.latitude,
+                                                                                                       longitude: location.longitude))
             
             // Extract the interesting Data from TelemetryData
             let telemetryData = GliderTelemetryData(flarmID: flarmID,
@@ -79,10 +76,10 @@ struct GliderTelemetryData: Hashable {
                                                     speed: speed,
                                                     altitude: altitude,
                                                     climbRate: climbRate,
-                                                    isInCollisionRange: isInCollisionRange
+                                                    distanceToMe: distanceToMe
             )
             
-            print(telemetryData)
+            // print(telemetryData)
             return telemetryData
     }
     
@@ -91,7 +88,7 @@ struct GliderTelemetryData: Hashable {
     private static func parseAndCleanup(response: String)
         -> [String] {
             // For element desciption see: https://github.com/svoop/ogn_client-ruby/wiki/SenderBeacon
-            
+
             var finalResponse = response
             // Convert response to Array of Strings
             if let start = finalResponse.firstIndex(of: ">"),
@@ -241,7 +238,7 @@ struct GliderTelemetryData: Hashable {
             if let altitude = Double.init(altitudeString) {
                 // Convert from Feet to Meter - by dividing with 3.281
                 let altitudeConverted = altitude / 3.281
-                
+
                 return altitudeConverted
             }
             
@@ -275,9 +272,9 @@ extension Double {
 
 // MARK: - Extension - ResponseElements
 enum ResponseElements: Int, CaseIterable {
-    
+
     // For element desciption see: https://github.com/svoop/ogn_client-ruby/wiki/SenderBeacon
-    
+
     case flarmID = 0
     case timeStamp = 1
     case latitude = 2
@@ -296,5 +293,5 @@ enum ResponseElements: Int, CaseIterable {
     case crc = 15
     case frequency = 16
     case quality = 17
-    
+
 }
