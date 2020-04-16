@@ -65,9 +65,18 @@ struct GliderTelemetryData: Hashable {
             let climbRate = climbRateFrom(climbRate: telemetryDataArray[ResponseElements.climbRate.rawValue])
             
             var isInCollisionRange = false
-            if let distanceToMe = LocationManager.distanceFromCurrentLocationTo(location: CLLocation.init(latitude: location.latitude,
-                                                                                                          longitude: location.longitude)) {
-                isInCollisionRange = distanceToMe < Presets.FlightComputer.collisionWarningDistance
+            if let horizontalDistanceToMe = LocationManager.distanceFromCurrentLocationTo(location: CLLocation.init(latitude: location.latitude,
+                                                                                                                    longitude: location.longitude))
+            
+            // TODO: 20200416 check also vertical Distance
+//            UND
+//            verticalDistanceAboveMe = altitude-LocationManager.currentLocation()?.altitude < Presets.FlightComputer
+//            UND
+//            verticalDistanceBelowMe = LocationManager.currentLocation()?.altitude-altitude < Presets.FlightComputer
+            
+            
+            {
+                isInCollisionRange = horizontalDistanceToMe < Presets.FlightComputer.horizontalCollisionWarningDistance
             }
             
             // Extract the interesting Data from TelemetryData
