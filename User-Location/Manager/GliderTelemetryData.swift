@@ -82,7 +82,7 @@ struct GliderTelemetryData: Hashable {
                                                     isInCollisionRange: isInCollisionRange
             )
             
-            print(telemetryData)
+            // print(telemetryData)
             return telemetryData
     }
     
