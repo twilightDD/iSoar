@@ -12,63 +12,74 @@ import AVFoundation
 
 // MARK: - FlightComputer
 class FlightComputer {
-
+    
     // MARK: - Lets and Vars
     // Statics
     static private let shared = FlightComputer()
-
+    
     // Private
     private var isGliderFlying: Bool = false
-
+    
     private var shouldPlayGearWarning = true
     private var shouldPlayOxygenWarning = true
     
     var alreadyWarnedFlarmIDs: Set<String> = []
-
+    
     // MARK: - Public Class Methods
     class func start() {
         let shared = FlightComputer.shared
         LocationManager.registerForLocationUpdates(shared)
+        
+        // TODO: das ist nur zum Test hier, muss hier raus
+        OGNSocketConnectionManager.registerForSocketUpdates(shared)
     }
-
+    
     class func stop() {
         let shared = FlightComputer.shared
         LocationManager.unRegisterForLocationUpdates(shared)
     }
-
+    
     class func isGliderFlying()
         -> Bool {
             let isGliderFlying = shared.isGliderFlying
             return isGliderFlying
     }
-
+    
     // MARK: - Private Instance Methods
     private func checkIfGliderIsFlying() {
         if isGliderFlying == false {
-
-            // Check if Glider is faster than 10m/s, then set gliderIsFlying to true and start FlightRecording
+            
+            // Check if Glider is faster than 10m/s, (Presets)
             if let currentLocation = LocationManager.currentLocation(),
                 currentLocation.speed > Presets.FlightComputer.minimalFlightSpeed {
-
+                
+                // Set gliderIsFlying to true
                 isGliderFlying = true
-
+                
+                // Start FlightRecording
                 FlightRecorder.startRecording()
+                
+                // Register at OGNSocketConnectionManager
                 OGNSocketConnectionManager.registerForSocketUpdates(self)
             }
         } else {
-            // Check if Glider is slower than 10m/s, then set FlightMode to false
+            // Check if Glider is slower than 10m/s, (Presets)
             if let currentLocation = LocationManager.currentLocation(),
                 currentLocation.speed < Presets.FlightComputer.minimalFlightSpeed {
-
+                
+                // Set gliderIsFlying to false
                 isGliderFlying = false
-
+                
+                // Stop FlightRecording
                 FlightRecorder.stopRecording()
+                
+                // Unregister at OGNSocketConnectionManager
                 OGNSocketConnectionManager.unregisterForSocketUpdates(self)
             }
         }
         
     }
-
+    
     // MARK: Check Warning Methods
     // Check for Gear Warning
     private func checkForGearWarning() {
@@ -76,17 +87,17 @@ class FlightComputer {
             let currentLocation = LocationManager.currentLocation(),
             let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport()
             else { return }
-
+        
         let gearWarningSwitch = UserDefaultsManager.gearWarningState()
         if gearWarningSwitch == true {
-
+            
             let upperGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.upperGearWarningAltitude
             let lowerGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.lowerGearWarningAltitude
-
+            
             let distanceWarningNeeded = currentDistance < Presets.FlightComputer.gearWarningDistance
             let upperWarningNeeded = currentLocation.altitude < upperGearWarningAltitude
             let lowerWarningNeeded = currentLocation.altitude > lowerGearWarningAltitude
-
+            
             if distanceWarningNeeded == true,
                 upperWarningNeeded == true,
                 lowerWarningNeeded == true {
@@ -98,15 +109,15 @@ class FlightComputer {
             } else {
                 shouldPlayGearWarning = true
             }
-
+            
         }
     }
-
+    
     // Check for Oxygen Warning
     private func checkForOxygenWarning() {
         guard let currentLocation = LocationManager.currentLocation()
             else { return }
-
+        
         let oxygenWarningNeeded = currentLocation.altitude > Presets.FlightComputer.oxygenWarningAltitude
         if oxygenWarningNeeded == true {
             if shouldPlayOxygenWarning == true {
@@ -117,7 +128,8 @@ class FlightComputer {
             shouldPlayOxygenWarning = true
         }
     }
-
+    
+    // TODO: 20200416 Kann ja dann auch weg
     // Check for Collision Warning
     private func checkForCollisionWarning() {
         // Check if Glider is flying / If false we dont need to warn
@@ -134,30 +146,30 @@ class FlightComputer {
             // Glider not flying
         }
     }
-
+    
     // MARK: Audio Methods
     private func speak(string: String) {
         AudioServicesPlayAlertSound(SystemSoundID(1256))
-
+        
         let speechUtterance = AVSpeechUtterance(string: string)
         speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         speechUtterance.rate = 0.5
-
+        
         let synthesizer = AVSpeechSynthesizer()
         synthesizer.speak(speechUtterance)
     }
-
+    
 }
 
 // MARK: - Extension - LocationManagerDelegate
 extension FlightComputer: LocationManagerDelegate {
-
+    
     func locationManager(didUpdateLocations locations: [CLLocation]) {
         checkForGearWarning()
         checkForOxygenWarning()
         checkIfGliderIsFlying()
     }
-
+    
 }
 
 // MARK: - Extension - DL_OGNSocketConnectionManagerDelegate
@@ -168,12 +180,21 @@ extension FlightComputer: DL_OGNSocketConnectionManagerDelegate {
         if gliderTelemetryData.isInCollisionRange == true &&
             alreadyWarnedFlarmIDs.contains(gliderTelemetryData.flarmID) == false {
             alreadyWarnedFlarmIDs.update(with: gliderTelemetryData.flarmID)
-            speak(string: Presets.FlightComputer.collisionWarningSpokenText)
+            
+            if UserDefaultsManager.collisionWarningState() == true {
+                speak(string: Presets.FlightComputer.collisionWarningSpokenText)
+            }
+            
+            print("IN RANGE: \(gliderTelemetryData.flarmID)")
+            print("IM SET: \(alreadyWarnedFlarmIDs.count)")
         }
         
         if gliderTelemetryData.isInCollisionRange == false &&
             alreadyWarnedFlarmIDs.contains(gliderTelemetryData.flarmID) {
             alreadyWarnedFlarmIDs.remove(gliderTelemetryData.flarmID)
+            
+            print("OUT OF RANGE: \(gliderTelemetryData.flarmID)")
+            print("IM SET: \(alreadyWarnedFlarmIDs.count)")
         }
     }
     
@@ -186,5 +207,5 @@ extension FlightComputer: DL_OGNSocketConnectionManagerDelegate {
     func removeAllNearbyGlider() {
         alreadyWarnedFlarmIDs.removeAll()
     }
-
+    
 }
