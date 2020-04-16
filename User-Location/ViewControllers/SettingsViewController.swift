@@ -186,6 +186,7 @@ class SettingsViewController: UIViewController {
             }
         } else {
             // Collision Warning Switch is turned off (false) or Nearby Glider Switch already on
+            // TODO: 20200416 When Switch is turned off, remove all FlarmIDs from alreadyWarnedFlarmIDs
         }
     }
     

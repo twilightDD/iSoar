@@ -73,6 +73,8 @@ struct GliderTelemetryData: Hashable {
 //            verticalDistanceAboveMe = altitude-LocationManager.currentLocation()?.altitude < Presets.FlightComputer
 //            UND
 //            verticalDistanceBelowMe = LocationManager.currentLocation()?.altitude-altitude < Presets.FlightComputer
+                //            UND der andere fliegt
+                //            speed > 50 Kmh
             
             
             {
