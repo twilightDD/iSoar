@@ -29,13 +29,11 @@ class FlightComputer {
     class func start() {
         let shared = FlightComputer.shared
         LocationManager.registerForLocationUpdates(shared)
-        OGNSocketConnectionManager.registerForSocketUpdates(shared)
     }
 
     class func stop() {
         let shared = FlightComputer.shared
         LocationManager.unRegisterForLocationUpdates(shared)
-        OGNSocketConnectionManager.unregisterForSocketUpdates(shared)
     }
 
     class func isGliderFlying()
@@ -55,7 +53,7 @@ class FlightComputer {
                 isGliderFlying = true
 
                 FlightRecorder.startRecording()
-                //OGNSocketConnectionManager.registerForSocketUpdates(self)
+                OGNSocketConnectionManager.registerForSocketUpdates(self)
             }
         } else {
             // Check if Glider is slower than 10m/s, then set FlightMode to false
