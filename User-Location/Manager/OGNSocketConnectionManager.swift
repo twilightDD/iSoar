@@ -129,7 +129,7 @@ extension OGNSocketConnectionManager {
         
         // TODO: 20200416 das müsste dann über delegateS laufen?!
         //delegate?.removeAllNearbyGlider()
-                
+        
         for delegate in delegates.allObjects {
             if let ognSocketConnectionManagerDelegate = delegate as? DL_OGNSocketConnectionManagerDelegate {
                 ognSocketConnectionManagerDelegate.removeAllNearbyGlider()
@@ -181,7 +181,7 @@ extension OGNSocketConnectionManager {
     
     // Send Login String with generated Username and Current Location
     private func login() {
-
+        
         guard let currentLocation = LocationManager.currentLocation(),
             isLoggedIn == false
             else {
@@ -228,25 +228,18 @@ extension OGNSocketConnectionManager {
         // print("Anzahl Teilnachrichten: \(splittedMessages.count)")
         
         for splittedMessage in splittedMessages {
-             guard splittedMessage.hasPrefix("FLR")
+            // Check if Message has Prefix FLR or ICA AND is NOT own FlarmID
+            guard splittedMessage.hasPrefix("FLR")
                 || splittedMessage.hasPrefix("ICA")
+                && splittedMessage.hasPrefix(UserDefaultsManager.ownFlarmID()) == false
                 else {
-                    // print("\(#function): No FLR or ICA Prefix found in Message:   \(splittedMessage)")
+                    print("\(#function): Discard Message! No FLR or ICA Prefix - OR ownFlarmID:   \(splittedMessage)")
                     continue }
-            
-            // Check if Prefix is own FlarmID - if yes discard message
-            // TODO: Maybe switch behavior
-            guard splittedMessage.hasPrefix(UserDefaultsManager.ownFlarmID()) == false
-            else {
-                // print("\(#function): Own FlarmID found in Message: \(splittedMessage)")
-                continue }
             
             let gliderSpecificMessage = String(splittedMessage)
             if let telemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
                 
-                // TODO: 20200416 das müsste dann über delegateS laufen?!
-                // delegate?.updateNearbyGlider(gliderTelemetryData: telemetryData)
-                
+                // TODO: 20200420 Syntax nochmal mit ph prüfen
                 for delegate in delegates.allObjects {
                     if let ognSocketConnectionManagerDelegate = delegate as? DL_OGNSocketConnectionManagerDelegate {
                         ognSocketConnectionManagerDelegate.updateNearbyGlider(gliderTelemetryData: telemetryData)
@@ -254,18 +247,18 @@ extension OGNSocketConnectionManager {
                 }
                 
             }
-//            else {
-//                print("~~~~~~~~~~~~~~~~~")
-//                print("TelemetryData konnten nicht geparst werden.")
-//                print("original OGN Message (receivedMessage) war:")
-//                print("\(receivedMessage)")
-//                print("~~~~~~~~~~~~~~~~~")
-//                print("~~~~~~~~~~~~~~~~~")
-//                print("~~~~~~~~~~~~~~~~~")
-//
-//            }
+            //            else {
+            //                print("~~~~~~~~~~~~~~~~~")
+            //                print("TelemetryData konnten nicht geparst werden.")
+            //                print("original OGN Message (receivedMessage) war:")
+            //                print("\(receivedMessage)")
+            //                print("~~~~~~~~~~~~~~~~~")
+            //                print("~~~~~~~~~~~~~~~~~")
+            //                print("~~~~~~~~~~~~~~~~~")
+            //
+            //            }
         }
-
+        
     }
     
 }
