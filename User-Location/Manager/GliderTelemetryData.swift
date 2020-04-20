@@ -11,7 +11,13 @@ import CoreLocation
 
 // MARK: - OGNMessage
 struct GliderTelemetryData: Hashable {
-    
+
+    enum VerticalCollisionRange: Int {
+        case unknown
+        case above
+        case below
+    }
+
     // MARK: Lets and Vars
     private(set) var flarmID: String = "No FlarmID"
     private(set) var timestamp: Int64 = 0
@@ -22,7 +28,8 @@ struct GliderTelemetryData: Hashable {
     private(set) var altitude: Double = 0
     private(set) var climbRate: Double = 0
     private(set) var isInCollisionRange: Bool = false
-    
+    private(set) var verticalCollisionRange: VerticalCollisionRange
+
     // MARK: - Hashable
     static func == (lhs: GliderTelemetryData, rhs: GliderTelemetryData) -> Bool {
         return lhs.flarmID == rhs.flarmID
@@ -63,22 +70,28 @@ struct GliderTelemetryData: Hashable {
             let speed = speedFrom(speed: telemetryDataArray[ResponseElements.speed.rawValue])
             let altitude = altitudeFrom(altitude: telemetryDataArray[ResponseElements.altitude.rawValue])
             let climbRate = climbRateFrom(climbRate: telemetryDataArray[ResponseElements.climbRate.rawValue])
-            
+
+            // Kommentar
             var isInCollisionRange = false
             if let horizontalDistanceToMe = LocationManager.distanceFromCurrentLocationTo(location: CLLocation.init(latitude: location.latitude,
-                                                                                                                    longitude: location.longitude))
-            
-            // TODO: 20200416 check also vertical Distance
-//            UND
-//            verticalDistanceAboveMe = altitude-LocationManager.currentLocation()?.altitude < Presets.FlightComputer
-//            UND
-//            verticalDistanceBelowMe = LocationManager.currentLocation()?.altitude-altitude < Presets.FlightComputer
-                //            UND der andere fliegt
-                //            speed > 50 Kmh
-            
-            
-            {
+                                                                                                                    longitude: location.longitude)) {
                 isInCollisionRange = horizontalDistanceToMe < Presets.FlightComputer.horizontalCollisionWarningDistance
+            }
+
+            // Kommentar
+            var verticalCollisionRange: VerticalCollisionRange = .unknown
+            if let myAltitude = LocationManager.currentLocation()?.altitude {
+                let aboveLine = myAltitude + Presets.FlightComputer.verticalCollisionWarningDistance
+                let belowLine = myAltitude - Presets.FlightComputer.verticalCollisionWarningDistance
+
+                if altitude < aboveLine
+                    && altitude > myAltitude {
+                    verticalCollisionRange = .above
+                }
+                if altitude > belowLine
+                    && altitude < myAltitude {
+                    verticalCollisionRange = .below
+                }
             }
             
             // Extract the interesting Data from TelemetryData
@@ -90,7 +103,8 @@ struct GliderTelemetryData: Hashable {
                                                     speed: speed,
                                                     altitude: altitude,
                                                     climbRate: climbRate,
-                                                    isInCollisionRange: isInCollisionRange
+                                                    isInCollisionRange: isInCollisionRange,
+                                                    verticalCollisionRange: verticalCollisionRange
             )
             
             // print(telemetryData)
