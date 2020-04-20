@@ -80,10 +80,8 @@ struct Presets {
         // Collision Warning
         /// Represents the distance Limit of Nearby Gliders in which the user is warned
         static let horizontalCollisionWarningDistance: CLLocationDistance = 50000
-        /// Represents the distance Limit of Nearby Gliders above me in which the user is warned
-        static let verticalCollisionWarningDistcanceAbove: CLLocationDistance = 200
-        /// Represents the distance Limit of Nearby Gliders below me in which the user is warned
-        static let verticalCollisionWarningDistanceBelow: CLLocationDistance = 200
+        /// Represents the distance Limit of Nearby Gliders above or below me in which the user is warned
+        static let verticalCollisionWarningDistance: CLLocationDistance = 200
         
         /// Represents the spoken Text of the acoustic Warning
         static let collisionWarningSpokenText: String = "Warning, Traffic ahead"
