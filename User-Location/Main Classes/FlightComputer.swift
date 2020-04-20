@@ -209,7 +209,7 @@ extension FlightComputer: DL_OGNSocketConnectionManagerDelegate {
     }
     
     // Remove all FlarmIDs from alreadyWarnedFlarmIDs Set
-    func removeAllNearbyGlider() {
+    func removeAllNearbyGliders() {
         alreadyWarnedFlarmIDs.removeAll()
     }
     

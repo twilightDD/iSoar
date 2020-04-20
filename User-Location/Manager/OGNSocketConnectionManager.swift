@@ -14,7 +14,7 @@ protocol DL_OGNSocketConnectionManagerDelegate: class {
     
     func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData)
     func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData)
-    func removeAllNearbyGlider()
+    func removeAllNearbyGliders()
     
 }
 
@@ -132,7 +132,7 @@ extension OGNSocketConnectionManager {
         
         for delegate in delegates.allObjects {
             if let ognSocketConnectionManagerDelegate = delegate as? DL_OGNSocketConnectionManagerDelegate {
-                ognSocketConnectionManagerDelegate.removeAllNearbyGlider()
+                ognSocketConnectionManagerDelegate.removeAllNearbyGliders()
             }
         }
         

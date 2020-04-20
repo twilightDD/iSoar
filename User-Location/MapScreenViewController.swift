@@ -587,7 +587,7 @@ extension MapScreenViewController: DL_OGNSocketConnectionManagerDelegate {
         }
     }
 
-    func removeAllNearbyGlider() {
+    func removeAllNearbyGliders() {
         var nearbyGliderAnnotationsToRemove = [NearbyGliderAnnotation]()
         for (_, nearbyGliderAnnotationToRemove) in nearbyGliderAnnotations {
             nearbyGliderAnnotationsToRemove.append(nearbyGliderAnnotationToRemove)
