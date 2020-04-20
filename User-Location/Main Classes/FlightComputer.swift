@@ -23,7 +23,7 @@ class FlightComputer {
     private var shouldPlayGearWarning = true
     private var shouldPlayOxygenWarning = true
     
-    var alreadyWarnedFlarmIDs: Set<String> = []
+    private var alreadyWarnedFlarmIDs: Set<String> = []
     
     // MARK: - Public Class Methods
     class func start() {
@@ -174,32 +174,32 @@ extension FlightComputer: LocationManagerDelegate {
 
 // MARK: - Extension - DL_OGNSocketConnectionManagerDelegate
 extension FlightComputer: DL_OGNSocketConnectionManagerDelegate {
+
     // Update alreadyWarnedFlarmIDs Set for specific FlarmID
     func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
-        // Collision Warning Switch is on
+
         if UserDefaultsManager.collisionWarningState() == true {
+
             // If Nearby Glider IS in Collision Range AND not yet in the SET
             if gliderTelemetryData.isInCollisionRange == true &&
                 alreadyWarnedFlarmIDs.contains(gliderTelemetryData.flarmID) == false {
+
                 alreadyWarnedFlarmIDs.update(with: gliderTelemetryData.flarmID)
-                
                 speak(string: Presets.FlightComputer.collisionWarningSpokenText)
                 
                 print("IN RANGE: \(gliderTelemetryData.flarmID)\nIM SET: \(alreadyWarnedFlarmIDs.count)")
-
             }
             
             // If Nearby Glider IS NOT (or no more) in Collision Range AND IN the SET
             if gliderTelemetryData.isInCollisionRange == false &&
                 alreadyWarnedFlarmIDs.contains(gliderTelemetryData.flarmID) {
-                
-                // TODO: 20200418 müsste das nicht nach unten in die "func removeNearbyGlider"?
+
                 alreadyWarnedFlarmIDs.remove(gliderTelemetryData.flarmID)
                 
                 print("OUT OF RANGE: \(gliderTelemetryData.flarmID)\nIM SET: \(alreadyWarnedFlarmIDs.count)")
             }
         } else {
-            // Collision Warning Switch is off
+             alreadyWarnedFlarmIDs.removeAll()
         }
     }
     
