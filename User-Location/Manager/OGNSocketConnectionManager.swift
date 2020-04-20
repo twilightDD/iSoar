@@ -224,16 +224,19 @@ extension OGNSocketConnectionManager {
     private func messageReceived(_ receivedMessage: String) {
         // print("Original OGN Message: \(receivedMessage)")
         
+        // If receivedMessage contains more than one Message - split them in single Messages
         let splittedMessages = receivedMessage.split(separator: "\r\n")
         // print("Anzahl Teilnachrichten: \(splittedMessages.count)")
         
+        // Check every single Message
         for splittedMessage in splittedMessages {
-            // Check if Message has Prefix FLR or ICA AND is NOT own FlarmID
+            // Check if Message has Prefix FLR or ICA - AND is NOT ownFlarmID
             guard splittedMessage.hasPrefix("FLR")
                 || splittedMessage.hasPrefix("ICA")
                 && splittedMessage.hasPrefix(UserDefaultsManager.ownFlarmID()) == false
+                // Otherwise discard this message
                 else {
-                    print("\(#function): Discard Message! No FLR or ICA Prefix - OR ownFlarmID:   \(splittedMessage)")
+                    // print("\(#function): Discard Message! No FLR or ICA Prefix - OR ownFlarmID:   \(splittedMessage)")
                     continue }
             
             let gliderSpecificMessage = String(splittedMessage)
