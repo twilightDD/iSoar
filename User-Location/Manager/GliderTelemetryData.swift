@@ -80,7 +80,9 @@ struct GliderTelemetryData: Hashable {
 
             // Kommentar
             var verticalCollisionRange: VerticalCollisionRange = .unknown
-            if let myAltitude = LocationManager.currentLocation()?.altitude {
+            if  altitude > 0,
+                let myAltitude = LocationManager.currentLocation()?.altitude {
+
                 let aboveLine = myAltitude + Presets.FlightComputer.verticalCollisionWarningDistance
                 let belowLine = myAltitude - Presets.FlightComputer.verticalCollisionWarningDistance
 
