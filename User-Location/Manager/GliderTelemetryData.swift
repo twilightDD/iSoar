@@ -71,14 +71,14 @@ struct GliderTelemetryData: Hashable {
             let altitude = altitudeFrom(altitude: telemetryDataArray[ResponseElements.altitude.rawValue])
             let climbRate = climbRateFrom(climbRate: telemetryDataArray[ResponseElements.climbRate.rawValue])
 
-            // Kommentar
+            // Check if Nearby Glider is in horizontal Collision Range
             var isInCollisionRange = false
             if let horizontalDistanceToMe = LocationManager.distanceFromCurrentLocationTo(location: CLLocation.init(latitude: location.latitude,
                                                                                                                     longitude: location.longitude)) {
                 isInCollisionRange = horizontalDistanceToMe < Presets.FlightComputer.horizontalCollisionWarningDistance
             }
 
-            // Kommentar
+            // Check if Nearby Glider is in horizontal Collision Range - and Above or Below
             var verticalCollisionRange: VerticalCollisionRange = .unknown
             if  altitude > 0,
                 let myAltitude = LocationManager.currentLocation()?.altitude {

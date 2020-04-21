@@ -149,12 +149,11 @@ class AirportDatabase {
                             self.loadAirports()
                             self.updateDistance()
                             
-                            // TODO: benötigen wir das noch?
                             // Post Notification for comoleted Update
                             NotificationCenter.default.post(name: AirportDatabase.airportUpdateCompletedNotificationName,
                                                             object: nil)
                             
-                            // TODO: User-Info - Banner via Dispatch ok?
+                            // Show Notification Banner
                             DispatchQueue.main.async {
                                 NotificationBanner.show("Airport Database successfully updated.")
                             }

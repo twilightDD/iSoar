@@ -345,7 +345,6 @@ extension ISoarFileManager {
         }
     }
     
-    // TODO: Check Syntax with ph
     // Delete Flight Files in Flights Folder
     class func deleteFlightFiles(_ currentUnixTimeStamp: String) {
         
