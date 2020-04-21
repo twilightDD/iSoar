@@ -99,7 +99,6 @@ class SettingsViewController: UIViewController {
         UserDefaultsManager.set(safetyAltitude: safetyAltitudeDouble)
         
         UserDefaultsManager.set(gliderID: gliderIDTextField.text!)
-        UserDefaultsManager.set(ownFlarmID: ownFlarmIDTextField.text!)
         
         // If Buddy FlarmID has changed
         if buddyFlarmIDTextField.text != UserDefaultsManager.buddyFlarmID() {
@@ -119,6 +118,26 @@ class SettingsViewController: UIViewController {
             }
         } else {
             // Buddy FlarmID has not changed
+        }
+        
+        // If ownFlarmID has changed
+        if ownFlarmIDTextField.text != UserDefaultsManager.ownFlarmID() {
+            // If Show Nearby Glider Switch is on (state = true) - Reconnect to OGN Server
+            if UserDefaultsManager.showAllNearbyGlidersState() == true {
+                // Set new  ownFlarmID to UserDefaults
+                UserDefaultsManager.set(ownFlarmID: ownFlarmIDTextField.text!)
+                // Disconnect from OGN Server
+                OGNSocketConnectionManager.stop()
+                // Reconnect to OGN Server
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    OGNSocketConnectionManager.start()
+                }
+            } else {
+                // Show Nearby Glider Switch is off - just set the new ownFlarmID to UserDefaults
+                UserDefaultsManager.set(ownFlarmID: ownFlarmIDTextField.text!)
+            }
+        } else {
+            // Own FlarmID has not changed
         }
     }
     
@@ -186,7 +205,6 @@ class SettingsViewController: UIViewController {
             }
         } else {
             // Collision Warning Switch is turned off (false) or Nearby Glider Switch already on
-            // TODO: 20200416 When Switch is turned off, remove all FlarmIDs from alreadyWarnedFlarmIDs
         }
     }
     
