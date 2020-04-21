@@ -41,7 +41,6 @@ class OGNSocketConnectionManager {
     
     // MARK: - Public Class Methods
     class func registerForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
-        // shared.delegate = delegate
         
         print("\(#function) - willAdd delegates.count = \(shared.delegates.count)")
         shared.delegates.add(delegate)
@@ -50,7 +49,6 @@ class OGNSocketConnectionManager {
     }
     
     class func unregisterForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
-        //shared.delegate = nil
         
         print("\(#function) - willRemove delegates.count = \(shared.delegates.count)")
         shared.delegates.remove(delegate)
@@ -127,9 +125,6 @@ extension OGNSocketConnectionManager {
     private func cancelConnection() {
         connection?.cancel()
         
-        // TODO: 20200416 das müsste dann über delegateS laufen?!
-        //delegate?.removeAllNearbyGlider()
-        
         for delegate in delegates.allObjects {
             if let ognSocketConnectionManagerDelegate = delegate as? DL_OGNSocketConnectionManagerDelegate {
                 ognSocketConnectionManagerDelegate.removeAllNearbyGliders()
@@ -194,11 +189,11 @@ extension OGNSocketConnectionManager {
         let appVersion = Presets.OGNSocketConnection.appVersion
         if UserDefaultsManager.showOnlyBuddySwitchState() {
             // Filter for unique FlarmID or multiple IDs seperated bei /
-            let packet = "user \(userName) pass -1 vers \(appVersion) filter b/\(UserDefaultsManager.buddyFlarmID())\n"
+            let packet = "user \(userName) pass -1 vers \(appVersion) filter b/\(UserDefaultsManager.buddyFlarmID()) -p/\(UserDefaultsManager.ownFlarmID())/A/B/C/D/E/G/H/J/K/L/M/N/O/P/Q/R/S/T/U/V/W/X/Y/Z\n"
             sendPaket(packet)
         } else {
             // Filter via Radius
-            let packet = "user \(userName) pass -1 vers \(appVersion) filter r/\(currentLocation.coordinate.latitude)/\(currentLocation.coordinate.longitude)/\(Presets.OGNSocketConnection.regionInKm)\n"
+            let packet = "user \(userName) pass -1 vers \(appVersion) filter r/\(currentLocation.coordinate.latitude)/\(currentLocation.coordinate.longitude)/\(Presets.OGNSocketConnection.regionInKm) -p/\(UserDefaultsManager.ownFlarmID())/A/B/C/D/E/G/H/J/K/L/M/N/O/P/Q/R/S/T/U/V/W/X/Y/Z\n"
             sendPaket(packet)
         }
         
@@ -215,7 +210,7 @@ extension OGNSocketConnectionManager {
                             if let err = error {
                                 print("\(#function) Sending error \(err)")
                             } else {
-                                print("\(#function) Filter Request successfully sent:\n\(packet)")
+                                // print("\(#function) Filter Request successfully sent:\n\(packet)")
                             }
             })
     }
@@ -233,7 +228,6 @@ extension OGNSocketConnectionManager {
             // Check if Message has Prefix FLR or ICA - AND is NOT ownFlarmID
             guard splittedMessage.hasPrefix("FLR")
                 || splittedMessage.hasPrefix("ICA")
-                && splittedMessage.hasPrefix(UserDefaultsManager.ownFlarmID()) == false
                 // Otherwise discard this message
                 else {
                     // print("\(#function): Discard Message! No FLR or ICA Prefix - OR ownFlarmID:   \(splittedMessage)")
@@ -242,7 +236,6 @@ extension OGNSocketConnectionManager {
             let gliderSpecificMessage = String(splittedMessage)
             if let telemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
                 
-                // TODO: 20200420 Syntax nochmal mit ph prüfen
                 for delegate in delegates.allObjects {
                     if let ognSocketConnectionManagerDelegate = delegate as? DL_OGNSocketConnectionManagerDelegate {
                         ognSocketConnectionManagerDelegate.updateNearbyGlider(gliderTelemetryData: telemetryData)
