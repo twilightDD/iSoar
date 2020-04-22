@@ -38,7 +38,9 @@ class OGNSocketConnectionManager {
     private var loginTimeStamp = Date.currentUnixTimeStamp
     
     private var delegates = NSHashTable<AnyObject>.weakObjects()
-    
+
+    private var gliderTelemetryDatas = Set<GliderTelemetryData>()
+
     // MARK: - Public Class Methods
     class func registerForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
         
@@ -232,32 +234,63 @@ extension OGNSocketConnectionManager {
                 else {
                     // print("\(#function): Discard Message! No FLR or ICA Prefix - OR ownFlarmID:   \(splittedMessage)")
                     continue }
-            
-            let gliderSpecificMessage = String(splittedMessage)
-            if let telemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
 
-                /*TODO: hier neues mit (evtl. noch nicht vorhandenem) alten teleData für diese flarmID vergleichen
+            // Create gliderTelemetryData from message
+            let gliderSpecificMessage = String(splittedMessage)
+            if let newGliderTelemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
+
+                /*TODO: hier neues mit (evtl. noch nicht vorhandenem) alten teleData für diese flarmID vergleichen; 220420, ph
                  - aircraftImageNeedsUpdate
                  */
+
+                // Inform delegates
                 for delegate in delegates.allObjects {
                     if let ognSocketConnectionManagerDelegate = delegate as? DL_OGNSocketConnectionManagerDelegate {
-                        ognSocketConnectionManagerDelegate.updateNearbyGlider(gliderTelemetryData: telemetryData)
+                        ognSocketConnectionManagerDelegate.updateNearbyGlider(gliderTelemetryData: newGliderTelemetryData)
                     }
                 }
-                
+
+                // Book keeping
+                gliderTelemetryDatas.insert(newGliderTelemetryData)
+
+                // TODO: Is this the correct time to call this method?; 220420, ph
+                checkForOutdatedGliderTelemetryData()
             }
-            //            else {
-            //                print("~~~~~~~~~~~~~~~~~")
-            //                print("TelemetryData konnten nicht geparst werden.")
-            //                print("original OGN Message (receivedMessage) war:")
-            //                print("\(receivedMessage)")
-            //                print("~~~~~~~~~~~~~~~~~")
-            //                print("~~~~~~~~~~~~~~~~~")
-            //                print("~~~~~~~~~~~~~~~~~")
-            //
-            //            }
         }
         
+    }
+
+    private func checkForOutdatedGliderTelemetryData() {
+        // check for views to remove
+        /*
+         - prüfe alle, die älter sind als X:
+
+         - ich schaue jedes an
+            - currenttimeStamp - 60 < flarmTimeStamp
+                - wenn ja: löschen
+                - wenn nein: nix tun
+            - Löschen heißt:
+                - delegate.removeGlider(data)
+                - löschen der data aus set
+         */
+
+        let currentTimeStamp = Date.currentUnixTimeStamp - Presets.OGNSocketConnection.expirationTimespan
+
+        for gliderTelemetryData in gliderTelemetryDatas {
+            let timestamp = gliderTelemetryData.timestamp
+
+            if currentTimeStamp > timestamp {
+                // inform delegate about removing
+                for delegate in delegates.allObjects {
+                    if let ognSocketConnectionManagerDelegate = delegate as? DL_OGNSocketConnectionManagerDelegate {
+                        ognSocketConnectionManagerDelegate.removeNearbyGlider(gliderTelemetryData: gliderTelemetryData)
+                    }
+                }
+
+                // Remove expired gliderTelemetryData from book keeping
+                gliderTelemetryDatas.remove(gliderTelemetryData)
+            }
+        }
     }
     
 }

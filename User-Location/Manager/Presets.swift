@@ -34,6 +34,10 @@ struct Presets {
 
         static let appVersion: String = "iSoar \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?")_\(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?")"
 
+        /// TODO: find a cool name and add docu; 220420, ph
+        static let expirationTimespan: Int64 = 60
+
+
         #if DEBUG
         /// Default Radius für NearbyGlider (for debug purpose)
         static let regionInKm: Double = 500
