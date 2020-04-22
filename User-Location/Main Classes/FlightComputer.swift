@@ -43,6 +43,9 @@ class FlightComputer {
         -> Bool {
             let isGliderFlying = shared.isGliderFlying
             return isGliderFlying
+            
+            // TODO: Das muss dann hier rein
+            //OGNSocketConnectionManager.registerForSocketUpdates(shared)
     }
     
     // MARK: - Private Instance Methods
@@ -174,32 +177,38 @@ extension FlightComputer: LocationManagerDelegate {
 
 // MARK: - Extension - DL_OGNSocketConnectionManagerDelegate
 extension FlightComputer: DL_OGNSocketConnectionManagerDelegate {
-
+    
     // Update alreadyWarnedFlarmIDs Set for specific FlarmID
     func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
-
+        
         if UserDefaultsManager.collisionWarningState() == true {
-
-            // If Nearby Glider IS in Collision Range AND not yet in the SET
-            if gliderTelemetryData.isInCollisionRange == true &&
-                alreadyWarnedFlarmIDs.contains(gliderTelemetryData.flarmID) == false {
-
-                alreadyWarnedFlarmIDs.update(with: gliderTelemetryData.flarmID)
-                speak(string: Presets.FlightComputer.collisionWarningSpokenText)
+            
+            // If Nearby Glider IS in Collision Range AND NOT yet in the SET
+            if gliderTelemetryData.isInCollisionRange == true && alreadyWarnedFlarmIDs.contains(gliderTelemetryData.flarmID) == false {
                 
-                print("IN RANGE: \(gliderTelemetryData.flarmID)\nIM SET: \(alreadyWarnedFlarmIDs.count)")
+                // Check if Nearby Gliders Speed is more than 50 Kmh - is flying
+                if gliderTelemetryData.speed > 50 {
+                    alreadyWarnedFlarmIDs.update(with: gliderTelemetryData.flarmID)
+                    speak(string: Presets.FlightComputer.collisionWarningSpokenText)
+                    
+                    print("IN RANGE: \(gliderTelemetryData.flarmID) - IM SET: \(alreadyWarnedFlarmIDs.count) - Alt: \(gliderTelemetryData.altitude) - Speed: \(gliderTelemetryData.speed)")
+                } else {
+                    // Nearby Gliders Speed is less than 50 Kmh - not flying
+                    print("In Range: but not flying: \(gliderTelemetryData.flarmID)")
+                }
+                
             }
             
-            // If Nearby Glider IS NOT (or no more) in Collision Range AND IN the SET
+            // If Nearby Glider IS NOT (or no more) in Collision Range BUT IN the SET
             if gliderTelemetryData.isInCollisionRange == false &&
                 alreadyWarnedFlarmIDs.contains(gliderTelemetryData.flarmID) {
-
+                
                 alreadyWarnedFlarmIDs.remove(gliderTelemetryData.flarmID)
                 
-                print("OUT OF RANGE: \(gliderTelemetryData.flarmID)\nIM SET: \(alreadyWarnedFlarmIDs.count)")
+                print("OUT OF RANGE: \(gliderTelemetryData.flarmID) - IM SET: \(alreadyWarnedFlarmIDs.count) - Alt: \(gliderTelemetryData.altitude) - Speed: \(gliderTelemetryData.speed)")
             }
         } else {
-             alreadyWarnedFlarmIDs.removeAll()
+            alreadyWarnedFlarmIDs.removeAll()
         }
     }
     
