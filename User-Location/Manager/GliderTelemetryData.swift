@@ -12,7 +12,7 @@ import CoreLocation
 // MARK: - OGNMessage
 struct GliderTelemetryData: Hashable {
 
-    enum VerticalCollisionRange: Int {
+    enum VerticalPosition: Int {
         case unknown
         case above
         case below
@@ -28,7 +28,7 @@ struct GliderTelemetryData: Hashable {
     private(set) var altitude: Double = 0
     private(set) var climbRate: Double = 0
     private(set) var isInCollisionRange: Bool = false
-    private(set) var verticalCollisionRange: VerticalCollisionRange
+    private(set) var verticalPosition: VerticalPosition
 
     // MARK: - Hashable
     static func == (lhs: GliderTelemetryData, rhs: GliderTelemetryData) -> Bool {
@@ -70,29 +70,30 @@ struct GliderTelemetryData: Hashable {
             let speed = speedFrom(speed: telemetryDataArray[ResponseElements.speed.rawValue])
             let altitude = altitudeFrom(altitude: telemetryDataArray[ResponseElements.altitude.rawValue])
             let climbRate = climbRateFrom(climbRate: telemetryDataArray[ResponseElements.climbRate.rawValue])
-
-            // Check if Nearby Glider is in horizontal Collision Range
+            
+            // Check if Nearby Glider above or below our own Glider
+            var verticalPosition: VerticalPosition = .unknown
+            if let myAltitude = LocationManager.currentLocation()?.altitude {
+                if altitude > myAltitude {
+                    verticalPosition = .above
+                } else {
+                    verticalPosition = .below
+                }
+            }
+            
+            // Check if Nearby Glider is in Collision Range
+            // TODO: 20200421 Check Syntax with ph
             var isInCollisionRange = false
+            let myAltitude = (LocationManager.currentLocation()?.altitude)!
+            let upperCollisionRangeAltitutdeLimit = myAltitude + Presets.FlightComputer.verticalCollisionWarningDistance
+            let lowerCollisionRangeAltitutdeLimit = myAltitude - Presets.FlightComputer.verticalCollisionWarningDistance
+            
             if let horizontalDistanceToMe = LocationManager.distanceFromCurrentLocationTo(location: CLLocation.init(latitude: location.latitude,
                                                                                                                     longitude: location.longitude)) {
-                isInCollisionRange = horizontalDistanceToMe < Presets.FlightComputer.horizontalCollisionWarningDistance
-            }
-
-            // Check if Nearby Glider is in horizontal Collision Range - and Above or Below
-            var verticalCollisionRange: VerticalCollisionRange = .unknown
-            if  altitude > 0,
-                let myAltitude = LocationManager.currentLocation()?.altitude {
-
-                let aboveLine = myAltitude + Presets.FlightComputer.verticalCollisionWarningDistance
-                let belowLine = myAltitude - Presets.FlightComputer.verticalCollisionWarningDistance
-
-                if altitude < aboveLine
-                    && altitude > myAltitude {
-                    verticalCollisionRange = .above
-                }
-                if altitude > belowLine
-                    && altitude < myAltitude {
-                    verticalCollisionRange = .below
+                if horizontalDistanceToMe < Presets.FlightComputer.horizontalCollisionWarningDistance && altitude < upperCollisionRangeAltitutdeLimit && altitude > lowerCollisionRangeAltitutdeLimit {
+                    isInCollisionRange = true
+                } else {
+                    isInCollisionRange = false
                 }
             }
             
@@ -106,7 +107,7 @@ struct GliderTelemetryData: Hashable {
                                                     altitude: altitude,
                                                     climbRate: climbRate,
                                                     isInCollisionRange: isInCollisionRange,
-                                                    verticalCollisionRange: verticalCollisionRange
+                                                    verticalPosition: verticalPosition
             )
             
             // print(telemetryData)
