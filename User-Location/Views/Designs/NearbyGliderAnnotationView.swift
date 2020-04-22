@@ -32,9 +32,13 @@ class NearbyGliderAnnotationView: MGLAnnotationView {
         }
     }
     
+    var nearbyGliderSymbol: String = ""
+    
     // MARK: - Init&Co
     override init(annotation: MGLAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        
+        OGNSocketConnectionManager.registerForSocketUpdates(self)
         
         if let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotation {
             nearbyGliderAnnotation.annotationView = self
@@ -49,11 +53,28 @@ class NearbyGliderAnnotationView: MGLAnnotationView {
     // MARK: - Layout Methods
     override func layoutSubviews() {
         super.layoutSubviews()
-        guard let gliderImage = UIImage(named: "nearbyGlider")?.cgImage
+        guard let gliderImage = UIImage(named: nearbyGliderSymbol)?.cgImage
             else { return }
         
         layer.contents = gliderImage
         layer.bounds = CGRect(x: 0, y: 0, width: gliderImage.width, height: gliderImage.height)
     }
     
+}
+
+// MARK: - Extension - DL_OGNSocketConnectionManagerDelegate
+extension NearbyGliderAnnotationView: DL_OGNSocketConnectionManagerDelegate {
+    func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
+        
+        nearbyGliderSymbol = "\(gliderTelemetryData.type)\(gliderTelemetryData.verticalPosition)"
+        
+    }
+    
+    func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
+        
+    }
+    
+    func removeAllNearbyGliders() {
+        
+    }
 }
