@@ -22,14 +22,15 @@ struct GliderTelemetryData: Hashable {
     private(set) var flarmID: String = "No FlarmID"
     private(set) var timestamp: Int64 = 0
     private(set) var location: CLLocationCoordinate2D = CLLocationCoordinate2D()
-    private(set) var type: String = ""
+    private(set) var type: String = "" // -> enum .helicopter / .glider / .gyro
     private(set) var heading: Double = 0
     private(set) var speed: Double = 0
     private(set) var altitude: Double = 0
     private(set) var climbRate: Double = 0
     private(set) var isInCollisionRange: Bool = false
     private(set) var verticalPosition: VerticalPosition
-
+     var aircraftImageNeedsUpdate = false // will be updated in OGNSocketConnectionManager
+    
     // MARK: - Hashable
     static func == (lhs: GliderTelemetryData, rhs: GliderTelemetryData) -> Bool {
         return lhs.flarmID == rhs.flarmID

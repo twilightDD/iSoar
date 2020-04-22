@@ -8,10 +8,26 @@
 
 import Foundation
 
+import UIKit
+
 import Mapbox
 
 class NearbyGliderAnnotation: MGLPointAnnotation {
-    weak var annotationView: NearbyGliderAnnotationView?
+    weak var annotationView: NearbyGliderAnnotationView? {
+        didSet {
+            var nearbyGliderImageName = "\(gliderTelemetryData.type)"
+
+            switch gliderTelemetryData.verticalPosition {
+                case .above:
+                    nearbyGliderImageName.append("above")
+                case .below:
+                    nearbyGliderImageName.append("below")
+                case .unknown:
+                    break
+            }
+            annotationView?.aircraftImage = UIImage(named: nearbyGliderImageName)
+        }
+    }
 
     private var gliderTelemetryDataStore: GliderTelemetryData
     var gliderTelemetryData: GliderTelemetryData {
@@ -22,13 +38,26 @@ class NearbyGliderAnnotation: MGLPointAnnotation {
         set {
             gliderTelemetryDataStore = newValue
 
+            // set coordinates on MGLPointAnnotation for update postion on map
             coordinate = gliderTelemetryDataStore.location
-
             if let annotationView = self.annotationView {
-                annotationView.heading = gliderTelemetryData.heading
-//                annotationView.alpha = 0.2
-            }
+                if gliderTelemetryDataStore.aircraftImageNeedsUpdate == true {
+                    // update aircraft image (must be before update heading!)
+                    var nearbyGliderImageName = "\(gliderTelemetryData.type)"
+                    switch gliderTelemetryData.verticalPosition {
+                        case .above:
+                            nearbyGliderImageName.append("above")
+                        case .below:
+                            nearbyGliderImageName.append("below")
+                        case .unknown:
+                            break
+                    }
 
+                    annotationView.aircraftImage = UIImage(named: nearbyGliderImageName)
+                }
+                // update heading
+                annotationView.heading = gliderTelemetryData.heading
+            }
         }
     }
     

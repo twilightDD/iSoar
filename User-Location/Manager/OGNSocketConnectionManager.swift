@@ -217,7 +217,7 @@ extension OGNSocketConnectionManager {
     
     // Received Message from OGN Server
     private func messageReceived(_ receivedMessage: String) {
-        // print("Original OGN Message: \(receivedMessage)")
+         print("Original OGN Message: \(receivedMessage)")
         
         // If receivedMessage contains more than one Message - split them in single Messages
         let splittedMessages = receivedMessage.split(separator: "\r\n")
@@ -235,7 +235,10 @@ extension OGNSocketConnectionManager {
             
             let gliderSpecificMessage = String(splittedMessage)
             if let telemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
-                
+
+                /*TODO: hier neues mit (evtl. noch nicht vorhandenem) alten teleData für diese flarmID vergleichen
+                 - aircraftImageNeedsUpdate
+                 */
                 for delegate in delegates.allObjects {
                     if let ognSocketConnectionManagerDelegate = delegate as? DL_OGNSocketConnectionManagerDelegate {
                         ognSocketConnectionManagerDelegate.updateNearbyGlider(gliderTelemetryData: telemetryData)

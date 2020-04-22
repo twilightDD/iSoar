@@ -14,6 +14,9 @@ class NearbyGliderAnnotationView: MGLAnnotationView {
     
     // MARK: Lets and Vars
     private var headingStore: Double = 0
+
+    var aircraftImage: UIImage? { didSet { setNeedsLayout() } }
+
     var heading: Double {
         get {
             let head = headingStore
@@ -28,18 +31,13 @@ class NearbyGliderAnnotationView: MGLAnnotationView {
             CATransaction.setDisableActions(true)
             layer.setAffineTransform(CGAffineTransform.identity.rotated(by: rotation))
             CATransaction.commit()
-            
         }
     }
-    
-    var nearbyGliderSymbol: String = ""
     
     // MARK: - Init&Co
     override init(annotation: MGLAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        
-        OGNSocketConnectionManager.registerForSocketUpdates(self)
-        
+
         if let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotation {
             nearbyGliderAnnotation.annotationView = self
         }
@@ -53,28 +51,12 @@ class NearbyGliderAnnotationView: MGLAnnotationView {
     // MARK: - Layout Methods
     override func layoutSubviews() {
         super.layoutSubviews()
-        guard let gliderImage = UIImage(named: nearbyGliderSymbol)?.cgImage
+        guard let aircraftCGImage = aircraftImage?.cgImage
             else { return }
-        
-        layer.contents = gliderImage
-        layer.bounds = CGRect(x: 0, y: 0, width: gliderImage.width, height: gliderImage.height)
+
+        layer.contents = aircraftCGImage
+        layer.bounds = CGRect(x: 0, y: 0, width: aircraftCGImage.width, height: aircraftCGImage.height)
     }
     
 }
 
-// MARK: - Extension - DL_OGNSocketConnectionManagerDelegate
-extension NearbyGliderAnnotationView: DL_OGNSocketConnectionManagerDelegate {
-    func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
-        
-        nearbyGliderSymbol = "\(gliderTelemetryData.type)\(gliderTelemetryData.verticalPosition)"
-        
-    }
-    
-    func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
-        
-    }
-    
-    func removeAllNearbyGliders() {
-        
-    }
-}
