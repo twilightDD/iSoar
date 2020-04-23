@@ -22,7 +22,7 @@ struct GliderTelemetryData: Hashable {
     private(set) var flarmID: String = "No FlarmID"
     private(set) var timestamp: Int64 = 0
     private(set) var location: CLLocationCoordinate2D = CLLocationCoordinate2D()
-    private(set) var type: String = "" // -> enum .helicopter / .glider / .gyro
+    private(set) var aircraftType: String = "" // -> enum .helicopter / .glider / .gyro
     private(set) var heading: Double = 0
     private(set) var speed: Double = 0
     private(set) var altitude: Double = 0
@@ -66,7 +66,7 @@ struct GliderTelemetryData: Hashable {
                                                 longitude: longitudeString,
                                                 longitudeHemisphere: longitudeHemisphere)
             
-            let type = String(telemetryDataArray[ResponseElements.aircraftType.rawValue])
+            let aircraftType = String(telemetryDataArray[ResponseElements.aircraftType.rawValue])
             let heading = Double(telemetryDataArray[ResponseElements.heading.rawValue]) ?? 0
             let speed = speedFrom(speed: telemetryDataArray[ResponseElements.speed.rawValue])
             let altitude = altitudeFrom(altitude: telemetryDataArray[ResponseElements.altitude.rawValue])
@@ -102,7 +102,7 @@ struct GliderTelemetryData: Hashable {
             let telemetryData = GliderTelemetryData(flarmID: flarmID,
                                                     timestamp: timestamp,
                                                     location: location,
-                                                    type: type,
+                                                    aircraftType: aircraftType,
                                                     heading: heading,
                                                     speed: speed,
                                                     altitude: altitude,

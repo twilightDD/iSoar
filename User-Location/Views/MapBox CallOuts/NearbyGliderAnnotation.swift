@@ -15,17 +15,17 @@ import Mapbox
 class NearbyGliderAnnotation: MGLPointAnnotation {
     weak var annotationView: NearbyGliderAnnotationView? {
         didSet {
-            var nearbyGliderImageName = "\(gliderTelemetryData.type)"
+            var nearbyAircraftImageName = "\(gliderTelemetryData.aircraftType)"
 
             switch gliderTelemetryData.verticalPosition {
-                case .above:
-                    nearbyGliderImageName.append("above")
-                case .below:
-                    nearbyGliderImageName.append("below")
-                case .unknown:
-                    break
+            case .above:
+                nearbyAircraftImageName.append("above")
+            case .below:
+                nearbyAircraftImageName.append("below")
+            case .unknown:
+                break
             }
-            annotationView?.aircraftImage = UIImage(named: nearbyGliderImageName)
+            annotationView?.aircraftImage = UIImage(named: nearbyAircraftImageName)
         }
     }
 
@@ -43,17 +43,17 @@ class NearbyGliderAnnotation: MGLPointAnnotation {
             if let annotationView = self.annotationView {
                 if gliderTelemetryDataStore.aircraftImageNeedsUpdate == true {
                     // update aircraft image (must be before update heading!)
-                    var nearbyGliderImageName = "\(gliderTelemetryData.type)"
+                    var nearbyAircraftImageName = "\(gliderTelemetryData.aircraftType)"
                     switch gliderTelemetryData.verticalPosition {
-                        case .above:
-                            nearbyGliderImageName.append("above")
-                        case .below:
-                            nearbyGliderImageName.append("below")
-                        case .unknown:
-                            break
+                    case .above:
+                        nearbyAircraftImageName.append("above")
+                    case .below:
+                        nearbyAircraftImageName.append("below")
+                    case .unknown:
+                        break
                     }
 
-                    annotationView.aircraftImage = UIImage(named: nearbyGliderImageName)
+                    annotationView.aircraftImage = UIImage(named: nearbyAircraftImageName)
                 }
                 // update heading
                 annotationView.heading = gliderTelemetryData.heading
