@@ -334,7 +334,7 @@ class MapScreenViewController: UIViewController {
         destinationAirportICAOLabel.text = "---"
         destinationAirportDistanceLabel.text = "---"
         destinationAirportAltitudeLabel.text = "---"
-        destinationAirportAltitudeLabel.textColor = Presets.MapScreen.normalTextColor
+        destinationAirportAltitudeLabel.textColor = UIColor(named: "StandardTextColor")
 
         // directionLine
         if let destinationAirportDirectionLine = currentDestinationAirportDirectionLine {
@@ -385,9 +385,9 @@ class MapScreenViewController: UIViewController {
 
         // Update Text Color
         if destinationAltitude > 0 {
-            destinationAirportAltitudeLabel.textColor = Presets.MapScreen.normalTextColor   
+            destinationAirportAltitudeLabel.textColor = UIColor(named: "StandardTextColor")
         } else {
-            destinationAirportAltitudeLabel.textColor = Presets.MapScreen.warningTextColor
+            destinationAirportAltitudeLabel.textColor = UIColor(named: "WarningTextColor")
         }
     }
 

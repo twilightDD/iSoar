@@ -57,11 +57,6 @@ struct Presets {
         static let zoomLevel: Double = 9.6
         #endif
         
-        /// Text Color for Standard Text
-        static let normalTextColor = UIColor(red: 150/255, green: 255/255, blue: 255/255, alpha: 1)
-        /// Text Color for Warning
-        static let warningTextColor = UIColor(red: 248/255, green: 44/255, blue: 5/255, alpha: 1)
-  
     }
     
     struct FlightComputer {
