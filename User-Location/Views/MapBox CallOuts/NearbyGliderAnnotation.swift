@@ -38,11 +38,11 @@ class NearbyGliderAnnotation: MGLPointAnnotation {
         set {
             gliderTelemetryDataStore = newValue
 
-            // set coordinates on MGLPointAnnotation for update postion on map
+            // Set Coordinates on MGLPointAnnotation for update Postion on Map
             coordinate = gliderTelemetryDataStore.location
             if let annotationView = self.annotationView {
                 if gliderTelemetryDataStore.aircraftImageNeedsUpdate == true {
-                    // update aircraft image (must be before update heading!)
+                    // Update Aircraft Image (must be before update heading!)
                     var nearbyAircraftImageName = "\(gliderTelemetryData.aircraftType)"
                     switch gliderTelemetryData.verticalPosition {
                     case .above:

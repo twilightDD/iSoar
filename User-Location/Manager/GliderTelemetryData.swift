@@ -29,7 +29,7 @@ struct GliderTelemetryData: Hashable {
     private(set) var climbRate: Double = 0
     private(set) var isInCollisionRange: Bool = false
     private(set) var verticalPosition: VerticalPosition
-     var aircraftImageNeedsUpdate = false // will be updated in OGNSocketConnectionManager
+    var aircraftImageNeedsUpdate = false // will be updated in OGNSocketConnectionManager
     
     // MARK: - Hashable
     static func == (lhs: GliderTelemetryData, rhs: GliderTelemetryData) -> Bool {

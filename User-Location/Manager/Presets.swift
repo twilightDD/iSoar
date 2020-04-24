@@ -34,16 +34,15 @@ struct Presets {
 
         static let appVersion: String = "iSoar \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?")_\(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?")"
 
-        /// TODO: find a cool name and add docu; 220420, ph
-        static let expirationTimespan: Int64 = 60
-
+        /// Timespan of telemetrydata to set expired
+        static let telemetryDataExpirationTimespan: Int64 = 120
 
         #if DEBUG
         /// Default Radius für NearbyGlider (for debug purpose)
-        static let regionInKm: Double = 500
+        static let flarmRadius: Double = 500
         #else
         /// Default Radius für NearbyGlider
-        static let regionInKm: Double = 25
+        static let flarmRadius: Double = UserDefaultsManager.flarmRadius()
         #endif
     }
     
@@ -85,7 +84,7 @@ struct Presets {
         
         // Collision Warning
         /// Represents the distance Limit of Nearby Gliders in which the user is warned
-        static let horizontalCollisionWarningDistance: CLLocationDistance = 50000
+        static let horizontalCollisionWarningDistance: CLLocationDistance = 2000
         /// Represents the distance Limit of Nearby Gliders above or below me in which the user is warned
         static let verticalCollisionWarningDistance: CLLocationDistance = 200
         
