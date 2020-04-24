@@ -237,25 +237,21 @@ extension OGNSocketConnectionManager {
             
             // Create gliderTelemetryData from message
             let gliderSpecificMessage = String(splittedMessage)
-            if let newGliderTelemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
+            if var newGliderTelemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
                 
-                /*TODO: hier neues mit (evtl. noch nicht vorhandenem) alten teleData für diese flarmID vergleichen; 220420, ph
-                 - aircraftImageNeedsUpdate
-                 */
-                
-                // Check if the new One is already in our Set
-                if gliderTelemetryDatas.contains(newGliderTelemetryData) == false {
-                    print("DEN GIBTS HIER NOCH NICHT --- \(newGliderTelemetryData.flarmID)")
+                // Check if verticalPosition has changed state
+                if let oldGliderTelemetryData = gliderTelemetryDatas.first(where: {$0.flarmID == newGliderTelemetryData.flarmID}) {
+                    
+                    // Vertical Position has changed
+                    if oldGliderTelemetryData.verticalPosition != newGliderTelemetryData.verticalPosition {
+                        newGliderTelemetryData.aircraftImageNeedsUpdate = true
+                    } else {
+                        newGliderTelemetryData.aircraftImageNeedsUpdate = false
+                    }
+                    
                 } else {
-                    print("DEN GIBTS HIER SCHON --- \(newGliderTelemetryData.flarmID)")
-                    // TODO: Check if verticalPosition has changed state
-                    // prüfe ob die neue vertikale Position ungleich der alten ist
-                    // falls ja setze GliderTelemetryData.aircraftImageNeedsUpdate auf true
+                    // FlarmID not found in Set
                 }
-                
-                
-                
-                
                 
                 // Inform delegates
                 for delegate in delegates.allObjects {
@@ -276,18 +272,7 @@ extension OGNSocketConnectionManager {
     
     // Check for outdated Nearby Aircraft Telemetry Data
     private func checkForOutdatedNearbyAircraftTelemetryData() {
-        // check for views to remove
-        /*
-         - prüfe alle, die älter sind als X:
-         
-         - ich schaue jedes an
-         - currenttimeStamp - 60 < flarmTimeStamp
-         - wenn ja: löschen
-         - wenn nein: nix tun
-         - Löschen heißt:
-         - delegate.removeGlider(data)
-         - löschen der data aus set
-         */
+        // Check for Views to remove
         
         let currentTimeStamp = Date.currentUnixTimeStamp
         
