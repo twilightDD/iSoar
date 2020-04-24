@@ -242,12 +242,8 @@ extension OGNSocketConnectionManager {
                 // Check if verticalPosition has changed state
                 if let oldGliderTelemetryData = gliderTelemetryDatas.first(where: {$0.flarmID == newGliderTelemetryData.flarmID}) {
                     
-                    // Vertical Position has changed
-                    if oldGliderTelemetryData.verticalPosition != newGliderTelemetryData.verticalPosition {
-                        newGliderTelemetryData.aircraftImageNeedsUpdate = true
-                    } else {
-                        newGliderTelemetryData.aircraftImageNeedsUpdate = false
-                    }
+                    let didChange = oldGliderTelemetryData.verticalPosition != newGliderTelemetryData.verticalPosition
+                    newGliderTelemetryData.aircraftImageNeedsUpdate = didChange
                     
                 } else {
                     // FlarmID not found in Set
