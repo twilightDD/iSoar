@@ -21,6 +21,7 @@ class UserDefaultsManager {
     private static let ShowAllNearbyGlidersStateKey = "showAllNearbyGlidersState"
     private static let ShowOnlyBuddyStateKey = "showOnlyBuddyState"
     private static let ShowTrackingRouteStateKey = "showTrackingRouteState"
+    private static let FlarmRadiusKey = "flarmRadius"
     
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
@@ -33,6 +34,7 @@ class UserDefaultsManager {
     private static let buddyFlarmIDDefault = "FLRxxxxxx"
     private static let showNearbyGlidersSwitchDefault: Bool = true
     private static let collisionWarningSwitchDefault: Bool = true
+    private static let flarmRadiusDefault: Double = 25
     
     // MARK: - Lets and Vars
     private static let shared = UserDefaultsManager()
@@ -70,6 +72,9 @@ class UserDefaultsManager {
         }
         if shared.userDefaults.value(forKey: CollisionWarningStateKey) == nil {
             shared.userDefaults.set(true, forKey: CollisionWarningStateKey)
+        }
+        if shared.userDefaults.value(forKey: FlarmRadiusKey) == nil {
+            UserDefaultsManager.set(flarmRadius: flarmRadiusDefault)
         }
     }
     
@@ -182,5 +187,16 @@ class UserDefaultsManager {
     class func set(collisionWarningState: Bool) {
         shared.userDefaults.set(collisionWarningState, forKey: CollisionWarningStateKey)
     }
-
+    
+    // MARK: Flarm Radius
+    class func flarmRadius()
+        -> Double {
+            let flarmRadius = shared.userDefaults.value(forKey: FlarmRadiusKey) as? Double ?? flarmRadiusDefault
+            return flarmRadius
+    }
+    
+    class func set(flarmRadius: Double) {
+        shared.userDefaults.set(flarmRadius, forKey: FlarmRadiusKey)
+    }
+    
 }

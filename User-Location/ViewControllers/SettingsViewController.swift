@@ -21,6 +21,7 @@ class SettingsViewController: UIViewController {
     @IBOutlet private weak var buddyFlarmIDTextField: TextFields!
     @IBOutlet private weak var gearWarningSwitch: UISwitch!
     @IBOutlet private weak var showTrackingRouteSwitch: UISwitch!
+    @IBOutlet private weak var flarmRadiusTextField: TextFields!
     @IBOutlet private weak var showAllNearbyGlidersSwitch: UISwitch!
     @IBOutlet private weak var showOnlyBuddySwitch: UISwitch!
     @IBOutlet private weak var collisionWarningSwitch: UISwitch!
@@ -35,6 +36,7 @@ class SettingsViewController: UIViewController {
         safetyAltitudeTextField.delegate = self
         gliderIDTextField.delegate = self
         ownFlarmIDTextField.delegate = self
+        flarmRadiusTextField.delegate = self
         buddyFlarmIDTextField.delegate = self
     }
     
@@ -86,6 +88,11 @@ class SettingsViewController: UIViewController {
         let collsionWarningSwitchState = UserDefaultsManager.collisionWarningState()
         collisionWarningSwitch.isOn = collsionWarningSwitchState
         
+        // Flarm Radius
+        let flarmRadius = UserDefaultsManager.flarmRadius()
+        let flarmRadiusString = String(format: "%.f", flarmRadius)
+        flarmRadiusTextField.text = flarmRadiusString
+        
     }
     
     // Save Settings to User Defaults
@@ -124,7 +131,7 @@ class SettingsViewController: UIViewController {
         if ownFlarmIDTextField.text != UserDefaultsManager.ownFlarmID() {
             // If Show Nearby Glider Switch is on (state = true) - Reconnect to OGN Server
             if UserDefaultsManager.showAllNearbyGlidersState() == true {
-                // Set new  ownFlarmID to UserDefaults
+                // Set new ownFlarmID to UserDefaults
                 UserDefaultsManager.set(ownFlarmID: ownFlarmIDTextField.text!)
                 // Disconnect from OGN Server
                 OGNSocketConnectionManager.stop()
@@ -138,6 +145,33 @@ class SettingsViewController: UIViewController {
             }
         } else {
             // Own FlarmID has not changed
+        }
+        
+        // If Flarm Radius has changed
+        let flarmRadiusString = flarmRadiusTextField.text!
+        let flarmRadiusDouble = (flarmRadiusString as NSString).doubleValue
+        
+        if flarmRadiusDouble != UserDefaultsManager.flarmRadius() {
+            // If Show Nearby Glider Switch is on (state = true)
+            // AND Buddy Switch is off (state = false)
+            // Reconnect to OGN Server
+            if UserDefaultsManager.showAllNearbyGlidersState() == true && UserDefaultsManager.showOnlyBuddySwitchState() == false {
+                // Set new flarmRadius to UserDefaults
+                UserDefaultsManager.set(flarmRadius: flarmRadiusDouble)
+                // Disconnect from OGN Server
+                OGNSocketConnectionManager.stop()
+                // Reconnect to OGN Server
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    OGNSocketConnectionManager.start()
+                }
+            } else {
+                // Show Nearby Glider Switch is off
+                // OR Show only Buddy Switch is on
+                // just set the new flarmRadius to UserDefaults
+                UserDefaultsManager.set(flarmRadius: flarmRadiusDouble)
+            }
+        } else {
+            // flarmRadius has not changed
         }
     }
     

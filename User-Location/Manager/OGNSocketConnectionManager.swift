@@ -38,9 +38,9 @@ class OGNSocketConnectionManager {
     private var loginTimeStamp = Date.currentUnixTimeStamp
     
     private var delegates = NSHashTable<AnyObject>.weakObjects()
-
+    
     private var gliderTelemetryDatas = Set<GliderTelemetryData>()
-
+    
     // MARK: - Public Class Methods
     class func registerForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
         
@@ -195,7 +195,7 @@ extension OGNSocketConnectionManager {
             sendPaket(packet)
         } else {
             // Filter via Radius
-            let packet = "user \(userName) pass -1 vers \(appVersion) filter r/\(currentLocation.coordinate.latitude)/\(currentLocation.coordinate.longitude)/\(Presets.OGNSocketConnection.regionInKm) -p/\(UserDefaultsManager.ownFlarmID())/A/B/C/D/E/G/H/J/K/L/M/N/O/P/Q/R/S/T/U/V/W/X/Y/Z\n"
+            let packet = "user \(userName) pass -1 vers \(appVersion) filter r/\(currentLocation.coordinate.latitude)/\(currentLocation.coordinate.longitude)/\(UserDefaultsManager.flarmRadius()) -p/\(UserDefaultsManager.ownFlarmID())/A/B/C/D/E/G/H/J/K/L/M/N/O/P/Q/R/S/T/U/V/W/X/Y/Z\n"
             sendPaket(packet)
         }
         
@@ -219,7 +219,7 @@ extension OGNSocketConnectionManager {
     
     // Received Message from OGN Server
     private func messageReceived(_ receivedMessage: String) {
-         print("Original OGN Message: \(receivedMessage)")
+        // print("Original OGN Message: \(receivedMessage)")
         
         // If receivedMessage contains more than one Message - split them in single Messages
         let splittedMessages = receivedMessage.split(separator: "\r\n")
@@ -234,60 +234,76 @@ extension OGNSocketConnectionManager {
                 else {
                     // print("\(#function): Discard Message! No FLR or ICA Prefix - OR ownFlarmID:   \(splittedMessage)")
                     continue }
-
+            
             // Create gliderTelemetryData from message
             let gliderSpecificMessage = String(splittedMessage)
             if let newGliderTelemetryData = GliderTelemetryData.telemetryDataFromOGNGliderResponse(gliderSpecificMessage) {
-
+                
                 /*TODO: hier neues mit (evtl. noch nicht vorhandenem) alten teleData für diese flarmID vergleichen; 220420, ph
                  - aircraftImageNeedsUpdate
                  */
-
+                
+                // Check if the new One is already in our Set
+                if gliderTelemetryDatas.contains(newGliderTelemetryData) == false {
+                    print("DEN GIBTS HIER NOCH NICHT --- \(newGliderTelemetryData.flarmID)")
+                } else {
+                    print("DEN GIBTS HIER SCHON --- \(newGliderTelemetryData.flarmID)")
+                    // TODO: Check if verticalPosition has changed state
+                    // prüfe ob die neue vertikale Position ungleich der alten ist
+                    // falls ja setze GliderTelemetryData.aircraftImageNeedsUpdate auf true
+                }
+                
+                
+                
+                
+                
                 // Inform delegates
                 for delegate in delegates.allObjects {
                     if let ognSocketConnectionManagerDelegate = delegate as? DL_OGNSocketConnectionManagerDelegate {
                         ognSocketConnectionManagerDelegate.updateNearbyGlider(gliderTelemetryData: newGliderTelemetryData)
                     }
                 }
-
+                
                 // Book keeping
                 gliderTelemetryDatas.insert(newGliderTelemetryData)
-
+                
                 // TODO: Is this the correct time to call this method?; 220420, ph
-                checkForOutdatedGliderTelemetryData()
+                checkForOutdatedNearbyAircraftTelemetryData()
             }
         }
         
     }
-
-    private func checkForOutdatedGliderTelemetryData() {
+    
+    // Check for outdated Nearby Aircraft Telemetry Data
+    private func checkForOutdatedNearbyAircraftTelemetryData() {
         // check for views to remove
         /*
          - prüfe alle, die älter sind als X:
-
+         
          - ich schaue jedes an
-            - currenttimeStamp - 60 < flarmTimeStamp
-                - wenn ja: löschen
-                - wenn nein: nix tun
-            - Löschen heißt:
-                - delegate.removeGlider(data)
-                - löschen der data aus set
+         - currenttimeStamp - 60 < flarmTimeStamp
+         - wenn ja: löschen
+         - wenn nein: nix tun
+         - Löschen heißt:
+         - delegate.removeGlider(data)
+         - löschen der data aus set
          */
-
-        let currentTimeStamp = Date.currentUnixTimeStamp - Presets.OGNSocketConnection.expirationTimespan
-
+        
+        let currentTimeStamp = Date.currentUnixTimeStamp
+        
         for gliderTelemetryData in gliderTelemetryDatas {
             let timestamp = gliderTelemetryData.timestamp
-
-            if currentTimeStamp > timestamp {
-                // inform delegate about removing
+            
+            if timestamp + Presets.OGNSocketConnection.telemetryDataExpirationTimespan < currentTimeStamp {
+                
+                // Inform Delegate about removing
                 for delegate in delegates.allObjects {
                     if let ognSocketConnectionManagerDelegate = delegate as? DL_OGNSocketConnectionManagerDelegate {
                         ognSocketConnectionManagerDelegate.removeNearbyGlider(gliderTelemetryData: gliderTelemetryData)
                     }
                 }
-
-                // Remove expired gliderTelemetryData from book keeping
+                
+                // Remove outdated gliderTelemetryData from book keeping
                 gliderTelemetryDatas.remove(gliderTelemetryData)
             }
         }
