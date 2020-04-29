@@ -8,6 +8,7 @@
 
 import Foundation
 import Network
+import CoreLocation
 
 // MARK: - DL_OGNSocketConnectionManagerDelegate
 protocol DL_OGNSocketConnectionManagerDelegate: class {
@@ -35,7 +36,7 @@ class OGNSocketConnectionManager {
     }
     
     private var isLoggedIn = false
-    private var loginTimeStamp = Date.currentUnixTimeStamp
+    private var loginCoordinates: CLLocation?
     
     private var delegates = NSHashTable<AnyObject>.weakObjects()
     
@@ -60,10 +61,21 @@ class OGNSocketConnectionManager {
     
     class func start() {
         shared.connectToOGNServerSocket()
+        LocationManager.registerForLocationUpdates(shared)
     }
     
     class func stop() {
         shared.cancelConnection()
+        LocationManager.unRegisterForLocationUpdates(shared)
+    }
+    
+    class func reconnect() {
+        // Disconnect from OGN Server
+        OGNSocketConnectionManager.stop()
+        // Reconnect to OGN Server
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            OGNSocketConnectionManager.start()
+        }
     }
     
 }
@@ -200,7 +212,7 @@ extension OGNSocketConnectionManager {
         }
         
         isLoggedIn = true
-        loginTimeStamp = Date.currentUnixTimeStamp
+        loginCoordinates = LocationManager.currentLocation()
     }
     
     // Send Filter Request to Server
@@ -212,7 +224,7 @@ extension OGNSocketConnectionManager {
                             if let err = error {
                                 print("\(#function) Sending error \(err)")
                             } else {
-                                // print("\(#function) Filter Request successfully sent:\n\(packet)")
+                                print("\(#function) Filter Request successfully sent:\n\(packet)")
                             }
             })
     }
@@ -290,4 +302,20 @@ extension OGNSocketConnectionManager {
         }
     }
     
+}
+// MARK: - Extension - LocationManagerDelegate
+extension OGNSocketConnectionManager: LocationManagerDelegate {
+    
+    func locationManager(didUpdateLocations locations: [CLLocation]) {
+        
+        if isLoggedIn == true {
+            let distance: Double = LocationManager.distanceFromCurrentLocationTo(location: loginCoordinates!) ?? 0
+            
+            if distance > Presets.OGNSocketConnection.distanceLimitForReconnect {
+                OGNSocketConnectionManager.reconnect()
+            } else {
+                print(distance)
+            }
+        }
+    }
 }
