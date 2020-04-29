@@ -309,12 +309,13 @@ extension OGNSocketConnectionManager: LocationManagerDelegate {
     func locationManager(didUpdateLocations locations: [CLLocation]) {
         
         if isLoggedIn == true {
-            let distance: Double = LocationManager.distanceFromCurrentLocationTo(location: loginCoordinates!) ?? 0
+            guard let loginCoordinates = self.loginCoordinates,
+                let distance = LocationManager.distanceFromCurrentLocationTo(location: loginCoordinates)
+                else { return }
             
             if distance > Presets.OGNSocketConnection.distanceLimitForReconnect {
                 OGNSocketConnectionManager.reconnect()
-            } else {
-                print(distance)
+                
             }
         }
     }
