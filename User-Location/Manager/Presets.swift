@@ -36,6 +36,8 @@ struct Presets {
 
         /// Timespan of telemetrydata to set expired
         static let telemetryDataExpirationTimespan: Int64 = 120
+        
+        static let distanceLimitForReconnect: Double = 10000
 
         #if DEBUG
         /// Default Radius für NearbyGlider (for debug purpose)
