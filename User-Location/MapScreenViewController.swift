@@ -424,12 +424,12 @@ extension MapScreenViewController: MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape)
         -> UIColor {
             if annotation == travelledFlightLine {
-                return UIColor.blue
-            } else if annotation == currentTaskLine {
                 return UIColor.orange
+            } else if annotation == currentTaskLine {
+                return UIColor.systemPink
             }
             
-            return UIColor.red
+            return UIColor.blue
             
     }
     
