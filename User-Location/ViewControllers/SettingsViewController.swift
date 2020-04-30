@@ -113,12 +113,8 @@ class SettingsViewController: UIViewController {
             if UserDefaultsManager.showOnlyBuddySwitchState() == true {
                 // Set new Buddy FlarmID to UserDefaults
                 UserDefaultsManager.set(flarmBuddyFlarmID: buddyFlarmIDTextField.text!)
-                // Disconnect from OGN Server
-                OGNSocketConnectionManager.stop()
                 // Reconnect to OGN Server
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    OGNSocketConnectionManager.start()
-                }
+                OGNSocketConnectionManager.reconnect()
             } else {
                 // If Show Only Buddy Switch is off - just set the new Buddy FlarmID to UserDefaults
                 UserDefaultsManager.set(flarmBuddyFlarmID: buddyFlarmIDTextField.text!)
@@ -133,12 +129,8 @@ class SettingsViewController: UIViewController {
             if UserDefaultsManager.showAllNearbyGlidersState() == true {
                 // Set new ownFlarmID to UserDefaults
                 UserDefaultsManager.set(ownFlarmID: ownFlarmIDTextField.text!)
-                // Disconnect from OGN Server
-                OGNSocketConnectionManager.stop()
                 // Reconnect to OGN Server
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    OGNSocketConnectionManager.start()
-                }
+                OGNSocketConnectionManager.reconnect()
             } else {
                 // Show Nearby Glider Switch is off - just set the new ownFlarmID to UserDefaults
                 UserDefaultsManager.set(ownFlarmID: ownFlarmIDTextField.text!)
@@ -158,12 +150,8 @@ class SettingsViewController: UIViewController {
             if UserDefaultsManager.showAllNearbyGlidersState() == true && UserDefaultsManager.showOnlyBuddySwitchState() == false {
                 // Set new flarmRadius to UserDefaults
                 UserDefaultsManager.set(flarmRadius: flarmRadiusDouble)
-                // Disconnect from OGN Server
-                OGNSocketConnectionManager.stop()
                 // Reconnect to OGN Server
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    OGNSocketConnectionManager.start()
-                }
+                OGNSocketConnectionManager.reconnect()
             } else {
                 // Show Nearby Glider Switch is off
                 // OR Show only Buddy Switch is on
@@ -209,20 +197,11 @@ class SettingsViewController: UIViewController {
             // Set showNearbyGlidersSwitch also to true and showAllNearbyGlidersState to true
             showAllNearbyGlidersSwitch.setOn(true, animated: true)
             UserDefaultsManager.set(showAllNearbyGlidersState: true)
-            
-            // Disconnect from OGN Server
-            OGNSocketConnectionManager.stop()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                OGNSocketConnectionManager.start()
-            }
+            // Reconnect to OGN Server
+            OGNSocketConnectionManager.reconnect()
         } else {
-            // Disconnect from OGN Server
-            OGNSocketConnectionManager.stop()
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                OGNSocketConnectionManager.start()
-            }
+            // Reconnect to OGN Server
+            OGNSocketConnectionManager.reconnect()
         }
     }
     
@@ -233,10 +212,8 @@ class SettingsViewController: UIViewController {
             // Set showNearbyGlidersSwitch also to true and showAllNearbyGlidersState to true
             showAllNearbyGlidersSwitch.setOn(true, animated: true)
             UserDefaultsManager.set(showAllNearbyGlidersState: true)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                OGNSocketConnectionManager.start()
-            }
+            // Connect to OGN Socket
+            OGNSocketConnectionManager.start()
         } else {
             // Collision Warning Switch is turned off (false) or Nearby Glider Switch already on
         }
