@@ -30,7 +30,8 @@ class MapScreenViewController: UIViewController {
     lazy private var userLocationButton: UserLocationButton = createUserLocationButton()
     
     private var currentDestinationAirportDirectionLine: MGLPolyline?
-    private var travelledFlightLine = MGLPolyline()
+    private var ascandingTravelledFlightLine = MGLPolyline()
+    private var descandingTravelledFlightLine = MGLPolyline()
     private var currentTaskLine: MGLPolyline?
     
     private var userTrackingMode = true
@@ -226,13 +227,15 @@ class MapScreenViewController: UIViewController {
     // MARK: - Private Methods
     
     private func updateUI() {
-        // UI for currentLocation
+        // Update UI for currentLocation
         updateAltitudeLabel()
         updateSpeedLabel()
         updateCourseLabel()
+        
+        // Update UI for flown Route
         drawTrackingRoute()
         
-        // UI for Direction
+        // Update UI for Direction
         updateDestinationAirportUI()
     }
     
@@ -294,10 +297,12 @@ class MapScreenViewController: UIViewController {
         if showTrackingRoute == true {
             // Delay Drawing and wait for Location
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.mapView.addAnnotation(self.travelledFlightLine)
+                self.mapView.addAnnotation(self.ascandingTravelledFlightLine)
+                self.mapView.addAnnotation(self.descandingTravelledFlightLine)
             }
         } else {
-            mapView.removeAnnotation(travelledFlightLine)
+            mapView.removeAnnotation(ascandingTravelledFlightLine)
+            mapView.removeAnnotation(descandingTravelledFlightLine)
         }
     }
     
@@ -305,7 +310,9 @@ class MapScreenViewController: UIViewController {
         if let currentLocation = LocationManager.currentLocation() {
             var currentLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
                                                                           longitude: currentLocation.coordinate.longitude)
-            travelledFlightLine.appendCoordinates(&currentLocationCoordinate2D,
+            
+            // TODO: 20200504 Hier unterscheiden zu welcher Polyline hinzufügen
+            ascandingTravelledFlightLine.appendCoordinates(&currentLocationCoordinate2D,
                                                   count: 1)
         }
         
@@ -423,7 +430,9 @@ extension MapScreenViewController: MGLMapViewDelegate {
     // Set the Direction Line color
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape)
         -> UIColor {
-            if annotation == travelledFlightLine {
+            if annotation == ascandingTravelledFlightLine {
+                return UIColor.green
+            } else if annotation == descandingTravelledFlightLine {
                 return UIColor.orange
             } else if annotation == currentTaskLine {
                 return UIColor.systemPink
@@ -570,6 +579,7 @@ extension MapScreenViewController: UIGestureRecognizerDelegate {
     }
 }
 
+// MARK: - MapScreen:DL_OGNSocketConnectionManagerDelegate
 extension MapScreenViewController: DL_OGNSocketConnectionManagerDelegate {
     
     func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
