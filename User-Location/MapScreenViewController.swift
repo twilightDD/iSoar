@@ -308,7 +308,8 @@ class MapScreenViewController: UIViewController {
             }
         } else {
             //mapView.removeAnnotation(ascandingTravelledFlightLine)
-           // mapView.removeAnnotation(descandingTravelledFlightLine)
+            //mapView.removeAnnotation(descandingTravelledFlightLine)
+            self.mapView.addAnnotation(self.meineNeueLine)
         }
     }
     
@@ -336,10 +337,7 @@ class MapScreenViewController: UIViewController {
                     // Neue Polyline erstellen
                     let meineNeueLine = MGLPolyline.init(coordinates: &currentLocationCoordinate2D, count: 1)
                     meineNeueLine.title = "ascanding"
-                    
-                    meineNeueLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
-                    self.mapView.addAnnotation(meineNeueLine)
-                    // Koordinaten zur Polyline hinzufügen
+                    self.mapView.addAnnotation(self.meineNeueLine)
                     
                 }
                 
@@ -358,9 +356,7 @@ class MapScreenViewController: UIViewController {
                     // Neue Polyline erstellen
                     let meineNeueLine = MGLPolyline.init(coordinates: &currentLocationCoordinate2D, count: 1)
                     meineNeueLine.title = "descanding"
-                    meineNeueLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
-                    self.mapView.addAnnotation(meineNeueLine)
-                    // Koordinaten zur Polyline hinzufügen
+                    self.mapView.addAnnotation(self.meineNeueLine)
                     
                 }
                 
@@ -488,12 +484,12 @@ extension MapScreenViewController: MGLMapViewDelegate {
     // Set the Direction Line color
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape)
         -> UIColor {
-            if annotation == currentTaskLine {
-                return UIColor.systemPink
-            } else if annotation.title == "ascanding" {
+            if annotation.title == "ascanding" {
                 return UIColor.green
             } else if annotation.title == "descanding" {
                 return UIColor.orange
+            } else if annotation == currentTaskLine {
+                return UIColor.systemPink
             }
             
             return UIColor.blue
