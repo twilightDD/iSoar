@@ -49,6 +49,11 @@ class MapScreenViewController: UIViewController {
     
     private var nearbyGliderAnnotations = [String: NearbyGliderAnnotation]()
     
+    private var formerLocation: CLLocation?
+    private var verticalMovement: String = ""
+    private var ascTravelledFlightLine = MGLPolyline()
+    private var desTravelledFlightLine = MGLPolyline()
+    
     // MARK: - Init & Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -297,8 +302,8 @@ class MapScreenViewController: UIViewController {
         if showTrackingRoute == true {
             // Delay Drawing and wait for Location
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.mapView.addAnnotation(self.ascandingTravelledFlightLine)
-                self.mapView.addAnnotation(self.descandingTravelledFlightLine)
+                //self.mapView.addAnnotation(self.ascandingTravelledFlightLine)
+                //self.mapView.addAnnotation(self.descandingTravelledFlightLine)
             }
         } else {
             mapView.removeAnnotation(ascandingTravelledFlightLine)
@@ -432,10 +437,12 @@ extension MapScreenViewController: MGLMapViewDelegate {
         -> UIColor {
             if annotation == ascandingTravelledFlightLine {
                 return UIColor.green
-            } else if annotation == descandingTravelledFlightLine {
-                return UIColor.orange
             } else if annotation == currentTaskLine {
                 return UIColor.systemPink
+            } else if annotation.title == "ascanding" {
+                return UIColor.green
+            } else if annotation.title == "descanding" {
+                return UIColor.orange
             }
             
             return UIColor.blue
@@ -546,6 +553,63 @@ extension MapScreenViewController: LocationManagerDelegate {
         if self.userFollow == true {
             self.mapView.setCenter(currentLocation.coordinate, animated: true)
         }
+        
+        
+        
+        
+        
+        // *************************
+
+        var currentLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
+                                                                      longitude: currentLocation.coordinate.longitude)
+  
+        // Wenn die vorletzte Altitude kleiner ist als die aktuelle - Dann steigen wir
+        if formerLocation?.speed ?? 0 < currentLocation.speed {
+            print("Former: \(formerLocation?.speed) < Current: \(currentLocation.speed) = Steigen")
+            // Sind wir vorher schon gestiegen...
+            if verticalMovement == "ascanding" {
+                // Nur Koordinaten zur Polyline hinzufügen
+                ascTravelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
+            // Sind wir vorher nicht gestiegen...
+            } else {
+                // Neue Polyline erstellen
+                self.mapView.addAnnotation(ascTravelledFlightLine)
+                ascTravelledFlightLine.title = "ascanding"
+                // Koordinaten zur Polyline hinzufügen
+                ascTravelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
+            }
+            
+            // Set verticalMovement to "ascanding"
+            verticalMovement = "ascanding"
+            
+        // Wenn die vorletzte Altitude größer ist als die aktuelle - Dann sinken wir
+        } else {
+            print("Former: \(formerLocation?.speed) > Current: \(currentLocation.speed) = Sinken")
+            // Sind wir vorher schon gesunken...
+            if verticalMovement == "descanding" {
+                // Nur Koordinaten zur Polyline hinzufügen
+                desTravelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
+            // Sind wir vorher nicht gesunken...
+            } else {
+                // Neue Polyline erstellen
+                self.mapView.addAnnotation(desTravelledFlightLine)
+                desTravelledFlightLine.title = "descanding"
+                // Koordinaten zur Polyline hinzufügen
+                desTravelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
+            }
+            
+            // Set verticalMovement to "descanding"
+            verticalMovement = "descanding"
+            
+        }
+        
+        formerLocation = currentLocation
+
+        // *************************
+        
+        
+        
+        
         
         updateUI()
     }
