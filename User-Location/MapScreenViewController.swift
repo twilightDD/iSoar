@@ -30,9 +30,11 @@ class MapScreenViewController: UIViewController {
     lazy private var userLocationButton: UserLocationButton = createUserLocationButton()
     
     private var currentDestinationAirportDirectionLine: MGLPolyline?
-    private var ascandingTravelledFlightLine = MGLPolyline()
-    private var descandingTravelledFlightLine = MGLPolyline()
+//    private var ascandingTravelledFlightLine = MGLPolyline()
+//    private var descandingTravelledFlightLine = MGLPolyline()
     private var currentTaskLine: MGLPolyline?
+    
+    private var meineNeueLine = MGLPolyline()
     
     private var userTrackingMode = true
     private var userFollow = false
@@ -300,12 +302,13 @@ class MapScreenViewController: UIViewController {
         if showTrackingRoute == true {
             // Delay Drawing and wait for Location
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.mapView.addAnnotation(self.ascandingTravelledFlightLine)
-                self.mapView.addAnnotation(self.descandingTravelledFlightLine)
+                //self.mapView.addAnnotation(self.ascandingTravelledFlightLine)
+                //self.mapView.addAnnotation(self.descandingTravelledFlightLine)
+                self.mapView.addAnnotation(self.meineNeueLine)
             }
         } else {
-            mapView.removeAnnotation(ascandingTravelledFlightLine)
-            mapView.removeAnnotation(descandingTravelledFlightLine)
+            //mapView.removeAnnotation(ascandingTravelledFlightLine)
+           // mapView.removeAnnotation(descandingTravelledFlightLine)
         }
     }
     
@@ -327,14 +330,17 @@ class MapScreenViewController: UIViewController {
                 // Sind wir vorher schon gestiegen...
                 if verticalMovement == "ascanding" {
                     // Nur Koordinaten zur Polyline hinzufügen
-                    ascandingTravelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
+                    meineNeueLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
                 // Sind wir vorher nicht gestiegen...
                 } else {
                     // Neue Polyline erstellen
+                    let meineNeueLine = MGLPolyline.init(coordinates: &currentLocationCoordinate2D, count: 1)
+                    meineNeueLine.title = "ascanding"
                     
-                    ascandingTravelledFlightLine.title = "ascanding"
+                    meineNeueLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
+                    self.mapView.addAnnotation(meineNeueLine)
                     // Koordinaten zur Polyline hinzufügen
-                    ascandingTravelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
+                    
                 }
                 
                 // Set verticalMovement to "ascanding"
@@ -346,14 +352,16 @@ class MapScreenViewController: UIViewController {
                 // Sind wir vorher schon gesunken...
                 if verticalMovement == "descanding" {
                     // Nur Koordinaten zur Polyline hinzufügen
-                    descandingTravelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
+                    meineNeueLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
                 // Sind wir vorher nicht gesunken...
                 } else {
                     // Neue Polyline erstellen
-
-                    descandingTravelledFlightLine.title = "descanding"
+                    let meineNeueLine = MGLPolyline.init(coordinates: &currentLocationCoordinate2D, count: 1)
+                    meineNeueLine.title = "descanding"
+                    meineNeueLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
+                    self.mapView.addAnnotation(meineNeueLine)
                     // Koordinaten zur Polyline hinzufügen
-                    descandingTravelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
+                    
                 }
                 
                 // Set verticalMovement to "descanding"
@@ -480,9 +488,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
     // Set the Direction Line color
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape)
         -> UIColor {
-            if annotation == ascandingTravelledFlightLine {
-                return UIColor.green
-            } else if annotation == currentTaskLine {
+            if annotation == currentTaskLine {
                 return UIColor.systemPink
             } else if annotation.title == "ascanding" {
                 return UIColor.green
