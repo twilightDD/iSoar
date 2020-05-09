@@ -30,11 +30,8 @@ class MapScreenViewController: UIViewController {
     lazy private var userLocationButton: UserLocationButton = createUserLocationButton()
     
     private var currentDestinationAirportDirectionLine: MGLPolyline?
-//    private var ascandingTravelledFlightLine = MGLPolyline()
-//    private var descandingTravelledFlightLine = MGLPolyline()
-    private var currentTaskLine: MGLPolyline?
-    
     private var meineNeueLine = MGLPolyline()
+    private var currentTaskLine: MGLPolyline?
     
     private var userTrackingMode = true
     private var userFollow = false
@@ -302,14 +299,10 @@ class MapScreenViewController: UIViewController {
         if showTrackingRoute == true {
             // Delay Drawing and wait for Location
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                //self.mapView.addAnnotation(self.ascandingTravelledFlightLine)
-                //self.mapView.addAnnotation(self.descandingTravelledFlightLine)
-                self.mapView.addAnnotation(self.meineNeueLine)
+                //self.mapView.addAnnotation(self.travelledFlightLine)
             }
         } else {
-            //mapView.removeAnnotation(ascandingTravelledFlightLine)
-            //mapView.removeAnnotation(descandingTravelledFlightLine)
-            self.mapView.addAnnotation(self.meineNeueLine)
+            //mapView.removeAnnotation(travelledFlightLine)
         }
     }
     
@@ -318,27 +311,22 @@ class MapScreenViewController: UIViewController {
             var currentLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
                                                                           longitude: currentLocation.coordinate.longitude)
             
-            // TODO: 20200504 Hier unterscheiden zu welcher Polyline hinzufügen
-            //ascandingTravelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
-            
-            
-            
-            
             // Wenn die vorletzte Altitude kleiner ist als die aktuelle - Dann steigen wir
             // Aktuell noch mit currentLocation.speed, damit man es im Simulator testen kann
             if formerLocation?.speed ?? 0 < currentLocation.speed {
                 print("Former: \(formerLocation?.speed) < Current: \(currentLocation.speed) = Steigen")
-                // Sind wir vorher schon gestiegen...
-                if verticalMovement == "ascanding" {
-                    // Nur Koordinaten zur Polyline hinzufügen
-                    meineNeueLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
-                // Sind wir vorher nicht gestiegen...
-                } else {
+                // Sind wir vorher gesunken, steigen jetzt aber...
+                if verticalMovement != "ascanding" {
                     // Neue Polyline erstellen
+                    print("Erstelle neue Polyline")
                     let meineNeueLine = MGLPolyline.init(coordinates: &currentLocationCoordinate2D, count: 1)
                     meineNeueLine.title = "ascanding"
-                    self.mapView.addAnnotation(self.meineNeueLine)
-                    
+                    self.mapView.addAnnotation(meineNeueLine)
+                 // Sind wir vorher schon gestiegen...
+                } else {
+                    // Nur Koordinaten zur Polyline hinzufügen
+                    print("Füge nur Punkt hinzu")
+                    meineNeueLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
                 }
                 
                 // Set verticalMovement to "ascanding"
@@ -347,17 +335,18 @@ class MapScreenViewController: UIViewController {
             // Wenn die vorletzte Altitude größer ist als die aktuelle - Dann sinken wir
             } else {
                 print("Former: \(formerLocation?.speed) > Current: \(currentLocation.speed) = Sinken")
-                // Sind wir vorher schon gesunken...
-                if verticalMovement == "descanding" {
-                    // Nur Koordinaten zur Polyline hinzufügen
-                    meineNeueLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
-                // Sind wir vorher nicht gesunken...
-                } else {
+                // Sind wir vorher gestiegen, sinken jetzt aber...
+                if verticalMovement != "descanding" {
                     // Neue Polyline erstellen
+                    print("Erstelle neue Polyline")
                     let meineNeueLine = MGLPolyline.init(coordinates: &currentLocationCoordinate2D, count: 1)
                     meineNeueLine.title = "descanding"
-                    self.mapView.addAnnotation(self.meineNeueLine)
-                    
+                    self.mapView.addAnnotation(meineNeueLine)
+                // Sind wir vorher schon gesunken...
+                } else {
+                    // Nur Koordinaten zur Polyline hinzufügen
+                    print("Füge nur Punkt hinzu")
+                    meineNeueLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
                 }
                 
                 // Set verticalMovement to "descanding"
