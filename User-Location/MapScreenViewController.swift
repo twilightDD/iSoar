@@ -30,7 +30,7 @@ class MapScreenViewController: UIViewController {
     lazy private var userLocationButton: UserLocationButton = createUserLocationButton()
     
     private var currentDestinationAirportDirectionLine: MGLPolyline?
-    private var meineNeueLine = MGLPolyline()
+    private var travelledFlightLine = MGLPolyline()
     private var currentTaskLine: MGLPolyline?
     
     private var userTrackingMode = true
@@ -302,31 +302,39 @@ class MapScreenViewController: UIViewController {
                 //self.mapView.addAnnotation(self.travelledFlightLine)
             }
         } else {
-            //mapView.removeAnnotation(travelledFlightLine)
+            //mapView.removeAnnotation(self.travelledFlightLine)
         }
     }
     
     private func drawTrackingRoute() {
-        if let currentLocation = LocationManager.currentLocation() {
+        if let currentLocation = LocationManager.currentLocation(),
+            formerLocation != nil {
+   
+            var formerLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: formerLocation!.coordinate.latitude,
+                                                                         longitude: formerLocation!.coordinate.longitude)
+            
             var currentLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
                                                                           longitude: currentLocation.coordinate.longitude)
             
             // Wenn die vorletzte Altitude kleiner ist als die aktuelle - Dann steigen wir
             // Aktuell noch mit currentLocation.speed, damit man es im Simulator testen kann
-            if formerLocation?.speed ?? 0 < currentLocation.speed {
-                print("Former: \(formerLocation?.speed) < Current: \(currentLocation.speed) = Steigen")
+            if formerLocation?.speed ?? 0 <= currentLocation.speed {
+                print("Former: \(formerLocation?.speed) <= Current: \(currentLocation.speed) = Steigen")
                 // Sind wir vorher gesunken, steigen jetzt aber...
                 if verticalMovement != "ascanding" {
                     // Neue Polyline erstellen
-                    print("Erstelle neue Polyline")
-                    let meineNeueLine = MGLPolyline.init(coordinates: &currentLocationCoordinate2D, count: 1)
-                    meineNeueLine.title = "ascanding"
-                    self.mapView.addAnnotation(meineNeueLine)
+                    print("Erstelle neue Polyline von der letzten Position")
+                    let ascandingTravelledFlightLine = MGLPolyline.init(coordinates: &formerLocationCoordinate2D, count: 1)
+                    print("und füge Punkt der aktuellen Position hinzu")
+                    ascandingTravelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
+                    ascandingTravelledFlightLine.title = "ascanding"
+                    travelledFlightLine = ascandingTravelledFlightLine
+                    self.mapView.addAnnotation(travelledFlightLine)
                  // Sind wir vorher schon gestiegen...
                 } else {
                     // Nur Koordinaten zur Polyline hinzufügen
                     print("Füge nur Punkt hinzu")
-                    meineNeueLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
+                    travelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
                 }
                 
                 // Set verticalMovement to "ascanding"
@@ -334,19 +342,22 @@ class MapScreenViewController: UIViewController {
                 
             // Wenn die vorletzte Altitude größer ist als die aktuelle - Dann sinken wir
             } else {
-                print("Former: \(formerLocation?.speed) > Current: \(currentLocation.speed) = Sinken")
+                print("Former: \(formerLocation?.speed) >= Current: \(currentLocation.speed) = Sinken")
                 // Sind wir vorher gestiegen, sinken jetzt aber...
                 if verticalMovement != "descanding" {
                     // Neue Polyline erstellen
-                    print("Erstelle neue Polyline")
-                    let meineNeueLine = MGLPolyline.init(coordinates: &currentLocationCoordinate2D, count: 1)
-                    meineNeueLine.title = "descanding"
-                    self.mapView.addAnnotation(meineNeueLine)
+                    print("Erstelle neue Polyline von der letzten Position")
+                    let descandingTravelledFlightLine = MGLPolyline.init(coordinates: &formerLocationCoordinate2D, count: 1)
+                    print("und füge Punkt der aktuellen Position hinzu")
+                    descandingTravelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
+                    descandingTravelledFlightLine.title = "descanding"
+                    travelledFlightLine = descandingTravelledFlightLine
+                    self.mapView.addAnnotation(travelledFlightLine)
                 // Sind wir vorher schon gesunken...
                 } else {
                     // Nur Koordinaten zur Polyline hinzufügen
                     print("Füge nur Punkt hinzu")
-                    meineNeueLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
+                    self.travelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
                 }
                 
                 // Set verticalMovement to "descanding"
@@ -358,6 +369,7 @@ class MapScreenViewController: UIViewController {
             formerLocation = currentLocation
    
         }
+        formerLocation = LocationManager.currentLocation()
         
     }
     
