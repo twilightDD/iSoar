@@ -318,22 +318,22 @@ class MapScreenViewController: UIViewController {
             
             // If former Altitude was lesser than the current Altitude - Glider is ascanding
             if formerLocation?.altitude ?? 0 <= currentLocation.altitude {
-                print("Former: \(formerLocation?.altitude) <= Current: \(currentLocation.altitude) = Steigen")
+                //print("Former: \(formerLocation?.altitude) <= Current: \(currentLocation.altitude) = Steigen")
                 // If the glider descended before, but is now ascending
                 if verticalMovement != "ascanding" {
                     // Create new Polyline from former Location...
-                    print("Erstelle neue Polyline von der letzten Position")
+                    //print("Erstelle neue Polyline von der letzten Position")
                     let ascandingTravelledFlightLine = MGLPolyline.init(coordinates: &formerLocationCoordinate2D, count: 1)
                     // and append current Location to Polyline
-                    print("und füge Punkt der aktuellen Position hinzu")
+                    //print("und füge Punkt der aktuellen Position hinzu")
                     ascandingTravelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
                     ascandingTravelledFlightLine.title = "ascanding"
                     travelledFlightLine = ascandingTravelledFlightLine
                     self.mapView.addAnnotation(travelledFlightLine)
-                 // If the glider already acanded before
+                // If the glider already acanded before
                 } else {
                     // just append current Location to Polyline
-                    print("Füge nur Punkt hinzu")
+                    //print("Füge nur Punkt hinzu")
                     travelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
                 }
                 
@@ -342,14 +342,14 @@ class MapScreenViewController: UIViewController {
                 
             // If former Altitude was greater than the current Altitude - Glider is desscanding
             } else {
-                print("Former: \(formerLocation?.altitude) >= Current: \(currentLocation.altitude) = Sinken")
+                //print("Former: \(formerLocation?.altitude) >= Current: \(currentLocation.altitude) = Sinken")
                 // If the glider acscended before, but is now desscending
                 if verticalMovement != "descanding" {
                     // Create new Polyline from former Location...
-                    print("Erstelle neue Polyline von der letzten Position")
+                    //print("Erstelle neue Polyline von der letzten Position")
                     let descandingTravelledFlightLine = MGLPolyline.init(coordinates: &formerLocationCoordinate2D, count: 1)
                     // and append current Location to Polyline
-                    print("und füge Punkt der aktuellen Position hinzu")
+                    //print("und füge Punkt der aktuellen Position hinzu")
                     descandingTravelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
                     descandingTravelledFlightLine.title = "descanding"
                     travelledFlightLine = descandingTravelledFlightLine
@@ -357,7 +357,7 @@ class MapScreenViewController: UIViewController {
                 // If the glider already descanded before
                 } else {
                     // just append current Location to Polyline
-                    print("Füge nur Punkt hinzu")
+                    //print("Füge nur Punkt hinzu")
                     self.travelledFlightLine.appendCoordinates(&currentLocationCoordinate2D, count: 1)
                 }
                 
@@ -369,7 +369,7 @@ class MapScreenViewController: UIViewController {
             // TODO: DOCU
             
         }
-        // Set current Locatin to former Location
+        // Set former Location to current Location
         formerLocation = LocationManager.currentLocation()
         
     }
