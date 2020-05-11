@@ -30,11 +30,18 @@ class LocationManager: NSObject {
             let currentLocation = shared.currentLocation
             return currentLocation
     }
+    
+    class func formerLocation()
+        -> CLLocation? {
+            let formerLocation = shared.formerLocation
+            return formerLocation
+    }
 
     // Private Lets and Vars
     private let locationManager = CLLocationManager()
 
     private var currentLocation: CLLocation?
+    private var formerLocation: CLLocation?
     private var currentDistance: CLLocationDistance?
 
     private var delegates = NSHashTable<AnyObject>.weakObjects()
@@ -142,6 +149,8 @@ extension LocationManager: CLLocationManagerDelegate {
                 locationManagerDelegate.locationManager(didUpdateLocations: locations)
             }
         }
+        
+        formerLocation = currentLocation
         
     }
 
