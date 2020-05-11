@@ -49,7 +49,7 @@ class MapScreenViewController: UIViewController {
     
     private var nearbyGliderAnnotations = [String: NearbyGliderAnnotation]()
     
-    private var formerLocation: CLLocation?
+    //private var formerLocation: CLLocation?
     private var verticalMovement: String = ""
     
     // MARK: - Init & Co.
@@ -311,16 +311,13 @@ class MapScreenViewController: UIViewController {
     // TODO: 20200511 Code Optimieren! Doppelungen raus
     private func drawTrackingRoute() {
         if let currentLocation = LocationManager.currentLocation(),
-            formerLocation != nil {
+        let formerLocation = LocationManager.formerLocation() {
             
-            var formerLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: formerLocation!.coordinate.latitude,
-                                                                         longitude: formerLocation!.coordinate.longitude)
-            
-            var currentLocationCoordinate2D = CLLocationCoordinate2D.init(latitude: currentLocation.coordinate.latitude,
-                                                                          longitude: currentLocation.coordinate.longitude)
+            var formerLocationCoordinate2D = formerLocation.coordinate
+            var currentLocationCoordinate2D = currentLocation.coordinate
             
             // If former Altitude was lesser than the current Altitude - Glider is ascanding
-            if formerLocation?.speed ?? 0 <= currentLocation.speed {
+            if formerLocation.speed <= currentLocation.speed {
                 //print("Former: \(formerLocation?.altitude) <= Current: \(currentLocation.altitude) = Steigen")
                 // If the glider descended before, but is now ascending
                 if verticalMovement != "ascanding" {
@@ -337,9 +334,7 @@ class MapScreenViewController: UIViewController {
                     if UserDefaultsManager.showTrackingRouteState() == true {
                         self.mapView.addAnnotation(currentTravelledFlightLineSegemt)
                     }
-                    
-                    
-                    
+
                     // If the glider already acanded before
                 } else {
                     // just append current Location to Polyline
@@ -382,8 +377,6 @@ class MapScreenViewController: UIViewController {
             // TODO: DOCU
             
         }
-        // Set former Location to current Location
-        formerLocation = LocationManager.currentLocation()
         
     }
     
