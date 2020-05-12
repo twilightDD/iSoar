@@ -317,7 +317,7 @@ class MapScreenViewController: UIViewController {
             var currentLocationCoordinate2D = currentLocation.coordinate
             
             // If former Altitude was lesser than the current Altitude - Glider is ascanding
-            if formerLocation.speed <= currentLocation.speed {
+            if formerLocation.altitude <= currentLocation.altitude {
                 //print("Former: \(formerLocation?.altitude) <= Current: \(currentLocation.altitude) = Steigen")
                 // If the glider descended before, but is now ascending
                 if verticalMovement != "ascanding" {
