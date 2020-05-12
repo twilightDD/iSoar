@@ -45,10 +45,10 @@ class OGNSocketConnectionManager {
     // MARK: - Public Class Methods
     class func registerForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
         
-        print("\(#function) - willAdd delegates.count = \(shared.delegates.count)")
+        //print("\(#function) - willAdd delegates.count = \(shared.delegates.count)")
         shared.delegates.add(delegate)
-        print("\(#function) - did Add delegates.count = \(shared.delegates.count)")
-        print(shared.delegates)
+        //print("\(#function) - did Add delegates.count = \(shared.delegates.count)")
+        //print(shared.delegates)
     }
     
     class func unregisterForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
