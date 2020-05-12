@@ -53,10 +53,10 @@ class OGNSocketConnectionManager {
     
     class func unregisterForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
         
-        print("\(#function) - willRemove delegates.count = \(shared.delegates.count)")
+        //print("\(#function) - willRemove delegates.count = \(shared.delegates.count)")
         shared.delegates.remove(delegate)
-        print("\(#function) - did Remove delegates.count = \(shared.delegates.count)")
-        print(shared.delegates)
+        //print("\(#function) - did Remove delegates.count = \(shared.delegates.count)")
+        //print(shared.delegates)
     }
     
     class func start() {
