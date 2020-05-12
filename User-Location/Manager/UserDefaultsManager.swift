@@ -22,6 +22,7 @@ class UserDefaultsManager {
     private static let ShowOnlyBuddyStateKey = "showOnlyBuddyState"
     private static let ShowTrackingRouteStateKey = "showTrackingRouteState"
     private static let FlarmRadiusKey = "flarmRadius"
+    private static let CenteringHelpStateKey = "centeringHelpState"
     
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
@@ -35,6 +36,7 @@ class UserDefaultsManager {
     private static let showNearbyGlidersSwitchDefault: Bool = true
     private static let collisionWarningSwitchDefault: Bool = true
     private static let flarmRadiusDefault: Double = 25
+    private static let centeringHelpSwitchDefault: Bool = true
     
     // MARK: - Lets and Vars
     private static let shared = UserDefaultsManager()
@@ -75,6 +77,9 @@ class UserDefaultsManager {
         }
         if shared.userDefaults.value(forKey: FlarmRadiusKey) == nil {
             UserDefaultsManager.set(flarmRadius: flarmRadiusDefault)
+        }
+        if shared.userDefaults.value(forKey: CenteringHelpStateKey) == nil {
+            shared.userDefaults.set(true, forKey: CenteringHelpStateKey)
         }
     }
     
@@ -197,6 +202,17 @@ class UserDefaultsManager {
     
     class func set(flarmRadius: Double) {
         shared.userDefaults.set(flarmRadius, forKey: FlarmRadiusKey)
+    }
+    
+    // MARK: Centering Help Switch
+    class func centeringHelpState()
+        -> Bool {
+            let centeringHelpSwitch = shared.userDefaults.value(forKey: CenteringHelpStateKey) as? Bool ?? centeringHelpSwitchDefault
+            return centeringHelpSwitch
+    }
+    
+    class func set(centeringHelpState: Bool) {
+        shared.userDefaults.set(centeringHelpState, forKey: CenteringHelpStateKey)
     }
     
 }

@@ -26,7 +26,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet private weak var showOnlyBuddySwitch: UISwitch!
     @IBOutlet private weak var collisionWarningSwitch: UISwitch!
     @IBOutlet private weak var downloadAirportUpdates: UIButton!
-    
+    @IBOutlet private weak var centeringHelpSwitch: UISwitch!
+
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +93,10 @@ class SettingsViewController: UIViewController {
         let flarmRadius = UserDefaultsManager.flarmRadius()
         let flarmRadiusString = String(format: "%.f", flarmRadius)
         flarmRadiusTextField.text = flarmRadiusString
+        
+        // Centering Help Switch Setup
+        let centeringHelpSwitchState = UserDefaultsManager.centeringHelpState()
+        centeringHelpSwitch.isOn = centeringHelpSwitchState
         
     }
     
@@ -237,6 +242,10 @@ class SettingsViewController: UIViewController {
         
         self.present(alert, animated: true)
         
+    }
+    
+    @IBAction func centeringHelpSwitchAction(_ sender: UISwitch) {
+        UserDefaultsManager.set(centeringHelpState: sender.isOn)
     }
     
 }
