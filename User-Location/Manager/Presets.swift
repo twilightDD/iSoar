@@ -89,9 +89,14 @@ struct Presets {
         static let horizontalCollisionWarningDistance: CLLocationDistance = 2000
         /// Represents the distance Limit of Nearby Gliders above or below me in which the user is warned
         static let verticalCollisionWarningDistance: CLLocationDistance = 200
-        
         /// Represents the spoken Text of the acoustic Warning
         static let collisionWarningSpokenText: String = "Warning, Traffic ahead"
+        
+        // Centering Help
+        /// Represents the deviation of the current course to the former course
+        static let significantCourseDeviation: Double = 2
+        /// Represents how many continous significant Course Changes must be recognized to set "Circling" to true
+        static let continousSignificantCourseChanges: Int = 15
 
     }
     
