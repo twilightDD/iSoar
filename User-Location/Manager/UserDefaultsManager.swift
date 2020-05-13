@@ -23,6 +23,7 @@ class UserDefaultsManager {
     private static let ShowTrackingRouteStateKey = "showTrackingRouteState"
     private static let FlarmRadiusKey = "flarmRadius"
     private static let CenteringHelpStateKey = "centeringHelpState"
+    private static let UserMapZoomLevelKey = "userMapZoomLevel"
     
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
@@ -37,6 +38,7 @@ class UserDefaultsManager {
     private static let collisionWarningSwitchDefault: Bool = true
     private static let flarmRadiusDefault: Double = 25
     private static let centeringHelpSwitchDefault: Bool = true
+    private static let userMapZoomLevelDefault: Double = 9.6
     
     // MARK: - Lets and Vars
     private static let shared = UserDefaultsManager()
@@ -80,6 +82,9 @@ class UserDefaultsManager {
         }
         if shared.userDefaults.value(forKey: CenteringHelpStateKey) == nil {
             shared.userDefaults.set(true, forKey: CenteringHelpStateKey)
+        }
+        if shared.userDefaults.value(forKey: UserMapZoomLevelKey) == nil {
+            UserDefaultsManager.set(userMapZoomLevel: userMapZoomLevelDefault)
         }
     }
     
@@ -213,6 +218,17 @@ class UserDefaultsManager {
     
     class func set(centeringHelpState: Bool) {
         shared.userDefaults.set(centeringHelpState, forKey: CenteringHelpStateKey)
+    }
+    
+    // MARK: User Map Zoom Level
+        class func userMapZoomLevel()
+        -> Double {
+            let userMapZoomLevel = shared.userDefaults.value(forKey: UserMapZoomLevelKey) as? Double ?? userMapZoomLevelDefault
+            return userMapZoomLevel
+    }
+    
+    class func set(userMapZoomLevel: Double) {
+        shared.userDefaults.set(userMapZoomLevel, forKey: UserMapZoomLevelKey)
     }
     
 }
