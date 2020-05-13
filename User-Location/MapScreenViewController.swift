@@ -195,7 +195,7 @@ class MapScreenViewController: UIViewController {
     // Map Swipe recognized
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
-            print("Swipe detected")
+            // print("Swipe detected")
             if userFollow == true {
                 self.userFollow = false
                 userLocationButton.updateArrowForTrackingMode(state: self.userFollow)
@@ -206,18 +206,13 @@ class MapScreenViewController: UIViewController {
     // Map Zoom recognized
     @objc func screenZoomed(_ recognizer: UIPinchGestureRecognizer) {
         if recognizer.state == .ended {
-            print("Zoom regognized")
+            // print("Zoom regognized")
             if userFollow == true {
                 self.userFollow = false
                 userLocationButton.updateArrowForTrackingMode(state: self.userFollow)
-                
-                print(UserDefaultsManager.userMapZoomLevel())
                 UserDefaultsManager.set(userMapZoomLevel: mapView.zoomLevel)
-                print("Set MapZoom of: \(mapView.zoomLevel) to UserDefaults")
             } else {
-                print(UserDefaultsManager.userMapZoomLevel())
                 UserDefaultsManager.set(userMapZoomLevel: mapView.zoomLevel)
-                print("Set MapZoom of: \(mapView.zoomLevel) to UserDefaults")
             }
         }
     }
@@ -225,18 +220,13 @@ class MapScreenViewController: UIViewController {
     // Map Double-Tap recognized
     @objc func screenDoubleTapped(_ recognizer: UITapGestureRecognizer) {
         if recognizer.state == .ended {
-            print("Doube-Tap regognized")
+            //print("Doube-Tap regognized")
             if userFollow == true {
                 self.userFollow = false
                 userLocationButton.updateArrowForTrackingMode(state: self.userFollow)
-                
-                print("User Zoom Level: \(UserDefaultsManager.userMapZoomLevel())")
                 UserDefaultsManager.set(userMapZoomLevel: mapView.zoomLevel)
-                print("Set MapZoom Level of: \(mapView.zoomLevel) to UserDefaults")
             } else {
-                print(UserDefaultsManager.userMapZoomLevel())
                 UserDefaultsManager.set(userMapZoomLevel: mapView.zoomLevel)
-                print("Set MapZoom of: \(mapView.zoomLevel) to UserDefaults")
             }
         }
     }
