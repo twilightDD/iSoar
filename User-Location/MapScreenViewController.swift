@@ -163,6 +163,11 @@ class MapScreenViewController: UIViewController {
         pinchGestureRecognizer.delegate = self
         mapView.addGestureRecognizer(pinchGestureRecognizer)
         
+        let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(screenDoubleTapped))
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        doubleTapGestureRecognizer.delegate = self
+        mapView.addGestureRecognizer(doubleTapGestureRecognizer)
+        
         mapView.isUserInteractionEnabled = true
   
         // Altitude Label
@@ -190,18 +195,49 @@ class MapScreenViewController: UIViewController {
     // Map Swipe recognized
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
+            print("Swipe detected")
             if userFollow == true {
                 self.userFollow = false
                 userLocationButton.updateArrowForTrackingMode(state: self.userFollow)
-                print("Swipe detected")
             }
         }
     }
     
-    // Map Pinch recognized
+    // Map Zoom recognized
     @objc func screenZoomed(_ recognizer: UIPinchGestureRecognizer) {
-        if recognizer.state == .recognized {
-            print("Zoom detected")
+        if recognizer.state == .ended {
+            print("Zoom regognized")
+            if userFollow == true {
+                self.userFollow = false
+                userLocationButton.updateArrowForTrackingMode(state: self.userFollow)
+                
+                print(UserDefaultsManager.userMapZoomLevel())
+                UserDefaultsManager.set(userMapZoomLevel: mapView.zoomLevel)
+                print("Set MapZoom of: \(mapView.zoomLevel) to UserDefaults")
+            } else {
+                print(UserDefaultsManager.userMapZoomLevel())
+                UserDefaultsManager.set(userMapZoomLevel: mapView.zoomLevel)
+                print("Set MapZoom of: \(mapView.zoomLevel) to UserDefaults")
+            }
+        }
+    }
+    
+    // Map Double-Tap recognized
+    @objc func screenDoubleTapped(_ recognizer: UITapGestureRecognizer) {
+        if recognizer.state == .ended {
+            print("Doube-Tap regognized")
+            if userFollow == true {
+                self.userFollow = false
+                userLocationButton.updateArrowForTrackingMode(state: self.userFollow)
+                
+                print("User Zoom Level: \(UserDefaultsManager.userMapZoomLevel())")
+                UserDefaultsManager.set(userMapZoomLevel: mapView.zoomLevel)
+                print("Set MapZoom Level of: \(mapView.zoomLevel) to UserDefaults")
+            } else {
+                print(UserDefaultsManager.userMapZoomLevel())
+                UserDefaultsManager.set(userMapZoomLevel: mapView.zoomLevel)
+                print("Set MapZoom of: \(mapView.zoomLevel) to UserDefaults")
+            }
         }
     }
     
@@ -593,7 +629,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
             mapView.showsUserLocation = true
             mapView.setCenter(CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude,
                                                      longitude: currentLocation.coordinate.longitude),
-                              zoomLevel: Presets.MapScreen.zoomLevel,
+                              zoomLevel: UserDefaultsManager.userMapZoomLevel(),
                               animated: true)
         }
             // If not, set Center the Map to Airport Stuttgart
