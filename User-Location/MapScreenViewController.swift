@@ -49,7 +49,6 @@ class MapScreenViewController: UIViewController {
     
     private var nearbyGliderAnnotations = [String: NearbyGliderAnnotation]()
     
-    //private var formerLocation: CLLocation?
     private var verticalMovement: String = ""
     
     // MARK: - Init & Co.
@@ -158,9 +157,14 @@ class MapScreenViewController: UIViewController {
         // MapView
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
         panGestureRecognizer.delegate = self
-        mapView.isUserInteractionEnabled = true
         mapView.addGestureRecognizer(panGestureRecognizer)
         
+        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(screenZoomed(_:)))
+        pinchGestureRecognizer.delegate = self
+        mapView.addGestureRecognizer(pinchGestureRecognizer)
+        
+        mapView.isUserInteractionEnabled = true
+  
         // Altitude Label
         let tapOnAltitudeLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnAltitudeLabel))
         altitudeLabel.addGestureRecognizer(tapOnAltitudeLabelRecognizer)
@@ -189,7 +193,15 @@ class MapScreenViewController: UIViewController {
             if userFollow == true {
                 self.userFollow = false
                 userLocationButton.updateArrowForTrackingMode(state: self.userFollow)
+                print("Swipe detected")
             }
+        }
+    }
+    
+    // Map Pinch recognized
+    @objc func screenZoomed(_ recognizer: UIPinchGestureRecognizer) {
+        if recognizer.state == .recognized {
+            print("Zoom detected")
         }
     }
     
