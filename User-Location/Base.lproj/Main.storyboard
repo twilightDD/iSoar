@@ -25,10 +25,10 @@
                                 </connections>
                             </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8yb-8T-kXL">
-                                <rect key="frame" x="15" y="108" width="384" height="445"/>
+                                <rect key="frame" x="15" y="108" width="384" height="480"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xpg-ro-0Oc" userLabel="Image Stack View">
-                                        <rect key="frame" x="0.0" y="0.0" width="25" height="445"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="25" height="480"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down.left" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="FeX-Ch-QLo">
                                                 <rect key="frame" x="0.0" y="3" width="25" height="18.5"/>
@@ -121,10 +121,17 @@
                                                     <constraint firstAttribute="width" constant="25" id="dqj-6S-BcF"/>
                                                 </constraints>
                                             </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="YwK-xE-nN5">
+                                                <rect key="frame" x="0.0" y="455.5" width="25" height="24"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="86s-Hi-i1s"/>
+                                                    <constraint firstAttribute="height" constant="25" id="hja-8M-0F8"/>
+                                                </constraints>
+                                            </imageView>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3iw-q3-i4A" userLabel="Label Stack View">
-                                        <rect key="frame" x="35" y="0.0" width="196.5" height="445"/>
+                                        <rect key="frame" x="35" y="0.0" width="196.5" height="480"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Glider Ratio:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRc-6M-XsH">
                                                 <rect key="frame" x="0.0" y="0.0" width="196.5" height="25"/>
@@ -204,10 +211,16 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Map Resolution:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6fi-LR-7YG" userLabel="Map Resolution:">
+                                                <rect key="frame" x="0.0" y="455" width="196.5" height="25"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H2j-WP-BrR" userLabel="Setting Stack View">
-                                        <rect key="frame" x="241.5" y="0.0" width="142.5" height="445"/>
+                                        <rect key="frame" x="241.5" y="0.0" width="142.5" height="480"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="Uma-pM-80t" userLabel="Glider Ratio" customClass="TextFields" customModule="iSoar" customModuleProvider="target">
                                                 <rect key="frame" x="42.5" y="0.0" width="100" height="25"/>
@@ -326,6 +339,16 @@
                                                     <action selector="centeringHelpSwitchAction:" destination="AW2-mO-9uR" eventType="valueChanged" id="hMn-Av-t7i"/>
                                                 </connections>
                                             </switch>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oem-iu-1Iy">
+                                                <rect key="frame" x="29.5" y="455" width="113" height="26"/>
+                                                <segments>
+                                                    <segment title="LoRes"/>
+                                                    <segment title="HiRes"/>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="mapResolutionSegmentedControlAction:" destination="AW2-mO-9uR" eventType="valueChanged" id="B8v-fr-gxL"/>
+                                                </connections>
+                                            </segmentedControl>
                                         </subviews>
                                     </stackView>
                                 </subviews>
@@ -352,6 +375,7 @@
                         <outlet property="gearWarningSwitch" destination="JuI-97-a4S" id="w9F-DV-3zy"/>
                         <outlet property="gliderIDTextField" destination="aJN-ar-pUl" id="2Tx-pG-xWm"/>
                         <outlet property="gliderRatioTextField" destination="Uma-pM-80t" id="L64-OO-bCX"/>
+                        <outlet property="mapResolutionSegmentedControl" destination="oem-iu-1Iy" id="dHp-Eb-8WR"/>
                         <outlet property="ownFlarmIDTextField" destination="81U-7I-dra" id="7k4-aA-h8N"/>
                         <outlet property="safetyAltitudeTextField" destination="vi7-Ik-Pbz" id="MFm-9G-hI4"/>
                         <outlet property="showAllNearbyGlidersSwitch" destination="zeF-FY-LEj" id="Oac-Os-RmX"/>
@@ -792,14 +816,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskSelectionTableViewCell" id="DPU-HB-jDi" customClass="TaskSelectionTableViewCell" customModule="iSoar" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DPU-HB-jDi" id="BFo-Hu-pV9">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fmk-3Q-uW8">
-                                                    <rect key="frame" x="15" y="11" width="81" height="21"/>
+                                                    <rect key="frame" x="15" y="11" width="81" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1297,6 +1321,7 @@
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="logbook" width="35" height="35"/>
         <image name="map" width="65" height="30"/>
+        <image name="map" catalog="system" width="128" height="113"/>
         <image name="mappin.and.ellipse" catalog="system" width="118" height="128"/>
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="plus.circle" catalog="system" width="128" height="121"/>

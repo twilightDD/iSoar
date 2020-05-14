@@ -27,7 +27,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet private weak var collisionWarningSwitch: UISwitch!
     @IBOutlet private weak var downloadAirportUpdates: UIButton!
     @IBOutlet private weak var centeringHelpSwitch: UISwitch!
-
+    @IBOutlet private weak var mapResolutionSegmentedControl: UISegmentedControl!
+    
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,6 +98,10 @@ class SettingsViewController: UIViewController {
         // Centering Help Switch Setup
         let centeringHelpSwitchState = UserDefaultsManager.centeringHelpState()
         centeringHelpSwitch.isOn = centeringHelpSwitchState
+        
+        // Map Resolution Segmented Control Setup
+        let mapResolutionSegmentedControlState = UserDefaultsManager.mapResolutionState()
+        mapResolutionSegmentedControl.selectedSegmentIndex = mapResolutionSegmentedControlState
         
     }
     
@@ -248,6 +253,10 @@ class SettingsViewController: UIViewController {
         UserDefaultsManager.set(centeringHelpState: sender.isOn)
     }
     
+    @IBAction func mapResolutionSegmentedControlAction(_ sender: UISegmentedControl) {
+        UserDefaultsManager.set(mapResolution: mapResolutionSegmentedControl.selectedSegmentIndex)
+    }
+  
 }
 
 // MARK: - Extension - UITextFieldDelegate
