@@ -24,6 +24,7 @@ class UserDefaultsManager {
     private static let FlarmRadiusKey = "flarmRadius"
     private static let CenteringHelpStateKey = "centeringHelpState"
     private static let UserMapZoomLevelKey = "userMapZoomLevel"
+    private static let MapResolutionStateKey = "mapResolution"
     
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
@@ -39,6 +40,7 @@ class UserDefaultsManager {
     private static let flarmRadiusDefault: Double = 25
     private static let centeringHelpSwitchDefault: Bool = true
     private static let userMapZoomLevelDefault: Double = 9.6
+    private static let mapResolutionDefault: Int = 0
     
     // MARK: - Lets and Vars
     private static let shared = UserDefaultsManager()
@@ -85,6 +87,9 @@ class UserDefaultsManager {
         }
         if shared.userDefaults.value(forKey: UserMapZoomLevelKey) == nil {
             UserDefaultsManager.set(userMapZoomLevel: userMapZoomLevelDefault)
+        }
+        if shared.userDefaults.value(forKey: MapResolutionStateKey) == nil {
+            UserDefaultsManager.set(mapResolution: mapResolutionDefault)
         }
     }
     
@@ -229,6 +234,17 @@ class UserDefaultsManager {
     
     class func set(userMapZoomLevel: Double) {
         shared.userDefaults.set(userMapZoomLevel, forKey: UserMapZoomLevelKey)
+    }
+    
+    // MARK: Map Resolution
+        class func mapResolutionState()
+        -> Int {
+            let mapResolution = shared.userDefaults.value(forKey: MapResolutionStateKey) as? Int ?? mapResolutionDefault
+            return mapResolution
+    }
+    
+    class func set(mapResolution: Int) {
+        shared.userDefaults.set(mapResolution, forKey: MapResolutionStateKey)
     }
     
 }
