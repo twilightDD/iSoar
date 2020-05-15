@@ -51,6 +51,8 @@ class MapScreenViewController: UIViewController {
     
     private var verticalMovement: String = ""
     
+    private var mapIsInCirclingZoom: Bool = false
+    
     // MARK: - Init & Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +81,8 @@ class MapScreenViewController: UIViewController {
     
     // MARK: - Setup functions
     func setupMapBox() {
-        let url = URL(string: "mapbox://styles/dlmapbox/cjwrbxi3x10fv1ck92xfdgz66")
+
+        let url = Presets.MapScreen.mapboxStyleURL()
         self.mapView.styleURL = url
         
         mapView.delegate = self
@@ -278,6 +281,9 @@ class MapScreenViewController: UIViewController {
         
         // Update UI for Direction
         updateDestinationAirportUI()
+        
+        // Centering Help
+        centeringHelp()
     }
     
     private func updateAltitudeLabel() {
@@ -417,6 +423,37 @@ class MapScreenViewController: UIViewController {
         }
         
     }
+    
+    // Centering Help
+    private func centeringHelp() {
+        // Glider is Circling
+        if FlightComputer.isGliderCircling() == true {
+            // Map is in User Zoom Mode
+            if mapIsInCirclingZoom == false {
+                // Merke Benutzer Zoom Level
+                UserDefaultsManager.set(userMapZoomLevel: mapView.zoomLevel)
+                mapView.zoomLevel = 14
+                mapIsInCirclingZoom = true
+                
+                // Map is already in Cirling Zoom Mode
+            } else {
+                // mach nix
+            }
+            
+            // Glider is NOT Circling
+        } else {
+            // Map is in Circling Zoom Mode
+            if mapIsInCirclingZoom == true {
+                mapView.zoomLevel = UserDefaultsManager.userMapZoomLevel()
+                mapIsInCirclingZoom = false
+                
+                // Map is in User Zoom Mode
+            } else {
+                // mach nix
+            }
+        }
+    }
+
     
     // MARK: Update Destination Airport UI
     private func updateDestinationAirportUI() {
@@ -626,7 +663,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
         else {
             mapView.setCenter(CLLocationCoordinate2D(latitude: 48.689497,
                                                      longitude: 9.219885),
-                              zoomLevel: Presets.MapScreen.zoomLevel,
+                              zoomLevel: UserDefaultsManager.userMapZoomLevel(),
                               animated: true)
         }
         

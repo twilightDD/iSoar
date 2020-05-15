@@ -19,6 +19,8 @@ class FlightComputer {
     
     // Private
     private var isGliderFlying: Bool = false
+    private var isGliderCircling: Bool = false
+    private var circlingCounter: Int = 0
     
     private var shouldPlayGearWarning = true
     private var shouldPlayOxygenWarning = true
@@ -30,8 +32,6 @@ class FlightComputer {
         let shared = FlightComputer.shared
         LocationManager.registerForLocationUpdates(shared)
         
-        // TODO: das ist nur zum Test hier, muss hier raus
-        OGNSocketConnectionManager.registerForSocketUpdates(shared)
     }
     
     class func stop() {
@@ -43,9 +43,14 @@ class FlightComputer {
         -> Bool {
             let isGliderFlying = shared.isGliderFlying
             return isGliderFlying
-            
-            // TODO: Das muss dann hier rein
-            //OGNSocketConnectionManager.registerForSocketUpdates(shared)
+
+            OGNSocketConnectionManager.registerForSocketUpdates(shared)
+    }
+    
+    class func isGliderCircling()
+        -> Bool {
+            let isGliderCircling = shared.isGliderCircling
+            return isGliderCircling
     }
     
     // MARK: - Private Instance Methods
@@ -81,6 +86,96 @@ class FlightComputer {
             }
         }
         
+    }
+    
+    // TODO: 20200512 cyclomatic_complexity checken - geht es einfacher? dl
+    // Check if Glider is circling
+    private func checkIfGliderIsCircling() {
+        if UserDefaultsManager.centeringHelpState() == true {
+            if let currentLocation = LocationManager.currentLocation(),
+                let formerLocation = LocationManager.formerLocation() {
+                
+                // Glider dreht rechts rum
+                if currentLocation.course > formerLocation.course {
+                    if currentLocation.course > formerLocation.course + Presets.FlightComputer.significantCourseDeviation {
+                        print("DREHUNG RECHTS ERKANNT: COUNTER: \(circlingCounter)")
+                        
+                        if circlingCounter <= 15 {
+                            if circlingCounter < 0 && circlingCounter >= -5 {
+                                circlingCounter = 0
+                            } else {
+                                circlingCounter+=1
+                            }
+
+                            print("COUNTER RECHTS: \(circlingCounter)")
+                        }
+                        
+                    } else {
+                        print("DREHUNG RECHTS ERKANNT, ABER ZU GERING: COUNTER: \(circlingCounter)")
+                        if circlingCounter >= 0 {
+                            if circlingCounter <= 5 {
+                                circlingCounter = 0
+                            } else {
+                                if circlingCounter >= -5  && circlingCounter <= 5 {
+                                    circlingCounter = 0
+                                } else {
+                                    circlingCounter-=1
+                                }
+                            }
+                        } else {
+                            circlingCounter+=1
+                        }
+                        print("COUNTER RECHTS: \(circlingCounter)")
+                    }
+                    
+                } else {
+                    if currentLocation.course < formerLocation.course - Presets.FlightComputer.significantCourseDeviation {
+                        print("DREHUNG LINKS ERKANNT: COUNTER: \(circlingCounter)")
+                        
+                        if circlingCounter >= -15 {
+                            if circlingCounter > 0 && circlingCounter <= 5 {
+                                circlingCounter = 0
+                            } else {
+                                circlingCounter-=1
+                            }
+                            
+                            print("COUNTER LINKS: \(circlingCounter)")
+                        }
+                        
+                    } else {
+                        print("DREHUNG LINKS ERKANNT, ABER ZU GERING: COUNTER: \(circlingCounter)")
+                        if circlingCounter <= 0 {
+                            if circlingCounter >= -5 {
+                                circlingCounter = 0
+                            } else {
+                                circlingCounter+=1
+                            }
+                        } else {
+                            if circlingCounter <= 5 && circlingCounter >= -5 {
+                                circlingCounter = 0
+                            } else {
+                                circlingCounter-=1
+                            }
+                        }
+                        print("COUNTER LINKS: \(circlingCounter)")
+                    }
+                }
+                
+            }
+            
+            if circlingCounter > Presets.FlightComputer.continousSignificantCourseChanges || circlingCounter < -Presets.FlightComputer.continousSignificantCourseChanges {
+                isGliderCircling = true
+                print(#function, isGliderCircling)
+                AudioServicesPlayAlertSound(SystemSoundID(1256))
+            } else {
+                isGliderCircling = false
+                print(#function, isGliderCircling)
+            }
+            
+        } else {
+            // print("SWITCH IS OFF")
+        }
+
     }
     
     // MARK: Check Warning Methods
@@ -132,24 +227,6 @@ class FlightComputer {
         }
     }
     
-    // TODO: 20200416 Kann ja dann auch weg
-    // Check for Collision Warning
-    private func checkForCollisionWarning() {
-        // Check if Glider is flying / If false we dont need to warn
-        if isGliderFlying == true {
-            // Check if Collision Warning Switch is on / If false we dont need to warn
-            let collisionWarningSwitch = UserDefaultsManager.collisionWarningState()
-            if collisionWarningSwitch == true {
-                speak(string: Presets.FlightComputer.collisionWarningSpokenText)
-            } else {
-                // Collision Warning Switch is off
-            }
-            
-        } else {
-            // Glider not flying
-        }
-    }
-    
     // MARK: Audio Methods
     private func speak(string: String) {
         AudioServicesPlayAlertSound(SystemSoundID(1256))
@@ -168,9 +245,10 @@ class FlightComputer {
 extension FlightComputer: LocationManagerDelegate {
     
     func locationManager(didUpdateLocations locations: [CLLocation]) {
+        checkIfGliderIsFlying()
+        checkIfGliderIsCircling()
         checkForGearWarning()
         checkForOxygenWarning()
-        checkIfGliderIsFlying()
     }
     
 }
