@@ -54,6 +54,8 @@ struct Presets {
                 }
                 return url!
         }
+        
+        static let eulaText: String = "You are not allowed to use this software as your primary navigation system.\n\nThe data provided in this app may be incorrect or incomplete.\n\nThis software may only be used as an additional backup to your currently valid ICAO card."
   
     }
     

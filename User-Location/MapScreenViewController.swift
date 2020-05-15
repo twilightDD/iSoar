@@ -53,6 +53,8 @@ class MapScreenViewController: UIViewController {
     
     private var mapIsInCirclingZoom: Bool = false
     
+    private var userAcceptedEULA: Bool = false
+    
     // MARK: - Init & Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -271,6 +273,24 @@ class MapScreenViewController: UIViewController {
     }
     
     // MARK: - Private Methods
+    
+    // Download updated Airport Database File from Server
+    private func showEULAConfirmationPopup() {
+        if userAcceptedEULA == false {
+            let alert = UIAlertController(title: "Software Usage Agreement",
+                                          message: Presets.MapScreen.eulaText,
+                                          preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Confirm",
+                                          style: .default,
+                                          handler: { action in
+                                            self.userAcceptedEULA = true
+            }))
+            
+            self.present(alert, animated: true)
+        }
+        
+    }
     
     private func updateUI() {
         // Update UI for currentLocation
@@ -683,6 +703,8 @@ extension MapScreenViewController: MGLMapViewDelegate {
         }
         
         userLocationButton.updateArrowForTrackingMode(state: userFollow)
+        
+        showEULAConfirmationPopup()
     }
     
 }
