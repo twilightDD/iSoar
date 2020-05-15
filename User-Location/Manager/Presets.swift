@@ -31,33 +31,30 @@ struct Presets {
         static let hostPort: NWEndpoint.Port = 10152
         /// For using filtered requests.
         static let hostPortFiltered: NWEndpoint.Port = 14580
-
+        /// Represents the App Version
         static let appVersion: String = "iSoar \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?")_\(Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "?")"
-
-        /// Timespan of telemetrydata to set expired
+        /// Timespan of Expiration of Nearby Aircrafts Telemetry Data - and removing from Map
         static let telemetryDataExpirationTimespan: Int64 = 120
-        
+        /// Distance from Login Location to Reconnect Location
         static let distanceLimitForReconnect: Double = 10000
 
-        #if DEBUG
-        /// Default Radius für NearbyGlider (for debug purpose)
-        static let flarmRadius: Double = 500
-        #else
-        /// Default Radius für NearbyGlider
-        static let flarmRadius: Double = UserDefaultsManager.flarmRadius()
-        #endif
     }
     
     struct MapScreen {
-
-        #if DEBUG
-        /// Default Radius für MapScreen ZoomLevel (for debug purpose)
-        static let zoomLevel: Double = 5
-        #else
-        /// Default Radius für MapScreen ZoomLevel
-        static let zoomLevel: Double = 9.6
-        #endif
-        
+        // TODO 20200514 guard let hinzufügen?!
+        static func mapboxStyleURL()
+            -> URL {
+                var url = URL(string: "-")
+                // Low Resolution Map
+                if UserDefaultsManager.mapResolutionState() == 0 {
+                    url = URL(string: "mapbox://styles/dlmapbox/cjwrbxi3x10fv1ck92xfdgz66")
+                // High Resolution Map
+                } else {
+                    url = URL(string: "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt")
+                }
+                return url!
+        }
+  
     }
     
     struct FlightComputer {
