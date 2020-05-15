@@ -71,6 +71,8 @@ class MapScreenViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        checkIfMapStyleURLHasChanged()
+        
         checkTrackingRouteStatus()
         
     }
@@ -284,6 +286,13 @@ class MapScreenViewController: UIViewController {
         
         // Centering Help
         centeringHelp()
+    }
+    
+    // Check if User has changed the Map Style in Settings
+    private func checkIfMapStyleURLHasChanged () {
+        if mapView.styleURL != Presets.MapScreen.mapboxStyleURL() {
+            setupMapBox()
+        }
     }
     
     private func updateAltitudeLabel() {
