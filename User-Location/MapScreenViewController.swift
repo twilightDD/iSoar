@@ -83,7 +83,7 @@ class MapScreenViewController: UIViewController {
     
     // MARK: - Setup functions
     func setupMapBox() {
-
+        
         let url = Presets.MapScreen.mapboxStyleURL()
         self.mapView.styleURL = url
         
@@ -174,7 +174,7 @@ class MapScreenViewController: UIViewController {
         mapView.addGestureRecognizer(doubleTapGestureRecognizer)
         
         mapView.isUserInteractionEnabled = true
-  
+        
         // Altitude Label
         let tapOnAltitudeLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnAltitudeLabel))
         altitudeLabel.addGestureRecognizer(tapOnAltitudeLabelRecognizer)
@@ -291,7 +291,13 @@ class MapScreenViewController: UIViewController {
     // Check if User has changed the Map Style in Settings
     private func checkIfMapStyleURLHasChanged () {
         if mapView.styleURL != Presets.MapScreen.mapboxStyleURL() {
+            
+            MGLOfflineStorage.shared.invalidateAmbientCache { error in
+                print("MapBox Tile Cache invalidated")
+            }
+            
             setupMapBox()
+            
         }
     }
     
@@ -364,7 +370,7 @@ class MapScreenViewController: UIViewController {
     // TODO: 20200511 Code Optimieren! Doppelungen raus
     private func drawTrackingRoute() {
         if let currentLocation = LocationManager.currentLocation(),
-        let formerLocation = LocationManager.formerLocation() {
+            let formerLocation = LocationManager.formerLocation() {
             
             var formerLocationCoordinate2D = formerLocation.coordinate
             var currentLocationCoordinate2D = currentLocation.coordinate
@@ -387,7 +393,7 @@ class MapScreenViewController: UIViewController {
                     if UserDefaultsManager.showTrackingRouteState() == true {
                         self.mapView.addAnnotation(currentTravelledFlightLineSegemt)
                     }
-
+                    
                     // If the glider already acanded before
                 } else {
                     // just append current Location to Polyline
@@ -446,7 +452,7 @@ class MapScreenViewController: UIViewController {
                 
                 // Map is already in Cirling Zoom Mode
             } else {
-                // mach nix
+                // Nothing to do here
             }
             
             // Glider is NOT Circling
@@ -458,11 +464,11 @@ class MapScreenViewController: UIViewController {
                 
                 // Map is in User Zoom Mode
             } else {
-                // mach nix
+                // Nothing to do here
             }
         }
     }
-
+    
     
     // MARK: Update Destination Airport UI
     private func updateDestinationAirportUI() {
