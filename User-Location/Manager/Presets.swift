@@ -41,18 +41,19 @@ struct Presets {
     }
     
     struct MapScreen {
-        // TODO 20200514 guard let hinzufügen?!
+        
+        /// Represents the the MapBox Style URL
         static func mapboxStyleURL()
             -> URL {
-                var url = URL(string: "-")
+                var url: URL
                 // Low Resolution Map
                 if UserDefaultsManager.mapResolutionState() == 0 {
-                    url = URL(string: "mapbox://styles/dlmapbox/cjwrbxi3x10fv1ck92xfdgz66")
+                    url = URL(string: "mapbox://styles/dlmapbox/cjwrbxi3x10fv1ck92xfdgz66")!
                 // High Resolution Map
                 } else {
-                    url = URL(string: "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt")
+                    url = URL(string: "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt")!
                 }
-                return url!
+                return url
         }
         
         static let eulaText: String = "You are not allowed to use this software as your primary navigation system.\n\nThe data provided in this app may be incorrect or incomplete.\n\nThis software may only be used as an additional backup to your currently valid ICAO card."
@@ -62,7 +63,7 @@ struct Presets {
     struct FlightComputer {
 
         /// Check for nearest Airport and set it for Start-Airport and End-Airport in the LogBook
-        static let maximalDistanceFromNearestAirport: CLLocationDistance = 300
+        static let maximalDistanceFromNearestAirport: CLLocationDistance = 500
 
         /// Minimal Speed in Meter per Seconds to check if Glider is flying or not
         static let minimalFlightSpeed: CLLocationSpeed = 10
