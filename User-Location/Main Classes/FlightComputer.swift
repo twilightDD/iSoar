@@ -47,7 +47,7 @@ class FlightComputer {
             OGNSocketConnectionManager.registerForSocketUpdates(shared)
             
             return isGliderFlying
-
+            
     }
     
     class func isGliderCircling()
@@ -95,84 +95,81 @@ class FlightComputer {
     // Check if Glider is circling
     private func checkIfGliderIsCircling() {
         // If Centering Help Switch is on - State true
-        if UserDefaultsManager.centeringHelpState() == true {
-            if let currentLocation = LocationManager.currentLocation(),
-                let formerLocation = LocationManager.formerLocation() {
-                
-                // If current Course > than former Course - Glider turns right
-                if currentLocation.course > formerLocation.course {
-                    if currentLocation.course > formerLocation.course + Presets.FlightComputer.significantCourseDeviation {
-                        //print("Turn right recognized: COUNTER: \(circlingCounter)")
-                        if circlingCounter <= 20 {
-                            if circlingCounter < 0 && circlingCounter >= -5 {
-                                circlingCounter = 0
-                            } else {
-                                circlingCounter+=1
-                            }
-                            //print("COUNTER RIGHT: \(circlingCounter)")
-                        }
-                    } else {
-                        //print("Turn right recognized, but too less: COUNTER: \(circlingCounter)")
-                        if circlingCounter >= 0 {
-                            if circlingCounter <= 5 {
-                                circlingCounter = 0
-                            } else {
-                                if circlingCounter >= -5  && circlingCounter <= 5 {
-                                    circlingCounter = 0
-                                } else {
-                                    circlingCounter-=1
-                                }
-                            }
+        
+        guard UserDefaultsManager.centeringHelpState() == true,
+            let currentLocation = LocationManager.currentLocation(),
+            let formerLocation = LocationManager.formerLocation()
+            else { return }
+            
+            // If current Course > than former Course - Glider turns right
+            if currentLocation.course > formerLocation.course {
+                if currentLocation.course > formerLocation.course + Presets.FlightComputer.significantCourseDeviation {
+                    //print("Turn right recognized: COUNTER: \(circlingCounter)")
+                    if circlingCounter <= 20 {
+                        if circlingCounter < 0 && circlingCounter >= -5 {
+                            circlingCounter = 0
                         } else {
                             circlingCounter+=1
                         }
                         //print("COUNTER RIGHT: \(circlingCounter)")
                     }
-                // If current Course < than former Course - Glider turns left
                 } else {
-                    if currentLocation.course < formerLocation.course - Presets.FlightComputer.significantCourseDeviation {
-                        //print("Turn left recognized: COUNTER: \(circlingCounter)")
-                        if circlingCounter >= -20 {
-                            if circlingCounter > 0 && circlingCounter <= 5 {
+                    //print("Turn right recognized, but too less: COUNTER: \(circlingCounter)")
+                    if circlingCounter >= 0 {
+                        if circlingCounter <= 5 {
+                            circlingCounter = 0
+                        } else {
+                            if circlingCounter >= -5  && circlingCounter <= 5 {
                                 circlingCounter = 0
                             } else {
                                 circlingCounter-=1
                             }
-                            //print("COUNTER LEFT: \(circlingCounter)")
                         }
                     } else {
-                        //print("Turn left recognized, but too less: COUNTER: \(circlingCounter)")
-                        if circlingCounter <= 0 {
-                            if circlingCounter >= -5 {
-                                circlingCounter = 0
-                            } else {
-                                circlingCounter+=1
-                            }
+                        circlingCounter+=1
+                    }
+                    //print("COUNTER RIGHT: \(circlingCounter)")
+                }
+                // If current Course < than former Course - Glider turns left
+            } else {
+                if currentLocation.course < formerLocation.course - Presets.FlightComputer.significantCourseDeviation {
+                    //print("Turn left recognized: COUNTER: \(circlingCounter)")
+                    if circlingCounter >= -20 {
+                        if circlingCounter > 0 && circlingCounter <= 5 {
+                            circlingCounter = 0
                         } else {
-                            if circlingCounter <= 5 && circlingCounter >= -5 {
-                                circlingCounter = 0
-                            } else {
-                                circlingCounter-=1
-                            }
+                            circlingCounter-=1
                         }
                         //print("COUNTER LEFT: \(circlingCounter)")
                     }
+                } else {
+                    //print("Turn left recognized, but too less: COUNTER: \(circlingCounter)")
+                    if circlingCounter <= 0 {
+                        if circlingCounter >= -5 {
+                            circlingCounter = 0
+                        } else {
+                            circlingCounter+=1
+                        }
+                    } else {
+                        if circlingCounter <= 5 && circlingCounter >= -5 {
+                            circlingCounter = 0
+                        } else {
+                            circlingCounter-=1
+                        }
+                    }
+                    //print("COUNTER LEFT: \(circlingCounter)")
                 }
-                
-            }
             
-            if circlingCounter > Presets.FlightComputer.continousSignificantCourseChanges || circlingCounter < -Presets.FlightComputer.continousSignificantCourseChanges {
-                isGliderCircling = true
-                //print(#function, isGliderCircling)
-            } else {
-                isGliderCircling = false
-                //print(#function, isGliderCircling)
-            }
-            
-        } else {
-            // print("SWITCH IS OFF")
         }
-
+        
+        if circlingCounter > Presets.FlightComputer.continousSignificantCourseChanges || circlingCounter < -Presets.FlightComputer.continousSignificantCourseChanges {
+            isGliderCircling = true
+            //print(#function, isGliderCircling)
+        } else {
+            isGliderCircling = false
+            //print(#function, isGliderCircling)
+        }
+        
     }
     
     // MARK: Check Warning Methods
