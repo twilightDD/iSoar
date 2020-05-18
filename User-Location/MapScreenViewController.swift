@@ -463,32 +463,28 @@ class MapScreenViewController: UIViewController {
     private func centeringHelp() {
         // Glider is Circling
         if FlightComputer.isGliderCircling() == true {
-            // Map is in User Zoom Mode
+            // Check if Map is in Circling Zoom Mode
             if mapIsInCirclingZoom == false {
-                // Merke Benutzer Zoom Level
+                // Set User Defaults Zoom Level to current Map Zoom Level
                 UserDefaultsManager.set(userMapZoomLevel: mapView.zoomLevel)
+                // Zoom into Map
                 mapView.zoomLevel = 14
+                // Set Map is in Circling Zoom to true
                 mapIsInCirclingZoom = true
                 
-                // Map is already in Cirling Zoom Mode
-            } else {
-                // Nothing to do here
             }
             
-            // Glider is NOT Circling
         } else {
-            // Map is in Circling Zoom Mode
+            // Check if Map is in Circling Zoom Mode
             if mapIsInCirclingZoom == true {
+                // Set MapView Zoom Level to User Defaults Zoom Level
                 mapView.zoomLevel = UserDefaultsManager.userMapZoomLevel()
+                // Set Map is in Circling Zoom to false
                 mapIsInCirclingZoom = false
                 
-                // Map is in User Zoom Mode
-            } else {
-                // Nothing to do here
             }
         }
     }
-    
     
     // MARK: Update Destination Airport UI
     private func updateDestinationAirportUI() {
