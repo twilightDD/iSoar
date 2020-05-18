@@ -42,9 +42,12 @@ class FlightComputer {
     class func isGliderFlying()
         -> Bool {
             let isGliderFlying = shared.isGliderFlying
+            
+            // TODO: 20200518 Ist das hier richtig? Und Unregister?
+            OGNSocketConnectionManager.registerForSocketUpdates(shared)
+            
             return isGliderFlying
 
-            OGNSocketConnectionManager.registerForSocketUpdates(shared)
     }
     
     class func isGliderCircling()
@@ -91,27 +94,25 @@ class FlightComputer {
     // TODO: 20200512 cyclomatic_complexity checken - geht es einfacher? dl
     // Check if Glider is circling
     private func checkIfGliderIsCircling() {
+        // If Centering Help Switch is on - State true
         if UserDefaultsManager.centeringHelpState() == true {
             if let currentLocation = LocationManager.currentLocation(),
                 let formerLocation = LocationManager.formerLocation() {
                 
-                // Glider dreht rechts rum
+                // If current Course > than former Course - Glider turns right
                 if currentLocation.course > formerLocation.course {
                     if currentLocation.course > formerLocation.course + Presets.FlightComputer.significantCourseDeviation {
-                        print("DREHUNG RECHTS ERKANNT: COUNTER: \(circlingCounter)")
-                        
-                        if circlingCounter <= 15 {
+                        //print("Turn right recognized: COUNTER: \(circlingCounter)")
+                        if circlingCounter <= 20 {
                             if circlingCounter < 0 && circlingCounter >= -5 {
                                 circlingCounter = 0
                             } else {
                                 circlingCounter+=1
                             }
-
-                            print("COUNTER RECHTS: \(circlingCounter)")
+                            //print("COUNTER RIGHT: \(circlingCounter)")
                         }
-                        
                     } else {
-                        print("DREHUNG RECHTS ERKANNT, ABER ZU GERING: COUNTER: \(circlingCounter)")
+                        //print("Turn right recognized, but too less: COUNTER: \(circlingCounter)")
                         if circlingCounter >= 0 {
                             if circlingCounter <= 5 {
                                 circlingCounter = 0
@@ -125,25 +126,22 @@ class FlightComputer {
                         } else {
                             circlingCounter+=1
                         }
-                        print("COUNTER RECHTS: \(circlingCounter)")
+                        //print("COUNTER RIGHT: \(circlingCounter)")
                     }
-                    
+                // If current Course < than former Course - Glider turns left
                 } else {
                     if currentLocation.course < formerLocation.course - Presets.FlightComputer.significantCourseDeviation {
-                        print("DREHUNG LINKS ERKANNT: COUNTER: \(circlingCounter)")
-                        
-                        if circlingCounter >= -15 {
+                        //print("Turn left recognized: COUNTER: \(circlingCounter)")
+                        if circlingCounter >= -20 {
                             if circlingCounter > 0 && circlingCounter <= 5 {
                                 circlingCounter = 0
                             } else {
                                 circlingCounter-=1
                             }
-                            
-                            print("COUNTER LINKS: \(circlingCounter)")
+                            //print("COUNTER LEFT: \(circlingCounter)")
                         }
-                        
                     } else {
-                        print("DREHUNG LINKS ERKANNT, ABER ZU GERING: COUNTER: \(circlingCounter)")
+                        //print("Turn left recognized, but too less: COUNTER: \(circlingCounter)")
                         if circlingCounter <= 0 {
                             if circlingCounter >= -5 {
                                 circlingCounter = 0
@@ -157,7 +155,7 @@ class FlightComputer {
                                 circlingCounter-=1
                             }
                         }
-                        print("COUNTER LINKS: \(circlingCounter)")
+                        //print("COUNTER LEFT: \(circlingCounter)")
                     }
                 }
                 
@@ -165,11 +163,10 @@ class FlightComputer {
             
             if circlingCounter > Presets.FlightComputer.continousSignificantCourseChanges || circlingCounter < -Presets.FlightComputer.continousSignificantCourseChanges {
                 isGliderCircling = true
-                print(#function, isGliderCircling)
-                AudioServicesPlayAlertSound(SystemSoundID(1256))
+                //print(#function, isGliderCircling)
             } else {
                 isGliderCircling = false
-                print(#function, isGliderCircling)
+                //print(#function, isGliderCircling)
             }
             
         } else {
