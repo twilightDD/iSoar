@@ -40,7 +40,7 @@ class UserDefaultsManager {
     private static let flarmRadiusDefault: Double = 25
     private static let centeringHelpSwitchDefault: Bool = true
     private static let userMapZoomLevelDefault: Double = 9.6
-    private static let mapResolutionDefault: Int = 0
+    private static let mapResolutionDefault: Int = 1
     
     // MARK: - Lets and Vars
     private static let shared = UserDefaultsManager()

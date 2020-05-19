@@ -56,7 +56,7 @@ struct Presets {
                 return url
         }
         
-        static let eulaText: String = "You are not allowed to use this software as your primary navigation system.\n\nThe data provided in this app may be incorrect or incomplete.\n\nThis software may only be used as an additional backup to your currently valid ICAO card."
+        static let eulaText: String = "You are not allowed to use this software as your primary navigation system.\n\nThe data provided in this app may be incorrect or incomplete.\n\nThis software may only be used as an additional backup to your currently valid ICAO card.\n\nBy using this app in the mobile network, costs may arise from your mobile operator."
   
     }
     
@@ -94,7 +94,7 @@ struct Presets {
         
         // Centering Help
         /// Represents the deviation of the current course to the former course
-        static let significantCourseDeviation: Double = 2
+        static let significantCourseDeviation: Double = 3
         /// Represents how many continous significant Course Changes must be recognized to set "Circling" to true
         static let continousSignificantCourseChanges: Int = 15
 
