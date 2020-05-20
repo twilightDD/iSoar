@@ -83,6 +83,12 @@ class MapScreenViewController: UIViewController {
         return .lightContent
     }
     
+    
+    // MARK: - Public Class Methods
+    class func centeringHelp2() {
+        guard let shared = MapScreenViewController.shared else { return }
+        UserDefaultsManager.set(userMapZoomLevel: shared.mapView.zoomLevel)
+    }
     // MARK: - Setup functions
     func setupMapBox() {
         
@@ -387,7 +393,7 @@ class MapScreenViewController: UIViewController {
         }
     }
     
-    // TODO: 20200511 Code Optimieren! Doppelungen raus
+    // TODO: 20200511 Code Optimieren! Doppelungen raus! Enum für ascanding & descanding
     private func drawTrackingRoute() {
         if let currentLocation = LocationManager.currentLocation(),
             let formerLocation = LocationManager.formerLocation() {
@@ -460,15 +466,24 @@ class MapScreenViewController: UIViewController {
     }
     
     // Centering Help
+    // TODO: 20200519 class func draus machen und von drüben aufrufen, nur wenn sich was geändert hat
     private func centeringHelp() {
+        guard let currentLocation = LocationManager.currentLocation()
+            else { return }
+            
         // Glider is Circling
         if FlightComputer.isGliderCircling() == true {
             // Check if Map is in Circling Zoom Mode
             if mapIsInCirclingZoom == false {
                 // Set User Defaults Zoom Level to current Map Zoom Level
                 UserDefaultsManager.set(userMapZoomLevel: mapView.zoomLevel)
+                
                 // Zoom into Map
-                mapView.zoomLevel = 14
+                mapView.setCenter(CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude,
+                                       longitude: currentLocation.coordinate.longitude),
+                zoomLevel: 14,
+                animated: true)
+                
                 // Set Map is in Circling Zoom to true
                 mapIsInCirclingZoom = true
                 
@@ -478,7 +493,12 @@ class MapScreenViewController: UIViewController {
             // Check if Map is in Circling Zoom Mode
             if mapIsInCirclingZoom == true {
                 // Set MapView Zoom Level to User Defaults Zoom Level
-                mapView.zoomLevel = UserDefaultsManager.userMapZoomLevel()
+                
+                mapView.setCenter(CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude,
+                                       longitude: currentLocation.coordinate.longitude),
+                zoomLevel: UserDefaultsManager.userMapZoomLevel(),
+                animated: true)
+                
                 // Set Map is in Circling Zoom to false
                 mapIsInCirclingZoom = false
                 
@@ -495,12 +515,13 @@ class MapScreenViewController: UIViewController {
                 return
         }
         
-        // labels
+        // Destination Airport Labels
+        // TODO: 20200519 ICAO Label muss nicht bei jedem Location Update neu gezeichnet werden
         updateDestinationAirportICAOLabel(destinationAirport: destinationAirport)
         updateDestinationAirportDistanceLabel()
         updateDestinationAirportAltitudeLabel(destinationAirport: destinationAirport)
         
-        // directionLine
+        // DirectionLine
         updateDestinationAirportDirectionLine(destinationAirport: destinationAirport)
     }
     
