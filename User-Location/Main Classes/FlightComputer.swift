@@ -20,7 +20,10 @@ class FlightComputer {
     // Private
     private var isGliderFlying: Bool = false
     private var isGliderCircling: Bool = false
-    private var circlingCounter: Int = 0
+    
+    private var leftTurnCounter: Int = 0
+    private var rightTurnCounter: Int = 0
+    private var straightCounter: Int = 0
     
     private var shouldPlayGearWarning = true
     private var shouldPlayOxygenWarning = true
@@ -31,7 +34,6 @@ class FlightComputer {
     class func start() {
         let shared = FlightComputer.shared
         LocationManager.registerForLocationUpdates(shared)
-        
     }
     
     class func stop() {
@@ -91,7 +93,6 @@ class FlightComputer {
         
     }
     
-    // TODO: 20200512 cyclomatic_complexity checken - geht es einfacher? dl
     // Check if Glider is circling
     private func checkIfGliderIsCircling() {
         // If Centering Help Switch is on - State true
@@ -100,74 +101,50 @@ class FlightComputer {
             let currentLocation = LocationManager.currentLocation(),
             let formerLocation = LocationManager.formerLocation()
             else { return }
+        
+        // If current Course < than former Course - Glider turns left
+        if currentLocation.course < formerLocation.course - Presets.FlightComputer.significantCourseDeviation {
+            
+            leftTurnCounter += 1
+            print("LeftTurnCounter: \(leftTurnCounter)")
+            
+            if leftTurnCounter > 7 {
+                rightTurnCounter = 0
+                straightCounter = 0
+                print("LeftTurnCounter >7 - Left: \(leftTurnCounter) * Right: \(rightTurnCounter) * Straight: \(straightCounter)")
+            }
             
             // If current Course > than former Course - Glider turns right
-            if currentLocation.course > formerLocation.course {
-                if currentLocation.course > formerLocation.course + Presets.FlightComputer.significantCourseDeviation {
-                    //print("Turn right recognized: COUNTER: \(circlingCounter)")
-                    if circlingCounter <= 20 {
-                        if circlingCounter < 0 && circlingCounter >= -5 {
-                            circlingCounter = 0
-                        } else {
-                            circlingCounter+=1
-                        }
-                        //print("COUNTER RIGHT: \(circlingCounter)")
-                    }
-                } else {
-                    //print("Turn right recognized, but too less: COUNTER: \(circlingCounter)")
-                    if circlingCounter >= 0 {
-                        if circlingCounter <= 5 {
-                            circlingCounter = 0
-                        } else {
-                            if circlingCounter >= -5  && circlingCounter <= 5 {
-                                circlingCounter = 0
-                            } else {
-                                circlingCounter-=1
-                            }
-                        }
-                    } else {
-                        circlingCounter+=1
-                    }
-                    //print("COUNTER RIGHT: \(circlingCounter)")
-                }
-                // If current Course < than former Course - Glider turns left
-            } else {
-                if currentLocation.course < formerLocation.course - Presets.FlightComputer.significantCourseDeviation {
-                    //print("Turn left recognized: COUNTER: \(circlingCounter)")
-                    if circlingCounter >= -20 {
-                        if circlingCounter > 0 && circlingCounter <= 5 {
-                            circlingCounter = 0
-                        } else {
-                            circlingCounter-=1
-                        }
-                        //print("COUNTER LEFT: \(circlingCounter)")
-                    }
-                } else {
-                    //print("Turn left recognized, but too less: COUNTER: \(circlingCounter)")
-                    if circlingCounter <= 0 {
-                        if circlingCounter >= -5 {
-                            circlingCounter = 0
-                        } else {
-                            circlingCounter+=1
-                        }
-                    } else {
-                        if circlingCounter <= 5 && circlingCounter >= -5 {
-                            circlingCounter = 0
-                        } else {
-                            circlingCounter-=1
-                        }
-                    }
-                    //print("COUNTER LEFT: \(circlingCounter)")
-                }
+        } else if currentLocation.course > formerLocation.course + Presets.FlightComputer.significantCourseDeviation {
+            
+            rightTurnCounter += 1
+            print("RightTurnCounter: \(rightTurnCounter)")
+            
+            if rightTurnCounter > 7 {
+                leftTurnCounter = 0
+                straightCounter = 0
+                print("RightTurnCounter >7 - Left: \(leftTurnCounter) * Right: \(rightTurnCounter) * Straight: \(straightCounter)")
+            }
+            // If current Course Change < than significantCourseDeviation - Glider flys straight
+        } else {
+            straightCounter += 1
+            print("StraightCounter: \(straightCounter)")
+            
+            if straightCounter > 7 {
+                leftTurnCounter = 0
+                rightTurnCounter = 0
+                print("StraightCounter >7 - Left: \(leftTurnCounter) * Right: \(rightTurnCounter) * Straight: \(straightCounter)")
+            }
             
         }
         
-        if circlingCounter > Presets.FlightComputer.continousSignificantCourseChanges || circlingCounter < -Presets.FlightComputer.continousSignificantCourseChanges {
+        // If Glider is flown 10 or more times to one side - Glider is circling
+        if leftTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges || rightTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges && isGliderCircling == false {
             isGliderCircling = true
-            //print(#function, isGliderCircling)
-        } else {
+            AudioServicesPlayAlertSound(SystemSoundID(1256))
+            // Glider is NOT circling
+        } else if leftTurnCounter == 0 && rightTurnCounter == 0 && isGliderCircling == true {
             isGliderCircling = false
-            //print(#function, isGliderCircling)
         }
         
     }
