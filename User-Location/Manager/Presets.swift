@@ -97,6 +97,8 @@ struct Presets {
         static let significantCourseDeviation: Double = 3
         /// Represents how many continous significant Course Changes must be recognized to set "Circling" to true
         static let continousSignificantCourseChanges: Int = 15
+        /// Represents the value of continous Courses  Updates to another Direction than the last cirling Turn
+        static let turnCounterResetTrigger: Int = 7
 
     }
     
