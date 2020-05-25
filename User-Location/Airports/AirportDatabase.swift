@@ -43,6 +43,12 @@ class AirportDatabase {
             return filteredDestinationAirports
     }
     
+    class func destinationAirports()
+        -> [AirportDatabase.Airport]? {
+            let destinationAirports = shared.destinationAirports
+            return destinationAirports
+    }
+    
     class func downloadAirportsFromServer() {
         shared.downloadAirportsFromServer()
     }
