@@ -29,7 +29,7 @@ class AirportDatabase {
     }
     
     // MARK: - Public Class Methods
-    class func nearestAirport ()
+    class func nearestAirport()
         -> AirportDatabase.Airport? {
             let nearestAirport = shared.nearestAirport()
             return nearestAirport

@@ -25,7 +25,7 @@ class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
     }
     
     // MARK: - Private Methods
-    private func setupGliderLayer () -> CALayer? {
+    private func setupGliderLayer() -> CALayer? {
         let gliderLayer = CALayer()
         guard let gliderImage = UIImage(named: "glider")?.cgImage
             else { return nil }
