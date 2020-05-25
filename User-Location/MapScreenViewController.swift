@@ -14,7 +14,7 @@ import Mapbox
 // MARK: MapScreen
 class MapScreenViewController: UIViewController {
     
-    static private var shared: MapScreenViewController?
+    static private var shared = MapScreenViewController()
     
     // MARK: IBOutlets
     @IBOutlet private weak var mapView: MGLMapView!
@@ -48,6 +48,7 @@ class MapScreenViewController: UIViewController {
     private var showTrackingRoute = false
     
     private var nearbyGliderAnnotations = [String: NearbyGliderAnnotation]()
+    private var airportAnnotationArray = [MGLPointAnnotation]()
     
     private var verticalMovement: String = ""
     
@@ -59,6 +60,8 @@ class MapScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        MapScreenViewController.shared = self
+        
         FlightComputer.start()
         OGNSocketConnectionManager.registerForSocketUpdates(self)
         OGNSocketConnectionManager.start()
@@ -68,6 +71,8 @@ class MapScreenViewController: UIViewController {
         setupMapBox()
         
         setupGestureRecognizers()
+        
+        createAirportAnnotations()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,12 +87,25 @@ class MapScreenViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
-    
+
     // MARK: - Public Class Methods
-    class func centeringHelp2() {
-        guard let shared = MapScreenViewController.shared else { return }
+    class func increaseZoomLevel() {
+        let shared = MapScreenViewController.shared
+        
+        // Save current Zoom Level to User Defaults
         UserDefaultsManager.set(userMapZoomLevel: shared.mapView.zoomLevel)
+        
+        // Zoom into Map
+        shared.mapView.setZoomLevel(14, animated: true)
+
+    }
+    
+    class func decreaseZoomLevel() {
+        let shared = MapScreenViewController.shared
+        
+        // Read Zoom Level from User Defaults and set Zoom Level to Map
+        shared.mapView.setZoomLevel(UserDefaultsManager.userMapZoomLevel(), animated: true)
+
     }
     // MARK: - Setup functions
     func setupMapBox() {
@@ -114,6 +132,21 @@ class MapScreenViewController: UIViewController {
         mapView.resetNorth()
     }
     
+    // Create Annotations for Airports on Map
+    func createAirportAnnotations() {
+        if let destinationAirportArray = AirportDatabase.destinationAirports() {
+            for airport in destinationAirportArray {
+                let airportAnnotation = MGLPointAnnotation()
+                airportAnnotation.coordinate = CLLocationCoordinate2D(latitude: airport.latitude,
+                                                                      longitude: airport.longitude)
+                //airportAnnotation.title = "\(airport.icao)"
+                airportAnnotationArray.append(airportAnnotation)
+            }
+            mapView.addAnnotations(airportAnnotationArray)
+        }
+    }
+    
+    // Create User Center Location Button on Map
     func createUserLocationButton()
         -> UserLocationButton {
             let userLocationButton = UserLocationButton(buttonSize: 40)
@@ -311,11 +344,11 @@ class MapScreenViewController: UIViewController {
         updateDestinationAirportUI()
         
         // Centering Help
-        centeringHelp()
+        //centeringHelp()
     }
     
     // Check if User has changed the Map Style in Settings
-    private func checkIfMapStyleURLHasChanged () {
+    private func checkIfMapStyleURLHasChanged() {
         if mapView.styleURL != Presets.MapScreen.mapboxStyleURL() {
             
             MGLOfflineStorage.shared.invalidateAmbientCache { error in
@@ -463,47 +496,6 @@ class MapScreenViewController: UIViewController {
             
         }
         
-    }
-    
-    // Centering Help
-    // TODO: 20200519 class func draus machen und von drüben aufrufen, nur wenn sich was geändert hat
-    private func centeringHelp() {
-        guard let currentLocation = LocationManager.currentLocation()
-            else { return }
-            
-        // Glider is Circling
-        if FlightComputer.isGliderCircling() == true {
-            // Check if Map is in Circling Zoom Mode
-            if mapIsInCirclingZoom == false {
-                // Set User Defaults Zoom Level to current Map Zoom Level
-                UserDefaultsManager.set(userMapZoomLevel: mapView.zoomLevel)
-                
-                // Zoom into Map
-                mapView.setCenter(CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude,
-                                       longitude: currentLocation.coordinate.longitude),
-                zoomLevel: 14,
-                animated: true)
-                
-                // Set Map is in Circling Zoom to true
-                mapIsInCirclingZoom = true
-                
-            }
-            
-        } else {
-            // Check if Map is in Circling Zoom Mode
-            if mapIsInCirclingZoom == true {
-                // Set MapView Zoom Level to User Defaults Zoom Level
-                
-                mapView.setCenter(CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude,
-                                       longitude: currentLocation.coordinate.longitude),
-                zoomLevel: UserDefaultsManager.userMapZoomLevel(),
-                animated: true)
-                
-                // Set Map is in Circling Zoom to false
-                mapIsInCirclingZoom = false
-                
-            }
-        }
     }
     
     // MARK: Update Destination Airport UI
