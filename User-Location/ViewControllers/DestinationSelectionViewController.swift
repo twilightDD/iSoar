@@ -74,7 +74,6 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
         setupTableViewDatasource()
         
         updateUIForSelectedDestinationAirport()
-        searchBar.placeholder = "Filter Airfields"
         searchBar.placeholder = "Search in \(self.destinationAirportArray.count) Airfields"
         
         // MARK: - Register Observers for notfications
