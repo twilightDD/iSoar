@@ -52,16 +52,9 @@ class FlightComputer {
             
     }
     
-    class func isGliderCircling()
-        -> Bool {
-            let isGliderCircling = shared.isGliderCircling
-            return isGliderCircling
-    }
-    
     // MARK: - Private Instance Methods
     private func checkIfGliderIsFlying() {
         if isGliderFlying == false {
-            
             // Check if Glider is faster than 10m/s, (Presets)
             if let currentLocation = LocationManager.currentLocation(),
                 currentLocation.speed > Presets.FlightComputer.minimalFlightSpeed {
@@ -77,8 +70,10 @@ class FlightComputer {
             }
         } else {
             // Check if Glider is slower than 10m/s, (Presets)
+            // TODO: GitHub Issue 32: https://github.com/dlpgithub/iSoar/issues/32
             if let currentLocation = LocationManager.currentLocation(),
-                currentLocation.speed < Presets.FlightComputer.minimalFlightSpeed {
+                currentLocation.speed < Presets.FlightComputer.minimalFlightSpeed
+                    && currentLocation.speed > 0 {
                 
                 // Set gliderIsFlying to false
                 isGliderFlying = false
@@ -106,45 +101,43 @@ class FlightComputer {
         if currentLocation.course < formerLocation.course - Presets.FlightComputer.significantCourseDeviation {
             
             leftTurnCounter += 1
-            print("LeftTurnCounter: \(leftTurnCounter)")
-            
-            if leftTurnCounter > 7 {
+            if leftTurnCounter > Presets.FlightComputer.turnCounterResetTrigger {
                 rightTurnCounter = 0
                 straightCounter = 0
-                print("LeftTurnCounter >7 - Left: \(leftTurnCounter) * Right: \(rightTurnCounter) * Straight: \(straightCounter)")
+                //print("Left Turn: Set Right & Straight to: 0")
             }
             
             // If current Course > than former Course - Glider turns right
         } else if currentLocation.course > formerLocation.course + Presets.FlightComputer.significantCourseDeviation {
             
             rightTurnCounter += 1
-            print("RightTurnCounter: \(rightTurnCounter)")
-            
-            if rightTurnCounter > 7 {
+            if rightTurnCounter > Presets.FlightComputer.turnCounterResetTrigger {
                 leftTurnCounter = 0
                 straightCounter = 0
-                print("RightTurnCounter >7 - Left: \(leftTurnCounter) * Right: \(rightTurnCounter) * Straight: \(straightCounter)")
+                //print("Right Turn: Set Left & Straight to: 0")
             }
             // If current Course Change < than significantCourseDeviation - Glider flys straight
         } else {
             straightCounter += 1
-            print("StraightCounter: \(straightCounter)")
-            
-            if straightCounter > 7 {
+            if straightCounter > Presets.FlightComputer.turnCounterResetTrigger {
                 leftTurnCounter = 0
                 rightTurnCounter = 0
-                print("StraightCounter >7 - Left: \(leftTurnCounter) * Right: \(rightTurnCounter) * Straight: \(straightCounter)")
+                //print("Straight: Set Left & Right to: 0")
             }
             
         }
         
-        // If Glider is flown 10 or more times to one side - Glider is circling
-        if leftTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges || rightTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges && isGliderCircling == false {
+        if leftTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges && isGliderCircling == false ||
+        rightTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges && isGliderCircling == false {
             isGliderCircling = true
-            AudioServicesPlayAlertSound(SystemSoundID(1256))
-            // Glider is NOT circling
+            MapScreenViewController.increaseZoomLevel()
+
         } else if leftTurnCounter == 0 && rightTurnCounter == 0 && isGliderCircling == true {
             isGliderCircling = false
+            MapScreenViewController.decreaseZoomLevel()
+
+        } else {
+            //print("Nothing to do here")
         }
         
     }
