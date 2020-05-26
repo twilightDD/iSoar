@@ -139,7 +139,8 @@ class MapScreenViewController: UIViewController {
                 let airportAnnotation = MGLPointAnnotation()
                 airportAnnotation.coordinate = CLLocationCoordinate2D(latitude: airport.latitude,
                                                                       longitude: airport.longitude)
-                //airportAnnotation.title = "\(airport.icao)"
+                airportAnnotation.title = "\(airport.icao)"
+                airportAnnotation.subtitle = "\(airport.name)"
                 airportAnnotationArray.append(airportAnnotation)
             }
             mapView.addAnnotations(airportAnnotationArray)
@@ -689,6 +690,24 @@ extension MapScreenViewController: MGLMapViewDelegate {
             }
             
             return annotationView
+    }
+    
+    // User DidSelect Annotation
+    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+        guard let icao = annotation.title,
+        let name = annotation.subtitle  else { return }
+        
+        let alert = UIAlertController(title: (name), message: "Set \(icao!) as Destination?", preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Yes",
+                                        // set destination
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     // Map finished loading
