@@ -87,7 +87,7 @@ class MapScreenViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-
+    
     // MARK: - Public Class Methods
     class func increaseZoomLevel() {
         let shared = MapScreenViewController.shared
@@ -97,7 +97,7 @@ class MapScreenViewController: UIViewController {
         
         // Zoom into Map
         shared.mapView.setZoomLevel(14, animated: true)
-
+        
     }
     
     class func decreaseZoomLevel() {
@@ -105,7 +105,7 @@ class MapScreenViewController: UIViewController {
         
         // Read Zoom Level from User Defaults and set Zoom Level to Map
         shared.mapView.setZoomLevel(UserDefaultsManager.userMapZoomLevel(), animated: true)
-
+        
     }
     // MARK: - Setup functions
     func setupMapBox() {
@@ -692,7 +692,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
             return annotationView
     }
     
-        // User DidSelect Annotation
+    // User DidSelect Annotation
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         guard let icao = annotation.title,
             let name = annotation.subtitle  else { return }
