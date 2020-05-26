@@ -136,7 +136,7 @@ class MapScreenViewController: UIViewController {
     func createAirportAnnotations() {
         if let destinationAirportArray = AirportDatabase.destinationAirports() {
             for airport in destinationAirportArray {
-                let airportAnnotation = MGLPointAnnotation()
+                let airportAnnotation = AirportAnnotation()
                 airportAnnotation.coordinate = CLLocationCoordinate2D(latitude: airport.latitude,
                                                                       longitude: airport.longitude)
                 airportAnnotation.title = "\(airport.icao)"
@@ -630,9 +630,14 @@ extension MapScreenViewController: MGLMapViewDelegate {
             return 2.0
     }
     
+    // Annotation can show Callout
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation)
         -> Bool {
-            return true
+            if annotation is AirportAnnotation {
+                return false
+            } else {
+                return true
+            }
     }
     
     // Instantiate and return our custom callout view
@@ -687,6 +692,24 @@ extension MapScreenViewController: MGLMapViewDelegate {
                 annotationView = NearbyGliderAnnotationView(annotation: annotation,
                                                             reuseIdentifier: flarmID)
                 annotationView!.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
+                
+                return annotationView
+                
+            } else if annotation is AirportAnnotation {
+                // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
+                let reuseIdentifier = "\(annotation.coordinate.longitude)"
+                 
+                // For better performance, always try to reuse existing annotations.
+                var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+                 
+                // If there’s no reusable annotation view available, initialize a new one.
+                if annotationView == nil {
+                annotationView = AirportAnnotationView(reuseIdentifier: reuseIdentifier)
+                annotationView!.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
+                 
+                }
+                 
+                return annotationView
             }
             
             return annotationView
@@ -694,19 +717,27 @@ extension MapScreenViewController: MGLMapViewDelegate {
     
     // User DidSelect Annotation
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
-        guard let icao = annotation.title,
-            let name = annotation.subtitle  else { return }
+        guard let title = annotation.title,
+            let subtitle = annotation.subtitle  else { return }
         
-        let alert = UIAlertController(title: (name), message: "Set \(icao!) as Destination?", preferredStyle: UIAlertController.Style.alert)
-        
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
-            // set destination
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
-        }))
-        
-        self.present(alert, animated: true, completion: nil)
+        if annotation is AirportAnnotation {
+            //Create AlertViewController
+            let alert = UIAlertController(title: (subtitle), message: "Set \(title!) as Destination?", preferredStyle: UIAlertController.Style.alert)
+            
+            // If User pressed "Yes"
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+                // set destination
+            }))
+            
+            // If User pressed "Cancel"
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
+                // Deselect the Annotation
+                mapView.deselectAnnotation(annotation, animated: true)
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+            
+        }
         
     }
     
