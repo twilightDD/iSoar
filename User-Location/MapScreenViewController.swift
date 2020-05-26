@@ -676,6 +676,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
     }
     
     // Substitute our custom view for the user location annotation
+    // TODO: 20200526 if und if else´s prüfen
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation)
         -> MGLAnnotationView? {
             
@@ -715,33 +716,38 @@ extension MapScreenViewController: MGLMapViewDelegate {
             return annotationView
     }
     
-    // User DidSelect Annotation
+    // User did select Annotation
+    // TODO: 20200526 guard let auf title ok?
+    // Warum force-unwrap beim title? ist doch ein guard let da... und beim subtitle klappts ja auch ohne
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         guard let title = annotation.title,
             let subtitle = annotation.subtitle  else { return }
         
         if annotation is AirportAnnotation {
             //Create AlertViewController
-            let alert = UIAlertController(title: (subtitle), message: "Set \(title!) as Destination?", preferredStyle: UIAlertController.Style.alert)
+            let alertController = UIAlertController(title: (subtitle), message: "Please choose an option for \(title!)", preferredStyle: .actionSheet)
             
-            // If User pressed "Yes"
-            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
-                // set destination
-            }))
-            
-            // If User pressed "Cancel"
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
-                // Deselect the Annotation
+            alertController.addAction(UIAlertAction(title: "Set as Destination", style: .default, handler: { (_) in
                 mapView.deselectAnnotation(annotation, animated: true)
             }))
             
-            self.present(alert, animated: true, completion: nil)
+            // Maybe later
+//            alertController.addAction(UIAlertAction(title: "Show Airport Infos", style: .default, handler: { (_) in
+//                mapView.deselectAnnotation(annotation, animated: true)
+//            }))
             
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: { (_) in
+                mapView.deselectAnnotation(annotation, animated: true)
+            }))
+            
+            // Present UIAlertController
+            self.present(alertController, animated: true, completion: {
+                //print("completion block")
+            })
         }
-        
     }
     
-    // Map finished loading
+    // Map did finished loading
     func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
         // Center Map to User Location
         // Check if User Location is available.
