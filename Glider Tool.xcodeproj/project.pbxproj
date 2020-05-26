@@ -37,6 +37,8 @@
 		E02052B123E36A9A00839B84 /* FlightRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02052B023E36A9A00839B84 /* FlightRecorder.swift */; };
 		E06936D8241B8CA00073D078 /* GliderTelemetryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06936D7241B8CA00073D078 /* GliderTelemetryData.swift */; };
 		E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086AB0A229C35890011C433 /* SettingsViewController.swift */; };
+		E099E34B247D296700D72515 /* AirportAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E099E34A247D296700D72515 /* AirportAnnotation.swift */; };
+		E099E34D247D3F7F00D72515 /* AirportAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E099E34C247D3F7F00D72515 /* AirportAnnotationView.swift */; };
 		E0A215BB235E2D0D009F6953 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BA235E2D0D009F6953 /* TableViewController.swift */; };
 		E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */; };
 		E0B52F72228377F300E28A93 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F71228377F300E28A93 /* Buttons.swift */; };
@@ -97,6 +99,8 @@
 		E02052B023E36A9A00839B84 /* FlightRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightRecorder.swift; sourceTree = "<group>"; };
 		E06936D7241B8CA00073D078 /* GliderTelemetryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderTelemetryData.swift; sourceTree = "<group>"; };
 		E086AB0A229C35890011C433 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		E099E34A247D296700D72515 /* AirportAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportAnnotation.swift; sourceTree = "<group>"; };
+		E099E34C247D3F7F00D72515 /* AirportAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportAnnotationView.swift; sourceTree = "<group>"; };
 		E0A215BA235E2D0D009F6953 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionAirportTableViewCell.swift; sourceTree = "<group>"; };
 		E0B52F71228377F300E28A93 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
@@ -142,6 +146,7 @@
 			children = (
 				D023099A2429555B00A68F34 /* CustomCalloutView.swift */,
 				D02309A22429591A00A68F34 /* NearbyGliderCalloutView.swift */,
+				E099E34A247D296700D72515 /* AirportAnnotation.swift */,
 				D02309A02429590B00A68F34 /* NearbyGliderCalloutView.xib */,
 				D0015F0E242C082F00D2AEFF /* NearbyGliderAnnotation.swift */,
 			);
@@ -227,6 +232,7 @@
 				E0149619236F6B4C00C1AC0D /* MapLabel.swift */,
 				D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */,
 				18BE3F7322CF688D00859347 /* GliderUserLocationAnnotationView.swift */,
+				E099E34C247D3F7F00D72515 /* AirportAnnotationView.swift */,
 				D0829D402435532F009E40EC /* NearbyGliderAnnotationView.swift */,
 			);
 			path = Designs;
@@ -439,6 +445,7 @@
 			files = (
 				E02052AF23E36A8200839B84 /* FlightComputer.swift in Sources */,
 				D0829D412435532F009E40EC /* NearbyGliderAnnotationView.swift in Sources */,
+				E099E34B247D296700D72515 /* AirportAnnotation.swift in Sources */,
 				D060C1F322B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift in Sources */,
 				E0B8142B2367450200D88B6C /* LogbookViewController.swift in Sources */,
 				E01D87EB239ABB5D00E9B5B6 /* TasksDatabase.swift in Sources */,
@@ -472,6 +479,7 @@
 				D0C2801D23D8FF4000518539 /* UserDefaultsManager.swift in Sources */,
 				E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */,
 				18BE3F7422CF688D00859347 /* GliderUserLocationAnnotationView.swift in Sources */,
+				E099E34D247D3F7F00D72515 /* AirportAnnotationView.swift in Sources */,
 				D0B7A84124390D940006F5EF /* Date+UnixTime.swift in Sources */,
 				E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */,
 			);
