@@ -692,15 +692,15 @@ extension MapScreenViewController: MGLMapViewDelegate {
             return annotationView
     }
     
-    // User DidSelect Annotation
+        // User DidSelect Annotation
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         guard let icao = annotation.title,
-        let name = annotation.subtitle  else { return }
+            let name = annotation.subtitle  else { return }
         
         let alert = UIAlertController(title: (name), message: "Set \(icao!) as Destination?", preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "Yes",
-                                        // set destination
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (_) in
+            // set destination
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
