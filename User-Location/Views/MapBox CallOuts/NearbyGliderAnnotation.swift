@@ -6,10 +6,6 @@
 //  Copyright © 2020 Denis Leupold. All rights reserved.
 //
 
-import Foundation
-
-import UIKit
-
 import Mapbox
 
 class NearbyGliderAnnotation: MGLPointAnnotation {
