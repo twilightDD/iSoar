@@ -304,20 +304,20 @@
 		EDA236212130AA7500739396 /* User-Location */ = {
 			isa = PBXGroup;
 			children = (
-				D023099C2429586600A68F34 /* Views */,
-				E00E08CB23DB877A00BE04F6 /* TimeDateFormatter.swift */,
-				D0C2801C23D8FE0D00518539 /* Manager */,
-				D02B0E6322C15B95007C7162 /* Subclasses */,
-				E0526AB022BF7056001FC6B4 /* Extensions */,
-				E0C138D923D21ABE00624F1C /* Main Classes */,
 				E0DA9414228D267500D3A854 /* Airports */,
-				E0B52F702283753400E28A93 /* ViewControllers */,
-				EDA236342130AA9A00739396 /* MapScreenViewController.swift */,
 				EDA236222130AA7500739396 /* AppDelegate.swift */,
-				EDA236262130AA7500739396 /* Main.storyboard */,
 				EDA236292130AA7600739396 /* Assets.xcassets */,
-				EDA2362B2130AA7600739396 /* LaunchScreen.storyboard */,
+				E0526AB022BF7056001FC6B4 /* Extensions */,
 				EDA2362E2130AA7600739396 /* Info.plist */,
+				EDA2362B2130AA7600739396 /* LaunchScreen.storyboard */,
+				E0C138D923D21ABE00624F1C /* Main Classes */,
+				EDA236262130AA7500739396 /* Main.storyboard */,
+				D0C2801C23D8FE0D00518539 /* Manager */,
+				EDA236342130AA9A00739396 /* MapScreenViewController.swift */,
+				D02B0E6322C15B95007C7162 /* Subclasses */,
+				E00E08CB23DB877A00BE04F6 /* TimeDateFormatter.swift */,
+				E0B52F702283753400E28A93 /* ViewControllers */,
+				D023099C2429586600A68F34 /* Views */,
 			);
 			path = "User-Location";
 			sourceTree = "<group>";
