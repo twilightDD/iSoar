@@ -134,6 +134,7 @@
 		D023099C2429586600A68F34 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E0B2203F247E6D9F00615FD5 /* Annotations */,
 				D0945070235E564B0089E3C8 /* Cells */,
 				E0B52F7522837BC800E28A93 /* Designs */,
 				D023099D2429587500A68F34 /* MapBox CallOuts */,
@@ -146,7 +147,6 @@
 			children = (
 				D023099A2429555B00A68F34 /* CustomCalloutView.swift */,
 				D02309A22429591A00A68F34 /* NearbyGliderCalloutView.swift */,
-				E099E34A247D296700D72515 /* AirportAnnotation.swift */,
 				D02309A02429590B00A68F34 /* NearbyGliderCalloutView.xib */,
 				D0015F0E242C082F00D2AEFF /* NearbyGliderAnnotation.swift */,
 			);
@@ -211,6 +211,31 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		E0B2203F247E6D9F00615FD5 /* Annotations */ = {
+			isa = PBXGroup;
+			children = (
+				E099E34A247D296700D72515 /* AirportAnnotation.swift */,
+				E0B22040247E6DDE00615FD5 /* AnnotationViews */,
+				E0B22041247E77E500615FD5 /* Callouts */,
+			);
+			path = Annotations;
+			sourceTree = "<group>";
+		};
+		E0B22040247E6DDE00615FD5 /* AnnotationViews */ = {
+			isa = PBXGroup;
+			children = (
+				E099E34C247D3F7F00D72515 /* AirportAnnotationView.swift */,
+			);
+			path = AnnotationViews;
+			sourceTree = "<group>";
+		};
+		E0B22041247E77E500615FD5 /* Callouts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Callouts;
+			sourceTree = "<group>";
+		};
 		E0B52F702283753400E28A93 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,7 +257,6 @@
 				E0149619236F6B4C00C1AC0D /* MapLabel.swift */,
 				D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */,
 				18BE3F7322CF688D00859347 /* GliderUserLocationAnnotationView.swift */,
-				E099E34C247D3F7F00D72515 /* AirportAnnotationView.swift */,
 				D0829D402435532F009E40EC /* NearbyGliderAnnotationView.swift */,
 			);
 			path = Designs;
