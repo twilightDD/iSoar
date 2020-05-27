@@ -246,6 +246,7 @@
 				E086AB0A229C35890011C433 /* SettingsViewController.swift */,
 				E0B8142A2367450200D88B6C /* LogbookViewController.swift */,
 				E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */,
+				EDA236342130AA9A00739396 /* MapScreenViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -313,7 +314,6 @@
 				E0C138D923D21ABE00624F1C /* Main Classes */,
 				EDA236262130AA7500739396 /* Main.storyboard */,
 				D0C2801C23D8FE0D00518539 /* Manager */,
-				EDA236342130AA9A00739396 /* MapScreenViewController.swift */,
 				D02B0E6322C15B95007C7162 /* Subclasses */,
 				E00E08CB23DB877A00BE04F6 /* TimeDateFormatter.swift */,
 				E0B52F702283753400E28A93 /* ViewControllers */,
