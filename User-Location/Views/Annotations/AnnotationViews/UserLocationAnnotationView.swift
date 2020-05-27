@@ -8,8 +8,8 @@
 
 import Mapbox
 
-// MARK: - GliderUserLocationAnnotationView
-class GliderUserLocationAnnotationView: MGLUserLocationAnnotationView {
+// MARK: - UserLocationAnnotationView
+class UserLocationAnnotationView: MGLUserLocationAnnotationView {
 
     // MARK: - Lets and Vats
     lazy var gliderLayer: CALayer? = setupGliderLayer()

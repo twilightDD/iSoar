@@ -684,7 +684,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
             
             // User Annotation -> myself
             if annotation is MGLUserLocation && mapView.userLocation != nil {
-                annotationView = GliderUserLocationAnnotationView()
+                annotationView = UserLocationAnnotationView()
             } else if annotation is NearbyGliderAnnotation {
                 // Notice: nil is needed here! MGLAnnotation is an ObjC-Protocol. Fuck it!; 19.3.2020, ph
                 guard let flarmID = annotation.title ?? nil

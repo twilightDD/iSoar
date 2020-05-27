@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		18BE3F7422CF688D00859347 /* GliderUserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE3F7322CF688D00859347 /* GliderUserLocationAnnotationView.swift */; };
+		18BE3F7422CF688D00859347 /* UserLocationAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18BE3F7322CF688D00859347 /* UserLocationAnnotationView.swift */; };
 		4FA79AEE7ECE155E0BFA301B /* Pods_Glider_Tool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE1EF2983B88025FDC2840F2 /* Pods_Glider_Tool.framework */; };
 		D0015F0F242C082F00D2AEFF /* NearbyGliderAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0015F0E242C082F00D2AEFF /* NearbyGliderAnnotation.swift */; };
 		D022F00C2437DB5900CA9DB4 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D022F00B2437DB5900CA9DB4 /* LocationManager.swift */; };
@@ -68,7 +68,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		18BE3F7322CF688D00859347 /* GliderUserLocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderUserLocationAnnotationView.swift; sourceTree = "<group>"; };
+		18BE3F7322CF688D00859347 /* UserLocationAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationAnnotationView.swift; sourceTree = "<group>"; };
 		75CB3E8DFF8D455C8F1742A5 /* Pods-Glider Tool.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Glider Tool.debug.xcconfig"; path = "Target Support Files/Pods-Glider Tool/Pods-Glider Tool.debug.xcconfig"; sourceTree = "<group>"; };
 		AF3E6C1CC85039594789B3C8 /* Pods-Glider Tool.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Glider Tool.release.xcconfig"; path = "Target Support Files/Pods-Glider Tool/Pods-Glider Tool.release.xcconfig"; sourceTree = "<group>"; };
 		D0015F0E242C082F00D2AEFF /* NearbyGliderAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyGliderAnnotation.swift; sourceTree = "<group>"; };
@@ -225,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				E099E34C247D3F7F00D72515 /* AirportAnnotationView.swift */,
+				18BE3F7322CF688D00859347 /* UserLocationAnnotationView.swift */,
 			);
 			path = AnnotationViews;
 			sourceTree = "<group>";
@@ -256,7 +257,6 @@
 				E0B52F7622837C1500E28A93 /* TextFields.swift */,
 				E0149619236F6B4C00C1AC0D /* MapLabel.swift */,
 				D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */,
-				18BE3F7322CF688D00859347 /* GliderUserLocationAnnotationView.swift */,
 				D0829D402435532F009E40EC /* NearbyGliderAnnotationView.swift */,
 			);
 			path = Designs;
@@ -502,7 +502,7 @@
 				E01CAFD4239964ED00FE1B90 /* TasksViewController.swift in Sources */,
 				D0C2801D23D8FF4000518539 /* UserDefaultsManager.swift in Sources */,
 				E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */,
-				18BE3F7422CF688D00859347 /* GliderUserLocationAnnotationView.swift in Sources */,
+				18BE3F7422CF688D00859347 /* UserLocationAnnotationView.swift in Sources */,
 				E099E34D247D3F7F00D72515 /* AirportAnnotationView.swift in Sources */,
 				D0B7A84124390D940006F5EF /* Date+UnixTime.swift in Sources */,
 				E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */,
