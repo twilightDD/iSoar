@@ -148,7 +148,6 @@
 				D023099A2429555B00A68F34 /* CustomCalloutView.swift */,
 				D02309A22429591A00A68F34 /* NearbyGliderCalloutView.swift */,
 				D02309A02429590B00A68F34 /* NearbyGliderCalloutView.xib */,
-				D0015F0E242C082F00D2AEFF /* NearbyGliderAnnotation.swift */,
 			);
 			path = "MapBox CallOuts";
 			sourceTree = "<group>";
@@ -215,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				E099E34A247D296700D72515 /* AirportAnnotation.swift */,
+				D0015F0E242C082F00D2AEFF /* NearbyGliderAnnotation.swift */,
 				E0B22040247E6DDE00615FD5 /* AnnotationViews */,
 				E0B22041247E77E500615FD5 /* Callouts */,
 			);
@@ -225,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				E099E34C247D3F7F00D72515 /* AirportAnnotationView.swift */,
+				D0829D402435532F009E40EC /* NearbyGliderAnnotationView.swift */,
 				18BE3F7322CF688D00859347 /* UserLocationAnnotationView.swift */,
 			);
 			path = AnnotationViews;
@@ -258,7 +259,6 @@
 				E0B52F7622837C1500E28A93 /* TextFields.swift */,
 				E0149619236F6B4C00C1AC0D /* MapLabel.swift */,
 				D060C1F222B19C3A006D61E7 /* CustomUserLocationAnnotationView.swift */,
-				D0829D402435532F009E40EC /* NearbyGliderAnnotationView.swift */,
 			);
 			path = Designs;
 			sourceTree = "<group>";
