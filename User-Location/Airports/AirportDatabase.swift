@@ -204,7 +204,6 @@ class AirportDatabase {
         task.resume()
     }
     
-    // MARK: - Private Methods
     // Check if MapOjects.json exists in Library Folder
     private func checkForAirportsJSONInLibraryFolder() {
         // Check if Airports.json exists in Library Folder

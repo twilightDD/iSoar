@@ -6,7 +6,6 @@
 //  Copyright © 2020 Denis Leupold. All rights reserved.
 //
 
-import Foundation
 import CoreLocation
 
 // MARK: - Protocol - LocationManagerDelegate

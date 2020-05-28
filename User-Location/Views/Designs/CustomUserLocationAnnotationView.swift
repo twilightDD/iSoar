@@ -6,7 +6,6 @@
 //  Copyright © 2019 Denis Leupold. All rights reserved.
 //
 
-import Foundation
 import Mapbox
 
 // Create a subclass of MGLUserLocationAnnotationView.
