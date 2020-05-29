@@ -38,7 +38,7 @@ class AirportInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport() {
+        if let selectedDestinationAirport = FlightComputer.selectedDestinationAirport() {
             airportNameLabel.text = selectedDestinationAirport.name
             // ------
             icaoLabel.text = selectedDestinationAirport.icao
@@ -82,7 +82,7 @@ class AirportInfoViewController: UIViewController {
     
     @IBAction func callButtonAction(_ sender: Any) {
 
-        if let phoneString = DestinationSelectionViewController.destinationAirport()?.phone,
+        if let phoneString = FlightComputer.selectedDestinationAirport()?.phone,
             let phoneURL = URL(string: "tel://\(phoneString))"),
             UIApplication.shared.canOpenURL(phoneURL) {
             UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
@@ -91,7 +91,7 @@ class AirportInfoViewController: UIViewController {
     
     @IBAction func urlButtonAction(_ sender: Any) {
         
-        if let destinationAirportURLString = DestinationSelectionViewController.destinationAirport()?.url {
+        if let destinationAirportURLString = FlightComputer.selectedDestinationAirport()?.url {
             let urlString = "https://\(destinationAirportURLString)"
             if let url = URL(string: urlString) {
                 UIApplication.shared.open(url)

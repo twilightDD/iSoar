@@ -29,6 +29,9 @@ class FlightComputer {
     
     private var alreadyWarnedFlarmIDs: Set<String> = []
     
+    private var selectedDestinationAirport: AirportDatabase.Airport?
+    private var formerSelectedDestinationAirport: AirportDatabase.Airport?
+    
     // MARK: - Public Class Methods
     class func start() {
         let shared = FlightComputer.shared
@@ -49,6 +52,38 @@ class FlightComputer {
             
             return isGliderFlying
             
+    }
+    
+    class func selectedDestinationAirport()
+        -> AirportDatabase.Airport? {
+            let destinationAirport = shared.selectedDestinationAirport
+            return destinationAirport
+    }
+    
+    class func formerDestinationAirport()
+        -> AirportDatabase.Airport? {
+            let formerDestinationAirport = shared.formerSelectedDestinationAirport
+            return formerDestinationAirport
+    }
+    
+    class func setSelectedDestinationAirportToNil() {
+        let shared = FlightComputer.shared
+        shared.selectedDestinationAirport = nil
+    }
+    
+    class func setFormerSelectedDestinationAirportToNil() {
+        let shared = FlightComputer.shared
+        shared.formerSelectedDestinationAirport = nil
+    }
+    
+    class func setSelectedDestinationAirport(_ airport: AirportDatabase.Airport) {
+        let shared = FlightComputer.shared
+        shared.selectedDestinationAirport = airport
+    }
+    
+    class func setFormerSelectedDestinationAirport(_ airport: AirportDatabase.Airport) {
+        let shared = FlightComputer.shared
+        shared.formerSelectedDestinationAirport = airport
     }
     
     // MARK: - Private Instance Methods
@@ -144,7 +179,7 @@ class FlightComputer {
     // MARK: Check Warning Methods
     // Check for Gear Warning
     private func checkForGearWarning() {
-        guard let selectedDestinationAirport = DestinationSelectionViewController.destinationAirport(),
+        guard let selectedDestinationAirport = FlightComputer.selectedDestinationAirport(),
             let currentLocation = LocationManager.currentLocation(),
             let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport()
             else { return }

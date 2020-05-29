@@ -16,19 +16,6 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     // Statics
     static private var shared: DestinationSelectionViewController?
     
-    // Public
-    class func destinationAirport()
-        -> AirportDatabase.Airport? {
-            let destinationAirport = shared?.selectedDestinationAirport
-            return destinationAirport
-    }
-    
-    // Private
-    
-    // Datasource
-    private var selectedDestinationAirport: AirportDatabase.Airport?
-    private var formerSelectedDestinationAirport: AirportDatabase.Airport?
-    
     private var destinationAirportArray = [AirportDatabase.Airport]()
     private var sortSwitchIndex = 0
     
@@ -114,7 +101,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     // MARK: - Public Class Methods
     class func distanceToDestinationAirport()
         -> CLLocationDistance? {
-            guard let selectedDestinationAirport = shared?.selectedDestinationAirport
+            guard let selectedDestinationAirport = FlightComputer.selectedDestinationAirport()
                 else { return nil }
 
             let destinationAirportLocation = CLLocation(latitude: selectedDestinationAirport.latitude,
@@ -127,7 +114,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     // MARK: - Private Methods
     // updateUIForSelectedDestinationAirport
     private func updateUIForSelectedDestinationAirport() {
-        if let destinationAirport = self.selectedDestinationAirport {
+        if let destinationAirport = FlightComputer.selectedDestinationAirport() {
             countryImageTop.image = UIImage(named: destinationAirport.country!)
             airportName.text = destinationAirport.name
             airportInfoButton.isHidden = false
@@ -196,7 +183,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     
     // Pull to Refresh of TableView
     @objc private func refreshAirportDatabase(_ sender: Any) {
-        selectedDestinationAirport = nil
+        FlightComputer.setSelectedDestinationAirportToNil()
         
         AirportDatabase.downloadAirportsFromServer()
     }
@@ -270,8 +257,8 @@ extension DestinationSelectionViewController: UITableViewDataSource {
             cell.countryImageView.image = countryImage
             
             // Set Checkmark and Background Color for selected Airport
-            if selectedDestinationAirport?.latitude == airportOfInterest.latitude,
-                selectedDestinationAirport?.longitude == airportOfInterest.longitude {
+            if FlightComputer.selectedDestinationAirport()?.latitude == airportOfInterest.latitude,
+                FlightComputer.selectedDestinationAirport()?.longitude == airportOfInterest.longitude {
                 cell.accessoryType = .checkmark
                 cell.backgroundColor = UIColor(red: 230/255, green: 240/255, blue: 255/255, alpha: 1.0)
             } else {
@@ -295,14 +282,14 @@ extension DestinationSelectionViewController: UITableViewDelegate {
         // it means we want to cancel the navigation
         // We deselect the active cell and set selectedDestinationAirport = nil
         
-        if let formerSelectedDestinationAirport = self.formerSelectedDestinationAirport,
+        if let formerSelectedDestinationAirport = FlightComputer.formerDestinationAirport(),
             newSelectedDestinationAirport.latitude == formerSelectedDestinationAirport.latitude
                 && newSelectedDestinationAirport.longitude == formerSelectedDestinationAirport.longitude {
-            selectedDestinationAirport = nil
-            self.formerSelectedDestinationAirport = nil
+            FlightComputer.setSelectedDestinationAirportToNil()
+            FlightComputer.setFormerSelectedDestinationAirportToNil()
         } else {
-            selectedDestinationAirport = newSelectedDestinationAirport
-            formerSelectedDestinationAirport = newSelectedDestinationAirport
+            FlightComputer.setSelectedDestinationAirport(newSelectedDestinationAirport)
+            FlightComputer.setFormerSelectedDestinationAirport(newSelectedDestinationAirport)
         }
         
         updateUIForSelectedDestinationAirport()

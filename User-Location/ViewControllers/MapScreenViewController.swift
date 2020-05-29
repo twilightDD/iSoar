@@ -8,7 +8,7 @@
 
 import UIKit
 import CoreLocation
-import CoreMotion
+//import CoreMotion
 import Mapbox
 
 // MARK: MapScreen
@@ -118,6 +118,7 @@ class MapScreenViewController: UIViewController {
         mapView.tintColor = .red
         mapView.allowsRotating = false
         mapView.allowsTilting = false
+        mapView.compassView.isHidden = true
         
         mapView.userTrackingMode = .followWithHeading
         mapView.showsUserHeadingIndicator = true
@@ -294,7 +295,7 @@ class MapScreenViewController: UIViewController {
     }
     
     @objc func tapOnDestinationAirportLabel(_ recognizer: UITapGestureRecognizer) {
-        if DestinationSelectionViewController.destinationAirport() != nil {
+        if FlightComputer.selectedDestinationAirport() != nil {
             performSegue(withIdentifier: "AirportInfoSegue", sender: self)
         }
     }
@@ -501,7 +502,7 @@ class MapScreenViewController: UIViewController {
     
     // MARK: Update Destination Airport UI
     private func updateDestinationAirportUI() {
-        guard let destinationAirport = DestinationSelectionViewController.destinationAirport(),
+        guard let destinationAirport = FlightComputer.selectedDestinationAirport(),
             let _ = LocationManager.currentLocation()
             else {
                 resetUpdateDestinationAirportUI()
@@ -717,27 +718,27 @@ extension MapScreenViewController: MGLMapViewDelegate {
     }
     
     // User did select Annotation
-    // TODO: 20200526 guard let auf title ok?
-    // Warum force-unwrap beim title? ist doch ein guard let da... und beim subtitle klappts ja auch ohne
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
-        guard let title = annotation.title,
-            let subtitle = annotation.subtitle  else { return }
+        guard let title = annotation.title ?? nil,
+            let subtitle = annotation.subtitle ?? nil
+            else { return }
         
         if annotation is AirportAnnotation {
             //Create AlertViewController
-            let alertController = UIAlertController(title: (subtitle), message: "Please choose an option for \(title!)", preferredStyle: .actionSheet)
+            let alertController = UIAlertController(title: (subtitle),
+                                                    message: "Please choose an option for \(title)",
+                                                    preferredStyle: .actionSheet)
             
-            alertController.addAction(UIAlertAction(title: "Set as Destination", style: .default, handler: { (_) in
-                mapView.deselectAnnotation(annotation, animated: true)
+            alertController.addAction(UIAlertAction(title: "Set as Destination",
+                                                    style: .destructive,
+                                                    handler: { [unowned self] _ in
+                                                        self.mapView.deselectAnnotation(annotation, animated: true)
             }))
             
-            // Maybe later
-//            alertController.addAction(UIAlertAction(title: "Show Airport Infos", style: .default, handler: { (_) in
-//                mapView.deselectAnnotation(annotation, animated: true)
-//            }))
-            
-            alertController.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: { (_) in
-                mapView.deselectAnnotation(annotation, animated: true)
+            alertController.addAction(UIAlertAction(title: "Cancel",
+                                                    style: .cancel,
+                                                    handler: { [unowned self] _ in
+                                                        self.mapView.deselectAnnotation(annotation, animated: true)
             }))
             
             // Present UIAlertController
