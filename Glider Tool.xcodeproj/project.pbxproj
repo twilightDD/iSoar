@@ -146,8 +146,6 @@
 			isa = PBXGroup;
 			children = (
 				D023099A2429555B00A68F34 /* CustomCalloutView.swift */,
-				D02309A22429591A00A68F34 /* NearbyGliderCalloutView.swift */,
-				D02309A02429590B00A68F34 /* NearbyGliderCalloutView.xib */,
 			);
 			path = "MapBox CallOuts";
 			sourceTree = "<group>";
@@ -234,6 +232,8 @@
 		E0B22041247E77E500615FD5 /* Callouts */ = {
 			isa = PBXGroup;
 			children = (
+				D02309A22429591A00A68F34 /* NearbyGliderCalloutView.swift */,
+				D02309A02429590B00A68F34 /* NearbyGliderCalloutView.xib */,
 			);
 			path = Callouts;
 			sourceTree = "<group>";
