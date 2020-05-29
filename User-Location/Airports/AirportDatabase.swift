@@ -195,90 +195,85 @@ class AirportDatabase {
     // Download current Airports.json File from Server
     private func downloadAirportsFromServer() {
         // File Source URL
-        if let airportsJSONFileURL = Presets.AirportDatabase.airportsJSONFileURL {
-            if UIApplication.shared.canOpenURL(airportsJSONFileURL as URL) {
-                print("Airports.json File URL Syntax OK")
-                
-                // Create destination URL
-                let libraryUrl: URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
-                let destinationFileUrl = libraryUrl.appendingPathComponent("Airports.json")
-                
-                let sessionConfig = URLSessionConfiguration.default
-                let session = URLSession(configuration: sessionConfig)
-                
-                let request = URLRequest(url: airportsJSONFileURL)
-                
-                let task = session.downloadTask(with: request) { [unowned self] (tempLocalUrl, response, error) in
-                    if let tempLocalUrl = tempLocalUrl, error == nil {
-                        // Success
-                        print("Downloading Airprt Database Update...")
-                        if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                            // If successfully downloaded new Airports.json from server
-                            if statusCode == 200 {
-                                print("Downloaded successfully. Status code: \(statusCode)")
+        if let airportsJSONFileURL = Presets.AirportDatabase.airportsJSONFileURL,
+            UIApplication.shared.canOpenURL(airportsJSONFileURL as URL) {
+            
+            // Create destination URL
+            let libraryUrl: URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
+            let destinationFileUrl = libraryUrl.appendingPathComponent("Airports.json")
+            
+            let sessionConfig = URLSessionConfiguration.default
+            let session = URLSession(configuration: sessionConfig)
+            
+            let request = URLRequest(url: airportsJSONFileURL)
+            
+            let task = session.downloadTask(with: request) { [unowned self] (tempLocalUrl, response, error) in
+                if let tempLocalUrl = tempLocalUrl, error == nil {
+                    // Success
+                    print("Downloading Airprt Database Update...")
+                    if let statusCode = (response as? HTTPURLResponse)?.statusCode {
+                        // If successfully downloaded new Airports.json from server - (statuscode: 200)
+                        if statusCode == 200 {
+                            do {
+                                try FileManager.default.removeItem(at: destinationFileUrl)
+                                try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
                                 
-                                do {
-                                    try FileManager.default.removeItem(at: destinationFileUrl)
-                                    try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
-                                    
-                                    // Clear all Airports from Array
-                                    self.destinationAirports.removeAll()
-                                    
-                                    // Create Destination Airport List from new Airports.json
-                                    self.loadAirportsFromJSONIntoDatabase()
-                                    self.updateDistancesFromUserLocationToAirports()
-                                    
-                                    // Post Notification for comoleted Update
-                                    NotificationCenter.default.post(name: AirportDatabase.airportUpdateCompletedNotificationName,
-                                                                    object: nil)
-                                    
-                                    // Show Notification Banner
-                                    DispatchQueue.main.async {
-                                        NotificationBanner.show("Airport Database successfully updated.")
-                                    }
-                                    
-                                } catch let writeError {
-                                    print("Error creating a file: \(destinationFileUrl) : \(writeError)")
-                                    
-                                    DispatchQueue.main.async {
-                                        NotificationBanner.show("Error creating file.")
-                                    }
-                                }
+                                // Remove all Airports from Array
+                                self.destinationAirports.removeAll()
                                 
-                                // If Download fails
-                            } else {
-                                print("Download failed. Status code: \(statusCode)")
+                                // Create Destination Airport List from new Airports.json
+                                self.loadAirportsFromJSONIntoDatabase()
+                                self.updateDistancesFromUserLocationToAirports()
                                 
-                                DispatchQueue.main.async {
-                                    NotificationBanner.show("Update server not reachable.")
-                                }
-                                
-                                // Post Notification for failed Update
-                                NotificationCenter.default.post(name: AirportDatabase.airportUpdateFailedNotificationName,
+                                // Post Notification for comoleted Update
+                                NotificationCenter.default.post(name: AirportDatabase.airportUpdateCompletedNotificationName,
                                                                 object: nil)
                                 
+                                // Show Notification Banner
+                                DispatchQueue.main.async {
+                                    NotificationBanner.show("Airport Database successfully updated.")
+                                }
+                                
+                            } catch let writeError {
+                                print("Error creating a file: \(destinationFileUrl) : \(writeError)")
+                                
+                                DispatchQueue.main.async {
+                                    NotificationBanner.show("Error creating file.")
+                                }
                             }
+                            
+                            // If Download fails
+                        } else {
+                            print("Download failed. Status code: \(statusCode)")
+                            
+                            DispatchQueue.main.async {
+                                NotificationBanner.show("Update server not reachable.")
+                            }
+                            
+                            // Post Notification for failed Update
+                            NotificationCenter.default.post(name: AirportDatabase.airportUpdateFailedNotificationName,
+                                                            object: nil)
+                            
                         }
-                        
-                        // If no Internet Connection
-                    } else {
-                        print("Error took place while downloading a file. Error description: %@", error!.localizedDescription)
-                        
-                        DispatchQueue.main.async {
-                            NotificationBanner.show("Update failed. Check Internet Connection!")
-                        }
-                        
-                        // Post Notification for failed Update
-                        NotificationCenter.default.post(name: AirportDatabase.airportUpdateFailedNotificationName,
-                                                        object: nil)
                     }
+                    
+                    // If no Internet Connection
+                } else {
+                    print("Error took place while downloading a file. Error description: %@", error!.localizedDescription)
+                    
+                    DispatchQueue.main.async {
+                        NotificationBanner.show("Update failed. Check Internet Connection!")
+                    }
+                    
+                    // Post Notification for failed Update
+                    NotificationCenter.default.post(name: AirportDatabase.airportUpdateFailedNotificationName,
+                                                    object: nil)
                 }
-                
-                task.resume()
             }
             
+            task.resume()
         } else {
-            print("Cant open Airports.json File URL. Check Syntax!")
+            print("Airports.json URL is nil or Syntax has errors.")
         }
         // All done
     }
