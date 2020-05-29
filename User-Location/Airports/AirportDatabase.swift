@@ -25,16 +25,18 @@ class AirportDatabase {
     // MARK: - Init&Co.
     private init() {
         checkForAirportsJSONInLibraryFolder()
-        loadAirports()
+        loadAirportsFromJSONIntoDatabase()
     }
     
     // MARK: - Public Class Methods
-    class func nearestAirport()
-        -> AirportDatabase.Airport? {
-            let nearestAirport = shared.nearestAirport()
-            return nearestAirport
+    // Give back all Airports from Airport Database
+    class func destinationAirports()
+        -> [AirportDatabase.Airport]? {
+            let destinationAirports = shared.destinationAirports
+            return destinationAirports
     }
     
+    // Give back filtered Airports from Airport Database
     class func filteredDestinationAirports(byName searchString: String?,
                                            sortedBy sortIndicator: SortIndicator)
         -> [AirportDatabase.Airport]? {
@@ -43,18 +45,85 @@ class AirportDatabase {
             return filteredDestinationAirports
     }
     
-    class func destinationAirports()
-        -> [AirportDatabase.Airport]? {
-            let destinationAirports = shared.destinationAirports
-            return destinationAirports
+    // Give back nearest Airport from User Location
+    class func nearestAirport()
+        -> AirportDatabase.Airport? {
+            let nearestAirport = shared.nearestAirport()
+            return nearestAirport
     }
     
+    // Download current Airports.json File from Server
     class func downloadAirportsFromServer() {
         shared.downloadAirportsFromServer()
     }
     
     // MARK: - Private Methods
-    private func updateDistance() {
+    // Check if Airports.json exists in Library Folder
+    private func checkForAirportsJSONInLibraryFolder() {
+        // Check if Airports.json exists in Library Folder
+        let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0] as String
+        let url = NSURL(fileURLWithPath: path)
+        
+        let airportsInLibraryFolder = libraryURL.appendingPathComponent("Airports.json")
+        let airportsInBundle = URL(fileURLWithPath: Bundle.main.path(forResource: "Airports", ofType: "json")!)
+        
+        if let pathComponent = url.appendingPathComponent("Airports.json") {
+            
+            let filePath = pathComponent.path
+            let fileManager = FileManager.default
+            if fileManager.fileExists(atPath: filePath) {
+                print("Airports.json available in Library Folder.")
+            } else {
+                print("Airports.json not found in Library Folder. Copy...")
+                do {
+                    try FileManager.default.copyItem(at: airportsInBundle, to: airportsInLibraryFolder)
+                    print("Airports.json copied to Library Folder.")
+                } catch let writeError {
+                    print("Error creating a file: \(airportsInLibraryFolder) : \(writeError)")
+                }
+            }
+        }
+    }
+    
+    // Load Airports from Airports.json into Database
+    private func loadAirportsFromJSONIntoDatabase() {
+        // var for storing Content of Airports.json File
+        var jsonAsString: String?
+        
+        let airportsURL = libraryURL.appendingPathComponent("Airports.json")
+        
+        do {
+            // Storing Content of Airports.json File as String
+            try jsonAsString = String.init(contentsOf: airportsURL)
+        } catch {
+            print("went wrong")
+        }
+        
+        // Convert String to Data
+        let jsonAsData = jsonAsString?.data(using: .utf8)
+        
+        // var for storing Content of Airports.json File as Dictionary
+        var jsonAsDict = [String: Any]()
+        
+        do {
+            // Convert Data to Dictionary
+            jsonAsDict = try JSONSerialization.jsonObject(with: jsonAsData!,
+                                                          options: .allowFragments) as! [String: Any]
+        } catch {
+            NotificationBanner.show("Airport Database not found.")
+        }
+        
+        if let airports = jsonAsDict["Airports"] as? [[String: Any]] {
+            // Append every single Object to Airports Database
+            for airport in airports {
+                let myAirportStruct = AirportDatabase.Airport(dictionary: airport)
+                destinationAirports.append(myAirportStruct)
+            }
+        }
+    }
+    
+    // Update Distances between User Location and Airports
+    private func updateDistancesFromUserLocationToAirports() {
         if let currentLocation = LocationManager.currentLocation() {
             var puffer = [AirportDatabase.Airport]()
             for var destinationAirport in destinationAirports {
@@ -76,7 +145,7 @@ class AirportDatabase {
                                              sortedBy sortIndicator: SortIndicator)
         -> [AirportDatabase.Airport]? {
             
-            updateDistance()
+            updateDistancesFromUserLocationToAirports()
             
             var filteredAndSortedAirports = [AirportDatabase.Airport]()
             
@@ -110,10 +179,10 @@ class AirportDatabase {
             return filteredAndSortedAirports
     }
     
-    // Search for nearest Airport
+    // Give back nearest Airport from User Location
     private func nearestAirport()
         -> Airport? {
-            updateDistance()
+            updateDistancesFromUserLocationToAirports()
             if let filterDestinationAirports = filteredDestinationAirports(byName: nil,
                                                                            sortedBy: .distance) {
                 return filterDestinationAirports.first
@@ -122,6 +191,7 @@ class AirportDatabase {
             return nil
     }
     
+    // Download current Airports.json File from Server
     private func downloadAirportsFromServer() {
         // Create destination URL
         let libraryUrl: URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
@@ -152,8 +222,8 @@ class AirportDatabase {
                             self.destinationAirports.removeAll()
                             
                             // Create Destination Airport List from new Airports.json
-                            self.loadAirports()
-                            self.updateDistance()
+                            self.loadAirportsFromJSONIntoDatabase()
+                            self.updateDistancesFromUserLocationToAirports()
                             
                             // Post Notification for comoleted Update
                             NotificationCenter.default.post(name: AirportDatabase.airportUpdateCompletedNotificationName,
@@ -204,71 +274,6 @@ class AirportDatabase {
         task.resume()
     }
     
-    // Check if MapOjects.json exists in Library Folder
-    private func checkForAirportsJSONInLibraryFolder() {
-        // Check if Airports.json exists in Library Folder
-        let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0] as String
-        let url = NSURL(fileURLWithPath: path)
-        
-        let airportsInLibraryFolder = libraryURL.appendingPathComponent("Airports.json")
-        let airportsInBundle = URL(fileURLWithPath: Bundle.main.path(forResource: "Airports", ofType: "json")!)
-        
-        if let pathComponent = url.appendingPathComponent("Airports.json") {
-            
-            let filePath = pathComponent.path
-            let fileManager = FileManager.default
-            if fileManager.fileExists(atPath: filePath) {
-                print("Airports.json available in Library Folder.")
-            } else {
-                print("Airports.json not found in Library Folder. Copy...")
-                do {
-                    try FileManager.default.copyItem(at: airportsInBundle, to: airportsInLibraryFolder)
-                    print("Airports.json copied to Library Folder.")
-                } catch let writeError {
-                    print("Error creating a file: \(airportsInLibraryFolder) : \(writeError)")
-                }
-            }
-        }
-    }
-    
-    // Load Airports from json
-    private func loadAirports() {
-        // --- json laden
-        
-        // hier kommt der Inhalt der Datein rein
-        var jsonAsString: String?
-        
-        let airportsURL = libraryURL.appendingPathComponent("Airports.json")
-        
-        do {
-            // URL laden und als String zurück geben
-            try jsonAsString = String.init(contentsOf: airportsURL)
-        } catch {
-            print("went wrong")
-        }
-        
-        // String in Data konvertieren
-        let jsonAsData = jsonAsString?.data(using: .utf8)
-        
-        // hier kommt der Inhalt der Datei als Dictionary rein
-        var jsonAsDict = [String: Any]()
-        do {
-            // Umwandeln des Data in ein Dictionary (nennt sich deserialisieren)
-            jsonAsDict = try JSONSerialization.jsonObject(with: jsonAsData!,
-                                                          options: .allowFragments) as! [String: Any]
-        } catch {
-            NotificationBanner.show("Airport Database not found.")
-        }
-        
-        if let airports = jsonAsDict["Airports"] as? [Dictionary<String, Any>] {
-            // jedes Element des Arrays abklappern
-            for airport in airports {
-                let myAirportStruct = AirportDatabase.Airport(dictionary: airport)
-                destinationAirports.append(myAirportStruct)
-            }
-        }
-    }
-    
 }
 
 // MARK: - Extentsion - Structs and Enums
@@ -302,7 +307,7 @@ extension AirportDatabase {
         var radioFrequency: String?
         
         // MARK: Init&Co.
-        public init(dictionary: Dictionary<String, Any>) {
+        public init(dictionary: [String: Any] ) {
             self.validationDate = dictionary["validationDate"] as? String ?? ""
             self.icao = dictionary["icao"] as? String ?? ""
             self.name = dictionary["name"] as? String ?? ""
