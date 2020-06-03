@@ -11,5 +11,7 @@
 import Mapbox
 
 class AirportAnnotation: MGLPointAnnotation {
+    
+    var airport: AirportDatabase.Airport?
 
 }
