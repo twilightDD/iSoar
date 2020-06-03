@@ -12,6 +12,20 @@ import Mapbox
 
 class AirportAnnotation: MGLPointAnnotation {
     
-    var airport: AirportDatabase.Airport?
+    private(set) var airport: AirportDatabase.Airport
+    
+    required init(airport: AirportDatabase.Airport) {
+        self.airport = airport
+        
+        super.init()
+        
+        title = airport.name
+        subtitle = airport.icao
+        coordinate = airport.locationCoordinate2D()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
 }
