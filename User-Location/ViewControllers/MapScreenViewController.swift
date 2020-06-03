@@ -431,7 +431,8 @@ class MapScreenViewController: UIViewController {
     // TODO: 20200511 Code Optimieren! Doppelungen raus! Enum für ascanding & descanding
     private func drawTrackingRoute() {
         if let currentLocation = LocationManager.currentLocation(),
-            let formerLocation = LocationManager.formerLocation() {
+            let formerLocation = LocationManager.formerLocation(),
+        FlightComputer.isGliderFlying() == true {
             
             var formerLocationCoordinate2D = formerLocation.coordinate
             var currentLocationCoordinate2D = currentLocation.coordinate
