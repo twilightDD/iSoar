@@ -183,8 +183,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     
     // Pull to Refresh of TableView
     @objc private func refreshAirportDatabase(_ sender: Any) {
-        FlightComputer.setSelectedDestinationAirportToNil()
-        
+        FlightComputer.setSelectedDestinationAirport(nil)
         AirportDatabase.downloadAirportsFromServer()
     }
     
@@ -285,11 +284,9 @@ extension DestinationSelectionViewController: UITableViewDelegate {
         if let formerSelectedDestinationAirport = FlightComputer.formerDestinationAirport(),
             newSelectedDestinationAirport.latitude == formerSelectedDestinationAirport.latitude
                 && newSelectedDestinationAirport.longitude == formerSelectedDestinationAirport.longitude {
-            FlightComputer.setSelectedDestinationAirportToNil()
-            FlightComputer.setFormerSelectedDestinationAirportToNil()
+            FlightComputer.setSelectedDestinationAirport(nil)
         } else {
             FlightComputer.setSelectedDestinationAirport(newSelectedDestinationAirport)
-            FlightComputer.setFormerSelectedDestinationAirport(newSelectedDestinationAirport)
         }
         
         updateUIForSelectedDestinationAirport()

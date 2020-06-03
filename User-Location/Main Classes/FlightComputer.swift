@@ -66,24 +66,10 @@ class FlightComputer {
             return formerDestinationAirport
     }
     
-    class func setSelectedDestinationAirportToNil() {
-        let shared = FlightComputer.shared
-        shared.selectedDestinationAirport = nil
-    }
-    
-    class func setFormerSelectedDestinationAirportToNil() {
-        let shared = FlightComputer.shared
-        shared.formerSelectedDestinationAirport = nil
-    }
-    
-    class func setSelectedDestinationAirport(_ airport: AirportDatabase.Airport) {
+    class func setSelectedDestinationAirport(_ airport: AirportDatabase.Airport?) {
         let shared = FlightComputer.shared
         shared.selectedDestinationAirport = airport
-    }
-    
-    class func setFormerSelectedDestinationAirport(_ airport: AirportDatabase.Airport) {
-        let shared = FlightComputer.shared
-        shared.formerSelectedDestinationAirport = airport
+        shared.formerSelectedDestinationAirport = shared.selectedDestinationAirport
     }
     
     // MARK: - Private Instance Methods
