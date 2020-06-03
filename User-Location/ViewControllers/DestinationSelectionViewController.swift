@@ -26,6 +26,8 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     // Pull to Refresh of TableView
     private let refreshControl = UIRefreshControl()
     
+    private var selectedIndexPath: IndexPath?
+    
     // MARK: - IBOutlets
     @IBOutlet weak private var countryImageTop: UIImageView!
     @IBOutlet weak private var airportName: UILabel!
@@ -275,18 +277,13 @@ extension DestinationSelectionViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let newSelectedDestinationAirport = destinationAirportArray[indexPath.row]
-        
-        // If the newly selected destination equals the former:
-        // it means we want to cancel the navigation
-        // We deselect the active cell and set selectedDestinationAirport = nil
-        
-        if let formerSelectedDestinationAirport = FlightComputer.formerDestinationAirport(),
-            newSelectedDestinationAirport.latitude == formerSelectedDestinationAirport.latitude
-                && newSelectedDestinationAirport.longitude == formerSelectedDestinationAirport.longitude {
+        if indexPath == selectedIndexPath {
             FlightComputer.setSelectedDestinationAirport(nil)
+            selectedIndexPath = nil
         } else {
+            let newSelectedDestinationAirport = destinationAirportArray[indexPath.row]
             FlightComputer.setSelectedDestinationAirport(newSelectedDestinationAirport)
+            selectedIndexPath = indexPath
         }
         
         updateUIForSelectedDestinationAirport()
