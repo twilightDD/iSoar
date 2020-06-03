@@ -30,7 +30,6 @@ class FlightComputer {
     private var alreadyWarnedFlarmIDs: Set<String> = []
     
     private var selectedDestinationAirport: AirportDatabase.Airport?
-    private var formerSelectedDestinationAirport: AirportDatabase.Airport?
     
     // MARK: - Public Class Methods
     class func start() {
@@ -60,16 +59,9 @@ class FlightComputer {
             return destinationAirport
     }
     
-    class func formerDestinationAirport()
-        -> AirportDatabase.Airport? {
-            let formerDestinationAirport = shared.formerSelectedDestinationAirport
-            return formerDestinationAirport
-    }
-    
     class func setSelectedDestinationAirport(_ airport: AirportDatabase.Airport?) {
         let shared = FlightComputer.shared
         shared.selectedDestinationAirport = airport
-        shared.formerSelectedDestinationAirport = shared.selectedDestinationAirport
     }
     
     // MARK: - Private Instance Methods

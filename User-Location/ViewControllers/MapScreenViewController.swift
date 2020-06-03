@@ -54,7 +54,13 @@ class MapScreenViewController: UIViewController {
     
     private var mapIsInCirclingZoom: Bool = false
     
-    private var userAcceptedEULA: Bool = false
+    private var userAcceptedEULA: Bool = {
+        #if DEBUG
+            return true
+        #else
+            return false
+        #endif
+    }()
     
     // MARK: - Init & Co.
     override func viewDidLoad() {
