@@ -19,8 +19,8 @@ class AirportAnnotation: MGLPointAnnotation {
         
         super.init()
         
-        title = airport.name
-        subtitle = airport.icao
+        title = airport.icao
+        subtitle = airport.name
         coordinate = airport.locationCoordinate2D()
     }
     
