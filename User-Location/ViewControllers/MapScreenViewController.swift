@@ -54,7 +54,13 @@ class MapScreenViewController: UIViewController {
     
     private var mapIsInCirclingZoom: Bool = false
     
-    private var userAcceptedEULA: Bool = false
+    private var userAcceptedEULA: Bool = {
+        #if DEBUG
+        return true
+        #else
+        return false
+        #endif
+    }()
     
     // MARK: - Init & Co.
     override func viewDidLoad() {
@@ -137,11 +143,7 @@ class MapScreenViewController: UIViewController {
     func createAirportAnnotations() {
         if let destinationAirportArray = AirportDatabase.destinationAirports() {
             for airport in destinationAirportArray {
-                let airportAnnotation = AirportAnnotation()
-                airportAnnotation.coordinate = CLLocationCoordinate2D(latitude: airport.latitude,
-                                                                      longitude: airport.longitude)
-                airportAnnotation.title = "\(airport.icao)"
-                airportAnnotation.subtitle = "\(airport.name)"
+                let airportAnnotation = AirportAnnotation.init(airport: airport)
                 airportAnnotationArray.append(airportAnnotation)
             }
             mapView.addAnnotations(airportAnnotationArray)
@@ -723,8 +725,9 @@ extension MapScreenViewController: MGLMapViewDelegate {
         guard let title = annotation.title ?? nil,
             let subtitle = annotation.subtitle ?? nil
             else { return }
-        
-        if annotation is AirportAnnotation {
+       
+        if let airportAnnotation = annotation as? AirportAnnotation {
+
             //Create AlertViewController
             let alertController = UIAlertController(title: (subtitle),
                                                     message: "Please choose an option for \(title)",
@@ -734,6 +737,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
                                                     style: .destructive,
                                                     handler: { [unowned self] _ in
                                                         self.mapView.deselectAnnotation(annotation, animated: true)
+                                                        FlightComputer.setSelectedDestinationAirport(airportAnnotation.airport)
             }))
             
             alertController.addAction(UIAlertAction(title: "Cancel",
