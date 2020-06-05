@@ -331,6 +331,13 @@ extension AirportDatabase {
             
         }
         
+        // Equatable for comparing Airports
+        static func == (lhs: Airport, rhs: Airport) -> Bool {
+            return
+                lhs.latitude == rhs.latitude &&
+                lhs.longitude == rhs.longitude
+        }
+        
         // MARK: Public Methods
         mutating func updateDistance(_ newDistance: CLLocationDistance) {
             distance = newDistance

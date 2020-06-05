@@ -277,15 +277,13 @@ extension DestinationSelectionViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath == selectedIndexPath {
+        if FlightComputer.selectedDestinationAirport() == destinationAirportArray[indexPath.row] {
             FlightComputer.setSelectedDestinationAirport(nil)
-            selectedIndexPath = nil
         } else {
             let newSelectedDestinationAirport = destinationAirportArray[indexPath.row]
             FlightComputer.setSelectedDestinationAirport(newSelectedDestinationAirport)
-            selectedIndexPath = indexPath
         }
-        
+
         updateUIForSelectedDestinationAirport()
         
         guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows
