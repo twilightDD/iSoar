@@ -696,7 +696,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
                 
                 annotationView = NearbyGliderAnnotationView(annotation: annotation,
                                                             reuseIdentifier: flarmID)
-                annotationView!.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
+                annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
                 
                 return annotationView
                 
@@ -710,7 +710,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
                 // If there’s no reusable annotation view available, initialize a new one.
                 if annotationView == nil {
                 annotationView = AirportAnnotationView(reuseIdentifier: reuseIdentifier)
-                annotationView!.bounds = CGRect(x: 0, y: 0, width: 1, height: 1)
+                annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
                  
                 }
                  
@@ -725,31 +725,56 @@ extension MapScreenViewController: MGLMapViewDelegate {
         guard let title = annotation.title ?? nil,
             let subtitle = annotation.subtitle ?? nil
             else { return }
-       
+        
         if let airportAnnotation = annotation as? AirportAnnotation {
-
-            //Create AlertViewController
-            let alertController = UIAlertController(title: (subtitle),
-                                                    message: "Please choose an option for \(title)",
-                                                    preferredStyle: .actionSheet)
-            
-            alertController.addAction(UIAlertAction(title: "Set as Destination",
-                                                    style: .destructive,
-                                                    handler: { [unowned self] _ in
-                                                        self.mapView.deselectAnnotation(annotation, animated: true)
-                                                        FlightComputer.setSelectedDestinationAirport(airportAnnotation.airport)
-            }))
-            
-            alertController.addAction(UIAlertAction(title: "Cancel",
-                                                    style: .cancel,
-                                                    handler: { [unowned self] _ in
-                                                        self.mapView.deselectAnnotation(annotation, animated: true)
-            }))
-            
-            // Present UIAlertController
-            self.present(alertController, animated: true, completion: {
-                //print("completion block")
-            })
+            // If selected Airport is ALREADY the Destination Airport
+            if airportAnnotation.airport == FlightComputer.selectedDestinationAirport() {
+                //Create AlertViewController
+                let alertController = UIAlertController(title: (subtitle),
+                                                        message: "Please choose an option for \(title)",
+                    preferredStyle: .alert)
+                
+                alertController.addAction(UIAlertAction(title: "Cancel Route",
+                                                        style: .destructive,
+                                                        handler: { [unowned self] _ in
+                                                            self.mapView.deselectAnnotation(annotation, animated: true)
+                                                            FlightComputer.setSelectedDestinationAirport(nil)
+                }))
+                
+                alertController.addAction(UIAlertAction(title: "Dismiss",
+                                                        style: .cancel,
+                                                        handler: { [unowned self] _ in
+                                                            self.mapView.deselectAnnotation(annotation, animated: true)
+                }))
+                
+                // Present UIAlertController
+                self.present(alertController, animated: true, completion: {
+                })
+                
+                // If selected Airport is NOT the Destination Airport
+            } else {
+                //Create AlertViewController
+                let alertController = UIAlertController(title: (subtitle),
+                                                        message: "Please choose an option for \(title)",
+                    preferredStyle: .alert)
+                
+                alertController.addAction(UIAlertAction(title: "Destination",
+                                                        style: .destructive,
+                                                        handler: { [unowned self] _ in
+                                                            self.mapView.deselectAnnotation(annotation, animated: true)
+                                                            FlightComputer.setSelectedDestinationAirport(airportAnnotation.airport)
+                }))
+                
+                alertController.addAction(UIAlertAction(title: "Dismiss",
+                                                        style: .cancel,
+                                                        handler: { [unowned self] _ in
+                                                            self.mapView.deselectAnnotation(annotation, animated: true)
+                }))
+                
+                // Present UIAlertController
+                self.present(alertController, animated: true, completion: {
+                })
+            }
         }
     }
     
