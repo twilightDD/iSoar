@@ -25,7 +25,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     
     // Pull to Refresh of TableView
     private let refreshControl = UIRefreshControl()
-
+    
     private var selectedIndexPath: IndexPath?
     
     // MARK: - IBOutlets
@@ -71,7 +71,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
             .addObserver(forName: AirportDatabase.airportUpdateCompletedNotificationName,
                          object: nil,
                          queue: OperationQueue.main) { [unowned self] (notification) in
-                            self.selectedIndexPath = nil
+                            
                             self.updateUIForSelectedDestinationAirport()
                             self.setupTableViewDatasource()
                             self.refreshControl.endRefreshing()
@@ -276,22 +276,20 @@ extension DestinationSelectionViewController: UITableViewDataSource {
 extension DestinationSelectionViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath == selectedIndexPath {
+        
+        if FlightComputer.selectedDestinationAirport() == destinationAirportArray[indexPath.row] {
             FlightComputer.setSelectedDestinationAirport(nil)
-            selectedIndexPath = nil
         } else {
             let newSelectedDestinationAirport = destinationAirportArray[indexPath.row]
             FlightComputer.setSelectedDestinationAirport(newSelectedDestinationAirport)
-            selectedIndexPath = indexPath
         }
 
-        
         updateUIForSelectedDestinationAirport()
         
         guard let indexPathsForVisibleRows = tableView.indexPathsForVisibleRows
             else { return }
         tableView.reloadRows(at: indexPathsForVisibleRows, with: .none)
-
+        
         // Dismiss Keyboard when Airport is selected
         searchBar.resignFirstResponder()
     }

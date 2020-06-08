@@ -85,7 +85,7 @@ extension OGNSocketConnectionManager {
     // MARK: Private Instance Methods
     // Connect to Server Socket
     private func connectToOGNServerSocket() {
-        // Check if Nearby Gliders should be shown on Map
+        // Check if Schow Nearby Gliders Switch is On
         print("We are loggin into the OGN Server: \(isLoggedIn)")
         
         let showAllNearbyGlidersState = UserDefaultsManager.showAllNearbyGlidersState()
@@ -100,30 +100,30 @@ extension OGNSocketConnectionManager {
                 self.connection?.stateUpdateHandler = { newConnectionState in
                     switch newConnectionState {
                     case .setup:
-                        //The connection has been initialized but not started
-                        print("Connection: setup")
+                        // The connection has been initialized but not started
+                        print("OGN Connection: setup")
                     case .waiting:
-                        //The connection has been initialized but not started
-                        print("Connection: waiting")
+                        // The connection has been initialized but not started
+                        print("OGN Connection: waiting")
                     case .preparing:
-                        //The connection in the process of being established
-                        print("Connection: preparing")
+                        // The connection in the process of being established
+                        print("OGN Connection: preparing")
                     case .ready:
-                        //The connection is established and ready to send and recieve data.
-                        print("Connection: ready")
+                        // The connection is established and ready to send and recieve data.
+                        print("OGN Connection: ready")
                         self.setupReceive()
                     case .failed:
-                        //The connection in the process of being established
-                        print("Connection: failed")
+                        // The connection has failed or interrupted
+                        print("OGN Connection: failed")
                         self.isLoggedIn = false
-                        self.login()
+                        self.connectToOGNServerSocket()
                     case .cancelled:
-                        //The connection has been cancelled
-                        print("Connection: cancelled")
+                        // The connection has been cancelled
+                        print("OGN Connection: cancelled")
                         self.isLoggedIn = false
                     default:
-                        //The connection has disconnected or encountered an error
-                        print("waiting or failed")
+                        // The connection has disconnected or encountered an error
+                        print("OGN Connection: waiting or failed")
                     }
                 }
                 self.connection?.start(queue: .main)
