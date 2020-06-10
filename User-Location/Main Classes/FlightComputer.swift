@@ -9,6 +9,13 @@
 import CoreLocation
 import AVFoundation
 
+// MARK: - Protocol - FlightComputerDelegate
+protocol FlightComputerDelegate: AnyObject {
+    
+    func gliderflies(_ isFlying: Bool)
+    
+}
+
 // MARK: - FlightComputer
 class FlightComputer {
     
@@ -17,7 +24,11 @@ class FlightComputer {
     static private let shared = FlightComputer()
     
     // Private
-    private var isGliderFlying: Bool = false
+    private var isGliderFlying: Bool = false {
+        didSet {
+            delegate?.gliderflies(isGliderFlying)
+        }
+    }
     private var isGliderCircling: Bool = false
     
     private var leftTurnCounter: Int = 0
@@ -30,6 +41,9 @@ class FlightComputer {
     private var alreadyWarnedFlarmIDs: Set<String> = []
     
     private var selectedDestinationAirport: AirportDatabase.Airport?
+    
+    // MARK: - Delegate
+    private weak var delegate: FlightComputerDelegate?
     
     // MARK: - Public Class Methods
     class func start() {
@@ -62,6 +76,11 @@ class FlightComputer {
     class func setSelectedDestinationAirport(_ airport: AirportDatabase.Airport?) {
         let shared = FlightComputer.shared
         shared.selectedDestinationAirport = airport
+    }
+    
+    class func setDelegate(_ delegate: FlightComputerDelegate) {
+        let shared = FlightComputer.shared
+        shared.delegate = delegate
     }
     
     // MARK: - Private Instance Methods
