@@ -69,6 +69,7 @@ class MapScreenViewController: UIViewController {
         MapScreenViewController.shared = self
         
         FlightComputer.start()
+        FlightComputer.setDelegate(self)
         OGNSocketConnectionManager.registerForSocketUpdates(self)
         OGNSocketConnectionManager.start()
         LocationManager.registerForLocationUpdates(self)
@@ -417,24 +418,35 @@ class MapScreenViewController: UIViewController {
     }
     
     // MARK: Route Tracking
+    // Check for Tracking Route Status
     private func checkTrackingRouteStatus() {
         showTrackingRoute = UserDefaultsManager.showTrackingRouteState()
         if showTrackingRoute == true {
-            for segment in travelledFlightlineSegments {
-                mapView.addAnnotation(segment)
-            }
+            addTravelledFlightLineToMapView()
         } else {
-            for segment in travelledFlightlineSegments {
-                mapView.removeAnnotation(segment)
-            }
+            removeTravelledFlightLineFromMapView()
+        }
+    }
+    
+    // Add Travelled FlightLine to MapView
+    private func addTravelledFlightLineToMapView() {
+        for segment in travelledFlightlineSegments {
+            mapView.addAnnotation(segment)
+        }
+    }
+    
+    // Remove Travelled FlightLine from MapView
+    private func removeTravelledFlightLineFromMapView() {
+        for segment in travelledFlightlineSegments {
+            mapView.removeAnnotation(segment)
         }
     }
     
     // TODO: 20200511 Code Optimieren! Doppelungen raus! Enum für ascanding & descanding
     private func drawTrackingRoute() {
-        if let currentLocation = LocationManager.currentLocation(),
-            let formerLocation = LocationManager.formerLocation(),
-        FlightComputer.isGliderFlying() == true {
+        if FlightComputer.isGliderFlying() == true,
+            let currentLocation = LocationManager.currentLocation(),
+            let formerLocation = LocationManager.formerLocation() {
             
             var formerLocationCoordinate2D = formerLocation.coordinate
             var currentLocationCoordinate2D = currentLocation.coordinate
@@ -878,6 +890,19 @@ extension MapScreenViewController: DL_OGNSocketConnectionManagerDelegate {
         
         mapView.removeAnnotations(nearbyGliderAnnotationsToRemove)
         nearbyGliderAnnotations.removeAll()
+    }
+    
+}
+
+// MARK: - MapScreen: FlightComputerDelegate
+extension MapScreenViewController: FlightComputerDelegate {
+    func gliderflies(_ isFlying: Bool) {
+        if isFlying == true {
+            // Remove all existing travelledFlightlineSegments Annotations from MapScreen
+            removeTravelledFlightLineFromMapView()
+            // Remove all existing Polyline-Location-Points from Array
+            travelledFlightlineSegments.removeAll()
+        }
     }
     
 }
