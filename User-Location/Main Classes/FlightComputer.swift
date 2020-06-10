@@ -94,7 +94,7 @@ class FlightComputer {
                 isGliderFlying = true
                 
                 // Start FlightRecording
-                FlightRecorder.startRecording()
+                //FlightRecorder.startRecording()
                 
                 // Register at OGNSocketConnectionManager
                 OGNSocketConnectionManager.registerForSocketUpdates(self)
@@ -110,7 +110,7 @@ class FlightComputer {
                 isGliderFlying = false
                 
                 // Stop FlightRecording
-                FlightRecorder.stopRecording()
+                //FlightRecorder.stopRecording()
                 
                 // Unregister at OGNSocketConnectionManager
                 OGNSocketConnectionManager.unregisterForSocketUpdates(self)

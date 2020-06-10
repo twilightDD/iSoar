@@ -22,18 +22,18 @@ class FlightRecorder {
     private var flightStartDate = Date()
     private var startICAO: String?
 
-    // MARK: - Public Class Methods
-    class func startRecording() {
-        LocationManager.registerForLocationUpdates(shared)
-
-        shared.startRecording()
-    }
-    
-    class func stopRecording() {
-        shared.stopRecording()
-
-        LocationManager.unRegisterForLocationUpdates(shared)
-    }
+//    // MARK: - Public Class Methods
+//    class func startRecording() {
+//        LocationManager.registerForLocationUpdates(shared)
+//
+//        shared.startRecording()
+//    }
+//
+//    class func stopRecording() {
+//        shared.stopRecording()
+//
+//        LocationManager.unRegisterForLocationUpdates(shared)
+//    }
 
     // MARK: - Private Methods
     private func startRecording() {
@@ -111,4 +111,18 @@ extension CLLocationCoordinate2D: Equatable {
             return lhs.latitude == rhs.latitude &&
                 lhs.longitude == rhs.longitude
     }
+}
+
+// MARK: - FlightRecorder: FlightComputerDelegate
+extension FlightRecorder: FlightComputerDelegate {
+    func gliderflies(_ isFlying: Bool) {
+        if isFlying == true {
+            LocationManager.registerForLocationUpdates(FlightRecorder.shared)
+            startRecording()
+        } else {
+            stopRecording()
+            LocationManager.unRegisterForLocationUpdates(FlightRecorder.shared)
+        }
+    }
+    
 }
