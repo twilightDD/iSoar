@@ -12,7 +12,7 @@ import AVFoundation
 // MARK: - Protocol - FlightComputerDelegate
 protocol FlightComputerDelegate: AnyObject {
     
-    func gliderflies(_ isFlying: Bool)
+    func gliderIsFlying(_ isFlying: Bool)
     
 }
 
@@ -26,9 +26,18 @@ class FlightComputer {
     // Private
     private var isGliderFlying: Bool = false {
         didSet {
-            delegate?.gliderflies(isGliderFlying)
+            if oldValue != isGliderFlying {
+                // Inform delegates
+                for delegate in delegates.allObjects {
+                    if let flightComputerDelegate = delegate as? FlightComputerDelegate {
+                        flightComputerDelegate.gliderIsFlying(isGliderFlying)
+                        
+                    }
+                }
+            }
         }
     }
+    
     private var isGliderCircling: Bool = false
     
     private var leftTurnCounter: Int = 0
@@ -43,7 +52,7 @@ class FlightComputer {
     private var selectedDestinationAirport: AirportDatabase.Airport?
     
     // MARK: - Delegate
-    private weak var delegate: FlightComputerDelegate?
+    private var delegates = NSHashTable<AnyObject>.weakObjects()
     
     // MARK: - Public Class Methods
     class func start() {
@@ -78,9 +87,16 @@ class FlightComputer {
         shared.selectedDestinationAirport = airport
     }
     
-    class func setDelegate(_ delegate: FlightComputerDelegate) {
-        let shared = FlightComputer.shared
-        shared.delegate = delegate
+    class func registerForFlightComputerUpdates(_ delegate: FlightComputerDelegate) {
+        // print("\(#function) - willAdd delegates.count = \(shared.delegates.count)")
+        shared.delegates.add(delegate)
+        // print("\(#function) - did Add delegates.count = \(shared.delegates.count)")
+    }
+    
+    class func unRegisterForFlightComputerUpdates(_ delegate: FlightComputerDelegate) {
+        // print("\(#function) - willRemove delegates.count = \(shared.delegates.count)")
+        shared.delegates.remove(delegate)
+        // print("\(#function) - did Remove delegates.count = \(shared.delegates.count)")
     }
     
     // MARK: - Private Instance Methods
@@ -92,9 +108,6 @@ class FlightComputer {
                 
                 // Set gliderIsFlying to true
                 isGliderFlying = true
-                
-                // Start FlightRecording
-                //FlightRecorder.startRecording()
                 
                 // Register at OGNSocketConnectionManager
                 OGNSocketConnectionManager.registerForSocketUpdates(self)
@@ -108,9 +121,6 @@ class FlightComputer {
                 
                 // Set gliderIsFlying to false
                 isGliderFlying = false
-                
-                // Stop FlightRecording
-                //FlightRecorder.stopRecording()
                 
                 // Unregister at OGNSocketConnectionManager
                 OGNSocketConnectionManager.unregisterForSocketUpdates(self)
@@ -159,14 +169,14 @@ class FlightComputer {
         }
         
         if leftTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges && isGliderCircling == false ||
-        rightTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges && isGliderCircling == false {
+            rightTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges && isGliderCircling == false {
             isGliderCircling = true
             MapScreenViewController.increaseZoomLevel()
-
+            
         } else if leftTurnCounter == 0 && rightTurnCounter == 0 && isGliderCircling == true {
             isGliderCircling = false
             MapScreenViewController.decreaseZoomLevel()
-
+            
         } else {
             //print("Nothing to do here")
         }

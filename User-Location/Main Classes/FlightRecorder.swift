@@ -10,58 +10,53 @@ import CoreLocation
 
 // MARK: - FlightRecorder
 class FlightRecorder {
-
+    
     // MARK: - Lets and Vars
     // Statics
     static private let shared = FlightRecorder()
-
+    
     // Private
     private var canRecordFlight = false
-
+    
     private var currentUnixTimeStamp = String.init(Date.currentUnixTimeStamp)
     private var flightStartDate = Date()
     private var startICAO: String?
-
-//    // MARK: - Public Class Methods
-//    class func startRecording() {
-//        LocationManager.registerForLocationUpdates(shared)
-//
-//        shared.startRecording()
-//    }
-//
-//    class func stopRecording() {
-//        shared.stopRecording()
-//
-//        LocationManager.unRegisterForLocationUpdates(shared)
-//    }
-
+    
+    // MARK: - Public Class Methods
+    
+    // MARK: - Public Class Methods
+    class func setup() {
+        let shared = FlightRecorder.shared
+        FlightComputer.registerForFlightComputerUpdates(shared)
+    }
+    
     // MARK: - Private Methods
     private func startRecording() {
         currentUnixTimeStamp = String.init(Date.currentUnixTimeStamp)
         flightStartDate = Date()
         startICAO = icaoOfNearestAirportWithinMaximalDistance()
-
+        
         let createFlightRecorderFiles = ISoarFileManager.createFlightRecorderFiles(currentUnixTimpStamp: currentUnixTimeStamp,
                                                                                    flightStartDate: flightStartDate,
                                                                                    startICAO: startICAO)
         canRecordFlight = createFlightRecorderFiles
     }
-
+    
     private func stopRecording() {
         let flightEndDate = Date()
         let endICAO = icaoOfNearestAirportWithinMaximalDistance()
-
+        
         ISoarFileManager.closeFlightRecorderFiles(currentUnixTimeStamp: currentUnixTimeStamp,
                                                   flightStartDate: flightStartDate,
                                                   flightEndDate: flightEndDate,
                                                   startICAO: startICAO,
                                                   endICAO: endICAO)
-
+        
         canRecordFlight = false
     }
-
+    
     private func addFlightRecorderEntryForLocation(_ currentLocation: CLLocation) {
-
+        
         if FlightComputer.isGliderFlying() == true,
             canRecordFlight == true {
             // Prepare Data for FlightRecorder File
@@ -74,13 +69,13 @@ class FlightRecorder {
                 .appending("\(currentLocation.speed),")
                 .appending("\(currentLocation.course),")
                 .appending("\n")
-
+            
             // Append Data to FlightRecorder File
             ISoarFileManager.appendTelemetryDataToFlightRecorderFile(recordLine)
         }
-
+        
     }
-
+    
     private func icaoOfNearestAirportWithinMaximalDistance()
         -> String? {
             if let nearestAirport = AirportDatabase.nearestAirport(),
@@ -89,10 +84,10 @@ class FlightRecorder {
                     return nearestAirport.icao
                 }
             }
-
+            
             return nil
     }
-
+    
 }
 
 // MARK: - Extension - LocationManagerDelegate
@@ -102,7 +97,7 @@ extension FlightRecorder: LocationManagerDelegate {
             else { return }
         addFlightRecorderEntryForLocation(currentLocation)
     }
-
+    
 }
 
 extension CLLocationCoordinate2D: Equatable {
@@ -115,11 +110,13 @@ extension CLLocationCoordinate2D: Equatable {
 
 // MARK: - FlightRecorder: FlightComputerDelegate
 extension FlightRecorder: FlightComputerDelegate {
-    func gliderflies(_ isFlying: Bool) {
+    func gliderIsFlying(_ isFlying: Bool) {
         if isFlying == true {
+            print(isFlying)
             LocationManager.registerForLocationUpdates(FlightRecorder.shared)
             startRecording()
         } else {
+            print(isFlying)
             stopRecording()
             LocationManager.unRegisterForLocationUpdates(FlightRecorder.shared)
         }

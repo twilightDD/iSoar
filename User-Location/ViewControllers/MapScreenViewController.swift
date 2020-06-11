@@ -69,7 +69,10 @@ class MapScreenViewController: UIViewController {
         MapScreenViewController.shared = self
         
         FlightComputer.start()
-        FlightComputer.setDelegate(self)
+        FlightComputer.registerForFlightComputerUpdates(self)
+        
+        FlightRecorder.setup()
+        
         OGNSocketConnectionManager.registerForSocketUpdates(self)
         OGNSocketConnectionManager.start()
         LocationManager.registerForLocationUpdates(self)
@@ -715,17 +718,17 @@ extension MapScreenViewController: MGLMapViewDelegate {
             } else if annotation is AirportAnnotation {
                 // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
                 let reuseIdentifier = "\(annotation.coordinate.longitude)"
-                 
+                
                 // For better performance, always try to reuse existing annotations.
                 var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-                 
+                
                 // If there’s no reusable annotation view available, initialize a new one.
                 if annotationView == nil {
-                annotationView = AirportAnnotationView(reuseIdentifier: reuseIdentifier)
-                annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
-                 
+                    annotationView = AirportAnnotationView(reuseIdentifier: reuseIdentifier)
+                    annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
+                    
                 }
-                 
+                
                 return annotationView
             }
             
@@ -896,7 +899,7 @@ extension MapScreenViewController: DL_OGNSocketConnectionManagerDelegate {
 
 // MARK: - MapScreen: FlightComputerDelegate
 extension MapScreenViewController: FlightComputerDelegate {
-    func gliderflies(_ isFlying: Bool) {
+    func gliderIsFlying(_ isFlying: Bool) {
         if isFlying == true {
             // Remove all existing travelledFlightlineSegments Annotations from MapScreen
             removeTravelledFlightLineFromMapView()
