@@ -905,7 +905,18 @@ extension MapScreenViewController: FlightComputerDelegate {
             removeTravelledFlightLineFromMapView()
             // Remove all existing Polyline-Location-Points from Array
             travelledFlightlineSegments.removeAll()
+        } else { // TODO: 20200611 Nur zum testen. Muss entfernt werden
+            let alert = UIAlertController(title: "Flight ended",
+                                          message: "Flight ended",
+                                          preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK",
+                                          style: .default,
+                                          handler: nil))
+            
+            self.present(alert, animated: true)
+            
         }
+        
     }
-    
 }
