@@ -116,8 +116,8 @@ class FlightComputer {
             // Check if Glider is slower than 10m/s, (Presets)
             // TODO: GitHub Issue 32: https://github.com/dlpgithub/iSoar/issues/32
             if let currentLocation = LocationManager.currentLocation(),
-                currentLocation.speed < Presets.FlightComputer.minimalFlightSpeed
-                    && currentLocation.speed > 0 {
+                currentLocation.speed < Presets.FlightComputer.minimalFlightSpeed,
+                currentLocation.speed > 0 {
                 
                 // Set gliderIsFlying to false
                 isGliderFlying = false
