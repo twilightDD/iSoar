@@ -40,7 +40,7 @@ class UserDefaultsManager {
     private static let flarmRadiusDefault: Double = 25
     private static let centeringHelpSwitchDefault: Bool = true
     private static let userMapZoomLevelDefault: Double = 9.6
-    private static let mapResolutionDefault: Int = 1
+    private static let mapResolutionDefault: String = "High"
     
     // MARK: - Lets and Vars
     private static let shared = UserDefaultsManager()
@@ -238,12 +238,12 @@ class UserDefaultsManager {
     
     // MARK: Map Resolution
         class func mapResolutionState()
-        -> Int {
-            let mapResolution = shared.userDefaults.value(forKey: MapResolutionStateKey) as? Int ?? mapResolutionDefault
+        -> String {
+            let mapResolution = shared.userDefaults.value(forKey: MapResolutionStateKey) as? String ?? mapResolutionDefault
             return mapResolution
     }
     
-    class func set(mapResolution: Int) {
+    class func set(mapResolution: String) {
         shared.userDefaults.set(mapResolution, forKey: MapResolutionStateKey)
     }
     
