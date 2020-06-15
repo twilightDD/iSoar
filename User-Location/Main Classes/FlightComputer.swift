@@ -9,6 +9,13 @@
 import CoreLocation
 import AVFoundation
 
+// MARK: - Protocol - FlightComputerDelegate
+protocol FlightComputerDelegate: AnyObject {
+    
+    func gliderIsFlying(_ isFlying: Bool)
+    
+}
+
 // MARK: - FlightComputer
 class FlightComputer {
     
@@ -17,7 +24,20 @@ class FlightComputer {
     static private let shared = FlightComputer()
     
     // Private
-    private var isGliderFlying: Bool = false
+    private var isGliderFlying: Bool = false {
+        didSet {
+            if oldValue != isGliderFlying {
+                // Inform delegates
+                for delegate in delegates.allObjects {
+                    if let flightComputerDelegate = delegate as? FlightComputerDelegate {
+                        flightComputerDelegate.gliderIsFlying(isGliderFlying)
+                        
+                    }
+                }
+            }
+        }
+    }
+    
     private var isGliderCircling: Bool = false
     
     private var leftTurnCounter: Int = 0
@@ -30,6 +50,9 @@ class FlightComputer {
     private var alreadyWarnedFlarmIDs: Set<String> = []
     
     private var selectedDestinationAirport: AirportDatabase.Airport?
+    
+    // MARK: - Delegate
+    private var delegates = NSHashTable<AnyObject>.weakObjects()
     
     // MARK: - Public Class Methods
     class func start() {
@@ -64,6 +87,18 @@ class FlightComputer {
         shared.selectedDestinationAirport = airport
     }
     
+    class func registerForFlightComputerUpdates(_ delegate: FlightComputerDelegate) {
+        // print("\(#function) - willAdd delegates.count = \(shared.delegates.count)")
+        shared.delegates.add(delegate)
+        // print("\(#function) - did Add delegates.count = \(shared.delegates.count)")
+    }
+    
+    class func unRegisterForFlightComputerUpdates(_ delegate: FlightComputerDelegate) {
+        // print("\(#function) - willRemove delegates.count = \(shared.delegates.count)")
+        shared.delegates.remove(delegate)
+        // print("\(#function) - did Remove delegates.count = \(shared.delegates.count)")
+    }
+    
     // MARK: - Private Instance Methods
     private func checkIfGliderIsFlying() {
         if isGliderFlying == false {
@@ -74,9 +109,6 @@ class FlightComputer {
                 // Set gliderIsFlying to true
                 isGliderFlying = true
                 
-                // Start FlightRecording
-                FlightRecorder.startRecording()
-                
                 // Register at OGNSocketConnectionManager
                 OGNSocketConnectionManager.registerForSocketUpdates(self)
             }
@@ -84,14 +116,11 @@ class FlightComputer {
             // Check if Glider is slower than 10m/s, (Presets)
             // TODO: GitHub Issue 32: https://github.com/dlpgithub/iSoar/issues/32
             if let currentLocation = LocationManager.currentLocation(),
-                currentLocation.speed < Presets.FlightComputer.minimalFlightSpeed
-                    && currentLocation.speed > 0 {
+                currentLocation.speed < Presets.FlightComputer.minimalFlightSpeed,
+                currentLocation.speed > 0 {
                 
                 // Set gliderIsFlying to false
                 isGliderFlying = false
-                
-                // Stop FlightRecording
-                FlightRecorder.stopRecording()
                 
                 // Unregister at OGNSocketConnectionManager
                 OGNSocketConnectionManager.unregisterForSocketUpdates(self)
@@ -140,14 +169,14 @@ class FlightComputer {
         }
         
         if leftTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges && isGliderCircling == false ||
-        rightTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges && isGliderCircling == false {
+            rightTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges && isGliderCircling == false {
             isGliderCircling = true
             MapScreenViewController.increaseZoomLevel()
-
+            
         } else if leftTurnCounter == 0 && rightTurnCounter == 0 && isGliderCircling == true {
             isGliderCircling = false
             MapScreenViewController.decreaseZoomLevel()
-
+            
         } else {
             //print("Nothing to do here")
         }

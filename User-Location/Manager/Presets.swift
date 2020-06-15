@@ -46,7 +46,7 @@ struct Presets {
             -> URL {
                 var url: URL
                 // Low Resolution Map
-                if UserDefaultsManager.mapResolutionState() == 0 {
+                if UserDefaultsManager.mapResolutionState() == "Low" {
                     url = URL(string: "mapbox://styles/dlmapbox/cjwrbxi3x10fv1ck92xfdgz66")!
                 // High Resolution Map
                 } else {

@@ -69,6 +69,10 @@ class MapScreenViewController: UIViewController {
         MapScreenViewController.shared = self
         
         FlightComputer.start()
+        FlightComputer.registerForFlightComputerUpdates(self)
+        
+        FlightRecorder.setup()
+        
         OGNSocketConnectionManager.registerForSocketUpdates(self)
         OGNSocketConnectionManager.start()
         LocationManager.registerForLocationUpdates(self)
@@ -417,24 +421,35 @@ class MapScreenViewController: UIViewController {
     }
     
     // MARK: Route Tracking
+    // Check for Tracking Route Status
     private func checkTrackingRouteStatus() {
         showTrackingRoute = UserDefaultsManager.showTrackingRouteState()
         if showTrackingRoute == true {
-            for segment in travelledFlightlineSegments {
-                mapView.addAnnotation(segment)
-            }
+            addTravelledFlightLineToMapView()
         } else {
-            for segment in travelledFlightlineSegments {
-                mapView.removeAnnotation(segment)
-            }
+            removeTravelledFlightLineFromMapView()
+        }
+    }
+    
+    // Add Travelled FlightLine to MapView
+    private func addTravelledFlightLineToMapView() {
+        for segment in travelledFlightlineSegments {
+            mapView.addAnnotation(segment)
+        }
+    }
+    
+    // Remove Travelled FlightLine from MapView
+    private func removeTravelledFlightLineFromMapView() {
+        for segment in travelledFlightlineSegments {
+            mapView.removeAnnotation(segment)
         }
     }
     
     // TODO: 20200511 Code Optimieren! Doppelungen raus! Enum für ascanding & descanding
     private func drawTrackingRoute() {
-        if let currentLocation = LocationManager.currentLocation(),
-            let formerLocation = LocationManager.formerLocation(),
-        FlightComputer.isGliderFlying() == true {
+        if FlightComputer.isGliderFlying() == true,
+            let currentLocation = LocationManager.currentLocation(),
+            let formerLocation = LocationManager.formerLocation() {
             
             var formerLocationCoordinate2D = formerLocation.coordinate
             var currentLocationCoordinate2D = currentLocation.coordinate
@@ -703,17 +718,17 @@ extension MapScreenViewController: MGLMapViewDelegate {
             } else if annotation is AirportAnnotation {
                 // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
                 let reuseIdentifier = "\(annotation.coordinate.longitude)"
-                 
+                
                 // For better performance, always try to reuse existing annotations.
                 var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-                 
+                
                 // If there’s no reusable annotation view available, initialize a new one.
                 if annotationView == nil {
-                annotationView = AirportAnnotationView(reuseIdentifier: reuseIdentifier)
-                annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
-                 
+                    annotationView = AirportAnnotationView(reuseIdentifier: reuseIdentifier)
+                    annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
+                    
                 }
-                 
+                
                 return annotationView
             }
             
@@ -880,4 +895,28 @@ extension MapScreenViewController: DL_OGNSocketConnectionManagerDelegate {
         nearbyGliderAnnotations.removeAll()
     }
     
+}
+
+// MARK: - MapScreen: FlightComputerDelegate
+extension MapScreenViewController: FlightComputerDelegate {
+    func gliderIsFlying(_ isFlying: Bool) {
+        if isFlying == true {
+            // Remove all existing travelledFlightlineSegments Annotations from MapScreen
+            removeTravelledFlightLineFromMapView()
+            // Remove all existing Polyline-Location-Points from Array
+            travelledFlightlineSegments.removeAll()
+        } else { // TODO: 20200611 Nur zum testen. Muss entfernt werden
+            let alert = UIAlertController(title: "Flight ended",
+                                          message: "Flight ended",
+                                          preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK",
+                                          style: .default,
+                                          handler: nil))
+            
+            self.present(alert, animated: true)
+            
+        }
+        
+    }
 }

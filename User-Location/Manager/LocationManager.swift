@@ -125,7 +125,7 @@ extension LocationManager {
     // Set up Location Manager
     private func setupLocationManager() {
         locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.allowsBackgroundLocationUpdates = true
     }
 

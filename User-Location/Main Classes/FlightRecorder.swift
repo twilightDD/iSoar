@@ -10,58 +10,53 @@ import CoreLocation
 
 // MARK: - FlightRecorder
 class FlightRecorder {
-
+    
     // MARK: - Lets and Vars
     // Statics
     static private let shared = FlightRecorder()
-
+    
     // Private
     private var canRecordFlight = false
-
+    
     private var currentUnixTimeStamp = String.init(Date.currentUnixTimeStamp)
     private var flightStartDate = Date()
     private var startICAO: String?
-
+    
     // MARK: - Public Class Methods
-    class func startRecording() {
-        LocationManager.registerForLocationUpdates(shared)
-
-        shared.startRecording()
+    class func setup() {
+        let shared = FlightRecorder.shared
+        FlightComputer.registerForFlightComputerUpdates(shared)
     }
     
-    class func stopRecording() {
-        shared.stopRecording()
-
-        LocationManager.unRegisterForLocationUpdates(shared)
-    }
-
     // MARK: - Private Methods
+    // Start Recording of Telemetry Data
     private func startRecording() {
         currentUnixTimeStamp = String.init(Date.currentUnixTimeStamp)
         flightStartDate = Date()
         startICAO = icaoOfNearestAirportWithinMaximalDistance()
-
+        
         let createFlightRecorderFiles = ISoarFileManager.createFlightRecorderFiles(currentUnixTimpStamp: currentUnixTimeStamp,
                                                                                    flightStartDate: flightStartDate,
                                                                                    startICAO: startICAO)
         canRecordFlight = createFlightRecorderFiles
     }
-
+    
+    // Stop Recording of Telemetry Data
     private func stopRecording() {
         let flightEndDate = Date()
         let endICAO = icaoOfNearestAirportWithinMaximalDistance()
-
+        
         ISoarFileManager.closeFlightRecorderFiles(currentUnixTimeStamp: currentUnixTimeStamp,
                                                   flightStartDate: flightStartDate,
                                                   flightEndDate: flightEndDate,
                                                   startICAO: startICAO,
                                                   endICAO: endICAO)
-
+        
         canRecordFlight = false
     }
-
+    
+    // Append Telemetry Data to FlightRecorder File
     private func addFlightRecorderEntryForLocation(_ currentLocation: CLLocation) {
-
         if FlightComputer.isGliderFlying() == true,
             canRecordFlight == true {
             // Prepare Data for FlightRecorder File
@@ -74,13 +69,14 @@ class FlightRecorder {
                 .appending("\(currentLocation.speed),")
                 .appending("\(currentLocation.course),")
                 .appending("\n")
-
-            // Append Data to FlightRecorder File
+            
+            // Append Telemetry Data to FlightRecorder File
             ISoarFileManager.appendTelemetryDataToFlightRecorderFile(recordLine)
         }
-
+        
     }
-
+    
+    // Returns the ICAO Code of the nearest Airport
     private func icaoOfNearestAirportWithinMaximalDistance()
         -> String? {
             if let nearestAirport = AirportDatabase.nearestAirport(),
@@ -89,26 +85,39 @@ class FlightRecorder {
                     return nearestAirport.icao
                 }
             }
-
+            
             return nil
     }
-
+    
 }
 
-// MARK: - Extension - LocationManagerDelegate
-extension FlightRecorder: LocationManagerDelegate {
-    func locationManager(didUpdateLocations locations: [CLLocation]) {
-        guard let currentLocation = locations.last // Alternativ: LocationManager.currentLocation
-            else { return }
-        addFlightRecorderEntryForLocation(currentLocation)
-    }
-
-}
-
+// MARK: - Extensions
 extension CLLocationCoordinate2D: Equatable {
     public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D)
         -> Bool {
             return lhs.latitude == rhs.latitude &&
                 lhs.longitude == rhs.longitude
     }
+}
+
+extension FlightRecorder: LocationManagerDelegate {
+    func locationManager(didUpdateLocations locations: [CLLocation]) {
+        guard let currentLocation = LocationManager.currentLocation()
+            else { return }
+        addFlightRecorderEntryForLocation(currentLocation)
+    }
+    
+}
+
+extension FlightRecorder: FlightComputerDelegate {
+    func gliderIsFlying(_ isFlying: Bool) {
+        if isFlying == true {
+            LocationManager.registerForLocationUpdates(FlightRecorder.shared)
+            startRecording()
+        } else {
+            stopRecording()
+            LocationManager.unRegisterForLocationUpdates(FlightRecorder.shared)
+        }
+    }
+    
 }

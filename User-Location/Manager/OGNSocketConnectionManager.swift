@@ -308,7 +308,8 @@ extension OGNSocketConnectionManager: LocationManagerDelegate {
     func locationManager(didUpdateLocations locations: [CLLocation]) {
         
         if isLoggedIn == true {
-            guard let loginCoordinates = self.loginCoordinates, UserDefaultsManager.showOnlyBuddySwitchState() == false,
+            guard let loginCoordinates = self.loginCoordinates,
+                UserDefaultsManager.showOnlyBuddySwitchState() == false,
                 let distance = LocationManager.distanceFromCurrentLocationTo(location: loginCoordinates)
                 else { return }
             

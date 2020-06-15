@@ -258,8 +258,7 @@ extension DestinationSelectionViewController: UITableViewDataSource {
             cell.countryImageView.image = countryImage
             
             // Set Checkmark and Background Color for selected Airport
-            if FlightComputer.selectedDestinationAirport()?.latitude == airportOfInterest.latitude,
-                FlightComputer.selectedDestinationAirport()?.longitude == airportOfInterest.longitude {
+            if FlightComputer.selectedDestinationAirport() == airportOfInterest {
                 cell.accessoryType = .checkmark
                 cell.backgroundColor = UIColor(red: 230/255, green: 240/255, blue: 255/255, alpha: 1.0)
             } else {

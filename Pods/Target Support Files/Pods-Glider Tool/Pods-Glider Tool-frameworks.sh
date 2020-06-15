@@ -197,6 +197,7 @@ if [ -r "${ARTIFACT_LIST_FILE}" ]; then
 fi
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework"
   install_framework "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework"
   install_dsym "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM"
   install_bcsymbolmap "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/EF3F193B-8B19-3D7A-9C4D-CC7ACB8FD1B2.bcsymbolmap"
@@ -206,6 +207,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/MapboxMobileEvents/MapboxMobileEvents.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework"
   install_framework "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework"
   install_dsym "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM"
   install_bcsymbolmap "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/EF3F193B-8B19-3D7A-9C4D-CC7ACB8FD1B2.bcsymbolmap"
