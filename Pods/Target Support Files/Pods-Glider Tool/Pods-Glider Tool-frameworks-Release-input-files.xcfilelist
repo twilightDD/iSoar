@@ -1,4 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-Glider Tool/Pods-Glider Tool-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework
 ${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework
 ${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM
 ${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/EF3F193B-8B19-3D7A-9C4D-CC7ACB8FD1B2.bcsymbolmap
