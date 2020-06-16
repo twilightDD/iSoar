@@ -152,7 +152,7 @@ class SettingsViewController: FormViewController {
             }
             
             // MARK: Section Flarm Monitor
-            +++ Section("FLARM Monitor")
+            +++ Section("FLARM Monitor Settings")
             
             <<< SwitchRow { row in
                 row.title = "Show nearby Aircrafts on Map"
@@ -259,7 +259,7 @@ class SettingsViewController: FormViewController {
             })
             
             // MARK: Section Miscellaneous
-            +++ Section("Miscellaneous")
+            +++ Section("Miscellaneous Settings")
             
             <<< ButtonRow { row in
                 row.title = "Download Airport Database Update"
@@ -268,25 +268,9 @@ class SettingsViewController: FormViewController {
         
     }
     
-    func buttonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
+    // MARK: - Private Methods
+    private func buttonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         AirportDatabase.downloadAirportsFromServer()
-    }
-    
-}
-
-// MARK: - Extension - UITextFieldDelegate
-extension SettingsViewController: UITextFieldDelegate {
-    
-    // Execute when Done Button is pressed
-    func textFieldShouldReturn(_ textField: UITextField)
-        -> Bool {
-            textField.resignFirstResponder()
-            return true
-    }
-    
-    // Execute when Textfield did End Editing
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
     }
     
 }
