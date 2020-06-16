@@ -29,9 +29,9 @@ class UserDefaultsManager {
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
     private static let ownFlarmIDDefault = "FLRxxxxxx"
-    private static let gliderRadioDefault: Double = 20
+    private static let gliderRadioDefault: Double = 30
     private static let gearWarningSwitchDefault: Bool = true
-    private static let safetyAltitudeDefault: Double = 200
+    private static let safetyAltitudeDefault: Double = 300
     private static let showTrackingRouteSwitchDefault: Bool = true
     private static let showFlarmBuddySwitchDefault: Bool = true
     private static let buddyFlarmIDDefault = "FLRxxxxxx"
