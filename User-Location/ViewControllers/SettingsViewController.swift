@@ -76,7 +76,7 @@ class SettingsViewController: FormViewController {
             +++ Section("User Settings")
             
             <<< IntRow { row in
-                row.title = "Safety Altitude in m"
+                row.title = "Safety Altitude (m)"
                 row.value = Int(UserDefaultsManager.safetyAltitude())
                 row.placeholder = "300"
                 
@@ -151,12 +151,12 @@ class SettingsViewController: FormViewController {
                 
             }
             
-            // MARK: Section Flarm Monitor
-            +++ Section("FLARM Monitor Settings")
+            // MARK: Section Traffic Monitor Settings
+            +++ Section("Traffic Monitor Settings")
             
             <<< SwitchRow { row in
-                row.title = "Show nearby Aircrafts on Map"
-                row.tag = "Show nearby Aircrafts on Map"
+                row.title = "Traffic Monitor"
+                row.tag = "Traffic Monitor"
                 row.value = UserDefaultsManager.showAllNearbyGlidersState()
                 
             }.cellSetup { cell, _ in
@@ -181,18 +181,24 @@ class SettingsViewController: FormViewController {
             }
             
             <<< IntRow { row in
-                row.title = "FLARM Radius in Km"
-                row.value = Int(UserDefaultsManager.flarmRadius())
+                row.title = "Traffic Monitor Radius (Km)"
+                row.value = Int(UserDefaultsManager.trafficMonitorRadius())
                 row.placeholder = "50"
                 
             }.cellSetup { cell, _ in
                 cell.imageView?.image = UIImage(systemName: "antenna.radiowaves.left.and.right")
                 
-            }.onChange { row in
-                let flarmRadius = Double(row.value ?? 50)
-                UserDefaultsManager.set(flarmRadius: flarmRadius)
+            }.onCellHighlightChanged({ (cell, row) in
+                if row.isHighlighted == false {
+                    
+                    let trafficMonitorRadius = Double(row.value ?? 50)
+                    UserDefaultsManager.set(trafficMonitorRadius: trafficMonitorRadius)
+                    
+                    OGNSocketConnectionManager.reconnect()
+                    
+                }
                 
-            }
+            })
             
             <<< SwitchRow("Collision Warning") { row in
                 row.title = row.tag
@@ -235,6 +241,14 @@ class SettingsViewController: FormViewController {
                 
             }
             
+            <<< LabelRow { row in
+                row.title = "Buddy FLARM IDs"
+                row.cellStyle = .default
+                
+            }.cellUpdate({ (cell, row) in
+                cell.textLabel?.textAlignment = .center
+            })
+
             <<< TextAreaRow("Buddy FLARM IDs") { row in
                 row.title = "Buddy FLARM IDs"
                 row.tag = "Buddy FLARM IDs"
@@ -258,7 +272,7 @@ class SettingsViewController: FormViewController {
                 }
             })
             
-            // MARK: Section Miscellaneous
+            // MARK: Section Miscellaneous Settings
             +++ Section("Miscellaneous Settings")
             
             <<< ButtonRow { row in
