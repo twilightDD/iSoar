@@ -21,6 +21,7 @@ class TasksViewController: UIViewController {
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Tasks"
         
         tableView.dataSource = self
         tableView.delegate = self
