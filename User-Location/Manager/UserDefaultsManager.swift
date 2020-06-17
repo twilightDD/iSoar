@@ -37,7 +37,7 @@ class UserDefaultsManager {
     private static let buddyFlarmIDDefault = "FLRxxxxxx"
     private static let showNearbyGlidersSwitchDefault: Bool = true
     private static let collisionWarningSwitchDefault: Bool = true
-    private static let trafficMonitorRadiusDefault: Double = 25
+    private static let trafficMonitorRadiusDefault: Double = 50
     private static let centeringHelpSwitchDefault: Bool = true
     private static let userMapZoomLevelDefault: Double = 9.6
     private static let mapResolutionDefault: String = "High"
