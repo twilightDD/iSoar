@@ -11,8 +11,22 @@ import Eureka
 // MARK: SettingsViewController
 class SettingsViewController: FormViewController {
     
-    // MARK: Lets and Vats
+    // MARK: Lets and Vars
     
+    // MARK: - Init&Co.
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.title = "Settings"
+        
+        form.append(gliderSettingsSection())
+        form.append(userSettingsSection())
+        form.append(mapSettingsSection())
+        form.append(trafficMonitorSection())
+        form.append(miscellaneousSection())
+        
+    }
+    
+    // MARK: - Private Methods
     // MARK: Eureka Form Sections
     private func gliderSettingsSection()
         -> Section {
@@ -287,21 +301,7 @@ class SettingsViewController: FormViewController {
             return section
     }
     
-    // MARK: - Init&Co.
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationItem.title = "Settings"
-        
-        // MARK: - Eureka Form
-        form.append(gliderSettingsSection())
-        form.append(userSettingsSection())
-        form.append(mapSettingsSection())
-        form.append(trafficMonitorSection())
-        form.append(miscellaneousSection())
-        
-    }
-    
-    // MARK: - Private Methods
+    // MARK: Button Tapped
     private func buttonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         AirportDatabase.downloadAirportsFromServer()
     }
