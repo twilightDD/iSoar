@@ -212,14 +212,14 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     }
     
     // Report missing Airport Button
-    @IBAction func reportMissingAirportAction(_ sender: UIButton) {
+    @IBAction func reportMissingAirportAction(_ sender: UIBarButtonItem) {
         reportMissingAirport()
     }
     
     // Airport Info Button
-    @IBAction func airportInfoButtonAction(_ sender: Any) {
-        performSegue(withIdentifier: "AirportInfoSegue", sender: self)
-    }
+//    @IBAction func airportInfoButtonAction(_ sender: Any) {
+//        performSegue(withIdentifier: "AirportInfoSegue", sender: self)
+//    }
     
 }
 
