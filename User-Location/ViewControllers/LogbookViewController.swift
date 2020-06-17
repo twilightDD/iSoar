@@ -20,6 +20,7 @@ class LogbookViewController: UIViewController {
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "Logbook"
         
         tableView.dataSource = self
         tableView.delegate = self

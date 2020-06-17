@@ -21,7 +21,7 @@ class UserDefaultsManager {
     private static let ShowAllNearbyGlidersStateKey = "showAllNearbyGlidersState"
     private static let ShowOnlyBuddyStateKey = "showOnlyBuddyState"
     private static let ShowTrackingRouteStateKey = "showTrackingRouteState"
-    private static let FlarmRadiusKey = "flarmRadius"
+    private static let TrafficMonitorRadiusKey = "trafficMonitorRadius"
     private static let CenteringHelpStateKey = "centeringHelpState"
     private static let UserMapZoomLevelKey = "userMapZoomLevel"
     private static let MapResolutionStateKey = "mapResolution"
@@ -29,15 +29,15 @@ class UserDefaultsManager {
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
     private static let ownFlarmIDDefault = "FLRxxxxxx"
-    private static let gliderRadioDefault: Double = 20
+    private static let gliderRadioDefault: Double = 30
     private static let gearWarningSwitchDefault: Bool = true
-    private static let safetyAltitudeDefault: Double = 200
+    private static let safetyAltitudeDefault: Double = 300
     private static let showTrackingRouteSwitchDefault: Bool = true
     private static let showFlarmBuddySwitchDefault: Bool = true
     private static let buddyFlarmIDDefault = "FLRxxxxxx"
     private static let showNearbyGlidersSwitchDefault: Bool = true
     private static let collisionWarningSwitchDefault: Bool = true
-    private static let flarmRadiusDefault: Double = 25
+    private static let trafficMonitorRadiusDefault: Double = 25
     private static let centeringHelpSwitchDefault: Bool = true
     private static let userMapZoomLevelDefault: Double = 9.6
     private static let mapResolutionDefault: String = "High"
@@ -79,8 +79,8 @@ class UserDefaultsManager {
         if shared.userDefaults.value(forKey: CollisionWarningStateKey) == nil {
             shared.userDefaults.set(true, forKey: CollisionWarningStateKey)
         }
-        if shared.userDefaults.value(forKey: FlarmRadiusKey) == nil {
-            UserDefaultsManager.set(flarmRadius: flarmRadiusDefault)
+        if shared.userDefaults.value(forKey: TrafficMonitorRadiusKey) == nil {
+            UserDefaultsManager.set(trafficMonitorRadius: trafficMonitorRadiusDefault)
         }
         if shared.userDefaults.value(forKey: CenteringHelpStateKey) == nil {
             shared.userDefaults.set(true, forKey: CenteringHelpStateKey)
@@ -204,14 +204,14 @@ class UserDefaultsManager {
     }
     
     // MARK: Flarm Radius
-    class func flarmRadius()
+    class func trafficMonitorRadius()
         -> Double {
-            let flarmRadius = shared.userDefaults.value(forKey: FlarmRadiusKey) as? Double ?? flarmRadiusDefault
-            return flarmRadius
+            let trafficMonitorRadius = shared.userDefaults.value(forKey: TrafficMonitorRadiusKey) as? Double ?? trafficMonitorRadiusDefault
+            return trafficMonitorRadius
     }
     
-    class func set(flarmRadius: Double) {
-        shared.userDefaults.set(flarmRadius, forKey: FlarmRadiusKey)
+    class func set(trafficMonitorRadius: Double) {
+        shared.userDefaults.set(trafficMonitorRadius, forKey: TrafficMonitorRadiusKey)
     }
     
     // MARK: Centering Help Switch

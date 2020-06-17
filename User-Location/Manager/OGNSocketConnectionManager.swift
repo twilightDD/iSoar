@@ -206,7 +206,7 @@ extension OGNSocketConnectionManager {
             sendPaket(packet)
         } else {
             // Filter via Radius
-            let packet = "user \(userName) pass -1 vers \(appVersion) filter r/\(currentLocation.coordinate.latitude)/\(currentLocation.coordinate.longitude)/\(UserDefaultsManager.flarmRadius()) -p/\(UserDefaultsManager.ownFlarmID())/A/B/C/D/E/G/H/J/K/L/M/N/O/P/Q/R/S/T/U/V/W/X/Y/Z\n"
+            let packet = "user \(userName) pass -1 vers \(appVersion) filter r/\(currentLocation.coordinate.latitude)/\(currentLocation.coordinate.longitude)/\(UserDefaultsManager.trafficMonitorRadius()) -p/\(UserDefaultsManager.ownFlarmID())/A/B/C/D/E/G/H/J/K/L/M/N/O/P/Q/R/S/T/U/V/W/X/Y/Z\n"
             sendPaket(packet)
         }
         
