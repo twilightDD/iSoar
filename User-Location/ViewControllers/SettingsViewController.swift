@@ -195,7 +195,9 @@ class SettingsViewController: FormViewController {
                         let trafficMonitorRadius = Double(row.value ?? 50)
                         UserDefaultsManager.set(trafficMonitorRadius: trafficMonitorRadius)
                         
-                        OGNSocketConnectionManager.reconnect()
+                        if UserDefaultsManager.showOnlyBuddySwitchState() == false {
+                            OGNSocketConnectionManager.reconnect()
+                        }
                         
                     }
                     
