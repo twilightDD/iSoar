@@ -7,9 +7,10 @@
 //
 
 import Eureka
+import MessageUI
 
 // MARK: SettingsViewController
-class SettingsViewController: FormViewController {
+class SettingsViewController: FormViewController, MFMailComposeViewControllerDelegate {
     
     // MARK: Lets and Vars
     
@@ -293,17 +294,59 @@ class SettingsViewController: FormViewController {
     
     private func miscellaneousSection()
         -> Section {
-            let section = Section("Miscellaneous Settings")
+            let section = Section("Miscellaneous")
                 <<< ButtonRow { row in
                     row.title = "Download Airport Database Update"
-                    row.onCellSelection(self.buttonTapped)
+                    row.onCellSelection(self.downloadButtonTapped)
+                    
+                }
+                
+                <<< ButtonRow { row in
+                    row.title = "Report missing Airfield"
+                    row.onCellSelection(self.reportMissingAirfieldButtonTapped)
+                    
             }
             return section
     }
     
-    // MARK: Button Tapped
-    private func buttonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
+    // Report missing Airport
+    private func reportMissingAirport() {
+        if MFMailComposeViewController.canSendMail() {
+            let mailComposer = MFMailComposeViewController()
+            mailComposer.setToRecipients(["mail@isoar.de"])
+            mailComposer.setSubject("Add missing Airport")
+            mailComposer.setMessageBody("Country:<br>Elevation AMSL:<br>ICAO Code:<br>Latitude:<br>Longitude:<br>Name:<br>Radio Frequency:<br>Radio Frequency Name:<br>Runway Dimensions: (1000 x 50) <br>Runway Direction: (01/19)<br>Runway Surface: Grass / Asphalt<br>URL: www.airport.org", isHTML: true)
+            
+            mailComposer.mailComposeDelegate = self
+            self.present(mailComposer, animated: true,
+                         completion: nil)
+        } else {
+            let alert = UIAlertController(title: "Error creating Mail",
+                                          message: "Mail is not configured in settings app.",
+                                          preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK",
+                                          style: .cancel,
+                                          handler: nil))
+            
+            self.present(alert, animated: true)
+        }
+    }
+    
+    // Mail Composer Controller
+    internal func mailComposeController(_ controller: MFMailComposeViewController,
+                                        didFinishWith result: MFMailComposeResult,
+                                        error: Error?) {
+        controller.dismiss(animated: true)
+    }
+    
+    // MARK: - Action Methods
+    private func downloadButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         AirportDatabase.downloadAirportsFromServer()
+    }
+    
+    private func reportMissingAirfieldButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
+        reportMissingAirport()
     }
     
 }
