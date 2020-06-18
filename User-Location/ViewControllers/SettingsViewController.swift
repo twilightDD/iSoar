@@ -305,6 +305,12 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                     row.title = "Report missing Airfield"
                     row.onCellSelection(self.reportMissingAirfieldButtonTapped)
                     
+                }
+                
+                <<< ButtonRow { row in
+                    row.title = "Read the Manual (German)"
+                    row.onCellSelection(self.readTheManualButtonTapped)
+                    
             }
             return section
     }
@@ -347,6 +353,14 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
     
     private func reportMissingAirfieldButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         reportMissingAirport()
+    }
+    
+    private func readTheManualButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
+        if let manualURL = Presets.Settings.maualURL,
+        UIApplication.shared.canOpenURL(manualURL as URL) {
+            UIApplication.shared.open(manualURL)
+        }
+        
     }
     
 }
