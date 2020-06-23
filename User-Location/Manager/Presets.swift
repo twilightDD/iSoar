@@ -108,4 +108,10 @@ struct Presets {
         
     }
     
+    struct Settings {
+        
+        /// Represents the URL of the Manual on the Server
+        static let maualURL = URL(string: "https://www.isoar.de/handbuch")
+    
+    }
 }

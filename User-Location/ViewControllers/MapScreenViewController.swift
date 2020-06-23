@@ -374,7 +374,7 @@ class MapScreenViewController: UIViewController {
         
         var altituteLabelText = ""
         if showAltitudeInMeters == true {
-            altituteLabelText =  String(format: "%.0f m", currentLocation.altitude)
+            altituteLabelText = String(format: "%.0f m", currentLocation.altitude)
         } else {
             let altitudeInFeet = currentLocation.altitude * 3.28084
             altituteLabelText = String(format: "%.0f ft", altitudeInFeet)
@@ -905,18 +905,6 @@ extension MapScreenViewController: FlightComputerDelegate {
             removeTravelledFlightLineFromMapView()
             // Remove all existing Polyline-Location-Points from Array
             travelledFlightlineSegments.removeAll()
-        } else { // TODO: 20200611 Nur zum testen. Muss entfernt werden
-            let alert = UIAlertController(title: "Flight ended",
-                                          message: "Flight ended",
-                                          preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK",
-                                          style: .default,
-                                          handler: nil))
-            
-            self.present(alert, animated: true)
-            
         }
-        
     }
 }

@@ -8,9 +8,8 @@
 
 import UIKit
 import CoreLocation
-import MessageUI
 
-class DestinationSelectionViewController: UIViewController, MFMailComposeViewControllerDelegate {
+class DestinationSelectionViewController: UIViewController {
     
     // MARK: Lets and Vars
     // Statics
@@ -140,36 +139,6 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
         }
     }
     
-    // Report missing Airport
-    private func reportMissingAirport() {
-        if MFMailComposeViewController.canSendMail() {
-            let mailComposer = MFMailComposeViewController()
-            mailComposer.setToRecipients(["mail@isoar.de"])
-            mailComposer.setSubject("Add missing Airport")
-            mailComposer.setMessageBody("Country:<br>Elevation AMSL:<br>ICAO Code:<br>Latitude:<br>Longitude:<br>Name:<br>Radio Frequency:<br>Radio Frequency Name:<br>Runway Dimensions: (1000 x 50) <br>Runway Direction: (01/19)<br>Runway Surface: Grass / Asphalt<br>URL: www.airport.org", isHTML: true)
-            
-            mailComposer.mailComposeDelegate = self
-            self.present(mailComposer, animated: true,
-                         completion: nil)
-        } else {
-            let alert = UIAlertController(title: "Error creating Mail",
-                                          message: "Mail is not configured in settings app.",
-                                          preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "OK",
-                                          style: .cancel,
-                                          handler: nil))
-            
-            self.present(alert, animated: true)
-        }
-    }
-    
-    // Mail Composer Controller
-    internal func mailComposeController(_ controller: MFMailComposeViewController,
-                                        didFinishWith result: MFMailComposeResult,
-                                        error: Error?) {
-        controller.dismiss(animated: true)
-    }
     
     func distanceAsReadable(_ distance: CLLocationDistance?)
         -> String {
@@ -210,17 +179,7 @@ class DestinationSelectionViewController: UIViewController, MFMailComposeViewCon
     @IBAction func sortSwitchAction(_ sender: UISegmentedControl) {
         setupTableViewDatasource()
     }
-    
-    // Report missing Airport Button
-    @IBAction func reportMissingAirportAction(_ sender: UIBarButtonItem) {
-        reportMissingAirport()
-    }
-    
-    // Airport Info Button
-//    @IBAction func airportInfoButtonAction(_ sender: Any) {
-//        performSegue(withIdentifier: "AirportInfoSegue", sender: self)
-//    }
-    
+       
 }
 
 // MARK: - Extension - UITableViewDataSource
