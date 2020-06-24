@@ -239,20 +239,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Germany" translatesAutoresizingMaskIntoConstraints="NO" id="zhX-2q-7Us" userLabel="Country Image Top">
-                                <rect key="frame" x="15" y="93" width="25" height="25"/>
+                                <rect key="frame" x="15" y="98" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="2pu-Ec-eJo"/>
                                     <constraint firstAttribute="height" constant="25" id="Fgg-dV-Unu"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="destinationAirport" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eu5-OH-egv">
-                                <rect key="frame" x="55" y="93" width="304" height="25"/>
+                                <rect key="frame" x="55" y="98" width="304" height="25"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eid-Eo-OlS">
-                                <rect key="frame" x="369" y="93" width="25" height="25"/>
+                                <rect key="frame" x="369" y="98" width="25" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="25" id="QQA-lX-6bN"/>
                                     <constraint firstAttribute="height" constant="25" id="cOO-ki-EKj"/>
@@ -263,14 +263,14 @@
                                 </connections>
                             </button>
                             <searchBar contentMode="redraw" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J3X-KW-pzm">
-                                <rect key="frame" x="0.0" y="123" width="414" height="56"/>
+                                <rect key="frame" x="0.0" y="133" width="414" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="vvT-rw-CMb" id="Che-cj-maN"/>
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="uOE-BD-KUg">
-                                <rect key="frame" x="0.0" y="179" width="414" height="634"/>
+                                <rect key="frame" x="0.0" y="189" width="414" height="624"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DestinationSelectionAirportTableViewCell" rowHeight="56" id="xvs-1w-Ybi" customClass="DestinationSelectionAirportTableViewCell" customModule="iSoar" customModuleProvider="target">
@@ -337,7 +337,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="J3X-KW-pzm" firstAttribute="top" secondItem="eu5-OH-egv" secondAttribute="bottom" constant="5" id="2KF-Rg-qP8"/>
+                            <constraint firstItem="J3X-KW-pzm" firstAttribute="top" secondItem="zhX-2q-7Us" secondAttribute="bottom" constant="10" id="2KF-Rg-qP8"/>
                             <constraint firstItem="zhX-2q-7Us" firstAttribute="leading" secondItem="ViJ-sQ-BHW" secondAttribute="leading" constant="15" id="BBO-H8-SHy"/>
                             <constraint firstItem="uOE-BD-KUg" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" id="CA8-ou-8xc"/>
                             <constraint firstItem="zhX-2q-7Us" firstAttribute="top" secondItem="eu5-OH-egv" secondAttribute="top" id="GbJ-Uw-9ee"/>
@@ -345,7 +345,7 @@
                             <constraint firstItem="J3X-KW-pzm" firstAttribute="leading" secondItem="TB3-Tq-exz" secondAttribute="leading" id="KlM-Nh-CpH"/>
                             <constraint firstItem="eid-Eo-OlS" firstAttribute="centerY" secondItem="eu5-OH-egv" secondAttribute="centerY" id="MIe-Ra-pZf"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" secondItem="J3X-KW-pzm" secondAttribute="trailing" id="PAs-u2-Wma"/>
-                            <constraint firstItem="zhX-2q-7Us" firstAttribute="top" secondItem="TB3-Tq-exz" secondAttribute="top" constant="5" id="aCe-k6-fJZ"/>
+                            <constraint firstItem="zhX-2q-7Us" firstAttribute="top" secondItem="TB3-Tq-exz" secondAttribute="top" constant="10" id="aCe-k6-fJZ"/>
                             <constraint firstItem="TB3-Tq-exz" firstAttribute="trailing" secondItem="uOE-BD-KUg" secondAttribute="trailing" id="drT-rg-LPG"/>
                             <constraint firstItem="zhX-2q-7Us" firstAttribute="centerY" secondItem="eu5-OH-egv" secondAttribute="centerY" id="fPK-0C-cdr"/>
                             <constraint firstItem="eu5-OH-egv" firstAttribute="leading" secondItem="zhX-2q-7Us" secondAttribute="trailing" constant="15" id="k92-N1-FTD"/>
@@ -417,14 +417,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskSelectionTableViewCell" id="DPU-HB-jDi" customClass="TaskSelectionTableViewCell" customModule="iSoar" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DPU-HB-jDi" id="BFo-Hu-pV9">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fmk-3Q-uW8">
-                                                    <rect key="frame" x="15" y="11" width="81" height="21"/>
+                                                    <rect key="frame" x="15" y="11" width="81" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -979,7 +979,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="eHJ-XT-RI9"/>
+        <segue reference="Zkc-e6-S7u"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Germany" width="512" height="514"/>
