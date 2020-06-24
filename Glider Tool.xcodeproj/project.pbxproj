@@ -36,6 +36,7 @@
 		E02052AF23E36A8200839B84 /* FlightComputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02052AE23E36A8200839B84 /* FlightComputer.swift */; };
 		E02052B123E36A9A00839B84 /* FlightRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02052B023E36A9A00839B84 /* FlightRecorder.swift */; };
 		E06936D8241B8CA00073D078 /* GliderTelemetryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06936D7241B8CA00073D078 /* GliderTelemetryData.swift */; };
+		E070FD9E24A3109A0039386D /* Glider Tool.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E070FD9C24A3109A0039386D /* Glider Tool.xcdatamodeld */; };
 		E086AB0B229C35890011C433 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086AB0A229C35890011C433 /* SettingsViewController.swift */; };
 		E099E34B247D296700D72515 /* AirportAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E099E34A247D296700D72515 /* AirportAnnotation.swift */; };
 		E099E34D247D3F7F00D72515 /* AirportAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E099E34C247D3F7F00D72515 /* AirportAnnotationView.swift */; };
@@ -98,6 +99,7 @@
 		E02052AE23E36A8200839B84 /* FlightComputer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightComputer.swift; sourceTree = "<group>"; };
 		E02052B023E36A9A00839B84 /* FlightRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightRecorder.swift; sourceTree = "<group>"; };
 		E06936D7241B8CA00073D078 /* GliderTelemetryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderTelemetryData.swift; sourceTree = "<group>"; };
+		E070FD9D24A3109A0039386D /* Glider Tool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Glider Tool.xcdatamodel"; sourceTree = "<group>"; };
 		E086AB0A229C35890011C433 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E099E34A247D296700D72515 /* AirportAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportAnnotation.swift; sourceTree = "<group>"; };
 		E099E34C247D3F7F00D72515 /* AirportAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportAnnotationView.swift; sourceTree = "<group>"; };
@@ -312,6 +314,7 @@
 				E0526AB022BF7056001FC6B4 /* Extensions */,
 				EDA2362E2130AA7600739396 /* Info.plist */,
 				EDA2362B2130AA7600739396 /* LaunchScreen.storyboard */,
+				E070FD9C24A3109A0039386D /* Glider Tool.xcdatamodeld */,
 				E0C138D923D21ABE00624F1C /* Main Classes */,
 				EDA236262130AA7500739396 /* Main.storyboard */,
 				D0C2801C23D8FE0D00518539 /* Manager */,
@@ -480,6 +483,7 @@
 				E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */,
 				E0A215BB235E2D0D009F6953 /* TableViewController.swift in Sources */,
 				E007864923D2204600856865 /* FlightsDatabase.swift in Sources */,
+				E070FD9E24A3109A0039386D /* Glider Tool.xcdatamodeld in Sources */,
 				EDA236352130AA9A00739396 /* MapScreenViewController.swift in Sources */,
 				E01D87E8239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift in Sources */,
 				D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */,
@@ -724,6 +728,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E070FD9C24A3109A0039386D /* Glider Tool.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E070FD9D24A3109A0039386D /* Glider Tool.xcdatamodel */,
+			);
+			currentVersion = E070FD9D24A3109A0039386D /* Glider Tool.xcdatamodel */;
+			name = "Glider Tool.xcdatamodeld";
+			path = "Airports/Glider Tool.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = EDA236172130AA7500739396 /* Project object */;
 }
