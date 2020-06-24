@@ -14,6 +14,11 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
     
     // MARK: Lets and Vars
     
+    // MARK: - Keys
+    static let TrafficMonitorKey = "Traffic Monitor"
+    static let CollisionWarningKey = "Collision Warning"
+    static let ShowOnlyBuddiesOnMapKey = "Show only Buddies on Map"
+    
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,8 +176,8 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
         -> Section {
             let section = Section("Traffic Monitor Settings")
                 <<< SwitchRow { row in
-                    row.title = "Traffic Monitor"
-                    row.tag = "Traffic Monitor"
+                    row.title = SettingsViewController.TrafficMonitorKey
+                    row.tag = SettingsViewController.TrafficMonitorKey
                     row.value = UserDefaultsManager.showAllNearbyGlidersState()
                     
                 }.cellSetup { cell, row in
@@ -183,7 +188,7 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                 }.onChange { row in
                     guard let showAllNearbyGlidersState = row.value else { return }
                     UserDefaultsManager.set(showAllNearbyGlidersState: showAllNearbyGlidersState)
-                    
+ 
                     if UserDefaultsManager.showAllNearbyGlidersState() == true {
                         // Connect to OGN Server with Radius Filter
                         OGNSocketConnectionManager.start()
@@ -191,7 +196,23 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                     } else {
                         // Disconnect from OGN Server
                         OGNSocketConnectionManager.stop()
+
+                        if UserDefaultsManager.collisionWarningState() == true {
+                            UserDefaultsManager.set(collisionWarningState: false)
+                            
+                            self.form.rowBy(tag: SettingsViewController.CollisionWarningKey)?.baseValue = false
+                            
+                            self.form.rowBy(tag: SettingsViewController.CollisionWarningKey)?.reload()
+                        }
                         
+                        if UserDefaultsManager.showOnlyBuddySwitchState() == true {
+                            UserDefaultsManager.set(showOnlyBuddySwitchState: false)
+                            
+                            self.form.rowBy(tag: SettingsViewController.ShowOnlyBuddiesOnMapKey)?.baseValue = false
+                            
+                            self.form.rowBy(tag: SettingsViewController.ShowOnlyBuddiesOnMapKey)?.reload()
+                        }
+
                     }
                     
                 }
@@ -219,9 +240,10 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                 })
                 
                 <<< SwitchRow("Collision Warning") { row in
-                    row.title = row.tag
+                    row.title = SettingsViewController.CollisionWarningKey
+                    row.tag = SettingsViewController.CollisionWarningKey
                     row.value = UserDefaultsManager.collisionWarningState()
-                    
+
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "speaker")
                     
@@ -229,11 +251,22 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                     guard let collisionWarningState = row.value else { return }
                     UserDefaultsManager.set(collisionWarningState: collisionWarningState)
                     
+                    if UserDefaultsManager.collisionWarningState() == true,
+                        UserDefaultsManager.showAllNearbyGlidersState() == false {
+                        
+                        UserDefaultsManager.set(showAllNearbyGlidersState: true)
+                        
+                        self.form.rowBy(tag: SettingsViewController.TrafficMonitorKey)?.baseValue = UserDefaultsManager.showAllNearbyGlidersState()
+                        
+                        self.form.rowBy(tag: SettingsViewController.TrafficMonitorKey)?.reload()
+                        
+                    }
+
                 }
                 
-                <<< SwitchRow { row in
-                    row.title = "Show only Buddies on Map"
-                    row.tag = "Show only Buddies on Map"
+                <<< SwitchRow("Show only Buddies on Map") { row in
+                    row.title = SettingsViewController.ShowOnlyBuddiesOnMapKey
+                    row.tag = SettingsViewController.ShowOnlyBuddiesOnMapKey
                     row.value = UserDefaultsManager.showOnlyBuddySwitchState()
                     
                 }.cellSetup { cell, row in
@@ -247,10 +280,10 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                         UserDefaultsManager.showAllNearbyGlidersState() == false {
                         
                         UserDefaultsManager.set(showAllNearbyGlidersState: true)
+
+                        self.form.rowBy(tag: SettingsViewController.TrafficMonitorKey)?.baseValue = UserDefaultsManager.showAllNearbyGlidersState()
                         
-                        self.form.rowBy(tag: "Show nearby Aircrafts on Map")?.baseValue = UserDefaultsManager.showAllNearbyGlidersState()
-                        
-                        self.form.rowBy(tag: "Show nearby Aircrafts on Map")?.reload()
+                        self.form.rowBy(tag: SettingsViewController.TrafficMonitorKey)?.reload()
                         
                     } else {
                         OGNSocketConnectionManager.reconnect()
@@ -357,7 +390,7 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
     
     private func readTheManualButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         if let manualURL = Presets.Settings.maualURL,
-        UIApplication.shared.canOpenURL(manualURL as URL) {
+            UIApplication.shared.canOpenURL(manualURL as URL) {
             UIApplication.shared.open(manualURL)
         }
         
