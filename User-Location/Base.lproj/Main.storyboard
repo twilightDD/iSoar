@@ -32,10 +32,40 @@
                         <viewLayoutGuide key="safeArea" id="ZtY-EE-Of7"/>
                     </view>
                     <navigationItem key="navigationItem" id="5ds-oq-XYO"/>
+                    <connections>
+                        <segue destination="s7L-uP-WAd" kind="show" identifier="GliderSelectionSegue" id="MDo-pg-SNU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BSE-1G-sMQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="342.02898550724638" y="1322.5446428571429"/>
+            <point key="canvasLocation" x="341" y="1323"/>
+        </scene>
+        <!--Glider Selection Table View Controller-->
+        <scene sceneID="kOH-nh-O3o">
+            <objects>
+                <tableViewController id="s7L-uP-WAd" customClass="GliderSelectionTableViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="c0z-Sw-DQk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="s7L-uP-WAd" id="zx9-W0-1Re"/>
+                            <outlet property="delegate" destination="s7L-uP-WAd" id="wPc-iK-8HO"/>
+                        </connections>
+                    </tableView>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="L91-cE-ZIX">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="ejC-A1-MjW">
+                            <connections>
+                                <action selector="addGliderAction:" destination="s7L-uP-WAd" id="iWJ-tj-AUz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CBa-Q4-maG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="341" y="2077"/>
         </scene>
         <!--Logbook View Controller-->
         <scene sceneID="kZz-qr-uGS">
@@ -228,7 +258,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bR1-wW-GuP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2422" y="1323"/>
+            <point key="canvasLocation" x="1335" y="1323"/>
         </scene>
         <!--Destination Selection View Controller-->
         <scene sceneID="naG-LX-K2Z">
@@ -784,7 +814,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NNL-hG-AEc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2120" y="1714"/>
+            <point key="canvasLocation" x="-2065" y="2002"/>
         </scene>
         <!--Map-->
         <scene sceneID="tne-QT-ifu">
@@ -918,7 +948,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fKg-6p-W2b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1250.7246376811595" y="550.44642857142856"/>
+            <point key="canvasLocation" x="341" y="550"/>
         </scene>
         <!--Tasks-->
         <scene sceneID="I1l-1A-PDM">
@@ -937,7 +967,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y0g-Aq-T1C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="450.72463768115944" y="550.44642857142856"/>
+            <point key="canvasLocation" x="-459" y="551"/>
         </scene>
         <!--Logbook-->
         <scene sceneID="Elj-1N-WX4">
@@ -956,7 +986,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eLH-aC-fbA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3331.884057971015" y="550.44642857142856"/>
+            <point key="canvasLocation" x="1336" y="550"/>
         </scene>
         <!--Destination-->
         <scene sceneID="LgI-L0-olz">
