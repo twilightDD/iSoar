@@ -4,8 +4,9 @@
         <attribute name="gliderFlarmID" optional="YES" attributeType="String"/>
         <attribute name="gliderID" optional="YES" attributeType="String"/>
         <attribute name="gliderRatio" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="gliderUUID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <elements>
-        <element name="Glider" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="Glider" positionX="-63" positionY="-18" width="128" height="103"/>
     </elements>
 </model>
