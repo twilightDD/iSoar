@@ -8,6 +8,7 @@
 
 import Eureka
 import MessageUI
+import UIKit
 
 // MARK: SettingsViewController
 class SettingsViewController: FormViewController, MFMailComposeViewControllerDelegate {
@@ -15,6 +16,11 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
     // MARK: Lets and Vars
     
     // MARK: - Keys
+    
+    static let GliderRegistrationKey = "Glider Registration"
+    static let GliderRatioKey = "Glider Ratio"
+    static let GliderFlarmIDKey = "FLARM ID"
+    
     static let TrafficMonitorKey = "Traffic Monitor"
     static let CollisionWarningKey = "Collision Warning"
     static let ShowOnlyBuddiesOnMapKey = "Show only Buddies on Map"
@@ -24,7 +30,7 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
         super.viewDidLoad()
         navigationItem.title = "Settings"
         
-        form.append(gliderSettingsSection())
+        form.append(gliderSelectionSection())
         form.append(userSettingsSection())
         form.append(mapSettingsSection())
         form.append(trafficMonitorSection())
@@ -32,60 +38,64 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+       
+        updateUIforSelectedGlider()
+        
+    }
+    
     // MARK: - Private Methods
     // MARK: Eureka Form Sections
-    private func gliderSettingsSection()
+    
+    private func gliderSelectionSection()
         -> Section {
-            let section = Section("Glider Settings")
-                <<< TextRow { row in
-                    row.title = "Glider ID"
-                    row.value = UserDefaultsManager.gliderID()
-                    row.placeholder = "D-1234"
+            let section = Section("Glider Selection")
+            
+                <<< ButtonRow { row in
+                    row.title = "Glider"
+                    row.tag = "Glider"
+                    row.presentationMode = .segueName(segueName: "GliderSelectionSegue", onDismiss: nil)
                     
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "airplane")
-                    
-                }.onCellHighlightChanged({ (cell, row) in
-                    if row.isHighlighted == false {
-                        let gliderID = row.value
-                        UserDefaultsManager.set(gliderID: gliderID ?? "D-1234")
-                        
-                    }
-                })
+
+                }
                 
-                <<< IntRow { row in
+                <<< TextRow { row in
+                    row.title = "Glider Registration"
+                    row.tag = "Glider Registration"
+                    row.value = UserDefaultsManager.gliderID()
+                    row.disabled = true
+                    
+                }.cellSetup { cell, row in
+                    cell.imageView?.image = UIImage(systemName: "airplane")
+                }
+                
+                <<< TextRow { row in
                     row.title = "Glider Ratio"
-                    row.value = Int(UserDefaultsManager.gliderRatio())
-                    row.placeholder = "30"
+                    row.tag = "Glider Ratio"
+                    row.value = String(format: "%.0f", UserDefaultsManager.gliderRatio())
+                    row.disabled = true
                     
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "arrow.down.left")
-                    
-                }.onCellHighlightChanged({ (cell, row) in
-                    if row.isHighlighted == false {
-                        let gliderRatio = Double(row.value ?? 30)
-                        UserDefaultsManager.set(gliderRatio: gliderRatio)
-                        
-                    }
-                })
+                }
                 
                 <<< TextRow { row in
                     row.title = "FLARM ID"
+                    row.tag = "FLARM ID"
                     row.value = UserDefaultsManager.ownFlarmID()
-                    row.placeholder = "FLRxxxxxx"
+                    row.disabled = true
                     
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "dot.radiowaves.left.and.right")
                     
-                }.onCellHighlightChanged({ (cell, row) in
-                    if row.isHighlighted == false {
-                        let ownFlarmID = row.value
-                        UserDefaultsManager.set(ownFlarmID: ownFlarmID ?? "FLRxxxxxx")
-                        
-                    }
-                })
-            
+            }
+
+            section.tag = "Glider Selection"
             return section
+            
     }
     
     private func userSettingsSection()
@@ -188,7 +198,7 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                 }.onChange { row in
                     guard let showAllNearbyGlidersState = row.value else { return }
                     UserDefaultsManager.set(showAllNearbyGlidersState: showAllNearbyGlidersState)
- 
+                    
                     if UserDefaultsManager.showAllNearbyGlidersState() == true {
                         // Connect to OGN Server with Radius Filter
                         OGNSocketConnectionManager.start()
@@ -196,7 +206,7 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                     } else {
                         // Disconnect from OGN Server
                         OGNSocketConnectionManager.stop()
-
+                        
                         if UserDefaultsManager.collisionWarningState() == true {
                             UserDefaultsManager.set(collisionWarningState: false)
                             
@@ -212,7 +222,7 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                             
                             self.form.rowBy(tag: SettingsViewController.ShowOnlyBuddiesOnMapKey)?.reload()
                         }
-
+                        
                     }
                     
                 }
@@ -243,7 +253,7 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                     row.title = SettingsViewController.CollisionWarningKey
                     row.tag = SettingsViewController.CollisionWarningKey
                     row.value = UserDefaultsManager.collisionWarningState()
-
+                    
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "speaker")
                     
@@ -261,7 +271,7 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                         self.form.rowBy(tag: SettingsViewController.TrafficMonitorKey)?.reload()
                         
                     }
-
+                    
                 }
                 
                 <<< SwitchRow("Show only Buddies on Map") { row in
@@ -280,7 +290,7 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                         UserDefaultsManager.showAllNearbyGlidersState() == false {
                         
                         UserDefaultsManager.set(showAllNearbyGlidersState: true)
-
+                        
                         self.form.rowBy(tag: SettingsViewController.TrafficMonitorKey)?.baseValue = UserDefaultsManager.showAllNearbyGlidersState()
                         
                         self.form.rowBy(tag: SettingsViewController.TrafficMonitorKey)?.reload()
@@ -377,6 +387,22 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                                         didFinishWith result: MFMailComposeResult,
                                         error: Error?) {
         controller.dismiss(animated: true)
+    }
+    
+    private func updateUIforSelectedGlider() {
+
+        let gliderID = form.rowBy(tag: SettingsViewController.GliderRegistrationKey) as? TextRow
+        gliderID!.value = UserDefaultsManager.gliderID()
+        gliderID!.reload()
+        
+        let gliderRatio = form.rowBy(tag: SettingsViewController.GliderRatioKey) as? TextRow
+        gliderRatio!.value = String(format: "%.0f", UserDefaultsManager.gliderRatio())
+        gliderRatio!.reload()
+        
+        let gliderFlarmID = form.rowBy(tag: SettingsViewController.GliderFlarmIDKey) as? TextRow
+        gliderFlarmID!.value = UserDefaultsManager.ownFlarmID()
+        gliderFlarmID!.reload()
+        
     }
     
     // MARK: - Action Methods
