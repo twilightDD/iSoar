@@ -55,7 +55,7 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="L91-cE-ZIX">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="ejC-A1-MjW">
+                        <barButtonItem key="rightBarButtonItem" title="Add" image="plus.circle" catalog="system" id="ejC-A1-MjW">
                             <connections>
                                 <action selector="addGliderAction:" destination="s7L-uP-WAd" id="iWJ-tj-AUz"/>
                             </connections>
@@ -1021,6 +1021,7 @@
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="logbook" width="35" height="35"/>
         <image name="map" width="65" height="30"/>
+        <image name="plus.circle" catalog="system" width="128" height="121"/>
         <image name="settings" width="35" height="35"/>
         <image name="tabbar_DestinationSelection" width="35" height="35"/>
         <image name="tasks" width="35" height="35"/>
