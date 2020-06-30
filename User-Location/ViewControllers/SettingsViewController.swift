@@ -17,6 +17,7 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
     
     // MARK: - Keys
     
+    static let AvailableGlidersKey = "Available Gliders"
     static let GliderRegistrationKey = "Glider Registration"
     static let GliderRatioKey = "Glider Ratio"
     static let GliderFlarmIDKey = "FLARM ID"
@@ -53,8 +54,8 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
             let section = Section("Glider Selection")
             
                 <<< ButtonRow { row in
-                    row.title = "Glider"
-                    row.tag = "Glider"
+                    row.title = SettingsViewController.AvailableGlidersKey
+                    row.tag = SettingsViewController.AvailableGlidersKey
                     row.presentationMode = .segueName(segueName: "GliderSelectionSegue", onDismiss: nil)
                     
                 }.cellSetup { cell, row in
@@ -63,18 +64,18 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                 }
                 
                 <<< TextRow { row in
-                    row.title = "Glider Registration"
-                    row.tag = "Glider Registration"
+                    row.title = SettingsViewController.GliderRegistrationKey
+                    row.tag = SettingsViewController.GliderRegistrationKey
                     row.value = UserDefaultsManager.gliderID()
                     row.disabled = true
                     
                 }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "airplane")
+                    cell.imageView?.image = UIImage(systemName: "textformat")
                 }
                 
                 <<< TextRow { row in
-                    row.title = "Glider Ratio"
-                    row.tag = "Glider Ratio"
+                    row.title = SettingsViewController.GliderRatioKey
+                    row.tag = SettingsViewController.GliderRatioKey
                     row.value = String(format: "%.0f", UserDefaultsManager.gliderRatio())
                     row.disabled = true
                     
@@ -83,8 +84,8 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                 }
                 
                 <<< TextRow { row in
-                    row.title = "FLARM ID"
-                    row.tag = "FLARM ID"
+                    row.title = SettingsViewController.GliderFlarmIDKey
+                    row.tag = SettingsViewController.GliderFlarmIDKey
                     row.value = UserDefaultsManager.ownFlarmID()
                     row.disabled = true
                     
