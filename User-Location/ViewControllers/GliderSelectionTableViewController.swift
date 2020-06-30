@@ -19,17 +19,17 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
     var context: NSManagedObjectContext!
     
     var gliderArray = [Glider]()
-    var chosenGlider: Glider?
     
-    var gliderID: UITextField!
-    var gliderRatio: UITextField!
-    var flarmID: UITextField!
+    var gliderUUID: UUID!
+    var gliderIDTextField: UITextField!
+    var gliderRatioTextField: UITextField!
+    var flarmIDTextField: UITextField!
     
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Glider Selection"
-
+        
         context = appDelegate!.persistentContainer.viewContext
         fetchData()
         
@@ -39,9 +39,10 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
     // Create new Glider
     private func createNewGlider() {
         let newGlider = Glider.init(context: context)
-        newGlider.gliderFlarmID = flarmID.text
-        newGlider.gliderID = gliderID.text
-        newGlider.gliderRatio = (gliderRatio.text! as NSString).doubleValue
+        newGlider.gliderUUID = UUID()
+        newGlider.gliderFlarmID = flarmIDTextField.text
+        newGlider.gliderID = gliderIDTextField.text
+        newGlider.gliderRatio = (gliderRatioTextField.text! as NSString).doubleValue
         
         do {
             try context.save()
@@ -59,9 +60,8 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
         request.returnsObjectsAsFaults = false
         context.reset()
         do {
-            
-            let req: NSFetchRequest<Glider> = Glider.fetchRequest()
-            gliderArray = try context.fetch(req)
+            let request: NSFetchRequest<Glider> = Glider.fetchRequest()
+            gliderArray = try context.fetch(request)
         } catch {
             print("Fetching data Failed")
         }
@@ -69,17 +69,28 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
     }
     
     // MARK: - TablewView Methods
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return gliderArray.count
+    // Setup TableView
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
+        -> Int {
+            return gliderArray.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        let glider = gliderArray[indexPath.row]
-        
-        cell.textLabel?.text = glider.gliderID
-        
-        return cell
+    // Setup TableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+        -> UITableViewCell {
+            let cell = UITableViewCell()
+            let glider = gliderArray[indexPath.row]
+            
+            cell.textLabel?.text = glider.gliderID
+            
+            // Set Checkmark
+            if gliderArray[indexPath.row].gliderID == UserDefaultsManager.gliderID() {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+            
+            return cell
     }
     
     // User didSelect Row
@@ -92,6 +103,8 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
         UserDefaultsManager.set(gliderID: selectedGlider.gliderID!)
         UserDefaultsManager.set(gliderRatio: selectedGlider.gliderRatio)
         UserDefaultsManager.set(ownFlarmID: selectedGlider.gliderFlarmID!)
+        
+        tableView.reloadData()
         
     }
     
@@ -133,18 +146,17 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
         // Add Textfields
         alert.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "Glider Registration e.g. D-1234"
-            textField.keyboardType = .default
-            self.gliderID = textField
+            self.gliderIDTextField = textField
         })
         
         alert.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "Lift to Drag Ratio e.g. 35"
-            self.gliderRatio = textField
+            self.gliderRatioTextField = textField
         })
         
         alert.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "FLARM ID e.g. FLR123456"
-            self.flarmID = textField
+            self.flarmIDTextField = textField
         })
         
         // Add Action Buttons
