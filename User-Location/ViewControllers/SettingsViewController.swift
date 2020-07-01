@@ -32,6 +32,7 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
         navigationItem.title = "Settings"
         
         form.append(gliderSelectionSection())
+        form.append(selectedGliderSection())
         form.append(userSettingsSection())
         form.append(mapSettingsSection())
         form.append(trafficMonitorSection())
@@ -61,8 +62,16 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "airplane")
 
-                }
-                
+            }
+            
+            section.tag = "Glider Selection"
+            return section
+    }
+    
+    private func selectedGliderSection()
+                -> Section {
+                    let section = Section("Selected Glider Details")
+                    
                 <<< TextRow { row in
                     row.title = SettingsViewController.GliderRegistrationKey
                     row.tag = SettingsViewController.GliderRegistrationKey
@@ -94,11 +103,11 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                     
             }
 
-            section.tag = "Glider Selection"
+            section.tag = "Selected Glider Details"
             return section
             
     }
-    
+
     private func userSettingsSection()
         -> Section {
             let section = Section("User Settings")
