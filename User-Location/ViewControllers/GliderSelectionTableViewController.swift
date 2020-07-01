@@ -82,6 +82,7 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
             let glider = gliderArray[indexPath.row]
             
             cell.textLabel?.text = glider.gliderID
+            cell.imageView?.image = UIImage(systemName: "airplane")
             
             // Set Checkmark
             if gliderArray[indexPath.row].gliderID == UserDefaultsManager.gliderID() {
