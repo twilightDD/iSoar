@@ -39,10 +39,10 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
     // Create new Glider
     private func createNewGlider() {
         let newGlider = Glider.init(context: context)
-        newGlider.gliderUUID = UUID()
-        newGlider.gliderFlarmID = flarmIDTextField.text
-        newGlider.gliderID = gliderIDTextField.text
-        newGlider.gliderRatio = (gliderRatioTextField.text! as NSString).doubleValue
+        newGlider.uuid = UUID()
+        newGlider.flarmID = flarmIDTextField.text
+        newGlider.registration = gliderIDTextField.text
+        newGlider.ratio = (gliderRatioTextField.text! as NSString).doubleValue
         
         do {
             try context.save()
@@ -81,11 +81,11 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
             let cell = UITableViewCell()
             let glider = gliderArray[indexPath.row]
             
-            cell.textLabel?.text = glider.gliderID
+            cell.textLabel?.text = glider.registration
             cell.imageView?.image = UIImage(systemName: "airplane")
             
             // Set Checkmark
-            if gliderArray[indexPath.row].gliderID == UserDefaultsManager.gliderID() {
+            if gliderArray[indexPath.row].registration == UserDefaultsManager.gliderID() {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
@@ -101,9 +101,9 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
         
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         
-        UserDefaultsManager.set(gliderID: selectedGlider.gliderID!)
-        UserDefaultsManager.set(gliderRatio: selectedGlider.gliderRatio)
-        UserDefaultsManager.set(ownFlarmID: selectedGlider.gliderFlarmID!)
+        UserDefaultsManager.set(gliderID: selectedGlider.registration!)
+        UserDefaultsManager.set(gliderRatio: selectedGlider.ratio)
+        UserDefaultsManager.set(ownFlarmID: selectedGlider.flarmID!)
         
         tableView.reloadData()
         

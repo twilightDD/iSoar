@@ -15,9 +15,9 @@ extension Glider {
         return NSFetchRequest<Glider>(entityName: "Glider")
     }
 
-    @NSManaged public var gliderUUID: UUID?
-    @NSManaged public var gliderFlarmID: String?
-    @NSManaged public var gliderID: String?
-    @NSManaged public var gliderRatio: Double
+    @NSManaged public var uuid: UUID?
+    @NSManaged public var flarmID: String?
+    @NSManaged public var registration: String?
+    @NSManaged public var ratio: Double
 
 }
