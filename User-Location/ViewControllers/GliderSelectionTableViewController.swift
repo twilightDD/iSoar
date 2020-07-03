@@ -107,6 +107,13 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
         
         tableView.reloadData()
         
+        // TODO: 20200703 Hier nochmal prüfen ob ein anderer Glider ausgewählt wurde
+        // Reconnect to OGN Server
+        if UserDefaultsManager.showAllNearbyGlidersState() == true {
+            OGNSocketConnectionManager.reconnect()
+            
+        }
+        
     }
     
     // User swiped left to delete Row
