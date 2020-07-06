@@ -32,6 +32,7 @@
 		E013D28024AA7EC600AFD231 /* Glider+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E013D27F24AA7EC600AFD231 /* Glider+CoreDataProperties.swift */; };
 		E013D28124AA7EC600AFD231 /* Glider+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E013D27E24AA7EC600AFD231 /* Glider+CoreDataClass.swift */; };
 		E014961A236F6B4C00C1AC0D /* MapLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0149619236F6B4C00C1AC0D /* MapLabel.swift */; };
+		E016CCA824AF4A7400CEA506 /* EditGliderFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E016CCA724AF4A7400CEA506 /* EditGliderFormViewController.swift */; };
 		E01CAFD4239964ED00FE1B90 /* TasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01CAFD3239964ED00FE1B90 /* TasksViewController.swift */; };
 		E01D87E8239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01D87E7239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift */; };
 		E01D87EB239ABB5D00E9B5B6 /* TasksDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */; };
@@ -98,6 +99,7 @@
 		E013D27E24AA7EC600AFD231 /* Glider+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Glider+CoreDataClass.swift"; path = "/Users/sonicwave3/Daten/Glider Tool/User-Location/CoreData/Glider+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		E013D27F24AA7EC600AFD231 /* Glider+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Glider+CoreDataProperties.swift"; path = "/Users/sonicwave3/Daten/Glider Tool/User-Location/CoreData/Glider+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		E0149619236F6B4C00C1AC0D /* MapLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLabel.swift; sourceTree = "<group>"; };
+		E016CCA724AF4A7400CEA506 /* EditGliderFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGliderFormViewController.swift; sourceTree = "<group>"; };
 		E01CAFD3239964ED00FE1B90 /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
 		E01D87E7239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksDatabase.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 			children = (
 				E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */,
 				E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */,
+				E016CCA724AF4A7400CEA506 /* EditGliderFormViewController.swift */,
 				E0B8142A2367450200D88B6C /* LogbookViewController.swift */,
 				EDA236342130AA9A00739396 /* MapScreenViewController.swift */,
 				E086AB0A229C35890011C433 /* SettingsFormViewController.swift */,
@@ -528,6 +531,7 @@
 				E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */,
 				18BE3F7422CF688D00859347 /* UserLocationAnnotationView.swift in Sources */,
 				E099E34D247D3F7F00D72515 /* AirportAnnotationView.swift in Sources */,
+				E016CCA824AF4A7400CEA506 /* EditGliderFormViewController.swift in Sources */,
 				D0B7A84124390D940006F5EF /* Date+UnixTime.swift in Sources */,
 				E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */,
 			);
@@ -676,8 +680,8 @@
 			baseConfigurationReference = 75CB3E8DFF8D455C8F1742A5 /* Pods-Glider Tool.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = HCR82BSM8Z;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -693,7 +697,8 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.sonicsempire.test1;
 				PRODUCT_NAME = iSoar;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "100ff8e4-0eea-4fc6-bfa9-6c8709187a90";
+				PROVISIONING_PROFILE_SPECIFIER = "de.sonicsempire.test1 AppStore";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -704,8 +709,8 @@
 			baseConfigurationReference = AF3E6C1CC85039594789B3C8 /* Pods-Glider Tool.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = HCR82BSM8Z;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -721,7 +726,8 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = de.sonicsempire.test1;
 				PRODUCT_NAME = iSoar;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "100ff8e4-0eea-4fc6-bfa9-6c8709187a90";
+				PROVISIONING_PROFILE_SPECIFIER = "de.sonicsempire.test1 AppStore";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
