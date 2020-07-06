@@ -116,62 +116,86 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
         
     }
     
-    // User swiped left to delete Row
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+    // Delete Glider via Swipe to left
+    override func tableView(_ tableView: UITableView,
+                            trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+        -> UISwipeActionsConfiguration? {
+            let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, complete in
+                
+                if self.gliderArray.isEmpty == false {
+                    let glider = self.gliderArray[indexPath.row]
+                    self.context.delete(glider)
+                    self.gliderArray.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    
+                }
+                
+                do {
+                    try self.context.save()
+                    self.fetchData()
+                } catch {
+                    fatalError()
+                }
+            }
             
-            let glider = gliderArray[indexPath.row]
-            context.delete(glider)
-            gliderArray.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+            configuration.performsFirstActionWithFullSwipe = true
+            return configuration
             
-        }
-        
-        do {
-            try context.save()
-            fetchData()
-        } catch {
-            fatalError()
-        }
-        
     }
     
-    // MARK: - Action Methods
-    // Add new Glider Button
-    @IBAction func addGliderAction(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Add new Glider to Hangar",
-                                      message: "Please insert Glider Details",
-                                      preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        let saveAction = UIAlertAction(title: "Save", style: .default) { (action)
-            -> Void in
+    // Edit Glider via Swipe to right
+    override func tableView(_ tableView: UITableView,
+                            leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+        -> UISwipeActionsConfiguration? {
+            let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, complete in
+                
+                print("Swiped right and tapped on Edit")
+                
+            }
             
-            self.createNewGlider()
+            let configuration = UISwipeActionsConfiguration(actions: [editAction])
+            //configuration.performsFirstActionWithFullSwipe = true
+            return configuration
             
-        }
-        
-        // Add Textfields
-        alert.addTextField(configurationHandler: {(textField: UITextField!) in
-            textField.placeholder = "Glider Registration e.g. D-1234"
-            self.gliderIDTextField = textField
-        })
-        
-        alert.addTextField(configurationHandler: {(textField: UITextField!) in
-            textField.placeholder = "Lift to Drag Ratio e.g. 35"
-            self.gliderRatioTextField = textField
-        })
-        
-        alert.addTextField(configurationHandler: {(textField: UITextField!) in
-            textField.placeholder = "FLARM ID e.g. FLR123456"
-            self.flarmIDTextField = textField
-        })
-        
-        // Add Action Buttons
-        alert.addAction(cancelAction)
-        alert.addAction(saveAction)
-        
-        self.present(alert, animated: true, completion: nil)
     }
+    
+//    // MARK: - Action Methods
+//    // Add new Glider Button
+//    @IBAction func addGliderAction(_ sender: UIBarButtonItem) {
+//        let alert = UIAlertController(title: "Add new Glider to Hangar",
+//                                      message: "Please insert Glider Details",
+//                                      preferredStyle: .alert)
+//
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+//        let saveAction = UIAlertAction(title: "Save", style: .default) { (action)
+//            -> Void in
+//
+//            self.createNewGlider()
+//
+//        }
+//
+//        // Add Textfields
+//        alert.addTextField(configurationHandler: {(textField: UITextField!) in
+//            textField.placeholder = "Glider Registration e.g. D-1234"
+//            self.gliderIDTextField = textField
+//        })
+//
+//        alert.addTextField(configurationHandler: {(textField: UITextField!) in
+//            textField.placeholder = "Lift to Drag Ratio e.g. 35"
+//            self.gliderRatioTextField = textField
+//        })
+//
+//        alert.addTextField(configurationHandler: {(textField: UITextField!) in
+//            textField.placeholder = "FLARM ID e.g. FLR123456"
+//            self.flarmIDTextField = textField
+//        })
+//
+//        // Add Action Buttons
+//        alert.addAction(cancelAction)
+//        alert.addAction(saveAction)
+//
+//        self.present(alert, animated: true, completion: nil)
+//    }
     
 }
