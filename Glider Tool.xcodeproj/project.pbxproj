@@ -96,8 +96,8 @@
 		E007864A23D222EA00856865 /* FlightSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		E00E08CB23DB877A00BE04F6 /* TimeDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDateFormatter.swift; sourceTree = "<group>"; };
 		E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OGNSocketConnectionManager.swift; sourceTree = "<group>"; };
-		E013D27E24AA7EC600AFD231 /* Glider+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Glider+CoreDataClass.swift"; path = "/Users/sonicwave3/Daten/Glider Tool/User-Location/CoreData/Glider+CoreDataClass.swift"; sourceTree = "<absolute>"; };
-		E013D27F24AA7EC600AFD231 /* Glider+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Glider+CoreDataProperties.swift"; path = "/Users/sonicwave3/Daten/Glider Tool/User-Location/CoreData/Glider+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		E013D27E24AA7EC600AFD231 /* Glider+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Glider+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E013D27F24AA7EC600AFD231 /* Glider+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Glider+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E0149619236F6B4C00C1AC0D /* MapLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLabel.swift; sourceTree = "<group>"; };
 		E016CCA724AF4A7400CEA506 /* EditGliderFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGliderFormViewController.swift; sourceTree = "<group>"; };
 		E01CAFD3239964ED00FE1B90 /* TasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksViewController.swift; sourceTree = "<group>"; };
