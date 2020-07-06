@@ -10,7 +10,7 @@
         <!--Settings-->
         <scene sceneID="WYg-Wk-9Fr">
             <objects>
-                <viewController storyboardIdentifier="SettingsViewController" title="SettingsViewController" id="AW2-mO-9uR" userLabel="Settings" customClass="SettingsViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsViewController" title="SettingsViewController" id="AW2-mO-9uR" userLabel="Settings" customClass="SettingsFormViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JoN-R0-khH">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -58,6 +58,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Add" image="plus.circle" catalog="system" id="ejC-A1-MjW">
                             <connections>
                                 <action selector="addGliderAction:" destination="s7L-uP-WAd" id="iWJ-tj-AUz"/>
+                                <segue destination="BVw-Bv-l8k" kind="presentation" id="vUQ-2k-sGQ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -66,6 +67,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CBa-Q4-maG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="341" y="2077"/>
+        </scene>
+        <!--Edit Glider Form View Controller-->
+        <scene sceneID="irZ-BZ-EeK">
+            <objects>
+                <viewController id="WnG-pd-DBo" customClass="EditGliderFormViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HZl-sy-Q7p">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="I4f-C0-XZs">
+                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Vzj-gq-Gw3"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="FaR-es-Bvs">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="5ve-89-7Qa">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="WnG-pd-DBo" id="J38-NB-1dL"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="5r5-HM-jcz">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="WnG-pd-DBo" id="MGw-Id-KdY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ag5-t2-ucg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2075.36231884058" y="2076.5625"/>
         </scene>
         <!--Logbook View Controller-->
         <scene sceneID="kZz-qr-uGS">
@@ -90,31 +125,31 @@
                                                     <rect key="frame" x="10" y="5" width="394" height="48"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" id="Ppl-Nm-fnb">
-                                                            <rect key="frame" x="0.0" y="0.0" width="26.5" height="48"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="39" height="48"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="calendar" catalog="system" id="l3F-ko-idA" userLabel="Calendar">
-                                                                    <rect key="frame" x="0.0" y="1" width="26.5" height="19"/>
+                                                                    <rect key="frame" x="0.0" y="1" width="39" height="19"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 </imageView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="airplane" catalog="system" id="hma-9A-VvN" userLabel="Plane">
-                                                                    <rect key="frame" x="0.0" y="27" width="26.5" height="20.5"/>
+                                                                    <rect key="frame" x="0.0" y="27" width="39" height="20.5"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 </imageView>
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" id="Fdi-aN-yCM">
-                                                            <rect key="frame" x="31.5" y="0.0" width="95.5" height="48"/>
+                                                            <rect key="frame" x="44" y="0.0" width="140.5" height="48"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20201212" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6o1-Mk-rCn" userLabel="FlightDate">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="95.5" height="21.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="140.5" height="21.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="XX-XXXX" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Hw-nD-K4X">
-                                                                    <rect key="frame" x="0.0" y="26.5" width="95.5" height="21.5"/>
+                                                                    <rect key="frame" x="0.0" y="26.5" width="140.5" height="21.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -122,31 +157,31 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" id="Lz7-rC-Z4R">
-                                                            <rect key="frame" x="132" y="0.0" width="19.5" height="48"/>
+                                                            <rect key="frame" x="189.5" y="0.0" width="29" height="48"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.up.right" catalog="system" id="IkX-VC-Mrs" userLabel="Up Arrow">
-                                                                    <rect key="frame" x="0.0" y="3" width="19.5" height="15"/>
+                                                                    <rect key="frame" x="0.0" y="3" width="29" height="15"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 </imageView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="lga-zj-SMP" userLabel="Up Arrow">
-                                                                    <rect key="frame" x="0.0" y="26.5" width="19.5" height="21.5"/>
+                                                                    <rect key="frame" x="0.0" y="26.5" width="29" height="21.5"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 </imageView>
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" id="Rpl-oM-6RU">
-                                                            <rect key="frame" x="156.5" y="0.0" width="54.5" height="48"/>
+                                                            <rect key="frame" x="223.5" y="0.0" width="80" height="48"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:34" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0BI-PX-LsS">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="54.5" height="21.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="21.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ICAO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dc5-9t-13w">
-                                                                    <rect key="frame" x="0.0" y="26.5" width="54.5" height="21.5"/>
+                                                                    <rect key="frame" x="0.0" y="26.5" width="80" height="21.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -154,31 +189,31 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" id="Ro8-74-m3W">
-                                                            <rect key="frame" x="216" y="0.0" width="19.5" height="48"/>
+                                                            <rect key="frame" x="308.5" y="0.0" width="29" height="48"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.down.right" catalog="system" id="BfU-dt-0W3" userLabel="Down Arrow">
-                                                                    <rect key="frame" x="0.0" y="3" width="19.5" height="15"/>
+                                                                    <rect key="frame" x="0.0" y="3" width="29" height="15"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 </imageView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="qiE-wo-2Vg" userLabel="Down Arrow">
-                                                                    <rect key="frame" x="0.0" y="26.5" width="19.5" height="21.5"/>
+                                                                    <rect key="frame" x="0.0" y="26.5" width="29" height="21.5"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 </imageView>
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" id="gts-DC-DT7">
-                                                            <rect key="frame" x="240.5" y="0.0" width="54.5" height="48"/>
+                                                            <rect key="frame" x="342.5" y="0.0" width="80" height="48"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:34" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bB-WS-IMn">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="54.5" height="21.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="21.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ICAO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="82R-bs-2H1">
-                                                                    <rect key="frame" x="0.0" y="26.5" width="54.5" height="21.5"/>
+                                                                    <rect key="frame" x="0.0" y="26.5" width="80" height="21.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -186,30 +221,30 @@
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="wP1-Pm-0sn">
-                                                            <rect key="frame" x="300" y="0.0" width="25.5" height="48"/>
+                                                            <rect key="frame" x="427.5" y="0.0" width="37.5" height="48"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" catalog="system" id="v9I-c4-Ipq" userLabel="Down Arrow">
-                                                                    <rect key="frame" x="0.0" y="0.5" width="25.5" height="20.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.5" width="37.5" height="20.5"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 </imageView>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="u5z-09-ldz" userLabel="Down Arrow">
-                                                                    <rect key="frame" x="0.0" y="26.5" width="25.5" height="21.5"/>
+                                                                    <rect key="frame" x="0.0" y="26.5" width="37.5" height="21.5"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 </imageView>
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" id="9to-Ic-qvP">
-                                                            <rect key="frame" x="330.5" y="0.0" width="63.5" height="48"/>
+                                                            <rect key="frame" x="470" y="0.0" width="110" height="48"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:34" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DMx-ZU-Bhm">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="63.5" height="21.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="110" height="21.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YuY-4j-Xrl">
-                                                                    <rect key="frame" x="0.0" y="26.5" width="63.5" height="21.5"/>
+                                                                    <rect key="frame" x="0.0" y="26.5" width="110" height="21.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -1006,6 +1041,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OEl-ja-ioO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1204.3478260869565" y="551.11607142857144"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="k6i-ak-yD6">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BVw-Bv-l8k" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Sqy-au-tvB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="WnG-pd-DBo" kind="relationship" relationship="rootViewController" id="F7o-Rs-l49"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vqy-hy-PGX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1166.6666666666667" y="2076.5625"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

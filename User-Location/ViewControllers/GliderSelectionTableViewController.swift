@@ -39,10 +39,10 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
     // Create new Glider
     private func createNewGlider() {
         let newGlider = Glider.init(context: context)
-        newGlider.gliderUUID = UUID()
-        newGlider.gliderFlarmID = flarmIDTextField.text
-        newGlider.gliderID = gliderIDTextField.text
-        newGlider.gliderRatio = (gliderRatioTextField.text! as NSString).doubleValue
+        newGlider.uuid = UUID()
+        newGlider.flarmID = flarmIDTextField.text
+        newGlider.registration = gliderIDTextField.text
+        newGlider.ratio = (gliderRatioTextField.text! as NSString).doubleValue
         
         do {
             try context.save()
@@ -81,11 +81,11 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
             let cell = UITableViewCell()
             let glider = gliderArray[indexPath.row]
             
-            cell.textLabel?.text = glider.gliderID
+            cell.textLabel?.text = glider.registration
             cell.imageView?.image = UIImage(systemName: "airplane")
             
             // Set Checkmark
-            if gliderArray[indexPath.row].gliderID == UserDefaultsManager.gliderID() {
+            if gliderArray[indexPath.row].registration == UserDefaultsManager.gliderID() {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
@@ -101,70 +101,101 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
         
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         
-        UserDefaultsManager.set(gliderID: selectedGlider.gliderID!)
-        UserDefaultsManager.set(gliderRatio: selectedGlider.gliderRatio)
-        UserDefaultsManager.set(ownFlarmID: selectedGlider.gliderFlarmID!)
+        UserDefaultsManager.set(gliderID: selectedGlider.registration!)
+        UserDefaultsManager.set(gliderRatio: selectedGlider.ratio)
+        UserDefaultsManager.set(ownFlarmID: selectedGlider.flarmID!)
         
         tableView.reloadData()
         
-    }
-    
-    // User swiped left to delete Row
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+        // TODO: 20200703 Hier nochmal prüfen ob ein anderer Glider ausgewählt wurde
+        // Reconnect to OGN Server
+        if UserDefaultsManager.showAllNearbyGlidersState() == true {
+            OGNSocketConnectionManager.reconnect()
             
-            let glider = gliderArray[indexPath.row]
-            context.delete(glider)
-            gliderArray.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-            
-        }
-        
-        do {
-            try context.save()
-            fetchData()
-        } catch {
-            fatalError()
         }
         
     }
     
-    // MARK: - Action Methods
-    // Add new Glider Button
-    @IBAction func addGliderAction(_ sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "Add new Glider to Hangar",
-                                      message: "Please insert Glider Details",
-                                      preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        let saveAction = UIAlertAction(title: "Save", style: .default) { (action)
-            -> Void in
+    // Delete Glider via Swipe to left
+    override func tableView(_ tableView: UITableView,
+                            trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+        -> UISwipeActionsConfiguration? {
+            let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, complete in
+                
+                if self.gliderArray.isEmpty == false {
+                    let glider = self.gliderArray[indexPath.row]
+                    self.context.delete(glider)
+                    self.gliderArray.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    
+                }
+                
+                do {
+                    try self.context.save()
+                    self.fetchData()
+                } catch {
+                    fatalError()
+                }
+            }
             
-            self.createNewGlider()
+            let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+            configuration.performsFirstActionWithFullSwipe = true
+            return configuration
             
-        }
-        
-        // Add Textfields
-        alert.addTextField(configurationHandler: {(textField: UITextField!) in
-            textField.placeholder = "Glider Registration e.g. D-1234"
-            self.gliderIDTextField = textField
-        })
-        
-        alert.addTextField(configurationHandler: {(textField: UITextField!) in
-            textField.placeholder = "Lift to Drag Ratio e.g. 35"
-            self.gliderRatioTextField = textField
-        })
-        
-        alert.addTextField(configurationHandler: {(textField: UITextField!) in
-            textField.placeholder = "FLARM ID e.g. FLR123456"
-            self.flarmIDTextField = textField
-        })
-        
-        // Add Action Buttons
-        alert.addAction(cancelAction)
-        alert.addAction(saveAction)
-        
-        self.present(alert, animated: true, completion: nil)
     }
+    
+    // Edit Glider via Swipe to right
+    override func tableView(_ tableView: UITableView,
+                            leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
+        -> UISwipeActionsConfiguration? {
+            let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, complete in
+                
+                print("Swiped right and tapped on Edit")
+                
+            }
+            
+            let configuration = UISwipeActionsConfiguration(actions: [editAction])
+            //configuration.performsFirstActionWithFullSwipe = true
+            return configuration
+            
+    }
+    
+//    // MARK: - Action Methods
+//    // Add new Glider Button
+//    @IBAction func addGliderAction(_ sender: UIBarButtonItem) {
+//        let alert = UIAlertController(title: "Add new Glider to Hangar",
+//                                      message: "Please insert Glider Details",
+//                                      preferredStyle: .alert)
+//
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+//        let saveAction = UIAlertAction(title: "Save", style: .default) { (action)
+//            -> Void in
+//
+//            self.createNewGlider()
+//
+//        }
+//
+//        // Add Textfields
+//        alert.addTextField(configurationHandler: {(textField: UITextField!) in
+//            textField.placeholder = "Glider Registration e.g. D-1234"
+//            self.gliderIDTextField = textField
+//        })
+//
+//        alert.addTextField(configurationHandler: {(textField: UITextField!) in
+//            textField.placeholder = "Lift to Drag Ratio e.g. 35"
+//            self.gliderRatioTextField = textField
+//        })
+//
+//        alert.addTextField(configurationHandler: {(textField: UITextField!) in
+//            textField.placeholder = "FLARM ID e.g. FLR123456"
+//            self.flarmIDTextField = textField
+//        })
+//
+//        // Add Action Buttons
+//        alert.addAction(cancelAction)
+//        alert.addAction(saveAction)
+//
+//        self.present(alert, animated: true, completion: nil)
+//    }
     
 }

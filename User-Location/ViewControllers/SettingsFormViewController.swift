@@ -11,7 +11,7 @@ import MessageUI
 import UIKit
 
 // MARK: SettingsViewController
-class SettingsViewController: FormViewController, MFMailComposeViewControllerDelegate {
+class SettingsFormViewController: FormViewController, MFMailComposeViewControllerDelegate {
     
     // MARK: Lets and Vars
     
@@ -32,7 +32,6 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
         navigationItem.title = "Settings"
         
         form.append(gliderSelectionSection())
-        form.append(selectedGliderSection())
         form.append(userSettingsSection())
         form.append(mapSettingsSection())
         form.append(trafficMonitorSection())
@@ -55,57 +54,47 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
             let section = Section("Glider Selection")
             
                 <<< ButtonRow { row in
-                    row.title = SettingsViewController.AvailableGlidersKey
-                    row.tag = SettingsViewController.AvailableGlidersKey
+                    row.title = SettingsFormViewController.AvailableGlidersKey
+                    row.tag = SettingsFormViewController.AvailableGlidersKey
                     row.presentationMode = .segueName(segueName: "GliderSelectionSegue", onDismiss: nil)
                     
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "airplane")
+                }
+                    
+                <<< TextRow { row in
+                        row.title = SettingsFormViewController.GliderRegistrationKey
+                        row.tag = SettingsFormViewController.GliderRegistrationKey
+                        row.value = UserDefaultsManager.gliderID()
+                        row.disabled = true
+                        
+                    }.cellSetup { cell, row in
+                        cell.imageView?.image = UIImage(systemName: "textformat")
+                    }
+                    
+                    <<< TextRow { row in
+                        row.title = SettingsFormViewController.GliderRatioKey
+                        row.tag = SettingsFormViewController.GliderRatioKey
+                        row.value = String(format: "%.0f", UserDefaultsManager.gliderRatio())
+                        row.disabled = true
+                        
+                    }.cellSetup { cell, row in
+                        cell.imageView?.image = UIImage(systemName: "arrow.down.left")
+                    }
+                    
+                    <<< TextRow { row in
+                        row.title = SettingsFormViewController.GliderFlarmIDKey
+                        row.tag = SettingsFormViewController.GliderFlarmIDKey
+                        row.value = UserDefaultsManager.ownFlarmID()
+                        row.disabled = true
+                        
+                    }.cellSetup { cell, row in
+                        cell.imageView?.image = UIImage(systemName: "dot.radiowaves.left.and.right")
 
             }
             
             section.tag = "Glider Selection"
             return section
-    }
-    
-    private func selectedGliderSection()
-                -> Section {
-                    let section = Section("Selected Glider Details")
-                    
-                <<< TextRow { row in
-                    row.title = SettingsViewController.GliderRegistrationKey
-                    row.tag = SettingsViewController.GliderRegistrationKey
-                    row.value = UserDefaultsManager.gliderID()
-                    row.disabled = true
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "textformat")
-                }
-                
-                <<< TextRow { row in
-                    row.title = SettingsViewController.GliderRatioKey
-                    row.tag = SettingsViewController.GliderRatioKey
-                    row.value = String(format: "%.0f", UserDefaultsManager.gliderRatio())
-                    row.disabled = true
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "arrow.down.left")
-                }
-                
-                <<< TextRow { row in
-                    row.title = SettingsViewController.GliderFlarmIDKey
-                    row.tag = SettingsViewController.GliderFlarmIDKey
-                    row.value = UserDefaultsManager.ownFlarmID()
-                    row.disabled = true
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "dot.radiowaves.left.and.right")
-                    
-            }
-
-            section.tag = "Selected Glider Details"
-            return section
-            
     }
 
     private func userSettingsSection()
@@ -196,8 +185,8 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
         -> Section {
             let section = Section("Traffic Monitor Settings")
                 <<< SwitchRow { row in
-                    row.title = SettingsViewController.TrafficMonitorKey
-                    row.tag = SettingsViewController.TrafficMonitorKey
+                    row.title = SettingsFormViewController.TrafficMonitorKey
+                    row.tag = SettingsFormViewController.TrafficMonitorKey
                     row.value = UserDefaultsManager.showAllNearbyGlidersState()
                     
                 }.cellSetup { cell, row in
@@ -220,17 +209,17 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                         if UserDefaultsManager.collisionWarningState() == true {
                             UserDefaultsManager.set(collisionWarningState: false)
                             
-                            self.form.rowBy(tag: SettingsViewController.CollisionWarningKey)?.baseValue = false
+                            self.form.rowBy(tag: SettingsFormViewController.CollisionWarningKey)?.baseValue = false
                             
-                            self.form.rowBy(tag: SettingsViewController.CollisionWarningKey)?.reload()
+                            self.form.rowBy(tag: SettingsFormViewController.CollisionWarningKey)?.reload()
                         }
                         
                         if UserDefaultsManager.showOnlyBuddySwitchState() == true {
                             UserDefaultsManager.set(showOnlyBuddySwitchState: false)
                             
-                            self.form.rowBy(tag: SettingsViewController.ShowOnlyBuddiesOnMapKey)?.baseValue = false
+                            self.form.rowBy(tag: SettingsFormViewController.ShowOnlyBuddiesOnMapKey)?.baseValue = false
                             
-                            self.form.rowBy(tag: SettingsViewController.ShowOnlyBuddiesOnMapKey)?.reload()
+                            self.form.rowBy(tag: SettingsFormViewController.ShowOnlyBuddiesOnMapKey)?.reload()
                         }
                         
                     }
@@ -260,8 +249,8 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                 })
                 
                 <<< SwitchRow("Collision Warning") { row in
-                    row.title = SettingsViewController.CollisionWarningKey
-                    row.tag = SettingsViewController.CollisionWarningKey
+                    row.title = SettingsFormViewController.CollisionWarningKey
+                    row.tag = SettingsFormViewController.CollisionWarningKey
                     row.value = UserDefaultsManager.collisionWarningState()
                     
                 }.cellSetup { cell, row in
@@ -276,17 +265,17 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                         
                         UserDefaultsManager.set(showAllNearbyGlidersState: true)
                         
-                        self.form.rowBy(tag: SettingsViewController.TrafficMonitorKey)?.baseValue = UserDefaultsManager.showAllNearbyGlidersState()
+                        self.form.rowBy(tag: SettingsFormViewController.TrafficMonitorKey)?.baseValue = UserDefaultsManager.showAllNearbyGlidersState()
                         
-                        self.form.rowBy(tag: SettingsViewController.TrafficMonitorKey)?.reload()
+                        self.form.rowBy(tag: SettingsFormViewController.TrafficMonitorKey)?.reload()
                         
                     }
                     
                 }
                 
                 <<< SwitchRow("Show only Buddies on Map") { row in
-                    row.title = SettingsViewController.ShowOnlyBuddiesOnMapKey
-                    row.tag = SettingsViewController.ShowOnlyBuddiesOnMapKey
+                    row.title = SettingsFormViewController.ShowOnlyBuddiesOnMapKey
+                    row.tag = SettingsFormViewController.ShowOnlyBuddiesOnMapKey
                     row.value = UserDefaultsManager.showOnlyBuddySwitchState()
                     
                 }.cellSetup { cell, row in
@@ -301,9 +290,9 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
                         
                         UserDefaultsManager.set(showAllNearbyGlidersState: true)
                         
-                        self.form.rowBy(tag: SettingsViewController.TrafficMonitorKey)?.baseValue = UserDefaultsManager.showAllNearbyGlidersState()
+                        self.form.rowBy(tag: SettingsFormViewController.TrafficMonitorKey)?.baseValue = UserDefaultsManager.showAllNearbyGlidersState()
                         
-                        self.form.rowBy(tag: SettingsViewController.TrafficMonitorKey)?.reload()
+                        self.form.rowBy(tag: SettingsFormViewController.TrafficMonitorKey)?.reload()
                         
                     } else {
                         OGNSocketConnectionManager.reconnect()
@@ -401,15 +390,15 @@ class SettingsViewController: FormViewController, MFMailComposeViewControllerDel
     
     private func updateUIforSelectedGlider() {
 
-        let gliderID = form.rowBy(tag: SettingsViewController.GliderRegistrationKey) as? TextRow
+        let gliderID = form.rowBy(tag: SettingsFormViewController.GliderRegistrationKey) as? TextRow
         gliderID!.value = UserDefaultsManager.gliderID()
         gliderID!.reload()
         
-        let gliderRatio = form.rowBy(tag: SettingsViewController.GliderRatioKey) as? TextRow
+        let gliderRatio = form.rowBy(tag: SettingsFormViewController.GliderRatioKey) as? TextRow
         gliderRatio!.value = String(format: "%.0f", UserDefaultsManager.gliderRatio())
         gliderRatio!.reload()
         
-        let gliderFlarmID = form.rowBy(tag: SettingsViewController.GliderFlarmIDKey) as? TextRow
+        let gliderFlarmID = form.rowBy(tag: SettingsFormViewController.GliderFlarmIDKey) as? TextRow
         gliderFlarmID!.value = UserDefaultsManager.ownFlarmID()
         gliderFlarmID!.reload()
         
