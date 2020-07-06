@@ -8,16 +8,30 @@
 
 import Eureka
 
+import CoreData
+
 class EditGliderFormViewController: FormViewController {
-    
     // MARK: - Keys
-    
     static let GliderRegistrationKey = "Glider Registration"
     static let GliderRatioKey = "Glider Ratio"
     static let GliderFlarmIDKey = "FLARM ID"
-    
     // MARK: - Lets and Vars
-    
+    var gliderToEdit: Glider?
+
+    private let viewOnlyContext: NSManagedObjectContext = {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            let context = appDelegate.persistentContainer.viewContext
+            return context
+        }
+        fatalError()
+    }()
+
+
+
+
+
+
+
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +57,9 @@ class EditGliderFormViewController: FormViewController {
                     
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "textformat")
-                }
+                }.onChange({ row in
+                    self.gliderToEdit?.registration = row.value
+                })
                 
                 <<< TextRow { row in
                     row.title = EditGliderFormViewController.GliderRatioKey

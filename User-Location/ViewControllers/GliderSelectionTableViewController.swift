@@ -15,37 +15,56 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
     private static let GliderEntityName = "Glider"
     
     // MARK: - Lets and Vars
-    weak var appDelegate = UIApplication.shared.delegate as? AppDelegate
-    var context: NSManagedObjectContext!
-    
+    let viewOnlyContext: NSManagedObjectContext = {
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            let context = appDelegate.persistentContainer.viewContext
+            return context
+        }
+        fatalError()
+    }()
     var gliderArray = [Glider]()
     
     var gliderUUID: UUID!
     var gliderIDTextField: UITextField!
     var gliderRatioTextField: UITextField!
     var flarmIDTextField: UITextField!
-    
+
+
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Glider Selection"
-        
-        context = appDelegate!.persistentContainer.viewContext
+
         fetchData()
-        
     }
-    
+
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "abc" {
+            guard let navigationController = segue.destination as? UINavigationController
+                else { fatalError("Must be an UINavigationController.") }
+
+            guard let editGliderViewController = navigationController.children[0] as? EditGliderFormViewController
+                else { fatalError("Must be an EditGliderFormViewController.") }
+
+            if let sender = sender as? Glider {
+                editGliderViewController.gliderToEdit = sender
+            }
+
+        }
+    }
+
     // MARK: - Private Methods
     // Create new Glider
     private func createNewGlider() {
-        let newGlider = Glider.init(context: context)
+        let newGlider = Glider.init(context: viewOnlyContext)
         newGlider.uuid = UUID()
         newGlider.flarmID = flarmIDTextField.text
         newGlider.registration = gliderIDTextField.text
         newGlider.ratio = (gliderRatioTextField.text! as NSString).doubleValue
         
         do {
-            try context.save()
+            try viewOnlyContext.save()
             fetchData()
         } catch {
             fatalError()
@@ -58,10 +77,10 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
         gliderArray.removeAll()
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: GliderSelectionTableViewController.GliderEntityName)
         request.returnsObjectsAsFaults = false
-        context.reset()
+        viewOnlyContext.reset()
         do {
             let request: NSFetchRequest<Glider> = Glider.fetchRequest()
-            gliderArray = try context.fetch(request)
+            gliderArray = try viewOnlyContext.fetch(request)
         } catch {
             print("Fetching data Failed")
         }
@@ -124,14 +143,14 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
                 
                 if self.gliderArray.isEmpty == false {
                     let glider = self.gliderArray[indexPath.row]
-                    self.context.delete(glider)
+                    self.viewOnlyContext.delete(glider)
                     self.gliderArray.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)
                     
                 }
                 
                 do {
-                    try self.context.save()
+                    try self.viewOnlyContext.save()
                     self.fetchData()
                 } catch {
                     fatalError()
@@ -151,7 +170,9 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
             let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, complete in
                 
                 print("Swiped right and tapped on Edit")
-                
+                let gliderToEdit = self.gliderArray[indexPath.row]
+                self.performSegue(withIdentifier: "abc", sender: gliderToEdit)
+
             }
             
             let configuration = UISwipeActionsConfiguration(actions: [editAction])
