@@ -218,6 +218,16 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		E05F740524BF901700E408E5 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				E086AB0A229C35890011C433 /* SettingsFormViewController.swift */,
+				E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */,
+				E016CCA724AF4A7400CEA506 /* EditGliderFormViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		E070FD9F24A3D22D0039386D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,13 +271,11 @@
 		E0B52F702283753400E28A93 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				E05F740524BF901700E408E5 /* Settings */,
 				E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */,
 				E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */,
-				E016CCA724AF4A7400CEA506 /* EditGliderFormViewController.swift */,
 				E0B8142A2367450200D88B6C /* LogbookViewController.swift */,
 				EDA236342130AA9A00739396 /* MapScreenViewController.swift */,
-				E086AB0A229C35890011C433 /* SettingsFormViewController.swift */,
-				E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */,
 				E0A215BA235E2D0D009F6953 /* TableViewController.swift */,
 				E01CAFD3239964ED00FE1B90 /* TasksViewController.swift */,
 			);
@@ -680,8 +688,8 @@
 			baseConfigurationReference = 75CB3E8DFF8D455C8F1742A5 /* Pods-Glider Tool.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = HCR82BSM8Z;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -698,7 +706,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.sonicsempire.test1;
 				PRODUCT_NAME = iSoar;
 				PROVISIONING_PROFILE = "100ff8e4-0eea-4fc6-bfa9-6c8709187a90";
-				PROVISIONING_PROFILE_SPECIFIER = "de.sonicsempire.test1 AppStore";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -709,8 +717,8 @@
 			baseConfigurationReference = AF3E6C1CC85039594789B3C8 /* Pods-Glider Tool.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 21;
 				DEVELOPMENT_TEAM = HCR82BSM8Z;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -727,7 +735,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.sonicsempire.test1;
 				PRODUCT_NAME = iSoar;
 				PROVISIONING_PROFILE = "100ff8e4-0eea-4fc6-bfa9-6c8709187a90";
-				PROVISIONING_PROFILE_SPECIFIER = "de.sonicsempire.test1 AppStore";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
