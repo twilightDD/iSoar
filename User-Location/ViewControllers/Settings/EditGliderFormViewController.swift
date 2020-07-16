@@ -20,7 +20,7 @@ class EditGliderFormViewController: FormViewController {
     var glider: Glider?
     private let viewOnlyContext: NSManagedObjectContext = {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            let context = appDelegate.persistentContainer.viewContext
+            let context = CoreDataManager.sharedManager.persistentContainer.viewContext
             return context
         }
         fatalError()

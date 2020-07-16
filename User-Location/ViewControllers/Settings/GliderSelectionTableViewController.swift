@@ -21,7 +21,7 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
     
     private let viewOnlyContext: NSManagedObjectContext = {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            let context = appDelegate.persistentContainer.viewContext
+            let context = CoreDataManager.sharedManager.persistentContainer.viewContext
             return context
         }
         fatalError()
@@ -58,7 +58,7 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
         let sortDesc = NSSortDescriptor(key: "registration", ascending: true)
         request.sortDescriptors = [sortDesc]
         
-        let moc = appDelegate!.persistentContainer.viewContext
+        let moc = CoreDataManager.sharedManager.persistentContainer.viewContext
         fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
         fetchedResultsController.delegate = self
         
@@ -78,11 +78,12 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
             // Set up the cell
             guard let glider = self.fetchedResultsController?.object(at: indexPath) as? Glider
                 else { fatalError("Attempt to configure cell without a managed object") }
+            
             //Populate the cell from the object
             cell.imageView?.image = UIImage(systemName: "airplane")
             cell.textLabel?.text = glider.registration
             
-            // Set Checkmark
+            // Set Checkmark for selected Glider
             if glider.registration == UserDefaultsManager.gliderID() {
                 cell.accessoryType = .checkmark
             } else {

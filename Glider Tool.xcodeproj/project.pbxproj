@@ -41,6 +41,7 @@
 		E06936D8241B8CA00073D078 /* GliderTelemetryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06936D7241B8CA00073D078 /* GliderTelemetryData.swift */; };
 		E070FD9E24A3109A0039386D /* Glider Tool.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E070FD9C24A3109A0039386D /* Glider Tool.xcdatamodeld */; };
 		E070FDA924A468730039386D /* GliderSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */; };
+		E077487524C0703300BFF517 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E077487424C0703300BFF517 /* CoreDataManager.swift */; };
 		E086AB0B229C35890011C433 /* SettingsFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086AB0A229C35890011C433 /* SettingsFormViewController.swift */; };
 		E099E34B247D296700D72515 /* AirportAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E099E34A247D296700D72515 /* AirportAnnotation.swift */; };
 		E099E34D247D3F7F00D72515 /* AirportAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E099E34C247D3F7F00D72515 /* AirportAnnotationView.swift */; };
@@ -108,6 +109,7 @@
 		E06936D7241B8CA00073D078 /* GliderTelemetryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderTelemetryData.swift; sourceTree = "<group>"; };
 		E070FD9D24A3109A0039386D /* Glider Tool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Glider Tool.xcdatamodel"; sourceTree = "<group>"; };
 		E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderSelectionTableViewController.swift; sourceTree = "<group>"; };
+		E077487424C0703300BFF517 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = "User-Location/Manager/CoreDataManager.swift"; sourceTree = SOURCE_ROOT; };
 		E086AB0A229C35890011C433 /* SettingsFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFormViewController.swift; sourceTree = "<group>"; };
 		E099E34A247D296700D72515 /* AirportAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportAnnotation.swift; sourceTree = "<group>"; };
 		E099E34C247D3F7F00D72515 /* AirportAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportAnnotationView.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				D022F00B2437DB5900CA9DB4 /* LocationManager.swift */,
 				E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */,
 				D0829D3E24351FEC009E40EC /* Presets.swift */,
+				E077487424C0703300BFF517 /* CoreDataManager.swift */,
 				D0C2801A23D8F46B00518539 /* UserDefaultsManager.swift */,
 			);
 			path = Manager;
@@ -531,6 +534,7 @@
 				D0015F0F242C082F00D2AEFF /* NearbyGliderAnnotation.swift in Sources */,
 				E014961A236F6B4C00C1AC0D /* MapLabel.swift in Sources */,
 				EDA236232130AA7500739396 /* AppDelegate.swift in Sources */,
+				E077487524C0703300BFF517 /* CoreDataManager.swift in Sources */,
 				E0B52F72228377F300E28A93 /* Buttons.swift in Sources */,
 				E070FDA924A468730039386D /* GliderSelectionTableViewController.swift in Sources */,
 				E007864B23D222EA00856865 /* FlightSelectionTableViewCell.swift in Sources */,
