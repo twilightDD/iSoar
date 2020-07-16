@@ -52,6 +52,8 @@ class EditGliderFormViewController: FormViewController {
                 <<< TextRow(EditGliderFormViewController.GliderRegistrationKey) { row in
                     row.title = "Glider Registration"
                     row.value = self.glider?.registration
+                    row.placeholder = "D-1234"
+                
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "textformat")
                 }.onChange({ [unowned self] row in
@@ -61,6 +63,7 @@ class EditGliderFormViewController: FormViewController {
                 <<< DecimalRow(EditGliderFormViewController.GliderRatioKey) { row in
                     row.title = "Glider Ratio"
                     row.value = self.glider?.ratio
+                    row.placeholder = "38"
                     
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "arrow.down.left")
@@ -71,6 +74,8 @@ class EditGliderFormViewController: FormViewController {
                 <<< TextRow(EditGliderFormViewController.GliderFlarmIDKey) { row in
                     row.title = "FlarmID"
                     row.value = self.glider?.flarmID
+                    row.placeholder = "FLRD123456"
+                    
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "dot.radiowaves.left.and.right")
                 }.onChange({ (row) in
