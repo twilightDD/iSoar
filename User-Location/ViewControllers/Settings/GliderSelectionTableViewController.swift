@@ -17,17 +17,7 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
     private static let OpenEditGliderFormViewControllerSegueKey = "OpenEditGliderFormViewControllerSegue"
     
     // MARK: - Lets and Vars
-    weak var appDelegate = UIApplication.shared.delegate as? AppDelegate
-    
-    private let viewOnlyContext: NSManagedObjectContext = {
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            let context = CoreDataManager.sharedManager.persistentContainer.viewContext
-            return context
-        }
-        fatalError()
-    }()
-    
-    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
+    private var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
     
     // MARK: - Init&Co.
     override func viewDidLoad() {
@@ -57,9 +47,11 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Glider")
         let sortDesc = NSSortDescriptor(key: "registration", ascending: true)
         request.sortDescriptors = [sortDesc]
-        
-        let moc = CoreDataManager.sharedManager.persistentContainer.viewContext
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
+                                                              managedObjectContext: CoreDataManager.viewOnlyContext,
+                                                              sectionNameKeyPath: nil,
+                                                              cacheName: nil)
         fetchedResultsController.delegate = self
         
         do {
@@ -125,19 +117,15 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
     // Delete Glider via Swipe to left
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
         -> UISwipeActionsConfiguration? {
-            let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, complete in
+            let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
                 
                 guard let glider = self.fetchedResultsController?.object(at: indexPath) as? Glider
                     else { fatalError("Attempt to configure cell without a managed object") }
-                
-                self.viewOnlyContext.delete(glider)
-                
-                do {
-                    try self.viewOnlyContext.save()
-                } catch {
-                    fatalError("Cant delete Object: \(error)")
-                }
-                
+
+                let editContext = CoreDataManager.editContextForUI()
+                let gliderInEditContext = editContext.object(with: glider.objectID)
+                editContext.delete(gliderInEditContext)
+                editContext.saveContext()
             }
             
             let configuration = UISwipeActionsConfiguration(actions: [deleteAction])

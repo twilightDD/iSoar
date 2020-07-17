@@ -74,7 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Saves changes in the application's managed object context
         //self.saveContext()
-        CoreDataManager.sharedManager.saveContext()
+        //CoreDataManager.sharedManager.saveContext()
     }
     
 }

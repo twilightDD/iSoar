@@ -11,14 +11,14 @@ import CoreData
 class CoreDataManager {
     
     // MARK: - Lets and Vars
-    static let sharedManager = CoreDataManager()
+    private static let sharedManager = CoreDataManager()
     
     // MARK: - Init&Co.
     // Prevent clients from creating another instance
     private init() {}
     
     // MARK: - Core Data stack
-    lazy var persistentContainer: NSPersistentContainer = {
+    private lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the
@@ -26,7 +26,7 @@ class CoreDataManager {
          error conditions that could cause the creation of the store to fail.
          */
         let container = NSPersistentContainer(name: "Glider Tool")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        container.loadPersistentStores(completionHandler: { _, error in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
@@ -44,9 +44,32 @@ class CoreDataManager {
         })
         return container
     }()
-    
+    static let viewOnlyContext: NSManagedObjectContext = {
+        let shared = CoreDataManager.sharedManager
+        let viewContext = shared.persistentContainer.viewContext
+        viewContext.automaticallyMergesChangesFromParent = true
+        return viewContext
+    }()
+
+    class func editContextForUI()
+        -> NSManagedObjectContext {
+            let newEditContext = NSManagedObjectContext.init(concurrencyType: .mainQueueConcurrencyType)
+            newEditContext.parent = viewOnlyContext
+            newEditContext.name = "UI Edit Context "
+            return newEditContext
+    }
+
+    class func editContextInBackground()
+        -> NSManagedObjectContext {
+            let newEditContext = sharedManager.persistentContainer.newBackgroundContext()
+            newEditContext.name = "Background Edit Context"
+            return newEditContext
+    }
+
+
+
     // MARK: - Core Data Saving support
-    func saveContext () {
+    private func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {

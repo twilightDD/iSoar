@@ -19,6 +19,7 @@
 		D074B51522968C7A00A573AE /* Airports.json in Resources */ = {isa = PBXBuildFile; fileRef = D074B51422968C7A00A573AE /* Airports.json */; };
 		D0829D3F24351FEC009E40EC /* Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0829D3E24351FEC009E40EC /* Presets.swift */; };
 		D0829D412435532F009E40EC /* NearbyGliderAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0829D402435532F009E40EC /* NearbyGliderAnnotationView.swift */; };
+		D0AA8D0124C1C0400034E6EE /* NSManagedObjectContext+Save.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA8D0024C1C0400034E6EE /* NSManagedObjectContext+Save.swift */; };
 		D0B7A84124390D940006F5EF /* Date+UnixTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B7A84024390D940006F5EF /* Date+UnixTime.swift */; };
 		D0BBE08623A18CEB00CAD9FF /* ISoarFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BBE08523A18CEB00CAD9FF /* ISoarFileManager.swift */; };
 		D0C2801D23D8FF4000518539 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2801A23D8F46B00518539 /* UserDefaultsManager.swift */; };
@@ -87,6 +88,7 @@
 		D074B51422968C7A00A573AE /* Airports.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Airports.json; sourceTree = "<group>"; };
 		D0829D3E24351FEC009E40EC /* Presets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presets.swift; sourceTree = "<group>"; };
 		D0829D402435532F009E40EC /* NearbyGliderAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyGliderAnnotationView.swift; sourceTree = "<group>"; };
+		D0AA8D0024C1C0400034E6EE /* NSManagedObjectContext+Save.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Save.swift"; sourceTree = "<group>"; };
 		D0B7A84024390D940006F5EF /* Date+UnixTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+UnixTime.swift"; sourceTree = "<group>"; };
 		D0BBE08523A18CEB00CAD9FF /* ISoarFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISoarFileManager.swift; sourceTree = "<group>"; };
 		D0C2801A23D8F46B00518539 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
@@ -109,7 +111,7 @@
 		E06936D7241B8CA00073D078 /* GliderTelemetryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderTelemetryData.swift; sourceTree = "<group>"; };
 		E070FD9D24A3109A0039386D /* Glider Tool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Glider Tool.xcdatamodel"; sourceTree = "<group>"; };
 		E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderSelectionTableViewController.swift; sourceTree = "<group>"; };
-		E077487424C0703300BFF517 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = "User-Location/Manager/CoreDataManager.swift"; sourceTree = SOURCE_ROOT; };
+		E077487424C0703300BFF517 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = "User-Location/CoreData/CoreDataManager.swift"; sourceTree = SOURCE_ROOT; };
 		E086AB0A229C35890011C433 /* SettingsFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFormViewController.swift; sourceTree = "<group>"; };
 		E099E34A247D296700D72515 /* AirportAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportAnnotation.swift; sourceTree = "<group>"; };
 		E099E34C247D3F7F00D72515 /* AirportAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportAnnotationView.swift; sourceTree = "<group>"; };
@@ -188,6 +190,14 @@
 			path = TableViewCells;
 			sourceTree = "<group>";
 		};
+		D0AA8D0224C1C1790034E6EE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D0AA8D0024C1C0400034E6EE /* NSManagedObjectContext+Save.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		D0C2801C23D8FE0D00518539 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,7 +206,6 @@
 				D022F00B2437DB5900CA9DB4 /* LocationManager.swift */,
 				E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */,
 				D0829D3E24351FEC009E40EC /* Presets.swift */,
-				E077487424C0703300BFF517 /* CoreDataManager.swift */,
 				D0C2801A23D8F46B00518539 /* UserDefaultsManager.swift */,
 			);
 			path = Manager;
@@ -234,6 +243,8 @@
 		E070FD9F24A3D22D0039386D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				E077487424C0703300BFF517 /* CoreDataManager.swift */,
+				D0AA8D0224C1C1790034E6EE /* Extensions */,
 				E013D27E24AA7EC600AFD231 /* Glider+CoreDataClass.swift */,
 				E013D27F24AA7EC600AFD231 /* Glider+CoreDataProperties.swift */,
 				E070FD9C24A3109A0039386D /* Glider Tool.xcdatamodeld */,
@@ -527,6 +538,7 @@
 				D0C5ED5B22A4769C009A0542 /* AirportDatabase.swift in Sources */,
 				E02052B123E36A9A00839B84 /* FlightRecorder.swift in Sources */,
 				E0E1D87A229476C00004DE81 /* DestinationSelectionViewController.swift in Sources */,
+				D0AA8D0124C1C0400034E6EE /* NSManagedObjectContext+Save.swift in Sources */,
 				D0829D3F24351FEC009E40EC /* Presets.swift in Sources */,
 				E011D4C123735CB9006F0CC3 /* OGNSocketConnectionManager.swift in Sources */,
 				E013D28124AA7EC600AFD231 /* Glider+CoreDataClass.swift in Sources */,

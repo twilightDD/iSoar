@@ -17,14 +17,25 @@ class EditGliderFormViewController: FormViewController {
     static let GliderFlarmIDKey = "FLARM ID"
     
     // MARK: - Lets and Vars
-    var glider: Glider?
-    private let viewOnlyContext: NSManagedObjectContext = {
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            let context = CoreDataManager.sharedManager.persistentContainer.viewContext
-            return context
+    private var _glider: Glider?
+    var glider: Glider {
+        get {
+            if let storedGlider = _glider {
+                return storedGlider
+            }
+            else {
+                let newGlider = Glider.init(context: editContext)
+                _glider = newGlider
+                return newGlider
+            }
         }
-        fatalError()
-    }()
+        set {
+            guard let gliderInEditContext = editContext.object(with: newValue.objectID) as? Glider
+                else { fatalError() }
+            _glider = gliderInEditContext
+        }
+    }
+    private let editContext = CoreDataManager.editContextForUI()
     
     // MARK: - Init&Co.
     override func viewDidLoad() {
@@ -32,13 +43,6 @@ class EditGliderFormViewController: FormViewController {
         navigationItem.title = "Glider Details"
         
         form.append(gliderSelectionSection())
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if glider == nil {
-            glider = Glider.init(context: viewOnlyContext)
-        }
     }
     
     // MARK: - Private Methods
@@ -51,35 +55,35 @@ class EditGliderFormViewController: FormViewController {
             section
                 <<< TextRow(EditGliderFormViewController.GliderRegistrationKey) { row in
                     row.title = "Glider Registration"
-                    row.value = self.glider?.registration
+                    row.value = self.glider.registration
                     row.placeholder = "D-1234"
                 
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "textformat")
                 }.onChange({ [unowned self] row in
-                    self.glider?.registration = row.value
+                    self.glider.registration = row.value
                 })
                 
                 <<< DecimalRow(EditGliderFormViewController.GliderRatioKey) { row in
                     row.title = "Glider Ratio"
-                    row.value = self.glider?.ratio
+                    row.value = self.glider.ratio
                     row.placeholder = "38"
                     
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "arrow.down.left")
                 }.onChange({ (row) in
-                    self.glider?.ratio = row.value ?? 0
+                    self.glider.ratio = row.value ?? 0
                 })
                 
                 <<< TextRow(EditGliderFormViewController.GliderFlarmIDKey) { row in
                     row.title = "FlarmID"
-                    row.value = self.glider?.flarmID
+                    row.value = self.glider.flarmID
                     row.placeholder = "FLRD123456"
                     
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "dot.radiowaves.left.and.right")
                 }.onChange({ (row) in
-                    self.glider?.flarmID = row.value
+                    self.glider.flarmID = row.value
                 })
             
             return section
@@ -87,25 +91,14 @@ class EditGliderFormViewController: FormViewController {
     
     // MARK: - Action Methods
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
-        if glider?.isInserted == true {
-            viewOnlyContext.delete(glider!)
-        } else {
-            viewOnlyContext.refresh(glider!, mergeChanges: false)
-        }
         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
-        
-        do {
-            try viewOnlyContext.save()
-        } catch let saveError {
-            print("\(saveError)")
-            fatalError()
-        }
-        
+
+        editContext.saveContext()
+
         self.dismiss(animated: true, completion: nil)
-        
     }
     
 }
