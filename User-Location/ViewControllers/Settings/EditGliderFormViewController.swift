@@ -22,8 +22,7 @@ class EditGliderFormViewController: FormViewController {
         get {
             if let storedGlider = _glider {
                 return storedGlider
-            }
-            else {
+            } else {
                 let newGlider = Glider.init(context: editContext)
                 _glider = newGlider
                 return newGlider
@@ -57,28 +56,49 @@ class EditGliderFormViewController: FormViewController {
                     row.title = "Glider Registration"
                     row.value = self.glider.registration
                     row.placeholder = "D-1234"
-                
+                    row.add(rule: RuleRequired())
+                    row.validationOptions = .validatesOnChange
+                    
+                }.cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
+                    
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "textformat")
                 }.onChange({ [unowned self] row in
                     self.glider.registration = row.value
                 })
                 
-                <<< DecimalRow(EditGliderFormViewController.GliderRatioKey) { row in
+                <<< IntRow(EditGliderFormViewController.GliderRatioKey) { row in
                     row.title = "Glider Ratio"
-                    row.value = self.glider.ratio
-                    row.placeholder = "38"
+                    row.value = Cell<Int>.Value(self.glider.ratio)
+                    row.placeholder = "30"
+                    row.add(rule: RuleRequired())
+                    row.validationOptions = .validatesOnChange
+                    
+                }.cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
                     
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "arrow.down.left")
                 }.onChange({ (row) in
-                    self.glider.ratio = row.value ?? 0
+                    self.glider.ratio = Double(row.value ?? 30)
                 })
                 
                 <<< TextRow(EditGliderFormViewController.GliderFlarmIDKey) { row in
                     row.title = "FlarmID"
                     row.value = self.glider.flarmID
                     row.placeholder = "FLRD123456"
+                    row.add(rule: RuleRequired())
+                    row.validationOptions = .validatesOnChange
+                    
+                }.cellUpdate { cell, row in
+                    if !row.isValid {
+                        cell.titleLabel?.textColor = .red
+                    }
                     
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "dot.radiowaves.left.and.right")
@@ -95,10 +115,14 @@ class EditGliderFormViewController: FormViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
-
-        editContext.saveContext()
-
-        self.dismiss(animated: true, completion: nil)
+        
+        if glider.registration == nil || glider.ratio == nil || glider.flarmID == nil {
+            print("Detail(s) nil")
+        } else {
+            editContext.saveContext()
+            self.dismiss(animated: true, completion: nil)
+        }
+        
     }
     
 }
