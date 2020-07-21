@@ -8,7 +8,6 @@
 
 import CoreData
 
-
 // MARK: - CoreDataManager
 class CoreDataManager {
     
@@ -30,9 +29,7 @@ class CoreDataManager {
     // Prevent clients from creating another instance
     private init() {}
 
-
 }
-
 
 // MARK: - Extension - Context Related Methods
 extension CoreDataManager {
@@ -44,7 +41,6 @@ extension CoreDataManager {
         return viewContext
     }()
 
-
     class func editContextForUI()
         -> NSManagedObjectContext {
             let newEditContext = NSManagedObjectContext.init(concurrencyType: .mainQueueConcurrencyType)
@@ -52,7 +48,6 @@ extension CoreDataManager {
             newEditContext.name = "UI Edit Context "
             return newEditContext
     }
-
 
     class func editContextInBackground()
         -> NSManagedObjectContext {
