@@ -57,10 +57,10 @@ class EditGliderFormViewController: FormViewController {
                     row.value = self.glider.registration
                     row.placeholder = "D-1234"
                     row.add(rule: RuleRequired())
-                    row.validationOptions = .validatesOnChange
+                    row.validationOptions = .validatesOnDemand
                     
                 }.cellUpdate { cell, row in
-                    if !row.isValid {
+                    if row.isValid == false {
                         cell.titleLabel?.textColor = .red
                     }
                     
@@ -70,15 +70,23 @@ class EditGliderFormViewController: FormViewController {
                     self.glider.registration = row.value
                 })
                 
-                <<< IntRow(EditGliderFormViewController.GliderRatioKey) { row in
+                <<< DecimalRow(EditGliderFormViewController.GliderRatioKey) { row in
                     row.title = "Glider Ratio"
-                    row.value = Cell<Int>.Value(self.glider.ratio)
+                    row.value = self.glider.ratio
                     row.placeholder = "30"
                     row.add(rule: RuleRequired())
-                    row.validationOptions = .validatesOnChange
+                    row.validationOptions = .validatesOnDemand
+                    
+                    let numberFormatter = NumberFormatter()
+                    numberFormatter.locale = Locale.current
+                    numberFormatter.numberStyle = .decimal
+                    numberFormatter.minimumFractionDigits = 1
+                    numberFormatter.maximumFractionDigits = 1
+                    
+                    row.formatter = numberFormatter
                     
                 }.cellUpdate { cell, row in
-                    if !row.isValid {
+                    if row.isValid == false {
                         cell.titleLabel?.textColor = .red
                     }
                     
@@ -93,10 +101,10 @@ class EditGliderFormViewController: FormViewController {
                     row.value = self.glider.flarmID
                     row.placeholder = "FLRD123456"
                     row.add(rule: RuleRequired())
-                    row.validationOptions = .validatesOnChange
+                    row.validationOptions = .validatesOnDemand
                     
                 }.cellUpdate { cell, row in
-                    if !row.isValid {
+                    if row.isValid == false {
                         cell.titleLabel?.textColor = .red
                     }
                     
@@ -117,7 +125,10 @@ class EditGliderFormViewController: FormViewController {
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         
         if glider.registration == nil || glider.ratio == nil || glider.flarmID == nil {
-            print("Detail(s) nil")
+            
+            form.validate()
+            
+            print("At least one Detail nil")
         } else {
             editContext.saveContext()
             self.dismiss(animated: true, completion: nil)
