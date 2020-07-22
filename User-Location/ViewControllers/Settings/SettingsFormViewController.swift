@@ -52,7 +52,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     private func gliderSelectionSection()
         -> Section {
             let section = Section("Glider Selection")
-            
+                
                 <<< ButtonRow { row in
                     row.title = SettingsFormViewController.AvailableGlidersKey
                     row.tag = SettingsFormViewController.AvailableGlidersKey
@@ -61,36 +61,44 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "airplane")
                 }
-                    
+                
                 <<< TextRow { row in
-                        row.title = SettingsFormViewController.GliderRegistrationKey
-                        row.tag = SettingsFormViewController.GliderRegistrationKey
-                        row.value = UserDefaultsManager.gliderID()
-                        row.disabled = true
-                        
-                    }.cellSetup { cell, row in
-                        cell.imageView?.image = UIImage(systemName: "textformat")
-                    }
+                    row.title = SettingsFormViewController.GliderRegistrationKey
+                    row.tag = SettingsFormViewController.GliderRegistrationKey
+                    row.value = UserDefaultsManager.gliderID()
+                    row.disabled = true
                     
-                    <<< TextRow { row in
-                        row.title = SettingsFormViewController.GliderRatioKey
-                        row.tag = SettingsFormViewController.GliderRatioKey
-                        row.value = String(format: "%.0f", UserDefaultsManager.gliderRatio())
-                        row.disabled = true
-                        
-                    }.cellSetup { cell, row in
-                        cell.imageView?.image = UIImage(systemName: "arrow.down.left")
-                    }
+                }.cellSetup { cell, row in
+                    cell.imageView?.image = UIImage(systemName: "textformat")
+                }
+                
+                <<< DecimalRow { row in
+                    row.title = SettingsFormViewController.GliderRatioKey
+                    row.tag = SettingsFormViewController.GliderRatioKey
+                    row.value = UserDefaultsManager.gliderRatio()
+                    row.disabled = true
                     
-                    <<< TextRow { row in
-                        row.title = SettingsFormViewController.GliderFlarmIDKey
-                        row.tag = SettingsFormViewController.GliderFlarmIDKey
-                        row.value = UserDefaultsManager.ownFlarmID()
-                        row.disabled = true
-                        
-                    }.cellSetup { cell, row in
-                        cell.imageView?.image = UIImage(systemName: "dot.radiowaves.left.and.right")
-
+                    let numberFormatter = NumberFormatter()
+                    numberFormatter.locale = Locale.current
+                    numberFormatter.numberStyle = .decimal
+                    numberFormatter.minimumFractionDigits = 1
+                    numberFormatter.maximumFractionDigits = 1
+                    
+                    row.formatter = numberFormatter
+                    
+                }.cellSetup { cell, row in
+                    cell.imageView?.image = UIImage(systemName: "arrow.down.left")
+                }
+                
+                <<< TextRow { row in
+                    row.title = SettingsFormViewController.GliderFlarmIDKey
+                    row.tag = SettingsFormViewController.GliderFlarmIDKey
+                    row.value = UserDefaultsManager.ownFlarmID()
+                    row.disabled = true
+                    
+                }.cellSetup { cell, row in
+                    cell.imageView?.image = UIImage(systemName: "dot.radiowaves.left.and.right")
+                    
             }
             
             section.tag = "Glider Selection"
@@ -394,8 +402,8 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         gliderID!.value = UserDefaultsManager.gliderID()
         gliderID!.reload()
         
-        let gliderRatio = form.rowBy(tag: SettingsFormViewController.GliderRatioKey) as? TextRow
-        gliderRatio!.value = String(format: "%.0f", UserDefaultsManager.gliderRatio())
+        let gliderRatio = form.rowBy(tag: SettingsFormViewController.GliderRatioKey) as? DecimalRow
+        gliderRatio!.value = UserDefaultsManager.gliderRatio()
         gliderRatio!.reload()
         
         let gliderFlarmID = form.rowBy(tag: SettingsFormViewController.GliderFlarmIDKey) as? TextRow
