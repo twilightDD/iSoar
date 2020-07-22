@@ -124,9 +124,9 @@ class EditGliderFormViewController: FormViewController {
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         
+        form.validate()
+        
         if glider.registration == nil || glider.ratio == nil || glider.flarmID == nil {
-            
-            form.validate()
             
             print("At least one Detail nil")
         } else {
