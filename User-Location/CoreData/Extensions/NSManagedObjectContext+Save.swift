@@ -6,8 +6,6 @@
 //  Copyright © 2020 Denis Leupold. All rights reserved.
 //
 
-import Foundation
-
 import CoreData
 
 extension NSManagedObjectContext {
@@ -15,6 +13,7 @@ extension NSManagedObjectContext {
     func saveContext() {
         do {
             try self.save() // das self. könnte eigentlich weg, verdeutlicht hier aber, WER speichert.
+            parent?.saveContext()            
         } catch let saveError {
             print("\(saveError)")
             fatalError()
