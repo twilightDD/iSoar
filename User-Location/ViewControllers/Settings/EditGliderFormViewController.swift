@@ -51,6 +51,12 @@ class EditGliderFormViewController: FormViewController {
             let section = Section("Glider Details")
             section.tag = "Glider Details"
             
+            let numberFormatter = NumberFormatter()
+            numberFormatter.locale = Locale.current
+            numberFormatter.numberStyle = .decimal
+            numberFormatter.minimumFractionDigits = 1
+            numberFormatter.maximumFractionDigits = 1
+            
             section
                 <<< TextRow(EditGliderFormViewController.GliderRegistrationKey) { row in
                     row.title = "Glider Registration"
@@ -76,13 +82,6 @@ class EditGliderFormViewController: FormViewController {
                     row.placeholder = "30"
                     row.add(rule: RuleRequired())
                     row.validationOptions = .validatesOnDemand
-                    
-                    let numberFormatter = NumberFormatter()
-                    numberFormatter.locale = Locale.current
-                    numberFormatter.numberStyle = .decimal
-                    numberFormatter.minimumFractionDigits = 1
-                    numberFormatter.maximumFractionDigits = 1
-                    
                     row.formatter = numberFormatter
                     
                 }.cellUpdate { cell, row in
