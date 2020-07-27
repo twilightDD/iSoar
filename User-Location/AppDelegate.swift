@@ -71,10 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Set Display Dimmer active again
         UIApplication.shared.isIdleTimerDisabled = false
-        
-        // Saves changes in the application's managed object context
-        //self.saveContext()
-        //CoreDataManager.sharedManager.saveContext()
+
     }
     
 }
