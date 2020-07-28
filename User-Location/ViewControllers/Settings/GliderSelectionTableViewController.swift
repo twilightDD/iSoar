@@ -12,7 +12,6 @@ import CoreData
 class GliderSelectionTableViewController: UITableViewController {
     
     // MARK: - Keys
-    private static let GliderEntityName = "Glider"
     private static let GliderSelectionTableViewCellIdentifierKey = "GliderSelectionTableViewCellIdentifier"
     private static let OpenEditGliderFormViewControllerSegueKey = "OpenEditGliderFormViewControllerSegue"
     
