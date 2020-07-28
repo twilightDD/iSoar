@@ -39,7 +39,7 @@ class EditGliderFormViewController: FormViewController {
     // MARK: IBOutlets
     @IBOutlet weak var cancelBarBauttonItem: UIBarButtonItem!
     @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
-
+    
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +67,8 @@ class EditGliderFormViewController: FormViewController {
                     row.value = self.glider.registration
                     row.placeholder = "D-1234"
                     row.add(rule: RuleRequired())
+                    row.add(rule: RuleMinLength(minLength: 6))
+                    row.add(rule: RuleMaxLength(maxLength: 7))
                     row.validationOptions = .validatesOnChange
                     
                 }.cellUpdate { cell, row in
@@ -107,8 +109,10 @@ class EditGliderFormViewController: FormViewController {
                 <<< TextRow(EditGliderFormViewController.GliderFlarmIDKey) { row in
                     row.title = "FlarmID"
                     row.value = self.glider.flarmID
-                    row.placeholder = "FLRD123456"
+                    row.placeholder = "FLRD12345"
                     row.add(rule: RuleRequired())
+                    row.add(rule: RuleMinLength(minLength: 9))
+                    row.add(rule: RuleMaxLength(maxLength: 9))
                     row.validationOptions = .validatesOnChange
                     
                 }.cellUpdate { cell, row in
@@ -132,9 +136,26 @@ class EditGliderFormViewController: FormViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
-        editContext.saveContext()
-        self.dismiss(animated: true, completion: nil)
-
+        let existingGliders = Glider.fetchGliders(registration: glider.registration!,
+                                                  flarmID: glider.flarmID!,
+                                                  context: editContext)
+        if existingGliders.count == 1 {
+            editContext.saveContext()
+            self.dismiss(animated: true, completion: nil)
+        } else if existingGliders.count == 0 {
+            fatalError("ich muss self.glider haben.")
+        } else {
+            let alertViewController = UIAlertController.init(title: "Warning",
+                                                             message: "Glider Registration or FlarmID already exists.",
+                                                             preferredStyle: .alert)
+            let cancelAction = UIAlertAction.init(title: "OK", style: .cancel) { (action) in
+            }
+            alertViewController.addAction(cancelAction)
+            present(alertViewController, animated: true) {
+                
+            }
+        }
+        
     }
     
     private func validateForm() {
