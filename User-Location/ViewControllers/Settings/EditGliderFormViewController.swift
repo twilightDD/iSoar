@@ -55,7 +55,7 @@ class EditGliderFormViewController: FormViewController {
             let section = Section("Glider Details")
             section.tag = "Glider Details"
             
-            let numberFormatter = NumberFormatter()
+            let numberFormatter = DecimalFormatter()
             numberFormatter.locale = Locale.current
             numberFormatter.numberStyle = .decimal
             numberFormatter.minimumFractionDigits = 1
@@ -92,6 +92,7 @@ class EditGliderFormViewController: FormViewController {
                     row.add(rule: RuleRequired())
                     row.validationOptions = .validatesOnChange
                     row.formatter = numberFormatter
+                    row.useFormatterDuringInput = true
                     
                 }
                 .cellUpdate { cell, row in
