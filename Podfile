@@ -7,7 +7,7 @@ target 'Glider Tool' do
 
   # Pods for Glider Tool
     pod 'SwiftLint', '~> 0.39.2'
-    pod 'Mapbox-iOS-SDK', '~> 5.8'
+    pod 'Mapbox-iOS-SDK', '~> 6.0'
     
     source 'https://github.com/CocoaPods/Specs.git'
     pod 'Eureka', '~> 5.2.1'
