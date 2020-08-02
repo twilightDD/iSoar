@@ -309,6 +309,27 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     
                 }
                 
+                
+                
+                
+                
+                
+                <<< ButtonRow { row in
+                    row.title = "Buddy List"
+                    row.tag = "Buddy List"
+                    row.presentationMode = .segueName(segueName: "BuddyListSegue", onDismiss: nil)
+                    
+                }.cellSetup { cell, row in
+                    cell.imageView?.image = UIImage(systemName: "person.2")
+                }
+                
+                
+                
+                
+                
+                
+                
+                
                 <<< LabelRow { row in
                     row.title = "Buddy FLARM IDs"
                     row.cellStyle = .default
