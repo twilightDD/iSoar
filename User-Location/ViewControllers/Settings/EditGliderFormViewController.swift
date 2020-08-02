@@ -131,6 +131,15 @@ class EditGliderFormViewController: FormViewController {
             return section
     }
     
+    private func validateForm() {
+        let validationErrors = form.validate()
+        if validationErrors.count == 0 {
+            saveBarButtonItem.isEnabled = true
+        } else {
+            saveBarButtonItem.isEnabled = false
+        }
+    }
+    
     // MARK: - Action Methods
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
@@ -157,15 +166,6 @@ class EditGliderFormViewController: FormViewController {
             }
         }
         
-    }
-    
-    private func validateForm() {
-        let validationErrors = form.validate()
-        if validationErrors.count == 0 {
-            saveBarButtonItem.isEnabled = true
-        } else {
-            saveBarButtonItem.isEnabled = false
-        }
     }
     
 }
