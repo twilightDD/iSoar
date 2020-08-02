@@ -11,4 +11,11 @@ import CoreData
 
 class BuddyListTableViewController: UITableViewController {
     
+    // MARK: - Init&Co.
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.title = "Buddy List"
+        
+    }
+    
 }
