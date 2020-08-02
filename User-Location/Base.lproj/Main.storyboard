@@ -34,7 +34,7 @@
                     <navigationItem key="navigationItem" id="5ds-oq-XYO"/>
                     <connections>
                         <segue destination="s7L-uP-WAd" kind="show" identifier="GliderSelectionSegue" id="MDo-pg-SNU"/>
-                        <segue destination="2oB-KJ-4XZ" kind="show" identifier="BuddyListSegue" id="eDz-ql-dap"/>
+                        <segue destination="QR7-na-ot2" kind="show" identifier="BuddyListSegue" id="4s1-j2-jfo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BSE-1G-sMQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -42,33 +42,35 @@
             <point key="canvasLocation" x="341" y="1323"/>
         </scene>
         <!--Buddy List Table View Controller-->
-        <scene sceneID="6Bg-SB-oG6">
+        <scene sceneID="4SH-i5-cK8">
             <objects>
-                <tableViewController id="2oB-KJ-4XZ" customClass="BuddyListTableViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bbL-3u-4tZ">
+                <tableViewController id="QR7-na-ot2" customClass="BuddyListTableViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="12l-qQ-eFf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="K85-Dl-ejW">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="9oX-14-2Zm">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="K85-Dl-ejW" id="VRd-WL-P2I">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9oX-14-2Zm" id="GJn-84-ruL">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="2oB-KJ-4XZ" id="7Mh-yt-k1N"/>
-                            <outlet property="delegate" destination="2oB-KJ-4XZ" id="PhM-4G-E3V"/>
+                            <outlet property="dataSource" destination="QR7-na-ot2" id="u2e-9e-cnx"/>
+                            <outlet property="delegate" destination="QR7-na-ot2" id="gG0-cy-3eQ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="fP1-UZ-sFN"/>
+                    <navigationItem key="navigationItem" id="GAs-wW-cfH">
+                        <barButtonItem key="rightBarButtonItem" title="Add" image="plus.circle" catalog="system" id="4FU-LQ-lTR"/>
+                    </navigationItem>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dKD-F1-fOf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="byJ-7d-8TY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-164" y="2079"/>
+            <point key="canvasLocation" x="-132" y="2079"/>
         </scene>
         <!--Glider Selection Table View Controller-->
         <scene sceneID="kOH-nh-O3o">
