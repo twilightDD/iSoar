@@ -51,6 +51,8 @@
 		E0B52F72228377F300E28A93 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F71228377F300E28A93 /* Buttons.swift */; };
 		E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F7622837C1500E28A93 /* TextFields.swift */; };
 		E0B8142B2367450200D88B6C /* LogbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B8142A2367450200D88B6C /* LogbookViewController.swift */; };
+		E0C55A2724D6CB7B00618179 /* Buddy+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C55A2524D6CB7B00618179 /* Buddy+CoreDataClass.swift */; };
+		E0C55A2824D6CB7B00618179 /* Buddy+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C55A2624D6CB7B00618179 /* Buddy+CoreDataProperties.swift */; };
 		E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */; };
 		E0E1D87A229476C00004DE81 /* DestinationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */; };
 		E0F667B324CF79070017AF1D /* NSManagedObject+EntityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F667B224CF79070017AF1D /* NSManagedObject+EntityName.swift */; };
@@ -121,6 +123,8 @@
 		E0B52F71228377F300E28A93 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		E0B52F7622837C1500E28A93 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
 		E0B8142A2367450200D88B6C /* LogbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogbookViewController.swift; sourceTree = "<group>"; };
+		E0C55A2524D6CB7B00618179 /* Buddy+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Buddy+CoreDataClass.swift"; path = "/Users/sonicwave3/Daten/Glider Tool/User-Location/CoreData/Buddy+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		E0C55A2624D6CB7B00618179 /* Buddy+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Buddy+CoreDataProperties.swift"; path = "/Users/sonicwave3/Daten/Glider Tool/User-Location/CoreData/Buddy+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Rotate.swift"; sourceTree = "<group>"; };
 		E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionViewController.swift; sourceTree = "<group>"; };
 		E0F667B224CF79070017AF1D /* NSManagedObject+EntityName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+EntityName.swift"; sourceTree = "<group>"; };
@@ -246,6 +250,8 @@
 		E070FD9F24A3D22D0039386D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				E0C55A2524D6CB7B00618179 /* Buddy+CoreDataClass.swift */,
+				E0C55A2624D6CB7B00618179 /* Buddy+CoreDataProperties.swift */,
 				E077487424C0703300BFF517 /* CoreDataManager.swift */,
 				D0AA8D0224C1C1790034E6EE /* Extensions */,
 				E013D27E24AA7EC600AFD231 /* Glider+CoreDataClass.swift */,
@@ -526,6 +532,7 @@
 				E00E08CC23DB877A00BE04F6 /* TimeDateFormatter.swift in Sources */,
 				D0C2A9E32367954A00FEF926 /* UITextField+NumberPadDoneButton.swift in Sources */,
 				E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */,
+				E0C55A2824D6CB7B00618179 /* Buddy+CoreDataProperties.swift in Sources */,
 				E0A215BB235E2D0D009F6953 /* TableViewController.swift in Sources */,
 				E007864923D2204600856865 /* FlightsDatabase.swift in Sources */,
 				E070FD9E24A3109A0039386D /* Glider Tool.xcdatamodeld in Sources */,
@@ -547,6 +554,7 @@
 				E011D4C123735CB9006F0CC3 /* OGNSocketConnectionManager.swift in Sources */,
 				E013D28124AA7EC600AFD231 /* Glider+CoreDataClass.swift in Sources */,
 				D0BBE08623A18CEB00CAD9FF /* ISoarFileManager.swift in Sources */,
+				E0C55A2724D6CB7B00618179 /* Buddy+CoreDataClass.swift in Sources */,
 				D0015F0F242C082F00D2AEFF /* NearbyGliderAnnotation.swift in Sources */,
 				E014961A236F6B4C00C1AC0D /* MapLabel.swift in Sources */,
 				EDA236232130AA7500739396 /* AppDelegate.swift in Sources */,
