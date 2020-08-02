@@ -11,7 +11,7 @@ import CoreData
 extension Buddy {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Buddy> {
-        return NSFetchRequest<Buddy>(entityName: "Buddy")
+        return NSFetchRequest<Buddy>(entityName: Buddy.entityName())
     }
 
     @NSManaged public var uuid: UUID?
