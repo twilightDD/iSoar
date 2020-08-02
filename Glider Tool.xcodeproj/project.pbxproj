@@ -53,6 +53,7 @@
 		E0B8142B2367450200D88B6C /* LogbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B8142A2367450200D88B6C /* LogbookViewController.swift */; };
 		E0C55A2724D6CB7B00618179 /* Buddy+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C55A2524D6CB7B00618179 /* Buddy+CoreDataClass.swift */; };
 		E0C55A2824D6CB7B00618179 /* Buddy+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C55A2624D6CB7B00618179 /* Buddy+CoreDataProperties.swift */; };
+		E0C55A2C24D6D38100618179 /* BuddyListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C55A2B24D6D38100618179 /* BuddyListTableViewController.swift */; };
 		E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */; };
 		E0E1D87A229476C00004DE81 /* DestinationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */; };
 		E0F667B324CF79070017AF1D /* NSManagedObject+EntityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F667B224CF79070017AF1D /* NSManagedObject+EntityName.swift */; };
@@ -125,6 +126,7 @@
 		E0B8142A2367450200D88B6C /* LogbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogbookViewController.swift; sourceTree = "<group>"; };
 		E0C55A2524D6CB7B00618179 /* Buddy+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Buddy+CoreDataClass.swift"; path = "/Users/sonicwave3/Daten/Glider Tool/User-Location/CoreData/Buddy+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		E0C55A2624D6CB7B00618179 /* Buddy+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Buddy+CoreDataProperties.swift"; path = "/Users/sonicwave3/Daten/Glider Tool/User-Location/CoreData/Buddy+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		E0C55A2B24D6D38100618179 /* BuddyListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyListTableViewController.swift; sourceTree = "<group>"; };
 		E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Rotate.swift"; sourceTree = "<group>"; };
 		E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionViewController.swift; sourceTree = "<group>"; };
 		E0F667B224CF79070017AF1D /* NSManagedObject+EntityName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+EntityName.swift"; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 			children = (
 				E086AB0A229C35890011C433 /* SettingsFormViewController.swift */,
 				E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */,
+				E0C55A2B24D6D38100618179 /* BuddyListTableViewController.swift */,
 				E016CCA724AF4A7400CEA506 /* EditGliderFormViewController.swift */,
 			);
 			path = Settings;
@@ -559,6 +562,7 @@
 				E014961A236F6B4C00C1AC0D /* MapLabel.swift in Sources */,
 				EDA236232130AA7500739396 /* AppDelegate.swift in Sources */,
 				E077487524C0703300BFF517 /* CoreDataManager.swift in Sources */,
+				E0C55A2C24D6D38100618179 /* BuddyListTableViewController.swift in Sources */,
 				E0B52F72228377F300E28A93 /* Buttons.swift in Sources */,
 				E070FDA924A468730039386D /* GliderSelectionTableViewController.swift in Sources */,
 				E007864B23D222EA00856865 /* FlightSelectionTableViewCell.swift in Sources */,
