@@ -54,6 +54,7 @@
 		E0C55A2724D6CB7B00618179 /* Buddy+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C55A2524D6CB7B00618179 /* Buddy+CoreDataClass.swift */; };
 		E0C55A2824D6CB7B00618179 /* Buddy+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C55A2624D6CB7B00618179 /* Buddy+CoreDataProperties.swift */; };
 		E0C55A2C24D6D38100618179 /* BuddyListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C55A2B24D6D38100618179 /* BuddyListTableViewController.swift */; };
+		E0C55A2E24D6EB4800618179 /* EditBuddyFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C55A2D24D6EB4800618179 /* EditBuddyFormViewController.swift */; };
 		E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */; };
 		E0E1D87A229476C00004DE81 /* DestinationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */; };
 		E0F667B324CF79070017AF1D /* NSManagedObject+EntityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F667B224CF79070017AF1D /* NSManagedObject+EntityName.swift */; };
@@ -127,6 +128,7 @@
 		E0C55A2524D6CB7B00618179 /* Buddy+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Buddy+CoreDataClass.swift"; path = "/Users/sonicwave3/Daten/Glider Tool/User-Location/CoreData/Buddy+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		E0C55A2624D6CB7B00618179 /* Buddy+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Buddy+CoreDataProperties.swift"; path = "/Users/sonicwave3/Daten/Glider Tool/User-Location/CoreData/Buddy+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		E0C55A2B24D6D38100618179 /* BuddyListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyListTableViewController.swift; sourceTree = "<group>"; };
+		E0C55A2D24D6EB4800618179 /* EditBuddyFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBuddyFormViewController.swift; sourceTree = "<group>"; };
 		E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Rotate.swift"; sourceTree = "<group>"; };
 		E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionViewController.swift; sourceTree = "<group>"; };
 		E0F667B224CF79070017AF1D /* NSManagedObject+EntityName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+EntityName.swift"; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				E086AB0A229C35890011C433 /* SettingsFormViewController.swift */,
 				E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */,
 				E0C55A2B24D6D38100618179 /* BuddyListTableViewController.swift */,
+				E0C55A2D24D6EB4800618179 /* EditBuddyFormViewController.swift */,
 				E016CCA724AF4A7400CEA506 /* EditGliderFormViewController.swift */,
 			);
 			path = Settings;
@@ -541,6 +544,7 @@
 				E070FD9E24A3109A0039386D /* Glider Tool.xcdatamodeld in Sources */,
 				E0F667B324CF79070017AF1D /* NSManagedObject+EntityName.swift in Sources */,
 				EDA236352130AA9A00739396 /* MapScreenViewController.swift in Sources */,
+				E0C55A2E24D6EB4800618179 /* EditBuddyFormViewController.swift in Sources */,
 				E01D87E8239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift in Sources */,
 				E013D28024AA7EC600AFD231 /* Glider+CoreDataProperties.swift in Sources */,
 				D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */,

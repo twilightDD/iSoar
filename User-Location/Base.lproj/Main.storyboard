@@ -34,7 +34,7 @@
                     <navigationItem key="navigationItem" id="5ds-oq-XYO"/>
                     <connections>
                         <segue destination="s7L-uP-WAd" kind="show" identifier="GliderSelectionSegue" id="MDo-pg-SNU"/>
-                        <segue destination="QR7-na-ot2" kind="show" identifier="BuddyListSegue" id="4s1-j2-jfo"/>
+                        <segue destination="uGL-M9-o6B" kind="show" identifier="BuddyListSegue" id="AtA-x2-TkR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BSE-1G-sMQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -42,35 +42,39 @@
             <point key="canvasLocation" x="341" y="1323"/>
         </scene>
         <!--Buddy List Table View Controller-->
-        <scene sceneID="4SH-i5-cK8">
+        <scene sceneID="jxy-gY-Spo">
             <objects>
-                <tableViewController id="QR7-na-ot2" customClass="BuddyListTableViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="12l-qQ-eFf">
+                <tableViewController id="uGL-M9-o6B" customClass="BuddyListTableViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="MXr-ga-TbL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="9oX-14-2Zm">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BuddyListTableViewCellIdentifier" id="8lr-tI-H5f">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9oX-14-2Zm" id="GJn-84-ruL">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8lr-tI-H5f" id="TKM-BB-THt">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="QR7-na-ot2" id="u2e-9e-cnx"/>
-                            <outlet property="delegate" destination="QR7-na-ot2" id="gG0-cy-3eQ"/>
+                            <outlet property="dataSource" destination="uGL-M9-o6B" id="IvS-Vj-sr3"/>
+                            <outlet property="delegate" destination="uGL-M9-o6B" id="gic-c8-4td"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="GAs-wW-cfH">
-                        <barButtonItem key="rightBarButtonItem" title="Add" image="plus.circle" catalog="system" id="4FU-LQ-lTR"/>
+                    <navigationItem key="navigationItem" id="9di-qW-niX">
+                        <barButtonItem key="rightBarButtonItem" title="Add" image="plus.circle" catalog="system" id="Nug-oy-2rW">
+                            <connections>
+                                <segue destination="leu-6e-xyR" kind="presentation" identifier="OpenEditBuddyFormViewControllerSegue" id="lxl-1J-xyG"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="byJ-7d-8TY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tup-e5-zp4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-132" y="2079"/>
+            <point key="canvasLocation" x="-120" y="2079"/>
         </scene>
         <!--Glider Selection Table View Controller-->
         <scene sceneID="kOH-nh-O3o">
@@ -110,6 +114,44 @@
             </objects>
             <point key="canvasLocation" x="858" y="2079"/>
         </scene>
+        <!--Edit Buddy Form View Controller-->
+        <scene sceneID="9bt-QM-glb">
+            <objects>
+                <viewController id="csf-B6-jKw" customClass="EditBuddyFormViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Q1W-uU-cgV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2dg-cQ-UIs">
+                                <rect key="frame" x="0.0" y="84" width="414" height="758"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="8TJ-w5-Sov"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Wjc-M0-20I">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="ETJ-8M-6Qn">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="csf-B6-jKw" id="v5j-uY-0No"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="nvE-tS-dOC">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="csf-B6-jKw" id="quP-Uw-ugH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cancelBarBauttonItem" destination="ETJ-8M-6Qn" id="ka9-8R-qGR"/>
+                        <outlet property="saveBarBauttonItem" destination="nvE-tS-dOC" id="g0F-ky-Mi8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ELH-8d-Wgb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-120" y="3554"/>
+        </scene>
         <!--Edit Glider Form View Controller-->
         <scene sceneID="irZ-BZ-EeK">
             <objects>
@@ -146,7 +188,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ag5-t2-ucg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1684" y="2792"/>
+            <point key="canvasLocation" x="858" y="3555"/>
         </scene>
         <!--Logbook View Controller-->
         <scene sceneID="kZz-qr-uGS">
@@ -339,7 +381,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bR1-wW-GuP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1335" y="1323"/>
+            <point key="canvasLocation" x="1164" y="1323"/>
         </scene>
         <!--Destination Selection View Controller-->
         <scene sceneID="naG-LX-K2Z">
@@ -1067,7 +1109,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eLH-aC-fbA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1336" y="550"/>
+            <point key="canvasLocation" x="1164" y="551"/>
         </scene>
         <!--Destination-->
         <scene sceneID="LgI-L0-olz">
@@ -1104,7 +1146,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vqy-hy-PGX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1684" y="2079"/>
+            <point key="canvasLocation" x="858" y="2808"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="lGd-R8-wDC">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="leu-6e-xyR" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="659-8Q-oGS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="csf-B6-jKw" kind="relationship" relationship="rootViewController" id="5B6-BI-fnw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Hb-yZ-pp2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-120" y="2808"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
