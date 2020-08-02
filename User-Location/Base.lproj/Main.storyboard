@@ -34,11 +34,41 @@
                     <navigationItem key="navigationItem" id="5ds-oq-XYO"/>
                     <connections>
                         <segue destination="s7L-uP-WAd" kind="show" identifier="GliderSelectionSegue" id="MDo-pg-SNU"/>
+                        <segue destination="2oB-KJ-4XZ" kind="show" identifier="BuddyListSegue" id="eDz-ql-dap"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BSE-1G-sMQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="341" y="1323"/>
+        </scene>
+        <!--Buddy List Table View Controller-->
+        <scene sceneID="6Bg-SB-oG6">
+            <objects>
+                <tableViewController id="2oB-KJ-4XZ" customClass="BuddyListTableViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bbL-3u-4tZ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="K85-Dl-ejW">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="K85-Dl-ejW" id="VRd-WL-P2I">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="2oB-KJ-4XZ" id="7Mh-yt-k1N"/>
+                            <outlet property="delegate" destination="2oB-KJ-4XZ" id="PhM-4G-E3V"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="fP1-UZ-sFN"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dKD-F1-fOf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-164" y="2079"/>
         </scene>
         <!--Glider Selection Table View Controller-->
         <scene sceneID="kOH-nh-O3o">
@@ -76,7 +106,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CBa-Q4-maG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="341" y="2077"/>
+            <point key="canvasLocation" x="858" y="2079"/>
         </scene>
         <!--Edit Glider Form View Controller-->
         <scene sceneID="irZ-BZ-EeK">
@@ -114,7 +144,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ag5-t2-ucg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2075.36231884058" y="2076.5625"/>
+            <point key="canvasLocation" x="1684" y="2792"/>
         </scene>
         <!--Logbook View Controller-->
         <scene sceneID="kZz-qr-uGS">
@@ -496,14 +526,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskSelectionTableViewCell" id="DPU-HB-jDi" customClass="TaskSelectionTableViewCell" customModule="iSoar" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DPU-HB-jDi" id="BFo-Hu-pV9">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fmk-3Q-uW8">
-                                                    <rect key="frame" x="15" y="11" width="81" height="21"/>
+                                                    <rect key="frame" x="15" y="11" width="81" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1072,7 +1102,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vqy-hy-PGX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1166.6666666666667" y="2076.5625"/>
+            <point key="canvasLocation" x="1684" y="2079"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
