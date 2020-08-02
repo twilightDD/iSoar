@@ -48,7 +48,6 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     
     // MARK: - Private Methods
     // MARK: Eureka Form Sections
-    
     private func gliderSelectionSection()
         -> Section {
             let section = Section("Glider Selection")
@@ -287,7 +286,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     row.value = UserDefaultsManager.showOnlyBuddySwitchState()
                     
                 }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "person.2")
+                    cell.imageView?.image = UIImage(systemName: "checkmark.circle")
                     
                 }.onChange { row in
                     guard let rowValue = row.value else { return }
@@ -308,12 +307,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     }
                     
                 }
-                
-                
-                
-                
-                
-                
+
                 <<< ButtonRow { row in
                     row.title = "Buddy List"
                     row.tag = "Buddy List"
@@ -322,44 +316,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "person.2")
                 }
-                
-                
-                
-                
-                
-                
-                
-                
-                <<< LabelRow { row in
-                    row.title = "Buddy FLARM IDs"
-                    row.cellStyle = .default
-                    
-                }.cellUpdate({ (cell, row) in
-                    cell.textLabel?.textAlignment = .center
-                })
-                
-                <<< TextAreaRow("Buddy FLARM IDs") { row in
-                    row.title = "Buddy FLARM IDs"
-                    row.tag = "Buddy FLARM IDs"
-                    row.textAreaHeight = .dynamic(initialTextViewHeight: 50)
-                    row.value = UserDefaultsManager.buddyFlarmID()
-                    row.placeholder = "FLRxxxxxx/ICAxxxxxx/FLRxxxxxx"
-                    
-                }.onCellHighlightChanged({ (cell, row) in
-                    if row.isHighlighted == false {
-                        
-                        let flarmBuddyFlarmID = row.value
-                        UserDefaultsManager.set(flarmBuddyFlarmID: flarmBuddyFlarmID ?? "FLRxxxxxx")
-                        
-                        if UserDefaultsManager.showAllNearbyGlidersState() == true,
-                            UserDefaultsManager.showOnlyBuddySwitchState() == true {
-                            
-                            OGNSocketConnectionManager.reconnect()
-                            
-                        }
-                        
-                    }
-                })
+            
             return section
     }
     
