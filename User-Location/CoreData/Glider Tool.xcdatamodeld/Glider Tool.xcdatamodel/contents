@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Buddy" representedClassName="Buddy" syncable="YES">
-        <attribute name="flarmID" optional="YES" attributeType="String"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="flarmID" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="uuid" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <entity name="Glider" representedClassName="Glider" syncable="YES">
         <attribute name="flarmID" optional="YES" attributeType="String"/>
@@ -12,7 +12,7 @@
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
     <elements>
-        <element name="Glider" positionX="-63" positionY="-18" width="128" height="103"/>
         <element name="Buddy" positionX="-63" positionY="9" width="128" height="88"/>
+        <element name="Glider" positionX="-63" positionY="-18" width="128" height="103"/>
     </elements>
 </model>

@@ -14,8 +14,8 @@ extension Buddy {
         return NSFetchRequest<Buddy>(entityName: Buddy.entityName())
     }
 
-    @NSManaged public var uuid: UUID?
-    @NSManaged public var name: String?
-    @NSManaged public var flarmID: String?
+    @NSManaged public var uuid: UUID
+    @NSManaged public var name: String
+    @NSManaged public var flarmID: String
 
 }
