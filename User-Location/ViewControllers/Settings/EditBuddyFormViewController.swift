@@ -23,6 +23,7 @@ class EditBuddyFormViewController: FormViewController {
                 return storedBuddy
             } else {
                 let newBuddy = Buddy.init(context: editContext)
+                newBuddy.uuid = UUID()
                 _buddy = newBuddy
                 return newBuddy
             }
@@ -74,7 +75,8 @@ class EditBuddyFormViewController: FormViewController {
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "textformat")
                 }.onChange({ [unowned self] row in
-                    self.buddy.name = row.value
+                    let newName = row.value ?? ""
+                    self.buddy.name = newName
                 })
                 
                 <<< TextRow(EditBuddyFormViewController.BuddyFlarmIDKey) { row in
@@ -95,7 +97,8 @@ class EditBuddyFormViewController: FormViewController {
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "dot.radiowaves.left.and.right")
                 }.onChange({ (row) in
-                    self.buddy.flarmID = row.value
+                    let newFlarmID = row.value ?? ""
+                    self.buddy.flarmID = newFlarmID
                 })
             
             return section
@@ -117,9 +120,10 @@ class EditBuddyFormViewController: FormViewController {
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
 
-        let existingBuddies = Buddy.fetchBuddies(name: buddy.name!,
-                                                  flarmID: buddy.flarmID!,
-                                                  context: editContext)
+        let existingBuddies = editContext.fetchObjects(forEntityClass: Buddy.self,
+                                            predicateString: "%K == %@ OR %K == %@",
+                                            predicateArguments: [Buddy.Attributes.name, buddy.name,
+                                                                 Buddy.Attributes.flarmID, buddy.flarmID])
         if existingBuddies.count == 1 {
             editContext.saveContext()
             
