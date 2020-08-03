@@ -129,19 +129,6 @@ class EditBuddyFormViewController: FormViewController {
             
             OGNSocketConnectionManager.didUpdateBuddies()
             
-            // Baue String aus allen FlarmIDs, irgendiwe mit join (FRLD12345/ICA12345)
-            
-            // Setze den String in den UserDefaults
-            // let flarmBuddyFlarmID = coredata.alleFlarmIDs
-            //UserDefaultsManager.set(flarmBuddyFlarmID: joinedFlarmIDs ?? "FLRxxxxxx")
-            
-            // Wenn Show only Buddies an, dann reconnect
-            // if UserDefaultsManager.showAllNearbyGlidersState() == true,
-            // UserDefaultsManager.showOnlyBuddySwitchState() == true {
-            //
-            // OGNSocketConnectionManager.reconnect()
-            // }
-            
             self.dismiss(animated: true, completion: nil)
         } else if existingBuddies.count == 0 {
             fatalError("ich muss self.buddy haben.")

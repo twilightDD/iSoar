@@ -12,7 +12,6 @@ class UserDefaultsManager {
     
     // MARK: - Keys
     private static let CollisionWarningStateKey = "collisionWarningState"
-    private static let BuddyFlarmIDKey = "buddyFlarmID"
     private static let GliderRatioKey = "gliderRatio"
     private static let GliderIDKey = "gliderID"
     private static let OwnFlarmIDKey = "ownFlarmID"
@@ -34,7 +33,6 @@ class UserDefaultsManager {
     private static let safetyAltitudeDefault: Double = 300
     private static let showTrackingRouteSwitchDefault: Bool = true
     private static let showFlarmBuddySwitchDefault: Bool = true
-    private static let buddyFlarmIDDefault = "FLRxxxxxx"
     private static let showNearbyGlidersSwitchDefault: Bool = true
     private static let collisionWarningSwitchDefault: Bool = true
     private static let trafficMonitorRadiusDefault: Double = 50
@@ -69,9 +67,6 @@ class UserDefaultsManager {
         }
         if shared.userDefaults.value(forKey: ShowOnlyBuddyStateKey) == nil {
             shared.userDefaults.set(true, forKey: ShowOnlyBuddyStateKey)
-        }
-        if shared.userDefaults.value(forKey: BuddyFlarmIDKey) == nil {
-            UserDefaultsManager.set(flarmBuddyFlarmID: buddyFlarmIDDefault)
         }
         if shared.userDefaults.value(forKey: ShowAllNearbyGlidersStateKey) == nil {
             shared.userDefaults.set(true, forKey: ShowAllNearbyGlidersStateKey)
@@ -168,17 +163,6 @@ class UserDefaultsManager {
     
     class func set(showOnlyBuddySwitchState: Bool) {
         shared.userDefaults.set(showOnlyBuddySwitchState, forKey: ShowOnlyBuddyStateKey)
-    }
-    
-    // MARK: Buddy FlarmID
-    class func buddyFlarmID()
-        -> String {
-            let buddyFlarmID = shared.userDefaults.value(forKey: BuddyFlarmIDKey) as? String ?? buddyFlarmIDDefault
-            return buddyFlarmID
-    }
-    
-    class func set(flarmBuddyFlarmID flarmID: String) {
-        shared.userDefaults.set(flarmID, forKey: BuddyFlarmIDKey)
     }
     
     // MARK: ShowNearbyGlidersSwitch
