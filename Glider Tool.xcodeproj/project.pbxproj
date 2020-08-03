@@ -125,8 +125,8 @@
 		E0B52F71228377F300E28A93 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		E0B52F7622837C1500E28A93 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
 		E0B8142A2367450200D88B6C /* LogbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogbookViewController.swift; sourceTree = "<group>"; };
-		E0C55A2524D6CB7B00618179 /* Buddy+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Buddy+CoreDataClass.swift"; path = "/Users/sonicwave3/Daten/Glider Tool/User-Location/CoreData/Buddy+CoreDataClass.swift"; sourceTree = "<absolute>"; };
-		E0C55A2624D6CB7B00618179 /* Buddy+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Buddy+CoreDataProperties.swift"; path = "/Users/sonicwave3/Daten/Glider Tool/User-Location/CoreData/Buddy+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		E0C55A2524D6CB7B00618179 /* Buddy+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Buddy+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E0C55A2624D6CB7B00618179 /* Buddy+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Buddy+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E0C55A2B24D6D38100618179 /* BuddyListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyListTableViewController.swift; sourceTree = "<group>"; };
 		E0C55A2D24D6EB4800618179 /* EditBuddyFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBuddyFormViewController.swift; sourceTree = "<group>"; };
 		E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Rotate.swift"; sourceTree = "<group>"; };
