@@ -123,6 +123,9 @@ class EditBuddyFormViewController: FormViewController {
         if existingBuddies.count == 1 {
             editContext.saveContext()
             
+            let abc = Buddy.allFlarmIDs()
+            
+            
             // TODO: Nach dem speichern
             // Hole alle FlarmIDs aus CoreData / Buddy
             
@@ -130,7 +133,7 @@ class EditBuddyFormViewController: FormViewController {
             
             // Setze den String in den UserDefaults
             // let flarmBuddyFlarmID = coredata.alleFlarmIDs
-            // UserDefaultsManager.set(flarmBuddyFlarmID: flarmBuddyFlarmID ?? "FLRxxxxxx")
+            //UserDefaultsManager.set(flarmBuddyFlarmID: joinedFlarmIDs ?? "FLRxxxxxx")
             
             // Wenn Show only Buddies an, dann reconnect
             // if UserDefaultsManager.showAllNearbyGlidersState() == true,

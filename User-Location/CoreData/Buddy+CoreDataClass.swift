@@ -10,6 +10,28 @@ import CoreData
 
 @objc(Buddy)
 public class Buddy: NSManagedObject {
+    
+    class func allFlarmIDs(inContext context: NSManagedObjectContext? = nil)
+        -> [String] {
+            let allBuddies = Buddy.fetchAllBuddies(context: context ?? CoreDataManager.viewOnlyContext)
+            let allFlarmIDs = allBuddies.compactMap { $0.flarmID }
+            return allFlarmIDs
+    }
+    
+    class func fetchAllBuddies(context: NSManagedObjectContext)
+        -> [Buddy] {
+        let request = NSFetchRequest<Buddy>(entityName: Buddy.entityName())
+        do {
+            let fetchedBuddies = try context.fetch(request)
+            return fetchedBuddies
+            // TODO: baue eine neue methode, die nur count zurück liefert
+            //context.count(for: request)
+        } catch let fetchError {
+            print("\(fetchError)")
+            fatalError()
+        }
+    }
+    
     class func fetchBuddies(name: String,
                             flarmID: String,
                             context: NSManagedObjectContext)
