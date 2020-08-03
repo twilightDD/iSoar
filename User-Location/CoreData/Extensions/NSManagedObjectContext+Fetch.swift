@@ -8,10 +8,9 @@
 
 import CoreData
 
-
 extension NSManagedObjectContext {
     
-    func fetchObjects <T: NSManagedObject>(forEntityClass entityClass:T.Type,
+    func fetchObjects <T: NSManagedObject>(forEntityClass entityClass: T.Type,
                                            sortByKeypath keyPath: String? = nil,
                                            predicateString: String? = nil,
                                            predicateArguments: [Any]? = nil)
@@ -25,7 +24,7 @@ extension NSManagedObjectContext {
             var predicate: NSPredicate?
             if let predicateString = predicateString,
                 let predicateArguments = predicateArguments {
-                predicate = NSPredicate.init(format: predicateString , argumentArray: predicateArguments)
+                predicate = NSPredicate.init(format: predicateString, argumentArray: predicateArguments)
             }
             
             let fetchedResult = fetchObjects(forEntityClass: entityClass,
@@ -34,7 +33,7 @@ extension NSManagedObjectContext {
             return fetchedResult
     }
     
-    func fetchObjects <T: NSManagedObject>(forEntityClass entityClass:T.Type,
+    func fetchObjects <T: NSManagedObject>(forEntityClass entityClass: T.Type,
                                            sortDescriptors: [NSSortDescriptor]? = nil,
                                            predicate: NSPredicate? = nil)
         -> [T] {
@@ -49,8 +48,7 @@ extension NSManagedObjectContext {
             do {
                 let fetchedResult = try self.fetch(request)
                 return fetchedResult
-            }
-            catch let fetchError {
+            } catch let fetchError {
                 print("\(fetchError.localizedDescription)")
                 fatalError()
             }
