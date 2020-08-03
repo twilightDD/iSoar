@@ -31,9 +31,9 @@ class BuddyListTableViewController: UITableViewController {
                 if let buddy = sender as? Buddy {
                     guard let navController = segue.destination as? UINavigationController
                         else { fatalError("Must be an UINavigationController.") }
-                    guard let editBuddyVC = navController.children[0] as? EditBuddyFormViewController
+                    guard let editBuddyViewController = navController.children[0] as? EditBuddyFormViewController
                         else { fatalError("Must be an EditBuddyFormViewController.") }
-                    editBuddyVC.buddy = buddy
+                    editBuddyViewController.buddy = buddy
                 }
             }
             
@@ -89,7 +89,7 @@ class BuddyListTableViewController: UITableViewController {
                     else { fatalError("Attempt to configure cell without a managed object") }
                 
                 //Populate the cell from the object
-                cell.imageView?.image = UIImage(systemName: "person")
+                cell.imageView?.image = UIImage(systemName: "airplane")
                 cell.textLabel?.text = buddy.name
                 
                 return cell

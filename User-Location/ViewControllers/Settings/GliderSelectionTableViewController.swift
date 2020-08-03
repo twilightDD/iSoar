@@ -31,9 +31,9 @@ class GliderSelectionTableViewController: UITableViewController {
             if let glider = sender as? Glider {
                 guard let navController = segue.destination as? UINavigationController
                     else { fatalError("Must be an UINavigationController.") }
-                guard let editGliderVC = navController.children[0] as? EditGliderFormViewController
+                guard let editGliderViewController = navController.children[0] as? EditGliderFormViewController
                     else { fatalError("Must be an EditGliderFormViewController.") }
-                editGliderVC.glider = glider
+                editGliderViewController.glider = glider
             }
         }
         

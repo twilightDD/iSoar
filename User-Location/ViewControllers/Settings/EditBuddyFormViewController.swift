@@ -33,7 +33,9 @@ class EditBuddyFormViewController: FormViewController {
             _buddy = buddyInEditContext
         }
     }
+    
     private let editContext = CoreDataManager.editContextForUI()
+    private let viewOnlyContext = CoreDataManager.viewOnlyContext
     
     // MARK: IBOutlets
     @IBOutlet weak var cancelBarBauttonItem: UIBarButtonItem!
@@ -58,9 +60,9 @@ class EditBuddyFormViewController: FormViewController {
                 <<< TextRow(EditBuddyFormViewController.BuddyNameKey) { row in
                     row.title = "Buddy Name"
                     row.value = self.buddy.name
-                    row.placeholder = "Otto"
+                    row.placeholder = "Otto / LS8"
                     row.add(rule: RuleRequired())
-                    row.add(rule: RuleMinLength(minLength: 1))
+                    row.add(rule: RuleMinLength(minLength: 2))
                     row.validationOptions = .validatesOnChange
                     
                 }.cellUpdate { cell, row in
@@ -122,10 +124,11 @@ class EditBuddyFormViewController: FormViewController {
             editContext.saveContext()
             
             // TODO: Nach dem speichern
-            // Hole alle FlarmIDs aus CoreData
-            // Baue String aus allen FlarmIDs (FRLD12345/ICA12345)
-            // Setze den String in den Defaults
+            // Hole alle FlarmIDs aus CoreData / Buddy
             
+            // Baue String aus allen FlarmIDs, irgendiwe mit join (FRLD12345/ICA12345)
+            
+            // Setze den String in den UserDefaults
             // let flarmBuddyFlarmID = coredata.alleFlarmIDs
             // UserDefaultsManager.set(flarmBuddyFlarmID: flarmBuddyFlarmID ?? "FLRxxxxxx")
             
