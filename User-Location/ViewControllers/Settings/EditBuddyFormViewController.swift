@@ -127,11 +127,7 @@ class EditBuddyFormViewController: FormViewController {
         if existingBuddies.count == 1 {
             editContext.saveContext()
             
-            let abc = Buddy.allFlarmIDs()
-            
-            
-            // TODO: Nach dem speichern
-            // Hole alle FlarmIDs aus CoreData / Buddy
+            OGNSocketConnectionManager.didUpdateBuddies()
             
             // Baue String aus allen FlarmIDs, irgendiwe mit join (FRLD12345/ICA12345)
             

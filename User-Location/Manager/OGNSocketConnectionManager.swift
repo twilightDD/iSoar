@@ -77,6 +77,15 @@ class OGNSocketConnectionManager {
         }
     }
     
+    class func didUpdateBuddies() {
+        if UserDefaultsManager.showAllNearbyGlidersState() == true,
+            UserDefaultsManager.showOnlyBuddySwitchState() == true {
+            
+            OGNSocketConnectionManager.reconnect()
+        }
+        
+    }
+    
 }
 
 // MARK: - Extension - Instance Methods
@@ -202,7 +211,10 @@ extension OGNSocketConnectionManager {
         let appVersion = Presets.OGNSocketConnection.appVersion
         if UserDefaultsManager.showOnlyBuddySwitchState() {
             // Filter for unique FlarmID or multiple IDs seperated bei /
-            let packet = "user \(userName) pass -1 vers \(appVersion) filter b/\(UserDefaultsManager.buddyFlarmID()) -p/\(UserDefaultsManager.ownFlarmID())/A/B/C/D/E/G/H/J/K/L/M/N/O/P/Q/R/S/T/U/V/W/X/Y/Z\n"
+            let buddyFlarmIDs = Buddy.allFlarmIDs()
+            let joinedBuddyFlarmIDs = buddyFlarmIDs.joined(separator: "/")
+            
+            let packet = "user \(userName) pass -1 vers \(appVersion) filter b/\(joinedBuddyFlarmIDs) -p/\(UserDefaultsManager.ownFlarmID())/A/B/C/D/E/G/H/J/K/L/M/N/O/P/Q/R/S/T/U/V/W/X/Y/Z\n"
             sendPaket(packet)
         } else {
             // Filter via Radius
