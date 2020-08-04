@@ -77,7 +77,7 @@ class OGNSocketConnectionManager {
         }
     }
     
-    class func didUpdateBuddies() {
+    class func didUpdateBuddiesOrSelectedOtherGlider() {
         if UserDefaultsManager.showAllNearbyGlidersState() == true,
             UserDefaultsManager.showOnlyBuddySwitchState() == true {
             
@@ -85,6 +85,8 @@ class OGNSocketConnectionManager {
         }
         
     }
+    
+    
     
 }
 
