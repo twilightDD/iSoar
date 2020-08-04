@@ -18,6 +18,8 @@ class GliderSelectionTableViewController: UITableViewController {
     // MARK: - Lets and Vars
     private lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = setupFetchedResultsController()
     
+    private var formerSelectedGlider: Glider?
+    
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -104,16 +106,22 @@ extension GliderSelectionTableViewController {
     
     // User didSelect Row
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let glider = self.fetchedResultsController.object(at: indexPath) as? Glider
+        guard let selectedGlider = self.fetchedResultsController.object(at: indexPath) as? Glider
             else { fatalError("Attempt to configure cell without a managed object") }
         
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         
-        UserDefaultsManager.set(gliderID: glider.registration!)
-        UserDefaultsManager.set(gliderRatio: glider.ratio)
-        UserDefaultsManager.set(ownFlarmID: glider.flarmID!)
+        UserDefaultsManager.set(gliderID: selectedGlider.registration!)
+        UserDefaultsManager.set(gliderRatio: selectedGlider.ratio)
+        UserDefaultsManager.set(ownFlarmID: selectedGlider.flarmID!)
         
         tableView.reloadData()
+        
+        if formerSelectedGlider != selectedGlider {
+            OGNSocketConnectionManager.didUpdateBuddiesOrSelectedOtherGlider()
+        }
+        
+        formerSelectedGlider = selectedGlider
         
     }
     
