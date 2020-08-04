@@ -234,6 +234,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		E0310D3B24D8C617009EB354 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E0C55A2524D6CB7B00618179 /* Buddy+CoreDataClass.swift */,
+				E0C55A2624D6CB7B00618179 /* Buddy+CoreDataProperties.swift */,
+				E013D27E24AA7EC600AFD231 /* Glider+CoreDataClass.swift */,
+				E013D27F24AA7EC600AFD231 /* Glider+CoreDataProperties.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		E0526AB022BF7056001FC6B4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,11 +258,11 @@
 		E05F740524BF901700E408E5 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				E086AB0A229C35890011C433 /* SettingsFormViewController.swift */,
-				E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */,
 				E0C55A2B24D6D38100618179 /* BuddyListTableViewController.swift */,
 				E0C55A2D24D6EB4800618179 /* EditBuddyFormViewController.swift */,
 				E016CCA724AF4A7400CEA506 /* EditGliderFormViewController.swift */,
+				E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */,
+				E086AB0A229C35890011C433 /* SettingsFormViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -259,12 +270,9 @@
 		E070FD9F24A3D22D0039386D /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				E0C55A2524D6CB7B00618179 /* Buddy+CoreDataClass.swift */,
-				E0C55A2624D6CB7B00618179 /* Buddy+CoreDataProperties.swift */,
+				E0310D3B24D8C617009EB354 /* Classes */,
 				E077487424C0703300BFF517 /* CoreDataManager.swift */,
 				D0AA8D0224C1C1790034E6EE /* Extensions */,
-				E013D27E24AA7EC600AFD231 /* Glider+CoreDataClass.swift */,
-				E013D27F24AA7EC600AFD231 /* Glider+CoreDataProperties.swift */,
 				E070FD9C24A3109A0039386D /* Glider Tool.xcdatamodeld */,
 			);
 			path = CoreData;

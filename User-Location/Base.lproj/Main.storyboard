@@ -74,7 +74,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tup-e5-zp4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-120" y="2079"/>
+            <point key="canvasLocation" x="761" y="2054"/>
         </scene>
         <!--Glider Selection Table View Controller-->
         <scene sceneID="kOH-nh-O3o">
@@ -112,7 +112,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CBa-Q4-maG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="858" y="2079"/>
+            <point key="canvasLocation" x="-106" y="2054"/>
         </scene>
         <!--Edit Buddy Form View Controller-->
         <scene sceneID="9bt-QM-glb">
@@ -150,7 +150,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ELH-8d-Wgb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-120" y="3554"/>
+            <point key="canvasLocation" x="761" y="3481"/>
         </scene>
         <!--Edit Glider Form View Controller-->
         <scene sceneID="irZ-BZ-EeK">
@@ -188,7 +188,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ag5-t2-ucg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="858" y="3555"/>
+            <point key="canvasLocation" x="-162" y="3481"/>
         </scene>
         <!--Logbook View Controller-->
         <scene sceneID="kZz-qr-uGS">
@@ -570,14 +570,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskSelectionTableViewCell" id="DPU-HB-jDi" customClass="TaskSelectionTableViewCell" customModule="iSoar" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DPU-HB-jDi" id="BFo-Hu-pV9">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fmk-3Q-uW8">
-                                                    <rect key="frame" x="15" y="11" width="81" height="21.5"/>
+                                                    <rect key="frame" x="15" y="11" width="81" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1146,7 +1146,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vqy-hy-PGX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="858" y="2808"/>
+            <point key="canvasLocation" x="-161" y="2761"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lGd-R8-wDC">
@@ -1164,7 +1164,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Hb-yZ-pp2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-120" y="2808"/>
+            <point key="canvasLocation" x="761" y="2761"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
