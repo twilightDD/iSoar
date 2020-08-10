@@ -59,7 +59,7 @@
 		E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */; };
 		E0E1D87A229476C00004DE81 /* DestinationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */; };
 		E0F667B324CF79070017AF1D /* NSManagedObject+EntityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F667B224CF79070017AF1D /* NSManagedObject+EntityName.swift */; };
-		E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */; };
+		E0FDFF3B22A8376900AC73FC /* AirportInfoFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FDFF3A22A8376900AC73FC /* AirportInfoFormViewController.swift */; };
 		EDA236232130AA7500739396 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA236222130AA7500739396 /* AppDelegate.swift */; };
 		EDA236282130AA7500739396 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDA236262130AA7500739396 /* Main.storyboard */; };
 		EDA2362A2130AA7600739396 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDA236292130AA7600739396 /* Assets.xcassets */; };
@@ -134,7 +134,7 @@
 		E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Rotate.swift"; sourceTree = "<group>"; };
 		E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionViewController.swift; sourceTree = "<group>"; };
 		E0F667B224CF79070017AF1D /* NSManagedObject+EntityName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+EntityName.swift"; sourceTree = "<group>"; };
-		E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportInfoViewController.swift; sourceTree = "<group>"; };
+		E0FDFF3A22A8376900AC73FC /* AirportInfoFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportInfoFormViewController.swift; sourceTree = "<group>"; };
 		EDA2361F2130AA7500739396 /* iSoar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iSoar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDA236222130AA7500739396 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDA236272130AA7500739396 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -312,7 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				E05F740524BF901700E408E5 /* Settings */,
-				E0FDFF3A22A8376900AC73FC /* AirportInfoViewController.swift */,
+				E0FDFF3A22A8376900AC73FC /* AirportInfoFormViewController.swift */,
 				E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */,
 				E0B8142A2367450200D88B6C /* LogbookViewController.swift */,
 				EDA236342130AA9A00739396 /* MapScreenViewController.swift */,
@@ -584,7 +584,7 @@
 				E007864B23D222EA00856865 /* FlightSelectionTableViewCell.swift in Sources */,
 				E01CAFD4239964ED00FE1B90 /* TasksViewController.swift in Sources */,
 				D0C2801D23D8FF4000518539 /* UserDefaultsManager.swift in Sources */,
-				E0FDFF3B22A8376900AC73FC /* AirportInfoViewController.swift in Sources */,
+				E0FDFF3B22A8376900AC73FC /* AirportInfoFormViewController.swift in Sources */,
 				18BE3F7422CF688D00859347 /* UserLocationAnnotationView.swift in Sources */,
 				E099E34D247D3F7F00D72515 /* AirportAnnotationView.swift in Sources */,
 				E016CCA824AF4A7400CEA506 /* EditGliderFormViewController.swift in Sources */,
