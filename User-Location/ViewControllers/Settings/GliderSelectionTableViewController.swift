@@ -18,7 +18,7 @@ class GliderSelectionTableViewController: UITableViewController {
     // MARK: - Lets and Vars
     private lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = setupFetchedResultsController()
     
-    private var formerSelectedGlider: Glider?
+    private var previouslySelectedGlider: Glider?
     
     // MARK: - Init&Co.
     override func viewDidLoad() {
@@ -117,11 +117,11 @@ extension GliderSelectionTableViewController {
         
         tableView.reloadData()
         
-        if formerSelectedGlider != selectedGlider {
+        if previouslySelectedGlider != selectedGlider {
             OGNSocketConnectionManager.didUpdateBuddiesOrSelectedOtherGlider()
         }
         
-        formerSelectedGlider = selectedGlider
+        previouslySelectedGlider = selectedGlider
         
     }
     
