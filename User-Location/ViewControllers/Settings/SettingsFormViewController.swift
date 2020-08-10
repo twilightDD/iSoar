@@ -19,8 +19,6 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     
     static let AvailableGlidersKey = "Available Gliders"
     static let GliderRegistrationKey = "Selected Glider"
-//    static let GliderRatioKey = "Glider Ratio"
-//    static let GliderFlarmIDKey = "FLARM ID"
     
     static let TrafficMonitorKey = "Traffic Monitor"
     static let CollisionWarningKey = "Collision Warning"
@@ -73,34 +71,6 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 }.cellUpdate { cell, row in
                     cell.titleLabel?.textColor = row.isDisabled ? .black : .black
                     cell.textField.textColor = row.isDisabled ? .black : .black
-                
-                
-//                <<< DecimalRow { row in
-//                    row.title = SettingsFormViewController.GliderRatioKey
-//                    row.tag = SettingsFormViewController.GliderRatioKey
-//                    row.value = UserDefaultsManager.gliderRatio()
-//                    row.disabled = true
-//
-//                    let numberFormatter = NumberFormatter()
-//                    numberFormatter.locale = Locale.current
-//                    numberFormatter.numberStyle = .decimal
-//                    numberFormatter.minimumFractionDigits = 1
-//                    numberFormatter.maximumFractionDigits = 1
-//
-//                    row.formatter = numberFormatter
-//
-//                }.cellSetup { cell, row in
-//                    cell.imageView?.image = UIImage(systemName: "arrow.down.left")
-//                }
-//
-//                <<< TextRow { row in
-//                    row.title = SettingsFormViewController.GliderFlarmIDKey
-//                    row.tag = SettingsFormViewController.GliderFlarmIDKey
-//                    row.value = UserDefaultsManager.ownFlarmID()
-//                    row.disabled = true
-//
-//                }.cellSetup { cell, row in
-//                    cell.imageView?.image = UIImage(systemName: "dot.radiowaves.left.and.right")
                     
             }
             
@@ -383,14 +353,6 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         let gliderID = form.rowBy(tag: SettingsFormViewController.GliderRegistrationKey) as? TextRow
         gliderID!.value = UserDefaultsManager.gliderID()
         gliderID!.reload()
-        
-//        let gliderRatio = form.rowBy(tag: SettingsFormViewController.GliderRatioKey) as? DecimalRow
-//        gliderRatio!.value = UserDefaultsManager.gliderRatio()
-//        gliderRatio!.reload()
-//        
-//        let gliderFlarmID = form.rowBy(tag: SettingsFormViewController.GliderFlarmIDKey) as? TextRow
-//        gliderFlarmID!.value = UserDefaultsManager.ownFlarmID()
-//        gliderFlarmID!.reload()
         
     }
     
