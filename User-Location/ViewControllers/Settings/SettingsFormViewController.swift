@@ -13,8 +13,6 @@ import UIKit
 // MARK: SettingsViewController
 class SettingsFormViewController: FormViewController, MFMailComposeViewControllerDelegate {
     
-    // MARK: Lets and Vars
-    
     // MARK: - Keys
     
     static let AvailableGlidersKey = "Available Gliders"
@@ -39,7 +37,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-       
+        
         updateUIforSelectedGlider()
         
     }
@@ -77,27 +75,31 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
             section.tag = "Glider Selection"
             return section
     }
-
+    
     private func userSettingsSection()
         -> Section {
             let section = Section("User Settings")
-                <<< IntRow { row in
-                    row.title = "Safety Altitude (m)"
-                    row.value = Int(UserDefaultsManager.safetyAltitude())
-                    row.placeholder = "300"
+                
+                <<< SliderRow("Safety") { row in
+                    row.title = "Safety"
+                    row.value = Float(UserDefaultsManager.safetyAltitude())
+                    row.steps = 10
+                    row.displayValueFor = { row in
+                        return "\(Int(row ?? 0)) m"
+                    }
                     
                 }.cellSetup { cell, row in
                     let cellIconImage = UIImage(systemName: "heart")?.withTintColor(.red,
                                                                                     renderingMode: .alwaysOriginal)
                     cell.imageView?.image = cellIconImage
+                    cell.slider.minimumValue = 0
+                    cell.slider.maximumValue = 500
                     
-                }.onCellHighlightChanged({ (cell, row) in
-                    if row.isHighlighted == false {
-                        let safetyAltitude = Double(row.value ?? 300)
-                        UserDefaultsManager.set(safetyAltitude: safetyAltitude)
-                        
-                    }
-                })
+                }.onChange { row in
+                    let safetyAltitude = Double(row.value ?? 300)
+                    UserDefaultsManager.set(safetyAltitude: safetyAltitude)
+                    
+                }
                 
                 <<< SwitchRow("Gear Warning") { row in
                     row.title = row.tag
@@ -118,6 +120,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     private func mapSettingsSection()
         -> Section {
             let section = Section("Map Settings")
+                
                 <<< SegmentedRow<String> { row in
                     row.title = "Map Resolution"
                     row.options = ["Low", "High"]
@@ -165,6 +168,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     private func trafficMonitorSection()
         -> Section {
             let section = Section("Traffic Monitor Settings")
+                
                 <<< SwitchRow { row in
                     row.title = SettingsFormViewController.TrafficMonitorKey
                     row.tag = SettingsFormViewController.TrafficMonitorKey
@@ -207,27 +211,27 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     
                 }
                 
-                <<< IntRow { row in
-                    row.title = "Traffic Monitor Radius (Km)"
-                    row.value = Int(UserDefaultsManager.trafficMonitorRadius())
-                    row.placeholder = "50"
+                <<< SliderRow("Radius") { row in
+                    row.title = "Radius"
+                    row.value = Float(UserDefaultsManager.trafficMonitorRadius())
+                    row.steps = 19
+                    row.displayValueFor = { row in
+                        return "\(Int(row ?? 0)) Km"
+                    }
                     
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "antenna.radiowaves.left.and.right")
+                    cell.slider.minimumValue = 5
+                    cell.slider.maximumValue = 100
+                    cell.slider.addTarget(self,
+                                          action: #selector(self.radiusSliderDidEndSliding),
+                                          for: [.touchUpInside, .touchUpOutside])
                     
-                }.onCellHighlightChanged({ (cell, row) in
-                    if row.isHighlighted == false {
-                        
-                        let trafficMonitorRadius = Double(row.value ?? 50)
-                        UserDefaultsManager.set(trafficMonitorRadius: trafficMonitorRadius)
-                        
-                        if UserDefaultsManager.showOnlyBuddySwitchState() == false {
-                            OGNSocketConnectionManager.reconnect()
-                        }
-                        
-                    }
+                }.onChange { row in
+                    let trafficMonitorRadius = Double(row.value ?? 50)
+                    UserDefaultsManager.set(trafficMonitorRadius: trafficMonitorRadius)
                     
-                })
+                }
                 
                 <<< SwitchRow("Collision Warning") { row in
                     row.title = SettingsFormViewController.CollisionWarningKey
@@ -281,7 +285,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     }
                     
                 }
-
+                
                 <<< ButtonRow { row in
                     row.title = "Buddy List"
                     row.tag = "Buddy List"
@@ -289,7 +293,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "person.2")
-                }
+            }
             
             return section
     }
@@ -297,6 +301,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     private func miscellaneousSection()
         -> Section {
             let section = Section("Miscellaneous")
+                
                 <<< ButtonRow { row in
                     row.title = "Download Airport Database Update"
                     row.onCellSelection(self.downloadButtonTapped)
@@ -349,11 +354,17 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     }
     
     private func updateUIforSelectedGlider() {
-
+        
         let gliderID = form.rowBy(tag: SettingsFormViewController.GliderRegistrationKey) as? TextRow
         gliderID!.value = UserDefaultsManager.gliderID()
         gliderID!.reload()
         
+    }
+    
+    @objc private func radiusSliderDidEndSliding() {
+        if UserDefaultsManager.showOnlyBuddySwitchState() == false {
+            OGNSocketConnectionManager.reconnect()
+        }
     }
     
     // MARK: - Action Methods
