@@ -258,12 +258,12 @@ class AirportInfoFormViewController: FormViewController {
             
             guard let selectedDestinationAirport = FlightComputer.selectedDestinationAirport() else { fatalError() }
             
-            let section = Section("Additional Informations:")
+            let section = Section("Additional Informations")
                 
                 <<< TextAreaRow { row in
                     
-                    row.title = "Additional Informations:"
-                    row.tag = "Additional Informations:"
+                    row.title = "Additional Informations"
+                    row.tag = "Additional Informations"
                     
                     if selectedDestinationAirport.additionalInfo?.isEmpty == false {
                         row.value = selectedDestinationAirport.additionalInfo
