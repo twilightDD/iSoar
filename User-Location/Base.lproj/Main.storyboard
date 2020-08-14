@@ -570,14 +570,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskSelectionTableViewCell" id="DPU-HB-jDi" customClass="TaskSelectionTableViewCell" customModule="iSoar" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DPU-HB-jDi" id="BFo-Hu-pV9">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fmk-3Q-uW8">
-                                                    <rect key="frame" x="15" y="11" width="81" height="21.5"/>
+                                                    <rect key="frame" x="15" y="11" width="81" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -741,11 +741,11 @@
                     <tabBarItem key="tabBarItem" title="Map" image="map" id="eMQ-jF-so1" userLabel="glider"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="altitudeAtDestinationLabel" destination="tFp-FZ-rSR" id="G9b-hj-SsW"/>
                         <outlet property="altitudeLabel" destination="K7G-au-vdO" id="nE8-c2-SvC"/>
                         <outlet property="courseLabel" destination="R3X-KS-AZU" id="hOd-x9-Hf3"/>
-                        <outlet property="destinationAirportAltitudeLabel" destination="tFp-FZ-rSR" id="G9b-hj-SsW"/>
-                        <outlet property="destinationAirportDistanceLabel" destination="kA8-XT-cnZ" id="r3g-zT-N5y"/>
                         <outlet property="destinationAirportICAOLabel" destination="piy-fD-UdR" id="12n-kn-XjE"/>
+                        <outlet property="distanceToDestinationAirportLabel" destination="kA8-XT-cnZ" id="r3g-zT-N5y"/>
                         <outlet property="mapView" destination="LKd-yy-DJC" id="icj-KO-Ca6"/>
                         <outlet property="speedLabel" destination="0jK-Zb-MHZ" id="57G-8b-Njv"/>
                         <segue destination="Q6e-sg-7EF" kind="show" identifier="AirportInfoSegue" id="eHJ-XT-RI9"/>

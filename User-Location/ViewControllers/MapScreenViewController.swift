@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreLocation
-//import CoreMotion
 import Mapbox
 
 // MARK: MapScreen
@@ -22,12 +21,15 @@ class MapScreenViewController: UIViewController {
     @IBOutlet private weak var altitudeLabel: UILabel!
     @IBOutlet private weak var speedLabel: UILabel!
     @IBOutlet private weak var destinationAirportICAOLabel: UILabel!
-    @IBOutlet private weak var destinationAirportDistanceLabel: UILabel!
-    @IBOutlet private weak var destinationAirportAltitudeLabel: UILabel!
+    @IBOutlet private weak var distanceToDestinationAirportLabel: UILabel!
+    @IBOutlet private weak var altitudeAtDestinationLabel: UILabel!
     
     // MARK: Lets and Vars
-    
     lazy private var userLocationButton: UserLocationButton = createUserLocationButton()
+    
+    // Text Label Attributes
+    private let valueLabelTextAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)]
+    private let unitLabelTextAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
     
     private var currentDestinationAirportDirectionLine: MGLPolyline?
     private var currentTravelledFlightLineSegemt = MGLPolyline()
@@ -234,12 +236,12 @@ class MapScreenViewController: UIViewController {
         speedLabel.addGestureRecognizer(tapOnSpeedLabelRecognizer)
         speedLabel.isUserInteractionEnabled = true
         
-        // Distance Label
-        let tapOnDistanceLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnDistanceLabel))
-        destinationAirportDistanceLabel.addGestureRecognizer(tapOnDistanceLabelRecognizer)
-        destinationAirportDistanceLabel.isUserInteractionEnabled = true
+        // Distance to Destination Airport Label
+        let tapOnDistanceToDestinationAirportLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnDistanceToDestinationAirportLabel))
+        distanceToDestinationAirportLabel.addGestureRecognizer(tapOnDistanceToDestinationAirportLabelRecognizer)
+        distanceToDestinationAirportLabel.isUserInteractionEnabled = true
         
-        // Destination Airport Label
+        // Destination Airport ICAO Label
         let tapOnDestinationAirportLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnDestinationAirportLabel))
         destinationAirportICAOLabel.addGestureRecognizer(tapOnDestinationAirportLabelRecognizer)
         destinationAirportICAOLabel.isUserInteractionEnabled = true
@@ -295,7 +297,7 @@ class MapScreenViewController: UIViewController {
         updateSpeedLabel()
     }
     
-    @objc func tapOnDistanceLabel(_ recognizer: UITapGestureRecognizer) {
+    @objc func tapOnDistanceToDestinationAirportLabel(_ recognizer: UITapGestureRecognizer) {
         showDistanceInKM = !showDistanceInKM
         updateDestinationAirportDistanceLabel()
     }
@@ -372,52 +374,78 @@ class MapScreenViewController: UIViewController {
         guard let currentLocation = LocationManager.currentLocation()
             else { return }
         
-        var altituteLabelText = ""
+        var altituteLabelValueText = ""
+        var altituteLabelUnitText = ""
+
         if showAltitudeInMeters == true {
-            altituteLabelText = String(format: "%.0f m", currentLocation.altitude)
+            altituteLabelValueText = String(format: "%.0f", currentLocation.altitude)
+            altituteLabelUnitText = " m"
         } else {
             let altitudeInFeet = currentLocation.altitude * 3.28084
-            altituteLabelText = String(format: "%.0f ft", altitudeInFeet)
+            altituteLabelValueText = String(format: "%.0f", altitudeInFeet)
+            altituteLabelUnitText = " ft"
         }
         
-        altitudeLabel.text = altituteLabelText
+        let valueString = NSMutableAttributedString(string: altituteLabelValueText, attributes: valueLabelTextAttributes)
+        let unitString = NSMutableAttributedString(string: altituteLabelUnitText, attributes: unitLabelTextAttributes)
+
+        valueString.append(unitString)
+
+        altitudeLabel.attributedText = valueString
     }
     
     private func updateSpeedLabel() {
         guard let currentLocation = LocationManager.currentLocation()
             else { return }
         
-        var speedLabelText = ""
+        var speedLabelValueText = ""
+        var speedLabelUnitText = ""
         
         if currentLocation.speed < 0 {
-            speedLabelText = "---"
+            speedLabelValueText = "---"
         } else {
             if showSpeedInKMH == true {
                 let speedInKMH = currentLocation.speed * 3.6
-                speedLabelText =  String(format: "%.0f km/h", speedInKMH)
+                speedLabelValueText =  String(format: "%.0f", speedInKMH)
+                speedLabelUnitText = " km/h"
             } else {
-                let speedInKT = currentLocation.speed * 1.852
-                speedLabelText = String(format: "%.0f kt", speedInKT)
+                let speedInKT = currentLocation.speed * 1.9438
+                speedLabelValueText = String(format: "%.0f", speedInKT)
+                speedLabelUnitText = " kt"
             }
         }
         
-        speedLabel.text = speedLabelText
+        let valueString = NSMutableAttributedString(string: speedLabelValueText, attributes: valueLabelTextAttributes)
+        let unitString = NSMutableAttributedString(string: speedLabelUnitText, attributes: unitLabelTextAttributes)
+
+        valueString.append(unitString)
+
+        speedLabel.attributedText = valueString
+        
     }
     
     private func updateCourseLabel() {
         guard let currentLocation = LocationManager.currentLocation()
-            else {
-                self.courseLabel.text = "---"
-                return
-        }
+            else { return }
+        
+        var courseLabelValueText = ""
+        var courseLabelUnitText = ""
         
         let course = currentLocation.course
         if course < 0 {
-            self.courseLabel.text = "---"
+            courseLabelValueText = "---"
         } else {
-            let courseShort = String(format: "%.0f°", course)
-            self.courseLabel.text = courseShort
+            courseLabelValueText = String(format: "%.0f", course)
+            courseLabelUnitText = "°"
         }
+        
+        let valueString = NSMutableAttributedString(string: courseLabelValueText, attributes: valueLabelTextAttributes)
+        let unitString = NSMutableAttributedString(string: courseLabelUnitText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15), NSAttributedString.Key.baselineOffset: 7])
+        
+        valueString.append(unitString)
+
+        courseLabel.attributedText = valueString
+
     }
     
     // MARK: Route Tracking
@@ -540,9 +568,9 @@ class MapScreenViewController: UIViewController {
     private func resetUpdateDestinationAirportUI() {
         // labels
         destinationAirportICAOLabel.text = "---"
-        destinationAirportDistanceLabel.text = "---"
-        destinationAirportAltitudeLabel.text = "---"
-        destinationAirportAltitudeLabel.textColor = UIColor(named: "StandardTextColor")
+        distanceToDestinationAirportLabel.text = "---"
+        altitudeAtDestinationLabel.text = "---"
+        altitudeAtDestinationLabel.textColor = UIColor(named: "StandardTextColor")
         
         // directionLine
         if let destinationAirportDirectionLine = currentDestinationAirportDirectionLine {
@@ -557,18 +585,27 @@ class MapScreenViewController: UIViewController {
     
     private func updateDestinationAirportDistanceLabel() {
         if let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport() {
-            var distanceLabelText = ""
+            var distanceLabelValueText = ""
+            var distanceLabelUnitText = ""
             if showDistanceInKM == true {
                 let distanceInKm = currentDistance / 1000
-                distanceLabelText =  String(format: "%.0f Km", distanceInKm)
+                distanceLabelValueText =  String(format: "%.0f", distanceInKm)
+                distanceLabelUnitText = " Km"
             } else {
                 let distcanceInMi = currentDistance / 1000 / 1.852
-                distanceLabelText = String(format: "%.0f NM", distcanceInMi)
+                distanceLabelValueText = String(format: "%.0f", distcanceInMi)
+                distanceLabelUnitText = " NM"
             }
+
+            let valueString = NSMutableAttributedString(string: distanceLabelValueText, attributes: valueLabelTextAttributes)
+            let unitString = NSMutableAttributedString(string: distanceLabelUnitText, attributes: unitLabelTextAttributes)
+
+            valueString.append(unitString)
+
+            distanceToDestinationAirportLabel.attributedText = valueString
             
-            destinationAirportDistanceLabel.text = distanceLabelText
         } else {
-            destinationAirportDistanceLabel.text = "---"
+            distanceToDestinationAirportLabel.text = "---"
         }
     }
     
@@ -581,21 +618,28 @@ class MapScreenViewController: UIViewController {
         let safetyAltitude = UserDefaultsManager.safetyAltitude()
         let gliderRatio = UserDefaultsManager.gliderRatio()
         
-        // Glider sink rate to destinationAirport
-        let gliderRatioMeter = gliderRatio * 1000       //Gleitzahl in Meter
-        let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    //Sinkrate pro Meter
-        let gliderSinkRateToDestination = currentDistance * gliderSinkRatePerMeter   //Sinkrate to Destination in Meter
+        // Calculate descended Meters to Destination
+        let gliderRatioMeter = gliderRatio * 1000   // Gleitzahl in Meter
+        let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    // Sinkrate pro Meter
+        let descendedMetersToDestination = currentDistance * gliderSinkRatePerMeter // Descended Meters to Destination
         
-        // Altitude of glider at destinationAirport
-        let destinationAltitude = altitudeDifference - safetyAltitude - gliderSinkRateToDestination
-        let destinationAltitudeShort = String(format: "%.0f m", destinationAltitude)
-        self.destinationAirportAltitudeLabel.text = destinationAltitudeShort
+        // Calculate the Altitude of the Glider at Destination
+        let altitudeAtDestination = altitudeDifference - safetyAltitude - descendedMetersToDestination
+        let altitudeAtDestinationLabelValueText = String(format: "%.0f", altitudeAtDestination)
+        let altitudeAtDestinationLabelUnitText = " m"
+        
+        let valueString = NSMutableAttributedString(string: altitudeAtDestinationLabelValueText, attributes: valueLabelTextAttributes)
+        let unitString = NSMutableAttributedString(string: altitudeAtDestinationLabelUnitText, attributes: unitLabelTextAttributes)
+
+        valueString.append(unitString)
+        
+        altitudeAtDestinationLabel.attributedText = valueString
         
         // Update Text Color
-        if destinationAltitude > 0 {
-            destinationAirportAltitudeLabel.textColor = UIColor(named: "StandardTextColor")
+        if altitudeAtDestination > 0 {
+            altitudeAtDestinationLabel.textColor = UIColor(named: "StandardTextColor")
         } else {
-            destinationAirportAltitudeLabel.textColor = UIColor(named: "WarningTextColor")
+            altitudeAtDestinationLabel.textColor = UIColor(named: "WarningTextColor")
         }
     }
     
