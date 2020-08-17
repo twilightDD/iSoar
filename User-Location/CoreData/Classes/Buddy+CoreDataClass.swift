@@ -21,6 +21,18 @@ public class Buddy: NSManagedObject {
             let allFlarmIDs = allBuddies.compactMap { $0.flarmID }
             return allFlarmIDs
     }
+
+    class func forFlarmID(_ flarmID: String,
+                          inContext context: NSManagedObjectContext? = nil)
+        -> Buddy? {
+            let contextToUse =  context ?? CoreDataManager.viewOnlyContext
+            let buddies = contextToUse.fetchObjects(forEntityClass: Buddy.self,
+                                                    predicateString: "%K == %@",
+                                                    predicateArguments: [Buddy.Attributes.flarmID, flarmID])
+            
+            let buddyWithFlarmID = buddies.first
+            return buddyWithFlarmID
+    }
     
 }
 

@@ -88,13 +88,25 @@ extension NearbyGliderCalloutView: MGLCalloutView {
         
         guard let nearbyGliderAnnotaion = representedObject as? NearbyGliderAnnotation
             else { fatalError("Must be a NearbyGliderAnnotaion.") }
-        
-        flarmIDLabel.text = nearbyGliderAnnotaion.gliderTelemetryData.flarmID
-        altitudeLabel.text = String(format: "%.0fm", nearbyGliderAnnotaion.gliderTelemetryData.altitude)
-        climbRateLabel.text = "\(nearbyGliderAnnotaion.gliderTelemetryData.climbRate)m"
-        
+
+        let gliderTelemetryData = nearbyGliderAnnotaion.gliderTelemetryData
+
+        // UI
+        var flarmIDText: String // Alternativ: = Buddy.forFlarmID(gliderTelemetryData.flarmID)?.name ?? gliderTelemetryData.flarmID
+        if let buddy = Buddy.forFlarmID(gliderTelemetryData.flarmID) {
+            flarmIDText = buddy.name
+        }
+        else {
+            flarmIDText = gliderTelemetryData.flarmID
+        }
+        flarmIDLabel.text = flarmIDText
+
+        altitudeLabel.text = String(format: "%.0fm", gliderTelemetryData.altitude)
+        climbRateLabel.text = "\(gliderTelemetryData.climbRate)m"
+
+        // View handling
         view.addSubview(self)
-        
+
         delegate?.calloutViewDidAppear?(self)
     }
     
