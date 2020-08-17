@@ -647,7 +647,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Development: Denis Leupold (U4Z285Q8U8)";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Denis Leupold (HCR82BSM8Z)";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = HCR82BSM8Z;
@@ -709,7 +710,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Development: Denis Leupold (U4Z285Q8U8)";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Denis Leupold (HCR82BSM8Z)";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = HCR82BSM8Z;
@@ -738,9 +740,9 @@
 			baseConfigurationReference = 75CB3E8DFF8D455C8F1742A5 /* Pods-Glider Tool.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Denis Leupold (HCR82BSM8Z)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = HCR82BSM8Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -767,9 +769,9 @@
 			baseConfigurationReference = AF3E6C1CC85039594789B3C8 /* Pods-Glider Tool.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "Apple Distribution: Denis Leupold (HCR82BSM8Z)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = HCR82BSM8Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
