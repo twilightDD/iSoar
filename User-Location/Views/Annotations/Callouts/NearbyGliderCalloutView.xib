@@ -1,57 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NearbyGliderCalloutView" customModule="iSoar" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="NearbyGliderCalloutView" customModule="iSoar" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="200" height="64"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FlarmID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37V-X1-X2T">
-                    <rect key="frame" x="25" y="4" width="100" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Altitude" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0YM-CM-DWn">
-                    <rect key="frame" x="15" y="24" width="60" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ClimbRate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3c-fb-nTd">
-                    <rect key="frame" x="75" y="24" width="60" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="aRT-BJ-jjj">
+                    <rect key="frame" x="25.5" y="10" width="148.5" height="46"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FlarmID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37V-X1-X2T">
+                            <rect key="frame" x="0.0" y="0.0" width="148.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="6WK-Ko-3eA">
+                            <rect key="frame" x="0.0" y="25.5" width="148.5" height="20.5"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Altitude" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0YM-CM-DWn">
+                                    <rect key="frame" x="0.0" y="0.0" width="59.5" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ClimbRate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3c-fb-nTd">
+                                    <rect key="frame" x="69.5" y="0.0" width="79" height="20.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
             </subviews>
-            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="0YM-CM-DWn" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="9.5" id="8nP-SH-YMe"/>
-                <constraint firstItem="i3c-fb-nTd" firstAttribute="top" secondItem="0YM-CM-DWn" secondAttribute="bottom" constant="-21" id="Byb-eu-ens"/>
-                <constraint firstItem="37V-X1-X2T" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="CTh-yI-vxY"/>
-                <constraint firstItem="0YM-CM-DWn" firstAttribute="leading" secondItem="i3c-fb-nTd" secondAttribute="leading" constant="-60" id="Mxe-bQ-zKQ"/>
-                <constraint firstItem="0YM-CM-DWn" firstAttribute="trailing" secondItem="i3c-fb-nTd" secondAttribute="trailing" constant="-60" id="NLI-9f-hY8"/>
-                <constraint firstItem="0YM-CM-DWn" firstAttribute="trailing" secondItem="37V-X1-X2T" secondAttribute="trailing" constant="-50" id="OVC-4Q-OhO"/>
-                <constraint firstItem="37V-X1-X2T" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="25" id="jsc-KI-F1R"/>
-                <constraint firstItem="0YM-CM-DWn" firstAttribute="leading" secondItem="37V-X1-X2T" secondAttribute="leading" constant="-10" id="kRd-u3-iSO"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="37V-X1-X2T" secondAttribute="bottom" constant="25" id="ngD-oA-5pw"/>
+                <constraint firstItem="aRT-BJ-jjj" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-0.25" id="G0J-Ze-ycf"/>
+                <constraint firstItem="aRT-BJ-jjj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="jjW-Ot-8dp"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="altitudeLabel" destination="0YM-CM-DWn" id="Hc7-2s-FIC"/>
                 <outlet property="climbRateLabel" destination="i3c-fb-nTd" id="9Ue-8t-h7F"/>
                 <outlet property="flarmIDLabel" destination="37V-X1-X2T" id="7s8-Sw-xDJ"/>
             </connections>
-            <point key="canvasLocation" x="8.6956521739130448" y="204.24107142857142"/>
+            <point key="canvasLocation" x="-88.405797101449281" y="140.29017857142856"/>
         </view>
     </objects>
 </document>

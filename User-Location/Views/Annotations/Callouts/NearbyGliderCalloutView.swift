@@ -95,8 +95,7 @@ extension NearbyGliderCalloutView: MGLCalloutView {
         var flarmIDText: String // Alternativ: = Buddy.forFlarmID(gliderTelemetryData.flarmID)?.name ?? gliderTelemetryData.flarmID
         if let buddy = Buddy.forFlarmID(gliderTelemetryData.flarmID) {
             flarmIDText = buddy.name
-        }
-        else {
+        } else {
             flarmIDText = gliderTelemetryData.flarmID
         }
         flarmIDLabel.text = flarmIDText
