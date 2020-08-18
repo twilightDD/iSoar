@@ -21,6 +21,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     static let TrafficMonitorKey = "Traffic Monitor"
     static let CollisionWarningKey = "Collision Warning"
     static let ShowOnlyBuddiesOnMapKey = "Show only Buddies on Map"
+    static let BuddyListKey = "Buddy List"
     
     // MARK: - Init&Co.
     override func viewDidLoad() {
@@ -38,7 +39,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        updateUIforSelectedGlider()
+        updateUIAfterChangesWereMade()
         
     }
     
@@ -48,9 +49,10 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         -> Section {
             let section = Section("Glider Selection")
                 
-                <<< ButtonRow { row in
+                <<< PushRow<Int> { row in
                     row.title = SettingsFormViewController.AvailableGlidersKey
                     row.tag = SettingsFormViewController.AvailableGlidersKey
+                    // row.value = 9
                     row.presentationMode = .segueName(segueName: "GliderSelectionSegue", onDismiss: nil)
                     
                 }.cellSetup { cell, row in
@@ -286,9 +288,9 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     
                 }
                 
-                <<< ButtonRow { row in
+                <<< PushRow<Int>("Buddy List") { row in
                     row.title = "Buddy List"
-                    row.tag = "Buddy List"
+                    row.value = Buddy.allFlarmIDs().count
                     row.presentationMode = .segueName(segueName: "BuddyListSegue", onDismiss: nil)
                     
                 }.cellSetup { cell, row in
@@ -353,12 +355,16 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         controller.dismiss(animated: true)
     }
     
-    private func updateUIforSelectedGlider() {
+    private func updateUIAfterChangesWereMade() {
         
         let gliderID = form.rowBy(tag: SettingsFormViewController.GliderRegistrationKey) as? TextRow
         gliderID!.value = UserDefaultsManager.gliderID()
         gliderID!.reload()
         
+        let buddyList = form.rowBy(tag: SettingsFormViewController.BuddyListKey) as? PushRow<Int>
+        buddyList!.value = Buddy.allFlarmIDs().count
+        buddyList!.reload()
+
     }
     
     @objc private func radiusSliderDidEndSliding() {
