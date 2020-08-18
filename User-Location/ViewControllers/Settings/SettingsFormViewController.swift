@@ -49,10 +49,9 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         -> Section {
             let section = Section("Glider Selection")
                 
-                <<< PushRow<Int> { row in
+                <<< PushRow<Int>(SettingsFormViewController.AvailableGlidersKey) { row in
                     row.title = SettingsFormViewController.AvailableGlidersKey
-                    row.tag = SettingsFormViewController.AvailableGlidersKey
-                    // row.value = 9
+                    row.value = Glider.allGlider().count
                     row.presentationMode = .segueName(segueName: "GliderSelectionSegue", onDismiss: nil)
                     
                 }.cellSetup { cell, row in
@@ -356,6 +355,10 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     }
     
     private func updateUIAfterChangesWereMade() {
+        
+        let availableGlidersCount = form.rowBy(tag: SettingsFormViewController.AvailableGlidersKey) as? PushRow<Int>
+        availableGlidersCount!.value = Glider.allGlider().count
+        availableGlidersCount!.reload()
         
         let gliderID = form.rowBy(tag: SettingsFormViewController.GliderRegistrationKey) as? TextRow
         gliderID!.value = UserDefaultsManager.gliderID()
