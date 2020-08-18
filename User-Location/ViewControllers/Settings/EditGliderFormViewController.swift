@@ -133,7 +133,7 @@ class EditGliderFormViewController: FormViewController {
     
     private func validateForm() {
         let validationErrors = form.validate()
-        if validationErrors.count == 0 {
+        if validationErrors.isEmpty == true {
             saveBarButtonItem.isEnabled = true
         } else {
             saveBarButtonItem.isEnabled = false
@@ -152,7 +152,7 @@ class EditGliderFormViewController: FormViewController {
         if existingGliders.count == 1 {
             editContext.saveContext()
             self.dismiss(animated: true, completion: nil)
-        } else if existingGliders.count == 0 {
+        } else if existingGliders.isEmpty == true {
             fatalError("ich muss self.glider haben.")
         } else {
             let alertViewController = UIAlertController.init(title: "Warning",

@@ -107,7 +107,7 @@ class EditBuddyFormViewController: FormViewController {
     
     private func validateForm() {
         let validationErrors = form.validate()
-        if validationErrors.count == 0 {
+        if validationErrors.isEmpty == true {
             saveBarBauttonItem.isEnabled = true
         } else {
             saveBarBauttonItem.isEnabled = false
@@ -131,7 +131,7 @@ class EditBuddyFormViewController: FormViewController {
             
             self.dismiss(animated: true, completion: nil)
             
-        } else if existingBuddies.count == 0 {
+        } else if existingBuddies.isEmpty == true {
             fatalError("ich muss self.buddy haben.")
         } else {
             let alertViewController = UIAlertController.init(title: "Warning",
