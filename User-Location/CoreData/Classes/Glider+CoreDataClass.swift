@@ -33,6 +33,15 @@ public class Glider: NSManagedObject {
                 fatalError()
             }
     }
+    
+    class func allGlider(inContext context: NSManagedObjectContext? = nil)
+        -> [Glider] {
+            let contextToUse = context ?? CoreDataManager.viewOnlyContext
+            let allGliders = contextToUse.fetchObjects(forEntityClass: Glider.self)
+            
+            return allGliders
+    }
+    
 }
 
 extension Glider {
