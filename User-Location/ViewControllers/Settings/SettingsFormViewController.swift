@@ -15,9 +15,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     
     // MARK: - Keys
     
-    static let AvailableGlidersKey = "Available Gliders"
-    static let GliderRegistrationKey = "Selected Glider"
-    
+    static let AvailableGlidersKey = "Selected Glider"
     static let TrafficMonitorKey = "Traffic Monitor"
     static let CollisionWarningKey = "Collision Warning"
     static let ShowOnlyBuddiesOnMapKey = "Show only Buddies on Map"
@@ -49,29 +47,14 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         -> Section {
             let section = Section("Glider Selection")
                 
-                <<< PushRow<Int>(SettingsFormViewController.AvailableGlidersKey) { row in
+                <<< PushRow<String>(SettingsFormViewController.AvailableGlidersKey) { row in
                     row.title = SettingsFormViewController.AvailableGlidersKey
-                    row.value = Glider.allGlider().count
+                    row.value = UserDefaultsManager.gliderID()
                     row.presentationMode = .segueName(segueName: "GliderSelectionSegue", onDismiss: nil)
                     
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "airplane")
                 }
-                
-                <<< TextRow { row in
-                    row.title = SettingsFormViewController.GliderRegistrationKey
-                    row.tag = SettingsFormViewController.GliderRegistrationKey
-                    row.value = UserDefaultsManager.gliderID()
-                    row.disabled = true
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "checkmark")
-                    
-                }.cellUpdate { cell, row in
-                    cell.titleLabel?.textColor = row.isDisabled ? .black : .black
-                    cell.textField.textColor = row.isDisabled ? .black : .black
-                    
-            }
             
             section.tag = "Glider Selection"
             return section
@@ -289,7 +272,8 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 
                 <<< PushRow<Int>("Buddy List") { row in
                     row.title = "Buddy List"
-                    row.value = Buddy.allFlarmIDs().count
+                    let buddyCount = CoreDataManager.viewOnlyContext.countOfObjects(forEntityClass: Buddy.self)
+                    row.value = buddyCount
                     row.presentationMode = .segueName(segueName: "BuddyListSegue", onDismiss: nil)
                     
                 }.cellSetup { cell, row in
@@ -356,18 +340,16 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     
     private func updateUIAfterChangesWereMade() {
         
-        let availableGlidersCount = form.rowBy(tag: SettingsFormViewController.AvailableGlidersKey) as? PushRow<Int>
-        availableGlidersCount!.value = Glider.allGlider().count
-        availableGlidersCount!.reload()
+        if let availableGlidersCount = form.rowBy(tag: SettingsFormViewController.AvailableGlidersKey) as? PushRow<String> {
+            availableGlidersCount.value = UserDefaultsManager.gliderID()
+            availableGlidersCount.reload()
+        }
         
-        let gliderID = form.rowBy(tag: SettingsFormViewController.GliderRegistrationKey) as? TextRow
-        gliderID!.value = UserDefaultsManager.gliderID()
-        gliderID!.reload()
+        if let buddyList = form.rowBy(tag: SettingsFormViewController.BuddyListKey) as? PushRow<Int> {
+            buddyList.value = CoreDataManager.viewOnlyContext.countOfObjects(forEntityClass: Buddy.self)
+            buddyList.reload()
+        }
         
-        let buddyList = form.rowBy(tag: SettingsFormViewController.BuddyListKey) as? PushRow<Int>
-        buddyList!.value = Buddy.allFlarmIDs().count
-        buddyList!.reload()
-
     }
     
     @objc private func radiusSliderDidEndSliding() {
