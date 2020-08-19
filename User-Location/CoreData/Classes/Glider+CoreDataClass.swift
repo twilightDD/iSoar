@@ -14,32 +14,15 @@ public class Glider: NSManagedObject {
                             flarmID: String,
                             context: NSManagedObjectContext)
         -> [Glider] {
-            let request = NSFetchRequest<Glider>(entityName: Glider.entityName())
-            
             let registrationPredicate = NSPredicate.init(format: "%K == %@",
                                                          Glider.Attributes.registration, registration)
             let flarmIDPredicate = NSPredicate.init(format: "%K == %@",
-                                                                    Glider.Attributes.flarmID, flarmID)
+                                                    Glider.Attributes.flarmID, flarmID)
             let orPredicate = NSCompoundPredicate.init(orPredicateWithSubpredicates: [registrationPredicate, flarmIDPredicate])
-            request.predicate = orPredicate
             
-            do {
-                let fetchedGliders = try context.fetch(request)
-                return fetchedGliders
-                // TODO: baue eine neue methode, die nur count zurück liefert
-                //context.count(for: request)
-            } catch let fetchError {
-                print("\(fetchError)")
-                fatalError()
-            }
-    }
-    
-    class func allGlider(inContext context: NSManagedObjectContext? = nil)
-        -> [Glider] {
-            let contextToUse = context ?? CoreDataManager.viewOnlyContext
-            let allGliders = contextToUse.fetchObjects(forEntityClass: Glider.self)
-            
-            return allGliders
+            let gliders = context.fetchObjects(forEntityClass: Glider.self,
+                                               predicate: orPredicate)
+            return gliders
     }
     
 }

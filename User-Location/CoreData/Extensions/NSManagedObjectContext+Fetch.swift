@@ -54,4 +54,21 @@ extension NSManagedObjectContext {
             }
     }
     
+    func countOfObjects <T: NSManagedObject>(forEntityClass entityClass: T.Type,
+                                             predicate: NSPredicate? = nil)
+        -> Int {
+            
+            let request: NSFetchRequest<T>
+            request = entityClass.fetchRequest() as! NSFetchRequest<T>
+            request.predicate = predicate
+            
+            do {
+                let count = try self.count(for: request)
+                return count
+            } catch let fetchError {
+                print("\(fetchError.localizedDescription)")
+                fatalError()
+            }
+    }
+        
 }
