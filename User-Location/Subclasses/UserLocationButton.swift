@@ -34,7 +34,7 @@ class UserLocationButton: UIButton {
         
         // Update arrow for initial tracking mode
         updateArrowForTrackingMode(mode: .none)
-        layer.addSublayer(self.arrow!)
+        layer.addSublayer(arrow)
     }
     
     required init?(coder aDecoder: NSCoder) {
