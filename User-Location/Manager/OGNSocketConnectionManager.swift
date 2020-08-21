@@ -85,9 +85,7 @@ class OGNSocketConnectionManager {
         }
         
     }
-    
-    
-    
+
 }
 
 // MARK: - Extension - Instance Methods
