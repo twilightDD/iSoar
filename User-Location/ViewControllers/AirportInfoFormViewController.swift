@@ -17,6 +17,8 @@ class AirportInfoFormViewController: FormViewController {
         navigationItem.title = "Airport Info"
         
         form.append(airportInfoSection())
+        form.append(airportRadioSection())
+        form.append(airportRunwayection())
         form.append(airportLocationSection())
         form.append(airportContactSection())
         form.append(airportAdditionalInfoSection())
@@ -61,7 +63,19 @@ class AirportInfoFormViewController: FormViewController {
                     cell.titleLabel?.textColor = row.isDisabled ? .black : .black
                     cell.textField.textColor = row.isDisabled ? .black : .black
                     
-                }
+            }
+            
+            return section
+            
+    }
+    
+    private func airportRadioSection()
+        
+        -> Section {
+            
+            guard let selectedDestinationAirport = FlightComputer.selectedDestinationAirport() else { fatalError() }
+            
+            let section = Section("Radio")
                 
                 <<< TextRow { row in
                     row.title = "Radio:"
@@ -91,22 +105,19 @@ class AirportInfoFormViewController: FormViewController {
                     cell.titleLabel?.textColor = row.isDisabled ? .black : .black
                     cell.textField.textColor = row.isDisabled ? .black : .black
                     
-                }
-                
-                <<< TextRow { row in
-                    row.title = "Elevation:"
-                    row.tag = "Elevation:"
-                    row.value = String(format: "%.0f m", selectedDestinationAirport.elevation)
-                    row.disabled = true
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "antenna.radiowaves.left.and.right")
-                    
-                }.cellUpdate { cell, row in
-                    cell.titleLabel?.textColor = row.isDisabled ? .black : .black
-                    cell.textField.textColor = row.isDisabled ? .black : .black
-                    
-                }
+            }
+            
+            return section
+            
+    }
+    
+    private func airportRunwayection()
+        
+        -> Section {
+            
+            guard let selectedDestinationAirport = FlightComputer.selectedDestinationAirport() else { fatalError() }
+            
+            let section = Section("Runways")
                 
                 <<< TextRow { row in
                     row.title = "Runway Directions:"
@@ -163,7 +174,7 @@ class AirportInfoFormViewController: FormViewController {
             
             guard let selectedDestinationAirport = FlightComputer.selectedDestinationAirport() else { fatalError() }
             
-            let section = Section("Airport Location")
+            let section = Section("Location")
                 
                 <<< TextRow { row in
                     row.title = "Country:"
@@ -208,6 +219,21 @@ class AirportInfoFormViewController: FormViewController {
                     cell.titleLabel?.textColor = row.isDisabled ? .black : .black
                     cell.textField.textColor = row.isDisabled ? .black : .black
                     
+                }
+                
+                <<< TextRow { row in
+                    row.title = "Elevation:"
+                    row.tag = "Elevation:"
+                    row.value = String(format: "%.0f m", selectedDestinationAirport.elevation)
+                    row.disabled = true
+                    
+                }.cellSetup { cell, row in
+                    cell.imageView?.image = UIImage(systemName: "antenna.radiowaves.left.and.right")
+                    
+                }.cellUpdate { cell, row in
+                    cell.titleLabel?.textColor = row.isDisabled ? .black : .black
+                    cell.textField.textColor = row.isDisabled ? .black : .black
+                    
             }
             
             return section
@@ -220,7 +246,7 @@ class AirportInfoFormViewController: FormViewController {
             
             guard let selectedDestinationAirport = FlightComputer.selectedDestinationAirport() else { fatalError() }
             
-            let section = Section("Airport Contact")
+            let section = Section("Contact")
                 
                 <<< ButtonRow { row in
                     if selectedDestinationAirport.phone?.isEmpty == false {
