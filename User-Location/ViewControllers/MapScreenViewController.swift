@@ -705,83 +705,25 @@ extension MapScreenViewController: MGLMapViewDelegate {
     
     // Instantiate and return our custom callout view
     // https://stackoverflow.com/questions/26713582/didselectannotationview-not-called
-//    func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation)
-//        -> MGLCalloutView? {
-//
-//            if let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotation {
-//                let views = Bundle.main.loadNibNamed(NearbyGliderCalloutView.nibName(),
-//                                                     owner: nil,
-//                                                     options: nil)
-//
-//                guard let nearbyGliderCalloutView = views?[0] as? NearbyGliderCalloutView
-//                    else { fatalError("Must be a NearbyGliderCalloutView.") }
-//
-//                nearbyGliderCalloutView.representedObject = nearbyGliderAnnotation
-//
-//                return nearbyGliderCalloutView
-//            }
-//
-//            return nil
-//    }
-//
-//    // Hide the callout
-//    func mapView(_ mapView: MGLMapView,
-//                 annotation: MGLAnnotation,
-//                 calloutAccessoryControlTapped control: UIControl) {
-//        print("Tapped the calloutAccessoryControlTapped for: \(annotation)")
-//        mapView.deselectAnnotation(annotation, animated: true)
-//    }
-//
-//    func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
-//        // Optionally handle taps on the callout.
-//        print("Tapped the callout for: \(annotation)")
-//        mapView.deselectAnnotation(annotation, animated: true)
-//    }
+    func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation)
+        -> MGLCalloutView? {
 
-    // ***********************
-    
-    func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation)
-        -> UIView? {
-            
-            let image = UIImage(systemName: "airplane")?.withTintColor(.systemBlue,
-                                                                       renderingMode: .alwaysOriginal)
-            let imageView = UIImageView(image: image)
-            
-            imageView.frame = CGRect(x: 0, y: 0, width: 25, height: 25)
-            
-            view.addSubview(imageView)
-            
-            return imageView
-    }
-    
-    // Add to Buddy List Button on the right side
-    func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
+            if let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotation {
+                let views = Bundle.main.loadNibNamed(NearbyGliderCalloutView.nibName(),
+                                                     owner: nil,
+                                                     options: nil)
 
-        let addButton = UIButton(type: .contactAdd)
-        addButton.tintColor = .systemBlue
+                guard let nearbyGliderCalloutView = views?[0] as? NearbyGliderCalloutView
+                    else { fatalError("Must be a NearbyGliderCalloutView.") }
 
-        return addButton
+                nearbyGliderCalloutView.representedObject = nearbyGliderAnnotation
 
-    }
-    
-    // User tapped on Add Button
-    func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
-        // Hide the callout view.
-        mapView.deselectAnnotation(annotation, animated: true)
-        
-        // Show an alert for adding Buddy
-            let alert = UIAlertController(title: "Add to Buddy List?",
-                                          message: "Feature planned in next Release",
-                                          preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: nil))
+                return nearbyGliderCalloutView
+            }
 
-            self.present(alert, animated: true, completion: nil)
-            
+            return nil
     }
 
-    // ***********************
-    
     // Substitute our custom view for the user location annotation
     // TODO: 20200526 if und if else´s prüfen
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation)
@@ -875,8 +817,14 @@ extension MapScreenViewController: MGLMapViewDelegate {
                 }))
                 
                 // Present UIAlertController
+                #if DEBUG
+                print("Select Airport on Map is deactivated in Debug Mode")
+                return
+                #else
                 self.present(alertController, animated: true, completion: {
                 })
+                #endif
+                
             }
         }
     }

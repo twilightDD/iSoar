@@ -29,6 +29,21 @@ class NearbyGliderCalloutView: UIView {
             var newCenter = newValue
             newCenter.y -= bounds.midY
             super.center = newCenter
+        
+            guard let nearbyGliderAnnotation = representedObject as? NearbyGliderAnnotation else {fatalError()}
+            
+            altitudeLabel.text = String(format: "%.0fm", nearbyGliderAnnotation.gliderTelemetryData.altitude)
+            climbRateLabel.text =  "\(nearbyGliderAnnotation.gliderTelemetryData.climbRate)m"
+            
+            // ClimRate Indicator Image
+            if nearbyGliderAnnotation.gliderTelemetryData.climbRate < 0 {
+                climRateImage.image = UIImage(systemName: "arrowtriangle.down.fill")?.withTintColor(.red,
+                                                                                                    renderingMode: .alwaysOriginal)
+            } else {
+                climRateImage.image = UIImage(systemName: "arrowtriangle.up.fill")?.withTintColor(.green,
+                                                                                                  renderingMode: .alwaysOriginal)
+            }
+            
         }
         get {
             return super.center
@@ -44,6 +59,7 @@ class NearbyGliderCalloutView: UIView {
     @IBOutlet weak var flarmIDLabel: UILabel!
     @IBOutlet weak var altitudeLabel: UILabel!
     @IBOutlet weak var climbRateLabel: UILabel!
+    @IBOutlet weak var climRateImage: UIImageView!
     
     // MARK: - Init&Co.
     required init(representedObject: MGLAnnotation) {
@@ -72,6 +88,15 @@ class NearbyGliderCalloutView: UIView {
         let mask = CAShapeLayer()
         mask.path = path.cgPath
         layer.mask = mask
+        
+        let frameLayer = CAShapeLayer()
+        frameLayer.frame = bounds
+        frameLayer.path = path.cgPath
+        frameLayer.strokeColor = UIColor.darkGray.cgColor
+        frameLayer.fillColor = nil
+        
+        self.layer.addSublayer(frameLayer)
+        
     }
     
 }
@@ -99,9 +124,11 @@ extension NearbyGliderCalloutView: MGLCalloutView {
             flarmIDText = gliderTelemetryData.flarmID
         }
         flarmIDLabel.text = flarmIDText
-
+        
         altitudeLabel.text = String(format: "%.0fm", gliderTelemetryData.altitude)
         climbRateLabel.text = "\(gliderTelemetryData.climbRate)m"
+        
+        
 
         // View handling
         view.addSubview(self)

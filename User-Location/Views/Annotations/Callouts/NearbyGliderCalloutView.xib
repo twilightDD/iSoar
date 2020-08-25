@@ -9,30 +9,33 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="NearbyGliderCalloutView" customModule="iSoar" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="200" height="64"/>
+            <rect key="frame" x="0.0" y="0.0" width="160" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="aRT-BJ-jjj">
-                    <rect key="frame" x="25.5" y="10" width="148.5" height="46"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aRT-BJ-jjj">
+                    <rect key="frame" x="-17.5" y="5" width="194.5" height="70.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FlarmID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37V-X1-X2T">
-                            <rect key="frame" x="0.0" y="0.0" width="148.5" height="20.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="194.5" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="6WK-Ko-3eA">
-                            <rect key="frame" x="0.0" y="25.5" width="148.5" height="20.5"/>
+                            <rect key="frame" x="0.0" y="20.5" width="194.5" height="50"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Altitude" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0YM-CM-DWn">
-                                    <rect key="frame" x="0.0" y="0.0" width="59.5" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="54" height="50"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7v5-QW-9fK">
+                                    <rect key="frame" x="64" y="0.0" width="50" height="50"/>
+                                </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ClimbRate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3c-fb-nTd">
-                                    <rect key="frame" x="69.5" y="0.0" width="79" height="20.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <rect key="frame" x="124" y="0.0" width="70.5" height="50"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -44,15 +47,16 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="aRT-BJ-jjj" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-0.25" id="G0J-Ze-ycf"/>
-                <constraint firstItem="aRT-BJ-jjj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="jjW-Ot-8dp"/>
+                <constraint firstItem="aRT-BJ-jjj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="jjW-Ot-8dp"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="altitudeLabel" destination="0YM-CM-DWn" id="Hc7-2s-FIC"/>
+                <outlet property="climRateImage" destination="7v5-QW-9fK" id="DQk-n4-7Ip"/>
                 <outlet property="climbRateLabel" destination="i3c-fb-nTd" id="9Ue-8t-h7F"/>
                 <outlet property="flarmIDLabel" destination="37V-X1-X2T" id="7s8-Sw-xDJ"/>
             </connections>
-            <point key="canvasLocation" x="-88.405797101449281" y="140.29017857142856"/>
+            <point key="canvasLocation" x="1209" y="119"/>
         </view>
     </objects>
 </document>
