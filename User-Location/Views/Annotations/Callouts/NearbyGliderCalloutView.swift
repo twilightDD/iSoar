@@ -78,30 +78,29 @@ class NearbyGliderCalloutView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        roundCorners(radius: 5)
+        setupOutline(radius: 5)
     }
     
     // MARK: - Custom view styling
-    private func roundCorners(radius: CGFloat,
+    private func setupOutline(radius: CGFloat,
                               corners: UIRectCorner = .allCorners) {
         // Hint: corners = [.topLeft, .topRight]
         let path = UIBezierPath(roundedRect: bounds,
                                 byRoundingCorners: corners,
                                 cornerRadii: CGSize(width: radius, height: radius))
+        
+        // mask
         let mask = CAShapeLayer()
         mask.path = path.cgPath
+
+        // color line
+        mask.strokeColor = UIColor.darkGray.cgColor
+        mask.fillColor = nil
+        
         layer.mask = mask
-        
-        let frameLayer = CAShapeLayer()
-        frameLayer.frame = bounds
-        frameLayer.path = path.cgPath
-        frameLayer.strokeColor = UIColor.darkGray.cgColor
-        frameLayer.fillColor = nil
-        
-        self.layer.addSublayer(frameLayer)
-        
+        layer.addSublayer(mask)
     }
-    
+
 }
 
 // MARK: - Extension - MGLCalloutView Protocol
@@ -129,7 +128,7 @@ extension NearbyGliderCalloutView: MGLCalloutView {
         flarmIDLabel.text = flarmIDText
         
         altitudeLabel.text = String(format: "%.0fm", gliderTelemetryData.altitude)
-        climbRateLabel.text = "\(gliderTelemetryData.climbRate)m"
+        climbRateLabel.text = "\(gliderTelemetryData.climbRate)m/s"
         
         // View handling
         view.addSubview(self)
