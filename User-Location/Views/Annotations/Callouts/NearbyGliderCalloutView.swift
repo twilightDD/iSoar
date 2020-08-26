@@ -33,7 +33,7 @@ class NearbyGliderCalloutView: UIView {
             guard let nearbyGliderAnnotation = representedObject as? NearbyGliderAnnotation else {fatalError()}
             
             altitudeLabel.text = String(format: "%.0fm", nearbyGliderAnnotation.gliderTelemetryData.altitude)
-            climbRateLabel.text =  "\(nearbyGliderAnnotation.gliderTelemetryData.climbRate)m"
+            climbRateLabel.text =  "\(nearbyGliderAnnotation.gliderTelemetryData.climbRate)m/s"
             
             // ClimRate Indicator Image
             if nearbyGliderAnnotation.gliderTelemetryData.climbRate < 0 {

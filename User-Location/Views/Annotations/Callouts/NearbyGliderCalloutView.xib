@@ -9,14 +9,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB" customClass="NearbyGliderCalloutView" customModule="iSoar" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="160" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="170" height="50"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="aRT-BJ-jjj">
-                    <rect key="frame" x="-17.5" y="5" width="194.5" height="70.5"/>
+                    <rect key="frame" x="-12.5" y="5" width="194.5" height="70.5"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FlarmID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="37V-X1-X2T">
                             <rect key="frame" x="0.0" y="0.0" width="194.5" height="20.5"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                            </accessibility>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -26,12 +29,18 @@
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Altitude" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0YM-CM-DWn">
                                     <rect key="frame" x="0.0" y="0.0" width="54" height="50"/>
+                                    <accessibility key="accessibilityConfiguration">
+                                        <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                    </accessibility>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7v5-QW-9fK">
                                     <rect key="frame" x="64" y="0.0" width="50" height="50"/>
+                                    <accessibility key="accessibilityConfiguration">
+                                        <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                    </accessibility>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ClimbRate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3c-fb-nTd">
                                     <rect key="frame" x="124" y="0.0" width="70.5" height="50"/>
@@ -45,6 +54,9 @@
                 </stackView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <accessibility key="accessibilityConfiguration">
+                <accessibilityTraits key="traits" notEnabled="YES"/>
+            </accessibility>
             <constraints>
                 <constraint firstItem="aRT-BJ-jjj" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-0.25" id="G0J-Ze-ycf"/>
                 <constraint firstItem="aRT-BJ-jjj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="jjW-Ot-8dp"/>
@@ -56,7 +68,7 @@
                 <outlet property="climbRateLabel" destination="i3c-fb-nTd" id="9Ue-8t-h7F"/>
                 <outlet property="flarmIDLabel" destination="37V-X1-X2T" id="7s8-Sw-xDJ"/>
             </connections>
-            <point key="canvasLocation" x="1209" y="119"/>
+            <point key="canvasLocation" x="1208.6956521739132" y="118.52678571428571"/>
         </view>
     </objects>
 </document>
