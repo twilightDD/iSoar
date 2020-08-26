@@ -35,19 +35,7 @@ class NearbyGliderCalloutView: UIView {
             newCenter.y -= bounds.midY
             super.center = newCenter
         
-            guard let nearbyGliderAnnotation = representedObject as? NearbyGliderAnnotation else {fatalError()}
-            
-            altitudeLabel.text = String(format: "%.0fm", nearbyGliderAnnotation.gliderTelemetryData.altitude)
-            climbRateLabel.text =  "\(nearbyGliderAnnotation.gliderTelemetryData.climbRate)m/s"
-            
-            // ClimRate Indicator Image
-            if nearbyGliderAnnotation.gliderTelemetryData.climbRate < 0 {
-                climRateImage.image = UIImage(systemName: "arrowtriangle.down.fill")?.withTintColor(.red,
-                                                                                                    renderingMode: .alwaysOriginal)
-            } else {
-                climRateImage.image = UIImage(systemName: "arrowtriangle.up.fill")?.withTintColor(.green,
-                                                                                                  renderingMode: .alwaysOriginal)
-            }
+            updateAltitudeAndClimbrateLabel()
             
         }
 
@@ -100,6 +88,22 @@ class NearbyGliderCalloutView: UIView {
         layer.mask = mask
         layer.addSublayer(mask)
     }
+    
+    private func updateAltitudeAndClimbrateLabel() {
+        guard let nearbyGliderAnnotation = representedObject as? NearbyGliderAnnotation else {fatalError()}
+        
+        altitudeLabel.text = String(format: "%.0fm", nearbyGliderAnnotation.gliderTelemetryData.altitude)
+        climbRateLabel.text =  "\(nearbyGliderAnnotation.gliderTelemetryData.climbRate)m/s"
+        
+        // ClimRate Indicator Image
+        if nearbyGliderAnnotation.gliderTelemetryData.climbRate < 0 {
+            climRateImage.image = UIImage(systemName: "arrowtriangle.down.fill")?.withTintColor(.red,
+                                                                                                renderingMode: .alwaysOriginal)
+        } else {
+            climRateImage.image = UIImage(systemName: "arrowtriangle.up.fill")?.withTintColor(.green,
+                                                                                              renderingMode: .alwaysOriginal)
+        }
+    }
 
 }
 
@@ -127,8 +131,7 @@ extension NearbyGliderCalloutView: MGLCalloutView {
         }
         flarmIDLabel.text = flarmIDText
         
-        altitudeLabel.text = String(format: "%.0fm", gliderTelemetryData.altitude)
-        climbRateLabel.text = "\(gliderTelemetryData.climbRate)m/s"
+        updateAltitudeAndClimbrateLabel()
         
         // View handling
         view.addSubview(self)
