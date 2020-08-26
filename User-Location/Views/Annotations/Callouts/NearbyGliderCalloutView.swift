@@ -152,22 +152,22 @@ extension NearbyGliderCalloutView: MGLCalloutView {
     }
     
     // MARK: Callout interaction handlers
-    
-    func isCalloutTappable() -> Bool {
-        if let delegate = delegate {
-            if delegate.responds(to: #selector(MGLCalloutViewDelegate.calloutViewShouldHighlight)) {
-                return delegate.calloutViewShouldHighlight!(self)
-            }
-        }
-        return false
-    }
-    
-    @objc func calloutTapped() {
-        if isCalloutTappable() && delegate!.responds(to: #selector(MGLCalloutViewDelegate.calloutViewTapped)) {
-            delegate!.calloutViewTapped!(self)
-        }
-    }
-    
+//    func isCalloutTappable() -> Bool {
+//        if let delegate = delegate {
+//            if delegate.responds(to: #selector(MGLCalloutViewDelegate.calloutViewShouldHighlight)) {
+//                return delegate.calloutViewShouldHighlight!(self)  //swiftlint:disable:this force_unwrapping
+//            }
+//        }
+//        return false
+//    }
+//
+//    @objc func calloutTapped() {
+//        if isCalloutTappable()
+//            && ((delegate?.responds(to: #selector(MGLCalloutViewDelegate.calloutViewTapped))) != nil) {
+//            delegate?.calloutViewTapped!(self)  //swiftlint:disable:this force_unwrapping
+//        }
+//    }
+
 }
 
 // MARK: - Extension - NibName()
