@@ -18,6 +18,11 @@ class NearbyGliderCalloutView: UIView {
     
     // MARK: ... for MGLCalloutViewProtocol
     var representedObject: MGLAnnotation
+    private lazy var nearbyGliderAnnotation: NearbyGliderAnnotation = {
+        guard let nearbyGliderAnnotation = representedObject as? NearbyGliderAnnotation
+            else { fatalError("Must be a NearbyGliderAnnotaion.") }
+        return nearbyGliderAnnotation
+    }()
     
     // Allow the callout to remain open during panning.
     let dismissesAutomatically: Bool = false
@@ -90,8 +95,6 @@ class NearbyGliderCalloutView: UIView {
     }
     
     private func updateAltitudeAndClimbrateLabel() {
-        guard let nearbyGliderAnnotation = representedObject as? NearbyGliderAnnotation else {fatalError()}
-        
         altitudeLabel.text = String(format: "%.0fm", nearbyGliderAnnotation.gliderTelemetryData.altitude)
         climbRateLabel.text =  "\(nearbyGliderAnnotation.gliderTelemetryData.climbRate)m/s"
         
@@ -116,18 +119,13 @@ extension NearbyGliderCalloutView: MGLCalloutView {
                         animated: Bool) {
         
         delegate?.calloutViewWillAppear?(self)
-        
-        guard let nearbyGliderAnnotaion = representedObject as? NearbyGliderAnnotation
-            else { fatalError("Must be a NearbyGliderAnnotaion.") }
-
-        let gliderTelemetryData = nearbyGliderAnnotaion.gliderTelemetryData
 
         // UI
         var flarmIDText: String // Alternativ: = Buddy.forFlarmID(gliderTelemetryData.flarmID)?.name ?? gliderTelemetryData.flarmID
-        if let buddy = Buddy.forFlarmID(gliderTelemetryData.flarmID) {
+        if let buddy = Buddy.forFlarmID(nearbyGliderAnnotation.gliderTelemetryData.flarmID) {
             flarmIDText = buddy.name
         } else {
-            flarmIDText = gliderTelemetryData.flarmID
+            flarmIDText = nearbyGliderAnnotation.gliderTelemetryData.flarmID
         }
         flarmIDLabel.text = flarmIDText
         
