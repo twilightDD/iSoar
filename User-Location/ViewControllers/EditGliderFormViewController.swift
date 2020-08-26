@@ -26,12 +26,6 @@ class EditGliderFormViewController: FormViewController {
         fatalError()
     }()
 
-
-
-
-
-
-
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
