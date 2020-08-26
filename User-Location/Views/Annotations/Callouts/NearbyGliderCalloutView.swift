@@ -25,6 +25,11 @@ class NearbyGliderCalloutView: UIView {
     
     // https://github.com/mapbox/mapbox-gl-native/issues/9228
     override var center: CGPoint {
+        
+        get {
+            return super.center
+        }
+        
         set {
             var newCenter = newValue
             newCenter.y -= bounds.midY
@@ -45,9 +50,7 @@ class NearbyGliderCalloutView: UIView {
             }
             
         }
-        get {
-            return super.center
-        }
+
     }
     
     lazy var leftAccessoryView = UIView() /* unused */
@@ -128,8 +131,6 @@ extension NearbyGliderCalloutView: MGLCalloutView {
         altitudeLabel.text = String(format: "%.0fm", gliderTelemetryData.altitude)
         climbRateLabel.text = "\(gliderTelemetryData.climbRate)m"
         
-        
-
         // View handling
         view.addSubview(self)
 
