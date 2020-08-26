@@ -29,7 +29,6 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
     var gliderRatioTextField: UITextField!
     var flarmIDTextField: UITextField!
 
-
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +36,6 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
 
         fetchData()
     }
-
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "abc" {
