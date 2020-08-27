@@ -122,8 +122,9 @@ class MapScreenViewController: UIViewController {
     // MARK: - Setup functions
     func setupMapBox() {
         
-        let url = Presets.MapScreen.mapboxStyleURL()
-        self.mapView.styleURL = url
+        guard let mapStyleURL: URL = URL(string: UserDefaultsManager.mapStyleURL()) else { return }
+        
+        self.mapView.styleURL = mapStyleURL
         
         mapView.delegate = self
         
@@ -359,7 +360,9 @@ class MapScreenViewController: UIViewController {
     
     // Check if User has changed the Map Style in Settings
     private func checkIfMapStyleURLHasChanged() {
-        if mapView.styleURL != Presets.MapScreen.mapboxStyleURL() {
+        guard let mapStyleURL: URL = URL(string: UserDefaultsManager.mapStyleURL()) else { return }
+        
+        if mapView.styleURL != mapStyleURL {
             
             MGLOfflineStorage.shared.invalidateAmbientCache { error in
                 print("MapBox Tile Cache invalidated")
@@ -376,7 +379,7 @@ class MapScreenViewController: UIViewController {
         
         var altituteLabelValueText = ""
         var altituteLabelUnitText = ""
-
+        
         if showAltitudeInMeters == true {
             altituteLabelValueText = String(format: "%.0f", currentLocation.altitude)
             altituteLabelUnitText = " m"
@@ -388,9 +391,9 @@ class MapScreenViewController: UIViewController {
         
         let valueString = NSMutableAttributedString(string: altituteLabelValueText, attributes: valueLabelTextAttributes)
         let unitString = NSMutableAttributedString(string: altituteLabelUnitText, attributes: unitLabelTextAttributes)
-
+        
         valueString.append(unitString)
-
+        
         altitudeLabel.attributedText = valueString
     }
     
@@ -417,9 +420,9 @@ class MapScreenViewController: UIViewController {
         
         let valueString = NSMutableAttributedString(string: speedLabelValueText, attributes: valueLabelTextAttributes)
         let unitString = NSMutableAttributedString(string: speedLabelUnitText, attributes: unitLabelTextAttributes)
-
+        
         valueString.append(unitString)
-
+        
         speedLabel.attributedText = valueString
         
     }
@@ -443,9 +446,9 @@ class MapScreenViewController: UIViewController {
         let unitString = NSMutableAttributedString(string: courseLabelUnitText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15), NSAttributedString.Key.baselineOffset: 7])
         
         valueString.append(unitString)
-
+        
         courseLabel.attributedText = valueString
-
+        
     }
     
     // MARK: Route Tracking
@@ -596,12 +599,12 @@ class MapScreenViewController: UIViewController {
                 distanceLabelValueText = String(format: "%.0f", distcanceInMi)
                 distanceLabelUnitText = " NM"
             }
-
+            
             let valueString = NSMutableAttributedString(string: distanceLabelValueText, attributes: valueLabelTextAttributes)
             let unitString = NSMutableAttributedString(string: distanceLabelUnitText, attributes: unitLabelTextAttributes)
-
+            
             valueString.append(unitString)
-
+            
             distanceToDestinationAirportLabel.attributedText = valueString
             
         } else {
@@ -630,7 +633,7 @@ class MapScreenViewController: UIViewController {
         
         let valueString = NSMutableAttributedString(string: altitudeAtDestinationLabelValueText, attributes: valueLabelTextAttributes)
         let unitString = NSMutableAttributedString(string: altitudeAtDestinationLabelUnitText, attributes: unitLabelTextAttributes)
-
+        
         valueString.append(unitString)
         
         altitudeAtDestinationLabel.attributedText = valueString
@@ -707,23 +710,23 @@ extension MapScreenViewController: MGLMapViewDelegate {
     // https://stackoverflow.com/questions/26713582/didselectannotationview-not-called
     func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation)
         -> MGLCalloutView? {
-
+            
             if let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotation {
                 let views = Bundle.main.loadNibNamed(NearbyGliderCalloutView.nibName(),
                                                      owner: nil,
                                                      options: nil)
-
+                
                 guard let nearbyGliderCalloutView = views?[0] as? NearbyGliderCalloutView
                     else { fatalError("Must be a NearbyGliderCalloutView.") }
-
+                
                 nearbyGliderCalloutView.representedObject = nearbyGliderAnnotation
-
+                
                 return nearbyGliderCalloutView
             }
-
+            
             return nil
     }
-
+    
     // Substitute our custom view for the user location annotation
     // TODO: 20200526 if und if else´s prüfen
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation)
