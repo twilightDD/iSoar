@@ -24,6 +24,7 @@ class UserDefaultsManager {
     private static let CenteringHelpStateKey = "centeringHelpState"
     private static let UserMapZoomLevelKey = "userMapZoomLevel"
     private static let MapCountryKey = "mapCountry"
+    private static let MapStyleURLKey = "mapStyleURL"
     
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
@@ -39,6 +40,7 @@ class UserDefaultsManager {
     private static let centeringHelpSwitchDefault: Bool = true
     private static let userMapZoomLevelDefault: Double = 9.6
     private static let mapCountryDefault: String = "Germany"
+    private static let mapStyleURLDefault: String = "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt"
     
     // MARK: - Lets and Vars
     private static let shared = UserDefaultsManager()
@@ -85,6 +87,9 @@ class UserDefaultsManager {
         }
         if shared.userDefaults.value(forKey: MapCountryKey) == nil {
             UserDefaultsManager.set(mapCountry: mapCountryDefault)
+        }
+        if shared.userDefaults.value(forKey: MapStyleURLKey) == nil {
+            UserDefaultsManager.set(mapStyleURL: mapStyleURLDefault)
         }
     }
     
@@ -229,6 +234,17 @@ class UserDefaultsManager {
     
     class func set(mapCountry: String) {
         shared.userDefaults.set(mapCountry, forKey: MapCountryKey)
+    }
+    
+    // MARK: Map Style URL
+    class func mapStyleURL()
+        -> String {
+            let mapStyleURL = shared.userDefaults.value(forKey: MapStyleURLKey) as? String ?? mapStyleURLDefault
+            return mapStyleURL
+    }
+    
+    class func set(mapStyleURL: String) {
+        shared.userDefaults.set(mapStyleURL, forKey: MapStyleURLKey)
     }
     
 }
