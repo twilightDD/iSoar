@@ -107,7 +107,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 
                 <<< PushRow<String>("Selected Map") { row in
                     row.title = "Selected Map"
-                    row.options = ["Austria", "Belgium", "Germany", "Italy", "Switzerland"]
+                    row.options = ["Austria", "Belgium", "Finland", "Germany", "Italy", "Netherlands", "Switzerland"]
                     row.value = UserDefaultsManager.mapCountry()
                     
                 }.cellSetup { cell, row in

@@ -52,11 +52,17 @@ struct Presets {
                 } else if UserDefaultsManager.mapCountry() == "Belgium" {
                     url = URL(string: "mapbox://styles/dlmapbox/ckecp85kk0bcq19p527u2poup")!
                     
+                } else if UserDefaultsManager.mapCountry() == "Finland" {
+                    url = URL(string: "mapbox://styles/dlmapbox/ckecpy9jc2gbk19mx1zy46xb0")!
+                
                 } else if UserDefaultsManager.mapCountry() == "Germany" {
                     url = URL(string: "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt")!
                     
                 } else if UserDefaultsManager.mapCountry() == "Italy" {
                     url = URL(string: "mapbox://styles/dlmapbox/ckecoq7k81yw719kijd8f1m6w")!
+                    
+                } else if UserDefaultsManager.mapCountry() == "Netherlands" {
+                    url = URL(string: "mapbox://styles/dlmapbox/ckecq6au02gpp19mjk98tbg0u")!
                     
                 } else if UserDefaultsManager.mapCountry() == "Switzerland" {
                     url = URL(string: "mapbox://styles/dlmapbox/ckeco8can24b019o0cw384tx7")!
