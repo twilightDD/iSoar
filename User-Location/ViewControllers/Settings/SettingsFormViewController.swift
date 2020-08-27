@@ -54,7 +54,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "airplane")
-                }
+            }
             
             section.tag = "Glider Selection"
             return section
@@ -105,18 +105,17 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         -> Section {
             let section = Section("Map Settings")
                 
-                <<< SegmentedRow<String> { row in
-                    row.title = "Map Resolution"
-                    row.options = ["Low", "High"]
-                    row.value = UserDefaultsManager.mapResolutionState()
+                <<< PushRow<String>("Selected Map") { row in
+                    row.title = "Selected Map"
+                    row.options = ["Austria", "Belgium", "Germany", "Italy", "Switzerland"]
+                    row.value = UserDefaultsManager.mapCountry()
                     
                 }.cellSetup { cell, row in
-                    cell.imageView?.image = (UIImage(systemName: "map"))
-                    cell.segmentedControl.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+                    cell.imageView?.image = UIImage(systemName: "map")
                     
                 }.onChange { row in
-                    guard let mapResolution = row.value else { return }
-                    UserDefaultsManager.set(mapResolution: mapResolution)
+                    guard let mapCountry = row.value else { return }
+                    UserDefaultsManager.set(mapCountry: mapCountry)
                     
                 }
                 

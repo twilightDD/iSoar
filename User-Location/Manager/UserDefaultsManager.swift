@@ -23,7 +23,7 @@ class UserDefaultsManager {
     private static let TrafficMonitorRadiusKey = "trafficMonitorRadius"
     private static let CenteringHelpStateKey = "centeringHelpState"
     private static let UserMapZoomLevelKey = "userMapZoomLevel"
-    private static let MapResolutionStateKey = "mapResolution"
+    private static let MapCountryKey = "mapCountry"
     
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
@@ -38,7 +38,7 @@ class UserDefaultsManager {
     private static let trafficMonitorRadiusDefault: Double = 50
     private static let centeringHelpSwitchDefault: Bool = true
     private static let userMapZoomLevelDefault: Double = 9.6
-    private static let mapResolutionDefault: String = "High"
+    private static let mapCountryDefault: String = "Germany"
     
     // MARK: - Lets and Vars
     private static let shared = UserDefaultsManager()
@@ -83,8 +83,8 @@ class UserDefaultsManager {
         if shared.userDefaults.value(forKey: UserMapZoomLevelKey) == nil {
             UserDefaultsManager.set(userMapZoomLevel: userMapZoomLevelDefault)
         }
-        if shared.userDefaults.value(forKey: MapResolutionStateKey) == nil {
-            UserDefaultsManager.set(mapResolution: mapResolutionDefault)
+        if shared.userDefaults.value(forKey: MapCountryKey) == nil {
+            UserDefaultsManager.set(mapCountry: mapCountryDefault)
         }
     }
     
@@ -210,7 +210,7 @@ class UserDefaultsManager {
     }
     
     // MARK: User Map Zoom Level
-        class func userMapZoomLevel()
+    class func userMapZoomLevel()
         -> Double {
             let userMapZoomLevel = shared.userDefaults.value(forKey: UserMapZoomLevelKey) as? Double ?? userMapZoomLevelDefault
             return userMapZoomLevel
@@ -220,15 +220,15 @@ class UserDefaultsManager {
         shared.userDefaults.set(userMapZoomLevel, forKey: UserMapZoomLevelKey)
     }
     
-    // MARK: Map Resolution
-        class func mapResolutionState()
+    // MARK: Map Country
+    class func mapCountry()
         -> String {
-            let mapResolution = shared.userDefaults.value(forKey: MapResolutionStateKey) as? String ?? mapResolutionDefault
-            return mapResolution
+            let mapCountry = shared.userDefaults.value(forKey: MapCountryKey) as? String ?? mapCountryDefault
+            return mapCountry
     }
     
-    class func set(mapResolution: String) {
-        shared.userDefaults.set(mapResolution, forKey: MapResolutionStateKey)
+    class func set(mapCountry: String) {
+        shared.userDefaults.set(mapCountry, forKey: MapCountryKey)
     }
     
 }

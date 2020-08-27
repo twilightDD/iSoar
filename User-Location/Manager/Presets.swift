@@ -45,13 +45,26 @@ struct Presets {
         static func mapboxStyleURL()
             -> URL {
                 var url: URL
-                // Low Resolution Map
-                if UserDefaultsManager.mapResolutionState() == "Low" {
-                    url = URL(string: "mapbox://styles/dlmapbox/cjwrbxi3x10fv1ck92xfdgz66")!
-                // High Resolution Map
+                if UserDefaultsManager.mapCountry() == "Austria" {
+                    url = URL(string:
+                        "mapbox://styles/dlmapbox/ckecnz3gl2en51amvmz2zr9nd")!
+                    
+                } else if UserDefaultsManager.mapCountry() == "Belgium" {
+                    url = URL(string: "mapbox://styles/dlmapbox/ckecp85kk0bcq19p527u2poup")!
+                    
+                } else if UserDefaultsManager.mapCountry() == "Germany" {
+                    url = URL(string: "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt")!
+                    
+                } else if UserDefaultsManager.mapCountry() == "Italy" {
+                    url = URL(string: "mapbox://styles/dlmapbox/ckecoq7k81yw719kijd8f1m6w")!
+                    
+                } else if UserDefaultsManager.mapCountry() == "Switzerland" {
+                    url = URL(string: "mapbox://styles/dlmapbox/ckeco8can24b019o0cw384tx7")!
+                    
                 } else {
                     url = URL(string: "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt")!
                 }
+                
                 return url
         }
         
