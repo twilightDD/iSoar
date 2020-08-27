@@ -1,13 +1,13 @@
 PODS:
   - Eureka (5.2.1)
-  - Mapbox-iOS-SDK (6.0.0):
+  - Mapbox-iOS-SDK (6.1.0):
     - MapboxMobileEvents (= 0.10.2)
   - MapboxMobileEvents (0.10.2)
   - SwiftLint (0.40.0)
 
 DEPENDENCIES:
   - Eureka (~> 5.2.1)
-  - Mapbox-iOS-SDK (~> 6.0)
+  - Mapbox-iOS-SDK
   - SwiftLint
 
 SPEC REPOS:
@@ -19,10 +19,10 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Eureka: c883105488e05bc65539f583246ecf9657cabbfe
-  Mapbox-iOS-SDK: 48ff7550bd459b8494da8ef4d660a668e9187ef0
+  Mapbox-iOS-SDK: c2ad9880240884d3aff90660da64a5321cef91db
   MapboxMobileEvents: 2bc0ca2eedb627b73cf403258dce2b2fa98074a6
   SwiftLint: 4154893c73a4c52d6240195507eb7a3e3c64087e
 
-PODFILE CHECKSUM: f222ade1a86469fa1763014c654dfd0a4031fecd
+PODFILE CHECKSUM: 43943af8089ead6418992a11d31cd696747ce52d
 
 COCOAPODS: 1.9.3
