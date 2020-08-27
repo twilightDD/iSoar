@@ -107,8 +107,12 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 
                 <<< PushRow<String>("Selected Map") { row in
                     row.title = "Selected Map"
-                    row.options = ["Austria", "Belgium", "Finland", "Germany", "Italy", "Netherlands", "Switzerland"]
+                    row.options = [String](Presets.Settings.countries.keys).sorted()
                     row.value = UserDefaultsManager.mapCountry()
+                    
+                }.onPresent { from, row in
+                    row.dismissOnSelection = false
+                    row.dismissOnChange = false
                     
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "map")
@@ -116,6 +120,9 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 }.onChange { row in
                     guard let mapCountry = row.value else { return }
                     UserDefaultsManager.set(mapCountry: mapCountry)
+                    
+                    guard let mapStyleURL = Presets.Settings.countries[mapCountry] else { return }
+                    UserDefaultsManager.set(mapStyleURL: mapStyleURL)
                     
                 }
                 
