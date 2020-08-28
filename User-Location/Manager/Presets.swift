@@ -107,6 +107,8 @@ struct Presets {
                                 "Italy": "mapbox://styles/dlmapbox/ckecoq7k81yw719kijd8f1m6w",
                                 "Netherlands": "mapbox://styles/dlmapbox/ckecq6au02gpp19mjk98tbg0u",
                                 "Poland": "mapbox://styles/dlmapbox/ckecso9mw1vgs19obtw0skrai",
+                                "Romania": "mapbox://styles/dlmapbox/ckeduxe5t0av019rkf2vjm9uh",
+                                "Slovenia": "mapbox://styles/dlmapbox/ckedatk3n0hza19ryhj79muzi",
                                 "Sweden": "mapbox://styles/dlmapbox/ckecuue8m2l8c1amv1bqakkdf",
                                 "Switzerland": "mapbox://styles/dlmapbox/ckeco8can24b019o0cw384tx7"
         ]
