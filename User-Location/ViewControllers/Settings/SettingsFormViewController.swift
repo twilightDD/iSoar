@@ -113,7 +113,8 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 }.onPresent { from, row in
                     row.dismissOnSelection = false
                     row.dismissOnChange = false
-                    
+                    row.enableDeselection = false
+
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "map")
                     
