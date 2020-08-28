@@ -10,6 +10,6 @@ target 'Glider Tool' do
     pod 'Mapbox-iOS-SDK'
     
     source 'https://github.com/CocoaPods/Specs.git'
-    pod 'Eureka', '~> 5.2.1'
+    pod 'Eureka'
 
 end
