@@ -23,7 +23,7 @@ class UserDefaultsManager {
     private static let TrafficMonitorRadiusKey = "trafficMonitorRadius"
     private static let CenteringHelpStateKey = "centeringHelpState"
     private static let UserMapZoomLevelKey = "userMapZoomLevel"
-    private static let MapCountryKey = "mapCountry"
+    private static let SelectedCountryKey = "mapCountry"
     private static let MapStyleURLKey = "mapStyleURL"
     
     // MARK: - Defaults
@@ -39,7 +39,7 @@ class UserDefaultsManager {
     private static let trafficMonitorRadiusDefault: Double = 50
     private static let centeringHelpSwitchDefault: Bool = true
     private static let userMapZoomLevelDefault: Double = 9.6
-    private static let mapCountryDefault: String = "Germany"
+    private static let selectedCountryDefault: String = "Germany"
     private static let mapStyleURLDefault: String = "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt"
     
     // MARK: - Lets and Vars
@@ -85,8 +85,8 @@ class UserDefaultsManager {
         if shared.userDefaults.value(forKey: UserMapZoomLevelKey) == nil {
             UserDefaultsManager.set(userMapZoomLevel: userMapZoomLevelDefault)
         }
-        if shared.userDefaults.value(forKey: MapCountryKey) == nil {
-            UserDefaultsManager.set(mapCountry: mapCountryDefault)
+        if shared.userDefaults.value(forKey: SelectedCountryKey) == nil {
+            UserDefaultsManager.set(mapCountry: selectedCountryDefault)
         }
         if shared.userDefaults.value(forKey: MapStyleURLKey) == nil {
             UserDefaultsManager.set(mapStyleURL: mapStyleURLDefault)
@@ -226,14 +226,14 @@ class UserDefaultsManager {
     }
     
     // MARK: Map Country
-    class func mapCountry()
+    class func selectedCountry()
         -> String {
-            let mapCountry = shared.userDefaults.value(forKey: MapCountryKey) as? String ?? mapCountryDefault
-            return mapCountry
+            let selectedCountry = shared.userDefaults.value(forKey: SelectedCountryKey) as? String ?? selectedCountryDefault
+            return selectedCountry
     }
     
     class func set(mapCountry: String) {
-        shared.userDefaults.set(mapCountry, forKey: MapCountryKey)
+        shared.userDefaults.set(mapCountry, forKey: SelectedCountryKey)
     }
     
     // MARK: Map Style URL

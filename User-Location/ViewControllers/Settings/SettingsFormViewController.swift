@@ -107,8 +107,8 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 
                 <<< PushRow<String>("Selected Map") { row in
                     row.title = "Selected Map"
-                    row.options = [String](Presets.Settings.countries.keys).sorted()
-                    row.value = UserDefaultsManager.mapCountry()
+                    row.options = Presets.Settings.countries.keys.sorted()
+                    row.value = UserDefaultsManager.selectedCountry()
                     
                 }.onPresent { from, row in
                     row.dismissOnSelection = false
@@ -310,7 +310,14 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     row.title = "Read the Manual (German)"
                     row.onCellSelection(self.readTheManualButtonTapped)
                     
+                }
+                
+                <<< ButtonRow { row in
+                    row.title = "Download Map"
+                    row.onCellSelection(self.downloadMapButtonTapped(cell:row:))
+                    
             }
+            
             return section
     }
     
@@ -379,6 +386,11 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
             UIApplication.shared.canOpenURL(manualURL as URL) {
             UIApplication.shared.open(manualURL)
         }
+        
+    }
+    
+    private func downloadMapButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
+        MapRegionDownloadManager.shared.downloadButtonTapped()
         
     }
     
