@@ -40,6 +40,7 @@
 		E02052AF23E36A8200839B84 /* FlightComputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02052AE23E36A8200839B84 /* FlightComputer.swift */; };
 		E02052B123E36A9A00839B84 /* FlightRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02052B023E36A9A00839B84 /* FlightRecorder.swift */; };
 		E0310D3A24D8A2CF009EB354 /* NSManagedObjectContext+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0310D3924D8A2CF009EB354 /* NSManagedObjectContext+Fetch.swift */; };
+		E054EB4324FD8B3000A901F0 /* MapAreaDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E054EB4224FD8B3000A901F0 /* MapAreaDownloadManager.swift */; };
 		E06936D8241B8CA00073D078 /* GliderTelemetryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06936D7241B8CA00073D078 /* GliderTelemetryData.swift */; };
 		E070FD9E24A3109A0039386D /* Glider Tool.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E070FD9C24A3109A0039386D /* Glider Tool.xcdatamodeld */; };
 		E070FDA924A468730039386D /* GliderSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */; };
@@ -115,6 +116,7 @@
 		E02052AE23E36A8200839B84 /* FlightComputer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightComputer.swift; sourceTree = "<group>"; };
 		E02052B023E36A9A00839B84 /* FlightRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightRecorder.swift; sourceTree = "<group>"; };
 		E0310D3924D8A2CF009EB354 /* NSManagedObjectContext+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Fetch.swift"; sourceTree = "<group>"; };
+		E054EB4224FD8B3000A901F0 /* MapAreaDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAreaDownloadManager.swift; sourceTree = "<group>"; };
 		E06936D7241B8CA00073D078 /* GliderTelemetryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderTelemetryData.swift; sourceTree = "<group>"; };
 		E070FD9D24A3109A0039386D /* Glider Tool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Glider Tool.xcdatamodel"; sourceTree = "<group>"; };
 		E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderSelectionTableViewController.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */,
 				D0829D3E24351FEC009E40EC /* Presets.swift */,
 				D0C2801A23D8F46B00518539 /* UserDefaultsManager.swift */,
+				E054EB4224FD8B3000A901F0 /* MapAreaDownloadManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 				D0015F0F242C082F00D2AEFF /* NearbyGliderAnnotation.swift in Sources */,
 				E014961A236F6B4C00C1AC0D /* MapLabel.swift in Sources */,
 				EDA236232130AA7500739396 /* AppDelegate.swift in Sources */,
+				E054EB4324FD8B3000A901F0 /* MapAreaDownloadManager.swift in Sources */,
 				E077487524C0703300BFF517 /* CoreDataManager.swift in Sources */,
 				E0C55A2C24D6D38100618179 /* BuddyListTableViewController.swift in Sources */,
 				E0B52F72228377F300E28A93 /* Buttons.swift in Sources */,
