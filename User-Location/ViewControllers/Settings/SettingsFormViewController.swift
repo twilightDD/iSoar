@@ -18,8 +18,11 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     static let AvailableGlidersKey = "Selected Glider"
     static let TrafficMonitorKey = "Traffic Monitor"
     static let CollisionWarningKey = "Collision Warning"
-    static let ShowOnlyBuddiesOnMapKey = "Show only Buddies on Map"
+    static let BuddyFilterKey = "Buddy Filter"
     static let BuddyListKey = "Buddy List"
+    
+    let downloadProgressView: UIProgressView = UIProgressView(progressViewStyle: .default)
+    let alertController = UIAlertController(title: "Downloading Map", message: "Please be patient...", preferredStyle: .alert)
     
     // MARK: - Init&Co.
     override func viewDidLoad() {
@@ -114,7 +117,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     row.dismissOnSelection = false
                     row.dismissOnChange = false
                     row.enableDeselection = false
-
+                    
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "map")
                     
@@ -124,6 +127,19 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     
                     guard let mapStyleURL = Presets.Settings.countries[mapCountry] else { return }
                     UserDefaultsManager.set(mapStyleURL: mapStyleURL)
+                    
+                }
+                
+                <<< ButtonRow { row in
+                    row.title = "Download Map of the current Area"
+                    row.onCellSelection(self.downloadMapAreaButtonTapped(cell:row:))
+                    
+                }.cellSetup { cell, row in
+                    cell.imageView?.image = UIImage(systemName: "square.and.arrow.down")
+                    cell.textLabel?.textAlignment = .left
+                    
+                }.cellUpdate { cell, row in
+                    cell.textLabel?.textAlignment = .left
                     
                 }
                 
@@ -190,12 +206,12 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                             self.form.rowBy(tag: SettingsFormViewController.CollisionWarningKey)?.reload()
                         }
                         
-                        if UserDefaultsManager.showOnlyBuddySwitchState() == true {
-                            UserDefaultsManager.set(showOnlyBuddySwitchState: false)
+                        if UserDefaultsManager.buddyFilterSwitchState() == true {
+                            UserDefaultsManager.set(buddyFilterSwitchState: false)
                             
-                            self.form.rowBy(tag: SettingsFormViewController.ShowOnlyBuddiesOnMapKey)?.baseValue = false
+                            self.form.rowBy(tag: SettingsFormViewController.BuddyFilterKey)?.baseValue = false
                             
-                            self.form.rowBy(tag: SettingsFormViewController.ShowOnlyBuddiesOnMapKey)?.reload()
+                            self.form.rowBy(tag: SettingsFormViewController.BuddyFilterKey)?.reload()
                         }
                         
                     }
@@ -249,19 +265,19 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     
                 }
                 
-                <<< SwitchRow("Show only Buddies on Map") { row in
-                    row.title = SettingsFormViewController.ShowOnlyBuddiesOnMapKey
-                    row.tag = SettingsFormViewController.ShowOnlyBuddiesOnMapKey
-                    row.value = UserDefaultsManager.showOnlyBuddySwitchState()
+                <<< SwitchRow("Buddy Filter") { row in
+                    row.title = SettingsFormViewController.BuddyFilterKey
+                    row.tag = SettingsFormViewController.BuddyFilterKey
+                    row.value = UserDefaultsManager.buddyFilterSwitchState()
                     
                 }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "checkmark.circle")
+                    cell.imageView?.image = UIImage(systemName: "line.horizontal.3.decrease.circle")
                     
                 }.onChange { row in
                     guard let rowValue = row.value else { return }
-                    UserDefaultsManager.set(showOnlyBuddySwitchState: rowValue)
+                    UserDefaultsManager.set(buddyFilterSwitchState: rowValue)
                     
-                    if UserDefaultsManager.showOnlyBuddySwitchState() == true,
+                    if UserDefaultsManager.buddyFilterSwitchState() == true,
                         UserDefaultsManager.showAllNearbyGlidersState() == false {
                         
                         UserDefaultsManager.set(showAllNearbyGlidersState: true)
@@ -309,12 +325,6 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 <<< ButtonRow { row in
                     row.title = "Read the Manual (German)"
                     row.onCellSelection(self.readTheManualButtonTapped)
-                    
-                }
-                
-                <<< ButtonRow { row in
-                    row.title = "Download Map"
-                    row.onCellSelection(self.downloadMapButtonTapped(cell:row:))
                     
             }
             
@@ -367,7 +377,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     }
     
     @objc private func radiusSliderDidEndSliding() {
-        if UserDefaultsManager.showOnlyBuddySwitchState() == false {
+        if UserDefaultsManager.buddyFilterSwitchState() == false {
             OGNSocketConnectionManager.reconnect()
         }
     }
@@ -389,8 +399,14 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         
     }
     
-    private func downloadMapButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
-        MapRegionDownloadManager.shared.downloadButtonTapped()
+    private func downloadMapAreaButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
+        MapAreaDownloadManager.shared.downloadButtonTapped()
+        
+//        self.downloadProgressView.frame = CGRect(x: 10, y: 70, width: 250, height: 0)
+//        self.downloadProgressView.progress = MapAreaDownloadManager.test()
+//
+//        self.alertController.view.addSubview(self.downloadProgressView)
+//        self.present(alertController, animated: true, completion: nil)
         
     }
     

@@ -18,7 +18,7 @@ class UserDefaultsManager {
     private static let GearWarningStateKey = "gearWarningState"
     private static let SafetyAltitudeKey = "safetyAltitude"
     private static let ShowAllNearbyGlidersStateKey = "showAllNearbyGlidersState"
-    private static let ShowOnlyBuddyStateKey = "showOnlyBuddyState"
+    private static let BuddyFilterStateKey = "buddyFilterState"
     private static let ShowTrackingRouteStateKey = "showTrackingRouteState"
     private static let TrafficMonitorRadiusKey = "trafficMonitorRadius"
     private static let CenteringHelpStateKey = "centeringHelpState"
@@ -67,8 +67,8 @@ class UserDefaultsManager {
         if shared.userDefaults.value(forKey: ShowTrackingRouteStateKey) == nil {
             shared.userDefaults.set(true, forKey: ShowTrackingRouteStateKey)
         }
-        if shared.userDefaults.value(forKey: ShowOnlyBuddyStateKey) == nil {
-            shared.userDefaults.set(true, forKey: ShowOnlyBuddyStateKey)
+        if shared.userDefaults.value(forKey: BuddyFilterStateKey) == nil {
+            shared.userDefaults.set(true, forKey: BuddyFilterStateKey)
         }
         if shared.userDefaults.value(forKey: ShowAllNearbyGlidersStateKey) == nil {
             shared.userDefaults.set(true, forKey: ShowAllNearbyGlidersStateKey)
@@ -160,14 +160,14 @@ class UserDefaultsManager {
     }
     
     // MARK: Show Buddy Switch
-    class func showOnlyBuddySwitchState()
+    class func buddyFilterSwitchState()
         -> Bool {
-            let showOnlyBuddySwitchKey = shared.userDefaults.value(forKey: ShowOnlyBuddyStateKey) as? Bool ?? showFlarmBuddySwitchDefault
-            return showOnlyBuddySwitchKey
+            let buddyFilterSwitchKey = shared.userDefaults.value(forKey: BuddyFilterStateKey) as? Bool ?? showFlarmBuddySwitchDefault
+            return buddyFilterSwitchKey
     }
     
-    class func set(showOnlyBuddySwitchState: Bool) {
-        shared.userDefaults.set(showOnlyBuddySwitchState, forKey: ShowOnlyBuddyStateKey)
+    class func set(buddyFilterSwitchState: Bool) {
+        shared.userDefaults.set(buddyFilterSwitchState, forKey: BuddyFilterStateKey)
     }
     
     // MARK: ShowNearbyGlidersSwitch

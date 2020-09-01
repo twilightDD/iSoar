@@ -79,7 +79,7 @@ class OGNSocketConnectionManager {
     
     class func didUpdateBuddiesOrSelectedOtherGlider() {
         if UserDefaultsManager.showAllNearbyGlidersState() == true,
-            UserDefaultsManager.showOnlyBuddySwitchState() == true {
+            UserDefaultsManager.buddyFilterSwitchState() == true {
             
             OGNSocketConnectionManager.reconnect()
         }
@@ -209,7 +209,7 @@ extension OGNSocketConnectionManager {
         }
         
         let appVersion = Presets.OGNSocketConnection.appVersion
-        if UserDefaultsManager.showOnlyBuddySwitchState() {
+        if UserDefaultsManager.buddyFilterSwitchState() {
             // Filter for unique FlarmID or multiple IDs seperated bei /
             let buddyFlarmIDs = Buddy.allFlarmIDs()
             let joinedBuddyFlarmIDs = buddyFlarmIDs.joined(separator: "/")
@@ -321,7 +321,7 @@ extension OGNSocketConnectionManager: LocationManagerDelegate {
         
         if isLoggedIn == true {
             guard let loginCoordinates = self.loginCoordinates,
-                UserDefaultsManager.showOnlyBuddySwitchState() == false,
+                UserDefaultsManager.buddyFilterSwitchState() == false,
                 let distance = LocationManager.distanceFromCurrentLocationTo(location: loginCoordinates)
                 else { return }
             
