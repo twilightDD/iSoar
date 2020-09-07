@@ -18,12 +18,12 @@ class UserDefaultsManager {
     private static let GearWarningStateKey = "gearWarningState"
     private static let SafetyAltitudeKey = "safetyAltitude"
     private static let ShowAllNearbyGlidersStateKey = "showAllNearbyGlidersState"
-    private static let ShowOnlyBuddyStateKey = "showOnlyBuddyState"
+    private static let BuddyFilterStateKey = "buddyFilterState"
     private static let ShowTrackingRouteStateKey = "showTrackingRouteState"
     private static let TrafficMonitorRadiusKey = "trafficMonitorRadius"
     private static let CenteringHelpStateKey = "centeringHelpState"
     private static let UserMapZoomLevelKey = "userMapZoomLevel"
-    private static let MapCountryKey = "mapCountry"
+    private static let SelectedCountryKey = "mapCountry"
     private static let MapStyleURLKey = "mapStyleURL"
     
     // MARK: - Defaults
@@ -39,7 +39,7 @@ class UserDefaultsManager {
     private static let trafficMonitorRadiusDefault: Double = 50
     private static let centeringHelpSwitchDefault: Bool = true
     private static let userMapZoomLevelDefault: Double = 9.6
-    private static let mapCountryDefault: String = "Germany"
+    private static let selectedCountryDefault: String = "Germany"
     private static let mapStyleURLDefault: String = "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt"
     
     // MARK: - Lets and Vars
@@ -67,8 +67,8 @@ class UserDefaultsManager {
         if shared.userDefaults.value(forKey: ShowTrackingRouteStateKey) == nil {
             shared.userDefaults.set(true, forKey: ShowTrackingRouteStateKey)
         }
-        if shared.userDefaults.value(forKey: ShowOnlyBuddyStateKey) == nil {
-            shared.userDefaults.set(true, forKey: ShowOnlyBuddyStateKey)
+        if shared.userDefaults.value(forKey: BuddyFilterStateKey) == nil {
+            shared.userDefaults.set(true, forKey: BuddyFilterStateKey)
         }
         if shared.userDefaults.value(forKey: ShowAllNearbyGlidersStateKey) == nil {
             shared.userDefaults.set(true, forKey: ShowAllNearbyGlidersStateKey)
@@ -85,8 +85,8 @@ class UserDefaultsManager {
         if shared.userDefaults.value(forKey: UserMapZoomLevelKey) == nil {
             UserDefaultsManager.set(userMapZoomLevel: userMapZoomLevelDefault)
         }
-        if shared.userDefaults.value(forKey: MapCountryKey) == nil {
-            UserDefaultsManager.set(mapCountry: mapCountryDefault)
+        if shared.userDefaults.value(forKey: SelectedCountryKey) == nil {
+            UserDefaultsManager.set(mapCountry: selectedCountryDefault)
         }
         if shared.userDefaults.value(forKey: MapStyleURLKey) == nil {
             UserDefaultsManager.set(mapStyleURL: mapStyleURLDefault)
@@ -160,14 +160,14 @@ class UserDefaultsManager {
     }
     
     // MARK: Show Buddy Switch
-    class func showOnlyBuddySwitchState()
+    class func buddyFilterSwitchState()
         -> Bool {
-            let showOnlyBuddySwitchKey = shared.userDefaults.value(forKey: ShowOnlyBuddyStateKey) as? Bool ?? showFlarmBuddySwitchDefault
-            return showOnlyBuddySwitchKey
+            let buddyFilterSwitchKey = shared.userDefaults.value(forKey: BuddyFilterStateKey) as? Bool ?? showFlarmBuddySwitchDefault
+            return buddyFilterSwitchKey
     }
     
-    class func set(showOnlyBuddySwitchState: Bool) {
-        shared.userDefaults.set(showOnlyBuddySwitchState, forKey: ShowOnlyBuddyStateKey)
+    class func set(buddyFilterSwitchState: Bool) {
+        shared.userDefaults.set(buddyFilterSwitchState, forKey: BuddyFilterStateKey)
     }
     
     // MARK: ShowNearbyGlidersSwitch
@@ -226,14 +226,14 @@ class UserDefaultsManager {
     }
     
     // MARK: Map Country
-    class func mapCountry()
+    class func selectedCountry()
         -> String {
-            let mapCountry = shared.userDefaults.value(forKey: MapCountryKey) as? String ?? mapCountryDefault
-            return mapCountry
+            let selectedCountry = shared.userDefaults.value(forKey: SelectedCountryKey) as? String ?? selectedCountryDefault
+            return selectedCountry
     }
     
     class func set(mapCountry: String) {
-        shared.userDefaults.set(mapCountry, forKey: MapCountryKey)
+        shared.userDefaults.set(mapCountry, forKey: SelectedCountryKey)
     }
     
     // MARK: Map Style URL

@@ -18,8 +18,11 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     static let AvailableGlidersKey = "Selected Glider"
     static let TrafficMonitorKey = "Traffic Monitor"
     static let CollisionWarningKey = "Collision Warning"
-    static let ShowOnlyBuddiesOnMapKey = "Show only Buddies on Map"
+    static let BuddyFilterKey = "Buddy Filter"
     static let BuddyListKey = "Buddy List"
+    
+    let downloadProgressView: UIProgressView = UIProgressView(progressViewStyle: .default)
+    let alertController = UIAlertController(title: "Downloading Map", message: "Please be patient...", preferredStyle: .alert)
     
     // MARK: - Init&Co.
     override func viewDidLoad() {
@@ -31,6 +34,11 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         form.append(mapSettingsSection())
         form.append(trafficMonitorSection())
         form.append(miscellaneousSection())
+        
+        // Setup offline pack notification handlers.
+        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackProgressDidChange), name: NSNotification.Name.MGLOfflinePackProgressChanged, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveError), name: NSNotification.Name.MGLOfflinePackError, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveMaximumAllowedMapboxTiles), name: NSNotification.Name.MGLOfflinePackMaximumMapboxTilesReached, object: nil)
         
     }
     
@@ -107,14 +115,14 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 
                 <<< PushRow<String>("Selected Map") { row in
                     row.title = "Selected Map"
-                    row.options = [String](Presets.Settings.countries.keys).sorted()
-                    row.value = UserDefaultsManager.mapCountry()
+                    row.options = Presets.Settings.countries.keys.sorted()
+                    row.value = UserDefaultsManager.selectedCountry()
                     
                 }.onPresent { from, row in
                     row.dismissOnSelection = false
                     row.dismissOnChange = false
                     row.enableDeselection = false
-
+                    
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "map")
                     
@@ -124,6 +132,19 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     
                     guard let mapStyleURL = Presets.Settings.countries[mapCountry] else { return }
                     UserDefaultsManager.set(mapStyleURL: mapStyleURL)
+                    
+                }
+                
+                <<< ButtonRow { row in
+                    row.title = "Download Map of the current Area"
+                    row.onCellSelection(self.downloadMapAreaButtonTapped(cell:row:))
+                    
+                }.cellSetup { cell, row in
+                    cell.imageView?.image = UIImage(systemName: "square.and.arrow.down")
+                    cell.textLabel?.textAlignment = .left
+                    
+                }.cellUpdate { cell, row in
+                    cell.textLabel?.textAlignment = .left
                     
                 }
                 
@@ -190,12 +211,12 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                             self.form.rowBy(tag: SettingsFormViewController.CollisionWarningKey)?.reload()
                         }
                         
-                        if UserDefaultsManager.showOnlyBuddySwitchState() == true {
-                            UserDefaultsManager.set(showOnlyBuddySwitchState: false)
+                        if UserDefaultsManager.buddyFilterSwitchState() == true {
+                            UserDefaultsManager.set(buddyFilterSwitchState: false)
                             
-                            self.form.rowBy(tag: SettingsFormViewController.ShowOnlyBuddiesOnMapKey)?.baseValue = false
+                            self.form.rowBy(tag: SettingsFormViewController.BuddyFilterKey)?.baseValue = false
                             
-                            self.form.rowBy(tag: SettingsFormViewController.ShowOnlyBuddiesOnMapKey)?.reload()
+                            self.form.rowBy(tag: SettingsFormViewController.BuddyFilterKey)?.reload()
                         }
                         
                     }
@@ -249,19 +270,19 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     
                 }
                 
-                <<< SwitchRow("Show only Buddies on Map") { row in
-                    row.title = SettingsFormViewController.ShowOnlyBuddiesOnMapKey
-                    row.tag = SettingsFormViewController.ShowOnlyBuddiesOnMapKey
-                    row.value = UserDefaultsManager.showOnlyBuddySwitchState()
+                <<< SwitchRow("Buddy Filter") { row in
+                    row.title = SettingsFormViewController.BuddyFilterKey
+                    row.tag = SettingsFormViewController.BuddyFilterKey
+                    row.value = UserDefaultsManager.buddyFilterSwitchState()
                     
                 }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "checkmark.circle")
+                    cell.imageView?.image = UIImage(systemName: "line.horizontal.3.decrease.circle")
                     
                 }.onChange { row in
                     guard let rowValue = row.value else { return }
-                    UserDefaultsManager.set(showOnlyBuddySwitchState: rowValue)
+                    UserDefaultsManager.set(buddyFilterSwitchState: rowValue)
                     
-                    if UserDefaultsManager.showOnlyBuddySwitchState() == true,
+                    if UserDefaultsManager.buddyFilterSwitchState() == true,
                         UserDefaultsManager.showAllNearbyGlidersState() == false {
                         
                         UserDefaultsManager.set(showAllNearbyGlidersState: true)
@@ -311,6 +332,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     row.onCellSelection(self.readTheManualButtonTapped)
                     
             }
+            
             return section
     }
     
@@ -360,7 +382,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     }
     
     @objc private func radiusSliderDidEndSliding() {
-        if UserDefaultsManager.showOnlyBuddySwitchState() == false {
+        if UserDefaultsManager.buddyFilterSwitchState() == false {
             OGNSocketConnectionManager.reconnect()
         }
     }
@@ -382,4 +404,46 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         
     }
     
+    private func downloadMapAreaButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
+        MapAreaDownloadManager.shared.downloadButtonTapped()
+        
+        self.downloadProgressView.frame = CGRect(x: 10, y: 70, width: 250, height: 0)
+        
+        self.alertController.view.addSubview(self.downloadProgressView)
+        self.present(alertController, animated: true, completion: nil)
+        
+    }
+    
+    // MARK: - Notification Handling
+    @objc func offlinePackProgressDidChange(notification: NSNotification) {
+        // Observe Notifications for Downloaded Ressources in Percent
+        self.downloadProgressView.progress = MapAreaDownloadManager.percentageDonloaded()!
+        
+        // If downloaded Ressorces = expectes Ressources - dissmiss the AlrtViewController
+        if MapAreaDownloadManager.completedResources() == MapAreaDownloadManager.expectedResources(),
+        MapAreaDownloadManager.expectedResources() != 0 {
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.alertController.dismiss(animated: true, completion: nil)
+            }
+            
+            // Otherwise dont show only the progress
+        } else {
+            //print("Completed: \(MapAreaDownloadManager.shared.completedResources) - Expected: \(MapAreaDownloadManager.shared.expectedResources)")
+            
+        }
+        
+    }
+    
+    @objc func offlinePackDidReceiveError(notification: NSNotification) {
+
+        self.alertController.dismiss(animated: true, completion: nil)
+
+    }
+
+    @objc func offlinePackDidReceiveMaximumAllowedMapboxTiles(notification: NSNotification) {
+
+        self.alertController.dismiss(animated: true, completion: nil)
+
+    }
 }
