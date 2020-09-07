@@ -35,6 +35,11 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         form.append(trafficMonitorSection())
         form.append(miscellaneousSection())
         
+        // Setup offline pack notification handlers.
+        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackProgressDidChange), name: NSNotification.Name.MGLOfflinePackProgressChanged, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveError), name: NSNotification.Name.MGLOfflinePackError, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveMaximumAllowedMapboxTiles), name: NSNotification.Name.MGLOfflinePackMaximumMapboxTilesReached, object: nil)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -402,12 +407,43 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     private func downloadMapAreaButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         MapAreaDownloadManager.shared.downloadButtonTapped()
         
-//        self.downloadProgressView.frame = CGRect(x: 10, y: 70, width: 250, height: 0)
-//        self.downloadProgressView.progress = MapAreaDownloadManager.test()
-//
-//        self.alertController.view.addSubview(self.downloadProgressView)
-//        self.present(alertController, animated: true, completion: nil)
+        self.downloadProgressView.frame = CGRect(x: 10, y: 70, width: 250, height: 0)
+        
+        self.alertController.view.addSubview(self.downloadProgressView)
+        self.present(alertController, animated: true, completion: nil)
         
     }
     
+    // MARK: - Notification Handling
+    @objc func offlinePackProgressDidChange(notification: NSNotification) {
+        // Observe Notifications for Downloaded Ressources in Percent
+        self.downloadProgressView.progress = MapAreaDownloadManager.percentageDonloaded()!
+        
+        // If downloaded Ressorces = expectes Ressources - dissmiss the AlrtViewController
+        if MapAreaDownloadManager.completedResources() == MapAreaDownloadManager.expectedResources(),
+        MapAreaDownloadManager.expectedResources() != 0 {
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.alertController.dismiss(animated: true, completion: nil)
+            }
+            
+            // Otherwise dont show only the progress
+        } else {
+            //print("Completed: \(MapAreaDownloadManager.shared.completedResources) - Expected: \(MapAreaDownloadManager.shared.expectedResources)")
+            
+        }
+        
+    }
+    
+    @objc func offlinePackDidReceiveError(notification: NSNotification) {
+
+        self.alertController.dismiss(animated: true, completion: nil)
+
+    }
+
+    @objc func offlinePackDidReceiveMaximumAllowedMapboxTiles(notification: NSNotification) {
+
+        self.alertController.dismiss(animated: true, completion: nil)
+
+    }
 }

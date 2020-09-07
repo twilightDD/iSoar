@@ -14,6 +14,28 @@ class MapAreaDownloadManager {
     static let shared = MapAreaDownloadManager()
     
     var percentageDonloaded: Float = 0
+    var completedResources: UInt64 = 0
+    var expectedResources: UInt64 = 0
+    
+    // MARK: - Public Class Methods
+    
+    class func percentageDonloaded()
+        -> Float? {
+            let percentageDonloaded: Float = shared.percentageDonloaded
+            return percentageDonloaded
+    }
+    
+    class func completedResources()
+        -> UInt64? {
+            let completedResources: UInt64 = shared.completedResources
+            return completedResources
+    }
+    
+    class func expectedResources()
+        -> UInt64? {
+            let expectedResources: UInt64 = shared.expectedResources
+            return expectedResources
+    }
     
     // MARK: - Init&Co.
     private init() {
@@ -23,18 +45,13 @@ class MapAreaDownloadManager {
         NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveMaximumAllowedMapboxTiles), name: NSNotification.Name.MGLOfflinePackMaximumMapboxTilesReached, object: nil)
     }
     
-    // MARK: - Public Class Methods
-    
-    class func test()
-        -> Float {
-            
-                let abc = self.shared.percentageDonloaded
-
-            return abc
-    }
-    
     
     func downloadButtonTapped() {
+        
+        // Reset the Ressources Counts
+        self.completedResources = 0
+        self.expectedResources = 0
+        
         startOfflinePackDownload()
     }
     
@@ -44,14 +61,14 @@ class MapAreaDownloadManager {
     private func startOfflinePackDownload() {
         guard let userLocation = LocationManager.currentLocation() else { return }
         let userLocationCoordinate2D = CLLocationCoordinate2D(latitude: (userLocation.coordinate.latitude),
-                                                  longitude: (userLocation.coordinate.longitude))
-
-        let southWest = CLLocationCoordinate2D(latitude: userLocationCoordinate2D.latitude-2,
-                                        longitude: userLocationCoordinate2D.longitude-2)
-
-        let northEast = CLLocationCoordinate2D(latitude: userLocationCoordinate2D.latitude+2,
-                                        longitude: userLocationCoordinate2D.longitude+2)
-
+                                                              longitude: (userLocation.coordinate.longitude))
+        
+        let southWest = CLLocationCoordinate2D(latitude: userLocationCoordinate2D.latitude-1,
+                                               longitude: userLocationCoordinate2D.longitude-1)
+        
+        let northEast = CLLocationCoordinate2D(latitude: userLocationCoordinate2D.latitude+1,
+                                               longitude: userLocationCoordinate2D.longitude+1)
+        
         let bounds = MGLCoordinateBounds(sw: southWest, ne: northEast)
         
         // Exchange with UserDefaultsManager.styleURL()
@@ -61,7 +78,7 @@ class MapAreaDownloadManager {
                                                  toZoomLevel: 13)
         
         // Store some data for identification purposes alongside the downloaded resources.
-        let userInfo = ["name": "User View2"]
+        let userInfo = ["name": "John Doe"]
         let context = NSKeyedArchiver.archivedData(withRootObject: userInfo)
         
         // Create and register an offline pack with the shared offline storage object.
@@ -74,39 +91,31 @@ class MapAreaDownloadManager {
             
             // Start downloading.
             pack!.resume()
-
+            
         }
         
     }
     
     // MARK: - MGLOfflinePack notification handlers
-    
     @objc func offlinePackProgressDidChange(notification: NSNotification) {
-        // Get the offline pack this notification is regarding,
-        // and the associated user info for the pack; in this case, `name = My Offline Pack`
         if let pack = notification.object as? MGLOfflinePack,
-            let userInfo = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String] {
+            let userInfo = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSObject.self], from: pack.context) as? [String: String] {
             let progress = pack.progress
-            // or notification.userInfo![MGLOfflinePackProgressUserInfoKey]!.MGLOfflinePackProgressValue
-            let completedResources = progress.countOfResourcesCompleted
-            let expectedResources = progress.countOfResourcesExpected
             
-            // Calculate current progress percentage.
+            self.completedResources = progress.countOfResourcesCompleted
+            self.expectedResources = progress.countOfResourcesExpected
+            
+            // Calculate current progress percentage
             let progressPercentage = Float(completedResources) / Float(expectedResources)
             self.percentageDonloaded = progressPercentage
             
             // If this pack has finished, print its size and resource count.
             if completedResources == expectedResources {
-                let byteCount = ByteCountFormatter.string(fromByteCount: Int64(pack.progress.countOfBytesCompleted), countStyle: ByteCountFormatter.CountStyle.memory)
-                print("Offline pack “\(userInfo["name"] ?? "unknown")” completed: \(byteCount), \(completedResources) resources")
-                
-                // Dismiss the AlertView of the Settings VC
+                print("Offline pack “\(userInfo["name"] ?? "unknown")” has \(completedResources) of \(expectedResources) resources — \(String(format: "%.2f", progressPercentage * 100))%.")
                 
             } else {
                 // Otherwise, print download/verification progress.
                 print("Offline pack “\(userInfo["name"] ?? "unknown")” has \(completedResources) of \(expectedResources) resources — \(String(format: "%.2f", progressPercentage * 100))%.")
-                
-                // Dismiss the AlertView of the Settings VC
                 
             }
         }
@@ -114,24 +123,20 @@ class MapAreaDownloadManager {
     
     @objc func offlinePackDidReceiveError(notification: NSNotification) {
         if let pack = notification.object as? MGLOfflinePack,
-            let userInfo = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String],
+            let userInfo = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSObject.self], from: pack.context) as? [String: String],
             let error = notification.userInfo?[MGLOfflinePackUserInfoKey.error] as? NSError {
-            print("Offline pack “\(userInfo["name"] ?? "unknown")” received error: \(error.localizedFailureReason ?? "unknown error")")
+            print("Map: \(UserDefaultsManager.selectedCountry()) for User: \(userInfo["name"] ?? "unknown")” received error: \(error.localizedFailureReason ?? "unknown error")")
         }
-        
-        // Dismiss the AlertView of the Settings VC
         
     }
     
     @objc func offlinePackDidReceiveMaximumAllowedMapboxTiles(notification: NSNotification) {
         if let pack = notification.object as? MGLOfflinePack,
-            let userInfo = NSKeyedUnarchiver.unarchiveObject(with: pack.context) as? [String: String],
+            let userInfo = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSObject.self], from: pack.context) as? [String: String],
             let maximumCount = (notification.userInfo?[MGLOfflinePackUserInfoKey.maximumCount] as AnyObject).uint64Value {
-            print("Offline pack “\(userInfo["name"] ?? "unknown")” reached limit of \(maximumCount) tiles.")
+            print("Map: \(UserDefaultsManager.selectedCountry()) for User: \(userInfo["name"] ?? "unknown")” reached limit of \(maximumCount) tiles.")
         }
-
-        // Dismiss the AlertView of the Settings VC
         
     }
-
+    
 }
