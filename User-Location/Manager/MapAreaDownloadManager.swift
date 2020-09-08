@@ -11,30 +11,31 @@ import Mapbox
 class MapAreaDownloadManager {
     
     // MARK: - Lets and Vars
-    static let shared = MapAreaDownloadManager()
+    private static let shared = MapAreaDownloadManager()
     
-    var percentageDonloaded: Float = 0
-    var completedResources: UInt64 = 0
-    var expectedResources: UInt64 = 0
+    private var percentageDonloaded: Float = 0
+    private var completedResourceParts: UInt64 = 0
+    private var expectedResourceParts: UInt64 = 0
     
     // MARK: - Public Class Methods
     
     class func percentageDonloaded()
-        -> Float? {
+        -> Float {
             let percentageDonloaded: Float = shared.percentageDonloaded
             return percentageDonloaded
+            
     }
     
-    class func completedResources()
-        -> UInt64? {
-            let completedResources: UInt64 = shared.completedResources
-            return completedResources
-    }
-    
-    class func expectedResources()
-        -> UInt64? {
-            let expectedResources: UInt64 = shared.expectedResources
-            return expectedResources
+    class func mapAreaDownloadIsCompleted() -> Bool {
+        if shared.completedResourceParts == shared.expectedResourceParts,
+            shared.expectedResourceParts != 0 {
+            
+            return true
+            
+        }
+        
+        return false
+        
     }
     
     // MARK: - Init&Co.
@@ -43,19 +44,17 @@ class MapAreaDownloadManager {
         NotificationCenter.default.addObserver(self, selector: #selector(offlinePackProgressDidChange), name: NSNotification.Name.MGLOfflinePackProgressChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveError), name: NSNotification.Name.MGLOfflinePackError, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveMaximumAllowedMapboxTiles), name: NSNotification.Name.MGLOfflinePackMaximumMapboxTilesReached, object: nil)
+        
     }
     
-    
-    func downloadButtonTapped() {
-        
+    class func startOfflinePackDownload() {
         // Reset the Ressources Counts
-        self.completedResources = 0
-        self.expectedResources = 0
+        shared.completedResourceParts = 0
+        shared.expectedResourceParts = 0
         
-        startOfflinePackDownload()
+        shared.startOfflinePackDownload()
+        
     }
-    
-    // MARK: - Public Methods
     
     // MARK: - Private Methods
     private func startOfflinePackDownload() {
@@ -90,40 +89,36 @@ class MapAreaDownloadManager {
             }
             
             // Start downloading.
-            pack!.resume()
+            pack?.resume()
             
         }
         
     }
     
-    // MARK: - MGLOfflinePack notification handlers
+    // MARK: - MGLOfflinePack Notification Handlers
     @objc func offlinePackProgressDidChange(notification: NSNotification) {
-        if let pack = notification.object as? MGLOfflinePack,
-            let userInfo = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSObject.self], from: pack.context) as? [String: String] {
+        if let pack = notification.object as? MGLOfflinePack {
             let progress = pack.progress
             
-            self.completedResources = progress.countOfResourcesCompleted
-            self.expectedResources = progress.countOfResourcesExpected
+            completedResourceParts = progress.countOfResourcesCompleted
+            expectedResourceParts = progress.countOfResourcesExpected
             
             // Calculate current progress percentage
-            let progressPercentage = Float(completedResources) / Float(expectedResources)
+            let progressPercentage = Float(completedResourceParts) / Float(expectedResourceParts)
             self.percentageDonloaded = progressPercentage
             
-            // If this pack has finished, print its size and resource count.
-            if completedResources == expectedResources {
-                print("Offline pack “\(userInfo["name"] ?? "unknown")” has \(completedResources) of \(expectedResources) resources — \(String(format: "%.2f", progressPercentage * 100))%.")
-                
-            } else {
-                // Otherwise, print download/verification progress.
-                print("Offline pack “\(userInfo["name"] ?? "unknown")” has \(completedResources) of \(expectedResources) resources — \(String(format: "%.2f", progressPercentage * 100))%.")
-                
+            if let userInfo = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSObject.self],
+                                                                      from: pack.context) as? [String: String] {
+                print("A Offline pack “\(userInfo["name"] ?? "unknown")” has \(completedResourceParts) of \(expectedResourceParts) resources — \(String(format: "%.2f", progressPercentage * 100))%.")
             }
         }
+        
     }
     
     @objc func offlinePackDidReceiveError(notification: NSNotification) {
         if let pack = notification.object as? MGLOfflinePack,
-            let userInfo = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSObject.self], from: pack.context) as? [String: String],
+            let userInfo = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSObject.self],
+                                                                   from: pack.context) as? [String: String],
             let error = notification.userInfo?[MGLOfflinePackUserInfoKey.error] as? NSError {
             print("Map: \(UserDefaultsManager.selectedCountry()) for User: \(userInfo["name"] ?? "unknown")” received error: \(error.localizedFailureReason ?? "unknown error")")
         }
@@ -132,7 +127,8 @@ class MapAreaDownloadManager {
     
     @objc func offlinePackDidReceiveMaximumAllowedMapboxTiles(notification: NSNotification) {
         if let pack = notification.object as? MGLOfflinePack,
-            let userInfo = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSObject.self], from: pack.context) as? [String: String],
+            let userInfo = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSObject.self],
+                                                                   from: pack.context) as? [String: String],
             let maximumCount = (notification.userInfo?[MGLOfflinePackUserInfoKey.maximumCount] as AnyObject).uint64Value {
             print("Map: \(UserDefaultsManager.selectedCountry()) for User: \(userInfo["name"] ?? "unknown")” reached limit of \(maximumCount) tiles.")
         }

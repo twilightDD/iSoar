@@ -22,7 +22,9 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     static let BuddyListKey = "Buddy List"
     
     let downloadProgressView: UIProgressView = UIProgressView(progressViewStyle: .default)
-    let alertController = UIAlertController(title: "Downloading Map", message: "Please be patient...", preferredStyle: .alert)
+    let alertController = UIAlertController(title: "Downloading Map",
+                                            message: "Please be patient...",
+                                            preferredStyle: .alert)
     
     // MARK: - Init&Co.
     override func viewDidLoad() {
@@ -37,7 +39,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         
         // Setup offline pack notification handlers.
         NotificationCenter.default.addObserver(self, selector: #selector(offlinePackProgressDidChange), name: NSNotification.Name.MGLOfflinePackProgressChanged, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveError), name: NSNotification.Name.MGLOfflinePackError, object: nil)
+        //        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveError), name: NSNotification.Name.MGLOfflinePackError, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveMaximumAllowedMapboxTiles), name: NSNotification.Name.MGLOfflinePackMaximumMapboxTilesReached, object: nil)
         
     }
@@ -405,7 +407,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     }
     
     private func downloadMapAreaButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
-        MapAreaDownloadManager.shared.downloadButtonTapped()
+        MapAreaDownloadManager.startOfflinePackDownload()
         
         self.downloadProgressView.frame = CGRect(x: 10, y: 70, width: 250, height: 0)
         
@@ -414,36 +416,33 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         
     }
     
-    // MARK: - Notification Handling
+    // MARK: - MGLOfflinePack Notification Handlers
     @objc func offlinePackProgressDidChange(notification: NSNotification) {
         // Observe Notifications for Downloaded Ressources in Percent
-        self.downloadProgressView.progress = MapAreaDownloadManager.percentageDonloaded()!
+        self.downloadProgressView.progress = MapAreaDownloadManager.percentageDonloaded()
         
         // If downloaded Ressorces = expectes Ressources - dissmiss the AlrtViewController
-        if MapAreaDownloadManager.completedResources() == MapAreaDownloadManager.expectedResources(),
-        MapAreaDownloadManager.expectedResources() != 0 {
+        if MapAreaDownloadManager.mapAreaDownloadIsCompleted() == true {
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.alertController.dismiss(animated: true, completion: nil)
-            }
+            //DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.alertController.dismiss(animated: true, completion: nil)
+            //}
             
             // Otherwise dont show only the progress
         } else {
             //print("Completed: \(MapAreaDownloadManager.shared.completedResources) - Expected: \(MapAreaDownloadManager.shared.expectedResources)")
-            
         }
         
     }
     
     @objc func offlinePackDidReceiveError(notification: NSNotification) {
-
         self.alertController.dismiss(animated: true, completion: nil)
-
+        
     }
-
+    
     @objc func offlinePackDidReceiveMaximumAllowedMapboxTiles(notification: NSNotification) {
-
         self.alertController.dismiss(animated: true, completion: nil)
-
+        
     }
+    
 }
