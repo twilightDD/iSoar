@@ -21,7 +21,7 @@ class UserDefaultsManager {
     private static let BuddyFilterStateKey = "buddyFilterState"
     private static let ShowTrackingRouteStateKey = "showTrackingRouteState"
     private static let TrafficMonitorRadiusKey = "trafficMonitorRadius"
-    private static let CenteringHelpStateKey = "centeringHelpState"
+    private static let ThermalAssistantStateKey = "thermalAssistantState"
     private static let UserMapZoomLevelKey = "userMapZoomLevel"
     private static let SelectedCountryKey = "mapCountry"
     private static let MapStyleURLKey = "mapStyleURL"
@@ -37,7 +37,7 @@ class UserDefaultsManager {
     private static let showNearbyGlidersSwitchDefault: Bool = true
     private static let collisionWarningSwitchDefault: Bool = true
     private static let trafficMonitorRadiusDefault: Double = 50
-    private static let centeringHelpSwitchDefault: Bool = true
+    private static let thermalAssistantSwitchDefault: Bool = true
     private static let userMapZoomLevelDefault: Double = 9.6
     private static let selectedCountryDefault: String = "Germany"
     private static let mapStyleURLDefault: String = "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt"
@@ -79,8 +79,8 @@ class UserDefaultsManager {
         if shared.userDefaults.value(forKey: TrafficMonitorRadiusKey) == nil {
             UserDefaultsManager.set(trafficMonitorRadius: trafficMonitorRadiusDefault)
         }
-        if shared.userDefaults.value(forKey: CenteringHelpStateKey) == nil {
-            shared.userDefaults.set(true, forKey: CenteringHelpStateKey)
+        if shared.userDefaults.value(forKey: ThermalAssistantStateKey) == nil {
+            shared.userDefaults.set(true, forKey: ThermalAssistantStateKey)
         }
         if shared.userDefaults.value(forKey: UserMapZoomLevelKey) == nil {
             UserDefaultsManager.set(userMapZoomLevel: userMapZoomLevelDefault)
@@ -203,15 +203,15 @@ class UserDefaultsManager {
         shared.userDefaults.set(trafficMonitorRadius, forKey: TrafficMonitorRadiusKey)
     }
     
-    // MARK: Centering Help Switch
-    class func centeringHelpState()
+    // MARK: Thermal Assistant Switch
+    class func thermalAssistantState()
         -> Bool {
-            let centeringHelpSwitch = shared.userDefaults.value(forKey: CenteringHelpStateKey) as? Bool ?? centeringHelpSwitchDefault
-            return centeringHelpSwitch
+            let thermalAssistantSwitch = shared.userDefaults.value(forKey: ThermalAssistantStateKey) as? Bool ?? thermalAssistantSwitchDefault
+            return thermalAssistantSwitch
     }
     
-    class func set(centeringHelpState: Bool) {
-        shared.userDefaults.set(centeringHelpState, forKey: CenteringHelpStateKey)
+    class func set(thermalAssistantState: Bool) {
+        shared.userDefaults.set(thermalAssistantState, forKey: ThermalAssistantStateKey)
     }
     
     // MARK: User Map Zoom Level

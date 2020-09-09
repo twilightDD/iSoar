@@ -77,7 +77,7 @@ struct Presets {
         /// Represents the spoken Text of the acoustic Warning
         static let collisionWarningSpokenText: String = "Warning, Traffic ahead"
         
-        // Centering Help
+        // Thermal Assistant
         /// Represents the deviation of the current course to the former course
         static let significantCourseDeviation: Double = 3
         /// Represents how many continous significant Course Changes must be recognized to set "Circling" to true

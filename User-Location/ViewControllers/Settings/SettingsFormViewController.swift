@@ -164,16 +164,16 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     
                 }
                 
-                <<< SwitchRow("Centering Help") { row in
+                <<< SwitchRow("Thermal Assistant") { row in
                     row.title = row.tag
-                    row.value = UserDefaultsManager.centeringHelpState()
+                    row.value = UserDefaultsManager.thermalAssistantState()
                     
                 }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "smallcircle.circle")
+                    cell.imageView?.image = UIImage(systemName: "tornado")
                     
                 }.onChange { row in
-                    guard let centeringHelpState = row.value else { return }
-                    UserDefaultsManager.set(centeringHelpState: centeringHelpState)
+                    guard let thermalAssistantState = row.value else { return }
+                    UserDefaultsManager.set(thermalAssistantState: thermalAssistantState)
                     
             }
             return section

@@ -372,9 +372,7 @@ class MapScreenViewController: UIViewController {
         
         // Update UI for Direction
         updateDestinationAirportUI()
-        
-        // Centering Help
-        //centeringHelp()
+
     }
     
     // Check if User has changed the Map Style in Settings
