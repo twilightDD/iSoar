@@ -37,10 +37,16 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         form.append(trafficMonitorSection())
         form.append(miscellaneousSection())
         
-        // Setup offline pack notification handlers.
-        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackProgressDidChange), name: NSNotification.Name.MGLOfflinePackProgressChanged, object: nil)
-        //        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveError), name: NSNotification.Name.MGLOfflinePackError, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveMaximumAllowedMapboxTiles), name: NSNotification.Name.MGLOfflinePackMaximumMapboxTilesReached, object: nil)
+        // Setup offline pack notification handlers from MapAreaDownloadManager
+        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackProgressDidChange),
+                                               name: NSNotification.Name.MGLOfflinePackProgressChanged,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveError),
+                                               name: NSNotification.Name.MGLOfflinePackError,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveMaximumAllowedMapboxTiles),
+                                               name: NSNotification.Name.MGLOfflinePackMaximumMapboxTilesReached,
+                                               object: nil)
         
     }
     
@@ -125,6 +131,13 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     row.dismissOnChange = false
                     row.enableDeselection = false
                     
+                    // TODO: 20200911 Hier muss die Bildgröße der Flaggen angepasst werden!
+//                    row.selectableRowCellUpdate = { (cell, row) in
+//                        guard let imageName = cell.textLabel?.text else { return }
+//                        cell.imageView?.image = UIImage(named: imageName)
+//
+//                }
+
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "map")
                     
