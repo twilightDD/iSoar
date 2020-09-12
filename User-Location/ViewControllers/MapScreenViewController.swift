@@ -143,25 +143,6 @@ class MapScreenViewController: UIViewController {
         mapView.attributionButton.isHidden = false
         mapView.attributionButton.tintColor = .lightGray
         
-        // Set Constraints for MapBox Logo and Attribution Button
-        self.view.addConstraints([
-            NSLayoutConstraint(item: self.view.safeAreaLayoutGuide,
-                               attribute: .bottom,
-                               relatedBy: .equal,
-                               toItem: mapView.logoView,
-                               attribute: .bottom,
-                               multiplier: 1.0,
-                               constant: 10),
-            
-            NSLayoutConstraint(item: self.view.safeAreaLayoutGuide,
-                               attribute: .bottom,
-                               relatedBy: .equal,
-                               toItem: mapView.attributionButton,
-                               attribute: .bottom,
-                               multiplier: 1.0,
-                               constant: 10)
-        ])
-        
         mapView.resetNorth()
     }
     
