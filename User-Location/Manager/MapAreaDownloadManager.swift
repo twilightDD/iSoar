@@ -109,7 +109,7 @@ class MapAreaDownloadManager {
             
             if let userInfo = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSObject.self],
                                                                       from: pack.context) as? [String: String] {
-                print("A Offline pack “\(userInfo["name"] ?? "unknown")” has \(completedResourceParts) of \(expectedResourceParts) resources — \(String(format: "%.2f", progressPercentage * 100))%.")
+                print("Offline pack “\(userInfo["name"] ?? "unknown")” has \(completedResourceParts) of \(expectedResourceParts) resources — \(String(format: "%.2f", progressPercentage * 100))%.")
             }
         }
         
