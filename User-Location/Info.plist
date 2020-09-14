@@ -35,12 +35,12 @@
 	<string>6.0</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
-	<key>MGLMapboxAccessToken</key>
-	<string>pk.eyJ1IjoiZGxtYXBib3giLCJhIjoiY2p3cmJmOTVzMHh1bjRhcWlmZ3hud3pmdSJ9.5ccFnDNeGezLV2zCI8BI5w</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoiZGxtYXBib3giLCJhIjoiY2p3cmJmOTVzMHh1bjRhcWlmZ3hud3pmdSJ9.5ccFnDNeGezLV2zCI8BI5w</string>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>CFBundleIdentifier</key>
@@ -62,5 +62,7 @@
 	<string>iSoar needs your approval to determine your location for navigation.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>iSoar needs your approval to determine your location for navigation.</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 </dict>
 </plist>
