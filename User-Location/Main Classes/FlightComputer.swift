@@ -131,9 +131,9 @@ class FlightComputer {
     
     // Check if Glider is circling
     private func checkIfGliderIsCircling() {
-        // If Centering Help Switch is on - State true
+        // If Thermal Assistant Switch is on - State true
         
-        guard UserDefaultsManager.centeringHelpState() == true,
+        guard UserDefaultsManager.thermalAssistantState() == true,
             let currentLocation = LocationManager.currentLocation(),
             let formerLocation = LocationManager.formerLocation()
             else { return }
