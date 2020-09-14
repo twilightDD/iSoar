@@ -108,7 +108,7 @@ class MapScreenViewController: UIViewController {
         UserDefaultsManager.set(userMapZoomLevel: shared.mapView.zoomLevel)
         
         // Zoom into Map
-        shared.mapView.setZoomLevel(14, animated: true)
+        shared.mapView.setZoomLevel(13, animated: true)
         
     }
     
@@ -132,6 +132,7 @@ class MapScreenViewController: UIViewController {
         mapView.allowsRotating = false
         mapView.allowsTilting = false
         mapView.compassView.isHidden = true
+        mapView.maximumZoomLevel = 13
         
         mapView.userTrackingMode = .followWithHeading
         mapView.showsUserHeadingIndicator = true
