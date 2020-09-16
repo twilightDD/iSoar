@@ -132,6 +132,7 @@ class MapScreenViewController: UIViewController {
         mapView.allowsRotating = false
         mapView.allowsTilting = false
         mapView.compassView.isHidden = true
+        mapView.minimumZoomLevel = 4
         mapView.maximumZoomLevel = 13
         
         mapView.userTrackingMode = .followWithHeading
