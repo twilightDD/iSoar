@@ -101,6 +101,19 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     
                 }
                 
+                <<< SwitchRow("Update Airport DB at Startup") { row in
+                    row.title = row.tag
+                    row.value = UserDefaultsManager.updateAirportDatabaseAtStartupState()
+                    
+                }.cellSetup { cell, row in
+                    cell.imageView?.image = UIImage(systemName: "square.and.arrow.down")
+                    
+                }.onChange { row in
+                    guard let updateAirportDatabaseAtStartupState = row.value else { return }
+                    UserDefaultsManager.set(updateAirportDatabaseAtStartupState: updateAirportDatabaseAtStartupState)
+                    
+                }
+                
                 <<< SwitchRow("Gear Warning") { row in
                     row.title = row.tag
                     row.value = UserDefaultsManager.gearWarningState()
