@@ -101,14 +101,18 @@ struct Presets {
                                 "Belgium": "mapbox://styles/dlmapbox/ckecp85kk0bcq19p527u2poup",
                                 "Bulgaria": "mapbox://styles/dlmapbox/cked4x4912v1e1anvelby5at2",
                                 "Croatia": "mapbox://styles/dlmapbox/cked60k1o2w2k19qytp74kf8d",
+                                "Czech Republic": "mapbox://styles/dlmapbox/ckf3u8q2f117t1auvqr35b03b",
                                 "Denmark": "mapbox://styles/dlmapbox/ckecrvjox0fsv19mh1yb3mp1q",
                                 "Finland": "mapbox://styles/dlmapbox/ckecpy9jc2gbk19mx1zy46xb0",
                                 "Germany": "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt",
+                                // Greece
+                                "Hungary": "mapbox://styles/dlmapbox/ckf3uk2na119319s711ueb1uv",
                                 "Italy": "mapbox://styles/dlmapbox/ckecoq7k81yw719kijd8f1m6w",
                                 "Netherlands": "mapbox://styles/dlmapbox/ckecq6au02gpp19mjk98tbg0u",
                                 "Poland": "mapbox://styles/dlmapbox/ckecso9mw1vgs19obtw0skrai",
                                 "Romania": "mapbox://styles/dlmapbox/ckeduxe5t0av019rkf2vjm9uh",
                                 "Slovenia": "mapbox://styles/dlmapbox/ckedatk3n0hza19ryhj79muzi",
+                                "Slovakia": "mapbox://styles/dlmapbox/ckf3uvxnt11kw19s706yqvz9x",
                                 "Sweden": "mapbox://styles/dlmapbox/ckecuue8m2l8c1amv1bqakkdf",
                                 "Switzerland": "mapbox://styles/dlmapbox/ckeco8can24b019o0cw384tx7"
         ]
