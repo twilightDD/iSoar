@@ -85,6 +85,11 @@ class MapScreenViewController: UIViewController {
         setupGestureRecognizers()
         
         createAirportAnnotations()
+        
+        if UserDefaultsManager.updateAirportDatabaseAtStartupState() == true {
+             AirportDatabase.downloadAirportsFromServer()
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -337,10 +342,6 @@ class MapScreenViewController: UIViewController {
                                           style: .default,
                                           handler: { action in
                                             self.userAcceptedEULA = true
-                                            
-                                            if UserDefaultsManager.updateAirportDatabaseAtStartupState() == true {
-                                                 AirportDatabase.downloadAirportsFromServer()
-                                            }
             }))
             
             self.present(alert, animated: true)
