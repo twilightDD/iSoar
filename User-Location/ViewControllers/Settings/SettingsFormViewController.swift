@@ -101,7 +101,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     
                 }
                 
-                <<< SwitchRow("Update Airport DB at Startup") { row in
+                <<< SwitchRow("Update Airports at Startup") { row in
                     row.title = row.tag
                     row.value = UserDefaultsManager.updateAirportDatabaseAtStartupState()
                     
