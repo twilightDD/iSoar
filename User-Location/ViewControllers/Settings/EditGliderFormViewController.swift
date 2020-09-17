@@ -146,8 +146,12 @@ class EditGliderFormViewController: FormViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
-        let existingGliders = Glider.fetchGliders(registration: glider.registration!,
-                                                  flarmID: glider.flarmID!,
+        guard let registration = glider.registration,
+            let flarmID = glider.flarmID
+            else { fatalError("Save Button tapped while Registration or GliderID is nil") }
+        
+        let existingGliders = Glider.fetchGliders(registration: registration,
+                                                  flarmID: flarmID,
                                                   context: editContext)
         if existingGliders.count == 1 {
             editContext.saveContext()

@@ -15,8 +15,10 @@ class NotificationBanner {
     static let bannerAppearanceDuration: TimeInterval = 3
     
     static func show(_ text: String) {
-        let superView = UIApplication.shared.windows.first!.rootViewController!.view!
         
+        guard let superView = UIApplication.shared.windows.first?.rootViewController?.view
+            else { return }
+
         let height = CGFloat(64)
         let width = superView.bounds.size.width
         

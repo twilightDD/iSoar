@@ -60,10 +60,10 @@ struct GliderTelemetryData: Hashable {
             let latitudeHemisphere = String(telemetryDataArray[ResponseElements.latitudeHemisphere.rawValue])
             let longitudeString = String(telemetryDataArray[ResponseElements.longitude.rawValue])
             let longitudeHemisphere = String(telemetryDataArray[ResponseElements.longitudeHemisphere.rawValue])
-            let location = locationCoordinate2D(latitude: latitudeString,
-                                                latitudeHemisphere: latitudeHemisphere,
-                                                longitude: longitudeString,
-                                                longitudeHemisphere: longitudeHemisphere)
+            let nearbyGliderLocationCoordinate2D = locationCoordinate2D(latitude: latitudeString,
+                                                                        latitudeHemisphere: latitudeHemisphere,
+                                                                        longitude: longitudeString,
+                                                                        longitudeHemisphere: longitudeHemisphere)
             
             let aircraftType = String(telemetryDataArray[ResponseElements.aircraftType.rawValue])
             let heading = Double(telemetryDataArray[ResponseElements.heading.rawValue]) ?? 0
@@ -73,34 +73,36 @@ struct GliderTelemetryData: Hashable {
             
             // Check if Nearby Glider above or below our own Glider
             var verticalPosition: VerticalPosition = .unknown
+            var isInCollisionRange = false
+            
             if let myAltitude = LocationManager.currentLocation()?.altitude {
                 if altitude > myAltitude {
                     verticalPosition = .above
                 } else {
                     verticalPosition = .below
                 }
-            }
-            
-            // Check if Nearby Glider is in Collision Range
-            // TODO: 20200421 Check Syntax with ph
-            var isInCollisionRange = false
-            let myAltitude = (LocationManager.currentLocation()?.altitude)!
-            let upperCollisionRangeAltitutdeLimit = myAltitude + Presets.FlightComputer.verticalCollisionWarningDistance
-            let lowerCollisionRangeAltitutdeLimit = myAltitude - Presets.FlightComputer.verticalCollisionWarningDistance
-            
-            if let horizontalDistanceToMe = LocationManager.distanceFromCurrentLocationTo(location: CLLocation.init(latitude: location.latitude,
-                                                                                                                    longitude: location.longitude)) {
-                if horizontalDistanceToMe < Presets.FlightComputer.horizontalCollisionWarningDistance && altitude < upperCollisionRangeAltitutdeLimit && altitude > lowerCollisionRangeAltitutdeLimit {
-                    isInCollisionRange = true
-                } else {
-                    isInCollisionRange = false
+                
+                // Check if Nearby Glider is in Collision Range
+                let upperCollisionRangeAltitutdeLimit = myAltitude + Presets.FlightComputer.verticalCollisionWarningDistance
+                let lowerCollisionRangeAltitutdeLimit = myAltitude - Presets.FlightComputer.verticalCollisionWarningDistance
+                
+                let nearbyGliderLocation = CLLocation.init(latitude: nearbyGliderLocationCoordinate2D.latitude,
+                                                           longitude: nearbyGliderLocationCoordinate2D.longitude)
+                if let horizontalDistanceToMe = LocationManager.distanceFromCurrentLocationTo(location: nearbyGliderLocation) {
+                    if horizontalDistanceToMe < Presets.FlightComputer.horizontalCollisionWarningDistance
+                        && altitude < upperCollisionRangeAltitutdeLimit
+                        && altitude > lowerCollisionRangeAltitutdeLimit {
+                        isInCollisionRange = true
+                    } else {
+                        isInCollisionRange = false
+                    }
                 }
             }
             
             // Extract the interesting Data from TelemetryData
             let telemetryData = GliderTelemetryData(flarmID: flarmID,
                                                     timestamp: timestamp,
-                                                    location: location,
+                                                    location: nearbyGliderLocationCoordinate2D,
                                                     aircraftType: aircraftType,
                                                     heading: heading,
                                                     speed: speed,
