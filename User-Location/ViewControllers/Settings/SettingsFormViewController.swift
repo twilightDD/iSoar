@@ -143,6 +143,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     row.dismissOnSelection = false
                     row.dismissOnChange = false
                     row.enableDeselection = false
+                    row.navigationItem.title = "Selected Map"
                     
                     // TODO: 20200911 Hier muss die Bildgröße der Flaggen angepasst werden!
 //                    row.selectableRowCellUpdate = { (cell, row) in
