@@ -31,7 +31,8 @@ class TimeDateFormatter {
             var components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .second],
                                                      from: date)
             components.second = 0
-            let date = calendar.date(from: components)! as Date
+            guard let date = calendar.date(from: components)
+                else { fatalError() }
             
             return date
     }

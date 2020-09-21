@@ -67,7 +67,7 @@ class BuddyListTableViewController: UITableViewController {
         
         override func numberOfSections(in tableView: UITableView)
             -> Int {
-                return fetchedResultsController.sections!.count ?? 0
+                return fetchedResultsController.sections?.count ?? 0
         }
         
         override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
@@ -165,6 +165,7 @@ class BuddyListTableViewController: UITableViewController {
                         at indexPath: IndexPath?,
                         for type: NSFetchedResultsChangeType,
                         newIndexPath: IndexPath?) {
+            // swiftlint:disable force_unwrapping
             switch type {
             case .insert:
                 tableView.insertRows(at: [newIndexPath!], with: .fade)
@@ -176,6 +177,7 @@ class BuddyListTableViewController: UITableViewController {
                 tableView.moveRow(at: indexPath!, to: newIndexPath!)
             @unknown default:
                 fatalError("Error")
+            // swiftlint:enable force_unwrapping
             }
         }
         

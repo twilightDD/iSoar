@@ -160,7 +160,9 @@ extension OGNSocketConnectionManager {
         -> String {
             let length = 9
             let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-            let randomCharacters = (0..<length).map {_ in characters.randomElement()!}
+            // swiftlint:disable force_unwrapping
+            let randomCharacters = (0..<length).map {_ in characters.randomElement()! }
+            // swiftlint:enable force_unwrapping
             let username = String(randomCharacters)
             
             return username

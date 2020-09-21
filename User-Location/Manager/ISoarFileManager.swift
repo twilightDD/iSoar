@@ -222,7 +222,7 @@ extension ISoarFileManager {
             
             do {
                 shared.currentFlightRecordFileHandle = try FileHandle.init(forWritingTo: temporaryFlightRecorderFileURL)
-                shared.currentFlightRecordFileHandle!.seekToEndOfFile()
+                shared.currentFlightRecordFileHandle?.seekToEndOfFile()
             } catch let fileHandleError {
                 successfullyCreatedFile = false
                 fatalError("No fileHandle: \(fileHandleError.localizedDescription)")
