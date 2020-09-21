@@ -305,7 +305,7 @@ extension AirportDatabase {
         var runwayDimensions: String
         var runwayDirections: String
         var url: String?
-        var country: String?
+        var country: String
         /**In meters.*/
         var distance: CLLocationDistance?
         var phone: String?

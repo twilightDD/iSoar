@@ -749,7 +749,9 @@ extension MapScreenViewController: MGLMapViewDelegate {
                 
                 annotationView = NearbyGliderAnnotationView(annotation: annotation,
                                                             reuseIdentifier: flarmID)
+                // swiftlint:disable force_unwrapping
                 annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
+                // swiftlint:enable force_unwrapping
                 
                 return annotationView
                 
@@ -763,7 +765,10 @@ extension MapScreenViewController: MGLMapViewDelegate {
                 // If there’s no reusable annotation view available, initialize a new one.
                 if annotationView == nil {
                     annotationView = AirportAnnotationView(reuseIdentifier: reuseIdentifier)
+                    
+                    // swiftlint:disable force_unwrapping
                     annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
+                    // swiftlint:enable force_unwrapping
                     
                 }
                 
@@ -916,10 +921,15 @@ extension MapScreenViewController: DL_OGNSocketConnectionManagerDelegate {
         if nearbyGliderAnnotation == nil {
             nearbyGliderAnnotation = NearbyGliderAnnotation.init(gliderTelemetryData: gliderTelemetryData)
             nearbyGliderAnnotations[gliderTelemetryData.flarmID] = nearbyGliderAnnotation
+            // swiftlint:disable force_unwrapping
             mapView.addAnnotation(nearbyGliderAnnotation!)
+            // swiftlint:enable force_unwrapping
         }
         
+        // swiftlint:disable force_unwrapping
         nearbyGliderAnnotation!.gliderTelemetryData = gliderTelemetryData
+        // swiftlint:enable force_unwrapping
+        
     }
     
     func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
