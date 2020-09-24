@@ -86,7 +86,7 @@ extension LogbookViewController: UITableViewDelegate {
     // Make TableRow deleteable via Swipe to left
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
         -> UISwipeActionsConfiguration? {
-            let deleteAction = UIContextualAction(style: .destructive, title: nil) { _, _, complete in
+            let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, complete in
                 // Hand over currentUnixTimeStamp to FileManager for deletion of Flight Files
                 if self.flightMetaDatas.isEmpty == false {
                     let currentUnixTimeStamp = self.flightMetaDatas[indexPath.row].currentUnixTimeStamp
@@ -99,10 +99,6 @@ extension LogbookViewController: UITableViewDelegate {
                     print("flightMetaDatas empty")
                 }
             }
-            
-            // Set Image and Background Color of Delete Action
-            deleteAction.image = UIImage(systemName: "trash")
-            deleteAction.backgroundColor = UIColor.red
             
             let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
             configuration.performsFirstActionWithFullSwipe = true
