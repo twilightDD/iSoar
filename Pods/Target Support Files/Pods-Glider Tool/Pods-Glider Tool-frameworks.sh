@@ -200,16 +200,16 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework"
   install_framework "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework"
   install_dsym "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM"
-  install_bcsymbolmap "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/0DEC04F2-39CE-30A5-ABA3-C8A0C31461C2.bcsymbolmap"
-  install_bcsymbolmap "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/B952BDC9-D9B8-3E32-A512-2265616D60B1.bcsymbolmap"
+  install_bcsymbolmap "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/93C58D95-90B9-30C8-8F60-4BDE32FD7E8E.bcsymbolmap"
+  install_bcsymbolmap "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/BB87D8DD-493F-37AA-BD21-2BC609B8311B.bcsymbolmap"
   install_framework "${BUILT_PRODUCTS_DIR}/MapboxMobileEvents/MapboxMobileEvents.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Eureka/Eureka.framework"
   install_framework "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework"
   install_dsym "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM"
-  install_bcsymbolmap "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/0DEC04F2-39CE-30A5-ABA3-C8A0C31461C2.bcsymbolmap"
-  install_bcsymbolmap "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/B952BDC9-D9B8-3E32-A512-2265616D60B1.bcsymbolmap"
+  install_bcsymbolmap "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/93C58D95-90B9-30C8-8F60-4BDE32FD7E8E.bcsymbolmap"
+  install_bcsymbolmap "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/BB87D8DD-493F-37AA-BD21-2BC609B8311B.bcsymbolmap"
   install_framework "${BUILT_PRODUCTS_DIR}/MapboxMobileEvents/MapboxMobileEvents.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
