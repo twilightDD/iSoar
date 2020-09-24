@@ -18,7 +18,7 @@ class NotificationBanner {
         
         guard let superView = UIApplication.shared.windows.first?.rootViewController?.view
             else { return }
-
+        
         let height = CGFloat(64)
         let width = superView.bounds.size.width
         
@@ -26,9 +26,9 @@ class NotificationBanner {
                                               y: 0-height,
                                               width: width,
                                               height: height))
-        bannerView.layer.opacity = 1
+        bannerView.layer.opacity = 0.95
         bannerView.layer.cornerRadius = 10
-        bannerView.backgroundColor = UIColor.darkGray
+        bannerView.backgroundColor = UIColor.systemPink
         bannerView.translatesAutoresizingMaskIntoConstraints = false
         
         let label = UILabel(frame: CGRect.zero)
@@ -106,12 +106,13 @@ class NotificationBanner {
                                      bannerCenterXConstraint,
                                      bannerTopConstraint])
         
+        // Show Notification Banner
         UIView.animate(withDuration: animateDuration) {
             bannerTopConstraint.constant = 0
             superView.layoutIfNeeded()
         }
         
-        //remove subview after time 2 sec
+        // Remove Notification Banner
         UIView.animate(withDuration: animateDuration,
                        delay: bannerAppearanceDuration,
                        options: [],
