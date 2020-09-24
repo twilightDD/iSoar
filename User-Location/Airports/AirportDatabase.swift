@@ -221,10 +221,7 @@ class AirportDatabase {
                                                     object: nil)
                     return
                 }
-                
-                
-                
-                
+
                 print("Downloading Airprt Database Update...")
                 if let statusCode = (response as? HTTPURLResponse)?.statusCode {
                     // If successfully downloaded new Airports.json from server - (statuscode: 200)
