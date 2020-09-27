@@ -116,7 +116,8 @@ class DestinationSelectionViewController: UIViewController {
     // updateUIForSelectedDestinationAirport
     private func updateUIForSelectedDestinationAirport() {
         if let destinationAirport = FlightComputer.selectedDestinationAirport() {
-            countryImageTop.image = UIImage(named: destinationAirport.country!)
+            countryImageTop.image = UIImage(named: destinationAirport.country)
+            
             airportName.text = destinationAirport.name
             airportInfoButton.isHidden = false
         } else {
@@ -138,8 +139,7 @@ class DestinationSelectionViewController: UIViewController {
             tableView.reloadData()
         }
     }
-    
-    
+
     func distanceAsReadable(_ distance: CLLocationDistance?)
         -> String {
             var distanceAsReadable = ""
@@ -209,20 +209,18 @@ extension DestinationSelectionViewController: UITableViewDataSource {
             cell.airportNameLabel.text = airportOfInterest.name
             cell.icaoLabel.text = airportOfInterest.icao
             cell.distanceLabel.text = distanceAsReadable(airportOfInterest.distance)
-            
-            var countryImage = UIImage.init(named: "destination")
-            if let country = airportOfInterest.country {
-                countryImage = UIImage.init(named: country)
-            }
+
+            // Set Country Image of Destination Airport
+            let countryImage = UIImage.init(named: airportOfInterest.country)
             cell.countryImageView.image = countryImage
             
             // Set Checkmark and Background Color for selected Airport
             if FlightComputer.selectedDestinationAirport() == airportOfInterest {
                 cell.accessoryType = .checkmark
-                cell.backgroundColor = UIColor(red: 230/255, green: 240/255, blue: 255/255, alpha: 1.0)
+                //cell.backgroundColor = UIColor(red: 230/255, green: 240/255, blue: 255/255, alpha: 1.0)
             } else {
                 cell.accessoryType = .none
-                cell.backgroundColor = nil
+                //cell.backgroundColor = nil
             }
             
             return cell

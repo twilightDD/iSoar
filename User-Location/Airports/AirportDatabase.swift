@@ -221,10 +221,7 @@ class AirportDatabase {
                                                     object: nil)
                     return
                 }
-                
-                
-                
-                
+
                 print("Downloading Airprt Database Update...")
                 if let statusCode = (response as? HTTPURLResponse)?.statusCode {
                     // If successfully downloaded new Airports.json from server - (statuscode: 200)
@@ -305,7 +302,7 @@ extension AirportDatabase {
         var runwayDimensions: String
         var runwayDirections: String
         var url: String?
-        var country: String?
+        var country: String
         /**In meters.*/
         var distance: CLLocationDistance?
         var phone: String?
