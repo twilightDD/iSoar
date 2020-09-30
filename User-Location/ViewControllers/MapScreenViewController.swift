@@ -843,7 +843,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
     }
     
     // Map did finished loading
-    func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
+    func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
         // Center Map to User Location
         // Check if User Location is available.
         // If yes, set Center the Map to User Location
