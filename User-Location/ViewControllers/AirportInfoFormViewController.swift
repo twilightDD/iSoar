@@ -25,6 +25,18 @@ class AirportInfoFormViewController: FormViewController {
         
     }
     
+    func textColor()
+        -> UIColor {
+            var textColor: UIColor = .black
+            
+            if self.traitCollection.userInterfaceStyle == .light {
+                textColor = .black
+            } else {
+                textColor = .white
+            }
+            return textColor
+    }
+    
     // MARK: - Private Methods
     // MARK: Eureka Form Sections
     private func airportInfoSection()
@@ -45,8 +57,8 @@ class AirportInfoFormViewController: FormViewController {
                     cell.imageView?.image = UIImage(systemName: "textformat")
                     
                 }.cellUpdate { cell, row in
-                    cell.titleLabel?.textColor = row.isDisabled ? .black : .black
-                    cell.textField.textColor = row.isDisabled ? .black : .black
+                    cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                    cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
                     
                 }
                 
@@ -60,8 +72,8 @@ class AirportInfoFormViewController: FormViewController {
                     cell.imageView?.image = UIImage(systemName: "textformat")
                     
                 }.cellUpdate { cell, row in
-                    cell.titleLabel?.textColor = row.isDisabled ? .black : .black
-                    cell.textField.textColor = row.isDisabled ? .black : .black
+                    cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                    cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
                     
             }
             
@@ -87,8 +99,8 @@ class AirportInfoFormViewController: FormViewController {
                     cell.imageView?.image = UIImage(systemName: "antenna.radiowaves.left.and.right")
                     
                 }.cellUpdate { cell, row in
-                    cell.titleLabel?.textColor = row.isDisabled ? .black : .black
-                    cell.textField.textColor = row.isDisabled ? .black : .black
+                    cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                    cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
                     
                 }
                 
@@ -102,8 +114,8 @@ class AirportInfoFormViewController: FormViewController {
                     cell.imageView?.image = UIImage(systemName: "antenna.radiowaves.left.and.right")
                     
                 }.cellUpdate { cell, row in
-                    cell.titleLabel?.textColor = row.isDisabled ? .black : .black
-                    cell.textField.textColor = row.isDisabled ? .black : .black
+                    cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                    cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
                     
             }
             
@@ -129,8 +141,8 @@ class AirportInfoFormViewController: FormViewController {
                     cell.imageView?.image = UIImage(systemName: "arrow.up.arrow.down")
                     
                 }.cellUpdate { cell, row in
-                    cell.titleLabel?.textColor = row.isDisabled ? .black : .black
-                    cell.textField.textColor = row.isDisabled ? .black : .black
+                    cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                    cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
                     
                 }
                 
@@ -144,8 +156,8 @@ class AirportInfoFormViewController: FormViewController {
                     cell.imageView?.image = UIImage(systemName: "arrow.right.arrow.left")
                     
                 }.cellUpdate { cell, row in
-                    cell.titleLabel?.textColor = row.isDisabled ? .black : .black
-                    cell.textField.textColor = row.isDisabled ? .black : .black
+                    cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                    cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
                     
                 }
                 
@@ -159,8 +171,8 @@ class AirportInfoFormViewController: FormViewController {
                     cell.imageView?.image = UIImage(systemName: "arrow.right.arrow.left")
                     
                 }.cellUpdate { cell, row in
-                    cell.titleLabel?.textColor = row.isDisabled ? .black : .black
-                    cell.textField.textColor = row.isDisabled ? .black : .black
+                    cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                    cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
                     
             }
             
@@ -186,8 +198,8 @@ class AirportInfoFormViewController: FormViewController {
                     cell.imageView?.image = UIImage(systemName: "textformat")
                     
                 }.cellUpdate { cell, row in
-                    cell.titleLabel?.textColor = row.isDisabled ? .black : .black
-                    cell.textField.textColor = row.isDisabled ? .black : .black
+                    cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                    cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
                     
                 }
                 
@@ -201,8 +213,8 @@ class AirportInfoFormViewController: FormViewController {
                     cell.imageView?.image = UIImage(systemName: "globe")
                     
                 }.cellUpdate { cell, row in
-                    cell.titleLabel?.textColor = row.isDisabled ? .black : .black
-                    cell.textField.textColor = row.isDisabled ? .black : .black
+                    cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                    cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
                     
                 }
                 
@@ -216,8 +228,8 @@ class AirportInfoFormViewController: FormViewController {
                     cell.imageView?.image = UIImage(systemName: "globe")
                     
                 }.cellUpdate { cell, row in
-                    cell.titleLabel?.textColor = row.isDisabled ? .black : .black
-                    cell.textField.textColor = row.isDisabled ? .black : .black
+                    cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                    cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
                     
                 }
                 
@@ -231,8 +243,8 @@ class AirportInfoFormViewController: FormViewController {
                     cell.imageView?.image = UIImage(systemName: "antenna.radiowaves.left.and.right")
                     
                 }.cellUpdate { cell, row in
-                    cell.titleLabel?.textColor = row.isDisabled ? .black : .black
-                    cell.textField.textColor = row.isDisabled ? .black : .black
+                    cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                    cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
                     
             }
             
@@ -319,8 +331,8 @@ class AirportInfoFormViewController: FormViewController {
                     cell.imageView?.image = UIImage(systemName: "calendar")
                     
                 }.cellUpdate { cell, row in
-                    cell.titleLabel?.textColor = row.isDisabled ? .black : .black
-                    cell.textField.textColor = row.isDisabled ? .black : .black
+                    cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                    cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
                     
             }
             
