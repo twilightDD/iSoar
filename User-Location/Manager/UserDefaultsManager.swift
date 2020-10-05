@@ -26,6 +26,7 @@ class UserDefaultsManager {
     private static let SelectedCountryKey = "mapCountry"
     private static let MapStyleURLKey = "mapStyleURL"
     private static let UpdateAirportDatabaseAtStartupStateKey = "updateAirportDatabaseAtStartupState"
+    private static let ShowDistanceCirclesStateKey = "showDistanceCirclesStateKey"
     
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
@@ -43,6 +44,7 @@ class UserDefaultsManager {
     private static let selectedCountryDefault: String = "Germany"
     private static let mapStyleURLDefault: String = "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt"
     private static let updateAirportDatabaseAtStartupSwitchDefault: Bool = true
+    private static let showDistanceCirclesSwitchDefault: Bool = true
     
     // MARK: - Lets and Vars
     private static let shared = UserDefaultsManager()
@@ -95,6 +97,9 @@ class UserDefaultsManager {
         }
         if shared.userDefaults.value(forKey: UpdateAirportDatabaseAtStartupStateKey) == nil {
             shared.userDefaults.set(true, forKey: UpdateAirportDatabaseAtStartupStateKey)
+        }
+        if shared.userDefaults.value(forKey: ShowDistanceCirclesStateKey) == nil {
+            shared.userDefaults.set(true, forKey: ShowDistanceCirclesStateKey)
         }
     }
     
@@ -261,6 +266,17 @@ class UserDefaultsManager {
     
     class func set(updateAirportDatabaseAtStartupState: Bool) {
         shared.userDefaults.set(updateAirportDatabaseAtStartupState, forKey: UpdateAirportDatabaseAtStartupStateKey)
+    }
+    
+    // MARK: Show Distance Circles Switch
+    class func showDistanceCirclesState()
+        -> Bool {
+            let showDistanceCirclesSwitchKey = shared.userDefaults.value(forKey: ShowDistanceCirclesStateKey) as? Bool ?? showDistanceCirclesSwitchDefault
+            return showDistanceCirclesSwitchKey
+    }
+    
+    class func set(showDistanceCirclesState: Bool) {
+        shared.userDefaults.set(showDistanceCirclesState, forKey: ShowDistanceCirclesStateKey)
     }
     
 }

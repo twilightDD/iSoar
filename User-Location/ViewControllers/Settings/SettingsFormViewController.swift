@@ -8,7 +8,6 @@
 
 import Eureka
 import MessageUI
-import UIKit
 
 // MARK: SettingsViewController
 class SettingsFormViewController: FormViewController, MFMailComposeViewControllerDelegate {
@@ -178,8 +177,22 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 }
                 
                 <<< SwitchRow { row in
-                    row.title = "Show Tracking Route on Map"
-                    row.tag = "Show Tracking Route on Map"
+                    row.title = "Show Distance Circles"
+                    row.tag = "Show Distance Circles"
+                    row.value = UserDefaultsManager.showDistanceCirclesState()
+                    
+                }.cellSetup { cell, row in
+                    cell.imageView?.image = UIImage(systemName: "smallcircle.circle")
+                    
+                }.onChange { row in
+                    guard let showDistanceCirclesState = row.value else { return }
+                    UserDefaultsManager.set(showDistanceCirclesState: showDistanceCirclesState)
+                    
+                }
+                
+                <<< SwitchRow { row in
+                    row.title = "Show Tracking Route"
+                    row.tag = "Show Tracking Route"
                     row.value = UserDefaultsManager.showTrackingRouteState()
                     
                 }.cellSetup { cell, row in
