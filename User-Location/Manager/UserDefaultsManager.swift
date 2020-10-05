@@ -16,6 +16,7 @@ class UserDefaultsManager {
     private static let GliderIDKey = "gliderID"
     private static let OwnFlarmIDKey = "ownFlarmID"
     private static let GearWarningStateKey = "gearWarningState"
+    private static let OxygenWarningStateKey = "oxygenWarningState"
     private static let SafetyAltitudeKey = "safetyAltitude"
     private static let ShowAllNearbyGlidersStateKey = "showAllNearbyGlidersState"
     private static let BuddyFilterStateKey = "buddyFilterState"
@@ -33,6 +34,7 @@ class UserDefaultsManager {
     private static let ownFlarmIDDefault = "FLRxxxxxx"
     private static let gliderRadioDefault: Double = 30
     private static let gearWarningSwitchDefault: Bool = true
+    private static let oxygenWarningSwitchDefault: Bool = true
     private static let safetyAltitudeDefault: Double = 300
     private static let showTrackingRouteSwitchDefault: Bool = true
     private static let showFlarmBuddySwitchDefault: Bool = true
@@ -67,6 +69,9 @@ class UserDefaultsManager {
         }
         if shared.userDefaults.value(forKey: GearWarningStateKey) == nil {
             shared.userDefaults.set(true, forKey: GearWarningStateKey)
+        }
+        if shared.userDefaults.value(forKey: OxygenWarningStateKey) == nil {
+            shared.userDefaults.set(true, forKey: OxygenWarningStateKey)
         }
         if shared.userDefaults.value(forKey: ShowTrackingRouteStateKey) == nil {
             shared.userDefaults.set(true, forKey: ShowTrackingRouteStateKey)
@@ -145,6 +150,17 @@ class UserDefaultsManager {
     
     class func set(gearWarningState: Bool) {
         shared.userDefaults.set(gearWarningState, forKey: GearWarningStateKey)
+    }
+    
+    // MARK: OxygenWarningSwitch
+    class func oxygenWarningState()
+        -> Bool {
+            let oxygenWarningSwitch = shared.userDefaults.value(forKey: OxygenWarningStateKey) as? Bool ?? oxygenWarningSwitchDefault
+            return oxygenWarningSwitch
+    }
+    
+    class func set(oxygenWarningState: Bool) {
+        shared.userDefaults.set(oxygenWarningState, forKey: OxygenWarningStateKey)
     }
     
     // MARK: SafetyAltitude
