@@ -36,6 +36,9 @@ class MapScreenViewController: UIViewController {
     private var travelledFlightlineSegments = [MGLPolyline]()
     private var currentTaskLine: MGLPolyline?
     
+    private var innerCircleAroundUserLocationPolyline: MGLPolyline?
+    private var outerCircleAroundUserLocationPolyline: MGLPolyline?
+    
     private var userTrackingMode = true
     private var userFollow = false
     
@@ -98,6 +101,8 @@ class MapScreenViewController: UIViewController {
         checkIfMapStyleURLHasChanged()
         
         checkTrackingRouteStatus()
+        
+        checkDistanceCirclesStatus()
         
     }
     
@@ -360,6 +365,9 @@ class MapScreenViewController: UIViewController {
         
         // Update UI for Direction
         updateDestinationAirportUI()
+        
+        //
+        updateCirclesAroundUserLocation()
 
     }
     
@@ -573,6 +581,63 @@ class MapScreenViewController: UIViewController {
         updateDestinationAirportDirectionLine(destinationAirport: destinationAirport)
     }
     
+    // Check for Distance Circles Status
+    // Method will only called once when view will appear
+    private func checkDistanceCirclesStatus() {
+        if UserDefaultsManager.showDistanceCirclesState() == true {
+            updateCirclesAroundUserLocation()
+        } else {
+            if let innerCircleAroundUserLocationPolyline = self.innerCircleAroundUserLocationPolyline {
+                mapView.removeAnnotation(innerCircleAroundUserLocationPolyline)
+                self.innerCircleAroundUserLocationPolyline = nil
+            }
+            if let outerCircleAroundUserLocationPolyline = self.outerCircleAroundUserLocationPolyline {
+                mapView.removeAnnotation(outerCircleAroundUserLocationPolyline)
+                self.outerCircleAroundUserLocationPolyline = nil
+            }
+
+        }
+        
+    }
+    
+    // Draw or update Distance Circles
+    private func updateCirclesAroundUserLocation() {
+        if UserDefaultsManager.showDistanceCirclesState() == true {
+            guard let currentLocation = LocationManager.currentLocation()
+                else { return }
+            
+            // Inner Circle
+            let newInnerCircleCoordinates = circleCoordinatesAround(coordinate: currentLocation.coordinate,
+                                                                    withMeterRadius: 10000)
+            let innerCircleCoordinatesPointer = UnsafeMutablePointer(mutating: newInnerCircleCoordinates)
+            
+            if let innerCircleAroundUserLocationPolyline = self.innerCircleAroundUserLocationPolyline {
+                innerCircleAroundUserLocationPolyline.setCoordinates(innerCircleCoordinatesPointer,
+                                                                     count: UInt(newInnerCircleCoordinates.count))
+            } else {
+                innerCircleAroundUserLocationPolyline = MGLPolyline.init(coordinates: innerCircleCoordinatesPointer,
+                                                                         count: UInt(newInnerCircleCoordinates.count))
+                mapView.addAnnotation(innerCircleAroundUserLocationPolyline!)
+            }
+            
+            // Outer Circle
+            let newOuterCircleCoordinates = circleCoordinatesAround(coordinate: currentLocation.coordinate,
+                                                                    withMeterRadius: 20000)
+            let newOuterCircleCoordinatesPointer = UnsafeMutablePointer(mutating: newOuterCircleCoordinates)
+            
+            if let outerCircleAroundUserLocationPolyline = self.outerCircleAroundUserLocationPolyline {
+                outerCircleAroundUserLocationPolyline.setCoordinates(newOuterCircleCoordinatesPointer,
+                                                                     count: UInt(newOuterCircleCoordinates.count))
+            } else {
+                outerCircleAroundUserLocationPolyline = MGLPolyline.init(coordinates: newOuterCircleCoordinatesPointer,
+                                                                         count: UInt(newOuterCircleCoordinates.count))
+                mapView.addAnnotation(outerCircleAroundUserLocationPolyline!)
+            }
+            
+        }
+        
+    }
+    
     private func resetUpdateDestinationAirportUI() {
         // labels
         destinationAirportICAOLabel.text = "---"
@@ -675,18 +740,52 @@ class MapScreenViewController: UIViewController {
         }
     }
     
+    private func circleCoordinatesAround(coordinate: CLLocationCoordinate2D, withMeterRadius: Double)
+        -> [CLLocationCoordinate2D] {
+            
+            // TODO: check performance; 01202020, ph
+            /*
+             let factor = Double.pi / 180
+             let factor2 = 180 / Double.pi
+             */
+            
+            let degreesBetweenPoints: Double = 1 // 360 segments
+            let numberOfPolygonPoints = 360 //  floor(360.0 / degreesBetweenPoints)
+            let distRadians: Double = withMeterRadius / 6371000.0 // earth radius in meters
+            let centerLatRadians: Double = coordinate.latitude * Double.pi / 180
+            let centerLonRadians: Double = coordinate.longitude * Double.pi / 180
+            var coordinates = [CLLocationCoordinate2D]() //array to hold all the points
+            
+            for index in 0 ... numberOfPolygonPoints {
+                let degrees: Double = Double(index) * Double(degreesBetweenPoints)
+                let degreeRadians: Double = degrees * Double.pi / 180
+                let pointLatRadians: Double = asin(sin(centerLatRadians) * cos(distRadians) + cos(centerLatRadians) * sin(distRadians) * cos(degreeRadians))
+                let pointLonRadians: Double = centerLonRadians + atan2(sin(degreeRadians) * sin(distRadians) * cos(centerLatRadians), cos(distRadians) - sin(centerLatRadians) * sin(pointLatRadians))
+                let pointLat: Double = pointLatRadians * 180 / Double.pi
+                let pointLon: Double = pointLonRadians * 180 / Double.pi
+                let point: CLLocationCoordinate2D = CLLocationCoordinate2DMake(pointLat, pointLon)
+                coordinates.append(point)
+            }
+            
+            return coordinates
+    }
+    
 }
 
 // MARK: - MGLMapViewDelegate methods
 extension MapScreenViewController: MGLMapViewDelegate {
     
-    // Set the Direction Line color
+    // Set Polyline Colors
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape)
         -> UIColor {
             if annotation.title == "ascanding" {
                 return UIColor.green
             } else if annotation.title == "descanding" {
                 return UIColor.orange
+            } else if annotation == innerCircleAroundUserLocationPolyline {
+                return UIColor.black
+            } else if annotation == outerCircleAroundUserLocationPolyline {
+                return UIColor.black
             } else if annotation == currentTaskLine {
                 return UIColor.systemPink
             }
@@ -695,9 +794,18 @@ extension MapScreenViewController: MGLMapViewDelegate {
             
     }
     
-    // Set the Direction Line width
+    // Set Polyline Width
     func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline)
         -> CGFloat {
+            
+            if annotation == innerCircleAroundUserLocationPolyline {
+                return 1.0
+            } else if annotation == outerCircleAroundUserLocationPolyline {
+                return 1.0
+            } else if annotation == currentTaskLine {
+                return 1.0
+            }
+
             return 2.0
     }
     
