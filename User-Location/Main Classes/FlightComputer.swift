@@ -40,6 +40,8 @@ class FlightComputer {
     
     private var isGliderCircling: Bool = false
     
+    private var enteredLowOxygenAltitudeTimestamp: Int64?
+
     private var leftTurnCounter: Int = 0
     private var rightTurnCounter: Int = 0
     private var straightCounter: Int = 0
@@ -217,19 +219,52 @@ class FlightComputer {
     }
     
     // Check for Oxygen Warning
-    private func checkForOxygenWarning() {
+    // http://www.sglenzburg.ch/org/public/Dokumente/Powerpoint/Sauerstoff-SGL-Streckenflugseminar.pdf
+    private func checkForLowOxygenWarning() {
         guard let currentLocation = LocationManager.currentLocation()
             else { return }
         
-        let oxygenWarningNeeded = currentLocation.altitude > Presets.FlightComputer.oxygenWarningAltitude
-        if oxygenWarningNeeded == true {
-            if shouldPlayOxygenWarning == true {
-                speak(string: Presets.FlightComputer.oxygenWarningSpokenText)
-                shouldPlayOxygenWarning = false
+        let oxygenWarningSwitch = UserDefaultsManager.lowOxygenWarningState()
+        if oxygenWarningSwitch == true {
+            if currentLocation.altitude > Presets.FlightComputer.lowOxygenWarningAltitude {
+                if enteredLowOxygenAltitudeTimestamp == nil {
+                    //print("GLIDER ENTERED LOW OXYGEN ALTITUDE")
+                    enteredLowOxygenAltitudeTimestamp = Date.currentUnixTimeStamp
+                } else {
+                    let secondsAboveLowOxygenWarningAltitude = Date.currentUnixTimeStamp - enteredLowOxygenAltitudeTimestamp!
+                    if secondsAboveLowOxygenWarningAltitude > Presets.FlightComputer.safeSecondsAtLowOxygenAltitude {
+                        if shouldPlayOxygenWarning == true {
+                            //print("PLAY OXYGEN WARNING")
+                            speak(string: Presets.FlightComputer.lowOxygenWarningSpokenText)
+                            shouldPlayOxygenWarning = false
+                        } else {
+                            //print("GLIDER IN LOW OXYGEN WARNING ALTITUDE, BUT WARNING ALREADY PLAYED")
+                        }
+                        
+                    } else {
+                        //print("GLIDER NOT LONG ENOUGH IN LOW OXYGEN WARNING ALTITUDE")
+                    }
+                    
+                }
+                
+            } else {
+                if enteredLowOxygenAltitudeTimestamp != nil {
+                    //print("GLIDER DESCANDED UNDER LOW OXYGEN WARNING ALTITUDE")
+                    enteredLowOxygenAltitudeTimestamp = nil
+                    if shouldPlayOxygenWarning == false {
+                        shouldPlayOxygenWarning = true
+                    }
+                    
+                } else {
+                    //print("GLIDER IS UNDER LOW OXYGEN WARNING ALTITUDE")
+                }
+                
             }
+            
         } else {
-            shouldPlayOxygenWarning = true
+            //print("OXYGEN WARNING SWITCH IS OFF")
         }
+        
     }
     
     // MARK: Audio Methods
@@ -253,7 +288,7 @@ extension FlightComputer: LocationManagerDelegate {
         checkIfGliderIsFlying()
         checkIfGliderIsCircling()
         checkForGearWarning()
-        checkForOxygenWarning()
+        checkForLowOxygenWarning()
     }
     
 }
