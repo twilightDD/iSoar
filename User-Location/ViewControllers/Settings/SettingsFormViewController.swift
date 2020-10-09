@@ -126,16 +126,16 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                         
                 }
                     
-                <<< SwitchRow("Oxygen Warning") { row in
+                <<< SwitchRow("Low Oxygen Warning") { row in
                     row.title = row.tag
-                    row.value = UserDefaultsManager.oxygenWarningState()
+                    row.value = UserDefaultsManager.lowOxygenWarningState()
                     
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "speaker")
                     
                 }.onChange { row in
-                    guard let oxygenWarningState = row.value else { return }
-                    UserDefaultsManager.set(oxygenWarningState: oxygenWarningState)
+                    guard let lowOxygenWarningState = row.value else { return }
+                    UserDefaultsManager.set(lowOxygenWarningState: lowOxygenWarningState)
                     
             }
             
