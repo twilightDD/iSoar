@@ -54,10 +54,12 @@ struct Presets {
         static let minimalFlightSpeed: CLLocationSpeed = 10
         
         // Oxygen Warning
-        /// Represents the Oxygen Warning Altitude
-        static let oxygenWarningAltitude: CLLocationDistance = 3500
+        /// Represents the Oxygen Warning Altitude - Warning only above this Altitude
+        static let lowOxygenWarningAltitude: CLLocationDistance = 3050
+        /// Represents the Time at low Oxygen Level - Warning only above this Period of time (Secends)
+        static let safeSecondsAtLowOxygenAltitude: Int = 1800
         /// Represents the spoken Text of the acoustic Warning
-        static let oxygenWarningSpokenText: String = "Warning, Oxygen Level low"
+        static let lowOxygenWarningSpokenText: String = "Warning, Oxygen Level low"
         
         // Landing Gear Warning
         /// Represents the lower distance Limit above the Airport in which user is warned
@@ -105,7 +107,7 @@ struct Presets {
                                 "Denmark": "mapbox://styles/dlmapbox/ckecrvjox0fsv19mh1yb3mp1q",
                                 "Finland": "mapbox://styles/dlmapbox/ckecpy9jc2gbk19mx1zy46xb0",
                                 "Germany": "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt",
-                                // Greece
+                                "Greece": "mapbox://styles/dlmapbox/ckg0sjmlb1mhm19o3nn9xbwsz",
                                 "Hungary": "mapbox://styles/dlmapbox/ckf3uk2na119319s711ueb1uv",
                                 "Italy": "mapbox://styles/dlmapbox/ckecoq7k81yw719kijd8f1m6w",
                                 "Netherlands": "mapbox://styles/dlmapbox/ckecq6au02gpp19mjk98tbg0u",

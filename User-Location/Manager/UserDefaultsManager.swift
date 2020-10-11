@@ -16,6 +16,7 @@ class UserDefaultsManager {
     private static let GliderIDKey = "gliderID"
     private static let OwnFlarmIDKey = "ownFlarmID"
     private static let GearWarningStateKey = "gearWarningState"
+    private static let LowOxygenWarningStateKey = "LowOxygenWarningState"
     private static let SafetyAltitudeKey = "safetyAltitude"
     private static let ShowAllNearbyGlidersStateKey = "showAllNearbyGlidersState"
     private static let BuddyFilterStateKey = "buddyFilterState"
@@ -26,12 +27,14 @@ class UserDefaultsManager {
     private static let SelectedCountryKey = "mapCountry"
     private static let MapStyleURLKey = "mapStyleURL"
     private static let UpdateAirportDatabaseAtStartupStateKey = "updateAirportDatabaseAtStartupState"
+    private static let ShowDistanceCirclesStateKey = "showDistanceCirclesStateKey"
     
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
     private static let ownFlarmIDDefault = "FLRxxxxxx"
     private static let gliderRadioDefault: Double = 30
     private static let gearWarningSwitchDefault: Bool = true
+    private static let lowOxygenWarningSwitchDefault: Bool = true
     private static let safetyAltitudeDefault: Double = 300
     private static let showTrackingRouteSwitchDefault: Bool = true
     private static let showFlarmBuddySwitchDefault: Bool = true
@@ -43,6 +46,7 @@ class UserDefaultsManager {
     private static let selectedCountryDefault: String = "Germany"
     private static let mapStyleURLDefault: String = "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt"
     private static let updateAirportDatabaseAtStartupSwitchDefault: Bool = true
+    private static let showDistanceCirclesSwitchDefault: Bool = true
     
     // MARK: - Lets and Vars
     private static let shared = UserDefaultsManager()
@@ -65,6 +69,9 @@ class UserDefaultsManager {
         }
         if shared.userDefaults.value(forKey: GearWarningStateKey) == nil {
             shared.userDefaults.set(true, forKey: GearWarningStateKey)
+        }
+        if shared.userDefaults.value(forKey: LowOxygenWarningStateKey) == nil {
+            shared.userDefaults.set(true, forKey: LowOxygenWarningStateKey)
         }
         if shared.userDefaults.value(forKey: ShowTrackingRouteStateKey) == nil {
             shared.userDefaults.set(true, forKey: ShowTrackingRouteStateKey)
@@ -95,6 +102,9 @@ class UserDefaultsManager {
         }
         if shared.userDefaults.value(forKey: UpdateAirportDatabaseAtStartupStateKey) == nil {
             shared.userDefaults.set(true, forKey: UpdateAirportDatabaseAtStartupStateKey)
+        }
+        if shared.userDefaults.value(forKey: ShowDistanceCirclesStateKey) == nil {
+            shared.userDefaults.set(true, forKey: ShowDistanceCirclesStateKey)
         }
     }
     
@@ -140,6 +150,17 @@ class UserDefaultsManager {
     
     class func set(gearWarningState: Bool) {
         shared.userDefaults.set(gearWarningState, forKey: GearWarningStateKey)
+    }
+    
+    // MARK: LowOxygenWarningSwitch
+    class func lowOxygenWarningState()
+        -> Bool {
+            let lowOxygenWarningSwitch = shared.userDefaults.value(forKey: LowOxygenWarningStateKey) as? Bool ?? lowOxygenWarningSwitchDefault
+            return lowOxygenWarningSwitch
+    }
+    
+    class func set(lowOxygenWarningState: Bool) {
+        shared.userDefaults.set(lowOxygenWarningState, forKey: LowOxygenWarningStateKey)
     }
     
     // MARK: SafetyAltitude
@@ -261,6 +282,17 @@ class UserDefaultsManager {
     
     class func set(updateAirportDatabaseAtStartupState: Bool) {
         shared.userDefaults.set(updateAirportDatabaseAtStartupState, forKey: UpdateAirportDatabaseAtStartupStateKey)
+    }
+    
+    // MARK: Show Distance Circles Switch
+    class func showDistanceCirclesState()
+        -> Bool {
+            let showDistanceCirclesSwitchKey = shared.userDefaults.value(forKey: ShowDistanceCirclesStateKey) as? Bool ?? showDistanceCirclesSwitchDefault
+            return showDistanceCirclesSwitchKey
+    }
+    
+    class func set(showDistanceCirclesState: Bool) {
+        shared.userDefaults.set(showDistanceCirclesState, forKey: ShowDistanceCirclesStateKey)
     }
     
 }
