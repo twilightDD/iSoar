@@ -129,6 +129,7 @@ class MapScreenViewController: UIViewController {
         shared.mapView.setZoomLevel(UserDefaultsManager.userMapZoomLevel(), animated: true)
         
     }
+    
     // MARK: - Setup functions
     func setupMapBox() {
         

@@ -143,9 +143,8 @@ class EditBuddyFormViewController: FormViewController {
             }
             
             alertViewController.addAction(cancelAction)
-            present(alertViewController, animated: true) {
-                
-            }
+            present(alertViewController, animated: true)
+            
         }
         
     }
