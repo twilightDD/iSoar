@@ -7,6 +7,7 @@
 //
 
 import CoreLocation
+import UIKit
 
 // MARK: - Protocol - LocationManagerDelegate
 protocol LocationManagerDelegate: AnyObject {
@@ -84,6 +85,41 @@ class LocationManager: NSObject {
             let altitudeDifference = currentLocation.altitude - altitude
             return altitudeDifference
     }
+    
+    // MARK: - Private Methods
+    private func showLocationServiceDeniedAlert() {
+        guard let rootViewController = UIApplication.shared.windows.first?.rootViewController
+        else { return }
+        
+        let alert = UIAlertController(title: "Location Service disabled",
+                                      message: "The location service for iSoar is currently disabled. Please allow the use of the location service in the settings.",
+                                      preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .cancel,
+                                         handler: nil)
+        
+        let settingsAction = UIAlertAction.init(title: "Settings",
+                                                style: .default) { (action) in
+            
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl,
+                                          completionHandler: { (success) in
+                                            // Settings opened
+                                          })
+            }
+        }
+        
+        alert.addAction(cancelAction)
+        alert.addAction(settingsAction)
+        
+        rootViewController.present(alert, animated: true, completion: nil)
+
+    }
 
 }
 
@@ -108,8 +144,7 @@ extension LocationManager {
         case .authorizedWhenInUse:
             locationManager.startUpdatingLocation()
         case .denied:
-            // Show alert instructing them how to turn on permissions
-            break
+            showLocationServiceDeniedAlert()
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .restricted:
@@ -152,7 +187,31 @@ extension LocationManager: CLLocationManagerDelegate {
         formerLocation = currentLocation
         
     }
-
+    
+    // If LocationManager did Fail With Error
+    func locationManager(_ manager: CLLocationManager,
+                         didFailWithError error: Error) {
+        #if DEBUG
+        if let coreLocationError = error as? CLError {
+            switch coreLocationError {
+            case CLError.locationUnknown:
+                NotificationBanner.show("Location unknown")
+            case CLError.headingFailure:
+                NotificationBanner.show("Heading unknown")
+            case CLError.denied:
+                NotificationBanner.show("Location Error: User denied use of Location Services")
+            default:
+                NotificationBanner.show("Other Location error")
+            }
+        } else {
+            NotificationBanner.show("Location Error: \(error.localizedDescription)")
+        }
+        #else
+        
+        #endif
+        
+    }
+    
     // Check for Location Authorization
     func locationManager(_ manager: CLLocationManager,
                          didChangeAuthorization status: CLAuthorizationStatus) {
