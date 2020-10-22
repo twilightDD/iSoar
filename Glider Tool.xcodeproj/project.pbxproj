@@ -40,6 +40,7 @@
 		E02052AF23E36A8200839B84 /* FlightComputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02052AE23E36A8200839B84 /* FlightComputer.swift */; };
 		E02052B123E36A9A00839B84 /* FlightRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02052B023E36A9A00839B84 /* FlightRecorder.swift */; };
 		E0310D3A24D8A2CF009EB354 /* NSManagedObjectContext+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0310D3924D8A2CF009EB354 /* NSManagedObjectContext+Fetch.swift */; };
+		E05033A7253F203A0057BE66 /* DLAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05033A6253F203A0057BE66 /* DLAlertViewController.swift */; };
 		E054EB4324FD8B3000A901F0 /* MapAreaDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E054EB4224FD8B3000A901F0 /* MapAreaDownloadManager.swift */; };
 		E06936D8241B8CA00073D078 /* GliderTelemetryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06936D7241B8CA00073D078 /* GliderTelemetryData.swift */; };
 		E070FD9E24A3109A0039386D /* Glider Tool.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E070FD9C24A3109A0039386D /* Glider Tool.xcdatamodeld */; };
@@ -116,6 +117,7 @@
 		E02052AE23E36A8200839B84 /* FlightComputer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightComputer.swift; sourceTree = "<group>"; };
 		E02052B023E36A9A00839B84 /* FlightRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightRecorder.swift; sourceTree = "<group>"; };
 		E0310D3924D8A2CF009EB354 /* NSManagedObjectContext+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Fetch.swift"; sourceTree = "<group>"; };
+		E05033A6253F203A0057BE66 /* DLAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLAlertViewController.swift; sourceTree = "<group>"; };
 		E054EB4224FD8B3000A901F0 /* MapAreaDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAreaDownloadManager.swift; sourceTree = "<group>"; };
 		E06936D7241B8CA00073D078 /* GliderTelemetryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderTelemetryData.swift; sourceTree = "<group>"; };
 		E070FD9D24A3109A0039386D /* Glider Tool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Glider Tool.xcdatamodel"; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 				E001B84E243C810700559D7B /* NotificationBanner.swift */,
 				E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */,
 				E00E08CB23DB877A00BE04F6 /* TimeDateFormatter.swift */,
+				E05033A6253F203A0057BE66 /* DLAlertViewController.swift */,
 			);
 			path = "Main Classes";
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				D0C5ED5B22A4769C009A0542 /* AirportDatabase.swift in Sources */,
 				E02052B123E36A9A00839B84 /* FlightRecorder.swift in Sources */,
 				E0E1D87A229476C00004DE81 /* DestinationSelectionViewController.swift in Sources */,
+				E05033A7253F203A0057BE66 /* DLAlertViewController.swift in Sources */,
 				D0AA8D0124C1C0400034E6EE /* NSManagedObjectContext+Save.swift in Sources */,
 				D0829D3F24351FEC009E40EC /* Presets.swift in Sources */,
 				E011D4C123735CB9006F0CC3 /* OGNSocketConnectionManager.swift in Sources */,
@@ -652,8 +656,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Distribution: Denis Leupold (HCR82BSM8Z)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = HCR82BSM8Z;
@@ -716,8 +720,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Apple Distribution: Denis Leupold (HCR82BSM8Z)";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = HCR82BSM8Z;
@@ -746,9 +750,9 @@
 			baseConfigurationReference = 75CB3E8DFF8D455C8F1742A5 /* Pods-Glider Tool.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Distribution: Denis Leupold (HCR82BSM8Z)";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 31;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = HCR82BSM8Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -764,7 +768,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.sonicsempire.test1;
 				PRODUCT_NAME = iSoar;
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "de.sonicsempire.test1 AppStore";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -776,9 +780,9 @@
 			baseConfigurationReference = AF3E6C1CC85039594789B3C8 /* Pods-Glider Tool.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Distribution: Denis Leupold (HCR82BSM8Z)";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 31;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = HCR82BSM8Z;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -791,10 +795,11 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = de.sonicsempire.test1;
 				PRODUCT_NAME = iSoar;
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "de.sonicsempire.test1 AppStore";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
