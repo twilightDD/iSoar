@@ -403,15 +403,13 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
             self.present(mailComposer, animated: true,
                          completion: nil)
         } else {
-            let alert = UIAlertController(title: "Error creating Mail",
-                                          message: "Mail is not configured in settings app.",
-                                          preferredStyle: .alert)
+            DLAlertViewController.showAlertViewController(title: "Error creating Mail",
+                                                          message: "Mail is not configured in settings app.",
+                                                          preferredStyle: .alert,
+                                                          addActionButton: false,
+                                                          addCancelButton: true,
+                                                          cancelButtonTitle: "OK")
             
-            alert.addAction(UIAlertAction(title: "OK",
-                                          style: .cancel,
-                                          handler: nil))
-            
-            self.present(alert, animated: true)
         }
     }
     

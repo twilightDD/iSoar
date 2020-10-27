@@ -16,7 +16,6 @@ protocol LocationManagerDelegate: AnyObject {
 
 }
 
-// MARK: -
 // MARK: - LocationManager
 class LocationManager: NSObject {
 
@@ -88,37 +87,28 @@ class LocationManager: NSObject {
     
     // MARK: - Private Methods
     private func showLocationServiceDeniedAlert() {
-        guard let rootViewController = UIApplication.shared.windows.first?.rootViewController
-        else { return }
+        DLAlertViewController.showAlertViewController(title: Presets.LocationManager.locationServiceDeniedTitle,
+                                                      message: Presets.LocationManager.locationServiceDeniedMessage,
+                                                      preferredStyle: .alert,
+                                                      addActionButton: true,
+                                                      actionButtonTitle: "Settings",
+                                                      actionButtonHandler: { action in
+                                                        
+                                                        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                                                            return
+                                                        }
+                                                        
+                                                        if UIApplication.shared.canOpenURL(settingsUrl) {
+                                                            UIApplication.shared.open(settingsUrl,
+                                                                                      completionHandler: { success in
+                                                                                        // Settings opened
+                                                                                      })
+                                                        }
+                                                      },
+                                                      
+                                                      addCancelButton: true,
+                                                      cancelButtonTitle: "Cancel")
         
-        let alert = UIAlertController(title: "Location Service disabled",
-                                      message: "The location service for iSoar is currently disabled. Please allow the use of the location service in the settings.",
-                                      preferredStyle: .alert)
-        
-        let cancelAction = UIAlertAction(title: "Cancel",
-                                         style: .cancel,
-                                         handler: nil)
-        
-        let settingsAction = UIAlertAction.init(title: "Settings",
-                                                style: .default) { (action) in
-            
-            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-                return
-            }
-            
-            if UIApplication.shared.canOpenURL(settingsUrl) {
-                UIApplication.shared.open(settingsUrl,
-                                          completionHandler: { (success) in
-                                            // Settings opened
-                                          })
-            }
-        }
-        
-        alert.addAction(cancelAction)
-        alert.addAction(settingsAction)
-        
-        rootViewController.present(alert, animated: true, completion: nil)
-
     }
 
 }

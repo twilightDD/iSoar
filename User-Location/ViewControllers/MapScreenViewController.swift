@@ -337,20 +337,19 @@ class MapScreenViewController: UIViewController {
     
     // MARK: - Private Methods
     
-    // Download updated Airport Database File from Server
+    // Show EULA Confirmation Popup at Startup
     private func showEULAConfirmationPopup() {
         if userAcceptedEULA == false {
-            let alert = UIAlertController(title: "Software Usage Agreement",
-                                          message: Presets.MapScreen.eulaText,
-                                          preferredStyle: .alert)
+            DLAlertViewController.showAlertViewController(title: Presets.MapScreen.eulaTitle,
+                                                          message: Presets.MapScreen.eulaMessage,
+                                                          preferredStyle: .alert,
+                                                          addActionButton: true,
+                                                          actionButtonTitle: "Confirm",
+                                                          actionButtonHandler: { action in
+                                                            self.userAcceptedEULA = true
+                                                          },
+                                                          addCancelButton: false)
             
-            alert.addAction(UIAlertAction(title: "Confirm",
-                                          style: .default,
-                                          handler: { action in
-                                            self.userAcceptedEULA = true
-            }))
-            
-            self.present(alert, animated: true)
         }
         
     }
@@ -890,62 +889,43 @@ extension MapScreenViewController: MGLMapViewDelegate {
     // User did select Annotation
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         guard let title = annotation.title ?? nil,
-            let subtitle = annotation.subtitle ?? nil
-            else { return }
+              let subtitle = annotation.subtitle ?? nil
+        else { return }
         
         if let airportAnnotation = annotation as? AirportAnnotation {
             // If selected Airport is ALREADY the Destination Airport
             if airportAnnotation.airport == FlightComputer.selectedDestinationAirport() {
-                //Create AlertViewController
-                let alertController = UIAlertController(title: (subtitle),
-                                                        message: "Please choose an option for \(title)",
-                    preferredStyle: .alert)
-                
-                alertController.addAction(UIAlertAction(title: "Cancel Route",
-                                                        style: .destructive,
-                                                        handler: { [unowned self] _ in
-                                                            self.mapView.deselectAnnotation(annotation, animated: true)
-                                                            FlightComputer.setSelectedDestinationAirport(nil)
-                }))
-                
-                alertController.addAction(UIAlertAction(title: "Dismiss",
-                                                        style: .cancel,
-                                                        handler: { [unowned self] _ in
-                                                            self.mapView.deselectAnnotation(annotation, animated: true)
-                }))
-                
-                // Present UIAlertController
-                self.present(alertController, animated: true, completion: {
-                })
+                DLAlertViewController.showAlertViewController(title: (subtitle),
+                                                              message: "Please choose an option for \(title)",
+                                                              preferredStyle: .alert,
+                                                              addActionButton: true,
+                                                              actionButtonTitle: "Cancel Route",
+                                                              actionButtonHandler: { [unowned self] action in
+                                                                self.mapView.deselectAnnotation(annotation, animated: true)
+                                                                FlightComputer.setSelectedDestinationAirport(nil)
+                                                              },
+                                                              addCancelButton: true,
+                                                              cancelButtonTitle: "Dismiss",
+                                                              cancelButtonHandler: { [unowned self] action in
+                                                                self.mapView.deselectAnnotation(annotation, animated: true)
+                                                              })
                 
                 // If selected Airport is NOT the Destination Airport
             } else {
-                //Create AlertViewController
-                let alertController = UIAlertController(title: (subtitle),
-                                                        message: "Please choose an option for \(title)",
-                    preferredStyle: .alert)
-                
-                alertController.addAction(UIAlertAction(title: "Destination",
-                                                        style: .destructive,
-                                                        handler: { [unowned self] _ in
-                                                            self.mapView.deselectAnnotation(annotation, animated: true)
-                                                            FlightComputer.setSelectedDestinationAirport(airportAnnotation.airport)
-                }))
-                
-                alertController.addAction(UIAlertAction(title: "Dismiss",
-                                                        style: .cancel,
-                                                        handler: { [unowned self] _ in
-                                                            self.mapView.deselectAnnotation(annotation, animated: true)
-                }))
-                
-                // Present UIAlertController
-                #if DEBUG
-                print("Select Airport on Map is deactivated in Debug Mode")
-                return
-                #else
-                self.present(alertController, animated: true, completion: {
-                })
-                #endif
+                DLAlertViewController.showAlertViewController(title: (subtitle),
+                                                              message: "Please choose an option for \(title)",
+                                                              preferredStyle: .alert,
+                                                              addActionButton: true,
+                                                              actionButtonTitle: "Destination",
+                                                              actionButtonHandler: { [unowned self] action in
+                                                                self.mapView.deselectAnnotation(annotation, animated: true)
+                                                                FlightComputer.setSelectedDestinationAirport(airportAnnotation.airport)
+                                                              },
+                                                              addCancelButton: true,
+                                                              cancelButtonTitle: "Dismiss",
+                                                              cancelButtonHandler: { [unowned self] action in
+                                                                self.mapView.deselectAnnotation(annotation, animated: true)
+                                                              })
                 
             }
         }
