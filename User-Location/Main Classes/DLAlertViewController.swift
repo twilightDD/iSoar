@@ -10,7 +10,7 @@ import UIKit
 
 class DLAlertViewController {
     
-    static func showAlertViewController(title: String? = "Title", message: String? = nil, preferredStyle: UIAlertController.Style, on controller: UIViewController? = nil, addActionButton: Bool, actionButtonTitle: String? = "OK", cancelButtonTitle: String? = "Cancel") {
+    static func showAlertViewController(title: String? = "Title", message: String? = nil, preferredStyle: UIAlertController.Style, on controller: UIViewController? = nil, addActionButton: Bool, actionButtonTitle: String? = "OK", actionButtonHandler: ((UIAlertAction) -> Void)? = nil, addCancelButton: Bool, cancelButtonTitle: String? = "Cancel", cancelButtonHandler: ((UIAlertAction) -> Void)? = nil) {
         
         let presentingViewController = controller ?? UIApplication.shared.windows.first?.rootViewController
         
@@ -21,12 +21,14 @@ class DLAlertViewController {
         if addActionButton == true {
             alert.addAction(UIAlertAction(title: actionButtonTitle,
                                           style: .default,
-                                          handler: nil))
+                                          handler: actionButtonHandler))
         }
         
-        alert.addAction(UIAlertAction(title: cancelButtonTitle,
+        if addCancelButton == true {
+            alert.addAction(UIAlertAction(title: cancelButtonTitle,
                                           style: .cancel,
-                                          handler: nil))
+                                          handler: cancelButtonHandler))
+        }
 
         presentingViewController?.present(alert, animated: true, completion: nil)
         
@@ -34,4 +36,11 @@ class DLAlertViewController {
     
 }
 
-//        DLAlertViewController.showAlertViewController(title: "Warning", message: "Warning Message", preferredStyle: .alert, addActionButton: true, actionButtonTitle: "OK", cancelButtonTitle: "Cancel")
+// Example use:
+//DLAlertViewController.showAlertViewController(title: "Warning",
+//                                              message: "Warning Message",
+//                                              preferredStyle: .alert,
+//                                              addActionButton: true,
+//                                              actionButtonTitle: "OK",
+//                                              actionButtonHandler: { action in print("Action will be executed...")},
+//                                              cancelButtonTitle: "Cancel")
