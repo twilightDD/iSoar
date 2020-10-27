@@ -39,7 +39,6 @@ struct GliderTelemetryData: Hashable {
         hasher.combine(flarmID)
     }
     
-    // MARK: - Init&Co.
     // MARK: - Public Methods
     static func telemetryDataFromOGNGliderResponse(_ response: String)
         -> GliderTelemetryData? {
