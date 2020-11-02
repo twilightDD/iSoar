@@ -7,6 +7,7 @@
 //
 
 import CoreLocation
+import UIKit
 
 // MARK: - Protocol - LocationManagerDelegate
 protocol LocationManagerDelegate: AnyObject {
@@ -15,7 +16,6 @@ protocol LocationManagerDelegate: AnyObject {
 
 }
 
-// MARK: -
 // MARK: - LocationManager
 class LocationManager: NSObject {
 
@@ -84,6 +84,32 @@ class LocationManager: NSObject {
             let altitudeDifference = currentLocation.altitude - altitude
             return altitudeDifference
     }
+    
+    // MARK: - Private Methods
+    private func showLocationServiceDeniedAlert() {
+        DLAlertViewController.showAlertViewController(title: Presets.LocationManager.locationServiceDeniedTitle,
+                                                      message: Presets.LocationManager.locationServiceDeniedMessage,
+                                                      preferredStyle: .alert,
+                                                      addActionButton: true,
+                                                      actionButtonTitle: "Settings",
+                                                      actionButtonHandler: { action in
+                                                        
+                                                        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                                                            return
+                                                        }
+                                                        
+                                                        if UIApplication.shared.canOpenURL(settingsUrl) {
+                                                            UIApplication.shared.open(settingsUrl,
+                                                                                      completionHandler: { success in
+                                                                                        // Settings opened
+                                                                                      })
+                                                        }
+                                                      },
+                                                      
+                                                      addCancelButton: true,
+                                                      cancelButtonTitle: "Cancel")
+        
+    }
 
 }
 
@@ -108,8 +134,7 @@ extension LocationManager {
         case .authorizedWhenInUse:
             locationManager.startUpdatingLocation()
         case .denied:
-            // Show alert instructing them how to turn on permissions
-            break
+            showLocationServiceDeniedAlert()
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         case .restricted:
@@ -152,7 +177,31 @@ extension LocationManager: CLLocationManagerDelegate {
         formerLocation = currentLocation
         
     }
-
+    
+    // If LocationManager did Fail With Error
+    func locationManager(_ manager: CLLocationManager,
+                         didFailWithError error: Error) {
+        #if DEBUG
+        if let coreLocationError = error as? CLError {
+            switch coreLocationError {
+            case CLError.locationUnknown:
+                NotificationBanner.show("Location unknown")
+            case CLError.headingFailure:
+                NotificationBanner.show("Heading unknown")
+            case CLError.denied:
+                NotificationBanner.show("Location Error: User denied use of Location Services")
+            default:
+                NotificationBanner.show("Other Location error")
+            }
+        } else {
+            NotificationBanner.show("Location Error: \(error.localizedDescription)")
+        }
+        #else
+        
+        #endif
+        
+    }
+    
     // Check for Location Authorization
     func locationManager(_ manager: CLLocationManager,
                          didChangeAuthorization status: CLAuthorizationStatus) {

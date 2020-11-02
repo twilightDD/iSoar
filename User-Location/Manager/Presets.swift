@@ -41,7 +41,18 @@ struct Presets {
     
     struct MapScreen {
         
-        static let eulaText: String = "You are not allowed to use this software as your primary navigation system.\n\nThe data provided in this app may be incorrect or incomplete.\n\nThis software may only be used as an additional backup to your currently valid ICAO card.\n\nBy using this app in the mobile network, costs may arise from your mobile operator."
+        static let eulaTitle: String = "Software Usage Agreement"
+        
+        static let eulaMessage: String = "You are not allowed to use this software as your primary navigation system.\n\nThe data provided in this app may be incorrect or incomplete.\n\nThis software may only be used as an additional backup to your currently valid ICAO card.\n\nBy using this app in the mobile network, costs may arise from your mobile operator."
+        
+    }
+    
+    struct LocationManager {
+        
+        /// AlertViewController Title when Location Service is disabled
+        static let locationServiceDeniedTitle: String = "Location Service disabled"
+        /// AlertViewController Message when Location Service is disabled
+        static let locationServiceDeniedMessage: String = "The location service for iSoar is currently disabled. Please allow the use of the location service in the settings."
         
     }
     

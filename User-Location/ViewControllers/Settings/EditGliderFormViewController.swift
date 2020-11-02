@@ -162,8 +162,11 @@ class EditGliderFormViewController: FormViewController {
             let alertViewController = UIAlertController.init(title: "Warning",
                                                              message: "Glider Registration or FlarmID already exists.",
                                                              preferredStyle: .alert)
-            let cancelAction = UIAlertAction.init(title: "OK", style: .cancel) { (action) in
+            
+            let cancelAction = UIAlertAction.init(title: "OK",
+                                                  style: .cancel) { (action) in
             }
+            
             alertViewController.addAction(cancelAction)
             present(alertViewController, animated: true) {
                 

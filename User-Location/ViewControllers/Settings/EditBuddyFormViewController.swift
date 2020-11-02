@@ -137,15 +137,16 @@ class EditBuddyFormViewController: FormViewController {
             let alertViewController = UIAlertController.init(title: "Warning",
                                                              message: "Buddy Name or FlarmID already exists.",
                                                              preferredStyle: .alert)
-            
+
             let cancelAction = UIAlertAction.init(title: "OK",
                                                   style: .cancel) { (action) in
             }
-            
+
             alertViewController.addAction(cancelAction)
-            present(alertViewController, animated: true) {
-                
-            }
+            present(alertViewController, animated: true)
+            
+//            DLAlertViewController.showAlertViewController(title: "Warning", message: "Warning Message", preferredStyle: .alert, addActionButton: true, actionButtonTitle: "OK", cancelButtonTitle: "Cancel")
+
         }
         
     }

@@ -118,12 +118,27 @@ class FlightComputer {
             // Check if Glider is slower than 10m/s, (Presets)
             // TODO: GitHub Issue 32: https://github.com/dlpgithub/iSoar/issues/32
             if let currentLocation = LocationManager.currentLocation(),
-                currentLocation.speed < Presets.FlightComputer.minimalFlightSpeed,
-                currentLocation.speed > 0 {
+               currentLocation.speed < Presets.FlightComputer.minimalFlightSpeed,
+               currentLocation.speed > 0 {
                 
+//                if let currentTerrainElevation = DLTerrainElevation.currentTerrainElevation(),
+//                   currentLocation.altitude-currentTerrainElevation < 100 {
+//                    // Set gliderIsFlying to false
+//                    isGliderFlying = false
+//                    
+//                    // TODO: 20201029 Why unregister?
+//                    // Unregister at OGNSocketConnectionManager
+//                    OGNSocketConnectionManager.unregisterForSocketUpdates(self)
+//                    
+//                } else {
+//                    // Wenn keine terrain elevation oder abstand größer als 100m
+//                }
+
+                // TODO: 20201031 wenn alles läuft muss das weg
                 // Set gliderIsFlying to false
                 isGliderFlying = false
                 
+                // TODO: 20201029 Why unregister?
                 // Unregister at OGNSocketConnectionManager
                 OGNSocketConnectionManager.unregisterForSocketUpdates(self)
             }
