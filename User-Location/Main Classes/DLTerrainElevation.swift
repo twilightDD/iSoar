@@ -15,16 +15,13 @@ class DLTerrainElevation {
     static private let shared = DLTerrainElevation()
     
     // MARK: - Public Class Methods
-    static func currentTerrainElevation(completion: @escaping (_ elevation: Double?) -> Void) {
+    // Get Terrain elevation of current User Location via API from https://www.opentopodata.org
+    class func currentTerrainElevation(completion: @escaping (_ elevation: Double?) -> Void) {
         
-        let shared = DLTerrainElevation.shared
+        guard let currentLocation = LocationManager.currentLocation(),
+              let url = URL(string: "https://api.opentopodata.org/v1/srtm30m?locations=\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)") else { return }
         
-        let latitude = LocationManager.currentLocation()?.coordinate.latitude
-        let longitude = LocationManager.currentLocation()?.coordinate.longitude
-        
-        let url = URL(string: "https://api.opentopodata.org/v1/srtm30m?locations=47,8")
-        
-        let task = URLSession.shared.dataTask(with: url!) { data, response, error in
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else { return }
             
             if let statusCode = (response as? HTTPURLResponse)?.statusCode {
@@ -37,31 +34,30 @@ class DLTerrainElevation {
                             for item in results {
                                 
                                 let terrainElevation = item["elevation"] as! Double
-                                
-                                //print(terrainElevation)
-
                                 completion(terrainElevation)
+                                
                             }
                             
                         }
+                        
                     } catch let error as NSError {
                         print("Failed to load: \(error.localizedDescription)")
-                        
+                        completion(nil)
                     }
                     
                 } else {
                     completion(nil)
+                    print("STATUSCODE NOT 200 / NOT OK")
                 }
                 
+            } else {
+                print("NO STATUS CODE")
             }
             
         }
         
+        task.resume()
+        
     }
     
 }
-
-
-//DLTerrainElevation.currentTerrainElevation { elevation in
-//    print("elevation \(elevation ?? 0.0)")
-//}
