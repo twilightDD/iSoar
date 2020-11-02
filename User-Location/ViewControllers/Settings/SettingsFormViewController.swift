@@ -405,10 +405,8 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         } else {
             DLAlertViewController.showAlertViewController(title: "Error creating Mail",
                                                           message: "Mail is not configured in settings app.",
-                                                          preferredStyle: .alert,
-                                                          addActionButton: false,
-                                                          addCancelButton: true,
-                                                          cancelButtonTitle: "OK")
+                                                          preferredStyle: .alert
+                                                          )
             
         }
     }
