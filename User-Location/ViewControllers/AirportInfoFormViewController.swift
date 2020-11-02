@@ -54,7 +54,7 @@ class AirportInfoFormViewController: FormViewController {
                     row.disabled = true
                     
                 }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "textformat")
+                    cell.imageView?.image = UIImage(systemName: "airplane")
                     
                 }.cellUpdate { cell, row in
                     cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
@@ -195,7 +195,22 @@ class AirportInfoFormViewController: FormViewController {
                     row.disabled = true
                     
                 }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "textformat")
+                    cell.imageView?.image = UIImage(systemName: "globe")
+                    
+                }.cellUpdate { cell, row in
+                    cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                    cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                    
+                }
+                
+                <<< TextRow { row in
+                    row.title = "Elevation:"
+                    row.tag = "Elevation:"
+                    row.value = String(format: "%.0f m", selectedDestinationAirport.elevation)
+                    row.disabled = true
+                    
+                }.cellSetup { cell, row in
+                    cell.imageView?.image = UIImage(systemName: "globe")
                     
                 }.cellUpdate { cell, row in
                     cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
@@ -232,22 +247,7 @@ class AirportInfoFormViewController: FormViewController {
                     cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
                     
                 }
-                
-                <<< TextRow { row in
-                    row.title = "Elevation:"
-                    row.tag = "Elevation:"
-                    row.value = String(format: "%.0f m", selectedDestinationAirport.elevation)
-                    row.disabled = true
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "antenna.radiowaves.left.and.right")
-                    
-                }.cellUpdate { cell, row in
-                    cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
-                    cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
-                    
-            }
-            
+
             return section
             
     }
