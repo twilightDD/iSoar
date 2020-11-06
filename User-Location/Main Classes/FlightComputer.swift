@@ -41,7 +41,7 @@ class FlightComputer {
     private var isGliderCircling: Bool = false
     
     private var enteredLowOxygenAltitudeTimestamp: Int64?
-
+    
     private var leftTurnCounter: Int = 0
     private var rightTurnCounter: Int = 0
     private var straightCounter: Int = 0
@@ -68,20 +68,20 @@ class FlightComputer {
     }
     
     class func isGliderFlying()
-        -> Bool {
-            let isGliderFlying = shared.isGliderFlying
-            
-            // TODO: 20200518 Ist das hier richtig? Und Unregister?
-            OGNSocketConnectionManager.registerForSocketUpdates(shared)
-            
-            return isGliderFlying
-            
+    -> Bool {
+        let isGliderFlying = shared.isGliderFlying
+        
+        // TODO: 20200518 Ist das hier richtig? Und Unregister?
+        OGNSocketConnectionManager.registerForSocketUpdates(shared)
+        
+        return isGliderFlying
+        
     }
     
     class func selectedDestinationAirport()
-        -> AirportDatabase.Airport? {
-            let destinationAirport = shared.selectedDestinationAirport
-            return destinationAirport
+    -> AirportDatabase.Airport? {
+        let destinationAirport = shared.selectedDestinationAirport
+        return destinationAirport
     }
     
     class func setSelectedDestinationAirport(_ airport: AirportDatabase.Airport?) {
@@ -106,41 +106,74 @@ class FlightComputer {
         if isGliderFlying == false {
             // Check if Glider is faster than 10m/s, (Presets)
             if let currentLocation = LocationManager.currentLocation(),
-                currentLocation.speed > Presets.FlightComputer.minimalFlightSpeed {
+               currentLocation.speed > Presets.FlightComputer.minimalFlightSpeed {
                 
                 // Set gliderIsFlying to true
                 isGliderFlying = true
                 
                 // Register at OGNSocketConnectionManager
                 OGNSocketConnectionManager.registerForSocketUpdates(self)
+                
+                #if DEBUG
+                DLLogger.writeStringToLogFile("\(#function) -> true - Flight Start detected")
+                #endif
+                
             }
         } else {
             // Check if Glider is slower than 10m/s, (Presets)
-            // TODO: GitHub Issue 32: https://github.com/dlpgithub/iSoar/issues/32
             if let currentLocation = LocationManager.currentLocation(),
                currentLocation.speed < Presets.FlightComputer.minimalFlightSpeed,
                currentLocation.speed > 0 {
                 
-//                if let currentTerrainElevation = DLTerrainElevation.currentTerrainElevation(),
-//                   currentLocation.altitude-currentTerrainElevation < 100 {
-//                    // Set gliderIsFlying to false
-//                    isGliderFlying = false
-//                    
-//                    // TODO: 20201029 Why unregister?
-//                    // Unregister at OGNSocketConnectionManager
-//                    OGNSocketConnectionManager.unregisterForSocketUpdates(self)
-//                    
-//                } else {
-//                    // Wenn keine terrain elevation oder abstand größer als 100m
-//                }
-
-                // TODO: 20201031 wenn alles läuft muss das weg
-                // Set gliderIsFlying to false
-                isGliderFlying = false
+                // Get Terrain elevation of current User Location
+                DLTerrainElevation.currentTerrainElevation(completion: { elevation in
+                    if let currentTerrainElevation = (elevation) {
+                        // If vertical Distance between Glider Altitude and Terrain Elevation is < 100m - set isGliderFlying = false
+                        if currentLocation.altitude-currentTerrainElevation < 100 {
+                            self.isGliderFlying = false
+                            OGNSocketConnectionManager.unregisterForSocketUpdates(self)
+                            
+                            #if DEBUG
+                            DLLogger.writeStringToLogFile("\(#function) > false - Flight End detected")
+                            #endif
+                            
+                        } else {
+                            // If vertical Distance between Glider Altitude and Terrain Elevation is > 100m  - Nothing to do
+                        }
+                    } else {
+                        // If we cant get the Terrain elevation we check for the distance to the nearest Airport
+                        if let nearestAirport = AirportDatabase.nearestAirport(),
+                           let distance = LocationManager.distanceFromCurrentLocationTo(location: nearestAirport.location()) {
+                            // If Distance to nearest Airport is < 500m - set isGliderFlying = false
+                            if distance < Presets.FlightComputer.maximalDistanceFromNearestAirport {
+                                self.isGliderFlying = false
+                                OGNSocketConnectionManager.unregisterForSocketUpdates(self)
+                                
+                                #if DEBUG
+                                DLLogger.writeStringToLogFile("\(#function) > false - Flight End detected")
+                                #endif
+                                
+                            } else {
+                                // If Distance to nearest Airport is > 500m - check current Altitude of Glider
+                                // If Glider Altitude is < 1200 - set isGliderFlying = false
+                                if currentLocation.altitude < 1200 {
+                                    self.isGliderFlying = false
+                                    OGNSocketConnectionManager.unregisterForSocketUpdates(self)
+                                    
+                                    #if DEBUG
+                                    DLLogger.writeStringToLogFile("\(#function) > false - Flight End detected")
+                                    #endif
+                                    
+                                } else {
+                                    // If Glider Altitude is > 1200 - Nothing to do
+                                }
+                            }
+                        }
+                        
+                    }
+                    
+                })
                 
-                // TODO: 20201029 Why unregister?
-                // Unregister at OGNSocketConnectionManager
-                OGNSocketConnectionManager.unregisterForSocketUpdates(self)
             }
         }
         
@@ -151,9 +184,9 @@ class FlightComputer {
         // If Thermal Assistant Switch is on - State true
         
         guard UserDefaultsManager.thermalAssistantState() == true,
-            let currentLocation = LocationManager.currentLocation(),
-            let formerLocation = LocationManager.formerLocation()
-            else { return }
+              let currentLocation = LocationManager.currentLocation(),
+              let formerLocation = LocationManager.formerLocation()
+        else { return }
         
         // If current Course < than former Course - Glider turns left
         if currentLocation.course < formerLocation.course - Presets.FlightComputer.significantCourseDeviation {
@@ -190,9 +223,17 @@ class FlightComputer {
             isGliderCircling = true
             MapScreenViewController.increaseZoomLevel()
             
+            #if DEBUG
+            DLLogger.writeStringToLogFile("\(#function) -> true - Thermal Circling Start detected")
+            #endif
+            
         } else if leftTurnCounter == 0 && rightTurnCounter == 0 && isGliderCircling == true {
             isGliderCircling = false
             MapScreenViewController.decreaseZoomLevel()
+            
+            #if DEBUG
+            DLLogger.writeStringToLogFile("\(#function) -> false - Thermal Circling End detected")
+            #endif
             
         } else {
             //print("Nothing to do here")
@@ -204,9 +245,9 @@ class FlightComputer {
     // Check for Gear Warning
     private func checkForGearWarning() {
         guard let selectedDestinationAirport = FlightComputer.selectedDestinationAirport(),
-            let currentLocation = LocationManager.currentLocation(),
-            let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport()
-            else { return }
+              let currentLocation = LocationManager.currentLocation(),
+              let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport()
+        else { return }
         
         let gearWarningSwitch = UserDefaultsManager.gearWarningState()
         if gearWarningSwitch == true {
@@ -219,8 +260,8 @@ class FlightComputer {
             let lowerWarningNeeded = currentLocation.altitude > lowerGearWarningAltitude
             
             if distanceWarningNeeded == true,
-                upperWarningNeeded == true,
-                lowerWarningNeeded == true {
+               upperWarningNeeded == true,
+               lowerWarningNeeded == true {
                 
                 if shouldPlayGearWarning == true {
                     speak(string: Presets.FlightComputer.gearWarningSpokenText)
@@ -237,7 +278,7 @@ class FlightComputer {
     // http://www.sglenzburg.ch/org/public/Dokumente/Powerpoint/Sauerstoff-SGL-Streckenflugseminar.pdf
     private func checkForLowOxygenWarning() {
         guard let currentLocation = LocationManager.currentLocation()
-            else { return }
+        else { return }
         
         let oxygenWarningSwitch = UserDefaultsManager.lowOxygenWarningState()
         if oxygenWarningSwitch == true {
