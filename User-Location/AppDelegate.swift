@@ -30,11 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set up User Defaults
         UserDefaultsManager.setupUserDefaults()
         
-        // Setup Documents/Flights-Folder
+        // Setup Flights, Tasks and Log Folder in Documents
         ISoarFileManager.checkForFlightsFolder()
-        
-        // Setup Documents/Tasks-Folder
         ISoarFileManager.checkForTasksFolder()
+        ISoarFileManager.checkForLogsFolder()
         
         return true
     }
