@@ -15,21 +15,20 @@ class DLLogger {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let dateString = formatter.string(from: Date())
+        let logPath = "Logs"
         let fileName = "\(dateString).log"
-        return documentsDirectory.appendingPathComponent(fileName)
+        return documentsDirectory.appendingPathComponent(logPath).appendingPathComponent(fileName)
     }
     
+    // MARK: Public Class Methods
     class func writeStringToLogFile(_ message: String) {
         guard let logFile = logFile else {
             return
         }
+
+        let timestamp = TimeDateFormatter.currentUTCTimeInHHMMSSAsString(date: Date())
         
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "HH:mm:ss"
-        timeFormatter.timeZone = NSTimeZone(abbreviation: "UTC") as TimeZone?
-        
-        let timestamp = timeFormatter.string(from: Date())
-        guard let data = (timestamp + ": " + message + "\n").data(using: String.Encoding.utf8) else { return }
+        guard let data = ("\(timestamp) \(message) \n").data(using: String.Encoding.utf8) else { return }
         
         if FileManager.default.fileExists(atPath: logFile.path) {
             if let fileHandle = try? FileHandle(forWritingTo: logFile) {
