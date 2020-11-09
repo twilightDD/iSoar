@@ -90,7 +90,6 @@ class LocationManager: NSObject {
         DLAlertViewController.showAlertViewController(title: Presets.LocationManager.locationServiceDeniedTitle,
                                                       message: Presets.LocationManager.locationServiceDeniedMessage,
                                                       preferredStyle: .alert,
-                                                      addActionButton: true,
                                                       actionButtonTitle: "Settings",
                                                       actionButtonHandler: { action in
                                                         
@@ -106,8 +105,8 @@ class LocationManager: NSObject {
                                                         }
                                                       },
                                                       
-                                                      addCancelButton: true,
-                                                      cancelButtonTitle: "Cancel")
+                                                      addCancelButton: true
+        )
         
     }
 

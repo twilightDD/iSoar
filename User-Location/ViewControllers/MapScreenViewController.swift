@@ -343,12 +343,10 @@ class MapScreenViewController: UIViewController {
             DLAlertViewController.showAlertViewController(title: Presets.MapScreen.eulaTitle,
                                                           message: Presets.MapScreen.eulaMessage,
                                                           preferredStyle: .alert,
-                                                          addActionButton: true,
                                                           actionButtonTitle: "Confirm",
                                                           actionButtonHandler: { action in
                                                             self.userAcceptedEULA = true
-                                                          },
-                                                          addCancelButton: false)
+                                                          })
             
         }
         
@@ -898,7 +896,6 @@ extension MapScreenViewController: MGLMapViewDelegate {
                 DLAlertViewController.showAlertViewController(title: (subtitle),
                                                               message: "Please choose an option for \(title)",
                                                               preferredStyle: .alert,
-                                                              addActionButton: true,
                                                               actionButtonTitle: "Cancel Route",
                                                               actionButtonHandler: { [unowned self] action in
                                                                 self.mapView.deselectAnnotation(annotation, animated: true)
@@ -915,7 +912,6 @@ extension MapScreenViewController: MGLMapViewDelegate {
                 DLAlertViewController.showAlertViewController(title: (subtitle),
                                                               message: "Please choose an option for \(title)",
                                                               preferredStyle: .alert,
-                                                              addActionButton: true,
                                                               actionButtonTitle: "Destination",
                                                               actionButtonHandler: { [unowned self] action in
                                                                 self.mapView.deselectAnnotation(annotation, animated: true)

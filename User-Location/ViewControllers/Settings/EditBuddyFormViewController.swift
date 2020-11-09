@@ -30,7 +30,7 @@ class EditBuddyFormViewController: FormViewController {
         }
         set {
             guard let buddyInEditContext = editContext.object(with: newValue.objectID) as? Buddy
-                else { fatalError() }
+            else { fatalError() }
             _buddy = buddyInEditContext
         }
     }
@@ -52,57 +52,57 @@ class EditBuddyFormViewController: FormViewController {
     // MARK: - Private Methods
     // MARK: Eureka Form Sections
     private func buddyListSection()
-        -> Section {
-            let section = Section("Buddy Details")
-            section.tag = "Buddy Details"
-            
-            section
-                <<< TextRow(EditBuddyFormViewController.BuddyNameKey) { row in
-                    row.title = "Buddy Name"
-                    row.value = self.buddy.name
-                    row.placeholder = "Otto / LS8"
-                    row.add(rule: RuleRequired())
-                    row.add(rule: RuleMinLength(minLength: 2))
-                    row.validationOptions = .validatesOnChange
-                    
-                }.cellUpdate { cell, row in
-                    self.validateForm()
-                    if row.isValid == false {
-                        cell.titleLabel?.textColor = .red
-                    }
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "textformat")
-                    
-                }.onChange({ [unowned self] row in
-                    let newName = row.value ?? ""
-                    self.buddy.name = newName
-                })
+    -> Section {
+        let section = Section("Buddy Details")
+        section.tag = "Buddy Details"
+        
+        section
+            <<< TextRow(EditBuddyFormViewController.BuddyNameKey) { row in
+                row.title = "Buddy Name"
+                row.value = self.buddy.name
+                row.placeholder = "Otto / LS8"
+                row.add(rule: RuleRequired())
+                row.add(rule: RuleMinLength(minLength: 2))
+                row.validationOptions = .validatesOnChange
                 
-                <<< TextRow(EditBuddyFormViewController.BuddyFlarmIDKey) { row in
-                    row.title = "Flarm ID"
-                    row.value = self.buddy.flarmID
-                    row.placeholder = "FLRD12345"
-                    row.add(rule: RuleRequired())
-                    row.add(rule: RuleMinLength(minLength: 9))
-                    row.add(rule: RuleMaxLength(maxLength: 9))
-                    row.validationOptions = .validatesOnChange
-                    
-                }.cellUpdate { cell, row in
-                    self.validateForm()
-                    if row.isValid == false {
-                        cell.titleLabel?.textColor = .red
-                    }
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "dot.radiowaves.left.and.right")
-                    
-                }.onChange({ (row) in
-                    let newFlarmID = row.value ?? ""
-                    self.buddy.flarmID = newFlarmID
-                })
+            }.cellUpdate { cell, row in
+                self.validateForm()
+                if row.isValid == false {
+                    cell.titleLabel?.textColor = .red
+                }
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "textformat")
+                
+            }.onChange({ [unowned self] row in
+                let newName = row.value ?? ""
+                self.buddy.name = newName
+            })
             
-            return section
+            <<< TextRow(EditBuddyFormViewController.BuddyFlarmIDKey) { row in
+                row.title = "Flarm ID"
+                row.value = self.buddy.flarmID
+                row.placeholder = "FLRD12345"
+                row.add(rule: RuleRequired())
+                row.add(rule: RuleMinLength(minLength: 9))
+                row.add(rule: RuleMaxLength(maxLength: 9))
+                row.validationOptions = .validatesOnChange
+                
+            }.cellUpdate { cell, row in
+                self.validateForm()
+                if row.isValid == false {
+                    cell.titleLabel?.textColor = .red
+                }
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "dot.radiowaves.left.and.right")
+                
+            }.onChange({ (row) in
+                let newFlarmID = row.value ?? ""
+                self.buddy.flarmID = newFlarmID
+            })
+        
+        return section
     }
     
     private func validateForm() {
@@ -134,19 +134,10 @@ class EditBuddyFormViewController: FormViewController {
         } else if existingBuddies.isEmpty == true {
             fatalError("ich muss self.buddy haben.")
         } else {
-            let alertViewController = UIAlertController.init(title: "Warning",
-                                                             message: "Buddy Name or FlarmID already exists.",
-                                                             preferredStyle: .alert)
-
-            let cancelAction = UIAlertAction.init(title: "OK",
-                                                  style: .cancel) { (action) in
-            }
-
-            alertViewController.addAction(cancelAction)
-            present(alertViewController, animated: true)
-            
-//            DLAlertViewController.showAlertViewController(title: "Warning", message: "Warning Message", preferredStyle: .alert, addActionButton: true, actionButtonTitle: "OK", cancelButtonTitle: "Cancel")
-
+            DLAlertViewController.showAlertViewController(title: "Warning",
+                                                          message: "Buddy Name or FlarmID already exists.",
+                                                          preferredStyle: .alert,
+                                                          on: self)
         }
         
     }

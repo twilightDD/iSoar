@@ -33,8 +33,9 @@ class DLTerrainElevation {
                             let results = json["results"] as! [[String: Any]]
                             for item in results {
                                 
-                                let terrainElevation = item["elevation"] as! Double
-                                completion(terrainElevation)
+                                if let terrainElevation = item["elevation"] as? Double {
+                                    completion(terrainElevation)
+                                }
                                 
                             }
                             
