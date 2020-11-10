@@ -216,15 +216,6 @@ extension ISoarFileManager {
                                          flightStartDate: Date,
                                          startICAO: String?)
         -> Bool {
-            
-            // TODO: use separate DateFormatter class to deal with times and dates; 05042020, ph
-            let dateFormatter = DateFormatter()
-            let timeFormatter = DateFormatter()
-            dateFormatter.dateFormat = "y.MM.dd"
-            timeFormatter.dateFormat = "HH:mm"
-            dateFormatter.timeZone = NSTimeZone(abbreviation: "UTC") as TimeZone?
-            timeFormatter.timeZone = NSTimeZone(abbreviation: "UTC") as TimeZone?
-            
             // Temporary Flight Recorder File for
             let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
             let temporaryFlightRecorderFileURL = temporaryDirectoryURL
@@ -254,20 +245,17 @@ extension ISoarFileManager {
             }
             
             // Create Meta Data File of flight
-            // let flightDatas = FlightComputer.flightDatas()
-            let startTimeFormatted = TimeDateFormatter.yearMonthDayHourMinuteDateFrom(flightStartDate)
-            
             // Create JSON
             let flightMetaData = FlightMetaData.init(currentUnixTimeStamp: currentUnixTimpStamp,
-                                                     flightDate: dateFormatter.string(from: startTimeFormatted),
+                                                     flightDate: TimeDateFormatter.utcDateYMMDDAsString(from: flightStartDate),
                                                      gliderID: UserDefaultsManager.gliderID(),
-                                                     startTimeUTC: timeFormatter.string(from: startTimeFormatted),
+                                                     startTimeUTC: TimeDateFormatter.utcTimeInHHMMAsString(from: flightStartDate),
                                                      startICAO: startICAO ?? "----",
                                                      endTimeUTC: "",
                                                      endICAO: "",
                                                      flightCompleted: false,
                                                      flightTime: "")
-            
+        
             do {
                 let fileURL = flightRecorderDirectoryURL
                     .appendingPathComponent(currentUnixTimpStamp)
@@ -314,15 +302,7 @@ extension ISoarFileManager {
             else { return }
         currentFlightRecordFileHandle.closeFile()
         shared.currentFlightRecordFileHandle = nil
-        
-        // TODO: use separate DateFormatter class to deal with times and dates; 05042020, ph
-        let dateFormatter = DateFormatter()
-        let timeFormatter = DateFormatter()
-        dateFormatter.dateFormat = "y.MM.dd"
-        timeFormatter.dateFormat = "HH:mm"
-        dateFormatter.timeZone = NSTimeZone(abbreviation: "UTC") as TimeZone?
-        timeFormatter.timeZone = NSTimeZone(abbreviation: "UTC") as TimeZone?
-        
+
         // Create Final FlightRecorder File
         let finalFlightRecorderFileURL = flightRecorderDirectoryURL
             .appendingPathComponent(currentUnixTimeStamp)
@@ -345,11 +325,11 @@ extension ISoarFileManager {
                                                                  toEndTime: endTimeFormatted)
         
         let flightMetaData = FlightMetaData(currentUnixTimeStamp: currentUnixTimeStamp,
-                                            flightDate: (dateFormatter.string(from: startTimeFormatted)),
+                                            flightDate: TimeDateFormatter.utcDateYMMDDAsString(from: flightStartDate),
                                             gliderID: UserDefaultsManager.gliderID(),
-                                            startTimeUTC: (timeFormatter.string(from: startTimeFormatted)),
+                                            startTimeUTC: TimeDateFormatter.utcTimeInHHMMAsString(from: flightStartDate),
                                             startICAO: startICAO ?? "----",
-                                            endTimeUTC: (timeFormatter.string(from: endTimeFormatted)),
+                                            endTimeUTC: TimeDateFormatter.utcTimeInHHMMAsString(from: flightEndDate),
                                             endICAO: endICAO ?? "----",
                                             flightCompleted: true,
                                             flightTime: flightTime)

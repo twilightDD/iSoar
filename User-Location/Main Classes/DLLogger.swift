@@ -26,7 +26,7 @@ class DLLogger {
             return
         }
 
-        let timestamp = TimeDateFormatter.currentUTCTimeInHHMMSSAsString(date: Date())
+        let timestamp = TimeDateFormatter.utcTimeInHHMMSSAsString(from: Date())
         
         guard let data = ("\(timestamp) \(message) \n").data(using: String.Encoding.utf8) else { return }
         

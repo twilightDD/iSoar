@@ -80,31 +80,33 @@ class TimeDateFormatter {
             return hourMinutesStringFrom
     }
     
-    class func currentUTCTime()
-    -> Date {
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "HH:mm:ss"
-        timeFormatter.timeZone = NSTimeZone(abbreviation: "UTC") as TimeZone?
+    class func utcDateYMMDDAsString(from date: Date)
+    -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "y.MM.dd"
+        dateFormatter.timeZone = NSTimeZone(abbreviation: "UTC") as TimeZone?
+        let dateString = dateFormatter.string(from: date)
         
-        return Date()
+        return dateString
+        
     }
     
-    class func currentUTCTimeInHHMMSSAsString(date: Date)
+    class func utcTimeInHHMMSSAsString(from date: Date)
     -> String {
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm:ss"
         timeFormatter.timeZone = NSTimeZone(abbreviation: "UTC") as TimeZone?
-        let timestamp = timeFormatter.string(from: Date())
+        let timestamp = timeFormatter.string(from: date)
         
         return timestamp
     }
     
-    class func utcTimeInHHMMAsString(date: Date)
+    class func utcTimeInHHMMAsString(from date: Date)
     -> String {
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm"
         timeFormatter.timeZone = NSTimeZone(abbreviation: "UTC") as TimeZone?
-        let timestamp = timeFormatter.string(from: Date())
+        let timestamp = timeFormatter.string(from: date)
         
         return timestamp
     }
