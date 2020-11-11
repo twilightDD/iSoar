@@ -46,6 +46,19 @@ class EditGliderFormViewController: FormViewController {
         navigationItem.title = "Glider Details"
         
         form.append(gliderSelectionSection())
+        form.append(gliderInformationSection())
+    }
+    
+    func textColor()
+        -> UIColor {
+            var textColor: UIColor = .black
+            
+            if self.traitCollection.userInterfaceStyle == .light {
+                textColor = .black
+            } else {
+                textColor = .white
+            }
+            return textColor
     }
     
     // MARK: - Private Methods
@@ -72,7 +85,6 @@ class EditGliderFormViewController: FormViewController {
                     row.validationOptions = .validatesOnChange
                     
                 }.cellUpdate { cell, row in
-                    
                     if row.isValid == false {
                         cell.titleLabel?.textColor = .red
                     }
@@ -82,6 +94,30 @@ class EditGliderFormViewController: FormViewController {
                 }.onChange({ [unowned self] row in
                     self.glider.registration = row.value
                 })
+                
+                <<< PushRow<String>("Glider Model") { row in
+                    row.title = "Glider Model"
+                    row.value = ""
+                    row.add(rule: RuleRequired())
+                    row.validationOptions = .validatesOnChange
+                    row.options = ["LS4", "LS8", "DG300", "Janus B", "Ventus", "Discus", "Diana", "Libelle"]
+                    
+                    //row.options = [GliderModelEntity.name] irgendwie so
+                    
+                }.cellUpdate { cell, row in
+                    if row.isValid == false {
+                        cell.textLabel?.textColor = .red
+                    }
+                    
+                }.cellSetup { cell, row in
+                    cell.imageView?.image = UIImage(systemName: "airplane")
+                    
+                }.onPresent { from, row in
+                    row.dismissOnSelection = false
+                    row.dismissOnChange = false
+                    row.enableDeselection = false
+                    row.navigationItem.title = "Glider Model"
+                }
                 
                 <<< DecimalRow(EditGliderFormViewController.GliderRatioKey) { row in
                     row.title = "Glider Ratio"
@@ -129,6 +165,52 @@ class EditGliderFormViewController: FormViewController {
                 })
             
             return section
+    }
+    
+    private func gliderInformationSection()
+    -> Section {
+
+        let section = Section("Glider Information")
+        section.tag = "Glider Information"
+        
+        let numberFormatter = DecimalFormatter()
+        numberFormatter.locale = Locale.current
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.minimumFractionDigits = 1
+        numberFormatter.maximumFractionDigits = 1
+        
+        section
+            <<< TextRow("Manufacturer") { row in
+                row.title = "Manufacturer"
+                row.value = "Schempp-Hirth"
+                row.disabled = true
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "house")
+                
+            }.cellUpdate { cell, row in
+                cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                
+            }
+            
+            <<< DecimalRow("Ratio") { row in
+                row.title = "Ratio"
+                row.value = self.glider.ratio
+                row.disabled = true
+                row.formatter = numberFormatter
+                
+            }
+            .cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "arrow.down.left")
+                
+            }.cellUpdate { cell, row in
+                cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
+                
+            }
+        
+        return section
     }
     
     private func validateForm() {
