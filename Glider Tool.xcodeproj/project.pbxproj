@@ -64,7 +64,6 @@
 		E0C7F152255B200800F9342F /* GliderModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F150255B200800F9342F /* GliderModel+CoreDataProperties.swift */; };
 		E0C7F159255B27B100F9342F /* GliderManufacturer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F157255B27B100F9342F /* GliderManufacturer+CoreDataClass.swift */; };
 		E0C7F15A255B27B100F9342F /* GliderManufacturer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F158255B27B100F9342F /* GliderManufacturer+CoreDataProperties.swift */; };
-		E0C7F161255B2D8D00F9342F /* GliderModelSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F160255B2D8D00F9342F /* GliderModelSelectionTableViewController.swift */; };
 		E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */; };
 		E0E1D87A229476C00004DE81 /* DestinationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */; };
 		E0F667B324CF79070017AF1D /* NSManagedObject+EntityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F667B224CF79070017AF1D /* NSManagedObject+EntityName.swift */; };
@@ -148,7 +147,6 @@
 		E0C7F150255B200800F9342F /* GliderModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GliderModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E0C7F157255B27B100F9342F /* GliderManufacturer+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GliderManufacturer+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E0C7F158255B27B100F9342F /* GliderManufacturer+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GliderManufacturer+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		E0C7F160255B2D8D00F9342F /* GliderModelSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderModelSelectionTableViewController.swift; sourceTree = "<group>"; };
 		E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Rotate.swift"; sourceTree = "<group>"; };
 		E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionViewController.swift; sourceTree = "<group>"; };
 		E0F667B224CF79070017AF1D /* NSManagedObject+EntityName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+EntityName.swift"; sourceTree = "<group>"; };
@@ -285,7 +283,6 @@
 				E0C55A2D24D6EB4800618179 /* EditBuddyFormViewController.swift */,
 				E016CCA724AF4A7400CEA506 /* EditGliderFormViewController.swift */,
 				E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */,
-				E0C7F160255B2D8D00F9342F /* GliderModelSelectionTableViewController.swift */,
 				E086AB0A229C35890011C433 /* SettingsFormViewController.swift */,
 			);
 			path = Settings;
@@ -614,7 +611,6 @@
 				E077487524C0703300BFF517 /* CoreDataManager.swift in Sources */,
 				E0C55A2C24D6D38100618179 /* BuddyListTableViewController.swift in Sources */,
 				E0B52F72228377F300E28A93 /* Buttons.swift in Sources */,
-				E0C7F161255B2D8D00F9342F /* GliderModelSelectionTableViewController.swift in Sources */,
 				E070FDA924A468730039386D /* GliderSelectionTableViewController.swift in Sources */,
 				E007864B23D222EA00856865 /* FlightSelectionTableViewCell.swift in Sources */,
 				E01CAFD4239964ED00FE1B90 /* TasksViewController.swift in Sources */,
