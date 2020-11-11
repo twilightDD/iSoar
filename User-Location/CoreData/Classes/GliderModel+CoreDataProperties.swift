@@ -2,7 +2,7 @@
 //  GliderModel+CoreDataProperties.swift
 //  Glider Tool
 //
-//  Created by sonic on 10.11.20.
+//  Created by sonic on 11.11.20.
 //  Copyright © 2020 Denis Leupold. All rights reserved.
 //
 //
@@ -15,6 +15,31 @@ extension GliderModel {
         return NSFetchRequest<GliderModel>(entityName: GliderModel.entityName())
     }
 
-    @NSManaged public var modelName: String?
+    @NSManaged public var modelName: String
+    @NSManaged public var uuid: UUID
+    
+    @NSManaged public var gliders: NSSet?
+    @NSManaged public var manufacturer: GliderManufacturer
+
+}
+
+// MARK: Generated accessors for gliders
+extension GliderModel {
+
+    @objc(addGlidersObject:)
+    @NSManaged public func addToGliders(_ value: Glider)
+
+    @objc(removeGlidersObject:)
+    @NSManaged public func removeFromGliders(_ value: Glider)
+
+    @objc(addGliders:)
+    @NSManaged public func addToGliders(_ values: NSSet)
+
+    @objc(removeGliders:)
+    @NSManaged public func removeFromGliders(_ values: NSSet)
+
+}
+
+extension GliderModel : Identifiable {
 
 }
