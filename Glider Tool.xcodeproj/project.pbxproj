@@ -52,6 +52,7 @@
 		E086AB0B229C35890011C433 /* SettingsFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086AB0A229C35890011C433 /* SettingsFormViewController.swift */; };
 		E099E34B247D296700D72515 /* AirportAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E099E34A247D296700D72515 /* AirportAnnotation.swift */; };
 		E099E34D247D3F7F00D72515 /* AirportAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E099E34C247D3F7F00D72515 /* AirportAnnotationView.swift */; };
+		E0A0BF1625644FA800C7CB05 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A0BF1525644FA800C7CB05 /* CoreDataController.swift */; };
 		E0A215BB235E2D0D009F6953 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BA235E2D0D009F6953 /* TableViewController.swift */; };
 		E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */; };
 		E0B52F72228377F300E28A93 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F71228377F300E28A93 /* Buttons.swift */; };
@@ -63,8 +64,6 @@
 		E0C55A2E24D6EB4800618179 /* EditBuddyFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C55A2D24D6EB4800618179 /* EditBuddyFormViewController.swift */; };
 		E0C7F151255B200800F9342F /* GliderModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F14F255B200800F9342F /* GliderModel+CoreDataClass.swift */; };
 		E0C7F152255B200800F9342F /* GliderModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F150255B200800F9342F /* GliderModel+CoreDataProperties.swift */; };
-		E0C7F159255B27B100F9342F /* GliderManufacturer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F157255B27B100F9342F /* GliderManufacturer+CoreDataClass.swift */; };
-		E0C7F15A255B27B100F9342F /* GliderManufacturer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F158255B27B100F9342F /* GliderManufacturer+CoreDataProperties.swift */; };
 		E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */; };
 		E0E1D87A229476C00004DE81 /* DestinationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */; };
 		E0F667B324CF79070017AF1D /* NSManagedObject+EntityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F667B224CF79070017AF1D /* NSManagedObject+EntityName.swift */; };
@@ -136,6 +135,7 @@
 		E086AB0A229C35890011C433 /* SettingsFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFormViewController.swift; sourceTree = "<group>"; };
 		E099E34A247D296700D72515 /* AirportAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportAnnotation.swift; sourceTree = "<group>"; };
 		E099E34C247D3F7F00D72515 /* AirportAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportAnnotationView.swift; sourceTree = "<group>"; };
+		E0A0BF1525644FA800C7CB05 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
 		E0A215BA235E2D0D009F6953 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		E0A215BC235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionAirportTableViewCell.swift; sourceTree = "<group>"; };
 		E0B52F71228377F300E28A93 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
@@ -147,8 +147,6 @@
 		E0C55A2D24D6EB4800618179 /* EditBuddyFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBuddyFormViewController.swift; sourceTree = "<group>"; };
 		E0C7F14F255B200800F9342F /* GliderModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GliderModel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E0C7F150255B200800F9342F /* GliderModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GliderModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		E0C7F157255B27B100F9342F /* GliderManufacturer+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GliderManufacturer+CoreDataClass.swift"; sourceTree = "<group>"; };
-		E0C7F158255B27B100F9342F /* GliderManufacturer+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GliderManufacturer+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Rotate.swift"; sourceTree = "<group>"; };
 		E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionViewController.swift; sourceTree = "<group>"; };
 		E0F667B224CF79070017AF1D /* NSManagedObject+EntityName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+EntityName.swift"; sourceTree = "<group>"; };
@@ -260,8 +258,6 @@
 				E0C55A2624D6CB7B00618179 /* Buddy+CoreDataProperties.swift */,
 				E013D27E24AA7EC600AFD231 /* Glider+CoreDataClass.swift */,
 				E013D27F24AA7EC600AFD231 /* Glider+CoreDataProperties.swift */,
-				E0C7F157255B27B100F9342F /* GliderManufacturer+CoreDataClass.swift */,
-				E0C7F158255B27B100F9342F /* GliderManufacturer+CoreDataProperties.swift */,
 				E0C7F14F255B200800F9342F /* GliderModel+CoreDataClass.swift */,
 				E0C7F150255B200800F9342F /* GliderModel+CoreDataProperties.swift */,
 			);
@@ -294,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				E0310D3B24D8C617009EB354 /* Classes */,
+				E0A0BF1525644FA800C7CB05 /* CoreDataController.swift */,
 				E077487424C0703300BFF517 /* CoreDataManager.swift */,
 				D0AA8D0224C1C1790034E6EE /* Extensions */,
 				E070FD9C24A3109A0039386D /* Glider Tool.xcdatamodeld */,
@@ -587,7 +584,6 @@
 				EDA236352130AA9A00739396 /* MapScreenViewController.swift in Sources */,
 				E0C55A2E24D6EB4800618179 /* EditBuddyFormViewController.swift in Sources */,
 				E01D87E8239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift in Sources */,
-				E0C7F15A255B27B100F9342F /* GliderManufacturer+CoreDataProperties.swift in Sources */,
 				E013D28024AA7EC600AFD231 /* Glider+CoreDataProperties.swift in Sources */,
 				D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */,
 				E0C7F151255B200800F9342F /* GliderModel+CoreDataClass.swift in Sources */,
@@ -623,7 +619,7 @@
 				18BE3F7422CF688D00859347 /* UserLocationAnnotationView.swift in Sources */,
 				E099E34D247D3F7F00D72515 /* AirportAnnotationView.swift in Sources */,
 				E016CCA824AF4A7400CEA506 /* EditGliderFormViewController.swift in Sources */,
-				E0C7F159255B27B100F9342F /* GliderManufacturer+CoreDataClass.swift in Sources */,
+				E0A0BF1625644FA800C7CB05 /* CoreDataController.swift in Sources */,
 				D0B7A84124390D940006F5EF /* Date+UnixTime.swift in Sources */,
 				E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */,
 			);
