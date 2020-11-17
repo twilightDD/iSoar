@@ -34,4 +34,8 @@ extension Glider {
         static let registration = "registration"
         static let uuid = "uuid"
     }
+    
+    struct Relationships {
+        static let glidersModel = "gliderModel"
+    }
 }

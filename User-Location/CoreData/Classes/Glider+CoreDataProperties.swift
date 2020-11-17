@@ -7,14 +7,12 @@
 //
 //
 
-import Foundation
 import CoreData
-
 
 extension Glider {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Glider> {
-        return NSFetchRequest<Glider>(entityName: "Glider")
+        return NSFetchRequest<Glider>(entityName: Glider.entityName())
     }
 
     @NSManaged public var flarmID: String?
@@ -25,6 +23,6 @@ extension Glider {
 
 }
 
-extension Glider : Identifiable {
+extension Glider: Identifiable {
 
 }

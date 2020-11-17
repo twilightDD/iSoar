@@ -15,11 +15,18 @@ extension GliderModel {
         return NSFetchRequest<GliderModel>(entityName: GliderModel.entityName())
     }
 
+    @NSManaged public var handicap: Double
+    @NSManaged public var manufacturer: String
     @NSManaged public var modelName: String
+    @NSManaged public var sink1: Double
+    @NSManaged public var sink2: Double
+    @NSManaged public var sink3: Double
+    @NSManaged public var speed1: Double
+    @NSManaged public var speed2: Double
+    @NSManaged public var speed3: Double
     @NSManaged public var uuid: UUID
-    
+    @NSManaged public var wingarea: Double
     @NSManaged public var gliders: NSSet?
-    @NSManaged public var manufacturer: GliderManufacturer
 
 }
 
@@ -40,6 +47,6 @@ extension GliderModel {
 
 }
 
-extension GliderModel : Identifiable {
+extension GliderModel: Identifiable {
 
 }
