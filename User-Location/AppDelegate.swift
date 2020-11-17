@@ -31,12 +31,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaultsManager.setupUserDefaults()
         
         // Check for First Launch of App
-        if UserDefaultsManager.firstLaunchOfAppState() == true {
-            print("APP STARTS FOR THE FIRST TIME - IMPORT DATA TO CORE DATA")
-            UserDefaultsManager.set(firstLaunchOfAppState: false)
-        } else {
-            print("APP STARTS NOT FOR THE FIRST TIME - NOTHING TO DO")
-        }
+//        if UserDefaultsManager.firstLaunchOfAppState() == true {
+//            print("APP STARTS FOR THE FIRST TIME - IMPORT DATA TO CORE DATA")
+//            UserDefaultsManager.set(firstLaunchOfAppState: false)
+//        } else {
+//            print("APP STARTS NOT FOR THE FIRST TIME - NOTHING TO DO")
+//        }
+        
+        // Check if Entity is empty
+        CoreDataController.entityIsEmpty(entity: "GliderModel")
         
         // Setup Flights, Tasks and Log Folder in Documents
         ISoarFileManager.checkForFlightsFolder()
