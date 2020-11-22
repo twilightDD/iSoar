@@ -126,7 +126,7 @@ class FlightComputer {
                currentLocation.speed > 0 {
                 
                 // Get Terrain elevation of current User Location
-                DLTerrainElevation.currentTerrainElevation(completion: { elevation in
+                DLTerrainElevation.currentTerrainElevation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude, completion: { elevation in
                     if let currentTerrainElevation = (elevation) {
                         // If vertical Distance between Glider Altitude and Terrain Elevation is < 100m - set isGliderFlying = false
                         if currentLocation.altitude-currentTerrainElevation < 100 {

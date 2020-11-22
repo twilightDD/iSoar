@@ -16,10 +16,9 @@ class DLTerrainElevation {
     
     // MARK: - Public Class Methods
     // Get Terrain elevation of current User Location via API from https://www.opentopodata.org
-    class func currentTerrainElevation(completion: @escaping (_ elevation: Double?) -> Void) {
+    class func currentTerrainElevation(latitude: Double, longitude: Double, completion: @escaping (_ elevation: Double?) -> Void) {
         
-        guard let currentLocation = LocationManager.currentLocation(),
-              let url = URL(string: "https://api.opentopodata.org/v1/srtm30m?locations=\(currentLocation.coordinate.latitude),\(currentLocation.coordinate.longitude)") else { return }
+        guard let url = URL(string: "https://api.opentopodata.org/v1/srtm30m?locations=\(latitude),\(longitude)") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else { return }
@@ -42,17 +41,20 @@ class DLTerrainElevation {
                         }
                         
                     } catch let error as NSError {
-                        print("Failed to load: \(error.localizedDescription)")
+                        DLLogger.writeStringToLogFile("\(#function) - \(error.localizedDescription)")
+                        //print("Failed to load: \(error.localizedDescription)")
                         completion(nil)
                     }
                     
                 } else {
+                    DLLogger.writeStringToLogFile("\(#function) - STATUSCODE NOT 200 / NOT OK")
+                    //print("STATUSCODE NOT 200 / NOT OK")
                     completion(nil)
-                    print("STATUSCODE NOT 200 / NOT OK")
                 }
                 
             } else {
-                print("NO STATUS CODE")
+                DLLogger.writeStringToLogFile("Terrain Elevation - got no Status Code")
+                //print("NO STATUS CODE")
             }
             
         }
