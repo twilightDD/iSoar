@@ -11,7 +11,7 @@ import CoreData
 class GliderModelsDatabase {
     // MARK: - Lets and Vars
     // Static
-    private static let shared = GliderModelsDatabase()
+    static private let shared = GliderModelsDatabase()
     
     // Private
     private let libraryURL: URL =  (FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).first as URL?)!
@@ -31,8 +31,6 @@ class GliderModelsDatabase {
             
             if count < 1 {
                 print("OBJEKTE IN ENTITY \(entity): \(count) - WE HAVE TO IMPORT DATA")
-                
-                //shared.loadGliderModelsFromJSONIntoDatabase()
                 
             } else {
                 print("OBJEKTE IN ENTITY \(entity): \(count)")
@@ -70,6 +68,45 @@ class GliderModelsDatabase {
                 }
             }
         }
+    }
+    
+    // Load GliderModels from GliderModels.json into Database
+    private func loadGliderModelsFromJSONIntoDatabase() {
+        // var for storing Content of GliderModels.json File
+        var jsonAsString: String?
+        
+        // TODO: 20201121 Fehlerbehandlung! wenn .json nicht vorhanden, guard let
+        let gliderModelsURL = libraryURL.appendingPathComponent("GliderModels.json")
+        
+        do {
+            // Storing Content of Airports.json File as String
+            try jsonAsString = String.init(contentsOf: gliderModelsURL)
+        } catch {
+            print("went wrong")
+        }
+        
+        // Convert String to Data
+        let jsonAsData = jsonAsString?.data(using: .utf8)
+        
+        // var for storing Content of GliderModels.json File as Dictionary
+        var jsonAsDict = [String: Any]()
+        
+//        do {
+//            // Convert Data to Dictionary
+//            jsonAsDict = try JSONSerialization.jsonObject(with: jsonAsData!,
+//                                                          options: .allowFragments) as! [String: Any]
+//        } catch {
+//            // TODO: 20201121 Fehlerbehandlung! wenn .json fehlerhaft
+//            NotificationBanner.show("Airport Database not found.")
+//        }
+//
+//        if let airports = jsonAsDict["Airports"] as? [[String: Any]] {
+//            // Append every single Object to Airports Database
+//            for airport in airports {
+//                let myAirportStruct = AirportDatabase.Airport(dictionary: airport)
+//                destinationAirports.append(myAirportStruct)
+//            }
+//        }
     }
 
 }
