@@ -65,8 +65,8 @@ class AirportDatabase {
         let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0] as String
         let url = NSURL(fileURLWithPath: path)
         
-        let airportsInLibraryFolder = libraryURL.appendingPathComponent("Airports.json")
-        let airportsInBundle = URL(fileURLWithPath: Bundle.main.path(forResource: "Airports", ofType: "json")!)
+        let airportsJSONInLibraryFolder = libraryURL.appendingPathComponent("Airports.json")
+        let airportsJSONInBundle = URL(fileURLWithPath: Bundle.main.path(forResource: "Airports", ofType: "json")!)
         
         if let pathComponent = url.appendingPathComponent("Airports.json") {
             
@@ -77,10 +77,10 @@ class AirportDatabase {
             } else {
                 print("Airports.json not found in Library Folder. Copy...")
                 do {
-                    try FileManager.default.copyItem(at: airportsInBundle, to: airportsInLibraryFolder)
+                    try FileManager.default.copyItem(at: airportsJSONInBundle, to: airportsJSONInLibraryFolder)
                     print("Airports.json copied to Library Folder.")
                 } catch let writeError {
-                    print("Error creating a file: \(airportsInLibraryFolder) : \(writeError)")
+                    print("Error creating a file: \(airportsJSONInLibraryFolder) : \(writeError)")
                 }
             }
         }
@@ -91,6 +91,7 @@ class AirportDatabase {
         // var for storing Content of Airports.json File
         var jsonAsString: String?
         
+        // TODO: 20201121 Fehlerbehandlung! wenn .json nicht vorhanden, guard let
         let airportsURL = libraryURL.appendingPathComponent("Airports.json")
         
         do {
@@ -111,6 +112,7 @@ class AirportDatabase {
             jsonAsDict = try JSONSerialization.jsonObject(with: jsonAsData!,
                                                           options: .allowFragments) as! [String: Any]
         } catch {
+            // TODO: 20201121 Fehlerbehandlung! wenn .json fehlerhaft
             NotificationBanner.show("Airport Database not found.")
         }
         
@@ -229,6 +231,10 @@ class AirportDatabase {
                         do {
                             try FileManager.default.removeItem(at: destinationFileUrl)
                             try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
+                            
+                            // TODO: 20201121 Fehlerbehandlung! bevor er die Airports löscht muss geprüft werden ob die .json ok ist
+                            // Wenn nicht sind alle Airports weg
+                            // Wir prüfen hier ja nur ob der Download geklappt hat
                             
                             // Remove all Airports from Array
                             self.destinationAirports.removeAll()

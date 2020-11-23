@@ -16,6 +16,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Asphalt",
       "url": null,
+      "uuid": "f9d3c442-6d85-490e-9a6e-b6af21b7100a",
       "validationDate": "20190601"
     },
     {
@@ -34,6 +35,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.lsr-aalen.de",
+      "uuid": "3a696aac-51c0-4c43-be0a-60649cf3f516",
       "validationDate": "20190601"
     },
     {
@@ -52,6 +54,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.ovfl.de",
+      "uuid": "9a9402c9-e292-450c-b512-02bf1daf70f3",
       "validationDate": "20190601"
     },
     {
@@ -70,6 +73,7 @@
       "runwayDirections": "02/20",
       "runwaySurface": "Grass",
       "url": "www.lsvaichach.de",
+      "uuid": "2e20be4c-988c-4811-8508-e05b70812fe8",
       "validationDate": "20190926"
     },
     {
@@ -88,6 +92,7 @@
       "runwayDirections": "03/21",
       "runwaySurface": "Grass",
       "url": "www.fsv-ailertchen.de",
+      "uuid": "628c2d58-d04d-4d4c-a8c0-0ad3138c6b87",
       "validationDate": "20190601"
     },
     {
@@ -106,6 +111,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.lsv-degerfeld.de",
+      "uuid": "222d9503-da67-49c4-a57e-a1b4779d1074",
       "validationDate": "20190601"
     },
     {
@@ -124,6 +130,7 @@
       "runwayDirections": "11/29",
       "runwaySurface": "Asphalt",
       "url": "www.edfq.viessmann.com",
+      "uuid": "a1087486-e7d0-4d67-b87c-ad8632f79ad9",
       "validationDate": "20191005"
     },
     {
@@ -142,6 +149,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "bc60ad69-6b3a-416b-af38-50828171b7e6",
       "validationDate": "20191005"
     },
     {
@@ -160,6 +168,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Grass",
       "url": "www.altdorf-hagenhausen.de",
+      "uuid": "0a4b2596-e94e-4d5a-8405-d41a2d970586",
       "validationDate": "20191006"
     },
     {
@@ -178,6 +187,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.altdorf.info",
+      "uuid": "9d8ab8e8-4478-4c64-b67b-dd87d4be0d75",
       "validationDate": "20190601"
     },
     {
@@ -196,6 +206,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.alte-ems.de",
+      "uuid": "f70d1097-19c2-4568-901d-2b878d2c5645",
       "validationDate": "20190601"
     },
     {
@@ -214,7 +225,27 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": "www.lsvhegenscheid.de",
+      "uuid": "04096c6d-1e6f-433b-84aa-31287133dfc6",
       "validationDate": "20190601"
+    },
+    {
+      "additionalInfo": "",
+      "airportType": "AD",
+      "country": "Germany",
+      "elevation": 132,
+      "icao": "ALTE",
+      "latitude": 49.922831,
+      "longitude": 9.157923,
+      "name": "Altenbachtal",
+      "phone": "+4960216404",
+      "radioFrequency": "131.060",
+      "radioName": "Altenbachtal INFO",
+      "runwayDimensions": "600 x 30 m",
+      "runwayDirections": "06/24",
+      "runwaySurface": "Grass",
+      "url": "www.moeve-obernau.de",
+      "uuid": "d22088da-6fb4-40ca-a33f-38a904a11f9d",
+      "validationDate": "20200831"
     },
     {
       "additionalInfo": "",
@@ -232,7 +263,27 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Asphalt",
       "url": "www.dcb.org",
+      "uuid": "dd38abf3-dd71-4aaf-87e1-d4e06c3c5e34",
       "validationDate": "20190601"
+    },
+    {
+      "additionalInfo": "",
+      "airportType": "AD",
+      "country": "Italy",
+      "elevation": 384,
+      "icao": "LILB",
+      "latitude": 45.769678,
+      "longitude": 9.162313,
+      "name": "Alzate Brianza",
+      "phone": null,
+      "radioFrequency": "123.505",
+      "radioName": "Alzate RADIO",
+      "runwayDimensions": "600 x 15 m",
+      "runwayDirections": "03/21",
+      "runwaySurface": "Asphalt",
+      "url": null,
+      "uuid": "5ee1e110-c093-4dd8-99a2-87e76dab2a7f",
+      "validationDate": "20201108"
     },
     {
       "additionalInfo": "",
@@ -243,13 +294,14 @@
       "latitude": 50.308828,
       "longitude": 10.373351,
       "name": "Am Kreuzberg",
-      "phone": "+49 9762 277",
+      "phone": "+499762277",
       "radioFrequency": "129.01",
       "radioName": "INFO",
       "runwayDimensions": "630 x 30 m",
       "runwayDirections": "12/30 m",
       "runwaySurface": "Grass",
       "url": "www.fsv-grabfeld.de",
+      "uuid": "6c1ad2f9-ce02-477c-b12b-9419c60fcbd2",
       "validationDate": "20190601"
     },
     {
@@ -268,6 +320,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "fb8d5c41-e020-49c2-b428-ebd09592c3c1",
       "validationDate": "20200410"
     },
     {
@@ -286,6 +339,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.lsg-amberg.de",
+      "uuid": "5cba6109-b10a-4946-a890-d1c9a2952c2d",
       "validationDate": "20190601"
     },
     {
@@ -304,6 +358,7 @@
       "runwayDirections": "11/29",
       "runwaySurface": "Asphalt",
       "url": null,
+      "uuid": "29026084-81a7-40f5-9f25-72b0f9ccbcc9",
       "validationDate": "20200706"
     },
     {
@@ -322,6 +377,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "43798d9b-4969-4714-9685-a2500a476c63",
       "validationDate": "20190601"
     },
     {
@@ -340,6 +396,7 @@
       "runwayDirections": "04/22",
       "runwaySurface": "Grass",
       "url": "www.cumulus-segelflug.ch",
+      "uuid": "29cf752d-c01d-4ab5-8916-9eac1df3a4a5",
       "validationDate": "20190606"
     },
     {
@@ -358,6 +415,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-ampfing.eu",
+      "uuid": "e0d08736-af0c-476f-bd50-0dddb71d3c02",
       "validationDate": "20190601"
     },
     {
@@ -369,13 +427,14 @@
       "latitude": 53.834128,
       "longitude": 13.677812,
       "name": "Anklam",
-      "phone": "+49 3971 210051",
+      "phone": "+493971210051",
       "radioFrequency": "122.655",
       "radioName": "INFO",
       "runwayDimensions": "1200 x 20 m",
       "runwayDirections": "09/27",
       "runwaySurface": "Asphalt",
       "url": "www.flugplatz-anklam.de",
+      "uuid": "d2aefebc-41a6-4be5-bb05-e14fd65c1ad2",
       "validationDate": "20190601"
     },
     {
@@ -387,13 +446,14 @@
       "latitude": 49.360855,
       "longitude": 10.668636,
       "name": "Ansbach‐Petersdorf",
-      "phone": "+49 9824 286",
+      "phone": "+499824286",
       "radioFrequency": "123.79",
       "radioName": "INFO",
       "runwayDimensions": "700 x 40 m",
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.aeroclub-ansbach.de",
+      "uuid": "5f3295d0-24ca-44a7-94a2-e59c429610d5",
       "validationDate": "20190601"
     },
     {
@@ -405,13 +465,14 @@
       "latitude": 50.289014,
       "longitude": 8.535413,
       "name": "Anspach / Taunus",
-      "phone": "+49 6081 56633",
+      "phone": "+49608156633",
       "radioFrequency": "121.03",
       "radioName": "INFO",
       "runwayDimensions": "580 x 50 m",
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": "www.lsc-badhomburg.de",
+      "uuid": "e5c60a1c-d0d5-4498-a203-d5f6e0965873",
       "validationDate": "20190601"
     },
     {
@@ -423,13 +484,14 @@
       "latitude": 47.962799,
       "longitude": 11.995923,
       "name": "Antersberg",
-      "phone": "+49 8065 1261",
+      "phone": "+4980651261",
       "radioFrequency": "135.01",
       "radioName": "INFO",
       "runwayDimensions": null,
       "runwayDirections": "13/31",
       "runwaySurface": "Grass",
       "url": "www.fc-condor-antersberg.de",
+      "uuid": "e550f91a-13bb-46d5-9e71-d95d2559cf49",
       "validationDate": "20190601"
     },
     {
@@ -441,13 +503,14 @@
       "latitude": 51.483676,
       "longitude": 7.89797,
       "name": "Arnsberg‐Menden",
-      "phone": "+49 2377 78770 m",
+      "phone": "+49237778770",
       "radioFrequency": "121.21",
       "radioName": "INFO",
       "runwayDimensions": "920 x 20 m",
       "runwayDirections": "05/23",
       "runwaySurface": "Asphalt",
       "url": "www.flugplatz-arnsberg-menden.de",
+      "uuid": "5f78d46e-7eae-4a72-9a92-c4d5de3f88d1",
       "validationDate": "20190601"
     },
     {
@@ -466,6 +529,7 @@
       "runwayDirections": "09 / 27",
       "runwaySurface": "Asphalt",
       "url": "www.flugplatz-arnstadt.de",
+      "uuid": "273cbcb4-433e-4766-b2fb-e66416be21de",
       "validationDate": "20190601"
     },
     {
@@ -477,13 +541,14 @@
       "latitude": 49.938835,
       "longitude": 9.062405,
       "name": "Aschaffenburg",
-      "phone": "+49 6026 4933",
+      "phone": "+4960264933",
       "radioFrequency": "132.43",
       "radioName": "INFO",
       "runwayDimensions": "840 x 20 m",
       "runwayDirections": "08/26",
       "runwaySurface": "Asphalt",
       "url": "www.fscaschaffenburg.de",
+      "uuid": "f169ebff-a1fc-40cb-8a4e-1b28971713f5",
       "validationDate": "20190601"
     },
     {
@@ -502,6 +567,7 @@
       "runwayDirections": "11/29",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-aschersleben.de",
+      "uuid": "9f9dacee-da89-42e8-9bfc-74eb49e12efa",
       "validationDate": "20190601"
     },
     {
@@ -520,6 +586,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.lsv-osterode.de",
+      "uuid": "e78f6c84-4522-4b6e-9da8-017eb3f1cfea",
       "validationDate": "20190601"
     },
     {
@@ -538,6 +605,7 @@
       "runwayDirections": "01/19",
       "runwaySurface": "Grass",
       "url": "www.fliegerklub-auerbach.de",
+      "uuid": "b802279c-e8a9-4e9c-b7d5-f08878b0d433",
       "validationDate": "20190601"
     },
     {
@@ -556,6 +624,7 @@
       "runwayDirections": "01/19",
       "runwaySurface": "Grass",
       "url": "www.fsv-bad-wildungen.de",
+      "uuid": "c5e52935-666a-447b-8f17-b905d8c7c604",
       "validationDate": "20190601"
     },
     {
@@ -574,6 +643,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.augsburg-airport.de",
+      "uuid": "9e831f1a-dbec-4925-aeed-6bcf87b927be",
       "validationDate": "20190601"
     },
     {
@@ -592,6 +662,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.edsh.de",
+      "uuid": "b18d43ba-bdfd-4dc2-b74d-6e1d487533ca",
       "validationDate": "20190601"
     },
     {
@@ -610,6 +681,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.fcbb.de",
+      "uuid": "7362a3ea-9c79-43a5-939f-6c5e22a888ff",
       "validationDate": "20190601"
     },
     {
@@ -628,6 +700,7 @@
       "runwayDirections": "15/33",
       "runwaySurface": "Grass",
       "url": "www.edpb.de",
+      "uuid": "d063d65c-683f-42fc-9af5-633af52ee38b",
       "validationDate": "20190601"
     },
     {
@@ -646,6 +719,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Asphalt",
       "url": "www.edrf.de",
+      "uuid": "18789660-3ad4-4385-a609-30df6d9c5246",
       "validationDate": "20190601"
     },
     {
@@ -664,6 +738,7 @@
       "runwayDirections": "16/34",
       "runwaySurface": "Grass",
       "url": "www.luftsport-endorf.de",
+      "uuid": "d593262e-9fe8-4e2a-b6ab-6183a1ffc271",
       "validationDate": "20190601"
     },
     {
@@ -682,6 +757,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.aeroclub-frankenhausen.de",
+      "uuid": "0303398e-980a-4756-804d-23449605fac4",
       "validationDate": "20190601"
     },
     {
@@ -700,6 +776,7 @@
       "runwayDirections": "17/35",
       "runwaySurface": "Grass",
       "url": "www.gandersheim.info",
+      "uuid": "d5b03ce2-f293-4b3b-8d0f-29890bd68ac5",
       "validationDate": "20190601"
     },
     {
@@ -718,6 +795,7 @@
       "runwayDirections": "01/19",
       "runwaySurface": "Grass",
       "url": "www.mfc-badhersfeld.de",
+      "uuid": "b962f5f9-4512-47f7-ab63-226b0132189e",
       "validationDate": "20190601"
     },
     {
@@ -736,6 +814,7 @@
       "runwayDirections": "17/35",
       "runwaySurface": "Grass",
       "url": "www.sfg-kg.de",
+      "uuid": "bcea8c09-13af-4377-905f-5600f4ef290a",
       "validationDate": "20190601"
     },
     {
@@ -754,6 +833,7 @@
       "runwayDirections": "09 / 27",
       "runwaySurface": "Grass",
       "url": "www.flugsportverein.eu",
+      "uuid": "7943b12c-02c6-4664-a062-e38ad9ce6721",
       "validationDate": "20190601"
     },
     {
@@ -772,6 +852,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Asphalt",
       "url": "www.neuenahr-info.de",
+      "uuid": "b22b9d16-9fe9-436b-8c65-f32ef620e0fc",
       "validationDate": "20190601"
     },
     {
@@ -790,6 +871,7 @@
       "runwayDirections": "13/31",
       "runwaySurface": "Asphalt",
       "url": "www.aeroclub-bad-neustadt.de",
+      "uuid": "e6696773-ae74-4a89-8de3-ba34bea66797",
       "validationDate": "20190601"
     },
     {
@@ -808,6 +890,7 @@
       "runwayDirections": "04/21",
       "runwaySurface": "Grass",
       "url": "www.flugsport-online.de",
+      "uuid": "0709437a-ed5d-4eab-8b6c-942796047d06",
       "validationDate": "20190601"
     },
     {
@@ -826,6 +909,7 @@
       "runwayDirections": "15/33",
       "runwaySurface": "Grass",
       "url": "www.fliegerwaldsee.de",
+      "uuid": "811a564d-7c52-42c7-9a82-f25cda1e3042",
       "validationDate": "20190601"
     },
     {
@@ -844,6 +928,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.segelflug-bad-windsheim.de",
+      "uuid": "7fa96367-749e-448b-8a39-3771e6e86f8b",
       "validationDate": "20190601"
     },
     {
@@ -862,6 +947,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.segelflugplatz-bw.de",
+      "uuid": "036a042c-70bd-4369-87d4-aeb628948163",
       "validationDate": "20190601"
     },
     {
@@ -880,6 +966,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-badwoerishofen.de",
+      "uuid": "c130071b-6326-4a64-8c9d-f69e02f75725",
       "validationDate": "20190601"
     },
     {
@@ -898,6 +985,7 @@
       "runwayDirections": "03/21",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-baden-oos.de",
+      "uuid": "a7a0fbc6-52ec-45cf-8863-2985705d8095",
       "validationDate": "20190601"
     },
     {
@@ -916,6 +1004,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-ballenstedt.de",
+      "uuid": "ec926c52-6320-42b9-abbb-259ff4457bb9",
       "validationDate": "20190601"
     },
     {
@@ -934,7 +1023,27 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Stone",
       "url": "www.baltrum-flug.de/",
+      "uuid": "3addbe68-a5fe-4446-ae4e-f9f347606bac",
       "validationDate": "20190601"
+    },
+    {
+      "additionalInfo": "",
+      "airportType": "AD",
+      "country": "Germany",
+      "elevation": 248,
+      "icao": "EDQA",
+      "latitude": 49.921281,
+      "longitude": 10.915312,
+      "name": "Bamberg",
+      "phone": null,
+      "radioFrequency": "120.180",
+      "radioName": "Bamberg INFO",
+      "runwayDimensions": "1253 x 23 m",
+      "runwayDirections": "03/21",
+      "runwaySurface": "Asphalt",
+      "url": "www.aeroclub-bamberg.de",
+      "uuid": "19e87711-1fe9-495d-993d-43058e457ff8",
+      "validationDate": "20200824"
     },
     {
       "additionalInfo": "",
@@ -952,6 +1061,7 @@
       "runwayDirections": "16/34",
       "runwaySurface": "Grass",
       "url": "www.edpu.info",
+      "uuid": "3a8ca90d-705a-43dd-80d6-06595f2cc201",
       "validationDate": "20190601"
     },
     {
@@ -970,6 +1080,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.fsg-oehringen.de",
+      "uuid": "9da2f434-1da3-4efb-95ed-307b6a8f0573",
       "validationDate": "20190601"
     },
     {
@@ -988,6 +1099,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-bautzen.com",
+      "uuid": "c4673505-858f-4276-9ebd-64b4a45be5a5",
       "validationDate": "20190601"
     },
     {
@@ -1006,6 +1118,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "bd0273ec-6d78-4c31-9eaf-2d3ae5321cfc",
       "validationDate": "20190601"
     },
     {
@@ -1024,6 +1137,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-beelen.de",
+      "uuid": "f34b9e2f-20b8-4498-887b-cf5b3dd81b84",
       "validationDate": "20190601"
     },
     {
@@ -1042,6 +1156,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.flugplatzbeilngries.de",
+      "uuid": "4061b3a9-adbf-4a95-b631-8189fcf76f6f",
       "validationDate": "20190601"
     },
     {
@@ -1060,6 +1175,7 @@
       "runwayDirections": "18/36",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "ccf776d1-d5e2-415a-90bf-cdc3f55cdcbb",
       "validationDate": "20190601"
     },
     {
@@ -1078,6 +1194,7 @@
       "runwayDirections": "14/32",
       "runwaySurface": "Grass",
       "url": "www.sfg-bensheim.com",
+      "uuid": "d9bb6f50-47ab-4795-9b06-0f03e030233f",
       "validationDate": "20190601"
     },
     {
@@ -1096,6 +1213,7 @@
       "runwayDirections": "03/21",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-berg.de",
+      "uuid": "d7823e38-ca53-4080-bd2f-ce451e5d5dca",
       "validationDate": "20190601"
     },
     {
@@ -1114,6 +1232,7 @@
       "runwayDirections": "14/32",
       "runwaySurface": "Grass",
       "url": "www.lsc-erftland.de",
+      "uuid": "a64fcb6b-0f67-40fe-9ae2-0c11de38cf2c",
       "validationDate": "20200714"
     },
     {
@@ -1132,6 +1251,7 @@
       "runwayDirections": "04/22",
       "runwaySurface": "Grass",
       "url": "www.lsc-duempel.de",
+      "uuid": "9e502eab-35a3-4488-8619-0524722b40b3",
       "validationDate": "20190601"
     },
     {
@@ -1150,6 +1270,7 @@
       "runwayDirections": "03/21",
       "runwaySurface": "Grass",
       "url": "www.ftv-metzingen.de",
+      "uuid": "c90e1199-0768-4e7d-be81-591ce5ec0e8f",
       "validationDate": "20190601"
     },
     {
@@ -1168,6 +1289,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.sfc-betzdorf-kirchen.de",
+      "uuid": "d3a0a86c-a882-42ac-b2cb-e04696255ea6",
       "validationDate": "20190601"
     },
     {
@@ -1186,7 +1308,27 @@
       "runwayDirections": "04/22",
       "runwaySurface": "Asphalt",
       "url": "www.edmb.de",
+      "uuid": "47dcd185-93fc-445c-9624-9575c8f4135e",
       "validationDate": "20190601"
+    },
+    {
+      "additionalInfo": "",
+      "airportType": "AD",
+      "country": "Germany",
+      "elevation": 138,
+      "icao": "EDLI",
+      "latitude": 51.964927,
+      "longitude": 8.544089,
+      "name": "Bielefeld",
+      "phone": null,
+      "radioFrequency": "118.355",
+      "radioName": "INFO",
+      "runwayDimensions": "1255 x 20 m",
+      "runwayDirections": "11/29",
+      "runwaySurface": "Asphalt",
+      "url": "www.flugplatz-bielefeld.de",
+      "uuid": "0f0e2e61-5170-4760-9766-825e9a4bafa5",
+      "validationDate": "20200806"
     },
     {
       "additionalInfo": "",
@@ -1204,6 +1346,7 @@
       "runwayDirections": "12/30",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-bienenfarm.de",
+      "uuid": "a84ec784-43ee-4f03-a463-07bcfd4eef54",
       "validationDate": "20190601"
     },
     {
@@ -1222,6 +1365,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": "www.sfg-binningen.de",
+      "uuid": "348828fa-0c68-45f2-a43d-058f414781d1",
       "validationDate": "20190523"
     },
     {
@@ -1240,6 +1384,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.birrfeld.ch",
+      "uuid": "f9ee2a13-ae3a-474e-bc63-ae3c779a6b2e",
       "validationDate": "20190601"
     },
     {
@@ -1258,6 +1403,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.flgblaubeuren.de",
+      "uuid": "cd4889b4-24a1-4538-8aa2-ced2f2829e9d",
       "validationDate": "20190601"
     },
     {
@@ -1276,6 +1422,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.wlv-blexen.de",
+      "uuid": "f9dce5de-1c03-4f96-8a74-09bd3ccc0666",
       "validationDate": "20190601"
     },
     {
@@ -1294,6 +1441,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": "www.lsg-lippe.de",
+      "uuid": "0ebc50ba-4ee8-4de1-bf37-11f1439cfd19",
       "validationDate": "20190601"
     },
     {
@@ -1312,6 +1460,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": "www.luftsportverein-blumberg.de",
+      "uuid": "77e38933-2d92-4426-bd52-b984c4040e8a",
       "validationDate": "20190523"
     },
     {
@@ -1330,6 +1479,7 @@
       "runwayDirections": "12/30",
       "runwaySurface": "Grass",
       "url": "www.hac-boberg.de",
+      "uuid": "272530c3-119e-440c-a5e4-754871f04e75",
       "validationDate": "20190601"
     },
     {
@@ -1348,6 +1498,7 @@
       "runwayDirections": "04/22",
       "runwaySurface": "Grass",
       "url": "www.bohlhof.de",
+      "uuid": "6c8c4f44-acdd-49d9-b667-ad8965f2dd22",
       "validationDate": "20190601"
     },
     {
@@ -1366,7 +1517,27 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.lsv-wittlage.de",
+      "uuid": "31ba1a5e-9fd9-4cb8-a47f-c2a6a6c60c9f",
       "validationDate": "20190601"
+    },
+    {
+      "additionalInfo": "",
+      "airportType": "AD",
+      "country": "Germany",
+      "elevation": 60,
+      "icao": "EDKB",
+      "latitude": 50.770287,
+      "longitude": 7.163969,
+      "name": "Bonn-Hangelar",
+      "phone": null,
+      "radioFrequency": "135.155",
+      "radioName": "Bonn-Hangelar INFO",
+      "runwayDimensions": "800 x 30 m",
+      "runwayDirections": "11/29",
+      "runwaySurface": "Grass",
+      "url": "www.edkb.de",
+      "uuid": "e43c3c5d-adc9-40be-a1c4-efbdd952f3a1",
+      "validationDate": "20200830"
     },
     {
       "additionalInfo": "",
@@ -1384,6 +1555,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": "www.lsgsteinfurt.de",
+      "uuid": "909d5d39-a87d-4a24-a193-38459aeebe56",
       "validationDate": "20190601"
     },
     {
@@ -1402,6 +1574,7 @@
       "runwayDirections": "12/30",
       "runwaySurface": "Grass",
       "url": "www.lsvborken.de",
+      "uuid": "0d2847f7-d97c-41e2-8ea2-89fe79db4e8d",
       "validationDate": "20200419"
     },
     {
@@ -1420,6 +1593,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Asphalt",
       "url": "www.borkenberge.com",
+      "uuid": "f1d613ae-a637-4f6a-bac3-6f1e244be423",
       "validationDate": "20190601"
     },
     {
@@ -1438,6 +1612,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "5b681e9a-ab22-45d8-9073-dbe20a9c1d0f",
       "validationDate": "20190601"
     },
     {
@@ -1456,6 +1631,7 @@
       "runwayDirections": "11/29",
       "runwaySurface": "Grass",
       "url": "www.lsgbottenhorn.de",
+      "uuid": "e2146dea-6df4-48a5-a2d2-57085522fa2c",
       "validationDate": "20190601"
     },
     {
@@ -1474,6 +1650,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.fliegerklub-brandenburg.de",
+      "uuid": "8c658099-87cb-4406-9839-3693a1ef3ef8",
       "validationDate": "20190601"
     },
     {
@@ -1492,6 +1669,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.ulbrauna.de",
+      "uuid": "14396b93-15bd-418d-85f3-c767037cb612",
       "validationDate": "20190601"
     },
     {
@@ -1510,6 +1688,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.lsg-braunfels.de",
+      "uuid": "307f97e8-b868-45dd-bb8d-1bc5cde72dd5",
       "validationDate": "20190601"
     },
     {
@@ -1528,6 +1707,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Asphalt",
       "url": "www.fhbwe.de",
+      "uuid": "d7745d55-78f9-4f80-a9c3-76923bfd9959",
       "validationDate": "20200410"
     },
     {
@@ -1546,6 +1726,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.edgb.de",
+      "uuid": "aa8e133a-ed75-4d1f-885e-c008e56abb96",
       "validationDate": "20190601"
     },
     {
@@ -1564,6 +1745,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "25936ca1-d432-458e-a566-b1cab85b8b5b",
       "validationDate": "20190601"
     },
     {
@@ -1582,6 +1764,7 @@
       "runwayDirections": "17/35",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "f6b4179e-4ead-49fa-ad71-b38b94f4af80",
       "validationDate": "20190601"
     },
     {
@@ -1600,6 +1783,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.fsc-burg.de",
+      "uuid": "17498a52-497e-45c5-8928-1a9c39366535",
       "validationDate": "20190601"
     },
     {
@@ -1618,6 +1802,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Asphalt",
       "url": "www.edqe.de",
+      "uuid": "646a8c55-3de4-4404-b7fc-b50d9301c736",
       "validationDate": "20190601"
     },
     {
@@ -1636,6 +1821,7 @@
       "runwayDirections": "17/35",
       "runwaySurface": "Grass",
       "url": "www.luftsportverein-witzenhausen.de",
+      "uuid": "241dc420-2c58-4eb2-909e-dbf5c45506c1",
       "validationDate": "20190601"
     },
     {
@@ -1654,6 +1840,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.ul-burgebrach.de",
+      "uuid": "0ac34799-bc48-4514-8450-d31dd82926ac",
       "validationDate": "20190601"
     },
     {
@@ -1672,6 +1859,7 @@
       "runwayDirections": "14/32",
       "runwaySurface": "Grass",
       "url": "www.lsg-burgheim.de",
+      "uuid": "4fa88f19-6645-4b5e-bbf0-e91fc17eb18d",
       "validationDate": "20190601"
     },
     {
@@ -1690,6 +1878,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.aero-club-butzbach.de",
+      "uuid": "5d8cb245-9d01-488b-bf60-c997ea29599a",
       "validationDate": "20190601"
     },
     {
@@ -1708,6 +1897,7 @@
       "runwayDirections": "24/06",
       "runwaySurface": "Grass",
       "url": "www.edoe.de",
+      "uuid": "59a98301-420b-497c-8c1f-15ba350defaa",
       "validationDate": "20190601"
     },
     {
@@ -1726,6 +1916,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "80547213-e6e7-4c87-9ad6-f322cab6fafe",
       "validationDate": "20190601"
     },
     {
@@ -1744,6 +1935,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.lsv-bueckeburg.de",
+      "uuid": "594f06d4-372f-4cb3-a2ca-a403a7230bdc",
       "validationDate": "20190601"
     },
     {
@@ -1762,6 +1954,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.ac-bueren.de",
+      "uuid": "e5a42038-b744-4de7-ab46-eebef1d3ccfb",
       "validationDate": "20190601"
     },
     {
@@ -1780,6 +1973,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Asphalt",
       "url": null,
+      "uuid": "2a13efb6-e58e-49cb-9e99-323c80a41388",
       "validationDate": "20190830 m"
     },
     {
@@ -1798,6 +1992,7 @@
       "runwayDirections": "04/22",
       "runwaySurface": "Grass",
       "url": "www.flugsportvereinigungcelle.de",
+      "uuid": "8e5eaa3d-2069-4a38-9307-95c833f3d37a",
       "validationDate": "20190601"
     },
     {
@@ -1816,6 +2011,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Asphalt",
       "url": "www.ssv-cham.de",
+      "uuid": "b06af03a-7202-43cf-8cb5-2cf40901243d",
       "validationDate": "20190601"
     },
     {
@@ -1834,6 +2030,7 @@
       "runwayDirections": "03/21",
       "runwaySurface": "Asphalt",
       "url": null,
+      "uuid": "a292347a-cc79-449c-b1e1-fd1a7048cf23",
       "validationDate": "20200706"
     },
     {
@@ -1852,6 +2049,7 @@
       "runwayDirections": "18/36",
       "runwaySurface": "Asphalt",
       "url": null,
+      "uuid": "aacbd967-e504-4c94-94f2-d2e91f1abd86",
       "validationDate": "20200706"
     },
     {
@@ -1870,6 +2068,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Asphalt",
       "url": null,
+      "uuid": "e2652552-8636-45f5-b357-c447c10ab62a",
       "validationDate": "20190601"
     },
     {
@@ -1888,6 +2087,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.chemnitz-airport.de",
+      "uuid": "d479ad37-8eb9-4f1b-b91b-61b30e37c116",
       "validationDate": "20190601"
     },
     {
@@ -1906,6 +2106,7 @@
       "runwayDirections": "12/30",
       "runwaySurface": "Asphalt",
       "url": "www.vlp-coburg.de",
+      "uuid": "9e5f21bf-9633-407e-aa9a-f9742b20924f",
       "validationDate": "20190601"
     },
     {
@@ -1924,6 +2125,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.fag-coburg.de",
+      "uuid": "5a1c1efe-48af-4cd5-bbdb-c4c6040939e7",
       "validationDate": "20190601"
     },
     {
@@ -1942,6 +2144,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-drewitz.de",
+      "uuid": "2d5d39ba-2ed6-420c-b7fc-b1fdcfde6839",
       "validationDate": "20190601"
     },
     {
@@ -1960,6 +2163,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-crawinkel.de",
+      "uuid": "9ef4a0b7-e025-445b-81b6-734ad44ff451",
       "validationDate": "20190601"
     },
     {
@@ -1978,6 +2182,7 @@
       "runwayDirections": "13/31",
       "runwaySurface": "Grass",
       "url": "www.flugplatzcrussow.de",
+      "uuid": "aba75b1e-76b7-4ab8-93f9-5605eda593f3",
       "validationDate": "20190601"
     },
     {
@@ -1996,6 +2201,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "94b4a933-e158-4711-9ce2-a5df2e4fe071",
       "validationDate": "20190601"
     },
     {
@@ -2014,6 +2220,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Grass",
       "url": "www.dahlemer-binz.de",
+      "uuid": "3280f2fd-eca2-425d-984a-6e8069b44774",
       "validationDate": "20200610"
     },
     {
@@ -2032,6 +2239,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Asphalt",
       "url": "www.flugplatz-daun.de",
+      "uuid": "d464f13e-4f72-4583-9c38-99206f9dd659",
       "validationDate": "20190601"
     },
     {
@@ -2050,6 +2258,7 @@
       "runwayDirections": "03/21",
       "runwaySurface": "Grass",
       "url": "www.fsv-schwalm.de",
+      "uuid": "9480efef-2aee-44a6-8dcf-124b8e7f1c99",
       "validationDate": "20190601"
     },
     {
@@ -2068,6 +2277,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-dessau.de",
+      "uuid": "4914d5fd-4e1c-4f8d-add1-eb36a0192bf1",
       "validationDate": "20190601"
     },
     {
@@ -2086,7 +2296,27 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Asphalt",
       "url": "www.lsv-neuwied.de/",
+      "uuid": "ee35c624-5c5b-48b0-97b8-a9969a934293",
       "validationDate": "20190601"
+    },
+    {
+      "additionalInfo": "",
+      "airportType": "AD",
+      "country": "Germany",
+      "elevation": 66,
+      "icao": "EDLD",
+      "latitude": 51.616073,
+      "longitude": 6.861541,
+      "name": "Disnlaken-Schwarze Heide ",
+      "phone": null,
+      "radioFrequency": "122.705",
+      "radioName": "INFO",
+      "runwayDimensions": "1500 x x30 m",
+      "runwayDirections": "08/26",
+      "runwaySurface": "Asphalt",
+      "url": null,
+      "uuid": "b2a06f0d-f676-475a-a911-20395eefb19c",
+      "validationDate": "20200801"
     },
     {
       "additionalInfo": "",
@@ -2104,6 +2334,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.lsc-forchheim.de",
+      "uuid": "97a2864c-908e-4442-b176-d72fde2efc59",
       "validationDate": "20190601"
     },
     {
@@ -2122,6 +2353,7 @@
       "runwayDirections": "18/36",
       "runwaySurface": "Asphalt",
       "url": "www.flugplatz-donaueschingen.de",
+      "uuid": "1eae2d8f-528c-42f4-9a49-f7bf3a2cfcd6",
       "validationDate": "20190523"
     },
     {
@@ -2140,6 +2372,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.fliegergruppe-donzdorf.de",
+      "uuid": "6e288690-dafb-4a4b-9120-d8cf5ef7e0b8",
       "validationDate": "20190601"
     },
     {
@@ -2158,6 +2391,7 @@
       "runwayDirections": "11/29",
       "runwaySurface": "Grass",
       "url": "www.malev-ato.hu",
+      "uuid": "6d79c19a-e66a-4077-9ff2-8fac424e773e",
       "validationDate": "20200612"
     },
     {
@@ -2176,6 +2410,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": "www.lsvdueren.de/",
+      "uuid": "7da19072-e02c-4074-a4c4-37393d4bf926",
       "validationDate": "20200630"
     },
     {
@@ -2194,6 +2429,7 @@
       "runwayDirections": "15/26",
       "runwaySurface": "Grass",
       "url": "www.wolfsaap.de",
+      "uuid": "2407d2a9-26aa-4695-bcb0-b65f84bebcd8",
       "validationDate": "20200529"
     },
     {
@@ -2212,6 +2448,7 @@
       "runwayDirections": "18/36",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "8a6af96b-d84b-442a-a8b0-b7d385ccc981",
       "validationDate": "20200726"
     },
     {
@@ -2230,6 +2467,7 @@
       "runwayDirections": "03/21",
       "runwaySurface": "Grass",
       "url": "www.lsv-erbach.de",
+      "uuid": "322fb71b-4e57-4777-9e71-1b85190366d8",
       "validationDate": "20190601"
     },
     {
@@ -2248,6 +2486,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": "www.flughafen-essen-muelheim.de",
+      "uuid": "ecc051da-f343-466e-b38c-db5640fa35f9",
       "validationDate": "20200607"
     },
     {
@@ -2266,6 +2505,7 @@
       "runwayDirections": "13/31",
       "runwaySurface": "Grass",
       "url": "www.aero-club-esslingen.de",
+      "uuid": "86dee634-3195-4318-8983-e18082c00b86",
       "validationDate": "20190601"
     },
     {
@@ -2284,6 +2524,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "3f8ea3ba-996b-43f6-ab11-24637e625c2b",
       "validationDate": "20200709"
     },
     {
@@ -2302,6 +2543,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.fsv-moessingen.de",
+      "uuid": "bf223f48-d6a9-4e9b-a889-fc033756b7cc",
       "validationDate": "20190601"
     },
     {
@@ -2320,6 +2562,7 @@
       "runwayDirections": "02/20",
       "runwaySurface": "Grass",
       "url": "www.lokf.at",
+      "uuid": "1145f705-a236-41a5-a2db-16e5bb8bb261",
       "validationDate": "20190601"
     },
     {
@@ -2338,6 +2581,7 @@
       "runwayDirections": "12/30",
       "runwaySurface": "Grass",
       "url": "www.segelflugclub-fischbek.de",
+      "uuid": "9c20a2f4-2f8e-4baa-a250-047a44c03560",
       "validationDate": "20200508"
     },
     {
@@ -2356,6 +2600,7 @@
       "runwayDirections": "16/34",
       "runwaySurface": "Asphalt",
       "url": "www.city-flugplatz-freiburg.de",
+      "uuid": "1935efe4-0e20-4c20-9e62-fade6d0986fc",
       "validationDate": "20200713"
     },
     {
@@ -2374,6 +2619,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.aecs-fricktal.ch",
+      "uuid": "0457ff7b-8a4a-42b9-997e-6c336537987f",
       "validationDate": "20190601"
     },
     {
@@ -2392,6 +2638,7 @@
       "runwayDirections": "01/19",
       "runwaySurface": "Grass",
       "url": "www.friesenerwarte.de",
+      "uuid": "e019b3d6-d24b-44ef-aea4-f9f7914a1adb",
       "validationDate": "20190601"
     },
     {
@@ -2410,6 +2657,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "01163e79-833e-4270-92e2-8697abbf1d27",
       "validationDate": "20190601"
     },
     {
@@ -2428,6 +2676,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Asphalt",
       "url": null,
+      "uuid": "06ee5fd5-e141-4145-a1a2-a4cdf4b69be7",
       "validationDate": "20200729"
     },
     {
@@ -2446,6 +2695,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.lsv-goch.de",
+      "uuid": "087484e0-06da-435e-97c8-8bac33b1ae06",
       "validationDate": "20190601"
     },
     {
@@ -2464,6 +2714,7 @@
       "runwayDirections": "13/31",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "b2c56fea-5223-4ee0-bde4-e35f20ac9359",
       "validationDate": "20190601"
     },
     {
@@ -2482,6 +2733,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "0f5d725e-2b6d-40f0-9ded-25528dffab70",
       "validationDate": "20190601"
     },
     {
@@ -2500,6 +2752,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "f6bb7c9f-d115-470e-a8b0-a695562ee762",
       "validationDate": "20200729"
     },
     {
@@ -2518,6 +2771,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.lsv-burgdorf.de",
+      "uuid": "ca3c0ea0-b394-4a43-8b8a-ad7a8899a361",
       "validationDate": "20190601"
     },
     {
@@ -2536,6 +2790,7 @@
       "runwayDirections": "04/22",
       "runwaySurface": "Grass",
       "url": "www.lsvdelmenhorst.de",
+      "uuid": "1b7a5efb-c57d-402d-97bf-520fd044c684",
       "validationDate": "20200415"
     },
     {
@@ -2554,6 +2809,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-grube.de",
+      "uuid": "3b1437a0-0581-4e3e-b5cc-d59d2d408605",
       "validationDate": "20200717"
     },
     {
@@ -2572,6 +2828,7 @@
       "runwayDirections": "18/36",
       "runwaySurface": "Grass",
       "url": "www.luftfahrtverein-gruenstadt.de",
+      "uuid": "67a47bc2-d710-4a0e-89a9-9d52e9e377c0",
       "validationDate": "20200727"
     },
     {
@@ -2590,6 +2847,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "55c39413-a5d3-4282-a115-011ca42242ca",
       "validationDate": "20190601"
     },
     {
@@ -2608,7 +2866,27 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.fsc-muehlacker.de",
+      "uuid": "ed90fd48-6ca4-44ff-b01d-3a7534a94920",
       "validationDate": "20190601"
+    },
+    {
+      "additionalInfo": "",
+      "airportType": "AD",
+      "country": "Germany",
+      "elevation": 108,
+      "icao": "HASS",
+      "latitude": 49.355082,
+      "longitude": 8.288415,
+      "name": "Hassloch",
+      "phone": null,
+      "radioFrequency": "118.210",
+      "radioName": "Hassloch INFO",
+      "runwayDimensions": "910 x 30 m",
+      "runwayDirections": "08/26",
+      "runwaySurface": "Grass",
+      "url": null,
+      "uuid": "6a488597-7eb2-4e4b-98f7-0201d1b5477f",
+      "validationDate": "20201009"
     },
     {
       "additionalInfo": "",
@@ -2626,6 +2904,7 @@
       "runwayDirections": "18/36",
       "runwaySurface": "Grass",
       "url": "www.fg-heiligenberg.de",
+      "uuid": "f3ccc5d7-a009-42a5-8381-4210c6ab130d",
       "validationDate": "20190523"
     },
     {
@@ -2644,6 +2923,7 @@
       "runwayDirections": "11/29",
       "runwaySurface": "Grass",
       "url": "www.flugsportclub.com",
+      "uuid": "83d2e696-4adb-4f2d-907f-0214cb6dbe33",
       "validationDate": "20200403"
     },
     {
@@ -2662,7 +2942,27 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-hengsen.de",
+      "uuid": "0892421a-5f51-4a91-a64e-bff0f1d8feed",
       "validationDate": "20190601"
+    },
+    {
+      "additionalInfo": "",
+      "airportType": "AD",
+      "country": "Germany",
+      "elevation": 409,
+      "icao": "HERM",
+      "latitude": 49.314485,
+      "longitude": 9.74843,
+      "name": "Hermuthausen",
+      "phone": null,
+      "radioFrequency": "118.085",
+      "radioName": "Hermuthausen SEGELFLUG",
+      "runwayDimensions": "930 x 30 m",
+      "runwayDirections": "08/26",
+      "runwaySurface": "Grass",
+      "url": "www.fsg-kochertal.de",
+      "uuid": "11af8770-657d-4482-b4b5-f46ec1ce214d",
+      "validationDate": "20200830"
     },
     {
       "additionalInfo": "",
@@ -2680,6 +2980,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.segelfliegen-hersbruck.de",
+      "uuid": "17cb419c-fabf-4bc2-86dc-8a02813fd2aa",
       "validationDate": "20190601"
     },
     {
@@ -2698,6 +2999,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Asphalt",
       "url": null,
+      "uuid": "3f6e86cf-3166-4dad-961f-b1c1f846b99b",
       "validationDate": "20190601"
     },
     {
@@ -2716,6 +3018,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-hildesheim.de",
+      "uuid": "66130820-0160-4528-ba88-2c2a9c339fc5",
       "validationDate": "20200410"
     },
     {
@@ -2728,12 +3031,13 @@
       "longitude": 8.770117,
       "name": "Hilzingen",
       "phone": null,
-      "radioFrequency": "127.14",
+      "radioFrequency": "127.140",
       "radioName": "INFO",
       "runwayDimensions": "450 x 30 m",
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.sfg-singen.de",
+      "uuid": "06ac7714-e915-4c30-95de-8ac48a511f3e",
       "validationDate": "20190523"
     },
     {
@@ -2752,6 +3056,7 @@
       "runwayDirections": "11/29",
       "runwaySurface": "Grass",
       "url": "WWW.sfc-hihai.de",
+      "uuid": "ea75efc3-90cb-45d4-ba3f-0e93f5966596",
       "validationDate": "20190601"
     },
     {
@@ -2770,6 +3075,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Asphalt",
       "url": null,
+      "uuid": "ad93d9a8-2d14-4bf5-8a90-860bbbbebbd9",
       "validationDate": "20190601"
     },
     {
@@ -2788,6 +3094,7 @@
       "runwayDirections": " 05/23",
       "runwaySurface": "Asphalt",
       "url": "www.loih.at",
+      "uuid": "166e8bad-c832-4e6f-ba02-d001d0584474",
       "validationDate": "20200421"
     },
     {
@@ -2806,6 +3113,7 @@
       "runwayDirections": "12/30",
       "runwaySurface": "Grass",
       "url": "www.sfv-hoya.de",
+      "uuid": "19e888e9-d5cd-46c6-b694-1cb91deef905",
       "validationDate": "20200515"
     },
     {
@@ -2824,6 +3132,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.lsv-schneverdingen.de",
+      "uuid": "f5b84d0c-dcff-47b1-bae7-995743ac2d3d",
       "validationDate": "20200706"
     },
     {
@@ -2842,6 +3151,7 @@
       "runwayDirections": "08/29",
       "runwaySurface": "Grass",
       "url": "www.fliegergruppehuelben.de",
+      "uuid": "9300dde6-3de9-4236-a1e7-0e2142d8561c",
       "validationDate": "20190601"
     },
     {
@@ -2860,6 +3170,7 @@
       "runwayDirections": "11/29",
       "runwaySurface": "Grass",
       "url": "www.lg-hotzenwald.de",
+      "uuid": "ae4436b2-65ea-440b-9dc7-ecb08d96d5a8",
       "validationDate": "20190601"
     },
     {
@@ -2878,6 +3189,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": "www.aero-clubidar-oberstein.de",
+      "uuid": "e1fd265d-9bab-496f-a28f-16b3b57f80d2",
       "validationDate": "20200726"
     },
     {
@@ -2896,6 +3208,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Asphalt",
       "url": "www.flugplatz-ingolstadt.de",
+      "uuid": "c5637bb3-a5eb-45d5-9ebc-c6bb23a042c6",
       "validationDate": "20190601"
     },
     {
@@ -2914,6 +3227,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.aero-club-ingolstadt.de",
+      "uuid": "fe775689-b73c-481e-ac7f-795d55564b9b",
       "validationDate": "20190601"
     },
     {
@@ -2932,6 +3246,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.innsbruck-airport.com",
+      "uuid": "305f1b7e-ec6c-45da-b1eb-b71e18a22262",
       "validationDate": "20200530"
     },
     {
@@ -2950,6 +3265,7 @@
       "runwayDirections": "04/22",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-suemmern.de",
+      "uuid": "e7c408d9-b32a-45f2-8e82-ff0f62328730",
       "validationDate": "20190601"
     },
     {
@@ -2968,6 +3284,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.lsg-isny.de",
+      "uuid": "4d0ca5c4-d044-4126-8f31-87d8a5aa7d3c",
       "validationDate": "20200703"
     },
     {
@@ -2986,6 +3303,7 @@
       "runwayDirections": "14/32",
       "runwaySurface": "Grass",
       "url": "www.ithwiesen.de",
+      "uuid": "f670da42-daf8-4fc8-9c20-d86701b14a44",
       "validationDate": "20190601"
     },
     {
@@ -3004,6 +3322,7 @@
       "runwayDirections": "02/20",
       "runwaySurface": "Asphalt",
       "url": null,
+      "uuid": "993cd37b-fc33-4cb6-b065-2027e72ea768",
       "validationDate": "20200729"
     },
     {
@@ -3022,6 +3341,7 @@
       "runwayDirections": "02/20",
       "runwaySurface": "Asphalt",
       "url": null,
+      "uuid": "c85e0156-8366-4404-bb4c-37ffb1a0a122",
       "validationDate": "20190601"
     },
     {
@@ -3040,6 +3360,7 @@
       "runwayDirections": "14/32",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "7b9e5764-86b9-4305-b614-9dc63f14a0e8",
       "validationDate": "20200726"
     },
     {
@@ -3058,6 +3379,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "a9a05c95-509c-454e-b6ec-12a989501be9",
       "validationDate": "20190601"
     },
     {
@@ -3076,6 +3398,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Grass",
       "url": "www.aeroclub-klippeneck.de",
+      "uuid": "58f7c880-daf1-49fd-8e0e-d843e079421c",
       "validationDate": "20190523"
     },
     {
@@ -3094,6 +3417,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-koblenz-winningen.de",
+      "uuid": "531135c2-5ed6-4caa-b3ac-307847d76f8e",
       "validationDate": "20200604"
     },
     {
@@ -3112,6 +3436,7 @@
       "runwayDirections": "12/30 m",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-konstanz.de",
+      "uuid": "182adade-fc4d-4fea-a0ce-67f4a809c02b",
       "validationDate": "20190523"
     },
     {
@@ -3130,6 +3455,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": "www.fliegerclub-kufstein.at",
+      "uuid": "c91cdd02-32b3-4b2b-b416-b698df00be02",
       "validationDate": "20190606"
     },
     {
@@ -3148,6 +3474,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.sfzkdf.de",
+      "uuid": "abe41e91-05a6-46e7-9e55-5f096414bba1",
       "validationDate": "20200615"
     },
     {
@@ -3166,6 +3493,7 @@
       "runwayDirections": "11/29",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "5c0fe1fa-7ac9-4cc8-be42-d61e1f886b79",
       "validationDate": "20190601"
     },
     {
@@ -3184,6 +3512,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Asphalt",
       "url": "https://fsv.lai.de",
+      "uuid": "3ae3b32f-9ac3-47de-a3fa-879530d0909c",
       "validationDate": "20200624"
     },
     {
@@ -3202,6 +3531,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.lsgerbsloeh.de",
+      "uuid": "72947938-d4eb-4817-8b10-06fb08d6269b",
       "validationDate": "20200714"
     },
     {
@@ -3220,6 +3550,7 @@
       "runwayDirections": "01/19",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "22247c19-34e0-4e22-b136-745d63fd8142",
       "validationDate": "20200726"
     },
     {
@@ -3238,7 +3569,27 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "202f12ef-ed67-4bba-8ce1-6e82d168fd7a",
       "validationDate": "20200729"
+    },
+    {
+      "additionalInfo": "",
+      "airportType": "AD",
+      "country": "Germany",
+      "elevation": 545,
+      "icao": "EDQI",
+      "latitude": 49.605379,
+      "longitude": 11.283487,
+      "name": "Lauf-Lillinghof",
+      "phone": null,
+      "radioFrequency": "128.585",
+      "radioName": "INFO",
+      "runwayDimensions": "450 x 10 m",
+      "runwayDirections": "07/25",
+      "runwaySurface": "Asphalt",
+      "url": null,
+      "uuid": "e8a1a51d-18e8-4ab7-8934-d9c23f636a98",
+      "validationDate": "20200806"
     },
     {
       "additionalInfo": "",
@@ -3256,6 +3607,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-leibertingen.de",
+      "uuid": "9e994a32-0f46-43ed-a9b2-ac1823959fee",
       "validationDate": "20190523"
     },
     {
@@ -3274,6 +3626,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "fb4dd4fc-e296-4d21-bf14-16b41ddce662",
       "validationDate": "20200607"
     },
     {
@@ -3292,6 +3645,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Asphalt",
       "url": "www.flugplatz-leutkirch.de",
+      "uuid": "d6404cd9-33e2-4d43-9eae-b62c5b4e1f6c",
       "validationDate": "20190609"
     },
     {
@@ -3310,6 +3664,7 @@
       "runwayDirections": "12/30",
       "runwaySurface": "Asphalt",
       "url": "www.flugplatz-lienz.at",
+      "uuid": "d2ef0a53-6833-41e1-a843-880dc0222772",
       "validationDate": "20190601"
     },
     {
@@ -3328,6 +3683,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": "www.mfgt.ch",
+      "uuid": "686d10e1-d690-4907-82ef-9f1abcdd29e5",
       "validationDate": "20190601"
     },
     {
@@ -3346,7 +3702,27 @@
       "runwayDirections": "13/31",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "6c5d4e84-1e5c-410b-9bb2-c373b1bccd7b",
       "validationDate": "20200607"
+    },
+    {
+      "additionalInfo": "",
+      "airportType": "AD",
+      "country": "Germany",
+      "elevation": 96,
+      "icao": "DANN",
+      "latitude": 49.41135,
+      "longitude": 8.34887,
+      "name": "Ludwigshafen-Dannstadt",
+      "phone": null,
+      "radioFrequency": "123.965",
+      "radioName": "Dannstadt SEGELFLUG",
+      "runwayDimensions": "1070 x 30 m",
+      "runwayDirections": "05/23",
+      "runwaySurface": "Grass",
+      "url": null,
+      "uuid": "ab311152-1bfb-4efa-a909-3937179d2363",
+      "validationDate": "20201009"
     },
     {
       "additionalInfo": "",
@@ -3364,6 +3740,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Asphalt",
       "url": "www.flughafen-luebeck.de",
+      "uuid": "87f63377-5448-41ca-a71e-f289f9fd3a9c",
       "validationDate": "20200623"
     },
     {
@@ -3382,6 +3759,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "e9adffd5-f07e-4c30-b55b-50b24dbf8ff4",
       "validationDate": "20200726"
     },
     {
@@ -3400,6 +3778,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.sfg-markdorf.de",
+      "uuid": "987850e1-fb44-4d53-994e-6120ed758456",
       "validationDate": "20190609"
     },
     {
@@ -3418,6 +3797,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.aeroclub-saar.de",
+      "uuid": "3cee703f-879a-40b2-a045-2f81e080cfc6",
       "validationDate": "20190601"
     },
     {
@@ -3436,6 +3816,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Asphalt",
       "url": "www.flugplatz-melle.de",
+      "uuid": "b1f396d1-d6d3-45b2-9399-6562a8068d2d",
       "validationDate": "20200601"
     },
     {
@@ -3454,6 +3835,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Asphalt",
       "url": "www.regio-airport-mengen.de",
+      "uuid": "b87f4d62-cb12-4c62-8614-54a066b29bbd",
       "validationDate": "20190523"
     },
     {
@@ -3472,6 +3854,7 @@
       "runwayDirections": "04/22",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-meschede.de",
+      "uuid": "eadfba6b-0dc3-448f-823b-5af4e75b7606",
       "validationDate": "20190601"
     },
     {
@@ -3490,6 +3873,7 @@
       "runwayDirections": "14/32",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-micheldorf.at",
+      "uuid": "feb1027b-fe85-4e69-848c-be825bc34475",
       "validationDate": "20190601"
     },
     {
@@ -3508,6 +3892,7 @@
       "runwayDirections": "15/33",
       "runwaySurface": "Grass",
       "url": "www.ul-fischachtal.de",
+      "uuid": "72a10fc5-b6ac-42a4-9b68-262fabb929d9",
       "validationDate": "20190601"
     },
     {
@@ -3526,6 +3911,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.mosenberg.info",
+      "uuid": "55d5c16c-9744-47ec-8b10-057802423180",
       "validationDate": "20200607"
     },
     {
@@ -3544,6 +3930,7 @@
       "runwayDirections": "13/31",
       "runwaySurface": "Asphalt",
       "url": "www.mgl.de",
+      "uuid": "d8a44ec0-ad95-416f-a370-f473cb2bc596",
       "validationDate": "20190601"
     },
     {
@@ -3562,6 +3949,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.segelflug-mg.de",
+      "uuid": "7a4b9679-9430-436d-aba8-eaf74d2be946",
       "validationDate": "20190601"
     },
     {
@@ -3580,6 +3968,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.moenchsheide.de",
+      "uuid": "c0c29d86-258f-4b3a-ad9a-7b9a6690eb8b",
       "validationDate": "20200617"
     },
     {
@@ -3598,6 +3987,7 @@
       "runwayDirections": "16/34",
       "runwaySurface": "Grass",
       "url": "www.luftsport-muellheim.de",
+      "uuid": "8082fe75-a3a1-4b25-b884-fffefc916b7c",
       "validationDate": "20200713"
     },
     {
@@ -3616,6 +4006,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.luftsportverein-muensingen.de",
+      "uuid": "1cda4bac-34af-4fda-92c8-c2e5a6587546",
       "validationDate": "20190601"
     },
     {
@@ -3634,6 +4025,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "41f14d46-de97-49a2-bbdf-06937616377d",
       "validationDate": "20200726"
     },
     {
@@ -3652,6 +4044,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.aero-club-nastaetten.de",
+      "uuid": "eec35370-2a10-4df2-a13e-657bedb6910e",
       "validationDate": "20200604"
     },
     {
@@ -3670,6 +4063,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.take-off-park.de",
+      "uuid": "b99c101b-87d2-4420-8900-8fefc89f63ed",
       "validationDate": "20190523"
     },
     {
@@ -3688,6 +4082,7 @@
       "runwayDirections": "04/22",
       "runwaySurface": "Asphalt",
       "url": null,
+      "uuid": "cdc88f96-93fe-4a74-86a7-b69d5c47e5d0",
       "validationDate": "20190601"
     },
     {
@@ -3706,6 +4101,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Asphalt",
       "url": "www.flugplatz-nordhorn-lingen.de",
+      "uuid": "5f58aaf4-d064-44ba-b20c-0e7018c5b14e",
       "validationDate": "20190601"
     },
     {
@@ -3724,6 +4120,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.lokn.at",
+      "uuid": "250ae45d-5aa9-46a3-9aba-2802324672fb",
       "validationDate": "20190601"
     },
     {
@@ -3742,6 +4139,7 @@
       "runwayDirections": "04/22",
       "runwaySurface": "Asphalt",
       "url": "www.edmo-airport.de",
+      "uuid": "07eba210-8ee5-438b-ad96-fb4b6178febb",
       "validationDate": "20190601"
     },
     {
@@ -3760,6 +4158,7 @@
       "runwayDirections": "04/22",
       "runwaySurface": "Grass",
       "url": "www.luftsportzentrum-oerlinghausen.de",
+      "uuid": "91c01d7f-70d5-43f3-be9f-1d2c078cc1ed",
       "validationDate": "20190601"
     },
     {
@@ -3778,6 +4177,7 @@
       "runwayDirections": "12/30",
       "runwaySurface": "Grass",
       "url": "www.lsc-oeventrop.de",
+      "uuid": "8a598a02-dbfd-46c5-8c04-579d44c085d4",
       "validationDate": "20190601"
     },
     {
@@ -3796,6 +4196,7 @@
       "runwayDirections": "02/20",
       "runwaySurface": "Asphalt",
       "url": "www.fliegergruppe-offenburg.de",
+      "uuid": "543387f8-854c-4a30-87c2-df3b6d556b2c",
       "validationDate": "20190601"
     },
     {
@@ -3814,6 +4215,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Grass",
       "url": "www.sgolten.ch",
+      "uuid": "11cdb4f0-d41f-4cb9-a9e6-5897d77e38a8",
       "validationDate": "20190601"
     },
     {
@@ -3832,6 +4234,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.haec.de",
+      "uuid": "0b371303-d2b6-4eb6-953a-1bfb44b8658b",
       "validationDate": "20200715"
     },
     {
@@ -3850,6 +4253,7 @@
       "runwayDirections": "18/36",
       "runwaySurface": "Grass",
       "url": "www.paterzell.de",
+      "uuid": "95027b63-416b-49cd-8c45-bb041caef2c0",
       "validationDate": "20200709"
     },
     {
@@ -3868,6 +4272,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.uhlenflug-peine.de",
+      "uuid": "3dafa1a5-5118-40ea-b483-0300477af3dc",
       "validationDate": "20200410"
     },
     {
@@ -3886,6 +4291,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.lsc-pfarrkirchen.de",
+      "uuid": "e79d8ad8-5d2b-42ff-b652-f17ad7014ca7",
       "validationDate": "20190601"
     },
     {
@@ -3904,6 +4310,7 @@
       "runwayDirections": "01/19",
       "runwaySurface": "Grass",
       "url": "www.fsv-pfullendorf.de",
+      "uuid": "8c5d4432-bbc7-4c8a-8455-f923b051a68e",
       "validationDate": "20190523"
     },
     {
@@ -3922,6 +4329,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "33403982-182f-4b09-a449-ebb4f7b70d84",
       "validationDate": "20200608"
     },
     {
@@ -3940,6 +4348,7 @@
       "runwayDirections": "12/30 m",
       "runwaySurface": "Grass",
       "url": "www.aeroclub-pirna.de",
+      "uuid": "89c7fc57-33fa-4c98-a798-2652472f7dd0",
       "validationDate": "20190830 m"
     },
     {
@@ -3958,6 +4367,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Grass",
       "url": "www.edkp.de",
+      "uuid": "dbec5991-b18b-44d2-9066-1c4e6652c40f",
       "validationDate": "20200606"
     },
     {
@@ -3976,6 +4386,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Asphalt",
       "url": "www.edvy.de",
+      "uuid": "a3ab4f5b-230c-4047-bc29-ad979dd49ab9",
       "validationDate": "20200601"
     },
     {
@@ -3994,6 +4405,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "caa0fd70-04d4-41c4-988e-159bf74edf78",
       "validationDate": "20190601"
     },
     {
@@ -4012,6 +4424,7 @@
       "runwayDirections": "04/22",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "76b5a9e8-c449-494d-aa7e-9e931bafa6b6",
       "validationDate": "20190601"
     },
     {
@@ -4030,6 +4443,7 @@
       "runwayDirections": "10/28/",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "e71c6a49-2d43-49d0-a0ec-e8f1a5bdc36a",
       "validationDate": "20190601"
     },
     {
@@ -4048,6 +4462,7 @@
       "runwayDirections": "07 / 25",
       "runwaySurface": "Grass",
       "url": "www.sfg-reiselfingen.de",
+      "uuid": "b9fc2514-c21c-41ae-8fcb-d4eda8b6c4d6",
       "validationDate": "20190601"
     },
     {
@@ -4066,6 +4481,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-renneritz.de",
+      "uuid": "b883aa5a-80c6-4005-b636-75b15a98fb36",
       "validationDate": "20200520"
     },
     {
@@ -4084,6 +4500,7 @@
       "runwayDirections": "04/22",
       "runwaySurface": "Asphalt",
       "url": "www.flugsportverein-reutte.at",
+      "uuid": "e6ec5ada-4ac3-4252-ad1c-b653d5faaa70",
       "validationDate": "20190606"
     },
     {
@@ -4102,6 +4519,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "d0532f63-05e3-415a-a408-5e4da904f68e",
       "validationDate": "20200706"
     },
     {
@@ -4120,6 +4538,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.lsv-rossfeld.de",
+      "uuid": "d9a38450-2000-46c9-89a4-d5d948559e08",
       "validationDate": "20190601"
     },
     {
@@ -4138,6 +4557,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.mfc-salzgitter.de",
+      "uuid": "95b08391-6807-4339-aea2-9349d72fdf24",
       "validationDate": "20200410"
     },
     {
@@ -4156,6 +4576,7 @@
       "runwayDirections": "11/29",
       "runwaySurface": "Grass",
       "url": "www.lsg-schaeferstuhl.de",
+      "uuid": "a8cbef38-a2ff-457a-b0d9-61caf9e5061b",
       "validationDate": "20190601"
     },
     {
@@ -4174,6 +4595,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Grass",
       "url": "www.ulboll.de",
+      "uuid": "f38739cc-2873-4bf2-998d-57ffc9b94a82",
       "validationDate": "20190523"
     },
     {
@@ -4192,6 +4614,7 @@
       "runwayDirections": "12/30 m",
       "runwaySurface": "Asphalt",
       "url": "www.edtu.de",
+      "uuid": "13d359a9-d898-4288-85c5-3c73074523c2",
       "validationDate": "20190601"
     },
     {
@@ -4210,6 +4633,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.schmerlat.ch",
+      "uuid": "7f0310ca-05fc-4a22-a6a0-76ddb4b57610",
       "validationDate": "20190601"
     },
     {
@@ -4228,6 +4652,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-scharnstein.at",
+      "uuid": "4f460096-7ede-4e58-b0df-3977b487108b",
       "validationDate": "20190601"
     },
     {
@@ -4246,6 +4671,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.segelfliegen-in-celle.de",
+      "uuid": "c97c3d2d-b7bb-4d94-8197-a7ac9aa61aac",
       "validationDate": "20200407"
     },
     {
@@ -4264,6 +4690,7 @@
       "runwayDirections": "04/22",
       "runwaySurface": "Asphalt",
       "url": "www.sfg-schwenningen.de",
+      "uuid": "b0db2d12-ebd4-4c0f-a3cd-92f417351184",
       "validationDate": "20190601"
     },
     {
@@ -4282,6 +4709,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Asphalt",
       "url": "www.edty.de",
+      "uuid": "2d8c32f5-5a3b-4c2e-b6b1-4b8b42b4a9e8",
       "validationDate": "20190601"
     },
     {
@@ -4300,6 +4728,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.mfc-sha.de",
+      "uuid": "e3344268-fa3c-4dae-b71b-447ca11e5af0",
       "validationDate": "20190601"
     },
     {
@@ -4318,6 +4747,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "6abc1b30-9820-47c2-94a1-3a350aaf45d2",
       "validationDate": "20190601"
     },
     {
@@ -4336,6 +4766,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-soest.de",
+      "uuid": "b2593f40-9f11-41a4-ac86-ab76c39c91ad",
       "validationDate": "20190601"
     },
     {
@@ -4354,6 +4785,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Asphalt",
       "url": null,
+      "uuid": "aabe44eb-e7f9-4ce4-a4fc-6e2849fab210",
       "validationDate": "20200415"
     },
     {
@@ -4372,6 +4804,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "8b18425a-cf38-473e-802a-62482bdf46f8",
       "validationDate": "20200730"
     },
     {
@@ -4390,6 +4823,7 @@
       "runwayDirections": "13/31",
       "runwaySurface": "Grass",
       "url": "www.loij.at",
+      "uuid": "e56dd2f6-a69b-4df8-bbfe-af59cd64d56c",
       "validationDate": "20190601"
     },
     {
@@ -4408,6 +4842,7 @@
       "runwayDirections": "11/29",
       "runwaySurface": "Asphalt",
       "url": null,
+      "uuid": "6c760842-0130-4cf5-9fc7-e0326029a078",
       "validationDate": "20190601"
     },
     {
@@ -4418,14 +4853,15 @@
       "icao": "EDSR",
       "latitude": 47.802914,
       "longitude": 8.97955,
-      "name": "Stahringen Radolfzell",
+      "name": "Stahringen-Radolfzell",
       "phone": "+4977712829",
       "radioFrequency": "127.530",
-      "radioName": "INFO",
+      "radioName": "Stahringen INFO",
       "runwayDimensions": "710 x 30 m",
       "runwayDirections": "01/19",
       "runwaySurface": "Grass",
       "url": "www.edsr.info",
+      "uuid": "1de1da04-5051-43e9-9f83-68ae10ccc991",
       "validationDate": "20200414"
     },
     {
@@ -4444,6 +4880,7 @@
       "runwayDirections": "03/21",
       "runwaySurface": "Grass",
       "url": "www.lvstolberg.de",
+      "uuid": "10a1ae78-91d3-45ad-8a54-b553704b15f1",
       "validationDate": "20200630"
     },
     {
@@ -4462,6 +4899,7 @@
       "runwayDirections": "11/29",
       "runwaySurface": "Grass",
       "url": "www.aeroclub-wolfsburg.de",
+      "uuid": "50ed5026-4d47-40d6-9387-5e22d1081211",
       "validationDate": "20200604"
     },
     {
@@ -4480,6 +4918,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Asphalt",
       "url": "www.flughafen-sylt.de",
+      "uuid": "9a6cb2fa-7e15-4743-9e66-d06a6d7d065a",
       "validationDate": "20190601"
     },
     {
@@ -4498,6 +4937,7 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "3ec96e11-f086-45d5-877c-38385fd8c691",
       "validationDate": "20200730"
     },
     {
@@ -4516,6 +4956,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.edmt.de",
+      "uuid": "e0e16c4b-fe8f-4fb4-90e1-ebfeee6ee364",
       "validationDate": "20190601"
     },
     {
@@ -4534,6 +4975,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Asphalt",
       "url": "www.fliegerclub-traunsee.at",
+      "uuid": "07c4a114-67b6-4b82-ab34-3ef5879cda93",
       "validationDate": "20190601"
     },
     {
@@ -4552,7 +4994,27 @@
       "runwayDirections": "12/30",
       "runwaySurface": "Grass",
       "url": "www.aeroklubstalowowolski.pl",
+      "uuid": "787b67b7-81ea-4cb8-8391-79c1f1015feb",
       "validationDate": "20200608"
+    },
+    {
+      "additionalInfo": "",
+      "airportType": "AD",
+      "country": "Germany",
+      "elevation": 75,
+      "icao": "EDVU",
+      "latitude": 52.983708,
+      "longitude": 10.465244,
+      "name": "Uelzen",
+      "phone": null,
+      "radioFrequency": "130.905",
+      "radioName": "Uelzen INFO",
+      "runwayDimensions": "800 x 20 m",
+      "runwayDirections": "08/26",
+      "runwaySurface": "Asphalt",
+      "url": "www.flugplatz-uelzen.de",
+      "uuid": "e3faea88-aa45-4740-9548-9d17c3272b42",
+      "validationDate": "20200901"
     },
     {
       "additionalInfo": "",
@@ -4570,6 +5032,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.fsv-vaihingen.de",
+      "uuid": "4bf7ced7-af36-4d9d-afc8-4d9c2dcacc75",
       "validationDate": "20190601"
     },
     {
@@ -4588,6 +5051,7 @@
       "runwayDirections": "09/27",
       "runwaySurface": "Grass",
       "url": "www.lsv-cloppenburg.de",
+      "uuid": "66da060f-d62a-499d-be7a-e3c473301c8a",
       "validationDate": "20190601"
     },
     {
@@ -4606,6 +5070,7 @@
       "runwayDirections": "03/21",
       "runwaySurface": "Grass",
       "url": null,
+      "uuid": "33487329-d4b7-42d4-8c81-37acc75dcad5",
       "validationDate": "20200430"
     },
     {
@@ -4624,6 +5089,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.sfg-backnang.de",
+      "uuid": "b6fa3565-2560-4856-b0d0-1f41dab28f72",
       "validationDate": "20190601"
     },
     {
@@ -4642,6 +5108,7 @@
       "runwayDirections": "18/36",
       "runwaySurface": "Grass",
       "url": "www.aeroclub-walldorf.de",
+      "uuid": "883c7c4e-9198-4c2b-b229-6a8b3d6e66cc",
       "validationDate": "20190601"
     },
     {
@@ -4660,6 +5127,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Asphalt",
       "url": "www.fsco.de",
+      "uuid": "f707379e-0072-4b07-a581-088d4167040c",
       "validationDate": "20190601"
     },
     {
@@ -4678,6 +5146,7 @@
       "runwayDirections": "10/28",
       "runwaySurface": "Concrete",
       "url": null,
+      "uuid": "8a9acf8f-1272-4b4f-9a24-0871266a3f2b",
       "validationDate": "20200729"
     },
     {
@@ -4696,6 +5165,7 @@
       "runwayDirections": "17/35",
       "runwaySurface": "Grass",
       "url": "www.lsv-weinheim.de",
+      "uuid": "7bf73dde-b06b-4876-91f7-bc970f57261d",
       "validationDate": "20190601"
     },
     {
@@ -4714,7 +5184,27 @@
       "runwayDirections": "07/25",
       "runwaySurface": "Grass",
       "url": "www.sfg-wershofen.de",
+      "uuid": "f347cbf0-12d0-45fd-95cc-c7493ceea947",
       "validationDate": "20200610"
+    },
+    {
+      "additionalInfo": "",
+      "airportType": "AD",
+      "country": "Germany",
+      "elevation": 8,
+      "icao": "ETNT",
+      "latitude": 53.548007,
+      "longitude": 7.668166,
+      "name": "Wittmundhafen",
+      "phone": null,
+      "radioFrequency": "133.465",
+      "radioName": "SEGELFLUG",
+      "runwayDimensions": "2440 x 30 m",
+      "runwayDirections": "08/26",
+      "runwaySurface": "Asphalt",
+      "url": null,
+      "uuid": "d727428b-e46a-4725-8f1b-b6b34ae2d50a",
+      "validationDate": "20200817"
     },
     {
       "additionalInfo": "",
@@ -4732,6 +5222,7 @@
       "runwayDirections": "05/23",
       "runwaySurface": "Grass",
       "url": "www.sfv-wug.de",
+      "uuid": "0e0e2226-9ded-4ae5-a868-c8cc85130f8f",
       "validationDate": "20200614"
     },
     {
@@ -4750,6 +5241,7 @@
       "runwayDirections": "08/26",
       "runwaySurface": "Grass",
       "url": "www.flugplatz-zellamsee.at",
+      "uuid": "8cb5a8c2-36c8-4247-89c8-a74a34249dda",
       "validationDate": "20190601"
     },
     {
@@ -4768,6 +5260,7 @@
       "runwayDirections": "06/24",
       "runwaySurface": "Grass",
       "url": "www.acz.de",
+      "uuid": "a4afcb93-9515-4061-bb65-2dab28824927",
       "validationDate": "20190601"
     }
   ]

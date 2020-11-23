@@ -103,7 +103,7 @@ struct Presets {
     struct AirportDatabase {
         
         /// Represents the URL of the Airports.json File on the Server
-        static let airportsJSONFileURL = URL(string: "https://www.isoar.de/_b13/Airports.json")
+        static let airportsJSONFileURL = URL(string: "https://www.isoar.de/_b34/Airports.json")
         
     }
     

@@ -1,8 +1,9 @@
 //
 //  Glider+CoreDataProperties.swift
-//  
+//  Glider Tool
 //
-//  Created by sonic on 29.06.20.
+//  Created by sonic on 11.11.20.
+//  Copyright © 2020 Denis Leupold. All rights reserved.
 //
 //
 
@@ -14,9 +15,14 @@ extension Glider {
         return NSFetchRequest<Glider>(entityName: Glider.entityName())
     }
 
-    @NSManaged public var uuid: UUID?
     @NSManaged public var flarmID: String?
-    @NSManaged public var registration: String?
     @NSManaged public var ratio: Double
+    @NSManaged public var registration: String?
+    @NSManaged public var uuid: UUID?
+    @NSManaged public var gliderModel: GliderModel?
+
+}
+
+extension Glider: Identifiable {
 
 }
