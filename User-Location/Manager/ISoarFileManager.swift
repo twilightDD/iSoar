@@ -31,6 +31,7 @@ class ISoarFileManager {
         return documentPath
     }()
     
+    // Check for Documents Directory URL
     private static let documentDirectoryURL: URL = {
         do {
             let url = try FileManager.default.url(for: .documentDirectory,
@@ -43,6 +44,19 @@ class ISoarFileManager {
         }
     }()
     
+    // Check for Library Directory URL
+    private static let libraryDirectoryURL: URL = {
+        do {
+            let url = try FileManager.default.url(for: .libraryDirectory,
+                                                  in: .userDomainMask,
+                                                  appropriateFor: nil,
+                                                  create: false)
+            return url
+        } catch let getURLError {
+            fatalError("\(getURLError.localizedDescription)")
+        }
+    }()
+
     // Path and URL for GPX Files
     private static let gpxPath: String = {
         let gpxPath = documentPath.appending(gpxSubPath)
@@ -128,6 +142,33 @@ extension ISoarFileManager {
             }
         } else {
             print("Logs Folder exist in Documents Folder.")
+        }
+    }
+    
+    // Check if File exists in Library Folder
+    class func checkForFileInLibraryFolder(filename: String) {
+        // Check if private init().json exists in Library Folder
+        let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0] as String
+        let url = NSURL(fileURLWithPath: path)
+        
+        let gliderModelsJSONInLibraryFolder = libraryDirectoryURL.appendingPathComponent("\(filename).json")
+        let gliderModelsJSONInBundle = URL(fileURLWithPath: Bundle.main.path(forResource: filename, ofType: "json")!)
+        
+        if let pathComponent = url.appendingPathComponent("\(filename).json") {
+            
+            let filePath = pathComponent.path
+            let fileManager = FileManager.default
+            if fileManager.fileExists(atPath: filePath) {
+                print("\(filename).json available in Library Folder.")
+            } else {
+                print("\(filename).json not found in Library Folder. Copy...")
+                do {
+                    try FileManager.default.copyItem(at: gliderModelsJSONInBundle, to: gliderModelsJSONInLibraryFolder)
+                    print("\(filename).json copied to Library Folder.")
+                } catch let writeError {
+                    print("Error creating a file: \(gliderModelsJSONInLibraryFolder) : \(writeError)")
+                }
+            }
         }
     }
     

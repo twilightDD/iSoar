@@ -25,7 +25,6 @@ class AirportDatabase {
     
     // MARK: - Init&Co.
     private init() {
-        checkForAirportsJSONInLibraryFolder()
         loadAirportsFromJSONIntoDatabase()
     }
     
@@ -59,33 +58,6 @@ class AirportDatabase {
     }
     
     // MARK: - Private Methods
-    // Check if Airports.json exists in Library Folder
-    private func checkForAirportsJSONInLibraryFolder() {
-        // Check if Airports.json exists in Library Folder
-        let path = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0] as String
-        let url = NSURL(fileURLWithPath: path)
-        
-        let airportsJSONInLibraryFolder = libraryURL.appendingPathComponent("Airports.json")
-        let airportsJSONInBundle = URL(fileURLWithPath: Bundle.main.path(forResource: "Airports", ofType: "json")!)
-        
-        if let pathComponent = url.appendingPathComponent("Airports.json") {
-            
-            let filePath = pathComponent.path
-            let fileManager = FileManager.default
-            if fileManager.fileExists(atPath: filePath) {
-                print("Airports.json available in Library Folder.")
-            } else {
-                print("Airports.json not found in Library Folder. Copy...")
-                do {
-                    try FileManager.default.copyItem(at: airportsJSONInBundle, to: airportsJSONInLibraryFolder)
-                    print("Airports.json copied to Library Folder.")
-                } catch let writeError {
-                    print("Error creating a file: \(airportsJSONInLibraryFolder) : \(writeError)")
-                }
-            }
-        }
-    }
-    
     // Load Airports from Airports.json into Database
     private func loadAirportsFromJSONIntoDatabase() {
         // var for storing Content of Airports.json File
