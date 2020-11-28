@@ -35,20 +35,20 @@ class UserDefaultsManager {
     private static let gliderIDDefault = "D-XXXX"
     private static let ownFlarmIDDefault = "FLRxxxxxx"
     private static let gliderRadioDefault: Double = 30
-    private static let gearWarningSwitchDefault: Bool = true
-    private static let lowOxygenWarningSwitchDefault: Bool = true
+    private static let gearWarningSwitchDefault: Bool = false
+    private static let lowOxygenWarningSwitchDefault: Bool = false
     private static let safetyAltitudeDefault: Double = 300
     private static let showTrackingRouteSwitchDefault: Bool = true
-    private static let showFlarmBuddySwitchDefault: Bool = true
+    private static let showFlarmBuddySwitchDefault: Bool = false
     private static let showNearbyGlidersSwitchDefault: Bool = true
-    private static let collisionWarningSwitchDefault: Bool = true
+    private static let collisionWarningSwitchDefault: Bool = false
     private static let trafficMonitorRadiusDefault: Double = 50
     private static let thermalAssistantSwitchDefault: Bool = true
     private static let userMapZoomLevelDefault: Double = 9.6
     private static let selectedCountryDefault: String = "Germany"
     private static let mapStyleURLDefault: String = "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt"
-    private static let updateAirportDatabaseAtStartupSwitchDefault: Bool = true
-    private static let showDistanceCirclesSwitchDefault: Bool = true
+    private static let updateAirportDatabaseAtStartupSwitchDefault: Bool = false
+    private static let showDistanceCirclesSwitchDefault: Bool = false
     
     private static let firstLaunchOfAppDefault: Bool = true
     
@@ -72,22 +72,22 @@ class UserDefaultsManager {
             UserDefaultsManager.set(ownFlarmID: ownFlarmIDDefault)
         }
         if shared.userDefaults.value(forKey: GearWarningStateKey) == nil {
-            shared.userDefaults.set(true, forKey: GearWarningStateKey)
+            shared.userDefaults.set(false, forKey: GearWarningStateKey)
         }
         if shared.userDefaults.value(forKey: LowOxygenWarningStateKey) == nil {
-            shared.userDefaults.set(true, forKey: LowOxygenWarningStateKey)
+            shared.userDefaults.set(false, forKey: LowOxygenWarningStateKey)
         }
         if shared.userDefaults.value(forKey: ShowTrackingRouteStateKey) == nil {
             shared.userDefaults.set(true, forKey: ShowTrackingRouteStateKey)
         }
         if shared.userDefaults.value(forKey: BuddyFilterStateKey) == nil {
-            shared.userDefaults.set(true, forKey: BuddyFilterStateKey)
+            shared.userDefaults.set(false, forKey: BuddyFilterStateKey)
         }
         if shared.userDefaults.value(forKey: ShowAllNearbyGlidersStateKey) == nil {
             shared.userDefaults.set(true, forKey: ShowAllNearbyGlidersStateKey)
         }
         if shared.userDefaults.value(forKey: CollisionWarningStateKey) == nil {
-            shared.userDefaults.set(true, forKey: CollisionWarningStateKey)
+            shared.userDefaults.set(false, forKey: CollisionWarningStateKey)
         }
         if shared.userDefaults.value(forKey: TrafficMonitorRadiusKey) == nil {
             UserDefaultsManager.set(trafficMonitorRadius: trafficMonitorRadiusDefault)
@@ -105,10 +105,10 @@ class UserDefaultsManager {
             UserDefaultsManager.set(mapStyleURL: mapStyleURLDefault)
         }
         if shared.userDefaults.value(forKey: UpdateAirportDatabaseAtStartupStateKey) == nil {
-            shared.userDefaults.set(true, forKey: UpdateAirportDatabaseAtStartupStateKey)
+            shared.userDefaults.set(false, forKey: UpdateAirportDatabaseAtStartupStateKey)
         }
         if shared.userDefaults.value(forKey: ShowDistanceCirclesStateKey) == nil {
-            shared.userDefaults.set(true, forKey: ShowDistanceCirclesStateKey)
+            shared.userDefaults.set(false, forKey: ShowDistanceCirclesStateKey)
         }
         if shared.userDefaults.value(forKey: FirstLaunchOfAppStateKey) == nil {
             shared.userDefaults.set(true, forKey: FirstLaunchOfAppStateKey)
