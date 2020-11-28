@@ -30,25 +30,25 @@ class AirportDatabase {
     // MARK: - Public Class Methods
     // Give back all Airports from Airport Database
     class func destinationAirports()
-        -> [AirportDatabase.Airport]? {
-            let destinationAirports = shared.destinationAirports
-            return destinationAirports
+    -> [AirportDatabase.Airport]? {
+        let destinationAirports = shared.destinationAirports
+        return destinationAirports
     }
     
     // Give back filtered Airports from Airport Database
     class func filteredDestinationAirports(byName searchString: String?,
                                            sortedBy sortIndicator: SortIndicator)
-        -> [AirportDatabase.Airport]? {
-            let filteredDestinationAirports = shared.filteredDestinationAirports(byName: searchString,
-                                                                                 sortedBy: sortIndicator)
-            return filteredDestinationAirports
+    -> [AirportDatabase.Airport]? {
+        let filteredDestinationAirports = shared.filteredDestinationAirports(byName: searchString,
+                                                                             sortedBy: sortIndicator)
+        return filteredDestinationAirports
     }
     
     // Give back nearest Airport from User Location
     class func nearestAirport()
-        -> AirportDatabase.Airport? {
-            let nearestAirport = shared.nearestAirport()
-            return nearestAirport
+    -> AirportDatabase.Airport? {
+        let nearestAirport = shared.nearestAirport()
+        return nearestAirport
     }
     
     // Download current Airports.json File from Server
@@ -117,52 +117,52 @@ class AirportDatabase {
     
     private func filteredDestinationAirports(byName searchString: String?,
                                              sortedBy sortIndicator: SortIndicator)
-        -> [AirportDatabase.Airport]? {
-            
-            updateDistancesFromUserLocationToAirports()
-            
-            var filteredAndSortedAirports = [AirportDatabase.Airport]()
-            
-            // Filter
-            var filteredArray = destinationAirports
-            
-            if let searchString = searchString,
+    -> [AirportDatabase.Airport]? {
+        
+        updateDistancesFromUserLocationToAirports()
+        
+        var filteredAndSortedAirports = [AirportDatabase.Airport]()
+        
+        // Filter
+        var filteredArray = destinationAirports
+        
+        if let searchString = searchString,
+           
+           searchString.isEmpty == false {
+            filteredArray = destinationAirports.filter { (airport) -> Bool in
+                let airportNameContainsSearchString = airport.name.localizedCaseInsensitiveContains(searchString)
+                let airportICAOContainsSearchString = airport.icao.localizedCaseInsensitiveContains(searchString)
+                let containsSearchString = airportNameContainsSearchString || airportICAOContainsSearchString
                 
-                searchString.isEmpty == false {
-                filteredArray = destinationAirports.filter { (airport) -> Bool in
-                    let airportNameContainsSearchString = airport.name.localizedCaseInsensitiveContains(searchString)
-                    let airportICAOContainsSearchString = airport.icao.localizedCaseInsensitiveContains(searchString)
-                    let containsSearchString = airportNameContainsSearchString || airportICAOContainsSearchString
-                    
-                    return containsSearchString
-                }
+                return containsSearchString
+            }
+        }
+        
+        // Sorting Destination Airports
+        switch sortIndicator {
+        case .name:
+            filteredAndSortedAirports = filteredArray.sorted(by: { ($0.name < $1.name) })
+        case .distance:
+            for destinationAirport in filteredArray where destinationAirport.distance == nil {
+                return filteredArray
             }
             
-            // Sorting Destination Airports
-            switch sortIndicator {
-            case .name:
-                filteredAndSortedAirports = filteredArray.sorted(by: { ($0.name < $1.name) })
-            case .distance:
-                for destinationAirport in filteredArray where destinationAirport.distance == nil {
-                    return filteredArray
-                }
-                
-                filteredAndSortedAirports = filteredArray.sorted(by: { ($0.distance! < $1.distance!) })
-            }
-            
-            return filteredAndSortedAirports
+            filteredAndSortedAirports = filteredArray.sorted(by: { ($0.distance! < $1.distance!) })
+        }
+        
+        return filteredAndSortedAirports
     }
     
     // Give back nearest Airport from User Location
     private func nearestAirport()
-        -> Airport? {
-            updateDistancesFromUserLocationToAirports()
-            if let filterDestinationAirports = filteredDestinationAirports(byName: nil,
-                                                                           sortedBy: .distance) {
-                return filterDestinationAirports.first
-            }
-            
-            return nil
+    -> Airport? {
+        updateDistancesFromUserLocationToAirports()
+        if let filterDestinationAirports = filteredDestinationAirports(byName: nil,
+                                                                       sortedBy: .distance) {
+            return filterDestinationAirports.first
+        }
+        
+        return nil
     }
     
     // Download Content of newest Airports.json File from Server
@@ -312,18 +312,18 @@ extension AirportDatabase {
         
         // TODO: Check, where we could use it: 05042020, ph
         func locationCoordinate2D()
-            -> CLLocationCoordinate2D {
-                let locationCoordinate2D = CLLocationCoordinate2D.init(latitude: latitude,
-                                                                       longitude: longitude)
-                return locationCoordinate2D
+        -> CLLocationCoordinate2D {
+            let locationCoordinate2D = CLLocationCoordinate2D.init(latitude: latitude,
+                                                                   longitude: longitude)
+            return locationCoordinate2D
         }
         
         // TODO: Check, where we could use it: 08042020, ph
         func location()
-            -> CLLocation {
-                let location = CLLocation.init(latitude: latitude,
-                                               longitude: longitude)
-                return location
+        -> CLLocation {
+            let location = CLLocation.init(latitude: latitude,
+                                           longitude: longitude)
+            return location
         }
     }
     
