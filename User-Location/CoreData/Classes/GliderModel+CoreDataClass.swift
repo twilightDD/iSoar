@@ -43,9 +43,9 @@ public class GliderModel: NSManagedObject {
             gliderModelWithUUID.sink1 = gliderModelDictionary[GliderModel.Attributes.sink1] as? Double ?? 0
             gliderModelWithUUID.sink2 = gliderModelDictionary[GliderModel.Attributes.sink2] as? Double ?? 0
             gliderModelWithUUID.sink3 = gliderModelDictionary[GliderModel.Attributes.sink3] as? Double ?? 0
-            gliderModelWithUUID.speed1 = gliderModelDictionary[GliderModel.Attributes.modelName] as? Double ?? 0
-            gliderModelWithUUID.speed2 = gliderModelDictionary[GliderModel.Attributes.modelName] as? Double ?? 0
-            gliderModelWithUUID.speed3 = gliderModelDictionary[GliderModel.Attributes.modelName] as? Double ?? 0
+            gliderModelWithUUID.speed1 = gliderModelDictionary[GliderModel.Attributes.speed1] as? Double ?? 0
+            gliderModelWithUUID.speed2 = gliderModelDictionary[GliderModel.Attributes.speed2] as? Double ?? 0
+            gliderModelWithUUID.speed3 = gliderModelDictionary[GliderModel.Attributes.speed3] as? Double ?? 0
             gliderModelWithUUID.wingarea = gliderModelDictionary[GliderModel.Attributes.wingarea] as? Double ?? 0
 
         }
