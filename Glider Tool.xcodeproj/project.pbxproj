@@ -31,6 +31,8 @@
 		E007864B23D222EA00856865 /* FlightSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E007864A23D222EA00856865 /* FlightSelectionTableViewCell.swift */; };
 		E00E08CC23DB877A00BE04F6 /* TimeDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00E08CB23DB877A00BE04F6 /* TimeDateFormatter.swift */; };
 		E011D4C123735CB9006F0CC3 /* OGNSocketConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */; };
+		E0123C6A256F022B00ABE104 /* CoreDataImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0123C69256F022B00ABE104 /* CoreDataImporter.swift */; };
+		E0123C6C256F0BC200ABE104 /* DLDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0123C6B256F0BC200ABE104 /* DLDownloadManager.swift */; };
 		E013D28024AA7EC600AFD231 /* Glider+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E013D27F24AA7EC600AFD231 /* Glider+CoreDataProperties.swift */; };
 		E013D28124AA7EC600AFD231 /* Glider+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E013D27E24AA7EC600AFD231 /* Glider+CoreDataClass.swift */; };
 		E014961A236F6B4C00C1AC0D /* MapLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0149619236F6B4C00C1AC0D /* MapLabel.swift */; };
@@ -116,6 +118,8 @@
 		E007864A23D222EA00856865 /* FlightSelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		E00E08CB23DB877A00BE04F6 /* TimeDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeDateFormatter.swift; sourceTree = "<group>"; };
 		E011D4C023735CB9006F0CC3 /* OGNSocketConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OGNSocketConnectionManager.swift; sourceTree = "<group>"; };
+		E0123C69256F022B00ABE104 /* CoreDataImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataImporter.swift; sourceTree = "<group>"; };
+		E0123C6B256F0BC200ABE104 /* DLDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DLDownloadManager.swift; sourceTree = "<group>"; };
 		E013D27E24AA7EC600AFD231 /* Glider+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Glider+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E013D27F24AA7EC600AFD231 /* Glider+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Glider+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E0149619236F6B4C00C1AC0D /* MapLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLabel.swift; sourceTree = "<group>"; };
@@ -235,6 +239,7 @@
 		D0C2801C23D8FE0D00518539 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				E0123C6B256F0BC200ABE104 /* DLDownloadManager.swift */,
 				E06936D7241B8CA00073D078 /* GliderTelemetryData.swift */,
 				D0BBE08523A18CEB00CAD9FF /* ISoarFileManager.swift */,
 				D022F00B2437DB5900CA9DB4 /* LocationManager.swift */,
@@ -297,6 +302,7 @@
 			children = (
 				E0310D3B24D8C617009EB354 /* Classes */,
 				E077487424C0703300BFF517 /* CoreDataManager.swift */,
+				E0123C69256F022B00ABE104 /* CoreDataImporter.swift */,
 				D0AA8D0224C1C1790034E6EE /* Extensions */,
 				E070FD9C24A3109A0039386D /* Glider Tool.xcdatamodeld */,
 			);
@@ -593,6 +599,7 @@
 				E01D87E8239AB6BB00E9B5B6 /* TaskSelectionTableViewCell.swift in Sources */,
 				E013D28024AA7EC600AFD231 /* Glider+CoreDataProperties.swift in Sources */,
 				D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */,
+				E0123C6A256F022B00ABE104 /* CoreDataImporter.swift in Sources */,
 				E0C7F151255B200800F9342F /* GliderModel+CoreDataClass.swift in Sources */,
 				E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */,
 				E001B84F243C810700559D7B /* NotificationBanner.swift in Sources */,
@@ -629,6 +636,7 @@
 				E016CCA824AF4A7400CEA506 /* EditGliderFormViewController.swift in Sources */,
 				E0A0BF1625644FA800C7CB05 /* GliderModelsDatabase.swift in Sources */,
 				D0B7A84124390D940006F5EF /* Date+UnixTime.swift in Sources */,
+				E0123C6C256F0BC200ABE104 /* DLDownloadManager.swift in Sources */,
 				E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
