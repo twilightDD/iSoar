@@ -39,9 +39,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ISoarFileManager.checkForFlightsFolder()
         ISoarFileManager.checkForTasksFolder()
         ISoarFileManager.checkForLogsFolder()
+
+        // Check for First Launch of App
+//        if UserDefaultsManager.firstLaunchOfAppState() == true {
+//            CoreDataImporter.importContent(fromJSONURL: Presets.ISoarFileManager.localGliderModelsJSONURL)
+//            UserDefaultsManager.set(firstLaunchOfAppState: false)
+//        }
         
-        ISoarFileManager.checkForFileInLibraryFolder(filename: "Airports")
-        ISoarFileManager.checkForFileInLibraryFolder(filename: "GliderModels")
+        CoreDataImporter.importContent(fromJSONURL: Presets.ISoarFileManager.localGliderModelsJSONURL)
         
         return true
     }
