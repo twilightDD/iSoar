@@ -107,6 +107,14 @@ struct Presets {
         
     }
     
+    struct ISoarFileManager {
+        
+        /// Represents the URL of the Airports.json File on the Server
+        static let localAirportsJSONURL = URL(fileURLWithPath: Bundle.main.path(forResource: "Airports", ofType: "json")!)
+        static let localGliderModelsJSONURL = URL(fileURLWithPath: Bundle.main.path(forResource: "GliderModels", ofType: "json")!)
+        
+    }
+    
     struct Settings {
         
         /// Represents the the MapBox Style URL - Key Value Pair - Country : StyleURL
