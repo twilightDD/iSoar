@@ -155,7 +155,18 @@ class DestinationSelectionViewController: UIViewController {
     // Pull to Refresh of TableView
     @objc private func refreshAirportDatabase(_ sender: Any) {
         FlightComputer.setSelectedDestinationAirport(nil)
+        
+        // Das ist noch ohne Core Data
         AirportDatabase.downloadAirportsFromServer()
+        
+        // Das ist schon mit Core Data
+//        DLDownloadManager.download(.airports,
+//                                   completion: { data in
+//
+//                                    CoreDataImporter.importDownloadedData(data,
+//                                                                          forType: .airports)
+//
+//                                   })
     }
     
     // Adjust TableView height if necessary
