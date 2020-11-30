@@ -63,10 +63,10 @@ class AirportDatabase {
         guard let dataOfJSONFile = ISoarFileManager.dataOfFile(Presets.ISoarFileManager.localAirportsJSONURL) else { return }
         
         // Convert Data to Dictionary
-        let dictionaryOfJSON = ISoarFileManager.dictionaryOfJSONData(data: dataOfJSONFile)
+        let dictionariesOfJSON = ISoarFileManager.dictionaryOfJSONData(data: dataOfJSONFile)
 
         // Append every single Object to Airports Database
-        if let airports = dictionaryOfJSON["Airports"] as? [[String: Any]] {
+        if let airports = dictionariesOfJSON["Airports"] as? [[String: Any]] {
             for airport in airports {
                 let myAirportStruct = AirportDatabase.Airport(dictionary: airport)
                 destinationAirports.append(myAirportStruct)
