@@ -19,24 +19,14 @@ class CoreDataImporter {
 
         // erhalte data von platte
         
-        let dataOfJSONFile = ISoarFileManager.dataOfFile(fromJSONURL)
+        guard let dataOfJSONFile = ISoarFileManager.dataOfFile(fromJSONURL) else { return }
         
         // mache aus json eine [[ String: Any]]
 
-        // var for storing Content of Airports.json File as Dictionary
-        var jsonAsDict = [String: Any]()
-
-        do {
-            // Convert Data to Dictionary
-            jsonAsDict = try JSONSerialization.jsonObject(with: dataOfJSONFile!,
-                                                          options: .allowFragments) as! [String: Any]
-        } catch {
-            
-        }
-
-        // übergib das jspn an importgliderModels
+        let dictionaryOfJSON = ISoarFileManager.dictionaryOfJSONData(data: dataOfJSONFile)
         
-        print(jsonAsDict)
+        // übergib das dictionary an importgliderModels
+        print(dictionaryOfJSON)
 
      }
     
