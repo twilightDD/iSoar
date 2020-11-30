@@ -134,7 +134,7 @@ class FlightComputer {
                             OGNSocketConnectionManager.unregisterForSocketUpdates(self)
                             
                             #if DEBUG
-                            DLLogger.writeStringToLogFile("\(#function) > false - Flight End detected")
+                            DLLogger.writeStringToLogFile("\(#function) -> false - Flight End detected")
                             #endif
                             
                         } else {
@@ -150,7 +150,7 @@ class FlightComputer {
                                 OGNSocketConnectionManager.unregisterForSocketUpdates(self)
                                 
                                 #if DEBUG
-                                DLLogger.writeStringToLogFile("\(#function) > false - Flight End detected")
+                                DLLogger.writeStringToLogFile("\(#function) -> false - Flight End detected")
                                 #endif
                                 
                             } else {
@@ -161,7 +161,7 @@ class FlightComputer {
                                     OGNSocketConnectionManager.unregisterForSocketUpdates(self)
                                     
                                     #if DEBUG
-                                    DLLogger.writeStringToLogFile("\(#function) > false - Flight End detected")
+                                    DLLogger.writeStringToLogFile("\(#function) -> false - Flight End detected")
                                     #endif
                                     
                                 } else {
