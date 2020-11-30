@@ -59,36 +59,14 @@ class AirportDatabase {
     // MARK: - Private Methods
     // Load Airports from Airports.json into Database
     private func loadAirportsFromJSONIntoDatabase() {
-        // var for storing Content of Airports.json File
-        var jsonAsString: String?
+        // Get Content of File as Data
+        guard let dataOfJSONFile = ISoarFileManager.dataOfFile(Presets.ISoarFileManager.localAirportsJSONURL) else { return }
         
-        // TODO: 20201121 Fehlerbehandlung! wenn .json nicht vorhanden, guard let
-        let airportsURL = URL(fileURLWithPath: Bundle.main.path(forResource: "Airports", ofType: "json")!)
-        
-        do {
-            // Storing Content of Airports.json File as String
-            try jsonAsString = String.init(contentsOf: airportsURL)
-        } catch {
-            print("went wrong")
-        }
-        
-        // Convert String to Data
-        let jsonAsData = jsonAsString?.data(using: .utf8)
-        
-        // var for storing Content of Airports.json File as Dictionary
-        var jsonAsDict = [String: Any]()
-        
-        do {
-            // Convert Data to Dictionary
-            jsonAsDict = try JSONSerialization.jsonObject(with: jsonAsData!,
-                                                          options: .allowFragments) as! [String: Any]
-        } catch {
-            // TODO: 20201121 Fehlerbehandlung! wenn .json fehlerhaft
-            NotificationBanner.show("Airport Database not found.")
-        }
-        
-        if let airports = jsonAsDict["Airports"] as? [[String: Any]] {
-            // Append every single Object to Airports Database
+        // Convert Data to Dictionary
+        let dictionaryOfJSON = ISoarFileManager.dictionaryOfJSONData(data: dataOfJSONFile)
+
+        // Append every single Object to Airports Database
+        if let airports = dictionaryOfJSON["Airports"] as? [[String: Any]] {
             for airport in airports {
                 let myAirportStruct = AirportDatabase.Airport(dictionary: airport)
                 destinationAirports.append(myAirportStruct)
