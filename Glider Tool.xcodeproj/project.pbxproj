@@ -50,6 +50,7 @@
 		E05033A7253F203A0057BE66 /* DLAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E05033A6253F203A0057BE66 /* DLAlertViewController.swift */; };
 		E054EB4324FD8B3000A901F0 /* MapAreaDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E054EB4224FD8B3000A901F0 /* MapAreaDownloadManager.swift */; };
 		E06936D8241B8CA00073D078 /* GliderTelemetryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06936D7241B8CA00073D078 /* GliderTelemetryData.swift */; };
+		E06EA7372575956600AA5FD8 /* DLJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06EA7362575956600AA5FD8 /* DLJSON.swift */; };
 		E070FD9E24A3109A0039386D /* Glider Tool.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E070FD9C24A3109A0039386D /* Glider Tool.xcdatamodeld */; };
 		E070FDA924A468730039386D /* GliderSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */; };
 		E077487524C0703300BFF517 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E077487424C0703300BFF517 /* CoreDataManager.swift */; };
@@ -137,6 +138,7 @@
 		E05033A6253F203A0057BE66 /* DLAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLAlertViewController.swift; sourceTree = "<group>"; };
 		E054EB4224FD8B3000A901F0 /* MapAreaDownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAreaDownloadManager.swift; sourceTree = "<group>"; };
 		E06936D7241B8CA00073D078 /* GliderTelemetryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderTelemetryData.swift; sourceTree = "<group>"; };
+		E06EA7362575956600AA5FD8 /* DLJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLJSON.swift; sourceTree = "<group>"; };
 		E070FD9D24A3109A0039386D /* Glider Tool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Glider Tool.xcdatamodel"; sourceTree = "<group>"; };
 		E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderSelectionTableViewController.swift; sourceTree = "<group>"; };
 		E077487424C0703300BFF517 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = "User-Location/CoreData/CoreDataManager.swift"; sourceTree = SOURCE_ROOT; };
@@ -425,6 +427,7 @@
 				D02B0E6322C15B95007C7162 /* Subclasses */,
 				E0B52F702283753400E28A93 /* ViewControllers */,
 				D023099C2429586600A68F34 /* Views */,
+				E06EA7362575956600AA5FD8 /* DLJSON.swift */,
 			);
 			path = "User-Location";
 			sourceTree = "<group>";
@@ -624,6 +627,7 @@
 				EDA236232130AA7500739396 /* AppDelegate.swift in Sources */,
 				E054EB4324FD8B3000A901F0 /* MapAreaDownloadManager.swift in Sources */,
 				E077487524C0703300BFF517 /* CoreDataManager.swift in Sources */,
+				E06EA7372575956600AA5FD8 /* DLJSON.swift in Sources */,
 				E0C55A2C24D6D38100618179 /* BuddyListTableViewController.swift in Sources */,
 				E0B52F72228377F300E28A93 /* Buttons.swift in Sources */,
 				E070FDA924A468730039386D /* GliderSelectionTableViewController.swift in Sources */,
