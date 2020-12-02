@@ -56,7 +56,7 @@ class ISoarFileManager {
             fatalError("\(getURLError.localizedDescription)")
         }
     }()
-
+    
     // Path and URL for GPX Files
     private static let gpxPath: String = {
         let gpxPath = documentPath.appending(gpxSubPath)
@@ -144,48 +144,48 @@ extension ISoarFileManager {
             print("Logs Folder exist in Documents Folder.")
         }
     }
-
+    
 }
 
 // MARK: - Extension -  GPX File Handling
 extension ISoarFileManager {
     // MARK: Public Class Methods
     class func gpxFileNames()
-        -> [String] {
-            var gpxFileNames = [String]()
-            
-            // get files from disc
-            var fileURLs = [URL]()
-            do {
-                fileURLs = try FileManager.default.contentsOfDirectory(at: gpxURL,
-                                                                       includingPropertiesForKeys: [],
-                                                                       options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
-                fileURLs = fileURLs.filter {$0.pathExtension == gpxPathExtension}
-            } catch let contentsOfDirectory {
-                fatalError("\(contentsOfDirectory.localizedDescription)")
-            }
-            
-            // parse fileNames
-            for fileURL in fileURLs {
-                let fileURLWithoutExtension = fileURL.deletingPathExtension()
-                let fileName = fileURLWithoutExtension.lastPathComponent
-                gpxFileNames.append(fileName)
-            }
-            
-            return gpxFileNames
+    -> [String] {
+        var gpxFileNames = [String]()
+        
+        // get files from disc
+        var fileURLs = [URL]()
+        do {
+            fileURLs = try FileManager.default.contentsOfDirectory(at: gpxURL,
+                                                                   includingPropertiesForKeys: [],
+                                                                   options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
+            fileURLs = fileURLs.filter {$0.pathExtension == gpxPathExtension}
+        } catch let contentsOfDirectory {
+            fatalError("\(contentsOfDirectory.localizedDescription)")
+        }
+        
+        // parse fileNames
+        for fileURL in fileURLs {
+            let fileURLWithoutExtension = fileURL.deletingPathExtension()
+            let fileName = fileURLWithoutExtension.lastPathComponent
+            gpxFileNames.append(fileName)
+        }
+        
+        return gpxFileNames
     }
     
     class func readContentOfSelectedGPXfile(_ fileName: String)
-        -> Data? {
-            
-            let fileURL = ISoarFileManager.gpxURL
-                .appendingPathComponent(fileName)
-                .appendingPathExtension(gpxPathExtension)
-            
-            let fileData = dataOfFile(fileURL)
-            
-            return fileData
-            
+    -> Data? {
+        
+        let fileURL = ISoarFileManager.gpxURL
+            .appendingPathComponent(fileName)
+            .appendingPathExtension(gpxPathExtension)
+        
+        let fileData = dataOfFile(fileURL)
+        
+        return fileData
+        
     }
 }
 
@@ -195,33 +195,33 @@ extension ISoarFileManager {
     
     // MARK: Public Class Methods
     class func flightMetaDataFileDatas()
-        -> [Data] {
-            var flightMetaDataFileDatas = [Data]()
-            
-            let metaDataFileURLs = flightMetaDataURLs()
-            for metaDataFileURL in metaDataFileURLs {
-                if let fileData = dataOfFile(metaDataFileURL) {
-                    flightMetaDataFileDatas.append(fileData)
-                }
+    -> [Data] {
+        var flightMetaDataFileDatas = [Data]()
+        
+        let metaDataFileURLs = flightMetaDataURLs()
+        for metaDataFileURL in metaDataFileURLs {
+            if let fileData = dataOfFile(metaDataFileURL) {
+                flightMetaDataFileDatas.append(fileData)
             }
-            
-            return flightMetaDataFileDatas
+        }
+        
+        return flightMetaDataFileDatas
     }
     
     private class func flightMetaDataURLs()
-        -> [URL] {
-            var fileURLs = [URL]()
-            
-            do {
-                fileURLs = try FileManager.default.contentsOfDirectory(at: flightRecorderDirectoryURL,
-                                                                       includingPropertiesForKeys: [],
-                                                                       options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
-                fileURLs = fileURLs.filter {$0.pathExtension == jsonPathExtension}
-            } catch let contentsOfDirectory {
-                fatalError("\(contentsOfDirectory.localizedDescription)")
-            }
-            
-            return fileURLs
+    -> [URL] {
+        var fileURLs = [URL]()
+        
+        do {
+            fileURLs = try FileManager.default.contentsOfDirectory(at: flightRecorderDirectoryURL,
+                                                                   includingPropertiesForKeys: [],
+                                                                   options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
+            fileURLs = fileURLs.filter {$0.pathExtension == jsonPathExtension}
+        } catch let contentsOfDirectory {
+            fatalError("\(contentsOfDirectory.localizedDescription)")
+        }
+        
+        return fileURLs
     }
     
     // Create JSON for Telemetry Data of current Flight
@@ -229,78 +229,78 @@ extension ISoarFileManager {
     class func createFlightRecorderFiles(currentUnixTimpStamp: String,
                                          flightStartDate: Date,
                                          startICAO: String?)
-        -> Bool {
-            // Temporary Flight Recorder File for
-            let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
-            let temporaryFlightRecorderFileURL = temporaryDirectoryURL
-                .appendingPathComponent(currentUnixTimpStamp)
-                .appendingPathExtension(csvPathExtension)
-            
-            shared.temporaryFlightRecorderFileURL = temporaryFlightRecorderFileURL
-            
-            // Create FlightRecording file as csv
-            var successfullyCreatedFile = false
-            do {
-                let csvHeaderString = "TimeStamp,Latitude,Longitude,Altitude,Speed,Course\n"
-                try csvHeaderString.write(to: temporaryFlightRecorderFileURL,
-                                          atomically: true,
-                                          encoding: .utf8)
-                successfullyCreatedFile = true
-            } catch {
-                fatalError("Failed writing to URL: \(temporaryFlightRecorderFileURL), Error: " + error.localizedDescription)
-            }
-            
-            do {
-                shared.currentFlightRecordFileHandle = try FileHandle.init(forWritingTo: temporaryFlightRecorderFileURL)
-                shared.currentFlightRecordFileHandle?.seekToEndOfFile()
-            } catch let fileHandleError {
-                successfullyCreatedFile = false
-                fatalError("No fileHandle: \(fileHandleError.localizedDescription)")
-            }
-            
-            // Create Meta Data File of flight
-            // Create JSON
-            let flightMetaData = FlightMetaData.init(currentUnixTimeStamp: currentUnixTimpStamp,
-                                                     flightDate: TimeDateFormatter.utcDateYMMDDAsString(from: flightStartDate),
-                                                     gliderID: UserDefaultsManager.gliderID(),
-                                                     startTimeUTC: TimeDateFormatter.utcTimeInHHMMAsString(from: flightStartDate),
-                                                     startICAO: startICAO ?? "----",
-                                                     endTimeUTC: "",
-                                                     endICAO: "",
-                                                     flightCompleted: false,
-                                                     flightTime: "")
+    -> Bool {
+        // Temporary Flight Recorder File for
+        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
+        let temporaryFlightRecorderFileURL = temporaryDirectoryURL
+            .appendingPathComponent(currentUnixTimpStamp)
+            .appendingPathExtension(csvPathExtension)
         
-            do {
-                let fileURL = flightRecorderDirectoryURL
-                    .appendingPathComponent(currentUnixTimpStamp)
-                    .appendingPathExtension(jsonPathExtension)
-                
-                let encoder = JSONEncoder()
-                encoder.outputFormatting = .prettyPrinted
-                
-                try encoder.encode(flightMetaData)
-                    .write(to: fileURL)
-                
-            } catch let error {
-                successfullyCreatedFile = false
-                fatalError("\(#function) ERROR: \(error.localizedDescription)")
-            }
+        shared.temporaryFlightRecorderFileURL = temporaryFlightRecorderFileURL
+        
+        // Create FlightRecording file as csv
+        var successfullyCreatedFile = false
+        do {
+            let csvHeaderString = "TimeStamp,Latitude,Longitude,Altitude,Speed,Course\n"
+            try csvHeaderString.write(to: temporaryFlightRecorderFileURL,
+                                      atomically: true,
+                                      encoding: .utf8)
+            successfullyCreatedFile = true
+        } catch {
+            fatalError("Failed writing to URL: \(temporaryFlightRecorderFileURL), Error: " + error.localizedDescription)
+        }
+        
+        do {
+            shared.currentFlightRecordFileHandle = try FileHandle.init(forWritingTo: temporaryFlightRecorderFileURL)
+            shared.currentFlightRecordFileHandle?.seekToEndOfFile()
+        } catch let fileHandleError {
+            successfullyCreatedFile = false
+            fatalError("No fileHandle: \(fileHandleError.localizedDescription)")
+        }
+        
+        // Create Meta Data File of flight
+        // Create JSON
+        let flightMetaData = FlightMetaData.init(currentUnixTimeStamp: currentUnixTimpStamp,
+                                                 flightDate: TimeDateFormatter.utcDateYMMDDAsString(from: flightStartDate),
+                                                 gliderID: UserDefaultsManager.gliderID(),
+                                                 startTimeUTC: TimeDateFormatter.utcTimeInHHMMAsString(from: flightStartDate),
+                                                 startICAO: startICAO ?? "----",
+                                                 endTimeUTC: "",
+                                                 endICAO: "",
+                                                 flightCompleted: false,
+                                                 flightTime: "")
+        
+        do {
+            let fileURL = flightRecorderDirectoryURL
+                .appendingPathComponent(currentUnixTimpStamp)
+                .appendingPathExtension(jsonPathExtension)
             
-            // TODO: if file creation fails at any level, remove temp file an meta data file; 05042020, ph
-            return successfullyCreatedFile
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            
+            try encoder.encode(flightMetaData)
+                .write(to: fileURL)
+            
+        } catch let error {
+            successfullyCreatedFile = false
+            fatalError("\(#function) ERROR: \(error.localizedDescription)")
+        }
+        
+        // TODO: if file creation fails at any level, remove temp file an meta data file; 05042020, ph
+        return successfullyCreatedFile
     }
     
     @discardableResult
     class func appendTelemetryDataToFlightRecorderFile(_ string: String)
-        -> Bool {
-            guard let fileHandle = shared.currentFlightRecordFileHandle
-                else { return false }
-            guard let stringData = string.data(using: .utf8)
-                else { return false }
-            
-            fileHandle.write(stringData)
-            
-            return true
+    -> Bool {
+        guard let fileHandle = shared.currentFlightRecordFileHandle
+        else { return false }
+        guard let stringData = string.data(using: .utf8)
+        else { return false }
+        
+        fileHandle.write(stringData)
+        
+        return true
     }
     
     // Close Flight Recorder Files
@@ -313,10 +313,10 @@ extension ISoarFileManager {
         
         // Close Flight Recorder File
         guard let currentFlightRecordFileHandle = shared.currentFlightRecordFileHandle
-            else { return }
+        else { return }
         currentFlightRecordFileHandle.closeFile()
         shared.currentFlightRecordFileHandle = nil
-
+        
         // Create Final FlightRecorder File
         let finalFlightRecorderFileURL = flightRecorderDirectoryURL
             .appendingPathComponent(currentUnixTimeStamp)
@@ -324,7 +324,7 @@ extension ISoarFileManager {
         
         do {
             guard let temporaryFlightRecorderFileURL = shared.temporaryFlightRecorderFileURL
-                else { fatalError() }
+            else { fatalError() }
             try FileManager.default.moveItem(at: temporaryFlightRecorderFileURL,
                                              to: finalFlightRecorderFileURL)
             // TODO: remove temporary file here; 05042020, ph
@@ -391,37 +391,35 @@ extension ISoarFileManager {
 
 // MARK: - Extension - General Helper Methods
 extension ISoarFileManager {
-
     // MARK: Public Class Methods
-    // Get Content of File as Data
-    class func dataOfFile(_ fileURL: URL)
-        -> Data? {
-            var fileData: Data?
-            
-            do {
-                fileData = try Data(contentsOf: fileURL)
-            } catch let readError {
-                print("\(readError.localizedDescription)")
-            }
-            
-            return fileData
+    class func dataFor(type: ContentType)
+    -> Data? {
+        var fileURL: URL
+        switch type {
+        case .airports:
+            fileURL = Presets.ISoarFileManager.localAirportsJSONURL
+        case .glidermodels:
+            fileURL = Presets.ISoarFileManager.localGliderModelsJSONURL
+        default:
+            fatalError()
+        }
+        
+        let data = dataOfFile(fileURL)
+        return data
     }
     
-    // Convert Data (JSON Content) to Dictionary
-    class func dictionaryOfJSONData (data: Data)
-    -> [String: Any] {
-        var dictionaryOfJSON = [String: Any]()
+    // Get Content of File as Data
+    private class func dataOfFile(_ fileURL: URL)
+    -> Data? {
+        var fileData: Data?
         
         do {
-            // Convert Data to Dictionary
-            dictionaryOfJSON = try JSONSerialization.jsonObject(with: data,
-                                                          options: .allowFragments) as! [String: Any]
-        } catch {
-            print(error.localizedDescription)
+            fileData = try Data(contentsOf: fileURL)
+        } catch let readError {
+            print("\(readError.localizedDescription)")
         }
-
-        return dictionaryOfJSON
         
+        return fileData
     }
     
 }
