@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - Public Class Methods
-enum FileType: String {
+enum ContentType: String {
     case airports = "Airports.json"
     case glidermodels = "GliderModels.json"
 }
@@ -20,7 +20,7 @@ class DLDownloadManager {
     // Statics
     static private let shared = DLDownloadManager()
     
-    private class func urlFor(_ type: FileType)
+    private class func urlFor(_ type: ContentType)
     -> URL {
         let urlString = "https://www.isoar.de/_b34/" + type.rawValue
         guard let url = URL(string: urlString)
@@ -29,7 +29,7 @@ class DLDownloadManager {
         return url
     }
     
-    class func download(_ type: FileType,
+    class func download(_ type: ContentType,
                         completion: @escaping (_ data: Data) -> Void) {
         
         let sessionConfig = URLSessionConfiguration.default
