@@ -100,9 +100,7 @@ class EditGliderFormViewController: FormViewController {
                     row.value = ""
                     row.add(rule: RuleRequired())
                     row.validationOptions = .validatesOnChange
-                    row.options = ["LS4", "LS8", "DG300", "Janus B", "Ventus", "Discus", "Diana", "Libelle"]
-                    
-                    //row.options = [GliderModelEntity.name] irgendwie so
+                    row.presentationMode = .segueName(segueName: "OpenGliderModelSelectionViewControllerSegue", onDismiss: nil)
                     
                 }.cellUpdate { cell, row in
                     if row.isValid == false {
