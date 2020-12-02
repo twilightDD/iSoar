@@ -60,10 +60,9 @@ class AirportDatabase {
     // Load Airports from Airports.json into Database
     private func loadAirportsFromJSONIntoDatabase() {
         // Get Content of File as Data
-        guard let dataOfJSONFile = ISoarFileManager.dataOfFile(Presets.ISoarFileManager.localAirportsJSONURL) else { return }
-        
-        // Convert Data to Dictionary
-        let dictionariesOfJSON = ISoarFileManager.dictionaryOfJSONData(data: dataOfJSONFile)
+        guard let dataOfJSONFile = ISoarFileManager.dataFor(type: .airports),
+              let dictionariesOfJSON = DLJSON.decode(dataOfJSONFile)
+        else { return }
 
         // Append every single Object to Airports Database
         if let airports = dictionariesOfJSON["Airports"] as? [[String: Any]] {
@@ -201,7 +200,7 @@ class AirportDatabase {
                                                             print("Status Code NOT 200")
                                                         }
                                                     } else {
-                                                        print ("No Response")
+                                                        print("No Response")
                                                     }
                                                 } else {
                                                     print("Error took place while downloading a file. Error description: %@", error!.localizedDescription)
