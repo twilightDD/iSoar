@@ -95,12 +95,22 @@ class EditGliderFormViewController: FormViewController {
                     self.glider.registration = row.value
                 })
                 
-                <<< PushRow<String>("Glider Model") { row in
+                <<< PushRow<GliderModel>("Glider Model") { row in
                     row.title = "Glider Model"
-                    row.value = glider.gliderModel?.modelName
+                    
+                    let allGliderModels = editContext.fetchObjects(forEntityClass: GliderModel.self,
+                                                                   sortByKeypath: GliderModel.Attributes.modelName)
+                    row.options = allGliderModels
+                    row.value = self.glider.gliderModel
+                    row.displayValueFor = { gliderModel in
+                        if gliderModel != nil {
+                            return gliderModel?.modelName
+                        } else {
+                            return "keins"
+                        }
+                    }
                     row.add(rule: RuleRequired())
-                    row.validationOptions = .validatesOnChange
-                    row.presentationMode = .segueName(segueName: "OpenGliderModelSelectionViewControllerSegue", onDismiss: nil)
+
                     
                 }.cellUpdate { cell, row in
                     if row.isValid == false {
@@ -111,11 +121,16 @@ class EditGliderFormViewController: FormViewController {
                     cell.imageView?.image = UIImage(systemName: "airplane")
                     
                 }.onPresent { from, row in
-                    row.dismissOnSelection = false
-                    row.dismissOnChange = false
+                    row.dismissOnSelection = true
+                    row.dismissOnChange = true
                     row.enableDeselection = false
                     row.navigationItem.title = "Glider Model"
+                
+                }.onChange { row in
+                    let selectedGliderModel = row.value
+                    self.glider.gliderModel = selectedGliderModel
                 }
+            
                 
                 <<< DecimalRow(EditGliderFormViewController.GliderRatioKey) { row in
                     row.title = "Glider Ratio"
