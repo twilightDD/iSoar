@@ -9,56 +9,48 @@
 import Foundation
 
 class CoreDataImporter {
-
+    
     // MARK: - Lets and Vars
     // Static
     static  let shared = CoreDataImporter()
-
-// MARK: - Public Class Methods
-    class func importContent(fromJSONURL: URL) {
-
-        // erhalte data von platte
-        
-        guard let dataOfJSONFile = ISoarFileManager.dataOfFile(fromJSONURL) else { return }
-        
-        // mache aus json eine [[ String: Any]]
-
-        let dictionaryOfJSON = ISoarFileManager.dictionaryOfJSONData(data: dataOfJSONFile)
-        
-        // übergib das dictionary an importgliderModels
-        print(dictionaryOfJSON)
-
-     }
     
-    class func importDownloadedData(_ data: Data, forType type: FileType) {
-            // var for storing Content of Airports.json File as Dictionary
-            var jsonAsDict = [String: Any]()
-            
-            do {
-                // Convert Data to Dictionary
-                jsonAsDict = try JSONSerialization.jsonObject(with: data,
-                                                              options: .allowFragments) as! [String: Any]
-                
-            } catch {
-                print("Could not deserialize JSON")
-            }
-            
-            print("AB HIER IMPORTIEREN")
-            
+    // MARK: - Public Class Methods
+    class func initalImport() {
+        // Airports
+        if let airportFileContent = ISoarFileManager.dataFor(type: .airports) {
+            importData(airportFileContent, forType: .airports)
+        }
+        
+        // GliderModels
+        if let gliderModelFileContent = ISoarFileManager.dataFor(type: .glidermodels) {
+            importData(gliderModelFileContent, forType: .glidermodels)
+        }
+        
+    }
+    
+    class func importData(_ data: Data, forType type: ContentType) {
+        guard let dict = DLJSON.decode(data)
+        else { return }
+        
         switch type {
         case .airports:
-//            Airport.importOrUpdate(arrayAusDicts)
-        break
+            if let airports = dict["Airports"] as? [[String: Any]] {
+                importAirports(airports)
+            }
         case .glidermodels:
-//            GliderModel.importOrUpdate(arrayAusDicts)
-        break
-        default:
-            fatalError()
+            if let gliderModels = dict["GliderModels"] as? [[String: Any]] {
+                importGliderModels(gliderModels)
+            }
+            
         }
     }
     
-    class func importGliderModels(_ dicts: [[String: Any]]) {
-        GliderModel.importOrUpdate(dicts)
+    class func importAirports(_ dictionaries: [[String: Any]]) {
+        //        Airport.importOrUpdate(dictionaries)
     }
-
+    
+    class func importGliderModels(_ dictionaries: [[String: Any]]) {
+        GliderModel.importOrUpdate(dictionaries)
+    }
+    
 }
