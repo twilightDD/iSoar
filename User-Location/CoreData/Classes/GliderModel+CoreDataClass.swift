@@ -14,7 +14,7 @@ public class GliderModel: NSManagedObject {
     class func importOrUpdate(_ gliderModelDictionaries: [[String: Any]]) {
         
         let context = CoreDataManager.viewOnlyContext
-
+        
         for gliderModelDictionary in gliderModelDictionaries {
             // Check for existing  gliderModelDictionary or create a new one
             guard let uuidString = gliderModelDictionary[GliderModel.Attributes.uuid] as? String,
@@ -25,15 +25,19 @@ public class GliderModel: NSManagedObject {
                                                             predicateString: "%K == %@",
                                                             predicateArguments: [GliderModel.Attributes.uuid, uuid])
             
-            var gliderModelWithUUID: GliderModel
+            var gliderModelWithUUID: GliderModel!
             
             if gliderModelsWithUUID.isEmpty == true {
                 gliderModelWithUUID = GliderModel.init(context: context)
                 gliderModelWithUUID.uuid = uuid
             } else if gliderModelsWithUUID.count == 1 {
-                gliderModelWithUUID = gliderModelsWithUUID.first!
+                if let uniqueGliderModel = gliderModelsWithUUID.first {
+                    gliderModelWithUUID = uniqueGliderModel
+                }
             } else {
-                fatalError()
+                print("\(#function) - UUID already exists")
+                DLLogger.writeStringToLogFile("\(#function) - UUID already exists")
+                break
             }
             
             // Update Values
@@ -47,8 +51,10 @@ public class GliderModel: NSManagedObject {
             gliderModelWithUUID.speed2 = gliderModelDictionary[GliderModel.Attributes.speed2] as? Double ?? 0
             gliderModelWithUUID.speed3 = gliderModelDictionary[GliderModel.Attributes.speed3] as? Double ?? 0
             gliderModelWithUUID.wingarea = gliderModelDictionary[GliderModel.Attributes.wingarea] as? Double ?? 0
-
+            
         }
+        
+        print("\(#function) - \(context.insertedObjects.count) GliderModels imported or updated.")
     }
 }
 
