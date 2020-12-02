@@ -186,7 +186,7 @@
                     <connections>
                         <outlet property="cancelBarBauttonItem" destination="5ve-89-7Qa" id="dkM-BV-S28"/>
                         <outlet property="saveBarButtonItem" destination="5r5-HM-jcz" id="NCc-FK-XVX"/>
-                        <segue destination="Nla-Vm-xA5" kind="show" identifier="OpenGliderModelSelectionViewControllerSegue" id="iSU-8F-BgY"/>
+                        <segue destination="Nla-Vm-xA5" kind="show" identifier="OpenGliderModelSelectionViewControllerSegue" id="1en-Qr-OFa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ag5-t2-ucg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -912,7 +912,7 @@
                             <outlet property="delegate" destination="z3S-pI-7Xf" id="hS9-VS-CGQ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="cVt-gq-Ak1" userLabel="Navigation Item"/>
+                    <navigationItem key="navigationItem" id="cVt-gq-Ak1" userLabel="Navigation Item"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rnh-ak-sLr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
