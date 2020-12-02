@@ -97,7 +97,7 @@ class EditGliderFormViewController: FormViewController {
                 
                 <<< PushRow<String>("Glider Model") { row in
                     row.title = "Glider Model"
-                    row.value = ""
+                    row.value = glider.gliderModel?.modelName
                     row.add(rule: RuleRequired())
                     row.validationOptions = .validatesOnChange
                     row.presentationMode = .segueName(segueName: "OpenGliderModelSelectionViewControllerSegue", onDismiss: nil)
@@ -180,27 +180,11 @@ class EditGliderFormViewController: FormViewController {
         section
             <<< TextRow("Manufacturer") { row in
                 row.title = "Manufacturer"
-                row.value = "Schempp-Hirth"
+                row.value = glider.gliderModel?.manufacturer
                 row.disabled = true
                 
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "house")
-                
-            }.cellUpdate { cell, row in
-                cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
-                cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
-                
-            }
-            
-            <<< DecimalRow("Ratio") { row in
-                row.title = "Ratio"
-                row.value = self.glider.ratio
-                row.disabled = true
-                row.formatter = numberFormatter
-                
-            }
-            .cellSetup { cell, row in
-                cell.imageView?.image = UIImage(systemName: "arrow.down.left")
                 
             }.cellUpdate { cell, row in
                 cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
