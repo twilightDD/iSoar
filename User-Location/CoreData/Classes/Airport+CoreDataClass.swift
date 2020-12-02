@@ -11,57 +11,57 @@ import CoreData
 
 @objc(Airport)
 public class Airport: NSManagedObject {
-        class func importOrUpdate(_ airportDictionaries: [[String: Any]]) {
+    class func importOrUpdate(_ airportDictionaries: [[String: Any]]) {
+        
+        let context = CoreDataManager.viewOnlyContext
+        
+        for airportDictionary in airportDictionaries {
+            // Check for existing  airportDictionary or create a new one
+            guard let uuidString = airportDictionary[Airport.Attributes.uuid] as? String,
+                  let uuid = UUID.init(uuidString: uuidString)
+            else { fatalError() }
+            let airportsWithUUID = context.fetchObjects(forEntityClass: Airport.self,
+                                                        sortByKeypath: nil,
+                                                        predicateString: "%K == %@",
+                                                        predicateArguments: [Airport.Attributes.uuid, uuid])
             
-            let context = CoreDataManager.viewOnlyContext
-
-            for airportDictionary in airportDictionaries {
-                // Check for existing  airportDictionary or create a new one
-                guard let uuidString = airportDictionary[Airport.Attributes.uuid] as? String,
-                      let uuid = UUID.init(uuidString: uuidString)
-                else { fatalError() }
-                let airportsWithUUID = context.fetchObjects(forEntityClass: Airport.self,
-                                                                sortByKeypath: nil,
-                                                                predicateString: "%K == %@",
-                                                                predicateArguments: [Airport.Attributes.uuid, uuid])
-                
-                var airportWithUUID: Airport!
-                
-                if airportsWithUUID.isEmpty == true {
-                    airportWithUUID = Airport.init(context: context)
-                    airportWithUUID.uuid = uuid
-                } else if airportsWithUUID.count == 1 {
-                    if let uniqueAirport = airportsWithUUID.first {
-                        airportWithUUID = uniqueAirport
-                    }
-                } else {
-                    print("\(#function) - UUID already exists")
-                    DLLogger.writeStringToLogFile("\(#function) - UUID already exists")
-                    break
+            var airportWithUUID: Airport!
+            
+            if airportsWithUUID.isEmpty == true {
+                airportWithUUID = Airport.init(context: context)
+                airportWithUUID.uuid = uuid
+            } else if airportsWithUUID.count == 1 {
+                if let uniqueAirport = airportsWithUUID.first {
+                    airportWithUUID = uniqueAirport
                 }
-                
-                // Update Values
-                airportWithUUID.additionalInfo = airportDictionary[Airport.Attributes.additionalInfo] as? String ?? "<kein Wert>"
-                airportWithUUID.airportType = airportDictionary[Airport.Attributes.airportType] as? String ?? "<kein Wert>"
-                airportWithUUID.elevation = airportDictionary[Airport.Attributes.elevation] as? Double ?? 0
-                airportWithUUID.icao = airportDictionary[Airport.Attributes.icao] as? String ?? "<kein Wert>"
-                airportWithUUID.latitude = airportDictionary[Airport.Attributes.latitude] as? Double ?? 0
-                airportWithUUID.longitude = airportDictionary[Airport.Attributes.longitude] as? Double ?? 0
-                airportWithUUID.name = airportDictionary[Airport.Attributes.name] as? String ?? "<kein Wert>"
-                airportWithUUID.phone = airportDictionary[Airport.Attributes.phone] as? String ?? "<kein Wert>"
-                airportWithUUID.radioFrequency = airportDictionary[Airport.Attributes.radioFrequency] as? String ?? "<kein Wert>"
-                airportWithUUID.radioName = airportDictionary[Airport.Attributes.radioName] as? String ?? "<kein Wert>"
-                airportWithUUID.runwayDimensions = airportDictionary[Airport.Attributes.runwayDimensions] as? String ?? "<kein Wert>"
-                airportWithUUID.runwayDirections = airportDictionary[Airport.Attributes.runwayDirections] as? String ?? "<kein Wert>"
-                airportWithUUID.runwaySurface = airportDictionary[Airport.Attributes.runwaySurface] as? String ?? "<kein Wert>"
-                airportWithUUID.url = airportDictionary[Airport.Attributes.url] as? String ?? "<kein Wert>"
-                airportWithUUID.validationDate = airportDictionary[Airport.Attributes.validationDate] as? String ?? "<kein Wert>"
-
+            } else {
+                print("\(#function) - UUID already exists")
+                DLLogger.writeStringToLogFile("\(#function) - UUID already exists")
+                break
             }
             
-            print("\(#function) - \(context.insertedObjects.count) Airports imported or updated.")
+            // Update Values
+            airportWithUUID.additionalInfo = airportDictionary[Airport.Attributes.additionalInfo] as? String ?? "<kein Wert>"
+            airportWithUUID.airportType = airportDictionary[Airport.Attributes.airportType] as? String ?? "<kein Wert>"
+            airportWithUUID.elevation = airportDictionary[Airport.Attributes.elevation] as? Double ?? 0
+            airportWithUUID.icao = airportDictionary[Airport.Attributes.icao] as? String ?? "<kein Wert>"
+            airportWithUUID.latitude = airportDictionary[Airport.Attributes.latitude] as? Double ?? 0
+            airportWithUUID.longitude = airportDictionary[Airport.Attributes.longitude] as? Double ?? 0
+            airportWithUUID.name = airportDictionary[Airport.Attributes.name] as? String ?? "<kein Wert>"
+            airportWithUUID.phone = airportDictionary[Airport.Attributes.phone] as? String ?? "<kein Wert>"
+            airportWithUUID.radioFrequency = airportDictionary[Airport.Attributes.radioFrequency] as? String ?? "<kein Wert>"
+            airportWithUUID.radioName = airportDictionary[Airport.Attributes.radioName] as? String ?? "<kein Wert>"
+            airportWithUUID.runwayDimensions = airportDictionary[Airport.Attributes.runwayDimensions] as? String ?? "<kein Wert>"
+            airportWithUUID.runwayDirections = airportDictionary[Airport.Attributes.runwayDirections] as? String ?? "<kein Wert>"
+            airportWithUUID.runwaySurface = airportDictionary[Airport.Attributes.runwaySurface] as? String ?? "<kein Wert>"
+            airportWithUUID.url = airportDictionary[Airport.Attributes.url] as? String ?? "<kein Wert>"
+            airportWithUUID.validationDate = airportDictionary[Airport.Attributes.validationDate] as? String ?? "<kein Wert>"
+            
         }
+        
+        print("\(#function) - \(context.insertedObjects.count) Airports imported or updated.")
     }
+}
 
 extension Airport {
     struct Attributes {
@@ -82,6 +82,6 @@ extension Airport {
         static let url = "url"
         static let uuid = "uuid"
         static let validationDate = "validationDate"
-
+        
     }
 }

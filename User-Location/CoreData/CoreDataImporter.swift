@@ -46,7 +46,7 @@ class CoreDataImporter {
     }
     
     class func importAirports(_ dictionaries: [[String: Any]]) {
-        //        Airport.importOrUpdate(dictionaries)
+        Airport.importOrUpdate(dictionaries)
     }
     
     class func importGliderModels(_ dictionaries: [[String: Any]]) {
