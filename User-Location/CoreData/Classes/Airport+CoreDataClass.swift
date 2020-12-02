@@ -13,7 +13,8 @@ import CoreData
 public class Airport: NSManagedObject {
     class func importOrUpdate(_ airportDictionaries: [[String: Any]]) {
         
-        let context = CoreDataManager.viewOnlyContext
+        // TODO: 20201202 muss auf background context laufen
+        let context = CoreDataManager.editContextInBackground()
         
         for airportDictionary in airportDictionaries {
             // Check for existing  airportDictionary or create a new one
@@ -60,6 +61,8 @@ public class Airport: NSManagedObject {
         }
         
         print("\(#function) - \(context.insertedObjects.count) Airports imported or updated.")
+        
+        context.saveContext()
     }
 }
 

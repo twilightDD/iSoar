@@ -13,7 +13,8 @@ import CoreData
 public class GliderModel: NSManagedObject {
     class func importOrUpdate(_ gliderModelDictionaries: [[String: Any]]) {
         
-        let context = CoreDataManager.viewOnlyContext
+        // TODO: 20201202 muss auf background context laufen
+        let context = CoreDataManager.editContextInBackground()
         
         for gliderModelDictionary in gliderModelDictionaries {
             // Check for existing  gliderModelDictionary or create a new one
@@ -55,6 +56,8 @@ public class GliderModel: NSManagedObject {
         }
         
         print("\(#function) - \(context.insertedObjects.count) GliderModels imported or updated.")
+        
+        context.saveContext()
     }
 }
 
