@@ -60,7 +60,7 @@ public class Airport: NSManagedObject {
             
         }
         
-        print("\(#function) - \(context.insertedObjects.count) Airports imported or updated.")
+        print("\(#function) - \(context.insertedObjects.count) Airports imported.")
         
         context.saveContext()
     }

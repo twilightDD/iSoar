@@ -56,7 +56,7 @@ public class GliderModel: NSManagedObject {
             
         }
         
-        print("\(#function) - \(context.insertedObjects.count) GliderModels imported or updated.")
+        print("\(#function) - \(context.insertedObjects.count) GliderModels imported.")
         
         context.saveContext()
     }
