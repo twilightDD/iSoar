@@ -650,7 +650,7 @@ class MapScreenViewController: UIViewController {
         }
     }
     
-    private func updateDestinationAirportICAOLabel(destinationAirport: AirportDatabase.Airport) {
+    private func updateDestinationAirportICAOLabel(destinationAirport: AirportDatabase.AirportOld) {
         destinationAirportICAOLabel.text = destinationAirport.icao
     }
     
@@ -680,7 +680,7 @@ class MapScreenViewController: UIViewController {
         }
     }
     
-    private func updateDestinationAirportAltitudeLabel(destinationAirport: AirportDatabase.Airport) {
+    private func updateDestinationAirportAltitudeLabel(destinationAirport: AirportDatabase.AirportOld) {
         guard let altitudeDifference = LocationManager.altitudeDifferenceFromCurrentLocationTo(altitude: destinationAirport.elevation),
             let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport()
             else { return }
@@ -714,7 +714,7 @@ class MapScreenViewController: UIViewController {
         }
     }
     
-    private func updateDestinationAirportDirectionLine(destinationAirport: AirportDatabase.Airport) {
+    private func updateDestinationAirportDirectionLine(destinationAirport: AirportDatabase.AirportOld) {
         guard let currentLocationCoordinate2D = LocationManager.currentLocation()?.coordinate
             else { return }
         

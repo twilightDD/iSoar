@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+//import CoreData
 
 // MARK: - AirportDatabase
 class AirportDatabase {
@@ -20,7 +21,7 @@ class AirportDatabase {
     static let airportUpdateFailedNotificationName = Notification.Name(rawValue: "airportUpdateFailed")
     
     // Private
-    private var destinationAirports = [AirportDatabase.Airport]()
+    private var destinationAirports = [AirportDatabase.AirportOld]()
     
     // MARK: - Init&Co.
     private init() {
@@ -30,7 +31,7 @@ class AirportDatabase {
     // MARK: - Public Class Methods
     // Give back all Airports from Airport Database
     class func destinationAirports()
-    -> [AirportDatabase.Airport]? {
+    -> [AirportDatabase.AirportOld]? {
         let destinationAirports = shared.destinationAirports
         return destinationAirports
     }
@@ -38,7 +39,7 @@ class AirportDatabase {
     // Give back filtered Airports from Airport Database
     class func filteredDestinationAirports(byName searchString: String?,
                                            sortedBy sortIndicator: SortIndicator)
-    -> [AirportDatabase.Airport]? {
+    -> [AirportDatabase.AirportOld]? {
         let filteredDestinationAirports = shared.filteredDestinationAirports(byName: searchString,
                                                                              sortedBy: sortIndicator)
         return filteredDestinationAirports
@@ -46,7 +47,7 @@ class AirportDatabase {
     
     // Give back nearest Airport from User Location
     class func nearestAirport()
-    -> AirportDatabase.Airport? {
+    -> AirportDatabase.AirportOld? {
         let nearestAirport = shared.nearestAirport()
         return nearestAirport
     }
@@ -67,7 +68,7 @@ class AirportDatabase {
         // Append every single Object to Airports Database
         if let airports = dictionariesOfJSON["Airports"] as? [[String: Any]] {
             for airport in airports {
-                let myAirportStruct = AirportDatabase.Airport(dictionary: airport)
+                let myAirportStruct = AirportDatabase.AirportOld(dictionary: airport)
                 destinationAirports.append(myAirportStruct)
             }
         }
@@ -76,7 +77,7 @@ class AirportDatabase {
     // Update Distances between User Location and Airports
     private func updateDistancesFromUserLocationToAirports() {
         if let currentLocation = LocationManager.currentLocation() {
-            var puffer = [AirportDatabase.Airport]()
+            var puffer = [AirportDatabase.AirportOld]()
             for var destinationAirport in destinationAirports {
                 
                 let destinationAirportLocation = CLLocation(latitude: destinationAirport.latitude,
@@ -94,11 +95,11 @@ class AirportDatabase {
     
     private func filteredDestinationAirports(byName searchString: String?,
                                              sortedBy sortIndicator: SortIndicator)
-    -> [AirportDatabase.Airport]? {
+    -> [AirportDatabase.AirportOld]? {
         
         updateDistancesFromUserLocationToAirports()
         
-        var filteredAndSortedAirports = [AirportDatabase.Airport]()
+        var filteredAndSortedAirports = [AirportDatabase.AirportOld]()
         
         // Filter
         var filteredArray = destinationAirports
@@ -132,7 +133,7 @@ class AirportDatabase {
     
     // Give back nearest Airport from User Location
     private func nearestAirport()
-    -> Airport? {
+    -> AirportOld? {
         updateDistancesFromUserLocationToAirports()
         if let filterDestinationAirports = filteredDestinationAirports(byName: nil,
                                                                        sortedBy: .distance) {
@@ -159,6 +160,7 @@ class AirportDatabase {
                                                     if let response = response as? HTTPURLResponse {
                                                         if response.statusCode == 200 {
                                                             if let data = data {
+                                                                //CoreDataImporter.importData(data, forType: .airports)
                                                                 
                                                                 // var for storing Content of Airports.json File as Dictionary
                                                                 var jsonAsDict = [String: Any]()
@@ -178,7 +180,7 @@ class AirportDatabase {
                                                                 if let airports = jsonAsDict["Airports"] as? [[String: Any]] {
                                                                     // Append every single Object to Airports Database
                                                                     for airport in airports {
-                                                                        let myAirportStruct = AirportDatabase.Airport(dictionary: airport)
+                                                                        let myAirportStruct = AirportDatabase.AirportOld(dictionary: airport)
                                                                         self.destinationAirports.append(myAirportStruct)
                                                                     }
                                                                 }
@@ -233,7 +235,7 @@ extension AirportDatabase {
         case distance   = 1
     }
     
-    struct Airport: Equatable {
+    struct AirportOld: Equatable {
         // MARK: Lets and Vars
         var validationDate: String
         var icao: String
@@ -276,7 +278,7 @@ extension AirportDatabase {
         }
         
         // Equatable for comparing Airports
-        static func == (lhs: Airport, rhs: Airport) -> Bool {
+        static func == (lhs: AirportOld, rhs: AirportOld) -> Bool {
             return
                 lhs.latitude == rhs.latitude &&
                 lhs.longitude == rhs.longitude

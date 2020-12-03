@@ -15,7 +15,7 @@ class DestinationSelectionViewController: UIViewController {
     // Statics
     static private var shared: DestinationSelectionViewController?
     
-    private var destinationAirportArray = [AirportDatabase.Airport]()
+    private var destinationAirportArray = [AirportDatabase.AirportOld]()
     private var sortSwitchIndex = 0
     
     // Notification Observers
