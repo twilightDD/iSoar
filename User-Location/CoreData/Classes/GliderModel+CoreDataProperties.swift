@@ -18,6 +18,7 @@ extension GliderModel {
     @NSManaged public var handicap: Double
     @NSManaged public var manufacturer: String
     @NSManaged public var modelName: String
+    @NSManaged public var seats: Double
     @NSManaged public var sink1: Double
     @NSManaged public var sink2: Double
     @NSManaged public var sink3: Double

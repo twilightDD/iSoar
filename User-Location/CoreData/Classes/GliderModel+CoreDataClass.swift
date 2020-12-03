@@ -45,6 +45,7 @@ public class GliderModel: NSManagedObject {
             gliderModelWithUUID.handicap = gliderModelDictionary[GliderModel.Attributes.handicap] as? Double ?? 0
             gliderModelWithUUID.manufacturer = gliderModelDictionary[GliderModel.Attributes.manufacturer] as? String ?? "<kein Wert>"
             gliderModelWithUUID.modelName = gliderModelDictionary[GliderModel.Attributes.modelName] as? String ?? "<kein Wert>"
+            gliderModelWithUUID.seats = gliderModelDictionary[GliderModel.Attributes.seats] as? Double ?? 0
             gliderModelWithUUID.sink1 = gliderModelDictionary[GliderModel.Attributes.sink1] as? Double ?? 0
             gliderModelWithUUID.sink2 = gliderModelDictionary[GliderModel.Attributes.sink2] as? Double ?? 0
             gliderModelWithUUID.sink3 = gliderModelDictionary[GliderModel.Attributes.sink3] as? Double ?? 0
@@ -66,6 +67,7 @@ extension GliderModel {
         static let handicap = "handicap"
         static let manufacturer = "manufacturer"
         static let modelName = "modelName"
+        static let seats = "seats"
         static let sink1 = "sink1"
         static let sink2 = "sink2"
         static let sink3 = "sink3"
