@@ -3,20 +3,8 @@
     {
       "handicap": 100,
       "manufacturer": "Schempp-Hirth",
-      "modelName": "Janus B Pilot",
-      "sink1": -0.695,
-      "sink2": -1.816,
-      "sink3": -3.628,
-      "speed1": 105.7,
-      "speed2": 157.65,
-      "speed3": 192.68,
-      "uuid": "9a670be0-cfd3-4d2f-a628-2ba79008cdcb",
-      "wingarea": 18.2
-    },
-    {
-      "handicap": 100,
-      "manufacturer": "Schempp-Hirth",
-      "modelName": "Janus B Passanger",
+      "modelName": "Janus B Passenger",
+      "seats": 2,
       "sink1": -0.758,
       "sink2": -1.979,
       "sink3": -3.953,
@@ -24,6 +12,20 @@
       "speed2": 171.79,
       "speed3": 209.96,
       "uuid": "324d6bc8-8f09-40d0-97a4-c02b448a2de1",
+      "wingarea": 18.2
+    },
+    {
+      "handicap": 100,
+      "manufacturer": "Schempp-Hirth",
+      "modelName": "Janus B Pilot",
+      "seats": 2,
+      "sink1": -0.695,
+      "sink2": -1.816,
+      "sink3": -3.628,
+      "speed1": 105.7,
+      "speed2": 157.65,
+      "speed3": 192.68,
+      "uuid": "9a670be0-cfd3-4d2f-a628-2ba79008cdcb",
       "wingarea": 18.2
     }
   ]
