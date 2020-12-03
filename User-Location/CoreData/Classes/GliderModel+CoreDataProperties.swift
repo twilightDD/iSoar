@@ -22,6 +22,7 @@ extension GliderModel {
     @NSManaged public var sink1: Double
     @NSManaged public var sink2: Double
     @NSManaged public var sink3: Double
+    @NSManaged public var span: Double
     @NSManaged public var speed1: Double
     @NSManaged public var speed2: Double
     @NSManaged public var speed3: Double

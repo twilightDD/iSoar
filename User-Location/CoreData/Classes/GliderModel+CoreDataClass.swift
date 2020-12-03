@@ -49,6 +49,7 @@ public class GliderModel: NSManagedObject {
             gliderModelWithUUID.sink1 = gliderModelDictionary[GliderModel.Attributes.sink1] as? Double ?? 0
             gliderModelWithUUID.sink2 = gliderModelDictionary[GliderModel.Attributes.sink2] as? Double ?? 0
             gliderModelWithUUID.sink3 = gliderModelDictionary[GliderModel.Attributes.sink3] as? Double ?? 0
+            gliderModelWithUUID.span = gliderModelDictionary[GliderModel.Attributes.span] as? Double ?? 0
             gliderModelWithUUID.speed1 = gliderModelDictionary[GliderModel.Attributes.speed1] as? Double ?? 0
             gliderModelWithUUID.speed2 = gliderModelDictionary[GliderModel.Attributes.speed2] as? Double ?? 0
             gliderModelWithUUID.speed3 = gliderModelDictionary[GliderModel.Attributes.speed3] as? Double ?? 0
@@ -71,6 +72,7 @@ extension GliderModel {
         static let sink1 = "sink1"
         static let sink2 = "sink2"
         static let sink3 = "sink3"
+        static let span = "span"
         static let speed1 = "speed1"
         static let speed2 = "speed2"
         static let speed3 = "speed3"

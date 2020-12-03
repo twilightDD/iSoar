@@ -207,35 +207,18 @@ class EditGliderFormViewController: FormViewController {
                 
             }
             
-            <<< DecimalRow("Wingarea") { row in
-                row.title = "Wingarea"
-                row.value = self.glider.gliderModel?.wingarea
+            <<< DecimalRow("Span") { row in
+                row.title = "Span"
+                row.value = self.glider.gliderModel?.span
                 row.disabled = true
                 row.formatter = numberFormatter
                 row.useFormatterDuringInput = true
                 
             }.cellSetup { cell, row in
-                cell.imageView?.image = UIImage(systemName: "airplane")
+                cell.imageView?.image = UIImage(systemName: "arrow.left.and.right")
                 
             }.cellUpdate { cell, row in
-                row.value = self.glider.gliderModel?.wingarea
-                cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
-                cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
-                
-            }
-            
-            <<< DecimalRow("Handicap") { row in
-                row.title = "Handicap"
-                row.value = glider.gliderModel?.handicap
-                row.disabled = true
-                row.formatter = numberFormatter
-                row.useFormatterDuringInput = true
-                
-            }.cellSetup { cell, row in
-                cell.imageView?.image = UIImage(systemName: "airplane")
-                
-            }.cellUpdate { cell, row in
-                row.value = self.glider.gliderModel?.handicap
+                row.value = self.glider.gliderModel?.span
                 cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
                 cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
                 
