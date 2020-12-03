@@ -371,8 +371,14 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
             let section = Section("Miscellaneous")
                 
                 <<< ButtonRow { row in
-                    row.title = "Download Airport Database Update"
-                    row.onCellSelection(self.downloadButtonTapped)
+                    row.title = "Airport Database Update"
+                    row.onCellSelection(self.airportDatabaseUpdatesButtonTapped)
+                    
+                }
+                
+                <<< ButtonRow { row in
+                    row.title = "Glider Model Database Update"
+                    row.onCellSelection(self.gliderModelDatabaseUpdatesButtonTapped)
                     
                 }
                 
@@ -439,8 +445,14 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     }
     
     // MARK: - Action Methods
-    private func downloadButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
+    private func airportDatabaseUpdatesButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         AirportDatabase.downloadAirportsFromServer()
+    }
+    
+    private func gliderModelDatabaseUpdatesButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
+        DLDownloadManager.download(.glidermodels) { (data) in
+            CoreDataImporter.importData(data, forType: .glidermodels)
+        }
     }
     
     private func reportMissingAirfieldButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
