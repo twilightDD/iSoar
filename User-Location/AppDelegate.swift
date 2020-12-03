@@ -32,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Check for First Launch of App
         if UserDefaultsManager.firstLaunchOfAppState() == true {
+            CoreDataImporter.initalImport()
             UserDefaultsManager.set(firstLaunchOfAppState: false)
         }
 
@@ -40,14 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ISoarFileManager.checkForTasksFolder()
         ISoarFileManager.checkForLogsFolder()
 
-        // Check for First Launch of App
-//        if UserDefaultsManager.firstLaunchOfAppState() == true {
-//            CoreDataImporter.importContent(fromJSONURL: Presets.ISoarFileManager.localGliderModelsJSONURL)
-//            UserDefaultsManager.set(firstLaunchOfAppState: false)
-//        }
-        
-        CoreDataImporter.importContent(fromJSONURL: Presets.ISoarFileManager.localGliderModelsJSONURL)
-        
         return true
     }
     
