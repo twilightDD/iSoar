@@ -151,19 +151,22 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                     row.options = Presets.Settings.countries.keys.sorted()
                     row.value = UserDefaultsManager.selectedCountry()
                     
-                }.onPresent { from, row in
-                    row.dismissOnSelection = false
-                    row.dismissOnChange = false
+                }.onPresent { form, row in
+                    row.dismissOnSelection = true
+                    row.dismissOnChange = true
                     row.enableDeselection = false
-                    row.navigationItem.title = "Selected Map"
+                    row.navigationItem.title = "Select Map"
+                    row.selectableRowCellUpdate = { (cell, row) in
+                        cell.imageView?.image = UIImage(systemName: "map")
+                    }
                     
                     // TODO: 20200911 Hier muss die Bildgröße der Flaggen angepasst werden!
-//                    row.selectableRowCellUpdate = { (cell, row) in
-//                        guard let imageName = cell.textLabel?.text else { return }
-//                        cell.imageView?.image = UIImage(named: imageName)
-//
-//                }
-
+                    //                    row.selectableRowCellUpdate = { (cell, row) in
+                    //                        guard let imageName = cell.textLabel?.text else { return }
+                    //                        cell.imageView?.image = UIImage(named: imageName)
+                    //
+                    //                }
+                    
                 }.cellSetup { cell, row in
                     cell.imageView?.image = UIImage(systemName: "map")
                     
