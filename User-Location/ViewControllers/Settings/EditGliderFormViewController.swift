@@ -77,7 +77,7 @@ class EditGliderFormViewController: FormViewController {
             
             section
                 <<< TextRow(EditGliderFormViewController.GliderRegistrationKey) { row in
-                    row.title = "Glider Registration"
+                    row.title = "Registration"
                     row.value = self.glider.registration
                     row.placeholder = "D-1234"
                     row.add(rule: RuleRequired())
@@ -96,8 +96,8 @@ class EditGliderFormViewController: FormViewController {
                     self.glider.registration = row.value
                 })
                 
-                <<< PushRow<GliderModel>("Glider Model") { row in
-                    row.title = "Glider Model"
+                <<< PushRow<GliderModel>("Model") { row in
+                    row.title = "Model"
                     
                     let allGliderModels = editContext.fetchObjects(forEntityClass: GliderModel.self,
                                                                    sortByKeypath: GliderModel.Attributes.modelName)
@@ -124,8 +124,11 @@ class EditGliderFormViewController: FormViewController {
                     row.dismissOnSelection = true
                     row.dismissOnChange = true
                     row.enableDeselection = false
-                    row.navigationItem.title = "Glider Model"
-                
+                    row.navigationItem.title = "Select Model"
+                    row.selectableRowCellUpdate = { (cell, row) in
+                        cell.imageView?.image = UIImage(systemName: "airplane")
+                    }
+                    
                 }.onChange { row in
                     let selectedGliderModel = row.value
                     self.glider.gliderModel = selectedGliderModel
@@ -212,7 +215,6 @@ class EditGliderFormViewController: FormViewController {
                 row.value = self.glider.gliderModel?.span
                 row.disabled = true
                 row.formatter = numberFormatter
-                row.useFormatterDuringInput = true
                 
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "arrow.left.and.right")
