@@ -20,9 +20,9 @@ class DLDownloadManager {
     // Statics
     static private let shared = DLDownloadManager()
     
-    private class func urlFor(_ type: ContentType)
+    private class func urlFor(_ contentType: ContentType)
     -> URL {
-        let urlString = "https://www.isoar.de/_b34/" + type.rawValue
+        let urlString = Presets.DLDownloadManager.appSourceFilesURL + contentType.rawValue
         guard let url = URL(string: urlString)
         else { fatalError() }
         
@@ -43,6 +43,8 @@ class DLDownloadManager {
                                                     if response.statusCode == 200 {
                                                         if let data = data {
                                                             completion(data)
+                                                        } else {
+                                                            print("NOT DATA")
                                                         }
                                                     } else {
                                                         print("StatusCode NOT OK")

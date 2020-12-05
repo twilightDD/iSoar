@@ -107,6 +107,13 @@ struct Presets {
         
     }
     
+    struct DLDownloadManager {
+        
+        /// Represents the Base URL of the JSON Files on the Server
+        static let appSourceFilesURL = "https://www.isoar.de/AppSourceFiles/"
+        
+    }
+    
     struct ISoarFileManager {
         
         /// Represents the URL of the Airports.json File on the Server
