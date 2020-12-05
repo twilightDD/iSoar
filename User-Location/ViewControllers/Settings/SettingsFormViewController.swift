@@ -456,6 +456,8 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         DLDownloadManager.download(.glidermodels) { (data) in
             CoreDataImporter.importData(data, forType: .glidermodels)
         }
+        // TODO: 20201204 Hier sollte jemand zurückmelden obs geklappt hat
+        NotificationBanner.show("Glider Model Database updated")
     }
     
     private func reportMissingAirfieldButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
