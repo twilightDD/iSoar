@@ -25,7 +25,7 @@ class AirportInfoFormViewController: FormViewController {
         
     }
     
-    func textColor()
+    private func textColor()
         -> UIColor {
             var textColor: UIColor = .black
             

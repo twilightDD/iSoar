@@ -50,7 +50,7 @@ class EditGliderFormViewController: FormViewController {
         form.append(gliderPolarInformationSection())
     }
     
-    func textColor()
+    private func textColor()
         -> UIColor {
             var textColor: UIColor = .black
             
