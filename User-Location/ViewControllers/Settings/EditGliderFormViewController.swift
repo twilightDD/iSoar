@@ -210,20 +210,24 @@ class EditGliderFormViewController: FormViewController {
                 
             }
             
-            <<< DecimalRow("Span") { row in
+            <<< TextRow("Span") { row in
                 row.title = "Span"
-                row.value = self.glider.gliderModel?.span
+                row.value = String("\(glider.gliderModel?.span) m²")
                 row.disabled = true
-                row.formatter = numberFormatter
                 
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "arrow.left.and.right")
                 
             }.cellUpdate { cell, row in
-                row.value = self.glider.gliderModel?.span
+                if let gliderModel = self.glider.gliderModel {
+                    row.value = String("\(gliderModel.span) m²")
+                } else {
+                    row.value = ""
+                }
+                
                 cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
                 cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
-                
+
             }
         
         return section
