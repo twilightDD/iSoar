@@ -212,7 +212,7 @@ class EditGliderFormViewController: FormViewController {
             
             <<< TextRow("Span") { row in
                 row.title = "Span"
-                row.value = String("\(glider.gliderModel?.span) m²")
+                row.value = String("\(glider.gliderModel?.span) m")
                 row.disabled = true
                 
             }.cellSetup { cell, row in
@@ -220,7 +220,7 @@ class EditGliderFormViewController: FormViewController {
                 
             }.cellUpdate { cell, row in
                 if let gliderModel = self.glider.gliderModel {
-                    row.value = String("\(gliderModel.span) m²")
+                    row.value = String("\(gliderModel.span) m")
                 } else {
                     row.value = ""
                 }
