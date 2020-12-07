@@ -453,11 +453,21 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     }
     
     private func gliderModelDatabaseUpdatesButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
-        DLDownloadManager.download(.glidermodels) { (data) in
-            CoreDataImporter.importData(data, forType: .glidermodels)
-        }
-        // TODO: 20201204 Hier sollte jemand zurückmelden obs geklappt hat
-        NotificationBanner.show("Glider Model Database updated")
+        DLDownloadManager.download(.glidermodels,
+                                   completion: { data in
+                                    
+                                    guard let data = data
+                                    else {
+                                        NotificationBanner.show("No data received.")
+                                        return
+                                    }
+                                    
+                                    // TODO: 20201207 Success zurückwerfen
+                                    CoreDataImporter.importData(data, forType: .glidermodels)
+                                    
+                                    NotificationBanner.show("Glider Model Database updated")
+                                    
+                                   })
     }
     
     private func reportMissingAirfieldButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
