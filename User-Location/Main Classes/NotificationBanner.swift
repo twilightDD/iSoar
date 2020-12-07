@@ -15,6 +15,7 @@ class NotificationBanner {
     static let bannerAppearanceDuration: TimeInterval = 3
     
     static func show(_ text: String) {
+        DispatchQueue.main.async {
         
         guard let superView = UIApplication.shared.windows.first?.rootViewController?.view
             else { return }
@@ -125,4 +126,5 @@ class NotificationBanner {
             }
         })
     }
+}
 }
