@@ -59,345 +59,345 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     // MARK: - Private Methods
     // MARK: Eureka Form Sections
     private func gliderSelectionSection()
-        -> Section {
-            let section = Section("Glider Selection")
-                
-                <<< PushRow<String>(SettingsFormViewController.AvailableGlidersKey) { row in
-                    row.title = SettingsFormViewController.AvailableGlidersKey
-                    row.value = UserDefaultsManager.gliderID()
-                    row.presentationMode = .segueName(segueName: "GliderSelectionSegue", onDismiss: nil)
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "airplane")
-            }
+    -> Section {
+        let section = Section("Glider Selection")
             
-            section.tag = "Glider Selection"
-            return section
+            <<< PushRow<String>(SettingsFormViewController.AvailableGlidersKey) { row in
+                row.title = SettingsFormViewController.AvailableGlidersKey
+                row.value = UserDefaultsManager.gliderID()
+                row.presentationMode = .segueName(segueName: "GliderSelectionSegue", onDismiss: nil)
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "airplane")
+            }
+        
+        section.tag = "Glider Selection"
+        return section
     }
     
     private func userSettingsSection()
-        -> Section {
-            let section = Section("User Settings")
-                
-                <<< SliderRow("Safety") { row in
-                    row.title = "Safety"
-                    row.value = Float(UserDefaultsManager.safetyAltitude())
-                    row.steps = 10
-                    row.displayValueFor = { row in
-                        return "\(Int(row ?? 0)) m"
-                    }
-                    
-                }.cellSetup { cell, row in
-                    let cellIconImage = UIImage(systemName: "heart")?.withTintColor(.red,
-                                                                                    renderingMode: .alwaysOriginal)
-                    cell.imageView?.image = cellIconImage
-                    cell.slider.minimumValue = 0
-                    cell.slider.maximumValue = 500
-                    
-                }.onChange { row in
-                    let safetyAltitude = Double(row.value ?? 300)
-                    UserDefaultsManager.set(safetyAltitude: safetyAltitude)
-                    
+    -> Section {
+        let section = Section("User Settings")
+            
+            <<< SliderRow("Safety") { row in
+                row.title = "Safety"
+                row.value = Float(UserDefaultsManager.safetyAltitude())
+                row.steps = 10
+                row.displayValueFor = { row in
+                    return "\(Int(row ?? 0)) m"
                 }
                 
-                <<< SwitchRow("Update Airports at Startup") { row in
-                    row.title = row.tag
-                    row.value = UserDefaultsManager.updateAirportDatabaseAtStartupState()
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "square.and.arrow.down")
-                    
-                }.onChange { row in
-                    guard let updateAirportDatabaseAtStartupState = row.value else { return }
-                    UserDefaultsManager.set(updateAirportDatabaseAtStartupState: updateAirportDatabaseAtStartupState)
-                    
-                }
+            }.cellSetup { cell, row in
+                let cellIconImage = UIImage(systemName: "heart")?.withTintColor(.red,
+                                                                                renderingMode: .alwaysOriginal)
+                cell.imageView?.image = cellIconImage
+                cell.slider.minimumValue = 0
+                cell.slider.maximumValue = 500
                 
-                <<< SwitchRow("Gear Warning") { row in
-                    row.title = row.tag
-                    row.value = UserDefaultsManager.gearWarningState()
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "speaker")
-                    
-                }.onChange { row in
-                    guard let gearWarningState = row.value else { return }
-                    UserDefaultsManager.set(gearWarningState: gearWarningState)
-                        
-                }
-                    
-                <<< SwitchRow("Low Oxygen Warning") { row in
-                    row.title = row.tag
-                    row.value = UserDefaultsManager.lowOxygenWarningState()
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "speaker")
-                    
-                }.onChange { row in
-                    guard let lowOxygenWarningState = row.value else { return }
-                    UserDefaultsManager.set(lowOxygenWarningState: lowOxygenWarningState)
-                    
+            }.onChange { row in
+                let safetyAltitude = Double(row.value ?? 300)
+                UserDefaultsManager.set(safetyAltitude: safetyAltitude)
+                
             }
             
-            return section
+            <<< SwitchRow("Update Airports at Startup") { row in
+                row.title = row.tag
+                row.value = UserDefaultsManager.updateAirportDatabaseAtStartupState()
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "square.and.arrow.down")
+                
+            }.onChange { row in
+                guard let updateAirportDatabaseAtStartupState = row.value else { return }
+                UserDefaultsManager.set(updateAirportDatabaseAtStartupState: updateAirportDatabaseAtStartupState)
+                
+            }
+            
+            <<< SwitchRow("Gear Warning") { row in
+                row.title = row.tag
+                row.value = UserDefaultsManager.gearWarningState()
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "speaker")
+                
+            }.onChange { row in
+                guard let gearWarningState = row.value else { return }
+                UserDefaultsManager.set(gearWarningState: gearWarningState)
+                
+            }
+            
+            <<< SwitchRow("Low Oxygen Warning") { row in
+                row.title = row.tag
+                row.value = UserDefaultsManager.lowOxygenWarningState()
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "speaker")
+                
+            }.onChange { row in
+                guard let lowOxygenWarningState = row.value else { return }
+                UserDefaultsManager.set(lowOxygenWarningState: lowOxygenWarningState)
+                
+            }
+        
+        return section
     }
     
     private func mapSettingsSection()
-        -> Section {
-            let section = Section("Map Settings")
+    -> Section {
+        let section = Section("Map Settings")
+            
+            <<< PushRow<String>("Selected Map") { row in
+                row.title = "Selected Map"
+                row.options = Presets.Settings.countries.keys.sorted()
+                row.value = UserDefaultsManager.selectedCountry()
                 
-                <<< PushRow<String>("Selected Map") { row in
-                    row.title = "Selected Map"
-                    row.options = Presets.Settings.countries.keys.sorted()
-                    row.value = UserDefaultsManager.selectedCountry()
-                    
-                }.onPresent { form, row in
-                    row.dismissOnSelection = true
-                    row.dismissOnChange = true
-                    row.enableDeselection = false
-                    row.navigationItem.title = "Select Map"
-                    row.selectableRowCellUpdate = { (cell, row) in
-                        cell.imageView?.image = UIImage(systemName: "map")
-                    }
-                    
-                    // TODO: 20200911 Hier muss die Bildgröße der Flaggen angepasst werden!
-                    //                    row.selectableRowCellUpdate = { (cell, row) in
-                    //                        guard let imageName = cell.textLabel?.text else { return }
-                    //                        cell.imageView?.image = UIImage(named: imageName)
-                    //
-                    //                }
-                    
-                }.cellSetup { cell, row in
+            }.onPresent { form, row in
+                row.dismissOnSelection = true
+                row.dismissOnChange = true
+                row.enableDeselection = false
+                row.navigationItem.title = "Select Map"
+                row.selectableRowCellUpdate = { (cell, row) in
                     cell.imageView?.image = UIImage(systemName: "map")
-                    
-                }.onChange { row in
-                    guard let mapCountry = row.value else { return }
-                    UserDefaultsManager.set(mapCountry: mapCountry)
-                    
-                    guard let mapStyleURL = Presets.Settings.countries[mapCountry] else { return }
-                    UserDefaultsManager.set(mapStyleURL: mapStyleURL)
-                    
                 }
                 
-                <<< ButtonRow { row in
-                    row.title = "Download Map of the current Area"
-                    row.onCellSelection(self.downloadMapAreaButtonTapped(cell:row:))
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "square.and.arrow.down")
-                    cell.textLabel?.textAlignment = .left
-                    
-                }.cellUpdate { cell, row in
-                    cell.textLabel?.textAlignment = .left
-                    
-                }
+                // TODO: 20200911 Hier muss die Bildgröße der Flaggen angepasst werden!
+                //                    row.selectableRowCellUpdate = { (cell, row) in
+                //                        guard let imageName = cell.textLabel?.text else { return }
+                //                        cell.imageView?.image = UIImage(named: imageName)
+                //
+                //                }
                 
-                <<< SwitchRow { row in
-                    row.title = "Show Distance Circles"
-                    row.tag = "Show Distance Circles"
-                    row.value = UserDefaultsManager.showDistanceCirclesState()
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "smallcircle.circle")
-                    
-                }.onChange { row in
-                    guard let showDistanceCirclesState = row.value else { return }
-                    UserDefaultsManager.set(showDistanceCirclesState: showDistanceCirclesState)
-                    
-                }
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "map")
                 
-                <<< SwitchRow { row in
-                    row.title = "Show Tracking Route"
-                    row.tag = "Show Tracking Route"
-                    row.value = UserDefaultsManager.showTrackingRouteState()
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "checkmark.circle")
-                    
-                }.onChange { row in
-                    guard let showTrackingRouteState = row.value else { return }
-                    UserDefaultsManager.set(showTrackingRouteState: showTrackingRouteState)
-                    
-                }
+            }.onChange { row in
+                guard let mapCountry = row.value else { return }
+                UserDefaultsManager.set(mapCountry: mapCountry)
                 
-                <<< SwitchRow("Thermal Assistant") { row in
-                    row.title = row.tag
-                    row.value = UserDefaultsManager.thermalAssistantState()
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "tornado")
-                    
-                }.onChange { row in
-                    guard let thermalAssistantState = row.value else { return }
-                    UserDefaultsManager.set(thermalAssistantState: thermalAssistantState)
-                    
+                guard let mapStyleURL = Presets.Settings.countries[mapCountry] else { return }
+                UserDefaultsManager.set(mapStyleURL: mapStyleURL)
+                
             }
-            return section
+            
+            <<< ButtonRow { row in
+                row.title = "Download Map of the current Area"
+                row.onCellSelection(self.downloadMapAreaButtonTapped(cell:row:))
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "square.and.arrow.down")
+                cell.textLabel?.textAlignment = .left
+                
+            }.cellUpdate { cell, row in
+                cell.textLabel?.textAlignment = .left
+                
+            }
+            
+            <<< SwitchRow { row in
+                row.title = "Show Distance Circles"
+                row.tag = "Show Distance Circles"
+                row.value = UserDefaultsManager.showDistanceCirclesState()
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "smallcircle.circle")
+                
+            }.onChange { row in
+                guard let showDistanceCirclesState = row.value else { return }
+                UserDefaultsManager.set(showDistanceCirclesState: showDistanceCirclesState)
+                
+            }
+            
+            <<< SwitchRow { row in
+                row.title = "Show Tracking Route"
+                row.tag = "Show Tracking Route"
+                row.value = UserDefaultsManager.showTrackingRouteState()
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "checkmark.circle")
+                
+            }.onChange { row in
+                guard let showTrackingRouteState = row.value else { return }
+                UserDefaultsManager.set(showTrackingRouteState: showTrackingRouteState)
+                
+            }
+            
+            <<< SwitchRow("Thermal Assistant") { row in
+                row.title = row.tag
+                row.value = UserDefaultsManager.thermalAssistantState()
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "tornado")
+                
+            }.onChange { row in
+                guard let thermalAssistantState = row.value else { return }
+                UserDefaultsManager.set(thermalAssistantState: thermalAssistantState)
+                
+            }
+        return section
     }
     
     private func trafficMonitorSection()
-        -> Section {
-            let section = Section("Traffic Monitor Settings")
+    -> Section {
+        let section = Section("Traffic Monitor Settings")
+            
+            <<< SwitchRow { row in
+                row.title = SettingsFormViewController.TrafficMonitorKey
+                row.tag = SettingsFormViewController.TrafficMonitorKey
+                row.value = UserDefaultsManager.showAllNearbyGlidersState()
                 
-                <<< SwitchRow { row in
-                    row.title = SettingsFormViewController.TrafficMonitorKey
-                    row.tag = SettingsFormViewController.TrafficMonitorKey
-                    row.value = UserDefaultsManager.showAllNearbyGlidersState()
+            }.cellSetup { cell, row in
+                let cellIconImage = UIImage(systemName: "exclamationmark.triangle")?.withTintColor(.red,
+                                                                                                   renderingMode: .alwaysOriginal)
+                cell.imageView?.image = cellIconImage
+                
+            }.onChange { row in
+                guard let showAllNearbyGlidersState = row.value else { return }
+                UserDefaultsManager.set(showAllNearbyGlidersState: showAllNearbyGlidersState)
+                
+                if UserDefaultsManager.showAllNearbyGlidersState() == true {
+                    // Connect to OGN Server with Radius Filter
+                    OGNSocketConnectionManager.start()
                     
-                }.cellSetup { cell, row in
-                    let cellIconImage = UIImage(systemName: "exclamationmark.triangle")?.withTintColor(.red,
-                                                                                                       renderingMode: .alwaysOriginal)
-                    cell.imageView?.image = cellIconImage
+                } else {
+                    // Disconnect from OGN Server
+                    OGNSocketConnectionManager.stop()
                     
-                }.onChange { row in
-                    guard let showAllNearbyGlidersState = row.value else { return }
-                    UserDefaultsManager.set(showAllNearbyGlidersState: showAllNearbyGlidersState)
+                    if UserDefaultsManager.collisionWarningState() == true {
+                        UserDefaultsManager.set(collisionWarningState: false)
+                        
+                        self.form.rowBy(tag: SettingsFormViewController.CollisionWarningKey)?.baseValue = false
+                        
+                        self.form.rowBy(tag: SettingsFormViewController.CollisionWarningKey)?.reload()
+                    }
                     
-                    if UserDefaultsManager.showAllNearbyGlidersState() == true {
-                        // Connect to OGN Server with Radius Filter
-                        OGNSocketConnectionManager.start()
+                    if UserDefaultsManager.buddyFilterSwitchState() == true {
+                        UserDefaultsManager.set(buddyFilterSwitchState: false)
                         
-                    } else {
-                        // Disconnect from OGN Server
-                        OGNSocketConnectionManager.stop()
+                        self.form.rowBy(tag: SettingsFormViewController.BuddyFilterKey)?.baseValue = false
                         
-                        if UserDefaultsManager.collisionWarningState() == true {
-                            UserDefaultsManager.set(collisionWarningState: false)
-                            
-                            self.form.rowBy(tag: SettingsFormViewController.CollisionWarningKey)?.baseValue = false
-                            
-                            self.form.rowBy(tag: SettingsFormViewController.CollisionWarningKey)?.reload()
-                        }
-                        
-                        if UserDefaultsManager.buddyFilterSwitchState() == true {
-                            UserDefaultsManager.set(buddyFilterSwitchState: false)
-                            
-                            self.form.rowBy(tag: SettingsFormViewController.BuddyFilterKey)?.baseValue = false
-                            
-                            self.form.rowBy(tag: SettingsFormViewController.BuddyFilterKey)?.reload()
-                        }
-                        
+                        self.form.rowBy(tag: SettingsFormViewController.BuddyFilterKey)?.reload()
                     }
                     
                 }
                 
-                <<< SliderRow("Radius") { row in
-                    row.title = "Radius"
-                    row.value = Float(UserDefaultsManager.trafficMonitorRadius())
-                    row.steps = 19
-                    row.displayValueFor = { row in
-                        return "\(Int(row ?? 0)) Km"
-                    }
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "antenna.radiowaves.left.and.right")
-                    cell.slider.minimumValue = 5
-                    cell.slider.maximumValue = 100
-                    cell.slider.addTarget(self,
-                                          action: #selector(self.radiusSliderDidEndSliding),
-                                          for: [.touchUpInside, .touchUpOutside])
-                    
-                }.onChange { row in
-                    let trafficMonitorRadius = Double(row.value ?? 50)
-                    UserDefaultsManager.set(trafficMonitorRadius: trafficMonitorRadius)
-                    
-                }
-                
-                <<< SwitchRow("Collision Warning") { row in
-                    row.title = SettingsFormViewController.CollisionWarningKey
-                    row.tag = SettingsFormViewController.CollisionWarningKey
-                    row.value = UserDefaultsManager.collisionWarningState()
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "speaker")
-                    
-                }.onChange { row in
-                    guard let collisionWarningState = row.value else { return }
-                    UserDefaultsManager.set(collisionWarningState: collisionWarningState)
-                    
-                    if UserDefaultsManager.collisionWarningState() == true,
-                        UserDefaultsManager.showAllNearbyGlidersState() == false {
-                        
-                        UserDefaultsManager.set(showAllNearbyGlidersState: true)
-                        
-                        self.form.rowBy(tag: SettingsFormViewController.TrafficMonitorKey)?.baseValue = UserDefaultsManager.showAllNearbyGlidersState()
-                        
-                        self.form.rowBy(tag: SettingsFormViewController.TrafficMonitorKey)?.reload()
-                        
-                    }
-                    
-                }
-                
-                <<< SwitchRow("Buddy Filter") { row in
-                    row.title = SettingsFormViewController.BuddyFilterKey
-                    row.tag = SettingsFormViewController.BuddyFilterKey
-                    row.value = UserDefaultsManager.buddyFilterSwitchState()
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "line.horizontal.3.decrease.circle")
-                    
-                }.onChange { row in
-                    guard let rowValue = row.value else { return }
-                    UserDefaultsManager.set(buddyFilterSwitchState: rowValue)
-                    
-                    if UserDefaultsManager.buddyFilterSwitchState() == true,
-                        UserDefaultsManager.showAllNearbyGlidersState() == false {
-                        
-                        UserDefaultsManager.set(showAllNearbyGlidersState: true)
-                        
-                        self.form.rowBy(tag: SettingsFormViewController.TrafficMonitorKey)?.baseValue = UserDefaultsManager.showAllNearbyGlidersState()
-                        
-                        self.form.rowBy(tag: SettingsFormViewController.TrafficMonitorKey)?.reload()
-                        
-                    } else {
-                        OGNSocketConnectionManager.reconnect()
-                        
-                    }
-                    
-                }
-                
-                <<< PushRow<Int>("Buddy List") { row in
-                    row.title = "Buddy List"
-                    let buddyCount = CoreDataManager.viewOnlyContext.countOfObjects(forEntityClass: Buddy.self)
-                    row.value = buddyCount
-                    row.presentationMode = .segueName(segueName: "BuddyListSegue", onDismiss: nil)
-                    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "person.2")
             }
             
-            return section
+            <<< SliderRow("Radius") { row in
+                row.title = "Radius"
+                row.value = Float(UserDefaultsManager.trafficMonitorRadius())
+                row.steps = 19
+                row.displayValueFor = { row in
+                    return "\(Int(row ?? 0)) Km"
+                }
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "antenna.radiowaves.left.and.right")
+                cell.slider.minimumValue = 5
+                cell.slider.maximumValue = 100
+                cell.slider.addTarget(self,
+                                      action: #selector(self.radiusSliderDidEndSliding),
+                                      for: [.touchUpInside, .touchUpOutside])
+                
+            }.onChange { row in
+                let trafficMonitorRadius = Double(row.value ?? 50)
+                UserDefaultsManager.set(trafficMonitorRadius: trafficMonitorRadius)
+                
+            }
+            
+            <<< SwitchRow("Collision Warning") { row in
+                row.title = SettingsFormViewController.CollisionWarningKey
+                row.tag = SettingsFormViewController.CollisionWarningKey
+                row.value = UserDefaultsManager.collisionWarningState()
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "speaker")
+                
+            }.onChange { row in
+                guard let collisionWarningState = row.value else { return }
+                UserDefaultsManager.set(collisionWarningState: collisionWarningState)
+                
+                if UserDefaultsManager.collisionWarningState() == true,
+                   UserDefaultsManager.showAllNearbyGlidersState() == false {
+                    
+                    UserDefaultsManager.set(showAllNearbyGlidersState: true)
+                    
+                    self.form.rowBy(tag: SettingsFormViewController.TrafficMonitorKey)?.baseValue = UserDefaultsManager.showAllNearbyGlidersState()
+                    
+                    self.form.rowBy(tag: SettingsFormViewController.TrafficMonitorKey)?.reload()
+                    
+                }
+                
+            }
+            
+            <<< SwitchRow("Buddy Filter") { row in
+                row.title = SettingsFormViewController.BuddyFilterKey
+                row.tag = SettingsFormViewController.BuddyFilterKey
+                row.value = UserDefaultsManager.buddyFilterSwitchState()
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "line.horizontal.3.decrease.circle")
+                
+            }.onChange { row in
+                guard let rowValue = row.value else { return }
+                UserDefaultsManager.set(buddyFilterSwitchState: rowValue)
+                
+                if UserDefaultsManager.buddyFilterSwitchState() == true,
+                   UserDefaultsManager.showAllNearbyGlidersState() == false {
+                    
+                    UserDefaultsManager.set(showAllNearbyGlidersState: true)
+                    
+                    self.form.rowBy(tag: SettingsFormViewController.TrafficMonitorKey)?.baseValue = UserDefaultsManager.showAllNearbyGlidersState()
+                    
+                    self.form.rowBy(tag: SettingsFormViewController.TrafficMonitorKey)?.reload()
+                    
+                } else {
+                    OGNSocketConnectionManager.reconnect()
+                    
+                }
+                
+            }
+            
+            <<< PushRow<Int>("Buddy List") { row in
+                row.title = "Buddy List"
+                let buddyCount = CoreDataManager.viewOnlyContext.countOfObjects(forEntityClass: Buddy.self)
+                row.value = buddyCount
+                row.presentationMode = .segueName(segueName: "BuddyListSegue", onDismiss: nil)
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "person.2")
+            }
+        
+        return section
     }
     
     private func miscellaneousSection()
-        -> Section {
-            let section = Section("Miscellaneous")
+    -> Section {
+        let section = Section("Miscellaneous")
+            
+            <<< ButtonRow { row in
+                row.title = "Airport Database Update"
+                row.onCellSelection(self.airportDatabaseUpdatesButtonTapped)
                 
-                <<< ButtonRow { row in
-                    row.title = "Airport Database Update"
-                    row.onCellSelection(self.airportDatabaseUpdatesButtonTapped)
-                    
-                }
-                
-                <<< ButtonRow { row in
-                    row.title = "Glider Model Database Update"
-                    row.onCellSelection(self.gliderModelDatabaseUpdatesButtonTapped)
-                    
-                }
-                
-                <<< ButtonRow { row in
-                    row.title = "Report missing Airfield"
-                    row.onCellSelection(self.reportMissingAirfieldButtonTapped)
-                    
-                }
-                
-                <<< ButtonRow { row in
-                    row.title = "Read the Manual (German)"
-                    row.onCellSelection(self.readTheManualButtonTapped)
-                    
             }
             
-            return section
+            <<< ButtonRow { row in
+                row.title = "Glider Model Database Update"
+                row.onCellSelection(self.gliderModelDatabaseUpdatesButtonTapped)
+                
+            }
+            
+            <<< ButtonRow { row in
+                row.title = "Report missing Airfield"
+                row.onCellSelection(self.reportMissingAirfieldButtonTapped)
+                
+            }
+            
+            <<< ButtonRow { row in
+                row.title = "Read the Manual (German)"
+                row.onCellSelection(self.readTheManualButtonTapped)
+                
+            }
+        
+        return section
     }
     
     // Report missing Airport
@@ -415,7 +415,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
             DLAlertViewController.showAlertViewController(title: "Error creating Mail",
                                                           message: "Mail is not configured in settings app.",
                                                           preferredStyle: .alert
-                                                          )
+            )
             
         }
     }
@@ -476,7 +476,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     
     private func readTheManualButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         if let manualURL = Presets.Settings.maualURL,
-            UIApplication.shared.canOpenURL(manualURL as URL) {
+           UIApplication.shared.canOpenURL(manualURL as URL) {
             UIApplication.shared.open(manualURL)
         }
         
