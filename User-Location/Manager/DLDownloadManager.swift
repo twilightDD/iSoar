@@ -30,7 +30,7 @@ class DLDownloadManager {
     }
     
     class func download(_ type: ContentType,
-                        completion: @escaping (_ data: Data) -> Void) {
+                        completion: @escaping (_ data: Data?) -> Void) {
         
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
@@ -38,24 +38,26 @@ class DLDownloadManager {
         let request = URLRequest(url: url)
         let dataTask = session.dataTask(with: request,
                                         completionHandler: { data, response, error in
-                                            if error == nil {
-                                                if let response = response as? HTTPURLResponse {
-                                                    if response.statusCode == 200 {
-                                                        if let data = data {
-                                                            completion(data)
-                                                        } else {
-                                                            print("NOT DATA")
-                                                        }
-                                                    } else {
-                                                        print("StatusCode NOT OK")
-                                                    }
+                                            if error != nil {
+                                                // TODO: 20201207 Kein Error wenn kein Netz da ist?!
+                                                NotificationBanner.show("Download failed")
+                                                completion(nil)
+                                                return 
+                                            }
+                                            
+                                            if let response = response as? HTTPURLResponse {
+                                                if response.statusCode == 200 {
+                                                    completion(data)
                                                 } else {
-                                                    print("Response NOT OK")
+                                                    print("StatusCode NOT OK")
+                                                    completion(nil)
                                                 }
                                             } else {
-                                                print(error?.localizedDescription)
+                                                print("Response NOT OK")
+                                                completion(nil)
                                             }
-                                        })
+                                        }
+        )
         dataTask.resume()
         
     }
