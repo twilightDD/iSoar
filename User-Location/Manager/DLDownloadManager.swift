@@ -8,7 +8,6 @@
 
 import Foundation
 
-// MARK: - Public Class Methods
 enum ContentType: String {
     case airports = "Airports.json"
     case glidermodels = "GliderModels.json"
@@ -20,6 +19,7 @@ class DLDownloadManager {
     // Statics
     static private let shared = DLDownloadManager()
     
+    // MARK: - Private Class Methods
     private class func urlFor(_ contentType: ContentType)
     -> URL {
         let urlString = Presets.DLDownloadManager.appSourceFilesURL + contentType.rawValue
@@ -29,20 +29,21 @@ class DLDownloadManager {
         return url
     }
     
-    class func download(_ type: ContentType,
+    // MARK: - Public Class Methods
+    class func download(_ contentType: ContentType,
                         completion: @escaping (_ data: Data?) -> Void) {
         
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
-        let url = urlFor(type)
+        let url = urlFor(contentType)
         let request = URLRequest(url: url)
         let dataTask = session.dataTask(with: request,
                                         completionHandler: { data, response, error in
-                                            if error != nil {
-                                                // TODO: 20201207 Kein Error wenn kein Netz da ist?!
-                                                NotificationBanner.show("Download failed")
+                                            
+                                            if let error = error {
                                                 completion(nil)
-                                                return 
+                                                NotificationBanner.show(error.localizedDescription)
+                                                return
                                             }
                                             
                                             if let response = response as? HTTPURLResponse {
