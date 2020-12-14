@@ -32,6 +32,7 @@
         <relationship name="gliderModel" maxCount="1" deletionRule="Nullify" destinationEntity="GliderModel" inverseName="gliders" inverseEntity="GliderModel"/>
     </entity>
     <entity name="GliderModel" representedClassName="GliderModel" syncable="YES">
+        <attribute name="additionalInfo" optional="YES" attributeType="String"/>
         <attribute name="handicap" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="manufacturer" optional="YES" attributeType="String"/>
         <attribute name="modelName" attributeType="String"/>
@@ -44,6 +45,7 @@
         <attribute name="speed2" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="speed3" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="uuid" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="validated" optional="YES" attributeType="String"/>
         <attribute name="wingarea" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="gliders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Glider" inverseName="gliderModel" inverseEntity="Glider"/>
     </entity>
@@ -51,6 +53,6 @@
         <element name="Airport" positionX="-90" positionY="-9" width="128" height="298"/>
         <element name="Buddy" positionX="-188.42578125" positionY="44.28515625" width="128" height="88"/>
         <element name="Glider" positionX="-188.234375" positionY="-114.578125" width="128" height="118"/>
-        <element name="GliderModel" positionX="0.10546875" positionY="-113.06640625" width="128" height="253"/>
+        <element name="GliderModel" positionX="0.10546875" positionY="-113.06640625" width="128" height="283"/>
     </elements>
 </model>

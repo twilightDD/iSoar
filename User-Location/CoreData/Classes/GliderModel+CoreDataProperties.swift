@@ -15,6 +15,7 @@ extension GliderModel {
         return NSFetchRequest<GliderModel>(entityName: GliderModel.entityName())
     }
 
+    @NSManaged public var additionalInfo: String
     @NSManaged public var handicap: Double
     @NSManaged public var manufacturer: String
     @NSManaged public var modelName: String
@@ -27,6 +28,7 @@ extension GliderModel {
     @NSManaged public var speed2: Double
     @NSManaged public var speed3: Double
     @NSManaged public var uuid: UUID
+    @NSManaged public var validated: String
     @NSManaged public var wingarea: Double
     @NSManaged public var gliders: NSSet?
 

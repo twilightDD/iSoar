@@ -13,7 +13,6 @@ import CoreData
 public class GliderModel: NSManagedObject {
     class func importOrUpdate(_ gliderModelDictionaries: [[String: Any]]) {
         
-        // TODO: 20201202 muss auf background context laufen
         let context = CoreDataManager.editContextInBackground()
         
         for gliderModelDictionary in gliderModelDictionaries {
@@ -42,6 +41,7 @@ public class GliderModel: NSManagedObject {
             }
             
             // Update Values
+            gliderModelWithUUID.additionalInfo = gliderModelDictionary[GliderModel.Attributes.additionalInfo] as? String ?? "<kein Wert>"
             gliderModelWithUUID.handicap = gliderModelDictionary[GliderModel.Attributes.handicap] as? Double ?? 0
             gliderModelWithUUID.manufacturer = gliderModelDictionary[GliderModel.Attributes.manufacturer] as? String ?? "<kein Wert>"
             gliderModelWithUUID.modelName = gliderModelDictionary[GliderModel.Attributes.modelName] as? String ?? "<kein Wert>"
@@ -53,6 +53,7 @@ public class GliderModel: NSManagedObject {
             gliderModelWithUUID.speed1 = gliderModelDictionary[GliderModel.Attributes.speed1] as? Double ?? 0
             gliderModelWithUUID.speed2 = gliderModelDictionary[GliderModel.Attributes.speed2] as? Double ?? 0
             gliderModelWithUUID.speed3 = gliderModelDictionary[GliderModel.Attributes.speed3] as? Double ?? 0
+            gliderModelWithUUID.validated = gliderModelDictionary[GliderModel.Attributes.validated] as? String ?? "<kein Wert>"
             gliderModelWithUUID.wingarea = gliderModelDictionary[GliderModel.Attributes.wingarea] as? Double ?? 0
             
         }
@@ -65,6 +66,7 @@ public class GliderModel: NSManagedObject {
 
 extension GliderModel {
     struct Attributes {
+        static let additionalInfo = "additionalInfo"
         static let handicap = "handicap"
         static let manufacturer = "manufacturer"
         static let modelName = "modelName"
@@ -77,6 +79,7 @@ extension GliderModel {
         static let speed2 = "speed2"
         static let speed3 = "speed3"
         static let uuid = "uuid"
+        static let validated = "validated"
         static let wingarea = "wingarea"
     }
     
