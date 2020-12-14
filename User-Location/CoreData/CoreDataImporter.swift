@@ -45,11 +45,12 @@ class CoreDataImporter {
         }
     }
     
-    class func importAirports(_ dictionaries: [[String: Any]]) {
+    // MARK: - Private Class Methods
+    private class func importAirports(_ dictionaries: [[String: Any]]) {
         Airport.importOrUpdate(dictionaries)
     }
     
-    class func importGliderModels(_ dictionaries: [[String: Any]]) {
+    private class func importGliderModels(_ dictionaries: [[String: Any]]) {
         GliderModel.importOrUpdate(dictionaries)
     }
     
