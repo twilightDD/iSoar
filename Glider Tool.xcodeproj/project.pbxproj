@@ -62,6 +62,7 @@
 		E0B52F72228377F300E28A93 /* Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F71228377F300E28A93 /* Buttons.swift */; };
 		E0B52F7722837C1500E28A93 /* TextFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B52F7622837C1500E28A93 /* TextFields.swift */; };
 		E0B8142B2367450200D88B6C /* LogbookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B8142A2367450200D88B6C /* LogbookViewController.swift */; };
+		E0C53F20258817AB008F8F25 /* NSManagedObject+Delete.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C53F1F258817AA008F8F25 /* NSManagedObject+Delete.swift */; };
 		E0C55A2724D6CB7B00618179 /* Buddy+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C55A2524D6CB7B00618179 /* Buddy+CoreDataClass.swift */; };
 		E0C55A2824D6CB7B00618179 /* Buddy+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C55A2624D6CB7B00618179 /* Buddy+CoreDataProperties.swift */; };
 		E0C55A2C24D6D38100618179 /* BuddyListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C55A2B24D6D38100618179 /* BuddyListTableViewController.swift */; };
@@ -149,6 +150,7 @@
 		E0B52F71228377F300E28A93 /* Buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Buttons.swift; sourceTree = "<group>"; };
 		E0B52F7622837C1500E28A93 /* TextFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFields.swift; sourceTree = "<group>"; };
 		E0B8142A2367450200D88B6C /* LogbookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogbookViewController.swift; sourceTree = "<group>"; };
+		E0C53F1F258817AA008F8F25 /* NSManagedObject+Delete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Delete.swift"; sourceTree = "<group>"; };
 		E0C55A2524D6CB7B00618179 /* Buddy+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Buddy+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E0C55A2624D6CB7B00618179 /* Buddy+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Buddy+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E0C55A2B24D6D38100618179 /* BuddyListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuddyListTableViewController.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				D0AA8D0024C1C0400034E6EE /* NSManagedObjectContext+Save.swift */,
 				E0F667B224CF79070017AF1D /* NSManagedObject+EntityName.swift */,
 				E0310D3924D8A2CF009EB354 /* NSManagedObjectContext+Fetch.swift */,
+				E0C53F1F258817AA008F8F25 /* NSManagedObject+Delete.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -601,6 +604,7 @@
 				D02B0E6522C15BB7007C7162 /* UserLocationButton.swift in Sources */,
 				E0123C6A256F022B00ABE104 /* CoreDataImporter.swift in Sources */,
 				E0C7F151255B200800F9342F /* GliderModel+CoreDataClass.swift in Sources */,
+				E0C53F20258817AB008F8F25 /* NSManagedObject+Delete.swift in Sources */,
 				E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */,
 				E001B84F243C810700559D7B /* NotificationBanner.swift in Sources */,
 				E086AB0B229C35890011C433 /* SettingsFormViewController.swift in Sources */,
