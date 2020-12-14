@@ -7,13 +7,19 @@
 //
 
 import UIKit
+import CoreData
 import CoreLocation
 
 class DestinationSelectionViewController: UIViewController {
     
+    // MARK: - Keys
+    private static let DestinationSelectionAirportTableViewCellIdentifierKey = "DestinationSelectionAirportTableViewCell"
+    
     // MARK: Lets and Vars
     // Statics
     static private var shared: DestinationSelectionViewController?
+    
+    private lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = setupFetchedResultsController()
     
     private var destinationAirportArray = [AirportDatabase.AirportOld]()
     private var sortSwitchIndex = 0
@@ -59,7 +65,9 @@ class DestinationSelectionViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setupTableViewDatasource()
+        //setupTableViewDatasource()
+        
+        tableView.reloadData()
         
         updateUIForSelectedDestinationAirport()
         searchBar.placeholder = "Search in \(self.destinationAirportArray.count) Airfields"
@@ -113,6 +121,37 @@ class DestinationSelectionViewController: UIViewController {
     }
 
     // MARK: - Private Methods
+    
+    
+    private func setupFetchedResultsController()
+        -> NSFetchedResultsController<NSFetchRequestResult> {
+            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Airport")
+            let sortDesc = NSSortDescriptor(key: "name", ascending: true)
+            request.sortDescriptors = [sortDesc]
+            
+            let fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
+                                                                  managedObjectContext: CoreDataManager.viewOnlyContext,
+                                                                  sectionNameKeyPath: nil,
+                                                                  cacheName: nil)
+            fetchedResultsController.delegate = self
+            
+            do {
+                try fetchedResultsController.performFetch()
+            } catch {
+                fatalError("Failed to initialize FetchedResultsController: \(error)")
+            }
+            
+            return fetchedResultsController
+    }
+
+    
+    
+    
+    
+    
+    
+    
+
     // updateUIForSelectedDestinationAirport
     private func updateUIForSelectedDestinationAirport() {
         if let destinationAirport = FlightComputer.selectedDestinationAirport() {
@@ -160,13 +199,22 @@ class DestinationSelectionViewController: UIViewController {
         AirportDatabase.downloadAirportsFromServer()
         
         // Das ist schon mit Core Data
-//        DLDownloadManager.download(.airports,
-//                                   completion: { data in
-//
-//                                    CoreDataImporter.importDownloadedData(data,
-//                                                                          forType: .airports)
-//
-//                                   })
+        DLDownloadManager.download(.airports,
+                                   completion: { data in
+
+                                    guard let data = data
+                                    else {
+                                        //NotificationBanner.show("No data received.")
+                                        return
+                                    }
+
+                                    // TODO: 20201207 Success zurückwerfen
+                                    CoreDataImporter.importData(data, forType: .airports)
+
+                                    //NotificationBanner.show("Airport Database updated")
+
+                                   })
+
     }
     
     // Adjust TableView height if necessary
@@ -193,51 +241,55 @@ class DestinationSelectionViewController: UIViewController {
        
 }
 
-// MARK: - Extension - UITableViewDataSource
-extension DestinationSelectionViewController: UITableViewDataSource {
-    
-    func numberOfSections(in tableView: UITableView)
-        -> Int {
-            return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-        -> Int {
-            let numberOfRowsInSection = destinationAirportArray.count
-            return numberOfRowsInSection
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell {
-            
-            // Get Cell from TableView
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DestinationSelectionAirportTableViewCell.identifier) as? DestinationSelectionAirportTableViewCell
-                else { fatalError("")}
-            
-            let airportOfInterest = destinationAirportArray[indexPath.row]
-            
-            // Texts in Cell
-            cell.airportNameLabel.text = airportOfInterest.name
-            cell.icaoLabel.text = airportOfInterest.icao
-            cell.distanceLabel.text = distanceAsReadable(airportOfInterest.distance)
 
-            // Set Country Image of Destination Airport
-            let countryImage = UIImage.init(named: airportOfInterest.country)
-            cell.countryImageView.image = countryImage
-            
-            // Set Checkmark and Background Color for selected Airport
-            if FlightComputer.selectedDestinationAirport() == airportOfInterest {
-                cell.accessoryType = .checkmark
-                //cell.backgroundColor = UIColor(red: 230/255, green: 240/255, blue: 255/255, alpha: 1.0)
-            } else {
-                cell.accessoryType = .none
-                //cell.backgroundColor = nil
-            }
-            
-            return cell
-    }
-    
-}
+
+
+
+// MARK: - Extension - UITableViewDataSource
+//extension DestinationSelectionViewController: UITableViewDataSource {
+//
+//    func numberOfSections(in tableView: UITableView)
+//        -> Int {
+//            return 1
+//    }
+//
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
+//        -> Int {
+//            let numberOfRowsInSection = destinationAirportArray.count
+//            return numberOfRowsInSection
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+//        -> UITableViewCell {
+//
+//            // Get Cell from TableView
+//            guard let cell = tableView.dequeueReusableCell(withIdentifier: DestinationSelectionAirportTableViewCell.identifier) as? DestinationSelectionAirportTableViewCell
+//                else { fatalError("")}
+//
+//            let airportOfInterest = destinationAirportArray[indexPath.row]
+//
+//            // Texts in Cell
+//            cell.airportNameLabel.text = airportOfInterest.name
+//            cell.icaoLabel.text = airportOfInterest.icao
+//            cell.distanceLabel.text = distanceAsReadable(airportOfInterest.distance)
+//
+//            // Set Country Image of Destination Airport
+//            let countryImage = UIImage.init(named: airportOfInterest.country)
+//            cell.countryImageView.image = countryImage
+//
+//            // Set Checkmark and Background Color for selected Airport
+//            if FlightComputer.selectedDestinationAirport() == airportOfInterest {
+//                cell.accessoryType = .checkmark
+//                //cell.backgroundColor = UIColor(red: 230/255, green: 240/255, blue: 255/255, alpha: 1.0)
+//            } else {
+//                cell.accessoryType = .none
+//                //cell.backgroundColor = nil
+//            }
+//
+//            return cell
+//    }
+//
+//}
 
 // MARK: - Extension - UITableViewDelegate
 extension DestinationSelectionViewController: UITableViewDelegate {
@@ -282,4 +334,91 @@ extension DestinationSelectionViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
     
+}
+
+// MARK: - NSFetchedResultsControllerDelegate
+extension DestinationSelectionViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange sectionInfo: NSFetchedResultsSectionInfo,
+                    atSectionIndex sectionIndex: Int,
+                    for type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert:
+            tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .delete:
+            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
+        case .move:
+            break
+        case .update:
+            break
+        @unknown default:
+            fatalError("Error")
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType,
+                    newIndexPath: IndexPath?) {
+        // swiftlint:disable force_unwrapping
+        switch type {
+        case .insert:
+            tableView.insertRows(at: [newIndexPath!], with: .fade)
+        case .delete:
+            tableView.deleteRows(at: [indexPath!], with: .fade)
+        case .update:
+            tableView.reloadRows(at: [indexPath!], with: .fade)
+        case .move:
+            tableView.moveRow(at: indexPath!, to: newIndexPath!)
+        @unknown default:
+            fatalError("Error")
+        // swiftlint:enable force_unwrapping
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+}
+
+// MARK: - TableView Content
+extension DestinationSelectionViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView)
+        -> Int {
+            return fetchedResultsController.sections?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
+        -> Int {
+            guard let sections = fetchedResultsController.sections else {
+                fatalError("No sections in fetchedResultsController")
+            }
+            let sectionInfo = sections[section]
+            return sectionInfo.numberOfObjects
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
+        -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: DestinationSelectionViewController.DestinationSelectionAirportTableViewCellIdentifierKey,
+                                                     for: indexPath)
+            
+            // Set up the cell
+            guard let airport = self.fetchedResultsController.object(at: indexPath) as? Airport
+                else { fatalError("Attempt to configure cell without a managed object") }
+            
+            //Populate the cell from the object
+            cell.imageView?.image = UIImage(systemName: "airplane")
+            cell.textLabel?.text = airport.name
+            
+            return cell
+    }
+            
+   
 }
