@@ -92,7 +92,7 @@ extension GliderSelectionTableViewController {
             
             //Populate the cell from the object
             cell.imageView?.image = UIImage(systemName: "airplane")
-            cell.textLabel?.text = glider.registration
+            cell.textLabel?.text = String("\(glider.registration ?? "") - \(glider.gliderModel?.modelName ?? "")")
             
             // Set Checkmark for selected Glider
             if glider.registration == UserDefaultsManager.gliderID() {
