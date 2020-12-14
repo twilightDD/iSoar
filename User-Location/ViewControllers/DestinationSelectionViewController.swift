@@ -15,7 +15,7 @@ class DestinationSelectionViewController: UIViewController {
     // Statics
     static private var shared: DestinationSelectionViewController?
     
-    private var destinationAirportArray = [AirportDatabase.Airport]()
+    private var destinationAirportArray = [AirportDatabase.AirportOld]()
     private var sortSwitchIndex = 0
     
     // Notification Observers
@@ -155,7 +155,18 @@ class DestinationSelectionViewController: UIViewController {
     // Pull to Refresh of TableView
     @objc private func refreshAirportDatabase(_ sender: Any) {
         FlightComputer.setSelectedDestinationAirport(nil)
+        
+        // Das ist noch ohne Core Data
         AirportDatabase.downloadAirportsFromServer()
+        
+        // Das ist schon mit Core Data
+//        DLDownloadManager.download(.airports,
+//                                   completion: { data in
+//
+//                                    CoreDataImporter.importDownloadedData(data,
+//                                                                          forType: .airports)
+//
+//                                   })
     }
     
     // Adjust TableView height if necessary

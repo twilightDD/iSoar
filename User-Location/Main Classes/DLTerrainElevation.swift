@@ -53,8 +53,9 @@ class DLTerrainElevation {
                 }
                 
             } else {
-                DLLogger.writeStringToLogFile("Terrain Elevation - got no Status Code")
+                DLLogger.writeStringToLogFile("\(#function) - got no Status Code")
                 //print("NO STATUS CODE")
+                completion(nil)
             }
             
         }

@@ -32,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Check for First Launch of App
         if UserDefaultsManager.firstLaunchOfAppState() == true {
+            CoreDataImporter.initalImport()
             UserDefaultsManager.set(firstLaunchOfAppState: false)
         }
 
@@ -39,10 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ISoarFileManager.checkForFlightsFolder()
         ISoarFileManager.checkForTasksFolder()
         ISoarFileManager.checkForLogsFolder()
-        
-        ISoarFileManager.checkForFileInLibraryFolder(filename: "Airports")
-        ISoarFileManager.checkForFileInLibraryFolder(filename: "GliderModels")
-        
+
         return true
     }
     

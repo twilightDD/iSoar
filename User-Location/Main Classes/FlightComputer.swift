@@ -51,7 +51,7 @@ class FlightComputer {
     
     private var alreadyWarnedFlarmIDs: Set<String> = []
     
-    private var selectedDestinationAirport: AirportDatabase.Airport?
+    private var selectedDestinationAirport: AirportDatabase.AirportOld?
     
     // MARK: - Delegate
     private var delegates = NSHashTable<AnyObject>.weakObjects()
@@ -79,12 +79,12 @@ class FlightComputer {
     }
     
     class func selectedDestinationAirport()
-    -> AirportDatabase.Airport? {
+    -> AirportDatabase.AirportOld? {
         let destinationAirport = shared.selectedDestinationAirport
         return destinationAirport
     }
     
-    class func setSelectedDestinationAirport(_ airport: AirportDatabase.Airport?) {
+    class func setSelectedDestinationAirport(_ airport: AirportDatabase.AirportOld?) {
         let shared = FlightComputer.shared
         shared.selectedDestinationAirport = airport
     }
@@ -134,7 +134,7 @@ class FlightComputer {
                             OGNSocketConnectionManager.unregisterForSocketUpdates(self)
                             
                             #if DEBUG
-                            DLLogger.writeStringToLogFile("\(#function) > false - Flight End detected")
+                            DLLogger.writeStringToLogFile("\(#function) -> false - Flight End detected")
                             #endif
                             
                         } else {
@@ -150,7 +150,7 @@ class FlightComputer {
                                 OGNSocketConnectionManager.unregisterForSocketUpdates(self)
                                 
                                 #if DEBUG
-                                DLLogger.writeStringToLogFile("\(#function) > false - Flight End detected")
+                                DLLogger.writeStringToLogFile("\(#function) -> false - Flight End detected")
                                 #endif
                                 
                             } else {
@@ -161,7 +161,7 @@ class FlightComputer {
                                     OGNSocketConnectionManager.unregisterForSocketUpdates(self)
                                     
                                     #if DEBUG
-                                    DLLogger.writeStringToLogFile("\(#function) > false - Flight End detected")
+                                    DLLogger.writeStringToLogFile("\(#function) -> false - Flight End detected")
                                     #endif
                                     
                                 } else {

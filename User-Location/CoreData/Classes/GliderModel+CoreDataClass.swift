@@ -13,8 +13,8 @@ import CoreData
 public class GliderModel: NSManagedObject {
     class func importOrUpdate(_ gliderModelDictionaries: [[String: Any]]) {
         
-        let context = CoreDataManager.viewOnlyContext
-
+        let context = CoreDataManager.editContextInBackground()
+        
         for gliderModelDictionary in gliderModelDictionaries {
             // Check for existing  gliderModelDictionary or create a new one
             guard let uuidString = gliderModelDictionary[GliderModel.Attributes.uuid] as? String,
@@ -25,45 +25,61 @@ public class GliderModel: NSManagedObject {
                                                             predicateString: "%K == %@",
                                                             predicateArguments: [GliderModel.Attributes.uuid, uuid])
             
-            var gliderModelWithUUID: GliderModel
+            var gliderModelWithUUID: GliderModel!
             
             if gliderModelsWithUUID.isEmpty == true {
                 gliderModelWithUUID = GliderModel.init(context: context)
                 gliderModelWithUUID.uuid = uuid
             } else if gliderModelsWithUUID.count == 1 {
-                gliderModelWithUUID = gliderModelsWithUUID.first!
+                if let uniqueGliderModel = gliderModelsWithUUID.first {
+                    gliderModelWithUUID = uniqueGliderModel
+                }
             } else {
-                fatalError()
+                print("\(#function) - UUID already exists")
+                DLLogger.writeStringToLogFile("\(#function) - UUID already exists")
+                break
             }
             
             // Update Values
+            gliderModelWithUUID.additionalInfo = gliderModelDictionary[GliderModel.Attributes.additionalInfo] as? String ?? "<kein Wert>"
             gliderModelWithUUID.handicap = gliderModelDictionary[GliderModel.Attributes.handicap] as? Double ?? 0
             gliderModelWithUUID.manufacturer = gliderModelDictionary[GliderModel.Attributes.manufacturer] as? String ?? "<kein Wert>"
             gliderModelWithUUID.modelName = gliderModelDictionary[GliderModel.Attributes.modelName] as? String ?? "<kein Wert>"
+            gliderModelWithUUID.seats = gliderModelDictionary[GliderModel.Attributes.seats] as? Double ?? 0
             gliderModelWithUUID.sink1 = gliderModelDictionary[GliderModel.Attributes.sink1] as? Double ?? 0
             gliderModelWithUUID.sink2 = gliderModelDictionary[GliderModel.Attributes.sink2] as? Double ?? 0
             gliderModelWithUUID.sink3 = gliderModelDictionary[GliderModel.Attributes.sink3] as? Double ?? 0
-            gliderModelWithUUID.speed1 = gliderModelDictionary[GliderModel.Attributes.modelName] as? Double ?? 0
-            gliderModelWithUUID.speed2 = gliderModelDictionary[GliderModel.Attributes.modelName] as? Double ?? 0
-            gliderModelWithUUID.speed3 = gliderModelDictionary[GliderModel.Attributes.modelName] as? Double ?? 0
+            gliderModelWithUUID.span = gliderModelDictionary[GliderModel.Attributes.span] as? Double ?? 0
+            gliderModelWithUUID.speed1 = gliderModelDictionary[GliderModel.Attributes.speed1] as? Double ?? 0
+            gliderModelWithUUID.speed2 = gliderModelDictionary[GliderModel.Attributes.speed2] as? Double ?? 0
+            gliderModelWithUUID.speed3 = gliderModelDictionary[GliderModel.Attributes.speed3] as? Double ?? 0
+            gliderModelWithUUID.validated = gliderModelDictionary[GliderModel.Attributes.validated] as? String ?? "<kein Wert>"
             gliderModelWithUUID.wingarea = gliderModelDictionary[GliderModel.Attributes.wingarea] as? Double ?? 0
-
+            
         }
+        
+        print("\(#function) - \(context.insertedObjects.count) GliderModels imported.")
+        
+        context.saveContext()
     }
 }
 
 extension GliderModel {
     struct Attributes {
+        static let additionalInfo = "additionalInfo"
         static let handicap = "handicap"
         static let manufacturer = "manufacturer"
         static let modelName = "modelName"
+        static let seats = "seats"
         static let sink1 = "sink1"
         static let sink2 = "sink2"
         static let sink3 = "sink3"
+        static let span = "span"
         static let speed1 = "speed1"
         static let speed2 = "speed2"
         static let speed3 = "speed3"
         static let uuid = "uuid"
+        static let validated = "validated"
         static let wingarea = "wingarea"
     }
     

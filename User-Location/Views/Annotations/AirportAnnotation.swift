@@ -12,9 +12,9 @@ import Mapbox
 
 class AirportAnnotation: MGLPointAnnotation {
     
-    private(set) var airport: AirportDatabase.Airport
+    private(set) var airport: AirportDatabase.AirportOld
     
-    required init(airport: AirportDatabase.Airport) {
+    required init(airport: AirportDatabase.AirportOld) {
         self.airport = airport
         
         super.init()
