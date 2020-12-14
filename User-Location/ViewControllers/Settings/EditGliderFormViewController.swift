@@ -47,7 +47,7 @@ class EditGliderFormViewController: FormViewController {
         
         form.append(gliderSelectionSection())
         form.append(gliderInformationSection())
-        form.append(gliderPolarInformationSection())
+        
     }
     
     private func textColor()
@@ -222,89 +222,6 @@ class EditGliderFormViewController: FormViewController {
                 if let gliderModel = self.glider.gliderModel {
                     row.value = String("\(gliderModel.span) m")
                 } else {
-                    row.value = ""
-                }
-                
-                cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
-                cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
-                
-            }
-        
-        return section
-    }
-    
-    private func gliderPolarInformationSection()
-    -> Section {
-        
-        let section = Section("Glider Polar Information")
-        section.tag = "Glider Polar Information"
-        
-        section
-            
-            <<< TextRow { row in
-                row.title = String("\(glider.gliderModel?.speed1) km/h")
-                row.tag = "Speed1:"
-                row.value = String("\(glider.gliderModel?.sink1) m/s")
-                row.disabled = true
-                
-            }.cellSetup { cell, row in
-                cell.imageView?.image = UIImage(systemName: "number")
-                
-            }.cellUpdate { cell, row in
-                
-                if let gliderModel = self.glider.gliderModel {
-                    row.title = String("\(gliderModel.speed1) km/h")
-                    row.value = String("\(gliderModel.sink1) m/s")
-                } else {
-                    row.title = ""
-                    row.value = ""
-                }
-                
-                cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
-                cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
-                
-            }
-            
-            <<< TextRow { row in
-                row.title = String("\(glider.gliderModel?.speed2) km/h")
-                row.tag = "Speed2:"
-                row.value = String("\(glider.gliderModel?.sink2) m/s")
-                row.disabled = true
-                
-            }.cellSetup { cell, row in
-                cell.imageView?.image = UIImage(systemName: "number")
-                
-            }.cellUpdate { cell, row in
-                
-                if let gliderModel = self.glider.gliderModel {
-                    row.title = String("\(gliderModel.speed2) km/h")
-                    row.value = String("\(gliderModel.sink2) m/s")
-                } else {
-                    row.title = ""
-                    row.value = ""
-                }
-                
-                cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
-                cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
-                
-            }
-            
-            <<< TextRow { row in
-                row.title = String("\(glider.gliderModel?.speed3) km/h")
-                row.tag = "Speed3:"
-                row.value = String("\(glider.gliderModel?.sink3) m/s")
-                row.disabled = true
-                
-            }.cellSetup { cell, row in
-                cell.imageView?.image = UIImage(systemName: "number")
-                
-            }.cellUpdate { cell, row in
-                
-                if let gliderModel = self.glider.gliderModel {
-                    row.title = String("\(gliderModel.speed3) km/h")
-                    row.value = String("\(gliderModel.sink3) m/s")
-                } else {
-                    row.title = ""
                     row.value = ""
                 }
                 
