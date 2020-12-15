@@ -44,6 +44,7 @@ public class Airport: NSManagedObject {
             // Update Values
             airportWithUUID.additionalInfo = airportDictionary[Airport.Attributes.additionalInfo] as? String ?? "<kein Wert>"
             airportWithUUID.airportType = airportDictionary[Airport.Attributes.airportType] as? String ?? "<kein Wert>"
+            airportWithUUID.country = airportDictionary[Airport.Attributes.country] as? String ?? "<kein Wert>"
             airportWithUUID.elevation = airportDictionary[Airport.Attributes.elevation] as? Double ?? 0
             airportWithUUID.icao = airportDictionary[Airport.Attributes.icao] as? String ?? "<kein Wert>"
             airportWithUUID.latitude = airportDictionary[Airport.Attributes.latitude] as? Double ?? 0
