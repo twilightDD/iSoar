@@ -121,8 +121,6 @@ class DestinationSelectionViewController: UIViewController {
     }
 
     // MARK: - Private Methods
-    
-    
     private func setupFetchedResultsController()
         -> NSFetchedResultsController<NSFetchRequestResult> {
             let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Airport")
@@ -405,20 +403,33 @@ extension DestinationSelectionViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-        -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: DestinationSelectionViewController.DestinationSelectionAirportTableViewCellIdentifierKey,
-                                                     for: indexPath)
-            
-            // Set up the cell
-            guard let airport = self.fetchedResultsController.object(at: indexPath) as? Airport
-                else { fatalError("Attempt to configure cell without a managed object") }
-            
-            //Populate the cell from the object
-            cell.imageView?.image = UIImage(systemName: "airplane")
-            cell.textLabel?.text = airport.name
-            
-            return cell
+    -> UITableViewCell {
+        
+        // Get Cell from TableView
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DestinationSelectionAirportTableViewCell.identifier) as? DestinationSelectionAirportTableViewCell
+        else { fatalError("")}
+        
+        // Set up the cell
+        guard let airport = self.fetchedResultsController.object(at: indexPath) as? Airport
+        else { fatalError("Attempt to configure cell without a managed object") }
+        
+        // Populate the cell from the object
+        cell.airportNameLabel.text = airport.name
+        cell.icaoLabel.text = airport.icao
+//        cell.distanceLabel.text = distanceAsReadable(airport.distance)
+        
+        // Set Country Image of Destination Airport
+        let countryImage = UIImage.init(named: airport.country)
+        cell.countryImageView.image = countryImage
+        
+        // Set Checkmark for selected Row
+//        if FlightComputer.selectedDestinationAirport() == airport {
+//            cell.accessoryType = .checkmark
+//        } else {
+//            cell.accessoryType = .none
+//        }
+        
+        return cell
     }
-            
-   
+
 }
