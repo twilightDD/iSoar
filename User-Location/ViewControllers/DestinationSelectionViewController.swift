@@ -121,24 +121,25 @@ class DestinationSelectionViewController: UIViewController {
 
     // MARK: - Private Methods
     private func setupFetchedResultsController()
-        -> NSFetchedResultsController<NSFetchRequestResult> {
-            let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Airport")
-            let sortDesc = NSSortDescriptor(key: "name", ascending: true)
-            request.sortDescriptors = [sortDesc]
-            
-            let fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
+    -> NSFetchedResultsController<NSFetchRequestResult> {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: Airport.entityName())
+        let sortDesc = NSSortDescriptor(key: Airport.Attributes.name,
+                                        ascending: true)
+        request.sortDescriptors = [sortDesc]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
                                                                   managedObjectContext: CoreDataManager.viewOnlyContext,
                                                                   sectionNameKeyPath: nil,
                                                                   cacheName: nil)
-            fetchedResultsController.delegate = self
-            
-            do {
-                try fetchedResultsController.performFetch()
-            } catch {
-                fatalError("Failed to initialize FetchedResultsController: \(error)")
-            }
-            
-            return fetchedResultsController
+        fetchedResultsController.delegate = self
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("Failed to initialize FetchedResultsController: \(error)")
+        }
+        
+        return fetchedResultsController
     }
 
     // updateUIForSelectedDestinationAirport
@@ -298,12 +299,23 @@ extension DestinationSelectionViewController: UITableViewDelegate {
 // MARK: - Extension - UISearchBarDelegate
 extension DestinationSelectionViewController: UISearchBarDelegate {
     
-    // Execute Search
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            fetchedResultsController.fetchRequest.predicate = nil
+        } else {
+            fetchedResultsController.fetchRequest.predicate = NSPredicate.init(format: "%K CONTAINS[cd] %@",
+                                                                               argumentArray: [Airport.Attributes.name, searchText])
+        }
         
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("Failed to initialize FetchedResultsController: \(error)")
+        }
+        
+        tableView.reloadData()
     }
     
-    // Execute when searchBarCancelButtonClicked
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.text = nil
