@@ -6,14 +6,12 @@
 //  Copyright © 2020 Denis Leupold. All rights reserved.
 //
 
-import Foundation
 import CoreData
 
 // MARK: - Extension - Delete
 extension NSManagedObject {
     
     // MARK: - Public Class Methods
-    
     @discardableResult
     class func deleteAll(predicate: NSPredicate? = nil,
                          inContext context: NSManagedObjectContext? = CoreDataManager.editContextInBackground())
