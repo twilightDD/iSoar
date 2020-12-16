@@ -11,6 +11,17 @@ import CoreData
 
 @objc(Airport)
 public class Airport: NSManagedObject {
+    
+    lazy var airportLocation = CLLocation(latitude: latitude, longitude: longitude)
+    
+    var distance: CLLocationDistance {
+        guard let currentLocation = LocationManager.currentLocation()
+            else { return 0 }
+        let currentDistance = currentLocation.distance(from: airportLocation)
+        
+        return currentDistance
+    }
+
     class func importOrUpdate(_ airportDictionaries: [[String: Any]]) {
         
         // TODO: 20201202 muss auf background context laufen
