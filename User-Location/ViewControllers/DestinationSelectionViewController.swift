@@ -62,6 +62,8 @@ class DestinationSelectionViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        LocationManager.registerForLocationUpdates(self)
+        
         //setupTableViewDatasource()
         
         tableView.reloadData()
@@ -102,6 +104,8 @@ class DestinationSelectionViewController: UIViewController {
         if let airportUpdateFailedNotification = airportUpdateFailedNotification {
             NotificationCenter.default.removeObserver(airportUpdateFailedNotification)
         }
+        
+        LocationManager.unRegisterForLocationUpdates(self)
     }
 
     // MARK: - Public Class Methods
@@ -419,6 +423,15 @@ extension DestinationSelectionViewController: UITableViewDataSource {
 //        }
         
         return cell
+    }
+
+}
+
+// MARK: - Extension - LocationManagerDelegate
+extension DestinationSelectionViewController: LocationManagerDelegate {
+    
+    func locationManager(didUpdateLocations locations: [CLLocation]) {
+        tableView.reloadData()
     }
 
 }
