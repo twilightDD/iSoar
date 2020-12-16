@@ -14,14 +14,24 @@ public class Airport: NSManagedObject {
     
     lazy var airportLocation = CLLocation(latitude: latitude, longitude: longitude)
     
-    var distance: CLLocationDistance {
-        guard let currentLocation = LocationManager.currentLocation()
+    var distanceTransient: CLLocationDistance {
+
+            guard let currentLocation = LocationManager.currentLocation()
             else { return 0 }
-        let currentDistance = currentLocation.distance(from: airportLocation)
-        
-        return currentDistance
+            let currentDistance = currentLocation.distance(from: airportLocation)
+            return currentDistance
     }
 
+//    public override func awakeFromFetch() {
+//        super.awakeFromFetch()
+//        var currentDist: Double = 0
+//        if let currentLocation = LocationManager.currentLocation() {
+//            currentDist = currentLocation.distance(from: airportLocation)
+//        }
+//        distance = currentDist
+//        print("\(#function) \(name) \(distance)")
+//        }
+    
     class func importOrUpdate(_ airportDictionaries: [[String: Any]]) {
         
         // TODO: 20201202 muss auf background context laufen
@@ -83,6 +93,7 @@ extension Airport {
         static let additionalInfo = "additionalInfo"
         static let airportType = "airportType"
         static let country = "country"
+        static let distance = "distance"
         static let elevation = "elevation"
         static let icao = "icao"
         static let latitude = "latitude"

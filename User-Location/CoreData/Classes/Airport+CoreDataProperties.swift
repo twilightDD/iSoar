@@ -18,6 +18,7 @@ extension Airport {
     @NSManaged public var additionalInfo: String
     @NSManaged public var airportType: String
     @NSManaged public var country: String
+    @NSManaged public var distance: Double
     @NSManaged public var elevation: Double
     @NSManaged public var icao: String
     @NSManaged public var latitude: Double

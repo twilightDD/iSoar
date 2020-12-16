@@ -13,6 +13,10 @@ import CoreLocation
 class DestinationSelectionViewController: UIViewController {
 
     // MARK: Lets and Vars
+    var done = false
+    
+    
+    
     // Statics
     static private var shared: DestinationSelectionViewController?
     
@@ -217,6 +221,45 @@ class DestinationSelectionViewController: UIViewController {
     // MARK: - Action Methods
     // Sort Switch
     @IBAction func sortSwitchAction(_ sender: UISegmentedControl) {
+        var sortDescriptor: NSSortDescriptor!
+        
+        switch sender.selectedSegmentIndex {
+        case 0: // sort by name
+            sortDescriptor = NSSortDescriptor(key: Airport.Attributes.name,
+                                              ascending: true)
+        case 1:  // sort by distance
+            let context = fetchedResultsController.managedObjectContext
+            
+            
+            
+            
+            let allAirPorts = fetchedResultsController.fetchedObjects as? [Airport]
+            guard let currentLocation = LocationManager.currentLocation()
+            else { return }
+            
+            for airport in allAirPorts! {
+                let currentDistance = currentLocation.distance(from: airport.airportLocation)
+                airport.distance = currentDistance
+            }
+            let afdhiofzdiofhdfugdfugdhsaiufghi = context.updatedObjects.first as! Airport
+            let changed = afdhiofzdiofhdfugdfugdhsaiufghi.changedValues()
+            context.saveContext()
+            
+            sortDescriptor = NSSortDescriptor(key: Airport.Attributes.distance,
+                                              ascending: true)
+        default:
+            fatalError()
+        }
+        
+        fetchedResultsController.fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("Failed to initialize FetchedResultsController: \(error)")
+        }
+        
+        tableView.reloadData()
         
     }
        
@@ -332,6 +375,7 @@ extension DestinationSelectionViewController: UISearchBarDelegate {
 extension DestinationSelectionViewController: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        print("\(#function)")
         tableView.beginUpdates()
     }
     
@@ -434,6 +478,29 @@ extension DestinationSelectionViewController: UITableViewDataSource {
 extension DestinationSelectionViewController: LocationManagerDelegate {
     
     func locationManager(didUpdateLocations locations: [CLLocation]) {
+        
+        if airportsSortedBySwitch.selectedSegmentIndex == 1 {
+            
+//            let context = fetchedResultsController.managedObjectContext
+//
+//
+//
+//
+//            let allAirPorts = fetchedResultsController.fetchedObjects as? [Airport]
+//            guard let currentLocation = LocationManager.currentLocation()
+//            else { return }
+//
+//            for airport in allAirPorts! {
+//                let currentDistance = currentLocation.distance(from: airport.airportLocation)
+//                airport.distance = currentDistance
+//            }
+//            let afdhiofzdiofhdfugdfugdhsaiufghi = context.updatedObjects.first as! Airport
+//            let changed = afdhiofzdiofhdfugdfugdhsaiufghi.changedValues()
+//            context.saveContext()
+            done = true
+//            return
+        }
+        
         tableView.reloadData()
     }
 
