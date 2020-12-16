@@ -18,7 +18,7 @@ class DestinationSelectionViewController: UIViewController {
     
     private lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = setupFetchedResultsController()
     
-    private var destinationAirportArray = [AirportDatabase.AirportOld]()
+//    private var destinationAirportArray = [AirportDatabase.AirportOld]()
     private var sortSwitchIndex = 0
     
     // Notification Observers
@@ -69,7 +69,7 @@ class DestinationSelectionViewController: UIViewController {
         tableView.reloadData()
         
         updateUIForSelectedDestinationAirport()
-        searchBar.placeholder = "Search in \(self.destinationAirportArray.count) Airfields"
+        updateSearchbarPlaceholder()
         
         // MARK: - Register Observers for notfications
         // Airport Update Completed
@@ -77,11 +77,9 @@ class DestinationSelectionViewController: UIViewController {
             .addObserver(forName: AirportDatabase.airportUpdateCompletedNotificationName,
                          object: nil,
                          queue: OperationQueue.main) { [unowned self] (notification) in
-                            
-                            self.updateUIForSelectedDestinationAirport()
-                            self.setupTableViewDatasource()
-                            self.refreshControl.endRefreshing()
-                            self.searchBar.placeholder = "Search in \(self.destinationAirportArray.count) Airfields"
+                
+                self.updateUIForSelectedDestinationAirport()
+                self.refreshControl.endRefreshing()
         }
         
         // Airport Update Failed
@@ -157,19 +155,10 @@ class DestinationSelectionViewController: UIViewController {
         }
     }
     
-    // Setup TableViewDatasource
-    private func setupTableViewDatasource() {
-        guard let sortIndicator = AirportDatabase.SortIndicator(rawValue: airportsSortedBySwitch.selectedSegmentIndex)
-            else { fatalError("segmentIndex not suitable for sortIndicator.")}
-        
-        if let destinationAirportArray = AirportDatabase.filteredDestinationAirports(byName: searchBar.text,
-                                                                                     sortedBy: sortIndicator) {
-            self.destinationAirportArray = destinationAirportArray
-            
-            tableView.reloadData()
-        }
+    private func updateSearchbarPlaceholder() {
+        searchBar.placeholder = "Search in \(fetchedResultsController.fetchedObjects?.count ?? 0) Airfields"
     }
-
+    
     func distanceAsReadable(_ distance: CLLocationDistance?)
         -> String {
             var distanceAsReadable = ""
@@ -227,7 +216,7 @@ class DestinationSelectionViewController: UIViewController {
     // MARK: - Action Methods
     // Sort Switch
     @IBAction func sortSwitchAction(_ sender: UISegmentedControl) {
-        setupTableViewDatasource()
+        
     }
        
 }
@@ -287,12 +276,12 @@ extension DestinationSelectionViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if FlightComputer.selectedDestinationAirport() == destinationAirportArray[indexPath.row] {
-            FlightComputer.setSelectedDestinationAirport(nil)
-        } else {
-            let newSelectedDestinationAirport = destinationAirportArray[indexPath.row]
-            FlightComputer.setSelectedDestinationAirport(newSelectedDestinationAirport)
-        }
+//        if FlightComputer.selectedDestinationAirport() == destinationAirportArray[indexPath.row] {
+//            FlightComputer.setSelectedDestinationAirport(nil)
+//        } else {
+//            let newSelectedDestinationAirport = destinationAirportArray[indexPath.row]
+//            FlightComputer.setSelectedDestinationAirport(newSelectedDestinationAirport)
+//        }
 
         updateUIForSelectedDestinationAirport()
         
@@ -311,14 +300,14 @@ extension DestinationSelectionViewController: UISearchBarDelegate {
     
     // Execute Search
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        setupTableViewDatasource()
+        
     }
     
     // Execute when searchBarCancelButtonClicked
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.text = nil
-        setupTableViewDatasource()
+        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -375,6 +364,8 @@ extension DestinationSelectionViewController: NSFetchedResultsControllerDelegate
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
+        
+        updateSearchbarPlaceholder()
     }
 }
 
