@@ -11,10 +11,7 @@ import CoreData
 import CoreLocation
 
 class DestinationSelectionViewController: UIViewController {
-    
-    // MARK: - Keys
-    private static let DestinationSelectionAirportTableViewCellIdentifierKey = "DestinationSelectionAirportTableViewCell"
-    
+
     // MARK: Lets and Vars
     // Statics
     static private var shared: DestinationSelectionViewController?
@@ -141,14 +138,6 @@ class DestinationSelectionViewController: UIViewController {
             
             return fetchedResultsController
     }
-
-    
-    
-    
-    
-    
-    
-    
 
     // updateUIForSelectedDestinationAirport
     private func updateUIForSelectedDestinationAirport() {
@@ -416,7 +405,7 @@ extension DestinationSelectionViewController: UITableViewDataSource {
         // Populate the cell from the object
         cell.airportNameLabel.text = airport.name
         cell.icaoLabel.text = airport.icao
-//        cell.distanceLabel.text = distanceAsReadable(airport.distance)
+        cell.distanceLabel.text = distanceAsReadable(airport.distance)
         
         // Set Country Image of Destination Airport
         let countryImage = UIImage.init(named: airport.country)
