@@ -36,6 +36,10 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         form.append(trafficMonitorSection())
         form.append(miscellaneousSection())
         
+        #if DEBUG
+        form.append(debugSection())
+        #endif
+
         // Setup offline pack notification handlers from MapAreaDownloadManager
         NotificationCenter.default.addObserver(self, selector: #selector(offlinePackProgressDidChange),
                                                name: NSNotification.Name.MGLOfflinePackProgressChanged,
@@ -400,6 +404,19 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         return section
     }
     
+    private func debugSection()
+    -> Section {
+        let section = Section("Debug")
+            
+            <<< ButtonRow { row in
+                row.title = "Empty Core Data"
+                row.onCellSelection(self.emptyCoreDataButtonTapped)
+                
+            }
+        
+        return section
+    }
+
     // Report missing Airport
     private func reportMissingAirport() {
         if MFMailComposeViewController.canSendMail() {
@@ -450,6 +467,23 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     // MARK: - Action Methods
     private func airportDatabaseUpdatesButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         AirportDatabase.downloadAirportsFromServer()
+        
+        DLDownloadManager.download(.airports,
+                                   completion: { data in
+
+                                    guard let data = data
+                                    else {
+                                        //NotificationBanner.show("No data received.")
+                                        return
+                                    }
+
+                                    // TODO: 20201207 Success zurückwerfen
+                                    CoreDataImporter.importData(data, forType: .airports)
+
+                                    //NotificationBanner.show("Airport Database updated")
+
+                                   })
+
     }
     
     private func gliderModelDatabaseUpdatesButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
@@ -490,6 +524,19 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         self.alertController.view.addSubview(self.downloadProgressView)
         self.present(alertController, animated: true, completion: nil)
         
+    }
+    
+    private func emptyCoreDataButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
+        var message = ""
+
+        let deleteCountAirports = Airport.deleteAll()
+        message.append("\(deleteCountAirports) Flughäfen\n")
+        let deleteCountGliderModels = GliderModel.deleteAll()
+        message.append("\(deleteCountGliderModels) Flugzeugmodelle")
+
+        DLAlertViewController.showAlertViewController(title: "Löschen erfolgreich",
+                                                      message: message,
+                                                      preferredStyle: .alert)
     }
     
     // MARK: - MGLOfflinePack Notification Handlers
