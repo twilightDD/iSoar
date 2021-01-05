@@ -13,6 +13,8 @@ import CoreData
 public class Airport: NSManagedObject {
     
     lazy var airportLocation = CLLocation(latitude: latitude, longitude: longitude)
+    static let importOrUpdateCompletedNotificationName = Notification.Name(rawValue: "airportImportOrUpdateCompleted")
+    static let importOrUpdateFailedNotificationName = Notification.Name(rawValue: "airportImportOrUpdateFailed")
     
     var distanceTransient: CLLocationDistance {
 
@@ -31,6 +33,8 @@ public class Airport: NSManagedObject {
 //        distance = currentDist
 //        print("\(#function) \(name) \(distance)")
 //        }
+    lazy var location = CLLocation(latitude: latitude, longitude: longitude)
+    lazy var locationCoordinate2D = CLLocationCoordinate2D.init(latitude: latitude, longitude: longitude)
     
     class func importOrUpdate(_ airportDictionaries: [[String: Any]]) {
         
@@ -85,6 +89,11 @@ public class Airport: NSManagedObject {
         print("\(#function) - \(context.insertedObjects.count) Airports imported.")
         
         context.saveContext()
+        
+        // Post Notification for comoleted Import or Update
+        NotificationCenter.default.post(name: importOrUpdateCompletedNotificationName,
+                                        object: nil)
+        
     }
     
     func countryImage()
