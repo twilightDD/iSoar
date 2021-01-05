@@ -86,6 +86,17 @@ public class Airport: NSManagedObject {
         
         context.saveContext()
     }
+    
+    func countryImage()
+    -> UIImage? {
+        guard let country = self.country
+        else { return  nil}
+        
+        let image = UIImage(named: country)
+        return image
+    }
+    
+}
 
 // MARK: - Extenstion - Location Updates
 extension Airport {
