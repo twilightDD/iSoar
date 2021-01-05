@@ -161,13 +161,15 @@ class MapScreenViewController: UIViewController {
     
     // Create Annotations for Airports on Map
     func createAirportAnnotations() {
-        if let destinationAirportArray = AirportDatabase.destinationAirports() {
-            for airport in destinationAirportArray {
-                let airportAnnotation = AirportAnnotation.init(airport: airport)
-                airportAnnotationArray.append(airportAnnotation)
-            }
-            mapView.addAnnotations(airportAnnotationArray)
+        let context = CoreDataManager.viewOnlyContext
+        let allAirports = context.fetchObjects(forEntityClass: Airport.self)
+        
+        for airport in allAirports {
+            let airportAnnotation = AirportAnnotation.init(airport: airport)
+            airportAnnotationArray.append(airportAnnotation)
         }
+        mapView.addAnnotations(airportAnnotationArray)
+        
     }
     
     // Create User Center Location Button on Map
@@ -650,12 +652,12 @@ class MapScreenViewController: UIViewController {
         }
     }
     
-    private func updateDestinationAirportICAOLabel(destinationAirport: AirportDatabase.AirportOld) {
+    private func updateDestinationAirportICAOLabel(destinationAirport: Airport) {
         destinationAirportICAOLabel.text = destinationAirport.icao
     }
     
     private func updateDestinationAirportDistanceLabel() {
-        if let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport() {
+        if let currentDistance = FlightComputer.selectedDestinationAirport()?.distance {
             var distanceLabelValueText = ""
             var distanceLabelUnitText = ""
             if showDistanceInKM == true {
@@ -680,9 +682,9 @@ class MapScreenViewController: UIViewController {
         }
     }
     
-    private func updateDestinationAirportAltitudeLabel(destinationAirport: AirportDatabase.AirportOld) {
+    private func updateDestinationAirportAltitudeLabel(destinationAirport: Airport) {
         guard let altitudeDifference = LocationManager.altitudeDifferenceFromCurrentLocationTo(altitude: destinationAirport.elevation),
-            let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport()
+              let currentDistance = FlightComputer.selectedDestinationAirport()?.distance
             else { return }
         
         // Get User Default Values
@@ -714,12 +716,12 @@ class MapScreenViewController: UIViewController {
         }
     }
     
-    private func updateDestinationAirportDirectionLine(destinationAirport: AirportDatabase.AirportOld) {
+    private func updateDestinationAirportDirectionLine(destinationAirport: Airport) {
         guard let currentLocationCoordinate2D = LocationManager.currentLocation()?.coordinate
             else { return }
         
         // get new directionLineLocationCoordinate2Ds
-        let destinationAirportCoordinate2D = destinationAirport.locationCoordinate2D()
+        let destinationAirportCoordinate2D = destinationAirport.locationCoordinate2D
         let directionLineLocationCoordinate2Ds = [currentLocationCoordinate2D,
                                                   destinationAirportCoordinate2D]
         let pointer = UnsafeMutablePointer(mutating: directionLineLocationCoordinate2Ds)
