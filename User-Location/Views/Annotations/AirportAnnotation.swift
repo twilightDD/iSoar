@@ -21,6 +21,7 @@ class AirportAnnotation: MGLPointAnnotation {
         
         title = airport.icao
         subtitle = airport.name
+        coordinate = airport.locationCoordinate2D
     }
     
     required init?(coder: NSCoder) {
