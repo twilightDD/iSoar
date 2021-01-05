@@ -20,6 +20,13 @@ class DLLogger {
         return documentsDirectory.appendingPathComponent(logPath).appendingPathComponent(fileName)
     }
     
+    class func writeDebugStringToLogFile(_ message: String) {
+        #if DEBUG
+        writeStringToLogFile(message)
+        #endif
+    }
+    
+    
     // MARK: Public Class Methods
     class func writeStringToLogFile(_ message: String) {
         guard let logFile = logFile else {
