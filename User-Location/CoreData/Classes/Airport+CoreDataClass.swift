@@ -86,6 +86,27 @@ public class Airport: NSManagedObject {
         
         context.saveContext()
     }
+
+// MARK: - Extenstion - Location Updates
+extension Airport {
+    
+    class func updateLocation(_ currentLocation: CLLocation) {
+        let editContext = CoreDataManager.editContextInBackground()
+        let allAirports = editContext.fetchObjects(forEntityClass: Airport.self)
+        
+        for airport in allAirports {
+            airport.updateDistance(forLocation: currentLocation)
+        }
+        
+        editContext.saveContext()
+
+    }
+
+    private func updateDistance(forLocation currentLocation: CLLocation) {
+        let currentDistance = location.distance(from: currentLocation)
+        distance = currentDistance
+    }
+    
 }
 
 extension Airport {
