@@ -466,8 +466,6 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     
     // MARK: - Action Methods
     private func airportDatabaseUpdatesButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
-        AirportDatabase.downloadAirportsFromServer()
-        
         DLDownloadManager.download(.airports,
                                    completion: { data in
 
