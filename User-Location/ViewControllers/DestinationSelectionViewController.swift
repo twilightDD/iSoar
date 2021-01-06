@@ -86,6 +86,7 @@ class DestinationSelectionViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         // Remove Obeservers when View did Disappear
         if let airportUpdateFinishedNotification = airportImportOrUpdateFinishedNotification {
             NotificationCenter.default.removeObserver(airportUpdateFinishedNotification)
