@@ -469,31 +469,6 @@ extension DestinationSelectionViewController: UITableViewDataSource {
 
 }
 
-// MARK: - Extension - LocationManagerDelegate
-extension DestinationSelectionViewController: LocationManagerDelegate {
-    
-    func locationManager(didUpdateLocations locations: [CLLocation]) {
-        
-        if airportsSortedBySwitch.selectedSegmentIndex == 1 {
-            
-//            let context = fetchedResultsController.managedObjectContext
-//
-//
-//
-//
-//            let allAirPorts = fetchedResultsController.fetchedObjects as? [Airport]
-//            guard let currentLocation = LocationManager.currentLocation()
-//            else { return }
-//
-//            for airport in allAirPorts! {
-//                let currentDistance = currentLocation.distance(from: airport.airportLocation)
-//                airport.distance = currentDistance
-//            }
-//            let afdhiofzdiofhdfugdfugdhsaiufghi = context.updatedObjects.first as! Airport
-//            let changed = afdhiofzdiofhdfugdfugdhsaiufghi.changedValues()
-//            context.saveContext()
-            done = true
-//            return
         if FlightComputer.selectedDestinationAirport() == airport {
             cell.accessoryType = .checkmark
         } else {
