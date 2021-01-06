@@ -22,7 +22,7 @@ class FlightComputer {
     // MARK: - Lets and Vars
     // Statics
     static private let shared = FlightComputer()
-    
+
     // Private
     private var isGliderFlying: Bool = false {
         didSet {
@@ -113,66 +113,52 @@ class FlightComputer {
             // Check if Glider is faster than 10m/s, (Presets)
             if let currentLocation = LocationManager.currentLocation(),
                currentLocation.speed > Presets.FlightComputer.minimalFlightSpeed {
-                
-                // Set gliderIsFlying to true
                 isGliderFlying = true
-                
-                // Register at OGNSocketConnectionManager
                 OGNSocketConnectionManager.registerForSocketUpdates(self)
 
                 DLLogger.writeDebugStringToLogFile("\(#function) -> true - Flight Start detected")
             }
-        } else {
+        } else if let currentLocation = LocationManager.currentLocation(),
+                  currentLocation.speed < Presets.FlightComputer.minimalFlightSpeed,
+                  currentLocation.speed > 0 {
             // Check if Glider is slower than 10m/s, (Presets)
-            if let currentLocation = LocationManager.currentLocation(),
-               currentLocation.speed < Presets.FlightComputer.minimalFlightSpeed,
-               currentLocation.speed > 0 {
-                
-                // Get Terrain elevation of current User Location
-                DLTerrainElevation.currentTerrainElevation(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude, completion: { elevation in
+            // Get Terrain elevation of current User Location
+            DLTerrainElevation.currentTerrainElevation(
+                latitude: currentLocation.coordinate.latitude,
+                longitude: currentLocation.coordinate.longitude,
+                completion: { elevation in
                     if let currentTerrainElevation = (elevation) {
                         // If vertical Distance between Glider Altitude and Terrain Elevation is < 100m - set isGliderFlying = false
+                        // => If vertical Distance between Glider Altitude and Terrain Elevation is > 100m  - Nothing to do
                         if currentLocation.altitude-currentTerrainElevation < 100 {
                             self.isGliderFlying = false
                             OGNSocketConnectionManager.unregisterForSocketUpdates(self)
 
                             DLLogger.writeDebugStringToLogFile("\(#function) -> false - Flight End detected")
                         }
-                    } else {
+                    } else if let nearestAirport = FlightComputer.nearestAirport(),
+                              let distance = LocationManager.distanceFromCurrentLocationTo(location: nearestAirport.location) {
                         // If we cant get the Terrain elevation we check for the distance to the nearest Airport
-                        if let nearestAirport = AirportDatabase.nearestAirport(),
-                           let distance = LocationManager.distanceFromCurrentLocationTo(location: nearestAirport.location()) {
-                            // If Distance to nearest Airport is < 500m - set isGliderFlying = false
-                            if distance < Presets.FlightComputer.maximalDistanceFromNearestAirport {
-                                self.isGliderFlying = false
-                                OGNSocketConnectionManager.unregisterForSocketUpdates(self)
-                                
-                                #if DEBUG
-                                DLLogger.writeStringToLogFile("\(#function) -> false - Flight End detected")
-                                #endif
-                                
-                            } else {
-                                // If Distance to nearest Airport is > 500m - check current Altitude of Glider
-                                // If Glider Altitude is < 1200 - set isGliderFlying = false
-                                if currentLocation.altitude < 1200 {
-                                    self.isGliderFlying = false
-                                    OGNSocketConnectionManager.unregisterForSocketUpdates(self)
-                                    
-                                    #if DEBUG
-                                    DLLogger.writeStringToLogFile("\(#function) -> false - Flight End detected")
-                                    #endif
-                                    
-                                } else {
-                                    // If Glider Altitude is > 1200 - Nothing to do
-                                }
-                            }
-                        }
                         
+                        // If Distance to nearest Airport is < 500m - set isGliderFlying = false
+                        if distance < Presets.FlightComputer.maximalDistanceFromNearestAirport {
+                            self.isGliderFlying = false
+                            OGNSocketConnectionManager.unregisterForSocketUpdates(self)
+                            
+                            DLLogger.writeDebugStringToLogFile("\(#function) -> false - Flight End detected")
+                        } else if currentLocation.altitude < 1200 {
+                            // If Distance to nearest Airport is > 500m - check current Altitude of Glider
+                            // If Glider Altitude is < 1200 - set isGliderFlying = false
+                            // => If Glider Altitude is > 1200 - Nothing to do
+                            self.isGliderFlying = false
+                            OGNSocketConnectionManager.unregisterForSocketUpdates(self)
+                            
+                            DLLogger.writeDebugStringToLogFile("\(#function) -> false - Flight End detected")
+                        }
                     }
                     
                 })
-                
-            }
+            
         }
         
     }
@@ -195,25 +181,22 @@ class FlightComputer {
                 straightCounter = 0
                 //print("Left Turn: Set Right & Straight to: 0")
             }
-            
-            // If current Course > than former Course - Glider turns right
         } else if currentLocation.course > formerLocation.course + Presets.FlightComputer.significantCourseDeviation {
-            
+            // If current Course > than former Course - Glider turns right
             rightTurnCounter += 1
             if rightTurnCounter > Presets.FlightComputer.turnCounterResetTrigger {
                 leftTurnCounter = 0
                 straightCounter = 0
                 //print("Right Turn: Set Left & Straight to: 0")
             }
-            // If current Course Change < than significantCourseDeviation - Glider flys straight
         } else {
+            // If current Course Change < than significantCourseDeviation - Glider flys straight
             straightCounter += 1
             if straightCounter > Presets.FlightComputer.turnCounterResetTrigger {
                 leftTurnCounter = 0
                 rightTurnCounter = 0
                 //print("Straight: Set Left & Right to: 0")
             }
-            
         }
         
         if leftTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges && isGliderCircling == false ||
@@ -249,8 +232,7 @@ class FlightComputer {
     // Check for Gear Warning
     private func checkForGearWarning() {
         guard let selectedDestinationAirport = FlightComputer.selectedDestinationAirport(),
-              let currentLocation = LocationManager.currentLocation(),
-              let currentDistance = DestinationSelectionViewController.distanceToDestinationAirport()
+              let currentLocation = LocationManager.currentLocation()
         else { return }
         
         let gearWarningSwitch = UserDefaultsManager.gearWarningState()
@@ -259,7 +241,7 @@ class FlightComputer {
             let upperGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.upperGearWarningAltitude
             let lowerGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.lowerGearWarningAltitude
             
-            let distanceWarningNeeded = currentDistance < Presets.FlightComputer.gearWarningDistance
+            let distanceWarningNeeded = selectedDestinationAirport.distance < Presets.FlightComputer.gearWarningDistance
             let upperWarningNeeded = currentLocation.altitude < upperGearWarningAltitude
             let lowerWarningNeeded = currentLocation.altitude > lowerGearWarningAltitude
             
