@@ -239,6 +239,15 @@ extension DestinationSelectionViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        guard let airport = self.fetchedResultsController.object(at: indexPath) as? Airport
+        else { fatalError("No airport for indexPath.") }
+        
+        if FlightComputer.selectedDestinationAirport() == airport {
+            FlightComputer.setSelectedDestinationAirport(nil)
+        } else {
+            let newSelectedDestinationAirport = airport
+            FlightComputer.setSelectedDestinationAirport(newSelectedDestinationAirport)
+        }
 
         updateUIForSelectedDestinationAirport()
         
