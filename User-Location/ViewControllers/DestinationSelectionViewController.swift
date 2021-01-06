@@ -265,56 +265,6 @@ class DestinationSelectionViewController: UIViewController {
        
 }
 
-
-
-
-
-// MARK: - Extension - UITableViewDataSource
-//extension DestinationSelectionViewController: UITableViewDataSource {
-//
-//    func numberOfSections(in tableView: UITableView)
-//        -> Int {
-//            return 1
-//    }
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
-//        -> Int {
-//            let numberOfRowsInSection = destinationAirportArray.count
-//            return numberOfRowsInSection
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
-//        -> UITableViewCell {
-//
-//            // Get Cell from TableView
-//            guard let cell = tableView.dequeueReusableCell(withIdentifier: DestinationSelectionAirportTableViewCell.identifier) as? DestinationSelectionAirportTableViewCell
-//                else { fatalError("")}
-//
-//            let airportOfInterest = destinationAirportArray[indexPath.row]
-//
-//            // Texts in Cell
-//            cell.airportNameLabel.text = airportOfInterest.name
-//            cell.icaoLabel.text = airportOfInterest.icao
-//            cell.distanceLabel.text = distanceAsReadable(airportOfInterest.distance)
-//
-//            // Set Country Image of Destination Airport
-//            let countryImage = UIImage.init(named: airportOfInterest.country)
-//            cell.countryImageView.image = countryImage
-//
-//            // Set Checkmark and Background Color for selected Airport
-//            if FlightComputer.selectedDestinationAirport() == airportOfInterest {
-//                cell.accessoryType = .checkmark
-//                //cell.backgroundColor = UIColor(red: 230/255, green: 240/255, blue: 255/255, alpha: 1.0)
-//            } else {
-//                cell.accessoryType = .none
-//                //cell.backgroundColor = nil
-//            }
-//
-//            return cell
-//    }
-//
-//}
-
 // MARK: - Extension - UITableViewDelegate
 extension DestinationSelectionViewController: UITableViewDelegate {
     
