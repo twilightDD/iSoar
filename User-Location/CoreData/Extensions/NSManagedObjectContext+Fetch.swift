@@ -12,13 +12,14 @@ extension NSManagedObjectContext {
     
     func fetchObjects <T: NSManagedObject>(forEntityClass entityClass: T.Type,
                                            sortByKeypath keyPath: String? = nil,
+                                           sortAscending ascending: Bool = true,
                                            predicateString: String? = nil,
                                            predicateArguments: [Any]? = nil)
         -> [T] {
             
             var sortDescriptors: [NSSortDescriptor]?
             if let keyPath = keyPath {
-                sortDescriptors = [NSSortDescriptor.init(key: keyPath, ascending: true)]
+                sortDescriptors = [NSSortDescriptor.init(key: keyPath, ascending: ascending)]
             }
             
             var predicate: NSPredicate?
