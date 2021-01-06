@@ -8,6 +8,7 @@
 //
 
 import CoreData
+import UIKit
 
 @objc(Airport)
 public class Airport: NSManagedObject {
@@ -110,6 +111,7 @@ extension Airport {
     
 }
 
+// MARK: - Extension Airport Attributes
 extension Airport {
     struct Attributes {
         static let additionalInfo = "additionalInfo"
