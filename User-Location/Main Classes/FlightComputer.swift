@@ -119,11 +119,8 @@ class FlightComputer {
                 
                 // Register at OGNSocketConnectionManager
                 OGNSocketConnectionManager.registerForSocketUpdates(self)
-                
-                #if DEBUG
-                DLLogger.writeStringToLogFile("\(#function) -> true - Flight Start detected")
-                #endif
-                
+
+                DLLogger.writeDebugStringToLogFile("\(#function) -> true - Flight Start detected")
             }
         } else {
             // Check if Glider is slower than 10m/s, (Presets)
@@ -138,13 +135,8 @@ class FlightComputer {
                         if currentLocation.altitude-currentTerrainElevation < 100 {
                             self.isGliderFlying = false
                             OGNSocketConnectionManager.unregisterForSocketUpdates(self)
-                            
-                            #if DEBUG
-                            DLLogger.writeStringToLogFile("\(#function) -> false - Flight End detected")
-                            #endif
-                            
-                        } else {
-                            // If vertical Distance between Glider Altitude and Terrain Elevation is > 100m  - Nothing to do
+
+                            DLLogger.writeDebugStringToLogFile("\(#function) -> false - Flight End detected")
                         }
                     } else {
                         // If we cant get the Terrain elevation we check for the distance to the nearest Airport
@@ -229,18 +221,12 @@ class FlightComputer {
             isGliderCircling = true
             MapScreenViewController.increaseZoomLevel()
             
-            #if DEBUG
-            DLLogger.writeStringToLogFile("\(#function) -> true - Thermal Circling Start detected")
-            #endif
-            
+            DLLogger.writeDebugStringToLogFile("\(#function) -> true - Thermal Circling Start detected")
         } else if leftTurnCounter == 0 && rightTurnCounter == 0 && isGliderCircling == true {
             isGliderCircling = false
             MapScreenViewController.decreaseZoomLevel()
             
-            #if DEBUG
-            DLLogger.writeStringToLogFile("\(#function) -> false - Thermal Circling End detected")
-            #endif
-            
+            DLLogger.writeDebugStringToLogFile("\(#function) -> false - Thermal Circling End detected")
         } else {
             //print("Nothing to do here")
         }
