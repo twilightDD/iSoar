@@ -277,6 +277,18 @@ extension DestinationSelectionViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
         searchBar.text = nil
         
+        // TODO: 20201222 Peter fragen ob so richtig, müsste aber passen
+        // TODO: 20201222 das könnte doch über einen UISearchController laufen
+        fetchedResultsController.fetchRequest.predicate = nil
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalError("Failed to initialize FetchedResultsController: \(error)")
+        }
+        
+        tableView.reloadData()
+        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
