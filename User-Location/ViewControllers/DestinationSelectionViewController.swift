@@ -125,14 +125,13 @@ class DestinationSelectionViewController: UIViewController {
     // updateUIForSelectedDestinationAirport
     private func updateUIForSelectedDestinationAirport() {
         if let destinationAirport = FlightComputer.selectedDestinationAirport() {
-            countryImageTop.image = UIImage(named: destinationAirport.country)
-            
             airportName.text = destinationAirport.name
             airportInfoButton.isHidden = false
+            countryImageTop.image = destinationAirport.countryImage()
         } else {
-            countryImageTop.image = UIImage(named: "destination")
             airportName.text = "Choose your Destination"
             airportInfoButton.isHidden = true
+            countryImageTop.image = UIImage(named: "destination")
         }
     }
     
