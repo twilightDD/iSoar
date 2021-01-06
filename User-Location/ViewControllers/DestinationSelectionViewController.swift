@@ -197,23 +197,6 @@ class DestinationSelectionViewController: UIViewController {
             sortDescriptor = NSSortDescriptor(key: Airport.Attributes.name,
                                               ascending: true)
         case 1:  // sort by distance
-            let context = fetchedResultsController.managedObjectContext
-            
-            
-            
-            
-            let allAirPorts = fetchedResultsController.fetchedObjects as? [Airport]
-            guard let currentLocation = LocationManager.currentLocation()
-            else { return }
-            
-            for airport in allAirPorts! {
-                let currentDistance = currentLocation.distance(from: airport.airportLocation)
-                airport.distance = currentDistance
-            }
-            let afdhiofzdiofhdfugdfugdhsaiufghi = context.updatedObjects.first as! Airport
-            let changed = afdhiofzdiofhdfugdfugdhsaiufghi.changedValues()
-            context.saveContext()
-            
             sortDescriptor = NSSortDescriptor(key: Airport.Attributes.distance,
                                               ascending: true)
         default:
