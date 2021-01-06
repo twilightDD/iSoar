@@ -89,6 +89,12 @@ class FlightComputer {
         shared.selectedDestinationAirport = airport
     }
     
+    class func nearestAirport()
+    -> Airport? {
+        let nearestAirport = FlightComputer.shared.nearestAirport()
+        return nearestAirport
+    }
+    
     class func registerForFlightComputerUpdates(_ delegate: FlightComputerDelegate) {
         // print("\(#function) - willAdd delegates.count = \(shared.delegates.count)")
         shared.delegates.add(delegate)
@@ -239,6 +245,18 @@ class FlightComputer {
             //print("Nothing to do here")
         }
         
+    }
+    
+    private func nearestAirport()
+    -> Airport? {
+        guard let _ = LocationManager.currentLocation()
+        else { return nil }
+        
+        let context = CoreDataManager.viewOnlyContext
+        let nearestAirports = context.fetchObjects(forEntityClass: Airport.self,
+                                                   sortByKeypath: Airport.Attributes.distance)
+        let nearestAirport = nearestAirports.first
+        return nearestAirport
     }
     
     // MARK: Check Warning Methods
