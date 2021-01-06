@@ -259,8 +259,16 @@ extension DestinationSelectionViewController: UISearchBarDelegate {
         if searchText.isEmpty {
             fetchedResultsController.fetchRequest.predicate = nil
         } else {
-            fetchedResultsController.fetchRequest.predicate = NSPredicate.init(format: "%K CONTAINS[cd] %@",
-                                                                               argumentArray: [Airport.Attributes.name, searchText])
+            let predicate1 = NSPredicate(format: "%K CONTAINS[cd] %@",
+                                         argumentArray: [Airport.Attributes.name, searchText])
+            let predicate2 = NSPredicate(format: "%K CONTAINS[cd] %@",
+                                         argumentArray: [Airport.Attributes.icao, searchText])
+            
+            let compoundPredicate = NSCompoundPredicate(type: .or,
+                                                        subpredicates: [predicate1, predicate2])
+            
+            fetchedResultsController.fetchRequest.predicate = compoundPredicate
+            
         }
         
         do {
