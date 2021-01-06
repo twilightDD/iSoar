@@ -67,6 +67,10 @@ class MapScreenViewController: UIViewController {
         #endif
     }()
     
+    // Notification Observers
+    private var airportImportOrUpdateFinishedNotification: NSObjectProtocol?
+    private var airportImportOrUpdateFailedNotification: NSObjectProtocol?
+    
     // MARK: - Init & Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,6 +107,27 @@ class MapScreenViewController: UIViewController {
         checkTrackingRouteStatus()
         
         checkDistanceCirclesStatus()
+        
+        // MARK: - Register Observers for notfications
+        // Airport Update Finished
+        airportImportOrUpdateFinishedNotification = NotificationCenter.default.addObserver(forName: Airport.importOrUpdateFinishedNotification,
+                                                                                           object: nil,
+                                                                                           queue: OperationQueue.main) { [unowned self] (notification) in
+            
+            airportAnnotationArray.removeAll()
+            mapView.removeAnnotations(airportAnnotationArray)
+            createAirportAnnotations()
+            
+        }
+
+        // Airport Update Failed
+//        airportImportOrUpdateFailedNotification = NotificationCenter.default
+//            .addObserver(forName: Airport.importOrUpdateFailedNotificationName,
+//                         object: nil,
+//                         queue: OperationQueue.main) { [unowned self] (notification) in
+//
+//                // TODO: 20210105 tu irgendwas
+//        }
         
     }
     
