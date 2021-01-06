@@ -463,11 +463,6 @@ extension DestinationSelectionViewController: UITableViewDataSource {
         cell.countryImageView.image = countryImage
         
         // Set Checkmark for selected Row
-//        if FlightComputer.selectedDestinationAirport() == airport {
-//            cell.accessoryType = .checkmark
-//        } else {
-//            cell.accessoryType = .none
-//        }
         
         return cell
     }
@@ -499,6 +494,10 @@ extension DestinationSelectionViewController: LocationManagerDelegate {
 //            context.saveContext()
             done = true
 //            return
+        if FlightComputer.selectedDestinationAirport() == airport {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
         }
         
         tableView.reloadData()
