@@ -25,6 +25,10 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                                             message: "Please be patient...",
                                             preferredStyle: .alert)
     
+    // Notification Observers
+    private var airportImportOrUpdateFinishedNotification: NSObjectProtocol?
+    private var airportUpdateFailedNotification: NSObjectProtocol?
+    
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +61,37 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         super.viewWillAppear(animated)
         
         updateUIAfterChangesWereMade()
+        
+        // MARK: - Register Observers for notfications
+        // Airport Update Finished
+        airportImportOrUpdateFinishedNotification = NotificationCenter.default.addObserver(forName: Airport.importOrUpdateFinishedNotification,
+                                                                                           object: nil,
+                                                                                           queue: OperationQueue.main) { [unowned self] (notification) in
+            
+            NotificationBanner.show("Airport Database updated")
+            
+        }
+//
+//        // Airport Update Failed
+//        airportUpdateFailedNotification = NotificationCenter.default
+//            .addObserver(forName: AirportDatabase.airportUpdateFailedNotificationName,
+//                         object: nil,
+//                         queue: OperationQueue.main) { [unowned self] (notification) in
+//
+//                            self.refreshControl.endRefreshing()
+//        }
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        // Remove Obeservers when View did Disappear
+        if let airportUpdateFinishedNotification = airportImportOrUpdateFinishedNotification {
+            NotificationCenter.default.removeObserver(airportUpdateFinishedNotification)
+        }
+        
+        if let airportUpdateFailedNotification = airportUpdateFailedNotification {
+            NotificationCenter.default.removeObserver(airportUpdateFailedNotification)
+        }
         
     }
     
