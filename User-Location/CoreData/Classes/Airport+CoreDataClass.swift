@@ -13,8 +13,8 @@ import CoreData
 public class Airport: NSManagedObject {
     
     lazy var airportLocation = CLLocation(latitude: latitude, longitude: longitude)
-    static let importOrUpdateCompletedNotificationName = Notification.Name(rawValue: "airportImportOrUpdateCompleted")
-    static let importOrUpdateFailedNotificationName = Notification.Name(rawValue: "airportImportOrUpdateFailed")
+    static let importOrUpdateFinishedNotification = Notification.Name(rawValue: "airportImportOrUpdateFinished")
+    static let importOrUpdateFailedNotification = Notification.Name(rawValue: "airportImportOrUpdateFailed")
     
     var distanceTransient: CLLocationDistance {
 
@@ -90,8 +90,8 @@ public class Airport: NSManagedObject {
         
         context.saveContext()
         
-        // Post Notification for comoleted Import or Update
-        NotificationCenter.default.post(name: importOrUpdateCompletedNotificationName,
+        // Post Notification for finished Import or Update
+        NotificationCenter.default.post(name: importOrUpdateFinishedNotification,
                                         object: nil)
         
     }
