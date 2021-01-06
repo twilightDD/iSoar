@@ -26,7 +26,7 @@ class DestinationSelectionViewController: UIViewController {
     private var sortSwitchIndex = 0
     
     // Notification Observers
-    private var airportUpdateCompletedNotification: NSObjectProtocol?
+    private var airportImportOrUpdateFinishedNotification: NSObjectProtocol?
     private var airportUpdateFailedNotification: NSObjectProtocol?
     
     // Pull to Refresh of TableView
@@ -76,31 +76,32 @@ class DestinationSelectionViewController: UIViewController {
         updateSearchbarPlaceholder()
         
         // MARK: - Register Observers for notfications
-        // Airport Update Completed
-        airportUpdateCompletedNotification = NotificationCenter.default
-            .addObserver(forName: AirportDatabase.airportUpdateCompletedNotificationName,
-                         object: nil,
-                         queue: OperationQueue.main) { [unowned self] (notification) in
-                
-                self.updateUIForSelectedDestinationAirport()
-                self.refreshControl.endRefreshing()
+        // Airport Update Finished
+        airportImportOrUpdateFinishedNotification = NotificationCenter.default.addObserver(forName: Airport.importOrUpdateFinishedNotification,
+                                                                                   object: nil,
+                                                                                   queue: OperationQueue.main) { [unowned self] (notification) in
+            
+            self.updateUIForSelectedDestinationAirport()
+            self.refreshControl.endRefreshing()
+            NotificationBanner.show("Airport Database updated")
+
         }
-        
-        // Airport Update Failed
-        airportUpdateFailedNotification = NotificationCenter.default
-            .addObserver(forName: AirportDatabase.airportUpdateFailedNotificationName,
-                         object: nil,
-                         queue: OperationQueue.main) { [unowned self] (notification) in
-                            
-                            self.refreshControl.endRefreshing()
-        }
+//
+//        // Airport Update Failed
+//        airportUpdateFailedNotification = NotificationCenter.default
+//            .addObserver(forName: AirportDatabase.airportUpdateFailedNotificationName,
+//                         object: nil,
+//                         queue: OperationQueue.main) { [unowned self] (notification) in
+//
+//                            self.refreshControl.endRefreshing()
+//        }
         
     }
     
-    // Remove Obeservers when View did Disappear
     override func viewDidDisappear(_ animated: Bool) {
-        if let airportUpdateCompletedNotification = airportUpdateCompletedNotification {
-            NotificationCenter.default.removeObserver(airportUpdateCompletedNotification)
+        // Remove Obeservers when View did Disappear
+        if let airportUpdateFinishedNotification = airportImportOrUpdateFinishedNotification {
+            NotificationCenter.default.removeObserver(airportUpdateFinishedNotification)
         }
         
         if let airportUpdateFailedNotification = airportUpdateFailedNotification {
