@@ -13,26 +13,17 @@ import CoreLocation
 class DestinationSelectionViewController: UIViewController {
 
     // MARK: Lets and Vars
-    var done = false
-    
-    
-    
     // Statics
     static private var shared: DestinationSelectionViewController?
     
     private lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = setupFetchedResultsController()
-    
-//    private var destinationAirportArray = [AirportDatabase.AirportOld]()
-    private var sortSwitchIndex = 0
-    
+
     // Notification Observers
     private var airportImportOrUpdateFinishedNotification: NSObjectProtocol?
     private var airportUpdateFailedNotification: NSObjectProtocol?
     
     // Pull to Refresh of TableView
     private let refreshControl = UIRefreshControl()
-    
-    private var selectedIndexPath: IndexPath?
     
     // MARK: - IBOutlets
     @IBOutlet weak private var countryImageTop: UIImageView!
@@ -65,11 +56,7 @@ class DestinationSelectionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        LocationManager.registerForLocationUpdates(self)
-        
-        //setupTableViewDatasource()
-        
+
         tableView.reloadData()
         
         updateUIForSelectedDestinationAirport()
@@ -107,22 +94,10 @@ class DestinationSelectionViewController: UIViewController {
         if let airportUpdateFailedNotification = airportUpdateFailedNotification {
             NotificationCenter.default.removeObserver(airportUpdateFailedNotification)
         }
-        
-        LocationManager.unRegisterForLocationUpdates(self)
+
     }
 
     // MARK: - Public Class Methods
-    class func distanceToDestinationAirport()
-        -> CLLocationDistance? {
-            guard let selectedDestinationAirport = FlightComputer.selectedDestinationAirport()
-                else { return nil }
-
-            let destinationAirportLocation = CLLocation(latitude: selectedDestinationAirport.latitude,
-                                                        longitude: selectedDestinationAirport.longitude)
-            let distanceToDestinationAirport = LocationManager.distanceFromCurrentLocationTo(location: destinationAirportLocation)
-
-            return distanceToDestinationAirport
-    }
 
     // MARK: - Private Methods
     private func setupFetchedResultsController()
@@ -197,10 +172,7 @@ class DestinationSelectionViewController: UIViewController {
                                     // TODO: 20201207 Success zurückwerfen
                                     CoreDataImporter.importData(data, forType: .airports)
 
-                                    //NotificationBanner.show("Airport Database updated")
-
                                    })
-
     }
     
     // Adjust TableView height if necessary
@@ -411,19 +383,13 @@ extension DestinationSelectionViewController: UITableViewDataSource {
         cell.countryImageView.image = airport.countryImage()
         
         // Set Checkmark for selected Row
-        
-        return cell
-    }
-
-}
-
         if FlightComputer.selectedDestinationAirport() == airport {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
         }
         
-        tableView.reloadData()
+        return cell
     }
 
 }
