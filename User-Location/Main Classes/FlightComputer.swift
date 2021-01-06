@@ -51,7 +51,7 @@ class FlightComputer {
     
     private var alreadyWarnedFlarmIDs: Set<String> = []
     
-    private var selectedDestinationAirport: AirportDatabase.AirportOld?
+    private var selectedDestinationAirport: Airport? // AirportDatabase.AirportOld?
     
     // MARK: - Delegate
     private var delegates = NSHashTable<AnyObject>.weakObjects()
@@ -79,12 +79,12 @@ class FlightComputer {
     }
     
     class func selectedDestinationAirport()
-    -> AirportDatabase.AirportOld? {
+    -> Airport? {
         let destinationAirport = shared.selectedDestinationAirport
         return destinationAirport
     }
     
-    class func setSelectedDestinationAirport(_ airport: AirportDatabase.AirportOld?) {
+    class func setSelectedDestinationAirport(_ airport: Airport?) {
         let shared = FlightComputer.shared
         shared.selectedDestinationAirport = airport
     }
