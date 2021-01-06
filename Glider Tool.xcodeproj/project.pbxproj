@@ -24,7 +24,6 @@
 		D0BBE08623A18CEB00CAD9FF /* ISoarFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BBE08523A18CEB00CAD9FF /* ISoarFileManager.swift */; };
 		D0C2801D23D8FF4000518539 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2801A23D8F46B00518539 /* UserDefaultsManager.swift */; };
 		D0C2A9E32367954A00FEF926 /* UITextField+NumberPadDoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */; };
-		D0C5ED5B22A4769C009A0542 /* AirportDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C5ED5A22A4769C009A0542 /* AirportDatabase.swift */; };
 		E001B84F243C810700559D7B /* NotificationBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = E001B84E243C810700559D7B /* NotificationBanner.swift */; };
 		E00241E5254BF7DA002E376E /* DLTerrainElevation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00241E4254BF7DA002E376E /* DLTerrainElevation.swift */; };
 		E007864923D2204600856865 /* FlightsDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E007864823D2204600856865 /* FlightsDatabase.swift */; };
@@ -112,7 +111,6 @@
 		D0BBE08523A18CEB00CAD9FF /* ISoarFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISoarFileManager.swift; sourceTree = "<group>"; };
 		D0C2801A23D8F46B00518539 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		D0C2A9E22367954A00FEF926 /* UITextField+NumberPadDoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+NumberPadDoneButton.swift"; sourceTree = "<group>"; };
-		D0C5ED5A22A4769C009A0542 /* AirportDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportDatabase.swift; sourceTree = "<group>"; };
 		E001B84E243C810700559D7B /* NotificationBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBanner.swift; sourceTree = "<group>"; };
 		E00241E4254BF7DA002E376E /* DLTerrainElevation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLTerrainElevation.swift; sourceTree = "<group>"; };
 		E007864823D2204600856865 /* FlightsDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsDatabase.swift; sourceTree = "<group>"; };
@@ -386,7 +384,6 @@
 		E0DA9414228D267500D3A854 /* SourceDataFiles */ = {
 			isa = PBXGroup;
 			children = (
-				D0C5ED5A22A4769C009A0542 /* AirportDatabase.swift */,
 				D074B51422968C7A00A573AE /* Airports.json */,
 				E0498BA3256563F800665D8B /* GliderModels.json */,
 			);
@@ -610,7 +607,6 @@
 				E086AB0B229C35890011C433 /* SettingsFormViewController.swift in Sources */,
 				D022F00C2437DB5900CA9DB4 /* LocationManager.swift in Sources */,
 				E06936D8241B8CA00073D078 /* GliderTelemetryData.swift in Sources */,
-				D0C5ED5B22A4769C009A0542 /* AirportDatabase.swift in Sources */,
 				E02052B123E36A9A00839B84 /* FlightRecorder.swift in Sources */,
 				E0E1D87A229476C00004DE81 /* DestinationSelectionViewController.swift in Sources */,
 				E05033A7253F203A0057BE66 /* DLAlertViewController.swift in Sources */,
