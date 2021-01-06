@@ -154,11 +154,7 @@ class DestinationSelectionViewController: UIViewController {
     // Pull to Refresh of TableView
     @objc private func refreshAirportDatabase(_ sender: Any) {
         FlightComputer.setSelectedDestinationAirport(nil)
-        
-        // Das ist noch ohne Core Data
-        AirportDatabase.downloadAirportsFromServer()
-        
-        // Das ist schon mit Core Data
+
         DLDownloadManager.download(.airports,
                                    completion: { data in
 
@@ -172,6 +168,7 @@ class DestinationSelectionViewController: UIViewController {
                                     CoreDataImporter.importData(data, forType: .airports)
 
                                    })
+        
     }
     
     // Adjust TableView height if necessary
@@ -242,12 +239,6 @@ extension DestinationSelectionViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-//        if FlightComputer.selectedDestinationAirport() == destinationAirportArray[indexPath.row] {
-//            FlightComputer.setSelectedDestinationAirport(nil)
-//        } else {
-//            let newSelectedDestinationAirport = destinationAirportArray[indexPath.row]
-//            FlightComputer.setSelectedDestinationAirport(newSelectedDestinationAirport)
-//        }
 
         updateUIForSelectedDestinationAirport()
         
@@ -297,7 +288,7 @@ extension DestinationSelectionViewController: UISearchBarDelegate {
 extension DestinationSelectionViewController: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        print("\(#function)")
+        //print("\(#function)")
         tableView.beginUpdates()
     }
     
@@ -324,6 +315,9 @@ extension DestinationSelectionViewController: NSFetchedResultsControllerDelegate
                     at indexPath: IndexPath?,
                     for type: NSFetchedResultsChangeType,
                     newIndexPath: IndexPath?) {
+        
+        //print("oldIndexPath: \(indexPath) - newIndexPath: \(newIndexPath)")
+        
         // swiftlint:disable force_unwrapping
         switch type {
         case .insert:
