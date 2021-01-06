@@ -12,33 +12,14 @@ import CoreData
 @objc(Airport)
 public class Airport: NSManagedObject {
     
-    lazy var airportLocation = CLLocation(latitude: latitude, longitude: longitude)
     static let importOrUpdateFinishedNotification = Notification.Name(rawValue: "airportImportOrUpdateFinished")
     static let importOrUpdateFailedNotification = Notification.Name(rawValue: "airportImportOrUpdateFailed")
     
-    var distanceTransient: CLLocationDistance {
-
-            guard let currentLocation = LocationManager.currentLocation()
-            else { return 0 }
-            let currentDistance = currentLocation.distance(from: airportLocation)
-            return currentDistance
-    }
-
-//    public override func awakeFromFetch() {
-//        super.awakeFromFetch()
-//        var currentDist: Double = 0
-//        if let currentLocation = LocationManager.currentLocation() {
-//            currentDist = currentLocation.distance(from: airportLocation)
-//        }
-//        distance = currentDist
-//        print("\(#function) \(name) \(distance)")
-//        }
     lazy var location = CLLocation(latitude: latitude, longitude: longitude)
     lazy var locationCoordinate2D = CLLocationCoordinate2D.init(latitude: latitude, longitude: longitude)
     
     class func importOrUpdate(_ airportDictionaries: [[String: Any]]) {
         
-        // TODO: 20201202 muss auf background context laufen
         let context = CoreDataManager.editContextInBackground()
         
         for airportDictionary in airportDictionaries {
