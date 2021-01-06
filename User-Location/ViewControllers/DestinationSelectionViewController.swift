@@ -457,10 +457,7 @@ extension DestinationSelectionViewController: UITableViewDataSource {
         cell.airportNameLabel.text = airport.name
         cell.icaoLabel.text = airport.icao
         cell.distanceLabel.text = distanceAsReadable(airport.distance)
-        
-        // Set Country Image of Destination Airport
-        let countryImage = UIImage.init(named: airport.country)
-        cell.countryImageView.image = countryImage
+        cell.countryImageView.image = airport.countryImage()
         
         // Set Checkmark for selected Row
         
