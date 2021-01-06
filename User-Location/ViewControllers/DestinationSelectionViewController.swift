@@ -138,8 +138,8 @@ class DestinationSelectionViewController: UIViewController {
     private func updateSearchbarPlaceholder() {
         searchBar.placeholder = "Search in \(fetchedResultsController.fetchedObjects?.count ?? 0) Airfields"
     }
-    
-    func distanceAsReadable(_ distance: CLLocationDistance?)
+
+    private func distanceAsReadable(_ distance: CLLocationDistance?)
         -> String {
             var distanceAsReadable = ""
             
@@ -349,7 +349,7 @@ extension DestinationSelectionViewController: NSFetchedResultsControllerDelegate
     }
 }
 
-// MARK: - TableView Content
+// MARK: - UITableViewDataSource
 extension DestinationSelectionViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView)
