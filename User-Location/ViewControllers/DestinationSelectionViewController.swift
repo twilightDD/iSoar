@@ -105,7 +105,8 @@ class DestinationSelectionViewController: UIViewController {
     -> NSFetchedResultsController<NSFetchRequestResult> {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: Airport.entityName())
         let sortDesc = NSSortDescriptor(key: Airport.Attributes.name,
-                                        ascending: true)
+                                        ascending: true,
+                                        selector: #selector(NSString.localizedCompare(_:)))
         request.sortDescriptors = [sortDesc]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
@@ -196,7 +197,8 @@ class DestinationSelectionViewController: UIViewController {
         switch sender.selectedSegmentIndex {
         case 0: // sort by name
             sortDescriptor = NSSortDescriptor(key: Airport.Attributes.name,
-                                              ascending: true)
+                                              ascending: true,
+                                              selector: #selector(NSString.localizedCompare(_:)))
         case 1:  // sort by distance
             sortDescriptor = NSSortDescriptor(key: Airport.Attributes.distance,
                                               ascending: true)
@@ -252,9 +254,9 @@ extension DestinationSelectionViewController: UISearchBarDelegate {
         if searchText.isEmpty {
             fetchedResultsController.fetchRequest.predicate = nil
         } else {
-            let predicate1 = NSPredicate(format: "%K CONTAINS[cd] %@",
+            let predicate1 = NSPredicate(format: "%K CONTAINS[c] %@",
                                          argumentArray: [Airport.Attributes.name, searchText])
-            let predicate2 = NSPredicate(format: "%K CONTAINS[cd] %@",
+            let predicate2 = NSPredicate(format: "%K CONTAINS[c] %@",
                                          argumentArray: [Airport.Attributes.icao, searchText])
             
             let compoundPredicate = NSCompoundPredicate(type: .or,
