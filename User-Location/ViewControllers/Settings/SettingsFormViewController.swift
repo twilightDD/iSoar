@@ -27,7 +27,10 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     
     // Notification Observers
     private var airportImportOrUpdateFinishedNotification: NSObjectProtocol?
-    private var airportUpdateFailedNotification: NSObjectProtocol?
+    private var airportImportOrUpdateFailedNotification: NSObjectProtocol?
+    
+    private var gliderModelImportOrUpdateFinishedNotification: NSObjectProtocol?
+    private var gliderModelImportOrUpdateFailedNotification: NSObjectProtocol?
     
     // MARK: - Init&Co.
     override func viewDidLoad() {
@@ -71,26 +74,31 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
             NotificationBanner.show("Airport Database updated")
             
         }
-//
-//        // Airport Update Failed
-//        airportUpdateFailedNotification = NotificationCenter.default
-//            .addObserver(forName: AirportDatabase.airportUpdateFailedNotificationName,
-//                         object: nil,
-//                         queue: OperationQueue.main) { [unowned self] (notification) in
-//
-//                            self.refreshControl.endRefreshing()
-//        }
+
+        // TODO: 20210107 Airport Update Failed Notification
+        
+        // GliderModel Update Finished
+        gliderModelImportOrUpdateFinishedNotification = NotificationCenter.default.addObserver(forName: GliderModel.importOrUpdateFinishedNotification,
+                                                                                               object: nil,
+                                                                                               queue: OperationQueue.main) { [unowned self] (notification) in
+            
+            NotificationBanner.show("Glider Models Database updated")
+            
+        }
+        
+        // TODO: 20210107 GliderModel Update Failed Notification
         
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         // Remove Obeservers when View did Disappear
-        if let airportUpdateFinishedNotification = airportImportOrUpdateFinishedNotification {
-            NotificationCenter.default.removeObserver(airportUpdateFinishedNotification)
+        if let airportImportOrUpdateFinishedNotification = airportImportOrUpdateFinishedNotification {
+            NotificationCenter.default.removeObserver(airportImportOrUpdateFinishedNotification)
         }
         
-        if let airportUpdateFailedNotification = airportUpdateFailedNotification {
-            NotificationCenter.default.removeObserver(airportUpdateFailedNotification)
+        if let airportImportOrUpdateFailedNotification = airportImportOrUpdateFailedNotification {
+            NotificationCenter.default.removeObserver(airportImportOrUpdateFailedNotification)
         }
         
     }

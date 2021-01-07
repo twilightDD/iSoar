@@ -11,6 +11,10 @@ import CoreData
 
 @objc(GliderModel)
 public class GliderModel: NSManagedObject {
+    
+    static let importOrUpdateFinishedNotification = Notification.Name(rawValue: "gliderModelImportOrUpdateFinished")
+    static let importOrUpdateFailedNotification = Notification.Name(rawValue: "gliderModelImportOrUpdateFailed")
+    
     class func importOrUpdate(_ gliderModelDictionaries: [[String: Any]]) {
         
         let context = CoreDataManager.editContextInBackground()
@@ -61,6 +65,11 @@ public class GliderModel: NSManagedObject {
         print("\(#function) - \(context.insertedObjects.count) GliderModels imported.")
         
         context.saveContext()
+        
+        // Post Notification for finished Import or Update
+        NotificationCenter.default.post(name: importOrUpdateFinishedNotification,
+                                        object: nil)
+        
     }
 }
 
