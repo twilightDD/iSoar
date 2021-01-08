@@ -120,17 +120,22 @@ class MapScreenViewController: UIViewController {
             
         }
 
-        // Airport Update Failed
-//        airportImportOrUpdateFailedNotification = NotificationCenter.default
-//            .addObserver(forName: Airport.importOrUpdateFailedNotificationName,
-//                         object: nil,
-//                         queue: OperationQueue.main) { [unowned self] (notification) in
-//
-//                // TODO: 20210105 tu irgendwas
-//        }
+        // TODO: 20210107 Airport Update Failed Notification
         
     }
     
+    deinit {
+        // Remove Obeservers when View did Disappear
+        if let airportImportOrUpdateFinishedNotification = airportImportOrUpdateFinishedNotification {
+            NotificationCenter.default.removeObserver(airportImportOrUpdateFinishedNotification)
+        }
+        
+        if let airportImportOrUpdateFailedNotification = airportImportOrUpdateFailedNotification {
+            NotificationCenter.default.removeObserver(airportImportOrUpdateFailedNotification)
+        }
+
+    }
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
