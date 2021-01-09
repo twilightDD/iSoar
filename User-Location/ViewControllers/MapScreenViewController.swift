@@ -94,7 +94,7 @@ class MapScreenViewController: UIViewController {
         createAirportAnnotations()
         
         if UserDefaultsManager.updateAirportDatabaseAtStartupState() == true {
-             AirportDatabase.downloadAirportsFromServer()
+             //AirportDatabase.downloadAirportsFromServer()
         }
         
     }
