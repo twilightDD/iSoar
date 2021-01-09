@@ -41,6 +41,7 @@
 		E01D87EB239ABB5D00E9B5B6 /* TasksDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */; };
 		E02052AF23E36A8200839B84 /* FlightComputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02052AE23E36A8200839B84 /* FlightComputer.swift */; };
 		E02052B123E36A9A00839B84 /* FlightRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02052B023E36A9A00839B84 /* FlightRecorder.swift */; };
+		E024BC4225A9BC7800CF6563 /* DLAudioOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E024BC4125A9BC7800CF6563 /* DLAudioOutput.swift */; };
 		E0310D3A24D8A2CF009EB354 /* NSManagedObjectContext+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0310D3924D8A2CF009EB354 /* NSManagedObjectContext+Fetch.swift */; };
 		E03F256F25549C6A008D4F33 /* DLLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03F256E25549C6A008D4F33 /* DLLogger.swift */; };
 		E0498BA42565648B00665D8B /* GliderModels.json in Resources */ = {isa = PBXBuildFile; fileRef = E0498BA3256563F800665D8B /* GliderModels.json */; };
@@ -128,6 +129,7 @@
 		E01D87EA239ABB5D00E9B5B6 /* TasksDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksDatabase.swift; sourceTree = "<group>"; };
 		E02052AE23E36A8200839B84 /* FlightComputer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightComputer.swift; sourceTree = "<group>"; };
 		E02052B023E36A9A00839B84 /* FlightRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightRecorder.swift; sourceTree = "<group>"; };
+		E024BC4125A9BC7800CF6563 /* DLAudioOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLAudioOutput.swift; sourceTree = "<group>"; };
 		E0310D3924D8A2CF009EB354 /* NSManagedObjectContext+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Fetch.swift"; sourceTree = "<group>"; };
 		E03F256E25549C6A008D4F33 /* DLLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLLogger.swift; sourceTree = "<group>"; };
 		E0498BA3256563F800665D8B /* GliderModels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GliderModels.json; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				E02052AE23E36A8200839B84 /* FlightComputer.swift */,
+				E024BC4125A9BC7800CF6563 /* DLAudioOutput.swift */,
 				E02052B023E36A9A00839B84 /* FlightRecorder.swift */,
 				E007864823D2204600856865 /* FlightsDatabase.swift */,
 				E001B84E243C810700559D7B /* NotificationBanner.swift */,
@@ -576,6 +579,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E02052AF23E36A8200839B84 /* FlightComputer.swift in Sources */,
+				E024BC4225A9BC7800CF6563 /* DLAudioOutput.swift in Sources */,
 				D0829D412435532F009E40EC /* NearbyGliderAnnotationView.swift in Sources */,
 				E099E34B247D296700D72515 /* AirportAnnotation.swift in Sources */,
 				E0498BA72565676300665D8B /* Airport+CoreDataClass.swift in Sources */,
