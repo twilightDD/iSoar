@@ -7,7 +7,6 @@
 //
 
 import CoreLocation
-import AVFoundation
 
 // MARK: - Protocol - FlightComputerDelegate
 protocol FlightComputerDelegate: AnyObject {
@@ -250,7 +249,7 @@ class FlightComputer {
                lowerWarningNeeded == true {
                 
                 if shouldPlayGearWarning == true {
-                    speak(string: Presets.FlightComputer.gearWarningSpokenText)
+                    DLAudioOutput.speak(playBeep: true, string: Presets.FlightComputer.gearWarningSpokenText)
                     shouldPlayGearWarning = false
                 }
             } else {
@@ -277,7 +276,7 @@ class FlightComputer {
                     if secondsAboveLowOxygenWarningAltitude > Presets.FlightComputer.safeSecondsAtLowOxygenAltitude {
                         if shouldPlayOxygenWarning == true {
                             //print("PLAY OXYGEN WARNING")
-                            speak(string: Presets.FlightComputer.lowOxygenWarningSpokenText)
+                            DLAudioOutput.speak(playBeep: true, string: Presets.FlightComputer.lowOxygenWarningSpokenText)
                             shouldPlayOxygenWarning = false
                         } else {
                             //print("GLIDER IN LOW OXYGEN WARNING ALTITUDE, BUT WARNING ALREADY PLAYED")
@@ -309,18 +308,6 @@ class FlightComputer {
         
     }
     
-    // MARK: Audio Methods
-    private func speak(string: String) {
-        AudioServicesPlayAlertSound(SystemSoundID(1256))
-        
-        let speechUtterance = AVSpeechUtterance(string: string)
-        speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        speechUtterance.rate = 0.5
-        
-        let synthesizer = AVSpeechSynthesizer()
-        synthesizer.speak(speechUtterance)
-    }
-    
 }
 
 // MARK: - Extension - LocationManagerDelegate
@@ -349,7 +336,7 @@ extension FlightComputer: DL_OGNSocketConnectionManagerDelegate {
                 // Check if Nearby Gliders Speed is more than 50 Kmh - is flying
                 if gliderTelemetryData.speed > 50 {
                     alreadyWarnedFlarmIDs.update(with: gliderTelemetryData.flarmID)
-                    speak(string: Presets.FlightComputer.collisionWarningSpokenText)
+                    DLAudioOutput.speak(playBeep: true, string: Presets.FlightComputer.collisionWarningSpokenText)
                     
                     print("IN RANGE: \(gliderTelemetryData.flarmID) - IM SET: \(alreadyWarnedFlarmIDs.count) - Alt: \(gliderTelemetryData.altitude) - Speed: \(gliderTelemetryData.speed)")
                 } else {
