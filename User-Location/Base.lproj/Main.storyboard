@@ -153,7 +153,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ELH-8d-Wgb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1671" y="3501"/>
+            <point key="canvasLocation" x="1164" y="3501"/>
         </scene>
         <!--Edit Glider Form View Controller-->
         <scene sceneID="irZ-BZ-EeK">
@@ -591,67 +591,6 @@
             </objects>
             <point key="canvasLocation" x="1999" y="2054"/>
         </scene>
-        <!--Tasks View Controller-->
-        <scene sceneID="hdK-CS-oim">
-            <objects>
-                <viewController id="1wz-qU-aR0" customClass="TasksViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Wom-Mb-s34">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fX1-KO-Yxc">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskSelectionTableViewCell" id="DPU-HB-jDi" customClass="TaskSelectionTableViewCell" customModule="iSoar" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DPU-HB-jDi" id="BFo-Hu-pV9">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fmk-3Q-uW8">
-                                                    <rect key="frame" x="15" y="11" width="81" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Fmk-3Q-uW8" firstAttribute="leading" secondItem="BFo-Hu-pV9" secondAttribute="leading" constant="15" id="6eX-XG-GgA"/>
-                                                <constraint firstItem="Fmk-3Q-uW8" firstAttribute="top" secondItem="BFo-Hu-pV9" secondAttribute="top" constant="11" id="LGf-6v-Awt"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Fmk-3Q-uW8" secondAttribute="trailing" constant="20" symbolic="YES" id="ZfN-sc-4dc"/>
-                                                <constraint firstAttribute="bottom" secondItem="Fmk-3Q-uW8" secondAttribute="bottom" constant="12" id="uIn-4E-gUP"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="taskName" destination="Fmk-3Q-uW8" id="obm-2F-ID4"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="delegate" destination="1wz-qU-aR0" id="OeO-En-wPW"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="Gjp-hy-qPJ"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="fX1-KO-Yxc" firstAttribute="bottom" secondItem="Gjp-hy-qPJ" secondAttribute="bottom" id="BQw-q2-PBU"/>
-                            <constraint firstItem="fX1-KO-Yxc" firstAttribute="top" secondItem="Gjp-hy-qPJ" secondAttribute="top" id="ELm-Ah-8tc"/>
-                            <constraint firstItem="fX1-KO-Yxc" firstAttribute="leading" secondItem="Gjp-hy-qPJ" secondAttribute="leading" id="K6z-eD-687"/>
-                            <constraint firstItem="fX1-KO-Yxc" firstAttribute="centerX" secondItem="Wom-Mb-s34" secondAttribute="centerX" id="Yx6-ve-A7g"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="hy4-Ts-sZ7"/>
-                    <connections>
-                        <outlet property="tableView" destination="fX1-KO-Yxc" id="gyi-ne-37R"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gU4-h2-Pz3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1103" y="2448"/>
-        </scene>
         <!--Airport Info Form View Controller-->
         <scene sceneID="JKU-bW-3xI">
             <objects>
@@ -880,7 +819,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Hb-yZ-pp2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1671" y="2770"/>
+            <point key="canvasLocation" x="1164" y="2770"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Gya-fx-1De">
