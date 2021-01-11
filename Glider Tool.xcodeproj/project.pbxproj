@@ -304,6 +304,7 @@
 				E016CCA724AF4A7400CEA506 /* EditGliderFormViewController.swift */,
 				E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */,
 				E086AB0A229C35890011C433 /* SettingsFormViewController.swift */,
+				E07CA52125AC971A00174B8C /* TaskSelectionTableViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -359,7 +360,6 @@
 				E0B8142A2367450200D88B6C /* LogbookViewController.swift */,
 				EDA236342130AA9A00739396 /* MapScreenViewController.swift */,
 				E0A215BA235E2D0D009F6953 /* TableViewController.swift */,
-				E07CA52125AC971A00174B8C /* TaskSelectionTableViewController.swift */,
 				E01CAFD3239964ED00FE1B90 /* TasksViewController.swift */,
 			);
 			path = ViewControllers;
