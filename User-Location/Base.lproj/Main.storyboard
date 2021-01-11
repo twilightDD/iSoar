@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCM-pp-Scr">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -37,6 +37,7 @@
                     <connections>
                         <segue destination="s7L-uP-WAd" kind="show" identifier="GliderSelectionSegue" id="MDo-pg-SNU"/>
                         <segue destination="uGL-M9-o6B" kind="show" identifier="BuddyListSegue" id="AtA-x2-TkR"/>
+                        <segue destination="5qb-2K-xag" kind="show" identifier="TaskListSegue" id="j2O-P2-OZA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BSE-1G-sMQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -76,7 +77,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tup-e5-zp4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1671.0144927536232" y="2053.7946428571427"/>
+            <point key="canvasLocation" x="1164" y="2054"/>
         </scene>
         <!--Glider Selection Table View Controller-->
         <scene sceneID="kOH-nh-O3o">
@@ -551,7 +552,6 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="VV7-FK-FFS"/>
                         <segue destination="rv7-gX-Gvq" kind="relationship" relationship="viewControllers" id="Rna-Pc-HZF"/>
-                        <segue destination="PJ3-NW-t6e" kind="relationship" relationship="viewControllers" id="Lid-6d-0QT"/>
                         <segue destination="csi-dg-uIo" kind="relationship" relationship="viewControllers" id="8h6-hd-laJ"/>
                         <segue destination="SLU-Tc-sV5" kind="relationship" relationship="viewControllers" id="xWT-y8-LFL"/>
                     </connections>
@@ -560,16 +560,47 @@
             </objects>
             <point key="canvasLocation" x="-1591" y="-188"/>
         </scene>
+        <!--Task Selection Table View Controller-->
+        <scene sceneID="Gy3-D1-AVo">
+            <objects>
+                <tableViewController id="5qb-2K-xag" customClass="TaskSelectionTableViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="MAu-tq-VKR">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="t4L-gH-xjg">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t4L-gH-xjg" id="67U-l3-llc">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="5qb-2K-xag" id="QPq-Jn-ZA9"/>
+                            <outlet property="delegate" destination="5qb-2K-xag" id="5tQ-uy-1da"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="Cmu-5V-LS3">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus.circle" catalog="system" id="LZx-0x-c0Q"/>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TRj-Gt-9OC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1999" y="2054"/>
+        </scene>
         <!--Tasks View Controller-->
         <scene sceneID="hdK-CS-oim">
             <objects>
                 <viewController id="1wz-qU-aR0" customClass="TasksViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wom-Mb-s34">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fX1-KO-Yxc">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskSelectionTableViewCell" id="DPU-HB-jDi" customClass="TaskSelectionTableViewCell" customModule="iSoar" customModuleProvider="target">
@@ -619,7 +650,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gU4-h2-Pz3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-459.4202898550725" y="1322.5446428571429"/>
+            <point key="canvasLocation" x="-1103" y="2448"/>
         </scene>
         <!--Airport Info Form View Controller-->
         <scene sceneID="JKU-bW-3xI">
@@ -776,25 +807,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fKg-6p-W2b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="341" y="550"/>
-        </scene>
-        <!--Tasks-->
-        <scene sceneID="I1l-1A-PDM">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PJ3-NW-t6e" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Tasks" image="tasks" id="sqr-Jh-oik"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" restorationIdentifier="test" insetsLayoutMarginsFromSafeArea="NO" id="i7o-bR-UTw">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="1wz-qU-aR0" kind="relationship" relationship="rootViewController" id="m6F-hz-6bm"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="y0g-Aq-T1C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-459" y="551"/>
         </scene>
         <!--Logbook-->
         <scene sceneID="Elj-1N-WX4">
@@ -954,7 +966,6 @@
         <image name="plus.circle" catalog="system" width="128" height="121"/>
         <image name="settings" width="35" height="35"/>
         <image name="tabbar_DestinationSelection" width="35" height="35"/>
-        <image name="tasks" width="35" height="35"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
