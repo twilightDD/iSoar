@@ -2,7 +2,7 @@
 //  Task+CoreDataProperties.swift
 //  Glider Tool
 //
-//  Created by sonic on 10.01.21.
+//  Created by sonic on 11.01.21.
 //  Copyright © 2021 Denis Leupold. All rights reserved.
 //
 //
@@ -12,28 +12,29 @@ import CoreData
 extension Task {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Task> {
-        return NSFetchRequest<Task>(entityName: "Task")
+        return NSFetchRequest<Task>(entityName: Task.entityName())
     }
 
     @NSManaged public var uuid: UUID?
-    @NSManaged public var entries: NSSet?
+    @NSManaged public var taskName: String?
+    @NSManaged public var taskEntries: NSSet?
 
 }
 
-// MARK: Generated accessors for entries
+// MARK: Generated accessors for taskEntries
 extension Task {
 
-    @objc(addEntriesObject:)
-    @NSManaged public func addToEntries(_ value: Airport)
+    @objc(addTaskEntriesObject:)
+    @NSManaged public func addToTaskEntries(_ value: Airport)
 
-    @objc(removeEntriesObject:)
-    @NSManaged public func removeFromEntries(_ value: Airport)
+    @objc(removeTaskEntriesObject:)
+    @NSManaged public func removeFromTaskEntries(_ value: Airport)
 
-    @objc(addEntries:)
-    @NSManaged public func addToEntries(_ values: NSSet)
+    @objc(addTaskEntries:)
+    @NSManaged public func addToTaskEntries(_ values: NSSet)
 
-    @objc(removeEntries:)
-    @NSManaged public func removeFromEntries(_ values: NSSet)
+    @objc(removeTaskEntries:)
+    @NSManaged public func removeFromTaskEntries(_ values: NSSet)
 
 }
 
