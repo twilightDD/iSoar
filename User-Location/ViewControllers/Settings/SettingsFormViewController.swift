@@ -41,6 +41,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         form.append(userSettingsSection())
         form.append(mapSettingsSection())
         form.append(trafficMonitorSection())
+        form.append(taskSection())
         form.append(miscellaneousSection())
         
         #if DEBUG
@@ -411,6 +412,23 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "person.2")
+            }
+        
+        return section
+    }
+    
+    private func taskSection()
+    -> Section {
+        let section = Section("Tasks")
+            
+            <<< PushRow<Int>("Task List") { row in
+                row.title = "Task List"
+                let taskCount = CoreDataManager.viewOnlyContext.countOfObjects(forEntityClass: Task.self)
+                row.value = taskCount
+                row.presentationMode = .segueName(segueName: "TaskListSegue", onDismiss: nil)
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "doc")
             }
         
         return section
