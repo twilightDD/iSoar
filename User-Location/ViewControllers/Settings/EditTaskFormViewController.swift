@@ -13,8 +13,6 @@ class EditTaskFormViewController: FormViewController {
     
     // MARK: - Keys
     static let TaskNameKey = "TaskName"
-//    static let GliderRatioKey = "Glider Ratio"
-//    static let GliderFlarmIDKey = "FLARM ID"
 
     // MARK: - Lets and Vars
     private var _task: Task?
@@ -45,8 +43,10 @@ class EditTaskFormViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Task Details"
+        tableView.isEditing = true
 
         form.append(taskNameSection())
+        form.append(taskEntriesSection())
 
     }
 
@@ -64,45 +64,81 @@ class EditTaskFormViewController: FormViewController {
 
     // MARK: - Private Methods
     // MARK: Eureka Form Sections
-    
     private func taskNameSection()
-        -> Section {
-            let section = Section("Task Name")
-            section.tag = "Task Name"
+    -> Section {
+        let section = Section("Task Name")
+        section.tag = "Task Name"
+        
+        section
+            <<< TextRow { row in
+                row.title = "Task Name"
+                row.value = self.task.taskName
+                row.placeholder = "Task Name"
+                row.add(rule: RuleRequired())
+                row.add(rule: RuleMinLength(minLength: 3))
+                row.validationOptions = .validatesOnChange
+                
+            }.cellUpdate { cell, row in
+                self.validateForm()
+                if row.isValid == false {
+                    cell.titleLabel?.textColor = .red
+                }
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "textformat")
+            }.onChange({ [unowned self] row in
+                self.task.taskName = row.value
+            })
+        
+        return section
+    }
     
-            section
-                <<< TextRow(EditGliderFormViewController.GliderRegistrationKey) { row in
-                    row.title = "Task Name"
-                    row.value = self.task.taskName
-                    row.placeholder = "Sample Task"
-                    row.add(rule: RuleRequired())
-                    row.add(rule: RuleMinLength(minLength: 3))
-                    row.validationOptions = .validatesOnChange
-    
-                }.cellUpdate { cell, row in
-                    if row.isValid == false {
-                        cell.titleLabel?.textColor = .red
+    private func taskEntriesSection()
+    -> Section {
+        
+        MultivaluedSection(multivaluedOptions: [.Insert, .Delete, .Reorder],
+                           header: "Waypoints") { row in
+            
+            let allAirportNames = editContext.fetchObjects(forEntityClass: Airport.self,
+                                                           sortByKeypath: Airport.Attributes.name)
+
+            row.tag = "Task Entries"
+            row.multivaluedRowToInsertAt = { index in
+                return PushRow<Airport> { row in
+                    row.title = "Turn \(index)"
+                    row.options = allAirportNames
+                    row.displayValueFor = { airport in
+                        if airport != nil {
+                            return airport?.name
+                        } else {
+                            return ""
+                        }
                     }
-    
-                }.cellSetup { cell, row in
-                    cell.imageView?.image = UIImage(systemName: "textformat")
-                }.onChange({ [unowned self] row in
-                    self.task.taskName = row.value
-                })
-
-            return section
+                }
+            }
+            row <<< PushRow<Airport> { row in
+                row.title = "Start"
+                row.options = allAirportNames
+                row.displayValueFor = { airport in
+                    if airport != nil {
+                        return airport?.name
+                    } else {
+                        return ""
+                    }
+                }
+            }
         }
-    
+        
+    }
 
-//
-//    private func validateForm() {
-//        let validationErrors = form.validate()
-//        if validationErrors.isEmpty == true {
-//            saveBarButtonItem.isEnabled = true
-//        } else {
-//            saveBarButtonItem.isEnabled = false
-//        }
-//    }
+    private func validateForm() {
+        let validationErrors = form.validate()
+        if validationErrors.isEmpty == true {
+            saveBarButtonItem.isEnabled = true
+        } else {
+            saveBarButtonItem.isEnabled = false
+        }
+    }
 
     // MARK: - Action Methods
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
@@ -111,11 +147,11 @@ class EditTaskFormViewController: FormViewController {
 
     @IBAction func saveButtontapped(_ sender: UIBarButtonItem) {
         guard let taskName = task.taskName
-              
+        
         else { fatalError("Save Button tapped while TaskName is nil") }
-
+        
         let existingTasks = Task.fetchTaskss(taskName: taskName, context: editContext)
-
+        
         if existingTasks.count == 1 {
             editContext.saveContext()
             self.dismiss(animated: true, completion: nil)
@@ -125,16 +161,17 @@ class EditTaskFormViewController: FormViewController {
             let alertViewController = UIAlertController.init(title: "Warning",
                                                              message: "Task-Name already exists.",
                                                              preferredStyle: .alert)
-
+            
             let cancelAction = UIAlertAction.init(title: "OK",
                                                   style: .cancel) { (action) in
             }
-
+            
             alertViewController.addAction(cancelAction)
             present(alertViewController, animated: true) {
-
+                
             }
         }
+        
     }
 
 }
