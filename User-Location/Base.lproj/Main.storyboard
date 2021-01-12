@@ -186,6 +186,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cancelBarButtonItem" destination="x9K-rh-tXX" id="rJP-AN-ahM"/>
+                        <outlet property="saveBarButtonItem" destination="mG2-jV-EDb" id="vUb-9M-1oF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QAA-mh-aoq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
