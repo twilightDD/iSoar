@@ -38,10 +38,10 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         navigationItem.title = "Settings"
         
         form.append(gliderSelectionSection())
+        form.append(taskSection())
         form.append(userSettingsSection())
         form.append(mapSettingsSection())
         form.append(trafficMonitorSection())
-        form.append(taskSection())
         form.append(miscellaneousSection())
         
         #if DEBUG
@@ -120,6 +120,22 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
             }
         
         section.tag = "Glider Selection"
+        return section
+    }
+    
+    private func taskSection()
+    -> Section {
+        let section = Section("Task Selection")
+            
+            <<< PushRow<String>("Selected Task") { row in
+                row.title = "Selected Task"
+                row.value = ""
+                row.presentationMode = .segueName(segueName: "TaskListSegue", onDismiss: nil)
+                
+            }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "doc.text")
+            }
+        
         return section
     }
     
@@ -416,24 +432,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         
         return section
     }
-    
-    private func taskSection()
-    -> Section {
-        let section = Section("Tasks")
-            
-            <<< PushRow<Int>("Task List") { row in
-                row.title = "Task List"
-                let taskCount = CoreDataManager.viewOnlyContext.countOfObjects(forEntityClass: Task.self)
-                row.value = taskCount
-                row.presentationMode = .segueName(segueName: "TaskListSegue", onDismiss: nil)
-                
-            }.cellSetup { cell, row in
-                cell.imageView?.image = UIImage(systemName: "doc")
-            }
-        
-        return section
-    }
-    
+
     private func miscellaneousSection()
     -> Section {
         let section = Section("Miscellaneous")
