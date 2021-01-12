@@ -13,6 +13,7 @@ class TaskSelectionTableViewController: UITableViewController {
     
     // MARK: - Keys
     private static let TaskSelectionTableViewCellIdentifierKey = "TaskSelectionTableViewCellIdentifier"
+    private static let OpenEditTaskFormViewControllerSegueKey = "OpenEditTaskFormViewControllerSegue"
     
     // MARK: - Lets and Vars
     private lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = setupFetchedResultsController()
@@ -21,6 +22,20 @@ class TaskSelectionTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Task Selection"
+    }
+    
+    // Segue Handling
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == TaskSelectionTableViewController.OpenEditTaskFormViewControllerSegueKey {
+            if let task = sender as? Task {
+                guard let navController = segue.destination as? UINavigationController
+                    else { fatalError("Must be an UINavigationController.") }
+                guard let editTaskViewController = navController.children[0] as? EditTaskFormViewController
+                    else { fatalError("Must be an EditGliderFormViewController.") }
+                editTaskViewController.task = task
+            }
+        }
+        
     }
     
     // MARK: - Private Methods
@@ -74,7 +89,7 @@ extension TaskSelectionTableViewController {
                 else { fatalError("Attempt to configure cell without a managed object") }
             
             //Populate the cell from the object
-            cell.imageView?.image = UIImage(systemName: "doc")
+            cell.imageView?.image = UIImage(systemName: "doc.text")
             cell.textLabel?.text = String(task.taskName ?? "")
             
             // Set Checkmark for selected Glider
@@ -116,7 +131,7 @@ extension TaskSelectionTableViewController {
         
     }
     
-    // Edit Glider via Swipe to right
+    // Edit Task via Swipe to right
     override func tableView(_ tableView: UITableView,
                             leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
         -> UISwipeActionsConfiguration? {
@@ -125,8 +140,8 @@ extension TaskSelectionTableViewController {
                 guard let task = self.fetchedResultsController.object(at: indexPath) as? Task
                     else { fatalError("Attempt to configure cell without a managed object") }
                 
-//                self.performSegue(withIdentifier: GliderSelectionTableViewController.OpenEditGliderFormViewControllerSegueKey,
-//                                  sender: task)
+                self.performSegue(withIdentifier: TaskSelectionTableViewController.OpenEditTaskFormViewControllerSegueKey,
+                                  sender: task)
                 
             }
             
