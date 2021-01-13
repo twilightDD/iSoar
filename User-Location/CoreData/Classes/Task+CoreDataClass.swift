@@ -11,7 +11,17 @@ import CoreData
 
 @objc(Task)
 public class Task: NSManagedObject {
-
+    class func fetchTaskss(taskName: String,
+                           context: NSManagedObjectContext)
+    -> [Task] {
+        let taskNamePredicate = NSPredicate.init(format: "%K == %@",
+                                                 Task.Attributes.taskName, taskName)
+        
+        let tasks = context.fetchObjects(forEntityClass: Task.self,
+                                         predicate: taskNamePredicate)
+        return tasks
+    }
+    
 }
 
 extension Task {
