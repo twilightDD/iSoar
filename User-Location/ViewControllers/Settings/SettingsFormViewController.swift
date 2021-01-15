@@ -128,9 +128,19 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     -> Section {
         let section = Section("Task Selection")
             
-            <<< PushRow<String>(SettingsFormViewController.SelectedTaskKey) { row in
+            <<< PushRow<Task>(SettingsFormViewController.SelectedTaskKey) { row in
                 row.title = SettingsFormViewController.SelectedTaskKey
-                row.value = FlightComputer.selectedTask()?.taskName
+                row.value = FlightComputer.selectedTask()
+                
+                row.displayValueFor = { task in
+                    if task != nil {
+                        return task?.taskName
+                    } else {
+                        return "No task selected"
+                    }
+                }
+                
+                
                 row.presentationMode = .segueName(segueName: "TaskListSegue", onDismiss: nil)
                 
             }.cellSetup { cell, row in
@@ -514,8 +524,8 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
             availableGlidersCount.reload()
         }
         
-        if let selectedTask = form.rowBy(tag: SettingsFormViewController.SelectedTaskKey) as? PushRow<String> {
-            selectedTask.value = FlightComputer.selectedTask()?.taskName
+        if let selectedTask = form.rowBy(tag: SettingsFormViewController.SelectedTaskKey) as? PushRow<Task> {
+            selectedTask.value = FlightComputer.selectedTask()
             selectedTask.reload()
         }
         
