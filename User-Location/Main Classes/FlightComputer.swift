@@ -50,7 +50,8 @@ class FlightComputer {
     
     private var alreadyWarnedFlarmIDs: Set<String> = []
     
-    private var selectedDestinationAirport: Airport? // AirportDatabase.AirportOld?
+    private var selectedDestinationAirport: Airport?
+    private var selectedTask: Task?
     
     // MARK: - Delegate
     private var delegates = NSHashTable<AnyObject>.weakObjects()
@@ -92,6 +93,17 @@ class FlightComputer {
     -> Airport? {
         let nearestAirport = FlightComputer.shared.nearestAirport()
         return nearestAirport
+    }
+    
+    class func selectedTask()
+    -> Task? {
+        let selectedTask = shared.selectedTask
+        return selectedTask
+    }
+    
+    class func setSelectedTask(_ task: Task?) {
+        let shared = FlightComputer.shared
+        shared.selectedTask = task
     }
     
     class func registerForFlightComputerUpdates(_ delegate: FlightComputerDelegate) {
