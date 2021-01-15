@@ -92,13 +92,14 @@ extension TaskSelectionTableViewController {
             cell.imageView?.image = UIImage(systemName: "doc.text")
             cell.textLabel?.text = String(task.taskName ?? "")
             
-            // Set Checkmark for selected Glider
-//            if task.registration == UserDefaultsManager.gliderID() {
-//                cell.accessoryType = .checkmark
-//            } else {
-//                cell.accessoryType = .none
-//            }
+        // Set Checkmark for selected Row
+        if FlightComputer.selectedTask() == task {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
             
+        }
+
             return cell
     }
     
@@ -109,6 +110,15 @@ extension TaskSelectionTableViewController {
         
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         
+        if FlightComputer.selectedTask() == selectedTask {
+            FlightComputer.setSelectedTask(nil)
+        } else {
+            let newSelectedTask = selectedTask
+            FlightComputer.setSelectedTask(newSelectedTask)
+        }
+
+        tableView.reloadData()
+
     }
     
     // Delete Task via Swipe to left
