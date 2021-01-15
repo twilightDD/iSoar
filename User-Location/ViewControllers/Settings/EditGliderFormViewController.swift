@@ -34,6 +34,7 @@ class EditGliderFormViewController: FormViewController {
             _glider = gliderInEditContext
         }
     }
+    
     private let editContext = CoreDataManager.editContextForUI()
     
     // MARK: IBOutlets
@@ -86,6 +87,7 @@ class EditGliderFormViewController: FormViewController {
                 row.validationOptions = .validatesOnChange
                 
             }.cellUpdate { cell, row in
+                self.validateForm()
                 if row.isValid == false {
                     cell.titleLabel?.textColor = .red
                 }
@@ -110,6 +112,7 @@ class EditGliderFormViewController: FormViewController {
                         return ""
                     }
                 }
+                row.selectorTitle = "Select Model"
                 row.add(rule: RuleRequired())
                 
             }.cellUpdate { cell, row in
@@ -124,7 +127,6 @@ class EditGliderFormViewController: FormViewController {
                 row.dismissOnSelection = true
                 row.dismissOnChange = true
                 row.enableDeselection = false
-                row.navigationItem.title = "Select Model"
                 row.selectableRowCellUpdate = { (cell, row) in
                     cell.imageView?.image = UIImage(systemName: "airplane")
                 }
