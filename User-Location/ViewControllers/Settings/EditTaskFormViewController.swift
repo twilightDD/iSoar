@@ -96,16 +96,18 @@ class EditTaskFormViewController: FormViewController {
     private func taskEntriesSection()
     -> Section {
         
-        MultivaluedSection(multivaluedOptions: [.Insert, .Delete, .Reorder],
-                           header: "Waypoints") { row in
+        MultivaluedSection(multivaluedOptions: [.Delete, .Insert, .Reorder],
+                           header: "Waypoints") {
             
             let allAirportNames = editContext.fetchObjects(forEntityClass: Airport.self,
                                                            sortByKeypath: Airport.Attributes.name)
-
-            row.tag = "Task Entries"
-            row.multivaluedRowToInsertAt = { index in
+            
+            $0.tag = "Waypoints"
+            
+            $0.multivaluedRowToInsertAt = { index in
                 return PushRow<Airport> { row in
                     row.title = "Turn \(index)"
+                    row.tag = "\(index)"
                     row.options = allAirportNames
                     row.displayValueFor = { airport in
                         if airport != nil {
@@ -116,8 +118,10 @@ class EditTaskFormViewController: FormViewController {
                     }
                 }
             }
-            row <<< PushRow<Airport> { row in
+            
+            $0 <<< PushRow<Airport> { row in
                 row.title = "Start"
+                row.tag = "\(index)"
                 row.options = allAirportNames
                 row.displayValueFor = { airport in
                     if airport != nil {
@@ -127,6 +131,7 @@ class EditTaskFormViewController: FormViewController {
                     }
                 }
             }
+            
         }
         
     }
@@ -151,7 +156,7 @@ class EditTaskFormViewController: FormViewController {
         else { fatalError("Save Button tapped while TaskName is nil") }
         
         let existingTasks = Task.fetchTaskss(taskName: taskName, context: editContext)
-        
+
         if existingTasks.count == 1 {
             editContext.saveContext()
             self.dismiss(animated: true, completion: nil)
@@ -161,16 +166,20 @@ class EditTaskFormViewController: FormViewController {
             let alertViewController = UIAlertController.init(title: "Warning",
                                                              message: "Task-Name already exists.",
                                                              preferredStyle: .alert)
-            
+
             let cancelAction = UIAlertAction.init(title: "OK",
                                                   style: .cancel) { (action) in
             }
-            
+
             alertViewController.addAction(cancelAction)
             present(alertViewController, animated: true) {
-                
+
             }
         }
+        
+        //let values = (self.form.values()["Waypoints"]!! as! [Airport?]).compactMap { $0 }
+        //let values = self.form.values()
+        //print(values)
         
     }
 
