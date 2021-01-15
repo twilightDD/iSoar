@@ -15,6 +15,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     // MARK: - Keys
     
     static let AvailableGlidersKey = "Selected Glider"
+    static let SelectedTaskKey = "Selected Task"
     static let TrafficMonitorKey = "Traffic Monitor"
     static let CollisionWarningKey = "Collision Warning"
     static let BuddyFilterKey = "Buddy Filter"
@@ -127,15 +128,17 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     -> Section {
         let section = Section("Task Selection")
             
-            <<< PushRow<String>("Selected Task") { row in
-                row.title = "Selected Task"
-                row.value = ""
+            <<< PushRow<String>(SettingsFormViewController.SelectedTaskKey) { row in
+                row.title = SettingsFormViewController.SelectedTaskKey
+                row.value = FlightComputer.selectedTask()?.taskName
                 row.presentationMode = .segueName(segueName: "TaskListSegue", onDismiss: nil)
                 
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "doc.text")
+                
             }
         
+        section.tag = "Task Selection"
         return section
     }
     
@@ -214,12 +217,12 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 row.title = "Selected Map"
                 row.options = Presets.Settings.countries.keys.sorted()
                 row.value = UserDefaultsManager.selectedCountry()
+                row.selectorTitle = "Select a Map"
                 
             }.onPresent { form, row in
                 row.dismissOnSelection = true
                 row.dismissOnChange = true
                 row.enableDeselection = false
-                row.navigationItem.title = "Select Map"
                 row.selectableRowCellUpdate = { (cell, row) in
                     cell.imageView?.image = UIImage(systemName: "map")
                 }
@@ -509,6 +512,11 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         if let availableGlidersCount = form.rowBy(tag: SettingsFormViewController.AvailableGlidersKey) as? PushRow<String> {
             availableGlidersCount.value = UserDefaultsManager.gliderID()
             availableGlidersCount.reload()
+        }
+        
+        if let selectedTask = form.rowBy(tag: SettingsFormViewController.SelectedTaskKey) as? PushRow<String> {
+            selectedTask.value = FlightComputer.selectedTask()?.taskName
+            selectedTask.reload()
         }
         
         if let buddyList = form.rowBy(tag: SettingsFormViewController.BuddyListKey) as? PushRow<Int> {
