@@ -155,7 +155,8 @@ class EditTaskFormViewController: FormViewController {
         
         else { fatalError("Save Button tapped while TaskName is nil") }
         
-        let existingTasks = Task.fetchTaskss(taskName: taskName, context: editContext)
+        let existingTasks = Task.fetchTasks(taskName: taskName,
+                                             context: editContext)
 
         if existingTasks.count == 1 {
             editContext.saveContext()

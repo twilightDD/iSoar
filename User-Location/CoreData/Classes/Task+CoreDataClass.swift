@@ -11,7 +11,7 @@ import CoreData
 
 @objc(Task)
 public class Task: NSManagedObject {
-    class func fetchTaskss(taskName: String,
+    class func fetchTasks(taskName: String,
                            context: NSManagedObjectContext)
     -> [Task] {
         let taskNamePredicate = NSPredicate.init(format: "%K == %@",
