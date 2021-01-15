@@ -164,18 +164,11 @@ class EditTaskFormViewController: FormViewController {
         } else if existingTasks.isEmpty == true {
             fatalError("ich muss self.glider haben.")
         } else {
-            let alertViewController = UIAlertController.init(title: "Warning",
-                                                             message: "Task-Name already exists.",
-                                                             preferredStyle: .alert)
-
-            let cancelAction = UIAlertAction.init(title: "OK",
-                                                  style: .cancel) { (action) in
-            }
-
-            alertViewController.addAction(cancelAction)
-            present(alertViewController, animated: true) {
-
-            }
+            DLAlertViewController.showAlertViewController(title: "Warning",
+                                                          message: "Task Name already exists.",
+                                                          preferredStyle: .alert,
+                                                          on: self)
+            
         }
         
         //let values = (self.form.values()["Waypoints"]!! as! [Airport?]).compactMap { $0 }

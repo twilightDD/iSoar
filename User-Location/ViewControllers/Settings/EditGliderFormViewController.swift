@@ -263,18 +263,11 @@ class EditGliderFormViewController: FormViewController {
         } else if existingGliders.isEmpty == true {
             fatalError("ich muss self.glider haben.")
         } else {
-            let alertViewController = UIAlertController.init(title: "Warning",
-                                                             message: "Glider Registration or FlarmID already exists.",
-                                                             preferredStyle: .alert)
+            DLAlertViewController.showAlertViewController(title: "Warning",
+                                                                      message: "Glider Registration or FlarmID already exists.",
+                                                                      preferredStyle: .alert,
+                                                                      on: self)
             
-            let cancelAction = UIAlertAction.init(title: "OK",
-                                                  style: .cancel) { (action) in
-            }
-            
-            alertViewController.addAction(cancelAction)
-            present(alertViewController, animated: true) {
-                
-            }
         }
         
     }
