@@ -10,9 +10,6 @@ import Eureka
 import CoreData
 
 class EditTaskFormViewController: FormViewController {
-    
-    // MARK: - Keys
-    static let TaskNameKey = "TaskName"
 
     // MARK: - Lets and Vars
     private var _task: Task?
@@ -27,9 +24,9 @@ class EditTaskFormViewController: FormViewController {
             }
         }
         set {
-            guard let gliderInEditContext = editContext.object(with: newValue.objectID) as? Task
+            guard let taskInEditContext = editContext.object(with: newValue.objectID) as? Task
             else { fatalError() }
-            _task = gliderInEditContext
+            _task = taskInEditContext
         }
     }
     
@@ -116,7 +113,14 @@ class EditTaskFormViewController: FormViewController {
                             return ""
                         }
                     }
+                    
+                }.onPresent { from, row in
+                    row.selectableRowCellUpdate = { (cell, row) in
+                        cell.imageView?.image = UIImage(systemName: "arrow.uturn.down")
+                    }
+
                 }
+            
             }
             
             $0 <<< PushRow<Airport> { row in
@@ -129,6 +133,11 @@ class EditTaskFormViewController: FormViewController {
                     } else {
                         return ""
                     }
+                }
+                
+            }.onPresent { from, row in
+                row.selectableRowCellUpdate = { (cell, row) in
+                    cell.imageView?.image = UIImage(systemName: "arrow.up")
                 }
             }
             
@@ -162,7 +171,7 @@ class EditTaskFormViewController: FormViewController {
             editContext.saveContext()
             self.dismiss(animated: true, completion: nil)
         } else if existingTasks.isEmpty == true {
-            fatalError("ich muss self.glider haben.")
+            fatalError("ich muss self.task haben.")
         } else {
             DLAlertViewController.showAlertViewController(title: "Warning",
                                                           message: "Task Name already exists.",
