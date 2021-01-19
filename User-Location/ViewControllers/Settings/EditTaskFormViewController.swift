@@ -84,7 +84,12 @@ class EditTaskFormViewController: FormViewController {
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "textformat")
             }.onChange({ [unowned self] row in
-                self.task.taskName = row.value
+                if let taskname = row.value {
+                    self.task.taskName = taskname
+                } else {
+                    self.task.taskName = ""
+                }
+
             })
         
         return section

@@ -16,8 +16,7 @@ extension Task {
     }
 
     @NSManaged public var uuid: UUID?
-    @NSManaged public var taskName: String?
-    @NSManaged public var taskEntries: NSSet?
+    @NSManaged public var taskName: String
 
 }
 
@@ -38,6 +37,6 @@ extension Task {
 
 }
 
-extension Task : Identifiable {
+extension Task: Identifiable {
 
 }
