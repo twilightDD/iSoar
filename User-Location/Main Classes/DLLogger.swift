@@ -25,8 +25,7 @@ class DLLogger {
         writeStringToLogFile(message)
         #endif
     }
-    
-    
+
     // MARK: Public Class Methods
     class func writeStringToLogFile(_ message: String) {
         guard let logFile = logFile else {

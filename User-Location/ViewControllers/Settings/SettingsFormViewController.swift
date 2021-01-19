@@ -139,8 +139,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                         return "No task selected"
                     }
                 }
-                
-                
+
                 row.presentationMode = .segueName(segueName: "TaskListSegue", onDismiss: nil)
                 
             }.cellSetup { cell, row in

@@ -17,8 +17,8 @@ class DLJSON {
         
         do {
             // Convert Data to Dictionary
-            let result  = try JSONSerialization.jsonObject(with: data,
-                                                           options: .allowFragments) as? [String: Any]
+            let result = try JSONSerialization.jsonObject(with: data,
+                                                          options: .allowFragments) as? [String: Any]
             return result
         } catch {
             print("Could not deserialize JSON")
