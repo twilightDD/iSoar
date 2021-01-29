@@ -51,6 +51,7 @@
         <relationship name="gliders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Glider" inverseName="gliderModel" inverseEntity="Glider"/>
     </entity>
     <entity name="Task" representedClassName="Task" syncable="YES">
+        <attribute name="airports" optional="YES" attributeType="Transformable" customClassName="[Airport]"/>
         <attribute name="taskName" attributeType="String"/>
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
     </entity>
@@ -59,6 +60,6 @@
         <element name="Buddy" positionX="-136.02734375" positionY="-179.265625" width="128" height="88"/>
         <element name="Glider" positionX="18.5" positionY="-180.23046875" width="128" height="118"/>
         <element name="GliderModel" positionX="183.75390625" positionY="-183.2734375" width="128" height="283"/>
-        <element name="Task" positionX="333.6953125" positionY="-180.67578125" width="128" height="73"/>
+        <element name="Task" positionX="333.6953125" positionY="-180.67578125" width="128" height="88"/>
     </elements>
 </model>

@@ -12,7 +12,7 @@ import CoreData
 @objc(Task)
 public class Task: NSManagedObject {
     class func fetchTasks(taskName: String,
-                           context: NSManagedObjectContext)
+                          context: NSManagedObjectContext)
     -> [Task] {
         let taskNamePredicate = NSPredicate.init(format: "%K == %@",
                                                  Task.Attributes.taskName, taskName)
@@ -28,5 +28,6 @@ extension Task {
     struct Attributes {
         static let taskName = "taskName"
         static let uuid = "uuid"
+        static let airports = "airports"
     }
 }

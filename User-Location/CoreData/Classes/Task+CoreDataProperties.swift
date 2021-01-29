@@ -15,25 +15,9 @@ extension Task {
         return NSFetchRequest<Task>(entityName: Task.entityName())
     }
 
+    @NSManaged public var taskName: String?
     @NSManaged public var uuid: UUID?
-    @NSManaged public var taskName: String
-
-}
-
-// MARK: Generated accessors for taskEntries
-extension Task {
-
-    @objc(addTaskEntriesObject:)
-    @NSManaged public func addToTaskEntries(_ value: Airport)
-
-    @objc(removeTaskEntriesObject:)
-    @NSManaged public func removeFromTaskEntries(_ value: Airport)
-
-    @objc(addTaskEntries:)
-    @NSManaged public func addToTaskEntries(_ values: NSSet)
-
-    @objc(removeTaskEntries:)
-    @NSManaged public func removeFromTaskEntries(_ values: NSSet)
+    @NSManaged public var airports: [Airport]?
 
 }
 
