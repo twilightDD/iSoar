@@ -31,7 +31,7 @@ class TaskSelectionTableViewController: UITableViewController {
                 guard let navController = segue.destination as? UINavigationController
                     else { fatalError("Must be an UINavigationController.") }
                 guard let editTaskViewController = navController.children[0] as? EditTaskFormViewController
-                    else { fatalError("Must be an EditGliderFormViewController.") }
+                    else { fatalError("Must be an EditTaskFormViewController.") }
                 editTaskViewController.task = task
             }
         }
