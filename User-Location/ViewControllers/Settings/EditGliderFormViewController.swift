@@ -264,9 +264,9 @@ class EditGliderFormViewController: FormViewController {
             fatalError("ich muss self.glider haben.")
         } else {
             DLAlertViewController.showAlertViewController(title: "Warning",
-                                                                      message: "Glider Registration or FlarmID already exists.",
-                                                                      preferredStyle: .alert,
-                                                                      on: self)
+                                                          message: "Glider Registration or FlarmID already exists.",
+                                                          preferredStyle: .alert,
+                                                          on: self)
             
         }
         
