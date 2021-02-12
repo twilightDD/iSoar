@@ -835,7 +835,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
             } else if annotation == outerCircleAroundUserLocationPolyline {
                 return 1.0
             } else if annotation == currentTaskLine {
-                return 1.0
+                return 2.0
             }
 
             return 2.0
