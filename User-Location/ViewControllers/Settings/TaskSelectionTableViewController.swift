@@ -136,7 +136,6 @@ extension TaskSelectionTableViewController {
         // If selected Task is the same Task which is already selected
         if FlightComputer.selectedTask() == selectedTask {
             FlightComputer.setSelectedTask(nil)
-            print("ist der selbe Task - lösche alles")
             taskWaypoints.removeAll()
            
             // Inform Delegate
@@ -146,7 +145,6 @@ extension TaskSelectionTableViewController {
         } else {
             let newSelectedTask = selectedTask
             FlightComputer.setSelectedTask(newSelectedTask)
-            print("ist ein neuer Task - setze den")
             taskWaypoints.removeAll()
             
             if let waypointsInTask = selectedTask.waypoints {
