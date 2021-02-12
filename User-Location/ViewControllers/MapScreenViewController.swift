@@ -1008,15 +1008,14 @@ extension MapScreenViewController: LocationManagerDelegate {
     
 }
 
-// MARK: - Extension - TasksDatabaseProtocol
-extension MapScreenViewController: TasksDatabaseProtocol {
-    
-    func newTask(withCoordinates coordinates: [CLLocationCoordinate2D]) {
+// MARK: - Extension - TaskSelectionDelegate
+extension MapScreenViewController: TaskSelectionProtocol {
+    func setNewTask(coordinates: [CLLocationCoordinate2D]) {
         if let currentTaskLine = currentTaskLine {
             mapView.removeAnnotation(currentTaskLine)
             self.currentTaskLine = nil
         }
-        
+
         if coordinates.isEmpty == false {
             currentTaskLine = MGLPolyline(coordinates: coordinates,
                                           count: UInt(coordinates.count))
