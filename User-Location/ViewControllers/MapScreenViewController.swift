@@ -85,7 +85,7 @@ class MapScreenViewController: UIViewController {
         OGNSocketConnectionManager.registerForSocketUpdates(self)
         OGNSocketConnectionManager.start()
         LocationManager.registerForLocationUpdates(self)
-        TasksDatabase.registerForTaskUpdates(self)
+        TaskSelectionTableViewController.registerForTaskUpdates(self)
         
         setupMapBox()
         
@@ -133,6 +133,8 @@ class MapScreenViewController: UIViewController {
         if let airportImportOrUpdateFailedNotification = airportImportOrUpdateFailedNotification {
             NotificationCenter.default.removeObserver(airportImportOrUpdateFailedNotification)
         }
+        
+        TaskSelectionTableViewController.unRegisterForTaskUpdates()
 
     }
 
