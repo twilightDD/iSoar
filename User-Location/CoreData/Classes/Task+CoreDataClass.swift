@@ -28,6 +28,10 @@ extension Task {
     struct Attributes {
         static let taskName = "taskName"
         static let uuid = "uuid"
-        static let airports = "airports"
+        
+    }
+    
+    struct Relationships {
+        static let waypoints = "waypoints"
     }
 }
