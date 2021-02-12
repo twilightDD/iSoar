@@ -9,6 +9,11 @@
 import UIKit
 import CoreData
 
+protocol TaskSelectionProtocol: AnyObject {
+    func setNewTask(coordinates: [CLLocationCoordinate2D])
+    
+}
+
 class TaskSelectionTableViewController: UITableViewController {
     
     // MARK: - Keys
@@ -16,6 +21,15 @@ class TaskSelectionTableViewController: UITableViewController {
     private static let OpenEditTaskFormViewControllerSegueKey = "OpenEditTaskFormViewControllerSegue"
     
     // MARK: - Lets and Vars
+    // Static
+    private static let shared = TaskSelectionTableViewController()
+
+    // Public
+    weak var taskSelectionDelegate: TaskSelectionProtocol?
+
+    // Private
+    private var taskWaypoints = [CLLocationCoordinate2D]()
+    
     private lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = setupFetchedResultsController()
     
     // MARK: - Init&Co.
@@ -36,6 +50,15 @@ class TaskSelectionTableViewController: UITableViewController {
             }
         }
         
+    }
+    
+    // MARK: - Public Class Methods
+    class func registerForTaskUpdates(_ delegate: TaskSelectionProtocol) {
+        shared.taskSelectionDelegate = delegate
+    }
+
+    class func unRegisterForTaskUpdates() {
+        shared.taskSelectionDelegate = nil
     }
     
     // MARK: - Private Methods
@@ -110,15 +133,39 @@ extension TaskSelectionTableViewController {
         
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         
+        // If selected Task is the same Task which is already selected
         if FlightComputer.selectedTask() == selectedTask {
             FlightComputer.setSelectedTask(nil)
+            print("ist der selbe Task - lösche alles")
+            taskWaypoints.removeAll()
+           
+            // Inform Delegate
+            TaskSelectionTableViewController.shared.taskSelectionDelegate?.setNewTask(coordinates: taskWaypoints)
+            
+            // If selected Task is the same Task which is already selected
         } else {
             let newSelectedTask = selectedTask
             FlightComputer.setSelectedTask(newSelectedTask)
+            print("ist ein neuer Task - setze den")
+            taskWaypoints.removeAll()
+            
+            if let waypointsInTask = selectedTask.waypoints {
+                for waypoint in waypointsInTask {
+                    if let airportLocationCoordinate2D = waypoint.airport?.locationCoordinate2D {
+                        taskWaypoints.append(airportLocationCoordinate2D)
+                    }
+                    
+                }
+                
+            }
+            
+            // Inform Delegate
+            TaskSelectionTableViewController.shared.taskSelectionDelegate?.setNewTask(coordinates: taskWaypoints)
+
         }
-
+        
         tableView.reloadData()
-
+        
     }
     
     // Delete Task via Swipe to left
