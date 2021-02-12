@@ -19,6 +19,7 @@
         <attribute name="url" optional="YES" attributeType="String"/>
         <attribute name="uuid" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="validationDate" optional="YES" attributeType="String"/>
+        <relationship name="waypoint" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Waypoint" inverseName="airport" inverseEntity="Waypoint"/>
     </entity>
     <entity name="Buddy" representedClassName="Buddy" syncable="YES">
         <attribute name="flarmID" attributeType="String"/>
@@ -51,15 +52,21 @@
         <relationship name="gliders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Glider" inverseName="gliderModel" inverseEntity="Glider"/>
     </entity>
     <entity name="Task" representedClassName="Task" syncable="YES">
-        <attribute name="airports" optional="YES" attributeType="Transformable" customClassName="[Airport]"/>
         <attribute name="taskName" attributeType="String"/>
         <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="waypoints" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Waypoint" inverseName="task" inverseEntity="Waypoint"/>
+    </entity>
+    <entity name="Waypoint" representedClassName="Waypoint" syncable="YES">
+        <attribute name="uuid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="airport" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Airport" inverseName="waypoint" inverseEntity="Airport"/>
+        <relationship name="task" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Task" inverseName="waypoints" inverseEntity="Task"/>
     </entity>
     <elements>
-        <element name="Airport" positionX="506.82421875" positionY="-179.7421875" width="128" height="313"/>
+        <element name="Airport" positionX="698.078125" positionY="-176.14453125" width="128" height="328"/>
         <element name="Buddy" positionX="-136.02734375" positionY="-179.265625" width="128" height="88"/>
         <element name="Glider" positionX="18.5" positionY="-180.23046875" width="128" height="118"/>
         <element name="GliderModel" positionX="183.75390625" positionY="-183.2734375" width="128" height="283"/>
         <element name="Task" positionX="333.6953125" positionY="-180.67578125" width="128" height="88"/>
+        <element name="Waypoint" positionX="523.75" positionY="-180.55859375" width="128" height="88"/>
     </elements>
 </model>
