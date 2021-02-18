@@ -21,7 +21,7 @@ class FlightComputer {
     // MARK: - Lets and Vars
     // Statics
     static private let shared = FlightComputer()
-
+    
     // Private
     private var isGliderFlying: Bool = false {
         didSet {
@@ -126,7 +126,7 @@ class FlightComputer {
                currentLocation.speed > Presets.FlightComputer.minimalFlightSpeed {
                 isGliderFlying = true
                 OGNSocketConnectionManager.registerForSocketUpdates(self)
-
+                
                 DLLogger.writeDebugStringToLogFile("\(#function) -> true - Flight Start detected")
             }
         } else if let currentLocation = LocationManager.currentLocation(),
@@ -144,7 +144,7 @@ class FlightComputer {
                         if currentLocation.altitude-currentTerrainElevation < 100 {
                             self.isGliderFlying = false
                             OGNSocketConnectionManager.unregisterForSocketUpdates(self)
-
+                            
                             DLLogger.writeDebugStringToLogFile("\(#function) -> false - Flight End detected")
                         }
                     } else if let nearestAirport = FlightComputer.nearestAirport(),
