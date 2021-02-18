@@ -94,7 +94,7 @@ class MapScreenViewController: UIViewController {
         createAirportAnnotations()
         
         if UserDefaultsManager.updateAirportDatabaseAtStartupState() == true {
-             //AirportDatabase.downloadAirportsFromServer()
+            //AirportDatabase.downloadAirportsFromServer()
         }
         
     }
@@ -119,7 +119,7 @@ class MapScreenViewController: UIViewController {
             createAirportAnnotations()
             
         }
-
+        
         // TODO: 20210107 Airport Update Failed Notification
         
     }
@@ -135,9 +135,9 @@ class MapScreenViewController: UIViewController {
         }
         
         TaskSelectionTableViewController.unRegisterForTaskUpdates()
-
+        
     }
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -206,54 +206,54 @@ class MapScreenViewController: UIViewController {
     
     // Create User Center Location Button on Map
     func createUserLocationButton()
-        -> UserLocationButton {
-            let userLocationButton = UserLocationButton(buttonSize: 40)
-            userLocationButton.addTarget(self, action: #selector(self.locationButtonTappedAction), for: .touchUpInside)
-            userLocationButton.tintColor = self.mapView.tintColor
-            
-            // Setup constraints such that the button is placed within
-            // the upper left corner of the view.
-            userLocationButton.translatesAutoresizingMaskIntoConstraints = false
-            
-            userLocationButton.layer.borderWidth = 1
-            userLocationButton.layer.borderColor = UIColor.red.cgColor
-            // userLocationButton.layer.cornerRadius = 5
-            
-            let leadingConstraint = NSLayoutConstraint(item: userLocationButton,
-                                                       attribute: .leading,
-                                                       relatedBy: .equal,
-                                                       toItem: self.view.safeAreaLayoutGuide,
-                                                       attribute: .leading,
-                                                       multiplier: 1,
-                                                       constant: 10)
-            
-            let constraints: [NSLayoutConstraint] = [NSLayoutConstraint(item: userLocationButton,
-                                                                        attribute: .top,
-                                                                        relatedBy: .greaterThanOrEqual,
-                                                                        toItem: courseLabel,
-                                                                        attribute: .bottom,
-                                                                        multiplier: 1,
-                                                                        constant: 20),
-                                                     leadingConstraint,
-                                                     NSLayoutConstraint(item: userLocationButton,
-                                                                        attribute: .height,
-                                                                        relatedBy: .equal,
-                                                                        toItem: nil,
-                                                                        attribute: .notAnAttribute,
-                                                                        multiplier: 1,
-                                                                        constant: userLocationButton.frame.size.height),
-                                                     NSLayoutConstraint(item: userLocationButton,
-                                                                        attribute: .width,
-                                                                        relatedBy: .equal,
-                                                                        toItem: nil,
-                                                                        attribute: .notAnAttribute,
-                                                                        multiplier: 1,
-                                                                        constant: userLocationButton.frame.size.width)]
-            
-            self.view.addSubview(userLocationButton)
-            self.view.addConstraints(constraints)
-            
-            return userLocationButton
+    -> UserLocationButton {
+        let userLocationButton = UserLocationButton(buttonSize: 40)
+        userLocationButton.addTarget(self, action: #selector(self.locationButtonTappedAction), for: .touchUpInside)
+        userLocationButton.tintColor = self.mapView.tintColor
+        
+        // Setup constraints such that the button is placed within
+        // the upper left corner of the view.
+        userLocationButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        userLocationButton.layer.borderWidth = 1
+        userLocationButton.layer.borderColor = UIColor.red.cgColor
+        // userLocationButton.layer.cornerRadius = 5
+        
+        let leadingConstraint = NSLayoutConstraint(item: userLocationButton,
+                                                   attribute: .leading,
+                                                   relatedBy: .equal,
+                                                   toItem: self.view.safeAreaLayoutGuide,
+                                                   attribute: .leading,
+                                                   multiplier: 1,
+                                                   constant: 10)
+        
+        let constraints: [NSLayoutConstraint] = [NSLayoutConstraint(item: userLocationButton,
+                                                                    attribute: .top,
+                                                                    relatedBy: .greaterThanOrEqual,
+                                                                    toItem: courseLabel,
+                                                                    attribute: .bottom,
+                                                                    multiplier: 1,
+                                                                    constant: 20),
+                                                 leadingConstraint,
+                                                 NSLayoutConstraint(item: userLocationButton,
+                                                                    attribute: .height,
+                                                                    relatedBy: .equal,
+                                                                    toItem: nil,
+                                                                    attribute: .notAnAttribute,
+                                                                    multiplier: 1,
+                                                                    constant: userLocationButton.frame.size.height),
+                                                 NSLayoutConstraint(item: userLocationButton,
+                                                                    attribute: .width,
+                                                                    relatedBy: .equal,
+                                                                    toItem: nil,
+                                                                    attribute: .notAnAttribute,
+                                                                    multiplier: 1,
+                                                                    constant: userLocationButton.frame.size.width)]
+        
+        self.view.addSubview(userLocationButton)
+        self.view.addConstraints(constraints)
+        
+        return userLocationButton
     }
     
     // MARK: - Gesture Recognizer Methods
@@ -400,7 +400,7 @@ class MapScreenViewController: UIViewController {
         
         //
         updateCirclesAroundUserLocation()
-
+        
     }
     
     // Check if User has changed the Map Style in Settings
@@ -420,7 +420,7 @@ class MapScreenViewController: UIViewController {
     
     private func updateAltitudeLabel() {
         guard let currentLocation = LocationManager.currentLocation()
-            else { return }
+        else { return }
         
         var altituteLabelValueText = ""
         var altituteLabelUnitText = ""
@@ -444,7 +444,7 @@ class MapScreenViewController: UIViewController {
     
     private func updateSpeedLabel() {
         guard let currentLocation = LocationManager.currentLocation()
-            else { return }
+        else { return }
         
         var speedLabelValueText = ""
         var speedLabelUnitText = ""
@@ -474,7 +474,7 @@ class MapScreenViewController: UIViewController {
     
     private func updateCourseLabel() {
         guard let currentLocation = LocationManager.currentLocation()
-            else { return }
+        else { return }
         
         var courseLabelValueText = ""
         var courseLabelUnitText = ""
@@ -524,8 +524,8 @@ class MapScreenViewController: UIViewController {
     // TODO: 20200511 Code Optimieren! Doppelungen raus! Enum für ascanding & descanding
     private func drawTrackingRoute() {
         if FlightComputer.isGliderFlying() == true,
-            let currentLocation = LocationManager.currentLocation(),
-            let formerLocation = LocationManager.formerLocation() {
+           let currentLocation = LocationManager.currentLocation(),
+           let formerLocation = LocationManager.formerLocation() {
             
             var formerLocationCoordinate2D = formerLocation.coordinate
             var currentLocationCoordinate2D = currentLocation.coordinate
@@ -597,10 +597,10 @@ class MapScreenViewController: UIViewController {
     // MARK: Update Destination Airport UI
     private func updateDestinationAirportUI() {
         guard let destinationAirport = FlightComputer.selectedDestinationAirport(),
-              LocationManager.currentLocation()  != nil
-            else {
-                resetUpdateDestinationAirportUI()
-                return
+              LocationManager.currentLocation() != nil
+        else {
+            resetUpdateDestinationAirportUI()
+            return
         }
         
         // Destination Airport Labels
@@ -627,7 +627,7 @@ class MapScreenViewController: UIViewController {
                 mapView.removeAnnotation(outerCircleAroundUserLocationPolyline)
                 self.outerCircleAroundUserLocationPolyline = nil
             }
-
+            
         }
         
     }
@@ -636,7 +636,7 @@ class MapScreenViewController: UIViewController {
     private func updateCirclesAroundUserLocation() {
         if UserDefaultsManager.showDistanceCirclesState() == true {
             guard let currentLocation = LocationManager.currentLocation()
-                else { return }
+            else { return }
             
             // Inner Circle
             let newInnerCircleCoordinates = circleCoordinatesAround(coordinate: currentLocation.coordinate,
@@ -717,7 +717,7 @@ class MapScreenViewController: UIViewController {
     private func updateDestinationAirportAltitudeLabel(destinationAirport: Airport) {
         guard let altitudeDifference = LocationManager.altitudeDifferenceFromCurrentLocationTo(altitude: destinationAirport.elevation),
               let currentDistance = FlightComputer.selectedDestinationAirport()?.distance
-            else { return }
+        else { return }
         
         // Get User Default Values
         let safetyAltitude = UserDefaultsManager.safetyAltitude()
@@ -750,7 +750,7 @@ class MapScreenViewController: UIViewController {
     
     private func updateDestinationAirportDirectionLine(destinationAirport: Airport) {
         guard let currentLocationCoordinate2D = LocationManager.currentLocation()?.coordinate
-            else { return }
+        else { return }
         
         // get new directionLineLocationCoordinate2Ds
         let destinationAirportCoordinate2D = destinationAirport.locationCoordinate2D
@@ -773,33 +773,33 @@ class MapScreenViewController: UIViewController {
     }
     
     private func circleCoordinatesAround(coordinate: CLLocationCoordinate2D, withMeterRadius: Double)
-        -> [CLLocationCoordinate2D] {
-            
-            // TODO: check performance; 01202020, ph
-            /*
-             let factor = Double.pi / 180
-             let factor2 = 180 / Double.pi
-             */
-            
-            let degreesBetweenPoints: Double = 1 // 360 segments
-            let numberOfPolygonPoints = 360 //  floor(360.0 / degreesBetweenPoints)
-            let distRadians: Double = withMeterRadius / 6371000.0 // earth radius in meters
-            let centerLatRadians: Double = coordinate.latitude * Double.pi / 180
-            let centerLonRadians: Double = coordinate.longitude * Double.pi / 180
-            var coordinates = [CLLocationCoordinate2D]() //array to hold all the points
-            
-            for index in 0 ... numberOfPolygonPoints {
-                let degrees: Double = Double(index) * Double(degreesBetweenPoints)
-                let degreeRadians: Double = degrees * Double.pi / 180
-                let pointLatRadians: Double = asin(sin(centerLatRadians) * cos(distRadians) + cos(centerLatRadians) * sin(distRadians) * cos(degreeRadians))
-                let pointLonRadians: Double = centerLonRadians + atan2(sin(degreeRadians) * sin(distRadians) * cos(centerLatRadians), cos(distRadians) - sin(centerLatRadians) * sin(pointLatRadians))
-                let pointLat: Double = pointLatRadians * 180 / Double.pi
-                let pointLon: Double = pointLonRadians * 180 / Double.pi
-                let point: CLLocationCoordinate2D = CLLocationCoordinate2DMake(pointLat, pointLon)
-                coordinates.append(point)
-            }
-            
-            return coordinates
+    -> [CLLocationCoordinate2D] {
+        
+        // TODO: check performance; 01202020, ph
+        /*
+         let factor = Double.pi / 180
+         let factor2 = 180 / Double.pi
+         */
+        
+        let degreesBetweenPoints: Double = 1 // 360 segments
+        let numberOfPolygonPoints = 360 //  floor(360.0 / degreesBetweenPoints)
+        let distRadians: Double = withMeterRadius / 6371000.0 // earth radius in meters
+        let centerLatRadians: Double = coordinate.latitude * Double.pi / 180
+        let centerLonRadians: Double = coordinate.longitude * Double.pi / 180
+        var coordinates = [CLLocationCoordinate2D]() //array to hold all the points
+        
+        for index in 0 ... numberOfPolygonPoints {
+            let degrees: Double = Double(index) * Double(degreesBetweenPoints)
+            let degreeRadians: Double = degrees * Double.pi / 180
+            let pointLatRadians: Double = asin(sin(centerLatRadians) * cos(distRadians) + cos(centerLatRadians) * sin(distRadians) * cos(degreeRadians))
+            let pointLonRadians: Double = centerLonRadians + atan2(sin(degreeRadians) * sin(distRadians) * cos(centerLatRadians), cos(distRadians) - sin(centerLatRadians) * sin(pointLatRadians))
+            let pointLat: Double = pointLatRadians * 180 / Double.pi
+            let pointLon: Double = pointLonRadians * 180 / Double.pi
+            let point: CLLocationCoordinate2D = CLLocationCoordinate2DMake(pointLat, pointLon)
+            coordinates.append(point)
+        }
+        
+        return coordinates
     }
     
 }
@@ -809,113 +809,113 @@ extension MapScreenViewController: MGLMapViewDelegate {
     
     // Set Polyline Colors
     func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape)
-        -> UIColor {
-            if annotation.title == "ascanding" {
-                return UIColor.green
-            } else if annotation.title == "descanding" {
-                return UIColor.orange
-            } else if annotation == innerCircleAroundUserLocationPolyline {
-                return UIColor.black
-            } else if annotation == outerCircleAroundUserLocationPolyline {
-                return UIColor.black
-            } else if annotation == currentTaskLine {
-                return UIColor.systemPink
-            }
-            
-            return UIColor.blue
-            
+    -> UIColor {
+        if annotation.title == "ascanding" {
+            return UIColor.green
+        } else if annotation.title == "descanding" {
+            return UIColor.orange
+        } else if annotation == innerCircleAroundUserLocationPolyline {
+            return UIColor.black
+        } else if annotation == outerCircleAroundUserLocationPolyline {
+            return UIColor.black
+        } else if annotation == currentTaskLine {
+            return UIColor.systemPink
+        }
+        
+        return UIColor.blue
+        
     }
     
     // Set Polyline Width
     func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline)
-        -> CGFloat {
-            
-            if annotation == innerCircleAroundUserLocationPolyline {
-                return 1.0
-            } else if annotation == outerCircleAroundUserLocationPolyline {
-                return 1.0
-            } else if annotation == currentTaskLine {
-                return 2.0
-            }
-
+    -> CGFloat {
+        
+        if annotation == innerCircleAroundUserLocationPolyline {
+            return 1.0
+        } else if annotation == outerCircleAroundUserLocationPolyline {
+            return 1.0
+        } else if annotation == currentTaskLine {
             return 2.0
+        }
+        
+        return 2.0
     }
     
     // Annotation can show Callout
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation)
-        -> Bool {
-            if annotation is AirportAnnotation {
-                return false
-            } else {
-                return true
-            }
+    -> Bool {
+        if annotation is AirportAnnotation {
+            return false
+        } else {
+            return true
+        }
     }
     
     // Instantiate and return our custom callout view
     // https://stackoverflow.com/questions/26713582/didselectannotationview-not-called
     func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation)
-        -> MGLCalloutView? {
+    -> MGLCalloutView? {
+        
+        if let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotation {
+            let views = Bundle.main.loadNibNamed(NearbyGliderCalloutView.nibName(),
+                                                 owner: nil,
+                                                 options: nil)
             
-            if let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotation {
-                let views = Bundle.main.loadNibNamed(NearbyGliderCalloutView.nibName(),
-                                                     owner: nil,
-                                                     options: nil)
-                
-                guard let nearbyGliderCalloutView = views?[0] as? NearbyGliderCalloutView
-                    else { fatalError("Must be a NearbyGliderCalloutView.") }
-                
-                nearbyGliderCalloutView.representedObject = nearbyGliderAnnotation
-                
-                return nearbyGliderCalloutView
-            }
+            guard let nearbyGliderCalloutView = views?[0] as? NearbyGliderCalloutView
+            else { fatalError("Must be a NearbyGliderCalloutView.") }
             
-            return nil
+            nearbyGliderCalloutView.representedObject = nearbyGliderAnnotation
+            
+            return nearbyGliderCalloutView
+        }
+        
+        return nil
     }
     
     // Substitute our custom view for the user location annotation
     // TODO: 20200526 if und if else´s prüfen
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation)
-        -> MGLAnnotationView? {
+    -> MGLAnnotationView? {
+        
+        var annotationView: MGLAnnotationView?
+        
+        // User Annotation -> myself
+        if annotation is MGLUserLocation && mapView.userLocation != nil {
+            annotationView = UserLocationAnnotationView()
+        } else if annotation is NearbyGliderAnnotation {
+            // Notice: nil is needed here! MGLAnnotation is an ObjC-Protocol. Fuck it!; 19.3.2020, ph
+            guard let flarmID = annotation.title ?? nil
+            else { return nil }
             
-            var annotationView: MGLAnnotationView?
+            annotationView = NearbyGliderAnnotationView(annotation: annotation,
+                                                        reuseIdentifier: flarmID)
+            // swiftlint:disable force_unwrapping
+            annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
+            // swiftlint:enable force_unwrapping
             
-            // User Annotation -> myself
-            if annotation is MGLUserLocation && mapView.userLocation != nil {
-                annotationView = UserLocationAnnotationView()
-            } else if annotation is NearbyGliderAnnotation {
-                // Notice: nil is needed here! MGLAnnotation is an ObjC-Protocol. Fuck it!; 19.3.2020, ph
-                guard let flarmID = annotation.title ?? nil
-                    else { return nil }
+            return annotationView
+            
+        } else if annotation is AirportAnnotation {
+            // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
+            let reuseIdentifier = "\(annotation.coordinate.longitude)"
+            
+            // For better performance, always try to reuse existing annotations.
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+            
+            // If there’s no reusable annotation view available, initialize a new one.
+            if annotationView == nil {
+                annotationView = AirportAnnotationView(reuseIdentifier: reuseIdentifier)
                 
-                annotationView = NearbyGliderAnnotationView(annotation: annotation,
-                                                            reuseIdentifier: flarmID)
                 // swiftlint:disable force_unwrapping
                 annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
                 // swiftlint:enable force_unwrapping
                 
-                return annotationView
-                
-            } else if annotation is AirportAnnotation {
-                // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
-                let reuseIdentifier = "\(annotation.coordinate.longitude)"
-                
-                // For better performance, always try to reuse existing annotations.
-                var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-                
-                // If there’s no reusable annotation view available, initialize a new one.
-                if annotationView == nil {
-                    annotationView = AirportAnnotationView(reuseIdentifier: reuseIdentifier)
-                    
-                    // swiftlint:disable force_unwrapping
-                    annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
-                    // swiftlint:enable force_unwrapping
-                    
-                }
-                
-                return annotationView
             }
             
             return annotationView
+        }
+        
+        return annotationView
     }
     
     // User did select Annotation
@@ -973,7 +973,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
                               zoomLevel: UserDefaultsManager.userMapZoomLevel(),
                               animated: true)
         }
-            // If not, set Center the Map to Airport Stuttgart
+        // If not, set Center the Map to Airport Stuttgart
         else {
             mapView.setCenter(CLLocationCoordinate2D(latitude: 48.689497,
                                                      longitude: 9.219885),
@@ -993,7 +993,7 @@ extension MapScreenViewController: LocationManagerDelegate {
     
     func locationManager(didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last // Alternativ: LocationManager.currentLocation
-            else { return }
+        else { return }
         
         // Get User Tracking State - If true - set Map center on User Location
         if self.userFollow == true {
@@ -1015,7 +1015,7 @@ extension MapScreenViewController: TaskSelectionProtocol {
             mapView.removeAnnotation(currentTaskLine)
             self.currentTaskLine = nil
         }
-
+        
         if coordinates.isEmpty == false {
             currentTaskLine = MGLPolyline(coordinates: coordinates,
                                           count: UInt(coordinates.count))
