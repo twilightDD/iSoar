@@ -127,7 +127,7 @@ class EditTaskFormViewController: FormViewController {
                     }
                     
                     $0 <<< PushRow<Airport> { row in
-                        row.tag = "\(waypoint.uuid)"
+                        row.tag = "\(String(describing: waypoint.uuid))"
                         row.value = waypoint.airport
                         row.options = allAirports
                         row.displayValueFor = { airport in
