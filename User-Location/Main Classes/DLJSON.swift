@@ -6,8 +6,6 @@
 //  Copyright © 2020 Denis Leupold. All rights reserved.
 //
 
-import Foundation
-
 class DLJSON {
     
     class func decode(_ data: Data?)

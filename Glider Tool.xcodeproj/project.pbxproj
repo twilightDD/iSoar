@@ -392,6 +392,7 @@
 				E05033A6253F203A0057BE66 /* DLAlertViewController.swift */,
 				E00241E4254BF7DA002E376E /* DLTerrainElevation.swift */,
 				E03F256E25549C6A008D4F33 /* DLLogger.swift */,
+				E06EA7362575956600AA5FD8 /* DLJSON.swift */,
 			);
 			path = "Main Classes";
 			sourceTree = "<group>";
@@ -439,7 +440,6 @@
 				D02B0E6322C15B95007C7162 /* Subclasses */,
 				E0B52F702283753400E28A93 /* ViewControllers */,
 				D023099C2429586600A68F34 /* Views */,
-				E06EA7362575956600AA5FD8 /* DLJSON.swift */,
 			);
 			path = "User-Location";
 			sourceTree = "<group>";
