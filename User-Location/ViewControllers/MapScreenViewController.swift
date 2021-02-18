@@ -597,7 +597,7 @@ class MapScreenViewController: UIViewController {
     // MARK: Update Destination Airport UI
     private func updateDestinationAirportUI() {
         guard let destinationAirport = FlightComputer.selectedDestinationAirport(),
-            let _ = LocationManager.currentLocation()
+              LocationManager.currentLocation()  != nil
             else {
                 resetUpdateDestinationAirportUI()
                 return
