@@ -229,7 +229,7 @@ class FlightComputer {
     
     private func nearestAirport()
     -> Airport? {
-        guard let _ = LocationManager.currentLocation()
+        guard LocationManager.currentLocation() != nil
         else { return nil }
         
         let context = CoreDataManager.viewOnlyContext
