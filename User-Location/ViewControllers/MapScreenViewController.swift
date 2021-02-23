@@ -1001,9 +1001,7 @@ extension MapScreenViewController: LocationManagerDelegate {
         }
         
         updateUI()
-        
-        // TODO: 20210105 Das kann doch der LocationManager selbst oder?
-        Airport.updateLocation(currentLocation)
+
     }
     
 }

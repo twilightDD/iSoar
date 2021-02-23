@@ -173,6 +173,8 @@ extension LocationManager: CLLocationManagerDelegate {
             }
         }
         
+        Airport.updateLocation(currentLocation)
+        
         formerLocation = currentLocation
         
     }
