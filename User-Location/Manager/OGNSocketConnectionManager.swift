@@ -18,7 +18,6 @@ protocol DL_OGNSocketConnectionManagerDelegate: class {
     
 }
 
-// MARK: -
 // MARK: - OGNSocketConnectionManager
 class OGNSocketConnectionManager {
     
@@ -79,13 +78,13 @@ class OGNSocketConnectionManager {
     
     class func didUpdateBuddiesOrSelectedOtherGlider() {
         if UserDefaultsManager.showAllNearbyGlidersState() == true,
-            UserDefaultsManager.buddyFilterSwitchState() == true {
+           UserDefaultsManager.buddyFilterSwitchState() == true {
             
             OGNSocketConnectionManager.reconnect()
         }
         
     }
-
+    
 }
 
 // MARK: - Extension - Instance Methods
@@ -157,15 +156,15 @@ extension OGNSocketConnectionManager {
     
     // Generate random alphanumerical Username witch 9 characters
     private func generateRandomUserName()
-        -> String {
-            let length = 9
-            let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-            // swiftlint:disable force_unwrapping
-            let randomCharacters = (0..<length).map {_ in characters.randomElement()! }
-            // swiftlint:enable force_unwrapping
-            let username = String(randomCharacters)
-            
-            return username
+    -> String {
+        let length = 9
+        let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        // swiftlint:disable force_unwrapping
+        let randomCharacters = (0..<length).map {_ in characters.randomElement()! }
+        // swiftlint:enable force_unwrapping
+        let username = String(randomCharacters)
+        
+        return username
     }
     
     // Setup Receive Data
@@ -175,7 +174,7 @@ extension OGNSocketConnectionManager {
                             completion: { [unowned self] (data, context, isComplete, error) in
                                 
                                 if let receivedData = data,
-                                    let receivedMessage = String(data: receivedData, encoding: .utf8) {
+                                   let receivedMessage = String(data: receivedData, encoding: .utf8) {
                                     self.messageReceived(receivedMessage)
                                 }
                                 
@@ -185,7 +184,7 @@ extension OGNSocketConnectionManager {
                                 
                                 let contextIdentifier = context?.identifier
                                 if  contextIdentifier == "Final Message"
-                                    && isComplete == true {
+                                        && isComplete == true {
                                     self.connection?.cancel()
                                     return
                                 }
@@ -195,19 +194,19 @@ extension OGNSocketConnectionManager {
                                 } else {
                                     self.setupReceive()
                                 }
-        })
+                            })
     }
     
     // Send Login String with generated Username and Current Location
     private func login() {
         
         guard let currentLocation = LocationManager.currentLocation(),
-            isLoggedIn == false
-            else {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    self.login()
-                }
-                return
+              isLoggedIn == false
+        else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.login()
+            }
+            return
         }
         
         let appVersion = Presets.OGNSocketConnection.appVersion
@@ -239,7 +238,7 @@ extension OGNSocketConnectionManager {
                             } else {
                                 print("\(#function) Filter Request successfully sent:\n\(packet)")
                             }
-            })
+                         })
     }
     
     // Received Message from OGN Server
@@ -254,11 +253,11 @@ extension OGNSocketConnectionManager {
         for splittedMessage in splittedMessages {
             // Check if Message has Prefix FLR or ICA - AND is NOT ownFlarmID
             guard splittedMessage.hasPrefix("FLR")
-                || splittedMessage.hasPrefix("ICA")
-                // Otherwise discard this message
-                else {
-                    // print("\(#function): Discard Message! No FLR or ICA Prefix - OR ownFlarmID:   \(splittedMessage)")
-                    continue }
+                    || splittedMessage.hasPrefix("ICA")
+            // Otherwise discard this message
+            else {
+                // print("\(#function): Discard Message! No FLR or ICA Prefix - OR ownFlarmID:   \(splittedMessage)")
+                continue }
             
             // Create gliderTelemetryData from message
             let gliderSpecificMessage = String(splittedMessage)
@@ -323,9 +322,9 @@ extension OGNSocketConnectionManager: LocationManagerDelegate {
         
         if isLoggedIn == true {
             guard let loginCoordinates = self.loginCoordinates,
-                UserDefaultsManager.buddyFilterSwitchState() == false,
-                let distance = LocationManager.distanceFromCurrentLocationTo(location: loginCoordinates)
-                else { return }
+                  UserDefaultsManager.buddyFilterSwitchState() == false,
+                  let distance = LocationManager.distanceFromCurrentLocationTo(location: loginCoordinates)
+            else { return }
             
             if distance > Presets.OGNSocketConnection.distanceLimitForReconnect {
                 OGNSocketConnectionManager.reconnect()
