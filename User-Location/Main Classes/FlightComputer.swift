@@ -53,6 +53,8 @@ class FlightComputer {
     private var selectedDestinationAirport: Airport?
     private var selectedTask: Task?
     
+    private var previousAirportDistanceUpdateCoordinates: CLLocation?
+    
     // MARK: - Delegate
     private var delegates = NSHashTable<AnyObject>.weakObjects()
     
@@ -320,6 +322,24 @@ class FlightComputer {
         
     }
     
+    // Check if Airport Distance Update is needed
+    private func checkForAirportDistanceUpdates() {
+        guard let currentLocation = LocationManager.currentLocation() else { return }
+        
+        if previousAirportDistanceUpdateCoordinates == nil {
+            previousAirportDistanceUpdateCoordinates = currentLocation
+            
+        }
+        
+        let distanceFromLastUpdateLocation = LocationManager.distanceFromCurrentLocationTo(location: previousAirportDistanceUpdateCoordinates!)!
+        
+        if distanceFromLastUpdateLocation > Presets.Airport.distanceLimitForAirportDistanceUpdate {
+            Airport.updateLocation(currentLocation)
+            self.previousAirportDistanceUpdateCoordinates = currentLocation
+        }
+        
+    }
+
 }
 
 // MARK: - Extension - LocationManagerDelegate
@@ -330,6 +350,7 @@ extension FlightComputer: LocationManagerDelegate {
         checkIfGliderIsCircling()
         checkForGearWarning()
         checkForLowOxygenWarning()
+        checkForAirportDistanceUpdates()
     }
     
 }
