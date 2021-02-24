@@ -606,9 +606,13 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
 
         let deleteCountAirports = Airport.deleteAll()
         message.append("\(deleteCountAirports) Flughäfen\n")
-        let deleteCountGliderModels = GliderModel.deleteAll()
-        message.append("\(deleteCountGliderModels) Flugzeugmodelle")
-
+        
+//        let deleteCountGliders = Glider.deleteAll()
+//        message.append("\(deleteCountGliders) Flugzeuge\n")
+//
+//        let deleteCountGliderModels = GliderModel.deleteAll()
+//        message.append("\(deleteCountGliderModels) Flugzeugmodelle")
+        
         DLAlertViewController.showAlertViewController(title: "Löschen erfolgreich",
                                                       message: message,
                                                       preferredStyle: .alert)
