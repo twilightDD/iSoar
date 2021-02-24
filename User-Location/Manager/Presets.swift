@@ -100,13 +100,6 @@ struct Presets {
         
     }
     
-    struct AirportDatabase {
-        
-        /// Represents the URL of the Airports.json File on the Server
-        static let airportsJSONFileURL = URL(string: "https://www.isoar.de/_b34/Airports.json")
-        
-    }
-    
     struct DLDownloadManager {
         
         /// Represents the Base URL of the JSON Files on the Server
@@ -147,6 +140,13 @@ struct Presets {
         
         /// Represents the URL of the Manual on the Server
         static let maualURL = URL(string: "https://www.isoar.de/handbuch")
+        
+    }
+    
+    struct Airport {
+        
+        /// Distance from Last Airport Distance Update Location
+        static let distanceLimitForAirportDistanceUpdate: Double = 1000
         
     }
 }
