@@ -36,7 +36,8 @@ class DLDownloadManager {
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
         let url = urlFor(contentType)
-        let request = URLRequest(url: url)
+        let request = URLRequest(url: url,
+                                 cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData)
         let dataTask = session.dataTask(with: request,
                                         completionHandler: { data, response, error in
                                             
