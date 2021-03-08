@@ -94,13 +94,14 @@ extension Airport {
     
     class func updateLocation(_ currentLocation: CLLocation) {
         let editContext = CoreDataManager.editContextInBackground()
-        let allAirports = editContext.fetchObjects(forEntityClass: Airport.self)
-        
-        for airport in allAirports {
-            airport.updateDistance(forLocation: currentLocation)
+        editContext.perform {
+            let allAirports = editContext.fetchObjects(forEntityClass: Airport.self)
+            for airport in allAirports {
+                airport.updateDistance(forLocation: currentLocation)
+            }
+            
+            editContext.saveContext()
         }
-        
-        editContext.saveContext()
 
     }
 
