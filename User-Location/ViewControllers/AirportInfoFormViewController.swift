@@ -7,10 +7,9 @@
 //
 
 import Eureka
-import MessageUI
 
 // MARK: - AirportInfoViewController
-class AirportInfoFormViewController: FormViewController, MFMailComposeViewControllerDelegate {
+class AirportInfoFormViewController: FormViewController {
     
     // MARK: - Init
     override func viewDidLoad() {
@@ -347,9 +346,7 @@ class AirportInfoFormViewController: FormViewController, MFMailComposeViewContro
             UIApplication.shared.canOpenURL(phoneURL) {
             UIApplication.shared.open(phoneURL, options: [:], completionHandler: nil)
         } else {
-            DLSendMail.showSendMailViewController(subject: "Report Phone Number",
-                                                  message: "Phone Number is:",
-                                                  on: self)
+            // TODO: 20210311 Add Send Mail Button
         }
     }
     
@@ -359,19 +356,9 @@ class AirportInfoFormViewController: FormViewController, MFMailComposeViewContro
             if let url = URL(string: urlString) {
                 UIApplication.shared.open(url)
             } else {
-                DLSendMail.showSendMailViewController(subject: "Report URL",
-                                                      message: "URL is:",
-                                                      on: self)
+                // TODO: 20210311 Add Send Mail Button
             }
         }
-    }
-    
-    // MARK: - Internal Methods
-    // Mail Compose Controller
-    internal func mailComposeController(_ controller: MFMailComposeViewController,
-                                        didFinishWith result: MFMailComposeResult,
-                                        error: Error?) {
-        controller.dismiss(animated: true)
     }
     
     // MARK: - Action Methods
