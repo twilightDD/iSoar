@@ -51,6 +51,7 @@
 		E06EA7372575956600AA5FD8 /* DLJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E06EA7362575956600AA5FD8 /* DLJSON.swift */; };
 		E070FD9E24A3109A0039386D /* Glider Tool.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E070FD9C24A3109A0039386D /* Glider Tool.xcdatamodeld */; };
 		E070FDA924A468730039386D /* GliderSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */; };
+		E074D60D25F95E1000CB1AB5 /* DLSendMail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E074D60C25F95E1000CB1AB5 /* DLSendMail.swift */; };
 		E077487524C0703300BFF517 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E077487424C0703300BFF517 /* CoreDataManager.swift */; };
 		E07CA52225AC971A00174B8C /* TaskSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07CA52125AC971A00174B8C /* TaskSelectionTableViewController.swift */; };
 		E086AB0B229C35890011C433 /* SettingsFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E086AB0A229C35890011C433 /* SettingsFormViewController.swift */; };
@@ -143,6 +144,7 @@
 		E06EA7362575956600AA5FD8 /* DLJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLJSON.swift; sourceTree = "<group>"; };
 		E070FD9D24A3109A0039386D /* Glider Tool.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Glider Tool.xcdatamodel"; sourceTree = "<group>"; };
 		E070FDA824A468730039386D /* GliderSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GliderSelectionTableViewController.swift; sourceTree = "<group>"; };
+		E074D60C25F95E1000CB1AB5 /* DLSendMail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLSendMail.swift; sourceTree = "<group>"; };
 		E077487424C0703300BFF517 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataManager.swift; path = "User-Location/CoreData/CoreDataManager.swift"; sourceTree = SOURCE_ROOT; };
 		E07CA52125AC971A00174B8C /* TaskSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskSelectionTableViewController.swift; sourceTree = "<group>"; };
 		E086AB0A229C35890011C433 /* SettingsFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFormViewController.swift; sourceTree = "<group>"; };
@@ -390,6 +392,7 @@
 				E001B84E243C810700559D7B /* NotificationBanner.swift */,
 				E00E08CB23DB877A00BE04F6 /* TimeDateFormatter.swift */,
 				E05033A6253F203A0057BE66 /* DLAlertViewController.swift */,
+				E074D60C25F95E1000CB1AB5 /* DLSendMail.swift */,
 				E00241E4254BF7DA002E376E /* DLTerrainElevation.swift */,
 				E03F256E25549C6A008D4F33 /* DLLogger.swift */,
 				E06EA7362575956600AA5FD8 /* DLJSON.swift */,
@@ -606,6 +609,7 @@
 				E0C55A2824D6CB7B00618179 /* Buddy+CoreDataProperties.swift in Sources */,
 				E00241E5254BF7DA002E376E /* DLTerrainElevation.swift in Sources */,
 				E0A215BB235E2D0D009F6953 /* TableViewController.swift in Sources */,
+				E074D60D25F95E1000CB1AB5 /* DLSendMail.swift in Sources */,
 				E007864923D2204600856865 /* FlightsDatabase.swift in Sources */,
 				E088764925D0127600E7EE54 /* Waypoint+CoreDataProperties.swift in Sources */,
 				E070FD9E24A3109A0039386D /* Glider Tool.xcdatamodeld in Sources */,
