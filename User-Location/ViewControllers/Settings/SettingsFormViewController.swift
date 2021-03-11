@@ -48,7 +48,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         #if DEBUG
         form.append(debugSection())
         #endif
-
+        
         // Setup offline pack notification handlers from MapAreaDownloadManager
         NotificationCenter.default.addObserver(self, selector: #selector(offlinePackProgressDidChange),
                                                name: NSNotification.Name.MGLOfflinePackProgressChanged,
@@ -76,7 +76,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
             NotificationBanner.show("Airport Database updated")
             
         }
-
+        
         // TODO: 20210107 Airport Update Failed Notification
         
         // GliderModel Update Finished
@@ -139,7 +139,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                         return "No task selected"
                     }
                 }
-
+                
                 row.presentationMode = .segueName(segueName: "TaskListSegue", onDismiss: nil)
                 
             }.cellSetup { cell, row in
@@ -444,7 +444,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         
         return section
     }
-
+    
     private func miscellaneousSection()
     -> Section {
         let section = Section("Miscellaneous")
@@ -488,7 +488,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         
         return section
     }
-
+    
     // Report missing Airport
     private func reportMissingAirport() {
         if MFMailComposeViewController.canSendMail() {
@@ -503,9 +503,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         } else {
             DLAlertViewController.showAlertViewController(title: "Error creating Mail",
                                                           message: "Mail is not configured in settings app.",
-                                                          preferredStyle: .alert
-            )
-            
+                                                          preferredStyle: .alert)
         }
     }
     
@@ -545,20 +543,18 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     private func airportDatabaseUpdatesButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         DLDownloadManager.download(.airports,
                                    completion: { data in
-
+                                    
                                     guard let data = data
                                     else {
                                         //NotificationBanner.show("No data received.")
                                         return
                                     }
-
+                                    
                                     // TODO: 20201207 Success zurückwerfen
                                     CoreDataImporter.importData(data, forType: .airports)
-
-                                    //NotificationBanner.show("Airport Database updated")
-
+                                    
                                    })
-
+        
     }
     
     private func gliderModelDatabaseUpdatesButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
@@ -603,16 +599,16 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
     
     private func emptyCoreDataButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         var message = ""
-
+        
         let deleteCountAirports = Airport.deleteAll()
         message.append("\(deleteCountAirports) Flughäfen\n")
         
-//        let deleteCountGliders = Glider.deleteAll()
-//        message.append("\(deleteCountGliders) Flugzeuge\n")
-//
-//        let deleteCountGliderModels = GliderModel.deleteAll()
-//        message.append("\(deleteCountGliderModels) Flugzeugmodelle")
+        //        let deleteCountGliderModels = GliderModel.deleteAll()
+        //        message.append("\(deleteCountGliderModels) Flugzeugmodelle")
         
+        //        let deleteCountGliders = Glider.deleteAll()
+        //        message.append("\(deleteCountGliders) Flugzeuge\n")
+
         DLAlertViewController.showAlertViewController(title: "Löschen erfolgreich",
                                                       message: message,
                                                       preferredStyle: .alert)
