@@ -109,15 +109,11 @@ class FlightComputer {
     }
     
     class func registerForFlightComputerUpdates(_ delegate: FlightComputerDelegate) {
-        // print("\(#function) - willAdd delegates.count = \(shared.delegates.count)")
         shared.delegates.add(delegate)
-        // print("\(#function) - did Add delegates.count = \(shared.delegates.count)")
     }
     
     class func unRegisterForFlightComputerUpdates(_ delegate: FlightComputerDelegate) {
-        // print("\(#function) - willRemove delegates.count = \(shared.delegates.count)")
         shared.delegates.remove(delegate)
-        // print("\(#function) - did Remove delegates.count = \(shared.delegates.count)")
     }
     
     // MARK: - Private Instance Methods
