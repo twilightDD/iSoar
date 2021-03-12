@@ -237,6 +237,18 @@ class FlightComputer {
         return nearestAirport
     }
     
+    private func nearestAirportAtStartOrLanding()
+    -> Airport? {
+        if let nearestAirport = FlightComputer.nearestAirport(),
+           let distance = LocationManager.distanceFromCurrentLocationTo(location: nearestAirport.location) {
+            if distance <= Presets.FlightComputer.maximalDistanceFromNearestAirport {
+                return nearestAirport
+            }
+        }
+
+        return nil
+    }
+    
     // MARK: Check Warning Methods
     // Check for Gear Warning
     private func checkForGearWarning() {
