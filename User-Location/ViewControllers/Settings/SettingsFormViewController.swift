@@ -176,11 +176,16 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 
             }
             
+            <<< SwitchRow("Show Flight Summary") { row in
                 row.title = row.tag
+                row.value = UserDefaultsManager.showFlightSummaryState()
                 
             }.cellSetup { cell, row in
+                cell.imageView?.image = UIImage(systemName: "doc.plaintext")
                 
             }.onChange { row in
+                guard let showFlightSummaryState = row.value else { return }
+                UserDefaultsManager.set(showFlightSummaryState: showFlightSummaryState)
                 
             }
             
