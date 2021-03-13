@@ -76,19 +76,6 @@ class FlightRecorder {
         
     }
     
-    // Returns the ICAO Code of the nearest Airport
-    private func icaoOfNearestAirportWithinMaximalDistance()
-    -> String? {
-        if let nearestAirport = FlightComputer.nearestAirport(),
-           let distance = LocationManager.distanceFromCurrentLocationTo(location: nearestAirport.location) {
-            if distance <= Presets.FlightComputer.maximalDistanceFromNearestAirport {
-                return nearestAirport.icao
-            }
-        }
-        
-        return nil
-    }
-    
 }
 
 // MARK: - Extensions
