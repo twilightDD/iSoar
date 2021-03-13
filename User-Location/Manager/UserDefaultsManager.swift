@@ -111,14 +111,14 @@ class UserDefaultsManager {
         if shared.userDefaults.value(forKey: ShowFightSummaryStateKey) == nil {
             shared.userDefaults.set(false, forKey: ShowFightSummaryStateKey)
         }
-
+        
     }
     
     // MARK: GliderID
     class func gliderID()
-        -> String {
-            let gliderID = shared.userDefaults.value(forKey: GliderIDKey) as? String ?? gliderIDDefault
-            return gliderID
+    -> String {
+        let gliderID = shared.userDefaults.value(forKey: GliderIDKey) as? String ?? gliderIDDefault
+        return gliderID
     }
     
     class func set(gliderID value: String) {
@@ -127,9 +127,9 @@ class UserDefaultsManager {
     
     // MARK: Own FlarmID
     class func ownFlarmID()
-        -> String {
-            let ownFlarmID = shared.userDefaults.value(forKey: OwnFlarmIDKey) as? String ?? ownFlarmIDDefault
-            return ownFlarmID
+    -> String {
+        let ownFlarmID = shared.userDefaults.value(forKey: OwnFlarmIDKey) as? String ?? ownFlarmIDDefault
+        return ownFlarmID
     }
     
     class func set(ownFlarmID value: String) {
@@ -138,9 +138,9 @@ class UserDefaultsManager {
     
     // MARK: GliderRatio
     class func gliderRatio()
-        -> Double {
-            let gliderRatio = shared.userDefaults.value(forKey: GliderRatioKey) as? Double ?? gliderRadioDefault
-            return gliderRatio
+    -> Double {
+        let gliderRatio = shared.userDefaults.value(forKey: GliderRatioKey) as? Double ?? gliderRadioDefault
+        return gliderRatio
     }
     
     class func set(gliderRatio: Double) {
@@ -149,9 +149,9 @@ class UserDefaultsManager {
     
     // MARK: GearWarningSwitch
     class func gearWarningState()
-        -> Bool {
-            let gearWarningSwitch = shared.userDefaults.value(forKey: GearWarningStateKey) as? Bool ?? gearWarningSwitchDefault
-            return gearWarningSwitch
+    -> Bool {
+        let gearWarningSwitch = shared.userDefaults.value(forKey: GearWarningStateKey) as? Bool ?? gearWarningSwitchDefault
+        return gearWarningSwitch
     }
     
     class func set(gearWarningState: Bool) {
@@ -160,9 +160,9 @@ class UserDefaultsManager {
     
     // MARK: LowOxygenWarningSwitch
     class func lowOxygenWarningState()
-        -> Bool {
-            let lowOxygenWarningSwitch = shared.userDefaults.value(forKey: LowOxygenWarningStateKey) as? Bool ?? lowOxygenWarningSwitchDefault
-            return lowOxygenWarningSwitch
+    -> Bool {
+        let lowOxygenWarningSwitch = shared.userDefaults.value(forKey: LowOxygenWarningStateKey) as? Bool ?? lowOxygenWarningSwitchDefault
+        return lowOxygenWarningSwitch
     }
     
     class func set(lowOxygenWarningState: Bool) {
@@ -171,9 +171,9 @@ class UserDefaultsManager {
     
     // MARK: SafetyAltitude
     class func safetyAltitude()
-        -> Double {
-            let safetyAltitude = shared.userDefaults.value(forKey: SafetyAltitudeKey) as? Double ?? safetyAltitudeDefault
-            return safetyAltitude
+    -> Double {
+        let safetyAltitude = shared.userDefaults.value(forKey: SafetyAltitudeKey) as? Double ?? safetyAltitudeDefault
+        return safetyAltitude
     }
     
     class func set(safetyAltitude: Double) {
@@ -182,9 +182,9 @@ class UserDefaultsManager {
     
     // MARK: ShowTrackingRouteSwitch
     class func showTrackingRouteState()
-        -> Bool {
-            let showTrackingRouteSwitchKey = shared.userDefaults.value(forKey: ShowTrackingRouteStateKey) as? Bool ?? showTrackingRouteSwitchDefault
-            return showTrackingRouteSwitchKey
+    -> Bool {
+        let showTrackingRouteSwitchKey = shared.userDefaults.value(forKey: ShowTrackingRouteStateKey) as? Bool ?? showTrackingRouteSwitchDefault
+        return showTrackingRouteSwitchKey
     }
     
     class func set(showTrackingRouteState: Bool) {
@@ -193,9 +193,9 @@ class UserDefaultsManager {
     
     // MARK: Show Buddy Switch
     class func buddyFilterSwitchState()
-        -> Bool {
-            let buddyFilterSwitchKey = shared.userDefaults.value(forKey: BuddyFilterStateKey) as? Bool ?? showFlarmBuddySwitchDefault
-            return buddyFilterSwitchKey
+    -> Bool {
+        let buddyFilterSwitchKey = shared.userDefaults.value(forKey: BuddyFilterStateKey) as? Bool ?? showFlarmBuddySwitchDefault
+        return buddyFilterSwitchKey
     }
     
     class func set(buddyFilterSwitchState: Bool) {
@@ -204,9 +204,9 @@ class UserDefaultsManager {
     
     // MARK: ShowNearbyGlidersSwitch
     class func showAllNearbyGlidersState()
-        -> Bool {
-            let showNearbyGlidersSwitch = shared.userDefaults.value(forKey: ShowAllNearbyGlidersStateKey) as? Bool ?? showNearbyGlidersSwitchDefault
-            return showNearbyGlidersSwitch
+    -> Bool {
+        let showNearbyGlidersSwitch = shared.userDefaults.value(forKey: ShowAllNearbyGlidersStateKey) as? Bool ?? showNearbyGlidersSwitchDefault
+        return showNearbyGlidersSwitch
     }
     
     class func set(showAllNearbyGlidersState: Bool) {
@@ -215,9 +215,9 @@ class UserDefaultsManager {
     
     // MARK: CollisionWarningSwitch
     class func collisionWarningState()
-        -> Bool {
-            let collisionWarningSwitch = shared.userDefaults.value(forKey: CollisionWarningStateKey) as? Bool ?? collisionWarningSwitchDefault
-            return collisionWarningSwitch
+    -> Bool {
+        let collisionWarningSwitch = shared.userDefaults.value(forKey: CollisionWarningStateKey) as? Bool ?? collisionWarningSwitchDefault
+        return collisionWarningSwitch
     }
     
     class func set(collisionWarningState: Bool) {
@@ -226,9 +226,9 @@ class UserDefaultsManager {
     
     // MARK: Flarm Radius
     class func trafficMonitorRadius()
-        -> Double {
-            let trafficMonitorRadius = shared.userDefaults.value(forKey: TrafficMonitorRadiusKey) as? Double ?? trafficMonitorRadiusDefault
-            return trafficMonitorRadius
+    -> Double {
+        let trafficMonitorRadius = shared.userDefaults.value(forKey: TrafficMonitorRadiusKey) as? Double ?? trafficMonitorRadiusDefault
+        return trafficMonitorRadius
     }
     
     class func set(trafficMonitorRadius: Double) {
@@ -237,9 +237,9 @@ class UserDefaultsManager {
     
     // MARK: Thermal Assistant Switch
     class func thermalAssistantState()
-        -> Bool {
-            let thermalAssistantSwitch = shared.userDefaults.value(forKey: ThermalAssistantStateKey) as? Bool ?? thermalAssistantSwitchDefault
-            return thermalAssistantSwitch
+    -> Bool {
+        let thermalAssistantSwitch = shared.userDefaults.value(forKey: ThermalAssistantStateKey) as? Bool ?? thermalAssistantSwitchDefault
+        return thermalAssistantSwitch
     }
     
     class func set(thermalAssistantState: Bool) {
@@ -248,9 +248,9 @@ class UserDefaultsManager {
     
     // MARK: User Map Zoom Level
     class func userMapZoomLevel()
-        -> Double {
-            let userMapZoomLevel = shared.userDefaults.value(forKey: UserMapZoomLevelKey) as? Double ?? userMapZoomLevelDefault
-            return userMapZoomLevel
+    -> Double {
+        let userMapZoomLevel = shared.userDefaults.value(forKey: UserMapZoomLevelKey) as? Double ?? userMapZoomLevelDefault
+        return userMapZoomLevel
     }
     
     class func set(userMapZoomLevel: Double) {
@@ -259,9 +259,9 @@ class UserDefaultsManager {
     
     // MARK: Map Country
     class func selectedCountry()
-        -> String {
-            let selectedCountry = shared.userDefaults.value(forKey: SelectedCountryKey) as? String ?? selectedCountryDefault
-            return selectedCountry
+    -> String {
+        let selectedCountry = shared.userDefaults.value(forKey: SelectedCountryKey) as? String ?? selectedCountryDefault
+        return selectedCountry
     }
     
     class func set(mapCountry: String) {
@@ -270,9 +270,9 @@ class UserDefaultsManager {
     
     // MARK: Map Style URL
     class func mapStyleURL()
-        -> String {
-            let mapStyleURL = shared.userDefaults.value(forKey: MapStyleURLKey) as? String ?? mapStyleURLDefault
-            return mapStyleURL
+    -> String {
+        let mapStyleURL = shared.userDefaults.value(forKey: MapStyleURLKey) as? String ?? mapStyleURLDefault
+        return mapStyleURL
     }
     
     class func set(mapStyleURL: String) {
@@ -281,9 +281,9 @@ class UserDefaultsManager {
     
     // MARK: Show Distance Circles Switch
     class func showDistanceCirclesState()
-        -> Bool {
-            let showDistanceCirclesSwitchKey = shared.userDefaults.value(forKey: ShowDistanceCirclesStateKey) as? Bool ?? showDistanceCirclesSwitchDefault
-            return showDistanceCirclesSwitchKey
+    -> Bool {
+        let showDistanceCirclesSwitchKey = shared.userDefaults.value(forKey: ShowDistanceCirclesStateKey) as? Bool ?? showDistanceCirclesSwitchDefault
+        return showDistanceCirclesSwitchKey
     }
     
     class func set(showDistanceCirclesState: Bool) {
@@ -300,16 +300,16 @@ class UserDefaultsManager {
     class func set(firstLaunchOfAppState: Bool) {
         shared.userDefaults.set(firstLaunchOfAppState, forKey: FirstLaunchOfAppStateKey)
     }
-
+    
     // MARK: Show Flight Summary Switch
     class func showFlightSummaryState()
-        -> Bool {
-            let showFlightSummarySwitch = shared.userDefaults.value(forKey: ShowFightSummaryStateKey) as? Bool ?? showFlightSummaryDefault
-            return showFlightSummarySwitch
+    -> Bool {
+        let showFlightSummarySwitch = shared.userDefaults.value(forKey: ShowFightSummaryStateKey) as? Bool ?? showFlightSummaryDefault
+        return showFlightSummarySwitch
     }
     
     class func set(showFlightSummaryState: Bool) {
         shared.userDefaults.set(showFlightSummaryState, forKey: ShowFightSummaryStateKey)
     }
-
+    
 }
