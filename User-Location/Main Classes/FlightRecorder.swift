@@ -33,7 +33,7 @@ class FlightRecorder {
     private func startRecording() {
         currentUnixTimeStamp = String.init(Date.currentUnixTimeStamp)
         flightStartDate = Date()
-        startICAO = icaoOfNearestAirportWithinMaximalDistance()
+        startICAO = FlightComputer.nearestAirportAtStartOrLanding()?.icao
         
         let createFlightRecorderFiles = ISoarFileManager.createFlightRecorderFiles(currentUnixTimpStamp: currentUnixTimeStamp,
                                                                                    flightStartDate: flightStartDate,
@@ -44,7 +44,7 @@ class FlightRecorder {
     // Stop Recording of Telemetry Data
     private func stopRecording() {
         let flightEndDate = Date()
-        let endICAO = icaoOfNearestAirportWithinMaximalDistance()
+        let endICAO = FlightComputer.nearestAirportAtStartOrLanding()?.icao
         
         ISoarFileManager.closeFlightRecorderFiles(currentUnixTimeStamp: currentUnixTimeStamp,
                                                   flightStartDate: flightStartDate,
@@ -55,11 +55,11 @@ class FlightRecorder {
         canRecordFlight = false
     }
     
-    // Append Telemetry Data to FlightRecorder File
-    private func addFlightRecorderEntryForLocation(_ currentLocation: CLLocation) {
+    // Add current Telemetry Data Set to FlightRecorder File
+    private func addCurrentTelemetryDataSetToFlightRecorderFile(_ currentLocation: CLLocation) {
         if FlightComputer.isGliderFlying() == true,
             canRecordFlight == true {
-            // Prepare Data for FlightRecorder File
+            // Prepare current Telemetry Data Set for FlightRecorder File
             let unixTimeStamp = Date.currentUnixTimeStamp
             let recordLine = String()
                 .appending("\(unixTimeStamp),")
@@ -91,7 +91,7 @@ extension FlightRecorder: LocationManagerDelegate {
     func locationManager(didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = LocationManager.currentLocation()
             else { return }
-        addFlightRecorderEntryForLocation(currentLocation)
+        addCurrentTelemetryDataSetToFlightRecorderFile(currentLocation)
     }
     
 }
