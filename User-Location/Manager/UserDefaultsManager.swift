@@ -26,9 +26,7 @@ class UserDefaultsManager {
     private static let UserMapZoomLevelKey = "userMapZoomLevel"
     private static let SelectedCountryKey = "mapCountry"
     private static let MapStyleURLKey = "mapStyleURL"
-    private static let UpdateAirportDatabaseAtStartupStateKey = "updateAirportDatabaseAtStartupState"
     private static let ShowDistanceCirclesStateKey = "showDistanceCirclesStateKey"
-    
     private static let FirstLaunchOfAppStateKey = "firstLaunchOfAppStateKey"
     
     // MARK: - Defaults
@@ -47,9 +45,7 @@ class UserDefaultsManager {
     private static let userMapZoomLevelDefault: Double = 9.6
     private static let selectedCountryDefault: String = "Germany"
     private static let mapStyleURLDefault: String = "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt"
-    private static let updateAirportDatabaseAtStartupSwitchDefault: Bool = false
     private static let showDistanceCirclesSwitchDefault: Bool = false
-    
     private static let firstLaunchOfAppDefault: Bool = true
     
     // MARK: - Lets and Vars
@@ -103,9 +99,6 @@ class UserDefaultsManager {
         }
         if shared.userDefaults.value(forKey: MapStyleURLKey) == nil {
             UserDefaultsManager.set(mapStyleURL: mapStyleURLDefault)
-        }
-        if shared.userDefaults.value(forKey: UpdateAirportDatabaseAtStartupStateKey) == nil {
-            shared.userDefaults.set(false, forKey: UpdateAirportDatabaseAtStartupStateKey)
         }
         if shared.userDefaults.value(forKey: ShowDistanceCirclesStateKey) == nil {
             shared.userDefaults.set(false, forKey: ShowDistanceCirclesStateKey)
@@ -278,17 +271,6 @@ class UserDefaultsManager {
     
     class func set(mapStyleURL: String) {
         shared.userDefaults.set(mapStyleURL, forKey: MapStyleURLKey)
-    }
-    
-    // MARK: Update Airport Database at Start Switch
-    class func updateAirportDatabaseAtStartupState()
-        -> Bool {
-            let updateAirportDatabaseAtStartupSwitch = shared.userDefaults.value(forKey: UpdateAirportDatabaseAtStartupStateKey) as? Bool ?? updateAirportDatabaseAtStartupSwitchDefault
-            return updateAirportDatabaseAtStartupSwitch
-    }
-    
-    class func set(updateAirportDatabaseAtStartupState: Bool) {
-        shared.userDefaults.set(updateAirportDatabaseAtStartupState, forKey: UpdateAirportDatabaseAtStartupStateKey)
     }
     
     // MARK: Show Distance Circles Switch
