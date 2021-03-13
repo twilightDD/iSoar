@@ -28,6 +28,7 @@ class UserDefaultsManager {
     private static let MapStyleURLKey = "mapStyleURL"
     private static let ShowDistanceCirclesStateKey = "showDistanceCirclesStateKey"
     private static let FirstLaunchOfAppStateKey = "firstLaunchOfAppStateKey"
+    private static let ShowFightSummaryStateKey = "showFightSummaryState"
     
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
@@ -47,6 +48,7 @@ class UserDefaultsManager {
     private static let mapStyleURLDefault: String = "mapbox://styles/dlmapbox/cka5rqao21e0z1iqisptn1fwt"
     private static let showDistanceCirclesSwitchDefault: Bool = false
     private static let firstLaunchOfAppDefault: Bool = true
+    private static let showFlightSummaryDefault: Bool = false
     
     // MARK: - Lets and Vars
     private static let shared = UserDefaultsManager()
@@ -106,6 +108,10 @@ class UserDefaultsManager {
         if shared.userDefaults.value(forKey: FirstLaunchOfAppStateKey) == nil {
             shared.userDefaults.set(true, forKey: FirstLaunchOfAppStateKey)
         }
+        if shared.userDefaults.value(forKey: ShowFightSummaryStateKey) == nil {
+            shared.userDefaults.set(false, forKey: ShowFightSummaryStateKey)
+        }
+
     }
     
     // MARK: GliderID
@@ -294,5 +300,16 @@ class UserDefaultsManager {
     class func set(firstLaunchOfAppState: Bool) {
         shared.userDefaults.set(firstLaunchOfAppState, forKey: FirstLaunchOfAppStateKey)
     }
+
+    // MARK: Show Flight Summary Switch
+    class func showFlightSummaryState()
+        -> Bool {
+            let showFlightSummarySwitch = shared.userDefaults.value(forKey: ShowFightSummaryStateKey) as? Bool ?? showFlightSummaryDefault
+            return showFlightSummarySwitch
+    }
     
+    class func set(showFlightSummaryState: Bool) {
+        shared.userDefaults.set(showFlightSummaryState, forKey: ShowFightSummaryStateKey)
+    }
+
 }
