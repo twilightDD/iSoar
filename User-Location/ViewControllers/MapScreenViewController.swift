@@ -162,11 +162,11 @@ class MapScreenViewController: UIViewController {
     private func setupMapBox() {
         
         guard let mapStyleURL: URL = URL(string: UserDefaultsManager.mapStyleURL()) else { return }
-        
-        self.mapView.styleURL = mapStyleURL
-        
+
         mapView.delegate = self
         
+        mapView.styleURL = mapStyleURL
+        mapView.automaticallyAdjustsContentInset = true
         mapView.tintColor = .red
         mapView.allowsRotating = false
         mapView.allowsTilting = false
