@@ -1073,18 +1073,26 @@ extension MapScreenViewController: FlightComputerDelegate {
             // Remove all existing Polyline-Location-Points from Array
             travelledFlightlineSegments.removeAll()
         } else {
+            // Show Flight Summary
             if UserDefaultsManager.showFlightSummaryState() == true {
-                let startAirport = FlightComputer.startAirport()
-                let utcStartTimeString = TimeDateFormatter.utcTimeInHHMMAsString(from: (FlightComputer.flightStartTime())!)
-                let endAirport = FlightComputer.endAirport()
-                let utcEndTimeString = TimeDateFormatter.utcTimeInHHMMAsString(from: FlightComputer.flightEndTime()!)
-                let flightTimeString = TimeDateFormatter.hourMinutesStringFromTimeIntervall(FlightComputer.flightTime()!)
-                
-                DispatchQueue.main.async {
-                    DLAlertViewController.showAlertViewController(title: "Flight Summary",
-                                                                  message: "From: \(startAirport?.icao ?? "????") to: \(endAirport?.icao ?? "????")\nTakeoff: \(utcStartTimeString) UTC\nLanding: \(utcEndTimeString) UTC\nFlightime: \(flightTimeString)",
-                                                                  preferredStyle: .alert, on: self, actionButtonTitle: "OK")
+                if let startAirport = FlightComputer.startAirport(),
+                   let flightStartTime = FlightComputer.flightStartTime(),
+                   let endAirport = FlightComputer.endAirport(),
+                   let flightEndTime = FlightComputer.flightEndTime(),
+                   let flightTime = FlightComputer.flightTime() {
+                    
+                    let utcStartTimeString = TimeDateFormatter.utcTimeInHHMMAsString(from: flightStartTime)
+                    let utcEndTimeString = TimeDateFormatter.utcTimeInHHMMAsString(from: flightEndTime)
+                    let flightTimeString = TimeDateFormatter.hourMinutesStringFromTimeIntervall(flightTime)
+                    
+                    DispatchQueue.main.async {
+                        DLAlertViewController.showAlertViewController(title: "Flight Summary",
+                                                                      message: "From: \(startAirport.icao ?? "????") to: \(endAirport.icao ?? "????")\nTakeoff: \(utcStartTimeString) UTC\nLanding: \(utcEndTimeString) UTC\nFlightime: \(flightTimeString)",
+                                                                      preferredStyle: .alert, on: self, actionButtonTitle: "OK")
+                    }
+                    
                 }
+
             }
 
         }
