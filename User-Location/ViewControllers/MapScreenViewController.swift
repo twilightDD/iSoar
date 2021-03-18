@@ -800,7 +800,7 @@ class MapScreenViewController: UIViewController {
     
 }
 
-// MARK: - MGLMapViewDelegate methods
+// MARK: - Extension - MGLMapViewDelegate
 extension MapScreenViewController: MGLMapViewDelegate {
     
     // Set Polyline Colors
@@ -1019,7 +1019,7 @@ extension MapScreenViewController: TaskSelectionProtocol {
     }
 }
 
-// MARK: - MapScreen:UIGestureRecognizerDelegate
+// MARK: - Extension - UIGestureRecognizerDelegate
 extension MapScreenViewController: UIGestureRecognizerDelegate {
     internal func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                                     shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -1027,7 +1027,7 @@ extension MapScreenViewController: UIGestureRecognizerDelegate {
     }
 }
 
-// MARK: - MapScreen:DL_OGNSocketConnectionManagerDelegate
+// MARK: - Extension - DL_OGNSocketConnectionManagerDelegate
 extension MapScreenViewController: DL_OGNSocketConnectionManagerDelegate {
     internal func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
         var nearbyGliderAnnotation = nearbyGliderAnnotations[gliderTelemetryData.flarmID]
@@ -1064,7 +1064,7 @@ extension MapScreenViewController: DL_OGNSocketConnectionManagerDelegate {
     
 }
 
-// MARK: - MapScreen: FlightComputerDelegate
+// MARK: - Extension - FlightComputerDelegate
 extension MapScreenViewController: FlightComputerDelegate {
     internal func gliderIsFlying(_ isFlying: Bool) {
         if isFlying == true {
