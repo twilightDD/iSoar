@@ -141,11 +141,11 @@ extension TaskSelectionTableViewController {
             // Inform Delegate
             TaskSelectionTableViewController.shared.taskSelectionDelegate?.setNewTask(coordinates: taskWaypoints)
             
-            // If selected Task is the same Task which is already selected
+            // If selected Task is NOT the same Task which is already selected
         } else {
             let newSelectedTask = selectedTask
-            FlightComputer.setSelectedTask(newSelectedTask)
             taskWaypoints.removeAll()
+            FlightComputer.setSelectedTask(newSelectedTask)
             
             if let waypointsInTask = selectedTask.waypoints {
                 for waypoint in waypointsInTask {
