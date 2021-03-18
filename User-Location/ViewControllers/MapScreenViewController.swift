@@ -1074,6 +1074,21 @@ extension MapScreenViewController: FlightComputerDelegate {
             removeTravelledFlightLineFromMapView()
             // Remove all existing Polyline-Location-Points from Array
             travelledFlightlineSegments.removeAll()
+        } else {
+            if UserDefaultsManager.showFlightSummaryState() == true {
+                let startAirport = FlightComputer.startAirport()
+                let utcStartTimeString = TimeDateFormatter.utcTimeInHHMMAsString(from: (FlightComputer.flightStartTime())!)
+                let endAirport = FlightComputer.endAirport()
+                let utcEndTimeString = TimeDateFormatter.utcTimeInHHMMAsString(from: FlightComputer.flightEndTime()!)
+                let flightTimeString = TimeDateFormatter.hourMinutesStringFromTimeIntervall(FlightComputer.flightTime()!)
+                
+                DispatchQueue.main.async {
+                    DLAlertViewController.showAlertViewController(title: "Flight Summary",
+                                                                  message: "From: \(startAirport?.icao ?? "????") to: \(endAirport?.icao ?? "????")\nTakeoff: \(utcStartTimeString) UTC\nLanding: \(utcEndTimeString) UTC\nFlightime: \(flightTimeString)",
+                                                                  preferredStyle: .alert, on: self, actionButtonTitle: "OK")
+                }
+            }
+
         }
     }
 }
