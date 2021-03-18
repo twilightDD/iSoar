@@ -159,7 +159,7 @@ class MapScreenViewController: UIViewController {
     }
     
     // MARK: - Setup functions
-    func setupMapBox() {
+    private func setupMapBox() {
         
         guard let mapStyleURL: URL = URL(string: UserDefaultsManager.mapStyleURL()) else { return }
         
@@ -188,7 +188,7 @@ class MapScreenViewController: UIViewController {
     }
     
     // Create Annotations for Airports on Map
-    func createAirportAnnotations() {
+    private func createAirportAnnotations() {
         let context = CoreDataManager.viewOnlyContext
         let allAirports = context.fetchObjects(forEntityClass: Airport.self)
         
@@ -201,7 +201,7 @@ class MapScreenViewController: UIViewController {
     }
     
     // Create User Center Location Button on Map
-    func createUserLocationButton()
+    private func createUserLocationButton()
     -> UserLocationButton {
         let userLocationButton = UserLocationButton(buttonSize: 40)
         userLocationButton.addTarget(self, action: #selector(self.locationButtonTappedAction), for: .touchUpInside)
@@ -804,7 +804,7 @@ class MapScreenViewController: UIViewController {
 extension MapScreenViewController: MGLMapViewDelegate {
     
     // Set Polyline Colors
-    func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape)
+    internal func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape)
     -> UIColor {
         if annotation.title == "ascanding" {
             return UIColor.green
@@ -915,7 +915,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
     }
     
     // User did select Annotation
-    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+    internal func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         guard let title = annotation.title ?? nil,
               let subtitle = annotation.subtitle ?? nil
         else { return }
@@ -958,7 +958,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
     }
     
     // Map did finished loading
-    func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
+    internal func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
         // Center Map to User Location
         // Check if User Location is available.
         // If yes, set Center the Map to User Location
@@ -986,8 +986,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
 
 // MARK: - Extension - LocationManagerDelegate
 extension MapScreenViewController: LocationManagerDelegate {
-    
-    func locationManager(didUpdateLocations locations: [CLLocation]) {
+    internal func locationManager(didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last // Alternativ: LocationManager.currentLocation
         else { return }
         
@@ -1004,7 +1003,7 @@ extension MapScreenViewController: LocationManagerDelegate {
 
 // MARK: - Extension - TaskSelectionDelegate
 extension MapScreenViewController: TaskSelectionProtocol {
-    func setNewTask(coordinates: [CLLocationCoordinate2D]) {
+    internal func setNewTask(coordinates: [CLLocationCoordinate2D]) {
         if let currentTaskLine = currentTaskLine {
             mapView.removeAnnotation(currentTaskLine)
             self.currentTaskLine = nil
@@ -1022,16 +1021,15 @@ extension MapScreenViewController: TaskSelectionProtocol {
 
 // MARK: - MapScreen:UIGestureRecognizerDelegate
 extension MapScreenViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    internal func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                                    shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 }
 
 // MARK: - MapScreen:DL_OGNSocketConnectionManagerDelegate
 extension MapScreenViewController: DL_OGNSocketConnectionManagerDelegate {
-    
-    func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
+    internal func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
         var nearbyGliderAnnotation = nearbyGliderAnnotations[gliderTelemetryData.flarmID]
         if nearbyGliderAnnotation == nil {
             nearbyGliderAnnotation = NearbyGliderAnnotation.init(gliderTelemetryData: gliderTelemetryData)
@@ -1047,14 +1045,14 @@ extension MapScreenViewController: DL_OGNSocketConnectionManagerDelegate {
         
     }
     
-    func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
+    internal func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
         if let nearbyGliderAnnotation = nearbyGliderAnnotations[gliderTelemetryData.flarmID] {
             mapView.removeAnnotation(nearbyGliderAnnotation)
             nearbyGliderAnnotations[gliderTelemetryData.flarmID] = nil
         }
     }
     
-    func removeAllNearbyGliders() {
+    internal func removeAllNearbyGliders() {
         var nearbyGliderAnnotationsToRemove = [NearbyGliderAnnotation]()
         for (_, nearbyGliderAnnotationToRemove) in nearbyGliderAnnotations {
             nearbyGliderAnnotationsToRemove.append(nearbyGliderAnnotationToRemove)
@@ -1068,7 +1066,7 @@ extension MapScreenViewController: DL_OGNSocketConnectionManagerDelegate {
 
 // MARK: - MapScreen: FlightComputerDelegate
 extension MapScreenViewController: FlightComputerDelegate {
-    func gliderIsFlying(_ isFlying: Bool) {
+    internal func gliderIsFlying(_ isFlying: Bool) {
         if isFlying == true {
             // Remove all existing travelledFlightlineSegments Annotations from MapScreen
             removeTravelledFlightLineFromMapView()
