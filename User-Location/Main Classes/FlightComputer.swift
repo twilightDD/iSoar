@@ -97,6 +97,12 @@ class FlightComputer {
         return nearestAirport
     }
     
+    class func nearestAirportAtStartOrLanding()
+    -> Airport? {
+        let nearestAirportAtStartOrLanding = FlightComputer.shared.nearestAirportAtStartOrLanding()
+        return nearestAirportAtStartOrLanding
+    }
+    
     class func selectedTask()
     -> Task? {
         let selectedTask = shared.selectedTask
@@ -106,6 +112,36 @@ class FlightComputer {
     class func setSelectedTask(_ task: Task?) {
         let shared = FlightComputer.shared
         shared.selectedTask = task
+    }
+    
+    class func startAirport()
+    -> Airport? {
+        let startAirport = shared.startAirport
+        return startAirport
+    }
+    
+    class func flightStartTime()
+    -> Date? {
+        let startTime = shared.flightStartTime
+        return startTime
+    }
+    
+    class func endAirport()
+    -> Airport? {
+        let endAirport = shared.endAirport
+        return endAirport
+    }
+    
+    class func flightEndTime()
+    -> Date? {
+        let flightEndTime = shared.endTime
+        return flightEndTime
+    }
+    
+    class func flightTime()
+    -> TimeInterval? {
+        let flightTime = shared.flightTime
+        return flightTime
     }
     
     class func registerForFlightComputerUpdates(_ delegate: FlightComputerDelegate) {
