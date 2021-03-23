@@ -55,6 +55,12 @@ class FlightComputer {
     
     private var previousAirportDistanceUpdateCoordinates: CLLocation?
     
+    private var startAirport: Airport?
+    private var flightStartTime: Date?
+    private var endAirport: Airport?
+    private var endTime: Date?
+    private var flightTime: TimeInterval?
+
     // MARK: - Delegate
     private var delegates = NSHashTable<AnyObject>.weakObjects()
     
@@ -158,6 +164,10 @@ class FlightComputer {
             // Check if Glider is faster than 10m/s, (Presets)
             if let currentLocation = LocationManager.currentLocation(),
                currentLocation.speed > Presets.FlightComputer.minimalFlightSpeed {
+                
+                startAirport = nearestAirportAtStartOrLanding()
+                flightStartTime = TimeDateFormatter.yearMonthDayHourMinuteDateFrom(Date())
+                
                 isGliderFlying = true
                 OGNSocketConnectionManager.registerForSocketUpdates(self)
                 
@@ -176,29 +186,47 @@ class FlightComputer {
                         // If vertical Distance between Glider Altitude and Terrain Elevation is < 100m - set isGliderFlying = false
                         // => If vertical Distance between Glider Altitude and Terrain Elevation is > 100m  - Nothing to do
                         if currentLocation.altitude-currentTerrainElevation < 100 {
+                            
+                            DLLogger.writeDebugStringToLogFile("\(#function) -> false - Possible Landing recognized. Got current Terrain Elevation: \(currentTerrainElevation) m")
+                           
+                            self.endAirport = self.nearestAirportAtStartOrLanding()
+                            self.endTime = TimeDateFormatter.yearMonthDayHourMinuteDateFrom(Date())
+                            self.flightTime = self.endTime!.timeIntervalSince(self.flightStartTime!)
+                            
                             self.isGliderFlying = false
                             OGNSocketConnectionManager.unregisterForSocketUpdates(self)
                             
-                            DLLogger.writeDebugStringToLogFile("\(#function) -> false - Flight End detected")
                         }
                     } else if let nearestAirport = FlightComputer.nearestAirport(),
                               let distance = LocationManager.distanceFromCurrentLocationTo(location: nearestAirport.location) {
-                        // If we cant get the Terrain elevation we check for the distance to the nearest Airport
                         
+                        // If we cant get the Terrain elevation we check for the distance to the nearest Airport
                         // If Distance to nearest Airport is < 500m - set isGliderFlying = false
                         if distance < Presets.FlightComputer.maximalDistanceFromNearestAirport {
+                            
+                            DLLogger.writeDebugStringToLogFile("\(#function) -> false - Possible Landing recognized. Could not get current Terrain Elevation. Check for Distance to nearest Airport.")
+                            
+                            self.endAirport = self.nearestAirportAtStartOrLanding()
+                            self.endTime = TimeDateFormatter.yearMonthDayHourMinuteDateFrom(Date())
+                            self.flightTime = self.endTime!.timeIntervalSince(self.flightStartTime!)
+                            
                             self.isGliderFlying = false
                             OGNSocketConnectionManager.unregisterForSocketUpdates(self)
-                            
-                            DLLogger.writeDebugStringToLogFile("\(#function) -> false - Flight End detected")
+
                         } else if currentLocation.altitude < 1200 {
                             // If Distance to nearest Airport is > 500m - check current Altitude of Glider
                             // If Glider Altitude is < 1200 - set isGliderFlying = false
                             // => If Glider Altitude is > 1200 - Nothing to do
+                            
+                            DLLogger.writeDebugStringToLogFile("\(#function) -> false - Possible Landing recognized. Could neither get current Terrain elevation nor nearest Airport.")
+                            
+                            self.endAirport = self.nearestAirportAtStartOrLanding()
+                            self.endTime = TimeDateFormatter.yearMonthDayHourMinuteDateFrom(Date())
+                            self.flightTime = self.endTime!.timeIntervalSince(self.flightStartTime!)
+                            
                             self.isGliderFlying = false
                             OGNSocketConnectionManager.unregisterForSocketUpdates(self)
-                            
-                            DLLogger.writeDebugStringToLogFile("\(#function) -> false - Flight End detected")
+
                         }
                     }
                     
@@ -261,6 +289,7 @@ class FlightComputer {
         
     }
     
+    // Returns the nearest Airport
     private func nearestAirport()
     -> Airport? {
         guard LocationManager.currentLocation() != nil
@@ -273,6 +302,7 @@ class FlightComputer {
         return nearestAirport
     }
     
+    // Returns the Airport which is probable the one at Takeoff or Landing
     private func nearestAirportAtStartOrLanding()
     -> Airport? {
         if let nearestAirport = FlightComputer.nearestAirport(),
