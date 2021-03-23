@@ -57,6 +57,10 @@ class DestinationSelectionViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if let currentLocation = LocationManager.currentLocation() {
+            Airport.updateLocation(currentLocation)
+        }
+        
         updateUIForSelectedDestinationAirport()
         updateSearchbarPlaceholder()
         
