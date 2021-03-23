@@ -42,19 +42,11 @@ class OGNSocketConnectionManager {
     
     // MARK: - Public Class Methods
     class func registerForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
-        
-        //print("\(#function) - willAdd delegates.count = \(shared.delegates.count)")
         shared.delegates.add(delegate)
-        //print("\(#function) - did Add delegates.count = \(shared.delegates.count)")
-        //print(shared.delegates)
     }
     
     class func unregisterForSocketUpdates(_ delegate: DL_OGNSocketConnectionManagerDelegate?) {
-        
-        //print("\(#function) - willRemove delegates.count = \(shared.delegates.count)")
         shared.delegates.remove(delegate)
-        //print("\(#function) - did Remove delegates.count = \(shared.delegates.count)")
-        //print(shared.delegates)
     }
     
     class func start() {
@@ -109,29 +101,29 @@ extension OGNSocketConnectionManager {
                     switch newConnectionState {
                     case .setup:
                         // The connection has been initialized but not started
-                        print("OGN Connection: setup")
+                        break
                     case .waiting:
                         // The connection has been initialized but not started
-                        print("OGN Connection: waiting")
+                        break
                     case .preparing:
                         // The connection in the process of being established
-                        print("OGN Connection: preparing")
+                        break
                     case .ready:
                         // The connection is established and ready to send and recieve data.
-                        print("OGN Connection: ready")
+                        DLLogger.writeDebugStringToLogFile("\(#function) - OGN Connection: ready")
                         self.setupReceive()
                     case .failed:
                         // The connection has failed or interrupted
-                        print("OGN Connection: failed")
+                        DLLogger.writeDebugStringToLogFile("\(#function) - OGN Connection: failed")
                         self.isLoggedIn = false
                         self.connectToOGNServerSocket()
                     case .cancelled:
                         // The connection has been cancelled
-                        print("OGN Connection: cancelled")
+                        DLLogger.writeDebugStringToLogFile("\(#function) - OGN Connection: cancelled")
                         self.isLoggedIn = false
                     default:
                         // The connection has disconnected or encountered an error
-                        print("OGN Connection: waiting or failed")
+                        break
                     }
                 }
                 self.connection?.start(queue: .main)
