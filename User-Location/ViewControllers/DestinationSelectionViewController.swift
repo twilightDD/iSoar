@@ -271,8 +271,7 @@ extension DestinationSelectionViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchBar.text = nil
-        
-        // TODO: 20201222 Peter fragen ob so richtig, müsste aber passen
+
         // TODO: 20201222 das könnte doch über einen UISearchController laufen
         fetchedResultsController.fetchRequest.predicate = nil
         
@@ -324,26 +323,32 @@ extension DestinationSelectionViewController: NSFetchedResultsControllerDelegate
                     for type: NSFetchedResultsChangeType,
                     newIndexPath: IndexPath?) {
         
-        //print("oldIndexPath: \(indexPath) - newIndexPath: \(newIndexPath)")
-        
-        // swiftlint:disable force_unwrapping
         switch type {
         case .insert:
             tableView.insertRows(at: [newIndexPath!], with: .fade)
         case .delete:
             tableView.deleteRows(at: [indexPath!], with: .fade)
-        case .update:
-            tableView.reloadRows(at: [indexPath!], with: .fade)
         case .move:
             tableView.moveRow(at: indexPath!, to: newIndexPath!)
+        case .update:
+            break
+            // TODO: 20210308: We have to ignore the update case, because we are updating AND moving the Cells at the same time.
+            // Workaround could be: Dispatch async. But maybe there is a better way...
+            //tableView.reloadRows(at: [indexPath!], with: .fade)
         @unknown default:
             fatalError("Error")
-        // swiftlint:enable force_unwrapping
         }
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
+        
+        // TODO: 20210308: So we have to handle the Cell Updates afterwards
+        DispatchQueue.main.async {
+            if let visibleRows = self.tableView.indexPathsForVisibleRows {
+                self.tableView.reloadRows(at: visibleRows, with: .fade)
+            }
+        }
         
         updateSearchbarPlaceholder()
     }
