@@ -143,7 +143,7 @@ class DestinationSelectionViewController: UIViewController {
     }
     
     // Pull to Refresh of TableView
-    @objc private func refreshAirportDatabase(_ sender: Any) {
+    @objc private func refreshAirportDatabase(_ sender: UIRefreshControl) {
         FlightComputer.setSelectedDestinationAirport(nil)
         
         DLDownloadManager.download(.airports,
