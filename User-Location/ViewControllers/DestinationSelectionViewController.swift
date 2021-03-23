@@ -48,9 +48,9 @@ class DestinationSelectionViewController: UIViewController {
         refreshControl.attributedTitle = NSAttributedString(string: "Fetching new Airfield Database")
         
         // register keyboard hide notifications to adjust tableView height if necessary.
-        let notificationCenter = NotificationCenter.default
-        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+//        let notificationCenter = NotificationCenter.default
+//        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+//        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
     }
     
@@ -164,23 +164,30 @@ class DestinationSelectionViewController: UIViewController {
                                     
                                    })
         
+        // TODO: 20210308 nur bei Success ausführen
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            if let currentLocation = LocationManager.currentLocation() {
+                Airport.updateLocation(currentLocation)
+            }
+        }
+        
     }
     
     // Adjust TableView height if necessary
-    @objc private func adjustForKeyboard(notification: Notification) {
-        
-        if notification.name == UIResponder.keyboardWillHideNotification {
-            tableView.contentInset = .zero
-        } else {
-            // TODO: Magic number issue; 04.12.19, ph
-            tableView.contentInset = UIEdgeInsets(top: 0,
-                                                  left: 0,
-                                                  bottom: 220, //keyboardViewEndFrame.height - view.safeAreaInsets.bottom,
-                right: 0)
-        }
-        
-        tableView.scrollIndicatorInsets = tableView.contentInset
-    }
+//    @objc private func adjustForKeyboard(notification: Notification) {
+//
+//        if notification.name == UIResponder.keyboardWillHideNotification {
+//            tableView.contentInset = .zero
+//        } else {
+//            // TODO: Magic number issue; 04.12.19, ph
+//            tableView.contentInset = UIEdgeInsets(top: 0,
+//                                                  left: 0,
+//                                                  bottom: 220, //keyboardViewEndFrame.height - view.safeAreaInsets.bottom,
+//                right: 0)
+//        }
+//        
+//        tableView.scrollIndicatorInsets = tableView.contentInset
+//    }
     
     // MARK: - Action Methods
     // Sort Switch
