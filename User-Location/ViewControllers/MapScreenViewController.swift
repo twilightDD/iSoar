@@ -55,6 +55,9 @@ class MapScreenViewController: UIViewController {
     private var nearbyGliderAnnotations = [String: NearbyGliderAnnotation]()
     private var airportAnnotationArray = [MGLPointAnnotation]()
     
+    // TODO: 20210318 Annotations for Task Waypoints
+//    private var waypointAnnotationArray = [MGLPointAnnotation]()
+    
     private var verticalMovement: String = ""
     
     private var mapIsInCirclingZoom: Bool = false
@@ -1004,6 +1007,16 @@ extension MapScreenViewController: LocationManagerDelegate {
 // MARK: - Extension - TaskSelectionDelegate
 extension MapScreenViewController: TaskSelectionProtocol {
     internal func setNewTask(coordinates: [CLLocationCoordinate2D]) {
+        
+        // TODO: 20210318 Annotations for Task Waypoints
+//        for coordinate in coordinates {
+//            let point = MGLPointAnnotation()
+//            point.coordinate = coordinate
+//            point.title = "\(coordinate.latitude), \(coordinate.longitude)"
+//            waypointAnnotationArray.append(point)
+//            mapView.addAnnotations(waypointAnnotationArray)
+//        }
+        
         if let currentTaskLine = currentTaskLine {
             mapView.removeAnnotation(currentTaskLine)
             self.currentTaskLine = nil
