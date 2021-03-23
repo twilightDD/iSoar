@@ -56,8 +56,6 @@ class DestinationSelectionViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        tableView.reloadData()
         
         updateUIForSelectedDestinationAirport()
         updateSearchbarPlaceholder()
@@ -90,8 +88,6 @@ class DestinationSelectionViewController: UIViewController {
         }
 
     }
-
-    // MARK: - Public Class Methods
 
     // MARK: - Private Methods
     private func setupFetchedResultsController()
@@ -149,19 +145,19 @@ class DestinationSelectionViewController: UIViewController {
     // Pull to Refresh of TableView
     @objc private func refreshAirportDatabase(_ sender: Any) {
         FlightComputer.setSelectedDestinationAirport(nil)
-
+        
         DLDownloadManager.download(.airports,
                                    completion: { data in
-
+                                    
                                     guard let data = data
                                     else {
                                         //NotificationBanner.show("No data received.")
                                         return
                                     }
-
+                                    
                                     // TODO: 20201207 Success zurückwerfen
                                     CoreDataImporter.importData(data, forType: .airports)
-
+                                    
                                    })
         
     }
