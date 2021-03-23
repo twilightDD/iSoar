@@ -57,13 +57,13 @@ public class Airport: NSManagedObject {
             airportWithUUID.latitude = airportDictionary[Airport.Attributes.latitude] as? Double ?? 0
             airportWithUUID.longitude = airportDictionary[Airport.Attributes.longitude] as? Double ?? 0
             airportWithUUID.name = airportDictionary[Airport.Attributes.name] as? String ?? "<kein Wert>"
-            airportWithUUID.phone = airportDictionary[Airport.Attributes.phone] as? String ?? "<kein Wert>"
+            airportWithUUID.phone = airportDictionary[Airport.Attributes.phone] as? String
             airportWithUUID.radioFrequency = airportDictionary[Airport.Attributes.radioFrequency] as? String ?? "<kein Wert>"
             airportWithUUID.radioName = airportDictionary[Airport.Attributes.radioName] as? String ?? "<kein Wert>"
             airportWithUUID.runwayDimensions = airportDictionary[Airport.Attributes.runwayDimensions] as? String ?? "<kein Wert>"
             airportWithUUID.runwayDirections = airportDictionary[Airport.Attributes.runwayDirections] as? String ?? "<kein Wert>"
             airportWithUUID.runwaySurface = airportDictionary[Airport.Attributes.runwaySurface] as? String ?? "<kein Wert>"
-            airportWithUUID.url = airportDictionary[Airport.Attributes.url] as? String ?? "<kein Wert>"
+            airportWithUUID.url = airportDictionary[Airport.Attributes.url] as? String
             airportWithUUID.validationDate = airportDictionary[Airport.Attributes.validationDate] as? String ?? "<kein Wert>"
             
         }
@@ -94,14 +94,13 @@ extension Airport {
     
     class func updateLocation(_ currentLocation: CLLocation) {
         let editContext = CoreDataManager.editContextInBackground()
-        editContext.perform {
-            let allAirports = editContext.fetchObjects(forEntityClass: Airport.self)
-            for airport in allAirports {
-                airport.updateDistance(forLocation: currentLocation)
-            }
-            
-            editContext.saveContext()
+        let allAirports = editContext.fetchObjects(forEntityClass: Airport.self)
+        
+        for airport in allAirports {
+            airport.updateDistance(forLocation: currentLocation)
         }
+        
+        editContext.saveContext()
 
     }
 
