@@ -140,27 +140,7 @@ class MapScreenViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
-    
-    // MARK: - Public Class Methods
-    class func increaseZoomLevel() {
-        let shared = MapScreenViewController.shared
-        
-        // Save current Zoom Level to User Defaults
-        UserDefaultsManager.set(userMapZoomLevel: shared.mapView.zoomLevel)
-        
-        // Zoom into Map
-        shared.mapView.setZoomLevel(13, animated: true)
-        
-    }
-    
-    class func decreaseZoomLevel() {
-        let shared = MapScreenViewController.shared
-        
-        // Read Zoom Level from User Defaults and set Zoom Level to Map
-        shared.mapView.setZoomLevel(UserDefaultsManager.userMapZoomLevel(), animated: true)
-        
-    }
-    
+
     // MARK: - Setup functions
     private func setupMapBox() {
         
@@ -801,6 +781,19 @@ class MapScreenViewController: UIViewController {
         return coordinates
     }
     
+    private func increaseZoomLevel() {
+        // Save current Zoom Level to User Defaults
+        UserDefaultsManager.set(userMapZoomLevel: mapView.zoomLevel)
+        
+        // Zoom into Map
+        mapView.setZoomLevel(13, animated: true)
+    }
+    
+    private  func decreaseZoomLevel() {
+        // Read Zoom Level from User Defaults and set Zoom Level to Map
+        mapView.setZoomLevel(UserDefaultsManager.userMapZoomLevel(), animated: true)
+    }
+    
 }
 
 // MARK: - Extension - MGLMapViewDelegate
@@ -1108,6 +1101,14 @@ extension MapScreenViewController: FlightComputerDelegate {
 
             }
 
+        }
+    }
+    
+    func gliderIsCircling(_ isCircling: Bool) {
+        if isCircling == true {
+            MapScreenViewController.shared.increaseZoomLevel()
+        } else {
+            MapScreenViewController.shared.decreaseZoomLevel()
         }
     }
 }

@@ -107,4 +107,12 @@ extension FlightRecorder: FlightComputerDelegate {
         }
     }
     
+    func gliderIsCircling(_ isCircling: Bool) {
+//        if isCircling == true {
+//
+//        } else {
+//
+//        }
+    }
+    
 }

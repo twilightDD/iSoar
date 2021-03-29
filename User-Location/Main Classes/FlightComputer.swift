@@ -12,6 +12,7 @@ import CoreLocation
 protocol FlightComputerDelegate: AnyObject {
     
     func gliderIsFlying(_ isFlying: Bool)
+    func gliderIsCircling(_ isCircling: Bool)
     
 }
 
@@ -37,7 +38,19 @@ class FlightComputer {
         }
     }
     
-    private var isGliderCircling: Bool = false
+    private var isGliderCircling: Bool = false {
+        didSet {
+            if oldValue != isGliderCircling {
+                // Inform delegates
+                for delegate in delegates.allObjects {
+                    if let flightComputerDelegate = delegate as? FlightComputerDelegate {
+                        flightComputerDelegate.gliderIsCircling(isGliderCircling)
+                        
+                    }
+                }
+            }
+        }
+    }
     
     private var enteredLowOxygenAltitudeTimestamp: Int64?
     
@@ -275,14 +288,12 @@ class FlightComputer {
         if leftTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges && isGliderCircling == false ||
             rightTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges && isGliderCircling == false {
             isGliderCircling = true
-            MapScreenViewController.increaseZoomLevel()
-            
             DLLogger.writeDebugStringToLogFile("\(#function) -> true - Thermal Circling Start detected")
+            
         } else if leftTurnCounter == 0 && rightTurnCounter == 0 && isGliderCircling == true {
             isGliderCircling = false
-            MapScreenViewController.decreaseZoomLevel()
-            
             DLLogger.writeDebugStringToLogFile("\(#function) -> false - Thermal Circling End detected")
+            
         } else {
             //print("Nothing to do here")
         }
