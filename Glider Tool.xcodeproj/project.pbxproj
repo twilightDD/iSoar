@@ -74,6 +74,7 @@
 		E0C7F151255B200800F9342F /* GliderModel+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F14F255B200800F9342F /* GliderModel+CoreDataClass.swift */; };
 		E0C7F152255B200800F9342F /* GliderModel+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0C7F150255B200800F9342F /* GliderModel+CoreDataProperties.swift */; };
 		E0D5959322C0AD1B007FFBD4 /* UIImage+Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */; };
+		E0DC77DF2612FFE200C5F881 /* DLNetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0DC77DE2612FFE200C5F881 /* DLNetworkMonitor.swift */; };
 		E0E1D87A229476C00004DE81 /* DestinationSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */; };
 		E0F667B324CF79070017AF1D /* NSManagedObject+EntityName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F667B224CF79070017AF1D /* NSManagedObject+EntityName.swift */; };
 		E0FDFF3B22A8376900AC73FC /* AirportInfoFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0FDFF3A22A8376900AC73FC /* AirportInfoFormViewController.swift */; };
@@ -166,6 +167,7 @@
 		E0C7F14F255B200800F9342F /* GliderModel+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GliderModel+CoreDataClass.swift"; sourceTree = "<group>"; };
 		E0C7F150255B200800F9342F /* GliderModel+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GliderModel+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E0D5959222C0AD1B007FFBD4 /* UIImage+Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Rotate.swift"; sourceTree = "<group>"; };
+		E0DC77DE2612FFE200C5F881 /* DLNetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DLNetworkMonitor.swift; sourceTree = "<group>"; };
 		E0E1D879229476C00004DE81 /* DestinationSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationSelectionViewController.swift; sourceTree = "<group>"; };
 		E0F667B224CF79070017AF1D /* NSManagedObject+EntityName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+EntityName.swift"; sourceTree = "<group>"; };
 		E0FDFF3A22A8376900AC73FC /* AirportInfoFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportInfoFormViewController.swift; sourceTree = "<group>"; };
@@ -384,6 +386,7 @@
 			isa = PBXGroup;
 			children = (
 				E02052AE23E36A8200839B84 /* FlightComputer.swift */,
+				E0DC77DE2612FFE200C5F881 /* DLNetworkMonitor.swift */,
 				E024BC4125A9BC7800CF6563 /* DLAudioOutput.swift */,
 				E02052B023E36A9A00839B84 /* FlightRecorder.swift */,
 				E007864823D2204600856865 /* FlightsDatabase.swift */,
@@ -620,6 +623,7 @@
 				E0C53F20258817AB008F8F25 /* NSManagedObject+Delete.swift in Sources */,
 				E0A215BD235E3011009F6953 /* DestinationSelectionAirportTableViewCell.swift in Sources */,
 				E001B84F243C810700559D7B /* NotificationBanner.swift in Sources */,
+				E0DC77DF2612FFE200C5F881 /* DLNetworkMonitor.swift in Sources */,
 				E086AB0B229C35890011C433 /* SettingsFormViewController.swift in Sources */,
 				D022F00C2437DB5900CA9DB4 /* LocationManager.swift in Sources */,
 				E06936D8241B8CA00073D078 /* GliderTelemetryData.swift in Sources */,
