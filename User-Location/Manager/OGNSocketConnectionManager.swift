@@ -52,11 +52,13 @@ class OGNSocketConnectionManager {
     class func start() {
         shared.connectToOGNServerSocket()
         LocationManager.registerForLocationUpdates(shared)
+        DLNetworkMonitor.registerForNetworkCheckUpdates(shared)
     }
     
     class func stop() {
         shared.cancelConnection()
         LocationManager.unRegisterForLocationUpdates(shared)
+        DLNetworkMonitor.unRegisterForNetworkCheckUpdates(shared)
     }
     
     class func reconnect() {
@@ -324,4 +326,17 @@ extension OGNSocketConnectionManager: LocationManagerDelegate {
             }
         }
     }
+}
+
+// MARK: - Extension - DLNetworkMonitorDelegate
+extension OGNSocketConnectionManager: DLNetworkMonitorDelegate {
+    func networkStatus(status: NWPath.Status) {
+        if status == .satisfied {
+            NotificationBanner.show("Cellular connected")
+        } else {
+            DLLogger.writeDebugStringToLogFile("\(#function) - \(status)")
+            NotificationBanner.show("Cellular lost")
+        }
+    }
+    
 }
