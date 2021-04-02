@@ -23,7 +23,7 @@ class FlightRecorder {
     private var startICAO: String?
     
     // MARK: - Public Class Methods
-    class func setup() {
+    class func start() {
         let shared = FlightRecorder.shared
         FlightComputer.registerForFlightComputerUpdates(shared)
     }

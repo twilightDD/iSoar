@@ -83,7 +83,9 @@ class MapScreenViewController: UIViewController {
         FlightComputer.start()
         FlightComputer.registerForFlightComputerUpdates(self)
         
-        FlightRecorder.setup()
+        FlightRecorder.start()
+        
+        DLNetworkMonitor.start()
         
         OGNSocketConnectionManager.registerForSocketUpdates(self)
         OGNSocketConnectionManager.start()
