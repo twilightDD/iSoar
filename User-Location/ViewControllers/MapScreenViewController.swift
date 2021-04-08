@@ -140,10 +140,6 @@ class MapScreenViewController: UIViewController {
         TaskSelectionTableViewController.unRegisterForTaskUpdates()
         
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
 
     // MARK: - Setup functions
     private func setupMapBox() {
