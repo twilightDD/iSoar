@@ -132,6 +132,7 @@ struct Presets {
                                 "Netherlands": "mapbox://styles/dlmapbox/ckecq6au02gpp19mjk98tbg0u",
                                 "Poland": "mapbox://styles/dlmapbox/ckecso9mw1vgs19obtw0skrai",
                                 "Romania": "mapbox://styles/dlmapbox/ckeduxe5t0av019rkf2vjm9uh",
+                                "Satellite images": "mapbox://styles/dlmapbox/ckn7hafht1aml18pd6riapbyv",
                                 "Slovenia": "mapbox://styles/dlmapbox/ckedatk3n0hza19ryhj79muzi",
                                 "Slovakia": "mapbox://styles/dlmapbox/ckf3uvxnt11kw19s706yqvz9x",
                                 "Sweden": "mapbox://styles/dlmapbox/ckecuue8m2l8c1amv1bqakkdf",
