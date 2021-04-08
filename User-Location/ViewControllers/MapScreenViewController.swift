@@ -246,6 +246,11 @@ class MapScreenViewController: UIViewController {
         pinchGestureRecognizer.delegate = self
         mapView.addGestureRecognizer(pinchGestureRecognizer)
         
+        let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(screenSingleTapped))
+        singleTapGestureRecognizer.numberOfTapsRequired = 1
+        singleTapGestureRecognizer.delegate = self
+        mapView.addGestureRecognizer(singleTapGestureRecognizer)
+        
         let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(screenDoubleTapped))
         doubleTapGestureRecognizer.numberOfTapsRequired = 2
         doubleTapGestureRecognizer.delegate = self
@@ -296,6 +301,17 @@ class MapScreenViewController: UIViewController {
                 UserDefaultsManager.set(userMapZoomLevel: mapView.zoomLevel)
             } else {
                 UserDefaultsManager.set(userMapZoomLevel: mapView.zoomLevel)
+            }
+        }
+    }
+    
+    // Map Single-Tap recognized
+    @objc func screenSingleTapped(_ recognizer: UITapGestureRecognizer) {
+        if recognizer.state == .ended {
+            if self.tabBarController?.tabBar.isHidden == true {
+                self.tabBarController?.tabBar.isHidden = false
+            } else {
+                self.tabBarController?.tabBar.isHidden = true
             }
         }
     }
