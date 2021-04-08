@@ -79,6 +79,8 @@ class MapScreenViewController: UIViewController {
         super.viewDidLoad()
         
         MapScreenViewController.shared = self
+
+        self.navigationController?.navigationBar.isHidden = true
         
         FlightComputer.start()
         FlightComputer.registerForFlightComputerUpdates(self)
