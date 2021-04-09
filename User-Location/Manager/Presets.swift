@@ -119,6 +119,7 @@ struct Presets {
         
         /// Represents the the MapBox Style URL - Key Value Pair - Country : StyleURL
         static let countries = ["Austria": "mapbox://styles/dlmapbox/ckecnz3gl2en51amvmz2zr9nd",
+                                "Basic Map": "mapbox://styles/dlmapbox/ckn9wqwfx07j717o3lrc11y0r",
                                 "Belgium": "mapbox://styles/dlmapbox/ckecp85kk0bcq19p527u2poup",
                                 "Bulgaria": "mapbox://styles/dlmapbox/cked4x4912v1e1anvelby5at2",
                                 "Croatia": "mapbox://styles/dlmapbox/cked60k1o2w2k19qytp74kf8d",
@@ -132,7 +133,6 @@ struct Presets {
                                 "Netherlands": "mapbox://styles/dlmapbox/ckecq6au02gpp19mjk98tbg0u",
                                 "Poland": "mapbox://styles/dlmapbox/ckecso9mw1vgs19obtw0skrai",
                                 "Romania": "mapbox://styles/dlmapbox/ckeduxe5t0av019rkf2vjm9uh",
-                                "Satellite images": "mapbox://styles/dlmapbox/ckn7hafht1aml18pd6riapbyv",
                                 "Slovenia": "mapbox://styles/dlmapbox/ckedatk3n0hza19ryhj79muzi",
                                 "Slovakia": "mapbox://styles/dlmapbox/ckf3uvxnt11kw19s706yqvz9x",
                                 "Sweden": "mapbox://styles/dlmapbox/ckecuue8m2l8c1amv1bqakkdf",
