@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class UserDefaultsManager {
     
@@ -29,6 +30,7 @@ class UserDefaultsManager {
     private static let ShowDistanceCirclesStateKey = "showDistanceCirclesStateKey"
     private static let FirstLaunchOfAppStateKey = "firstLaunchOfAppStateKey"
     private static let ShowFightSummaryStateKey = "showFightSummaryState"
+    private static let ScreenBrightnessKey = "screenBrightnessKey"
     
     // MARK: - Defaults
     private static let gliderIDDefault = "D-XXXX"
@@ -310,6 +312,17 @@ class UserDefaultsManager {
     
     class func set(showFlightSummaryState: Bool) {
         shared.userDefaults.set(showFlightSummaryState, forKey: ShowFightSummaryStateKey)
+    }
+    
+    // MARK: Screen Brightness
+    class func screenBrightness()
+    -> CGFloat {
+        let screenBrightness = shared.userDefaults.value(forKey: ScreenBrightnessKey) as? CGFloat ?? UIScreen.main.brightness
+        return screenBrightness
+    }
+    
+    class func set(screenBrightness: CGFloat) {
+        shared.userDefaults.set(screenBrightness, forKey: ScreenBrightnessKey)
     }
     
 }
