@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Prevent Display to fall asleep
         UIApplication.shared.isIdleTimerDisabled = true
         
+        // Save User Screen Brightness to UserDefaults
+        UserDefaultsManager.set(screenBrightness: UIScreen.main.brightness)
+
         // Set Screen Brightness to 100%
         UIScreen.main.brightness = CGFloat(1.0)
         
@@ -43,12 +46,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillResignActive(_ application: UIApplication) {
         
+        // Screen Brightness back to Users original Setting
+        UIScreen.main.brightness = UserDefaultsManager.screenBrightness()
+        
         // Set Display Dimmer active again
         UIApplication.shared.isIdleTimerDisabled = false
         
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
+        
+        // Screen Brightness back to Users original Setting
+        UIScreen.main.brightness = UserDefaultsManager.screenBrightness()
         
         // Set Display Dimmer active again
         UIApplication.shared.isIdleTimerDisabled = false
@@ -57,6 +66,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         
+        // Set Screen Brightness to 100%
+        UIScreen.main.brightness = CGFloat(1.0)
+        
         // Prevent Display to fall asleep
         UIApplication.shared.isIdleTimerDisabled = true
         
@@ -64,12 +76,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidBecomeActive(_ application: UIApplication) {
         
+        // Set Screen Brightness to 100%
+        UIScreen.main.brightness = CGFloat(1.0)
+        
         // Prevent Display to fall asleep
         UIApplication.shared.isIdleTimerDisabled = true
         
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
+        
+        // Screen Brightness back to Users original Setting
+        UIScreen.main.brightness = UserDefaultsManager.screenBrightness()
         
         //Set Display Dimmer active again
         UIApplication.shared.isIdleTimerDisabled = false
