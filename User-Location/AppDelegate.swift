@@ -24,9 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set Screen Brightness to 100%
         UIScreen.main.brightness = CGFloat(1.0)
         
-        //Prevent from showing notifications
-        UIApplication.shared.unregisterForRemoteNotifications()
-        
         // Set up User Defaults
         UserDefaultsManager.setupUserDefaults()
         
