@@ -308,11 +308,8 @@ class MapScreenViewController: UIViewController {
     // Map Single-Tap recognized
     @objc func screenSingleTapped(_ recognizer: UITapGestureRecognizer) {
         if recognizer.state == .ended {
-            if self.tabBarController?.tabBar.isHidden == true {
-                self.tabBarController?.tabBar.isHidden = false
-            } else {
-                self.tabBarController?.tabBar.isHidden = true
-            }
+            // TODO: 20210409 Check if Tap is on an Annotation
+            moveTabBar(animated: true, duration: 0.5)
         }
     }
     
