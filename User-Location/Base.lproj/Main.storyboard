@@ -658,7 +658,7 @@
         <!--Map-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="MapScreenIdentifier" hidesBottomBarWhenPushed="YES" id="BYZ-38-t0r" userLabel="Map" customClass="MapScreenViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapScreenIdentifier" extendedLayoutIncludesOpaqueBars="YES" id="BYZ-38-t0r" userLabel="Map" customClass="MapScreenViewController" customModule="iSoar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -872,7 +872,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dDz-nS-qkt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2065.217391304348" y="2001.5625"/>
+            <point key="canvasLocation" x="-1975" y="2133"/>
         </scene>
         <!--GliderModelSelectionViewController-->
         <scene sceneID="48s-mO-d5D">
