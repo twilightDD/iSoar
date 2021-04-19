@@ -11,6 +11,8 @@ import CoreLocation
 // MARK: - Protocol - FlightComputerDelegate
 protocol FlightComputerDelegate: AnyObject {
     
+    func altitudeAtDestination(_ altitude: Double)
+    func distanceToDestination(_ distance: Double)
     func gliderIsFlying(_ isFlying: Bool)
     func gliderIsCircling(_ isCircling: Bool)
     
@@ -24,6 +26,34 @@ class FlightComputer {
     static private let shared = FlightComputer()
     
     // Private
+    private var altitudeAtDestination: Double = 0 {
+        didSet {
+            if oldValue != altitudeAtDestination {
+                // Inform delegates
+                for delegate in delegates.allObjects {
+                    if let flightComputerDelegate = delegate as? FlightComputerDelegate {
+                        flightComputerDelegate.altitudeAtDestination(altitudeAtDestination)
+
+                    }
+                }
+            }
+        }
+    }
+    
+    private var distanceToDestination: Double = 0 {
+        didSet {
+            if oldValue != distanceToDestination {
+                // Inform delegates
+                for delegate in delegates.allObjects {
+                    if let flightComputerDelegate = delegate as? FlightComputerDelegate {
+                        flightComputerDelegate.distanceToDestination(distanceToDestination)
+
+                    }
+                }
+            }
+        }
+    }
+    
     private var isGliderFlying: Bool = false {
         didSet {
             if oldValue != isGliderFlying {
@@ -108,6 +138,18 @@ class FlightComputer {
     class func setSelectedDestinationAirport(_ airport: Airport?) {
         let shared = FlightComputer.shared
         shared.selectedDestinationAirport = airport
+    }
+
+    class func altitudeAtDestination()
+    -> Double? {
+        let altitudeAtDestination = shared.altitudeAtDestination
+        return altitudeAtDestination
+    }
+    
+    class func distanceToDestination()
+    -> Double? {
+        let distanceToDestination = shared.distanceToDestination
+        return distanceToDestination
     }
     
     class func nearestAirport()
@@ -424,6 +466,35 @@ class FlightComputer {
         }
         
     }
+    
+    private func updateAltitudeAtSelectedDestinationAirport() {
+        guard let selectedDestinationAirport = selectedDestinationAirport,
+              let currentDistanceToSelectedDestinationAirport = LocationManager.distanceFromCurrentLocationTo(location: selectedDestinationAirport.location) else { return }
+        
+        let altitudeDifference = LocationManager.altitudeDifferenceFromCurrentLocationTo(altitude: selectedDestinationAirport.elevation)!
+        
+        // Get User Default Values
+        let safetyAltitude = UserDefaultsManager.safetyAltitude()
+        let gliderRatio = UserDefaultsManager.gliderRatio()
+        
+        // Calculate descended Meters to Destination
+        let gliderRatioMeter = gliderRatio * 1000   // Gleitzahl in Meter
+        let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    // Sinkrate pro Meter
+        let descendedMetersToDestination = currentDistanceToSelectedDestinationAirport * gliderSinkRatePerMeter // Descended Meters to Destination
+        
+        // Calculate the Altitude of the Glider at Destination
+        let altitudeAtDestination = altitudeDifference - safetyAltitude - descendedMetersToDestination
+        self.altitudeAtDestination = altitudeAtDestination
+
+    }
+    
+    private func updateADistanceToSelectedDestinationAirport() {
+        guard let selectedDestinationAirport = selectedDestinationAirport,
+              let currentDistanceToSelectedDestinationAirport = LocationManager.distanceFromCurrentLocationTo(location: selectedDestinationAirport.location) else { return }
+
+        self.distanceToDestination = currentDistanceToSelectedDestinationAirport
+
+    }
 
 }
 
@@ -436,6 +507,9 @@ extension FlightComputer: LocationManagerDelegate {
         checkForGearWarning()
         checkForLowOxygenWarning()
         checkForAirportDistanceUpdates()
+        
+        updateAltitudeAtSelectedDestinationAirport()
+        updateADistanceToSelectedDestinationAirport()
     }
     
 }

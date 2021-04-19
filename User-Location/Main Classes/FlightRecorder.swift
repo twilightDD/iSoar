@@ -97,6 +97,14 @@ extension FlightRecorder: LocationManagerDelegate {
 }
 
 extension FlightRecorder: FlightComputerDelegate {
+    func altitudeAtDestination(_ altitude: Double) {
+        //
+    }
+    
+    func distanceToDestination(_ distance: Double) {
+        //
+    }
+    
     func gliderIsFlying(_ isFlying: Bool) {
         if isFlying == true {
             LocationManager.registerForLocationUpdates(FlightRecorder.shared)
