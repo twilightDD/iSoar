@@ -549,8 +549,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                                         //NotificationBanner.show("No data received.")
                                         return
                                     }
-                                    
-                                    // TODO: 20201207 Success zurückwerfen
+
                                     CoreDataImporter.importData(data, forType: .airports)
                                     
                                    })
@@ -566,11 +565,8 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                                         NotificationBanner.show("No data received.")
                                         return
                                     }
-                                    
-                                    // TODO: 20201207 Success zurückwerfen
+
                                     CoreDataImporter.importData(data, forType: .glidermodels)
-                                    
-                                    NotificationBanner.show("Glider Model Database updated")
                                     
                                    })
     }
