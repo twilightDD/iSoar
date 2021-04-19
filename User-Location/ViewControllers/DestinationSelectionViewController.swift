@@ -57,10 +57,8 @@ class DestinationSelectionViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let currentLocation = LocationManager.currentLocation() {
-            Airport.updateLocation(currentLocation)
-        }
-        
+        Airport.updateLocation()
+
         updateUIForSelectedDestinationAirport()
         updateSearchbarPlaceholder()
         
@@ -72,6 +70,7 @@ class DestinationSelectionViewController: UIViewController {
             
             self.updateUIForSelectedDestinationAirport()
             self.refreshControl.endRefreshing()
+            Airport.updateLocation()
             NotificationBanner.show("Airport Database updated")
 
         }
@@ -163,13 +162,6 @@ class DestinationSelectionViewController: UIViewController {
                                     CoreDataImporter.importData(data, forType: .airports)
                                     
                                    })
-        
-        // TODO: 20210308 nur bei Success ausführen
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            if let currentLocation = LocationManager.currentLocation() {
-                Airport.updateLocation(currentLocation)
-            }
-        }
         
     }
     

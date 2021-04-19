@@ -419,7 +419,7 @@ class FlightComputer {
         let distanceFromLastUpdateLocation = LocationManager.distanceFromCurrentLocationTo(location: previousAirportDistanceUpdateCoordinates!)!
         
         if distanceFromLastUpdateLocation > Presets.Airport.distanceLimitForAirportDistanceUpdate {
-            Airport.updateLocation(currentLocation)
+            Airport.updateLocation()
             self.previousAirportDistanceUpdateCoordinates = currentLocation
         }
         

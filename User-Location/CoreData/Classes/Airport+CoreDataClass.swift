@@ -92,7 +92,10 @@ public class Airport: NSManagedObject {
 // MARK: - Extenstion - Location Updates
 extension Airport {
     
-    class func updateLocation(_ currentLocation: CLLocation) {
+    class func updateLocation() {
+        
+        guard let currentLocation = LocationManager.currentLocation() else { return }
+        
         let editContext = CoreDataManager.editContextInBackground()
         let allAirports = editContext.fetchObjects(forEntityClass: Airport.self)
         
