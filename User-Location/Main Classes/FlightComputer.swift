@@ -221,7 +221,7 @@ class FlightComputer {
         let descendedMetersToDestination = currentDistanceToAirport * gliderSinkRatePerMeter // Descended Meters to Destination
         
         // Calculate the Altitude of the Glider at Destination
-        let altitudeAtDestination = altitudeDifferenceToAirport - safetyAltitude - descendedMetersToDestination + 2000
+        let altitudeAtDestination = altitudeDifferenceToAirport - safetyAltitude - descendedMetersToDestination
         
         if altitudeAtDestination > 0 {
             return true
