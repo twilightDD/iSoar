@@ -39,7 +39,7 @@ class DLAlertViewController {
       
         if addCancelButton == true {
             alert.addAction(UIAlertAction(title: cancelButtonTitle,
-                                          style: .cancel,
+                                          style: .destructive,
                                           handler: cancelButtonHandler))
         }
         
