@@ -873,7 +873,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
                 DLAlertViewController.showAlertViewController(title: (subtitle),
                                                               message: "Please choose an option for \(title)",
                                                               preferredStyle: .alert,
-                                                              actionButtonTitle: "Cancel Route",
+                                                              actionButtonTitle: "Cancel Navigation",
                                                               actionButtonHandler: { [unowned self] action in
                                                                 self.mapView.deselectAnnotation(annotation, animated: true)
                                                                 FlightComputer.setSelectedDestinationAirport(nil)
@@ -889,7 +889,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
                 DLAlertViewController.showAlertViewController(title: (subtitle),
                                                               message: "Please choose an option for \(title)",
                                                               preferredStyle: .alert,
-                                                              actionButtonTitle: "Destination",
+                                                              actionButtonTitle: "Set as Destination",
                                                               actionButtonHandler: { [unowned self] action in
                                                                 self.mapView.deselectAnnotation(annotation, animated: true)
                                                                 FlightComputer.setSelectedDestinationAirport(airportAnnotation.airport)
