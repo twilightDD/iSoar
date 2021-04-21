@@ -205,6 +205,32 @@ class FlightComputer {
         return flightTime
     }
     
+    class func airportIsReachable(airport: Airport)
+    -> Bool {
+        
+        let altitudeDifferenceToAirport = LocationManager.altitudeDifferenceFromCurrentLocationTo(altitude: airport.elevation)!
+        let currentDistanceToAirport = LocationManager.distanceFromCurrentLocationTo(location: airport.location)!
+        
+        // Get User Default Values
+        let safetyAltitude = UserDefaultsManager.safetyAltitude()
+        let gliderRatio = UserDefaultsManager.gliderRatio()
+        
+        // Calculate descended Meters to Destination
+        let gliderRatioMeter = gliderRatio * 1000   // Gleitzahl in Meter
+        let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    // Sinkrate pro Meter
+        let descendedMetersToDestination = currentDistanceToAirport * gliderSinkRatePerMeter // Descended Meters to Destination
+        
+        // Calculate the Altitude of the Glider at Destination
+        let altitudeAtDestination = altitudeDifferenceToAirport - safetyAltitude - descendedMetersToDestination + 2000
+        
+        if altitudeAtDestination > 0 {
+            return true
+        } else {
+            return false
+        }
+        
+    }
+    
     class func registerForFlightComputerUpdates(_ delegate: FlightComputerDelegate) {
         shared.delegates.add(delegate)
     }
