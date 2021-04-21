@@ -385,6 +385,14 @@ extension DestinationSelectionViewController: UITableViewDataSource {
         cell.airportNameLabel.text = airport.name
         cell.icaoLabel.text = airport.icao
         cell.distanceLabel.text = distanceAsReadable(airport.distance)
+        
+        // Check if Airport is reachable and set Textcolor
+        if FlightComputer.airportIsReachable(airport: airport) == true {
+            cell.distanceLabel.textColor = UIColor(red: 0, green: 0.7, blue: 0, alpha: 1)
+        } else {
+            cell.distanceLabel.textColor = UIColor(named: "WarningTextColor")
+        }
+
         cell.countryImageView.image = airport.countryImage()
         
         // Set Checkmark for selected Row
