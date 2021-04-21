@@ -497,7 +497,7 @@ class FlightComputer {
         guard let selectedDestinationAirport = selectedDestinationAirport,
               let currentDistanceToSelectedDestinationAirport = LocationManager.distanceFromCurrentLocationTo(location: selectedDestinationAirport.location) else { return }
         
-        let altitudeDifference = LocationManager.altitudeDifferenceFromCurrentLocationTo(altitude: selectedDestinationAirport.elevation)!
+        let altitudeDifferenceToAirport = LocationManager.altitudeDifferenceFromCurrentLocationTo(altitude: selectedDestinationAirport.elevation)!
         
         // Get User Default Values
         let safetyAltitude = UserDefaultsManager.safetyAltitude()
@@ -509,7 +509,7 @@ class FlightComputer {
         let descendedMetersToDestination = currentDistanceToSelectedDestinationAirport * gliderSinkRatePerMeter // Descended Meters to Destination
         
         // Calculate the Altitude of the Glider at Destination
-        let altitudeAtDestination = altitudeDifference - safetyAltitude - descendedMetersToDestination
+        let altitudeAtDestination = altitudeDifferenceToAirport - safetyAltitude - descendedMetersToDestination
         self.altitudeAtDestination = altitudeAtDestination
 
     }
