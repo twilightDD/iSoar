@@ -78,7 +78,14 @@ class MapAreaDownloadManager {
 
         // Store some data for identification purposes alongside the downloaded resources.
         let userInfo = ["name": "John Doe"]
-        let context = NSKeyedArchiver.archivedData(withRootObject: userInfo)
+        var context = Data()
+
+        do {
+            let archivedData = try NSKeyedArchiver.archivedData(withRootObject: userInfo, requiringSecureCoding: true)
+            context = archivedData
+        } catch {
+            fatalError()
+        }
 
         // Create and register an offline pack with the shared offline storage object.
         MGLOfflineStorage.shared.addPack(for: region, withContext: context) { (pack, error) in
