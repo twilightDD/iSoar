@@ -400,8 +400,6 @@ extension ISoarFileManager {
             fileURL = Presets.ISoarFileManager.localAirportsJSONURL
         case .glidermodels:
             fileURL = Presets.ISoarFileManager.localGliderModelsJSONURL
-        default:
-            fatalError()
         }
         
         let data = dataOfFile(fileURL)
