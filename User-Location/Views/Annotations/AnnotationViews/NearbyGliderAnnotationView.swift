@@ -10,7 +10,7 @@ import Mapbox
 
 // MARK: - NearbyGliderAnnotationView
 class NearbyGliderAnnotationView: MGLAnnotationView {
-    
+
     // MARK: Lets and Vars
     private var headingStore: Double = 0
 
@@ -23,7 +23,7 @@ class NearbyGliderAnnotationView: MGLAnnotationView {
         }
         set {
             headingStore = newValue
-            
+
             // Rotate image depending on heading of glider
             let rotation: CGFloat = MGLRadiansFromDegrees(heading)
             CATransaction.begin()
@@ -32,7 +32,7 @@ class NearbyGliderAnnotationView: MGLAnnotationView {
             CATransaction.commit()
         }
     }
-    
+
     // MARK: - Init&Co
     override init(annotation: MGLAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
@@ -40,13 +40,13 @@ class NearbyGliderAnnotationView: MGLAnnotationView {
         if let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotation {
             nearbyGliderAnnotation.annotationView = self
         }
-        
+
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - Layout Methods
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -56,5 +56,5 @@ class NearbyGliderAnnotationView: MGLAnnotationView {
         layer.contents = aircraftCGImage
         layer.bounds = CGRect(x: 0, y: 0, width: aircraftCGImage.width, height: aircraftCGImage.height)
     }
-    
+
 }

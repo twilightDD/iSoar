@@ -1,6 +1,6 @@
 //
 //  Glider+CoreDataClass.swift
-//  
+//
 //
 //  Created by sonic on 29.06.20.
 //
@@ -19,12 +19,12 @@ public class Glider: NSManagedObject {
             let flarmIDPredicate = NSPredicate.init(format: "%K == %@",
                                                     Glider.Attributes.flarmID, flarmID)
             let orPredicate = NSCompoundPredicate.init(orPredicateWithSubpredicates: [registrationPredicate, flarmIDPredicate])
-            
+
             let gliders = context.fetchObjects(forEntityClass: Glider.self,
                                                predicate: orPredicate)
             return gliders
     }
-    
+
 }
 
 extension Glider {
@@ -34,7 +34,7 @@ extension Glider {
         static let registration = "registration"
         static let uuid = "uuid"
     }
-    
+
     struct Relationships {
         static let glidersModel = "gliderModel"
     }

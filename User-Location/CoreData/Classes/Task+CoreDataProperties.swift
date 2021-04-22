@@ -17,7 +17,7 @@ extension Task {
 
     @NSManaged public var taskName: String?
     @NSManaged public var uuid: UUID?
-    
+
     @NSManaged public var waypoints: [Waypoint]?
 
 }

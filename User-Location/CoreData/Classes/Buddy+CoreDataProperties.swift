@@ -1,6 +1,6 @@
 //
 //  Buddy+CoreDataProperties.swift
-//  
+//
 //
 //  Created by sonic on 02.08.20.
 //

@@ -10,12 +10,12 @@ import Eureka
 import CoreData
 
 class EditGliderFormViewController: FormViewController {
-    
+
     // MARK: - Keys
     static let GliderRegistrationKey = "GliderRegistration"
     static let GliderRatioKey = "Glider Ratio"
     static let GliderFlarmIDKey = "FLARM ID"
-    
+
     // MARK: - Lets and Vars
     private var _glider: Glider?
     var glider: Glider {
@@ -34,27 +34,27 @@ class EditGliderFormViewController: FormViewController {
             _glider = gliderInEditContext
         }
     }
-    
+
     private let editContext = CoreDataManager.editContextForUI()
-    
+
     // MARK: IBOutlets
     @IBOutlet weak var cancelBarBauttonItem: UIBarButtonItem!
     @IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
-    
+
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Glider Details"
-        
+
         form.append(gliderSelectionSection())
         form.append(gliderInformationSection())
-        
+
     }
-    
+
     private func textColor()
     -> UIColor {
         var textColor: UIColor = .black
-        
+
         if self.traitCollection.userInterfaceStyle == .light {
             textColor = .black
         } else {
@@ -62,20 +62,20 @@ class EditGliderFormViewController: FormViewController {
         }
         return textColor
     }
-    
+
     // MARK: - Private Methods
     // MARK: Eureka Form Sections
     private func gliderSelectionSection()
     -> Section {
         let section = Section("Glider Details")
         section.tag = "Glider Details"
-        
+
         let numberFormatter = DecimalFormatter()
         numberFormatter.locale = Locale.current
         numberFormatter.numberStyle = .decimal
         numberFormatter.minimumFractionDigits = 1
         numberFormatter.maximumFractionDigits = 1
-        
+
         section
             <<< TextRow(EditGliderFormViewController.GliderRegistrationKey) { row in
                 row.title = "Registration"
@@ -85,22 +85,22 @@ class EditGliderFormViewController: FormViewController {
                 row.add(rule: RuleMinLength(minLength: 6))
                 row.add(rule: RuleMaxLength(maxLength: 7))
                 row.validationOptions = .validatesOnChange
-                
+
             }.cellUpdate { cell, row in
                 self.validateForm()
                 if row.isValid == false {
                     cell.titleLabel?.textColor = .red
                 }
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "textformat")
             }.onChange({ [unowned self] row in
                 self.glider.registration = row.value
             })
-            
+
             <<< PushRow<GliderModel>("Model") { row in
                 row.title = "Model"
-                
+
                 let allGliderModels = editContext.fetchObjects(forEntityClass: GliderModel.self,
                                                                sortByKeypath: GliderModel.Attributes.modelName)
                 row.options = allGliderModels
@@ -114,15 +114,15 @@ class EditGliderFormViewController: FormViewController {
                 }
                 row.selectorTitle = "Select Model"
                 row.add(rule: RuleRequired())
-                
+
             }.cellUpdate { cell, row in
                 if row.isValid == false {
                     cell.textLabel?.textColor = .red
                 }
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "airplane")
-                
+
             }.onPresent { from, row in
                 row.dismissOnSelection = true
                 row.dismissOnChange = true
@@ -130,12 +130,12 @@ class EditGliderFormViewController: FormViewController {
                 row.selectableRowCellUpdate = { (cell, row) in
                     cell.imageView?.image = UIImage(systemName: "airplane")
                 }
-                
+
             }.onChange { row in
                 let selectedGliderModel = row.value
                 self.glider.gliderModel = selectedGliderModel
             }
-            
+
             <<< DecimalRow(EditGliderFormViewController.GliderRatioKey) { row in
                 row.title = "Glider Ratio"
                 if self.glider.isInserted != true {
@@ -146,7 +146,7 @@ class EditGliderFormViewController: FormViewController {
                 row.validationOptions = .validatesOnChange
                 row.formatter = numberFormatter
                 row.useFormatterDuringInput = true
-                
+
             }
             .cellUpdate { cell, row in
                 self.validateForm()
@@ -159,7 +159,7 @@ class EditGliderFormViewController: FormViewController {
             }.onChange({ (row) in
                 self.glider.ratio = Double(row.value ?? 30)
             })
-            
+
             <<< TextRow(EditGliderFormViewController.GliderFlarmIDKey) { row in
                 row.title = "FlarmID"
                 row.value = self.glider.flarmID
@@ -168,73 +168,73 @@ class EditGliderFormViewController: FormViewController {
                 row.add(rule: RuleMinLength(minLength: 9))
                 row.add(rule: RuleMaxLength(maxLength: 9))
                 row.validationOptions = .validatesOnChange
-                
+
             }.cellUpdate { cell, row in
                 self.validateForm()
                 if row.isValid == false {
                     cell.titleLabel?.textColor = .red
                 }
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "dot.radiowaves.left.and.right")
             }.onChange({ (row) in
                 self.glider.flarmID = row.value
             })
-        
+
         return section
     }
-    
+
     private func gliderInformationSection()
     -> Section {
-        
+
         let section = Section("Glider Information")
         section.tag = "Glider Information"
-        
+
         let numberFormatter = DecimalFormatter()
         numberFormatter.locale = Locale.current
         numberFormatter.numberStyle = .decimal
         numberFormatter.minimumFractionDigits = 1
         numberFormatter.maximumFractionDigits = 1
-        
+
         section
             <<< TextRow("Manufacturer") { row in
                 row.title = "Manufacturer"
                 row.value = glider.gliderModel?.manufacturer
                 row.disabled = true
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "house")
-                
+
             }.cellUpdate { cell, row in
                 row.value = self.glider.gliderModel?.manufacturer
                 cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
                 cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
-                
+
             }
-            
+
             <<< TextRow("Span") { row in
                 row.title = "Span"
                 row.value = String("\(glider.gliderModel?.span) m")
                 row.disabled = true
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "arrow.left.and.right")
-                
+
             }.cellUpdate { cell, row in
                 if let gliderModel = self.glider.gliderModel {
                     row.value = String("\(gliderModel.span) m")
                 } else {
                     row.value = ""
                 }
-                
+
                 cell.titleLabel?.textColor = row.isDisabled ? self.textColor() : self.textColor()
                 cell.textField.textColor = row.isDisabled ? self.textColor() : self.textColor()
-                
+
             }
-        
+
         return section
     }
-    
+
     private func validateForm() {
         let validationErrors = form.validate()
         if validationErrors.isEmpty == true {
@@ -243,17 +243,17 @@ class EditGliderFormViewController: FormViewController {
             saveBarButtonItem.isEnabled = false
         }
     }
-    
+
     // MARK: - Action Methods
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         guard let registration = glider.registration,
               let flarmID = glider.flarmID
         else { fatalError("Save Button tapped while Registration or GliderID is nil") }
-        
+
         let existingGliders = Glider.fetchGliders(registration: registration,
                                                   flarmID: flarmID,
                                                   context: editContext)
@@ -267,9 +267,9 @@ class EditGliderFormViewController: FormViewController {
                                                           message: "Glider Registration or FlarmID already exists.",
                                                           preferredStyle: .alert,
                                                           on: self)
-            
+
         }
-        
+
     }
-    
+
 }

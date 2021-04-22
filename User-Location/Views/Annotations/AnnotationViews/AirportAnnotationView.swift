@@ -12,7 +12,7 @@ import Mapbox
 
 // MARK: - AirportAnnotationView
 class AirportAnnotationView: MGLAnnotationView {
-    
+
 //    override func layoutSubviews() {
 //        super.layoutSubviews()
 //
@@ -31,5 +31,5 @@ class AirportAnnotationView: MGLAnnotationView {
 //        layer.borderWidth = selected ? bounds.width / 4 : 2
 //        layer.add(animation, forKey: "borderWidth")
 //    }
-    
+
 }

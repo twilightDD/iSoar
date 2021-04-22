@@ -13,14 +13,14 @@ class CustomUserLocationAnnotationView: MGLUserLocationAnnotationView {
     let size: CGFloat = 48
     var dot: CALayer!
     var arrow: CAShapeLayer!
-    
+
     // MARK: - Methods
     override func update() {
         if frame.isNull {
             frame = CGRect(x: 0, y: 0, width: size, height: size)
             return setNeedsLayout()
         }
-        
+
         // Check whether we have the user’s location yet.
         if CLLocationCoordinate2DIsValid(userLocation!.coordinate) {
             setupLayers()
@@ -33,7 +33,7 @@ class CustomUserLocationAnnotationView: MGLUserLocationAnnotationView {
         // Show the heading arrow, if the heading of the user is available.
         if let heading = userLocation!.heading?.trueHeading {
             arrow.isHidden = false
-            
+
             // Get the difference between the map’s current direction and the user’s heading, then convert it from degrees to radians.
             let rotation: CGFloat = -MGLRadiansFromDegrees(mapView!.direction - heading)
 
@@ -56,7 +56,7 @@ class CustomUserLocationAnnotationView: MGLUserLocationAnnotationView {
         if dot == nil {
             dot = CALayer()
             dot.bounds = CGRect(x: 0, y: 0, width: size, height: size)
-            
+
             // Use CALayer’s corner radius to turn this layer into a circle.
             dot.cornerRadius = size / 2
             dot.backgroundColor = super.tintColor.cgColor
@@ -75,12 +75,12 @@ class CustomUserLocationAnnotationView: MGLUserLocationAnnotationView {
             layer.addSublayer(arrow)
         }
     }
-    
+
     // Calculate the vector path for an arrow, for use in a shape layer.
     private func arrowPath() -> CGPath {
         let max: CGFloat = size / 2
         let pad: CGFloat = 3
-        
+
         let top =    CGPoint(x: max * 0.5, y: 0)
         let left =   CGPoint(x: 0 + pad, y: max - pad)
         let right =  CGPoint(x: max - pad, y: max - pad)

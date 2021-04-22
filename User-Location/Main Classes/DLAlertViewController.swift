@@ -9,7 +9,7 @@
 import UIKit
 
 class DLAlertViewController {
-    
+
     static func showAlertViewController(title: String,
                                         message: String? = nil,
                                         preferredStyle: UIAlertController.Style,
@@ -20,13 +20,13 @@ class DLAlertViewController {
                                         cancelButtonTitle: String? = "Cancel",
                                         cancelButtonHandler: ((UIAlertAction) -> Void)? = nil,
                                         actionButtons: [UIAlertAction]? = nil) {
-        
+
         let presentingViewController = controller ?? UIApplication.shared.windows.first?.rootViewController
-        
+
         let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: preferredStyle)
-       
+
         if let actionButtons = actionButtons {
             actionButtons.forEach({ alertAction in
                 alert.addAction(alertAction)
@@ -36,15 +36,15 @@ class DLAlertViewController {
                                           style: .default,
                                           handler: actionButtonHandler))
         }
-      
+
         if addCancelButton == true {
             alert.addAction(UIAlertAction(title: cancelButtonTitle,
                                           style: .destructive,
                                           handler: cancelButtonHandler))
         }
-        
+
         presentingViewController?.present(alert, animated: true, completion: nil)
-        
+
     }
-    
+
 }

@@ -10,23 +10,23 @@ import UIKit
 import CoreData
 
 class GliderSelectionTableViewController: UITableViewController {
-    
+
     // MARK: - Keys
     private static let GliderSelectionTableViewCellIdentifierKey = "GliderSelectionTableViewCellIdentifier"
     private static let OpenEditGliderFormViewControllerSegueKey = "OpenEditGliderFormViewControllerSegue"
-    
+
     // MARK: - Lets and Vars
     private lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = setupFetchedResultsController()
-    
+
     private var previouslySelectedGlider: Glider?
-    
+
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Glider Selection"
-        
+
     }
-    
+
     // Segue Handling
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == GliderSelectionTableViewController.OpenEditGliderFormViewControllerSegueKey {
@@ -38,40 +38,40 @@ class GliderSelectionTableViewController: UITableViewController {
                 editGliderViewController.glider = glider
             }
         }
-        
+
     }
-    
+
     // MARK: - Private Methods
     private func setupFetchedResultsController()
         -> NSFetchedResultsController<NSFetchRequestResult> {
             let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Glider")
             let sortDesc = NSSortDescriptor(key: "registration", ascending: true)
             request.sortDescriptors = [sortDesc]
-            
+
             let fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
                                                                   managedObjectContext: CoreDataManager.viewOnlyContext,
                                                                   sectionNameKeyPath: nil,
                                                                   cacheName: nil)
             fetchedResultsController.delegate = self
-            
+
             do {
                 try fetchedResultsController.performFetch()
             } catch {
                 fatalError("Failed to initialize FetchedResultsController: \(error)")
             }
-            
+
             return fetchedResultsController
     }
 }
 
 // MARK: - TableView Content
 extension GliderSelectionTableViewController {
-    
+
     override func numberOfSections(in tableView: UITableView)
         -> Int {
             return fetchedResultsController.sections!.count ?? 0
     }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
         -> Int {
             guard let sections = fetchedResultsController.sections else {
@@ -80,56 +80,56 @@ extension GliderSelectionTableViewController {
             let sectionInfo = sections[section]
             return sectionInfo.numberOfObjects
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: GliderSelectionTableViewController.GliderSelectionTableViewCellIdentifierKey,
                                                      for: indexPath)
-            
+
             // Set up the cell
             guard let glider = self.fetchedResultsController.object(at: indexPath) as? Glider
                 else { fatalError("Attempt to configure cell without a managed object") }
-            
+
             //Populate the cell from the object
             cell.imageView?.image = UIImage(systemName: "airplane")
             cell.textLabel?.text = String("\(glider.registration ?? "") - \(glider.gliderModel?.modelName ?? "")")
-            
+
             // Set Checkmark for selected Glider
             if glider.registration == UserDefaultsManager.gliderID() {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
             }
-            
+
             return cell
     }
-    
+
     // User didSelect Row
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let selectedGlider = self.fetchedResultsController.object(at: indexPath) as? Glider
             else { fatalError("Attempt to configure cell without a managed object") }
-        
+
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        
+
         UserDefaultsManager.set(gliderID: selectedGlider.registration!)
         UserDefaultsManager.set(gliderRatio: selectedGlider.ratio)
         UserDefaultsManager.set(ownFlarmID: selectedGlider.flarmID!)
-        
+
         tableView.reloadData()
-        
+
         if previouslySelectedGlider != selectedGlider {
             OGNSocketConnectionManager.didUpdateBuddiesOrSelectedOtherGlider()
         }
-        
+
         previouslySelectedGlider = selectedGlider
-        
+
     }
-    
+
     // Delete Glider via Swipe to left
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
         -> UISwipeActionsConfiguration? {
             let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
-                
+
                 guard let glider = self.fetchedResultsController.object(at: indexPath) as? Glider
                     else { fatalError("Attempt to configure cell without a managed object") }
 
@@ -138,40 +138,40 @@ extension GliderSelectionTableViewController {
                 editContext.delete(gliderInEditContext)
                 editContext.saveContext()
             }
-            
+
             let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
             configuration.performsFirstActionWithFullSwipe = false
             return configuration
     }
-    
+
     // Edit Glider via Swipe to right
     override func tableView(_ tableView: UITableView,
                             leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
         -> UISwipeActionsConfiguration? {
             let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, complete in
-                
+
                 guard let glider = self.fetchedResultsController.object(at: indexPath) as? Glider
                     else { fatalError("Attempt to configure cell without a managed object") }
-                
+
                 self.performSegue(withIdentifier: GliderSelectionTableViewController.OpenEditGliderFormViewControllerSegueKey,
                                   sender: glider)
-                
+
             }
-            
+
             let configuration = UISwipeActionsConfiguration(actions: [editAction])
             configuration.performsFirstActionWithFullSwipe = false
             return configuration
-            
+
     }
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
 extension GliderSelectionTableViewController: NSFetchedResultsControllerDelegate {
-    
+
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
-    
+
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
                     didChange sectionInfo: NSFetchedResultsSectionInfo,
                     atSectionIndex sectionIndex: Int,
@@ -189,7 +189,7 @@ extension GliderSelectionTableViewController: NSFetchedResultsControllerDelegate
             fatalError("Error")
         }
     }
-    
+
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
                     didChange anObject: Any,
                     at indexPath: IndexPath?,
@@ -208,9 +208,9 @@ extension GliderSelectionTableViewController: NSFetchedResultsControllerDelegate
             fatalError("Error")
         }
     }
-    
+
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
     }
-    
+
 }

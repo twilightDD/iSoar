@@ -11,14 +11,14 @@ import CoreData
 
 @objc(GliderModel)
 public class GliderModel: NSManagedObject {
-    
+
     static let importOrUpdateFinishedNotification = Notification.Name(rawValue: "gliderModelImportOrUpdateFinished")
     static let importOrUpdateFailedNotification = Notification.Name(rawValue: "gliderModelImportOrUpdateFailed")
-    
+
     class func importOrUpdate(_ gliderModelDictionaries: [[String: Any]]) {
-        
+
         let context = CoreDataManager.editContextInBackground()
-        
+
         for gliderModelDictionary in gliderModelDictionaries {
             // Check for existing  gliderModelDictionary or create a new one
             guard let uuidString = gliderModelDictionary[GliderModel.Attributes.uuid] as? String,
@@ -28,9 +28,9 @@ public class GliderModel: NSManagedObject {
                                                             sortByKeypath: nil,
                                                             predicateString: "%K == %@",
                                                             predicateArguments: [GliderModel.Attributes.uuid, uuid])
-            
+
             var gliderModelWithUUID: GliderModel!
-            
+
             if gliderModelsWithUUID.isEmpty == true {
                 gliderModelWithUUID = GliderModel.init(context: context)
                 gliderModelWithUUID.uuid = uuid
@@ -43,7 +43,7 @@ public class GliderModel: NSManagedObject {
                 DLLogger.writeStringToLogFile("\(#function) - UUID already exists")
                 break
             }
-            
+
             // Update Values
             gliderModelWithUUID.additionalInfo = gliderModelDictionary[GliderModel.Attributes.additionalInfo] as? String ?? "<kein Wert>"
             gliderModelWithUUID.handicap = gliderModelDictionary[GliderModel.Attributes.handicap] as? Double ?? 0
@@ -59,17 +59,17 @@ public class GliderModel: NSManagedObject {
             gliderModelWithUUID.speed3 = gliderModelDictionary[GliderModel.Attributes.speed3] as? Double ?? 0
             gliderModelWithUUID.validated = gliderModelDictionary[GliderModel.Attributes.validated] as? String ?? "<kein Wert>"
             gliderModelWithUUID.wingarea = gliderModelDictionary[GliderModel.Attributes.wingarea] as? Double ?? 0
-            
+
         }
-        
+
         print("\(#function) - \(context.insertedObjects.count) GliderModels imported.")
-        
+
         context.saveContext()
-        
+
         // Post Notification for finished Import or Update
         NotificationCenter.default.post(name: importOrUpdateFinishedNotification,
                                         object: nil)
-        
+
     }
 }
 
@@ -91,7 +91,7 @@ extension GliderModel {
         static let validated = "validated"
         static let wingarea = "wingarea"
     }
-    
+
     struct Relationships {
         static let gliders = "gliders"
     }

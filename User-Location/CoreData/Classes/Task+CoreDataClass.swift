@@ -16,21 +16,21 @@ public class Task: NSManagedObject {
     -> [Task] {
         let taskNamePredicate = NSPredicate.init(format: "%K == %@",
                                                  Task.Attributes.taskName, taskName)
-        
+
         let tasks = context.fetchObjects(forEntityClass: Task.self,
                                          predicate: taskNamePredicate)
         return tasks
     }
-    
+
 }
 
 extension Task {
     struct Attributes {
         static let taskName = "taskName"
         static let uuid = "uuid"
-        
+
     }
-    
+
     struct Relationships {
         static let waypoints = "waypoints"
     }

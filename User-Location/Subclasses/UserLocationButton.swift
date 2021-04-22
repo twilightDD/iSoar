@@ -19,7 +19,7 @@ class UserLocationButton: UIButton {
         super.init(frame: CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize))
         self.backgroundColor = UIColor.white.withAlphaComponent(0.9)
         self.layer.cornerRadius = 4
-        
+
         let arrow = CAShapeLayer()
         arrow.path = arrowPath()
         arrow.lineWidth = 2
@@ -29,18 +29,18 @@ class UserLocationButton: UIButton {
         arrow.shouldRasterize = true
         arrow.rasterizationScale = UIScreen.main.scale
         arrow.drawsAsynchronously = true
-        
+
         self.arrow = arrow
-        
+
         // Update arrow for initial tracking mode
         updateArrowForTrackingMode(mode: .none)
         layer.addSublayer(arrow)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // Create a new bezier path to represent the tracking mode arrow,
     // making sure the arrow does not get drawn outside of the
     // frame size of the UIButton.
@@ -75,7 +75,7 @@ class UserLocationButton: UIButton {
         let disabledPrimaryColor = UIColor.clear
         let disabledSecondaryColor = UIColor.black
         let rotatedArrow = CGFloat(0.66)
-        
+
         switch mode {
         case .none:
             updateArrow(fillColor: disabledPrimaryColor, strokeColor: disabledSecondaryColor, rotation: 0)
@@ -89,14 +89,14 @@ class UserLocationButton: UIButton {
             fatalError("Unknown user tracking mode")
         }
     }
-    
+
     // Update Map Center Arrow Colors
     func updateArrow(fillColor: UIColor, strokeColor: UIColor, rotation: CGFloat) {
         guard let arrow = arrow else { return }
         arrow.fillColor = fillColor.cgColor
         arrow.strokeColor = strokeColor.cgColor
         arrow.setAffineTransform(CGAffineTransform.identity.rotated(by: rotation))
-        
+
         // Re-center the arrow within the button if rotated
         if rotation > 0 {
             arrow.position = CGPoint(x: buttonSize / 2 + 2, y: buttonSize / 2 - 2)

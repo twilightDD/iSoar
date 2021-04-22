@@ -9,17 +9,17 @@
 import UIKit
 
 class MapLabel: UILabel {
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupAttachedLabel()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init( coder: aDecoder )
         setupAttachedLabel()
     }
-    
+
     internal func setupAttachedLabel() {
         clipsToBounds = true
         layer.cornerRadius = 15.0
@@ -41,7 +41,7 @@ class LeftAttachedLabel: MapLabel {
 }
 // MARK: - RightAttachedLabel
 class RightAttachedLabel: MapLabel {
-    
+
     override func setupAttachedLabel() {
         super.setupAttachedLabel()
         layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]

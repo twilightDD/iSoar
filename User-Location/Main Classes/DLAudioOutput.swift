@@ -10,23 +10,23 @@ import AVFoundation
 
 // MARK: - DLAudioOutput
 class DLAudioOutput {
-    
+
     // MARK: Public Class Methods
     class func speak(playBeep: Bool, string: String) {
-        
+
         let playBeep = playBeep
-        
+
         if playBeep == true {
             AudioServicesPlayAlertSound(SystemSoundID(1256))
         }
-        
+
         let speechUtterance = AVSpeechUtterance(string: string)
         speechUtterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         speechUtterance.rate = 0.5
-        
+
         let synthesizer = AVSpeechSynthesizer()
         synthesizer.speak(speechUtterance)
-        
+
     }
-    
+
 }

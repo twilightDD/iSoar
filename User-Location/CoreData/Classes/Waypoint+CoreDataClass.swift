@@ -17,12 +17,12 @@ public class Waypoint: NSManagedObject {
 extension Waypoint {
     struct Attributes {
         static let uuid = "uuid"
-        
+
     }
-    
+
     struct Relationships {
         static let tasks = "tasks"
         static let airport = "airport"
-        
+
     }
 }

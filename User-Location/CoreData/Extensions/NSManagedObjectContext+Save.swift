@@ -13,7 +13,7 @@ extension NSManagedObjectContext {
     func saveContext() {
         do {
             try self.save() // das self. könnte eigentlich weg, verdeutlicht hier aber, WER speichert.
-            parent?.saveContext()            
+            parent?.saveContext()
         } catch let saveError {
             print("\(saveError)")
             fatalError()

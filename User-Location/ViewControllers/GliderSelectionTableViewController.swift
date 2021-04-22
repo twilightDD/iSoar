@@ -10,10 +10,10 @@ import UIKit
 import CoreData
 
 class GliderSelectionTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
-    
+
     // MARK: - Keys
     private static let GliderEntityName = "Glider"
-    
+
     // MARK: - Lets and Vars
     let viewOnlyContext: NSManagedObjectContext = {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
@@ -23,7 +23,7 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
         fatalError()
     }()
     var gliderArray = [Glider]()
-    
+
     var gliderUUID: UUID!
     var gliderIDTextField: UITextField!
     var gliderRatioTextField: UITextField!
@@ -60,16 +60,16 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
         newGlider.flarmID = flarmIDTextField.text
         newGlider.registration = gliderIDTextField.text
         newGlider.ratio = (gliderRatioTextField.text! as NSString).doubleValue
-        
+
         do {
             try viewOnlyContext.save()
             fetchData()
         } catch {
             fatalError()
         }
-        
+
     }
-    
+
     // Fetch Data from Core Data Stack
     private func fetchData() {
         gliderArray.removeAll()
@@ -84,69 +84,69 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
         }
         tableView.reloadData()
     }
-    
+
     // MARK: - TablewView Methods
     // Setup TableView
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
         -> Int {
             return gliderArray.count
     }
-    
+
     // Setup TableViewCell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
         -> UITableViewCell {
             let cell = UITableViewCell()
             let glider = gliderArray[indexPath.row]
-            
+
             cell.textLabel?.text = glider.registration
             cell.imageView?.image = UIImage(systemName: "airplane")
-            
+
             // Set Checkmark
             if gliderArray[indexPath.row].registration == UserDefaultsManager.gliderID() {
                 cell.accessoryType = .checkmark
             } else {
                 cell.accessoryType = .none
             }
-            
+
             return cell
     }
-    
+
     // User didSelect Row
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
         let selectedGlider = gliderArray[indexPath.row]
-        
+
         tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        
+
         UserDefaultsManager.set(gliderID: selectedGlider.registration!)
         UserDefaultsManager.set(gliderRatio: selectedGlider.ratio)
         UserDefaultsManager.set(ownFlarmID: selectedGlider.flarmID!)
-        
+
         tableView.reloadData()
-        
+
         // TODO: 20200703 Hier nochmal prüfen ob ein anderer Glider ausgewählt wurde
         // Reconnect to OGN Server
         if UserDefaultsManager.showAllNearbyGlidersState() == true {
             OGNSocketConnectionManager.reconnect()
-            
+
         }
-        
+
     }
-    
+
     // Delete Glider via Swipe to left
     override func tableView(_ tableView: UITableView,
                             trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
         -> UISwipeActionsConfiguration? {
             let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, complete in
-                
+
                 if self.gliderArray.isEmpty == false {
                     let glider = self.gliderArray[indexPath.row]
                     self.viewOnlyContext.delete(glider)
                     self.gliderArray.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)
-                    
+
                 }
-                
+
                 do {
                     try self.viewOnlyContext.save()
                     self.fetchData()
@@ -154,31 +154,31 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
                     fatalError()
                 }
             }
-            
+
             let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
             configuration.performsFirstActionWithFullSwipe = true
             return configuration
-            
+
     }
-    
+
     // Edit Glider via Swipe to right
     override func tableView(_ tableView: UITableView,
                             leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
         -> UISwipeActionsConfiguration? {
             let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, complete in
-                
+
                 print("Swiped right and tapped on Edit")
                 let gliderToEdit = self.gliderArray[indexPath.row]
                 self.performSegue(withIdentifier: "abc", sender: gliderToEdit)
 
             }
-            
+
             let configuration = UISwipeActionsConfiguration(actions: [editAction])
             //configuration.performsFirstActionWithFullSwipe = true
             return configuration
-            
+
     }
-    
+
 //    // MARK: - Action Methods
 //    // Add new Glider Button
 //    @IBAction func addGliderAction(_ sender: UIBarButtonItem) {
@@ -216,5 +216,5 @@ class GliderSelectionTableViewController: UITableViewController, NSFetchedResult
 //
 //        self.present(alert, animated: true, completion: nil)
 //    }
-    
+
 }

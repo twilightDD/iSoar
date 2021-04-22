@@ -17,7 +17,7 @@ extension Waypoint {
 
     @NSManaged public var uuid: UUID?
     @NSManaged public var task: Task?
-    
+
     @NSManaged public var airport: Airport?
 
 }

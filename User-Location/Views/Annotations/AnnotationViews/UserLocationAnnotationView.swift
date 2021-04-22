@@ -13,16 +13,16 @@ class UserLocationAnnotationView: MGLUserLocationAnnotationView {
 
     // MARK: - Lets and Vats
     lazy var gliderLayer: CALayer? = setupGliderLayer()
-    
+
     // MARK: - Overrides
     override func update() {
         if frame.isNull {
             fatalError("frame isNull")
         }
-        
+
         rotateGliderLayer()
     }
-    
+
     // MARK: - Private Methods
     private func setupGliderLayer() -> CALayer? {
         let gliderLayer = CALayer()
@@ -31,7 +31,7 @@ class UserLocationAnnotationView: MGLUserLocationAnnotationView {
         gliderLayer.contents = gliderImage
         gliderLayer.bounds = CGRect(x: 0, y: 0, width: gliderImage.width, height: gliderImage.height)
         self.layer.addSublayer(gliderLayer)
-        
+
         return gliderLayer
     }
 

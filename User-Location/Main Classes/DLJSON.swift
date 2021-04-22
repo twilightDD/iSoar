@@ -9,12 +9,12 @@
 import Foundation
 
 class DLJSON {
-    
+
     class func decode(_ data: Data?)
     -> [String: Any]? {
         guard let data = data
         else { return nil }
-        
+
         do {
             // Convert Data to Dictionary
             let result = try JSONSerialization.jsonObject(with: data,
@@ -23,8 +23,8 @@ class DLJSON {
         } catch {
             print("Could not deserialize JSON")
         }
-        
+
         return nil
     }
-    
+
 }

@@ -10,21 +10,21 @@ import UIKit
 import CoreData
 
 class BuddyListTableViewController: UITableViewController {
-    
+
     // MARK: - Keys
     private static let BuddyListTableViewCellIdentifierKey = "BuddyListTableViewCellIdentifier"
     private static let OpenEditBuddyFormViewControllerSegueKey = "OpenEditBuddyFormViewControllerSegue"
-    
+
     // MARK: - Lets and Vars
     private lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = setupFetchedResultsController()
-    
+
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Buddy List"
-        
+
     }
-    
+
     // Segue Handling
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == BuddyListTableViewController.OpenEditBuddyFormViewControllerSegueKey {
@@ -36,40 +36,40 @@ class BuddyListTableViewController: UITableViewController {
                 editBuddyViewController.buddy = buddy
             }
         }
-        
+
     }
-    
+
     // MARK: - Private Methods
     private func setupFetchedResultsController()
     -> NSFetchedResultsController<NSFetchRequestResult> {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Buddy")
         let sortDesc = NSSortDescriptor(key: "name", ascending: true)
         request.sortDescriptors = [sortDesc]
-        
+
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
                                                                   managedObjectContext: CoreDataManager.viewOnlyContext,
                                                                   sectionNameKeyPath: nil,
                                                                   cacheName: nil)
         fetchedResultsController.delegate = self
-        
+
         do {
             try fetchedResultsController.performFetch()
         } catch {
             fatalError("Failed to initialize FetchedResultsController: \(error)")
         }
-        
+
         return fetchedResultsController
     }
 }
 
 // MARK: - TableView Content
 extension BuddyListTableViewController {
-    
+
     override func numberOfSections(in tableView: UITableView)
     -> Int {
         return fetchedResultsController.sections?.count ?? 0
     }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)
     -> Int {
         guard let sections = fetchedResultsController.sections else {
@@ -78,70 +78,70 @@ extension BuddyListTableViewController {
         let sectionInfo = sections[section]
         return sectionInfo.numberOfObjects
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath)
     -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BuddyListTableViewController.BuddyListTableViewCellIdentifierKey,
                                                  for: indexPath)
-        
+
         // Set up the cell
         guard let buddy = self.fetchedResultsController.object(at: indexPath) as? Buddy
         else { fatalError("Attempt to configure cell without a managed object") }
-        
+
         //Populate the cell from the object
         cell.imageView?.image = UIImage(systemName: "airplane")
         cell.textLabel?.text = buddy.name
-        
+
         return cell
     }
-    
+
     // Delete Buddy via Swipe to left
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
     -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { _, _, _ in
-            
+
             guard let buddy = self.fetchedResultsController.object(at: indexPath) as? Buddy
             else { fatalError("Attempt to configure cell without a managed object") }
-            
+
             let editContext = CoreDataManager.editContextForUI()
             let buddyInEditContext = editContext.object(with: buddy.objectID)
             editContext.delete(buddyInEditContext)
             editContext.saveContext()
         }
-        
+
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
         configuration.performsFirstActionWithFullSwipe = false
         return configuration
     }
-    
+
     // Edit Buddy via Swipe to right
     override func tableView(_ tableView: UITableView,
                             leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath)
     -> UISwipeActionsConfiguration? {
         let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, complete in
-            
+
             guard let buddy = self.fetchedResultsController.object(at: indexPath) as? Buddy
             else { fatalError("Attempt to configure cell without a managed object") }
-            
+
             self.performSegue(withIdentifier: BuddyListTableViewController.OpenEditBuddyFormViewControllerSegueKey,
                               sender: buddy)
-            
+
         }
-        
+
         let configuration = UISwipeActionsConfiguration(actions: [editAction])
         configuration.performsFirstActionWithFullSwipe = false
         return configuration
-        
+
     }
 }
 
 // MARK: - NSFetchedResultsControllerDelegate
 extension BuddyListTableViewController: NSFetchedResultsControllerDelegate {
-    
+
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
     }
-    
+
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
                     didChange sectionInfo: NSFetchedResultsSectionInfo,
                     atSectionIndex sectionIndex: Int,
@@ -159,7 +159,7 @@ extension BuddyListTableViewController: NSFetchedResultsControllerDelegate {
             fatalError("Error")
         }
     }
-    
+
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
                     didChange anObject: Any,
                     at indexPath: IndexPath?,
@@ -180,9 +180,9 @@ extension BuddyListTableViewController: NSFetchedResultsControllerDelegate {
         // swiftlint:enable force_unwrapping
         }
     }
-    
+
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
     }
-    
+
 }

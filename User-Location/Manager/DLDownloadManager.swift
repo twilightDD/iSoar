@@ -14,25 +14,25 @@ enum ContentType: String {
 }
 
 class DLDownloadManager {
-    
+
     // MARK: - Lets and Vars
     // Statics
     static private let shared = DLDownloadManager()
-    
+
     // MARK: - Private Class Methods
     private class func urlFor(_ contentType: ContentType)
     -> URL {
         let urlString = Presets.DLDownloadManager.appSourceFilesURL + contentType.rawValue
         guard let url = URL(string: urlString)
         else { fatalError() }
-        
+
         return url
     }
-    
+
     // MARK: - Public Class Methods
     class func download(_ contentType: ContentType,
                         completion: @escaping (_ data: Data?) -> Void) {
-        
+
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig)
         let url = urlFor(contentType)
@@ -40,13 +40,13 @@ class DLDownloadManager {
                                  cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData)
         let dataTask = session.dataTask(with: request,
                                         completionHandler: { data, response, error in
-                                            
+
                                             if let error = error {
                                                 completion(nil)
                                                 NotificationBanner.show(error.localizedDescription)
                                                 return
                                             }
-                                            
+
                                             if let response = response as? HTTPURLResponse {
                                                 if response.statusCode == 200 {
                                                     completion(data)
@@ -61,7 +61,7 @@ class DLDownloadManager {
                                         }
         )
         dataTask.resume()
-        
+
     }
-    
+
 }

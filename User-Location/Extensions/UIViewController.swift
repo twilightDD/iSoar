@@ -12,25 +12,25 @@ private var tabBarIsMovedOutOfScreen: Bool = false
 
 extension UIViewController {
     func moveTabBar(animated: Bool = false, duration: TimeInterval = 0.5) {
-        
+
         guard let tabBarController = self.tabBarController else { return }
         let frame = tabBarController.tabBar.frame
-        
+
         if tabBarIsMovedOutOfScreen == false {
             UIView.animate(withDuration: duration, animations: {
                 tabBarController.tabBar.frame = frame.offsetBy(dx: 0, dy: frame.height)
             })
-            
+
             tabBarIsMovedOutOfScreen = true
-            
+
         } else {
             UIView.animate(withDuration: duration, animations: {
                 tabBarController.tabBar.frame = frame.offsetBy(dx: 0, dy: -frame.height)
             })
-            
+
             tabBarIsMovedOutOfScreen = false
-            
+
         }
-        
+
     }
 }

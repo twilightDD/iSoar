@@ -11,44 +11,44 @@ import MessageUI
 
 // MARK: SettingsViewController
 class SettingsFormViewController: FormViewController, MFMailComposeViewControllerDelegate {
-    
+
     // MARK: - Keys
-    
+
     static let AvailableGlidersKey = "Selected Glider"
     static let SelectedTaskKey = "Selected Task"
     static let TrafficMonitorKey = "Traffic Monitor"
     static let CollisionWarningKey = "Collision Warning"
     static let BuddyFilterKey = "Buddy Filter"
     static let BuddyListKey = "Buddy List"
-    
+
     let downloadProgressView: UIProgressView = UIProgressView(progressViewStyle: .default)
     let alertController = UIAlertController(title: "Downloading Map",
                                             message: "Please be patient...",
                                             preferredStyle: .alert)
-    
+
     // Notification Observers
     private var airportImportOrUpdateFinishedNotification: NSObjectProtocol?
     private var airportImportOrUpdateFailedNotification: NSObjectProtocol?
-    
+
     private var gliderModelImportOrUpdateFinishedNotification: NSObjectProtocol?
     private var gliderModelImportOrUpdateFailedNotification: NSObjectProtocol?
-    
+
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Settings"
-        
+
         form.append(gliderSelectionSection())
         form.append(taskSection())
         form.append(userSettingsSection())
         form.append(mapSettingsSection())
         form.append(trafficMonitorSection())
         form.append(miscellaneousSection())
-        
+
         #if DEBUG
         form.append(debugSection())
         #endif
-        
+
         // Setup offline pack notification handlers from MapAreaDownloadManager
         NotificationCenter.default.addObserver(self, selector: #selector(offlinePackProgressDidChange),
                                                name: NSNotification.Name.MGLOfflinePackProgressChanged,
@@ -59,79 +59,79 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
         NotificationCenter.default.addObserver(self, selector: #selector(offlinePackDidReceiveMaximumAllowedMapboxTiles),
                                                name: NSNotification.Name.MGLOfflinePackMaximumMapboxTilesReached,
                                                object: nil)
-        
+
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         updateUIAfterChangesWereMade()
-        
+
         // MARK: - Register Observers for notfications
         // Airport Update Finished
         airportImportOrUpdateFinishedNotification = NotificationCenter.default.addObserver(forName: Airport.importOrUpdateFinishedNotification,
                                                                                            object: nil,
                                                                                            queue: OperationQueue.main) { [unowned self] (notification) in
-            
+
             NotificationBanner.show("Airport Database updated")
-            
+
         }
-        
+
         // TODO: 20210107 Airport Update Failed Notification
-        
+
         // GliderModel Update Finished
         gliderModelImportOrUpdateFinishedNotification = NotificationCenter.default.addObserver(forName: GliderModel.importOrUpdateFinishedNotification,
                                                                                                object: nil,
                                                                                                queue: OperationQueue.main) { [unowned self] (notification) in
-            
+
             NotificationBanner.show("Glider Models Database updated")
-            
+
         }
-        
+
         // TODO: 20210107 GliderModel Update Failed Notification
-        
+
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         // Remove Obeservers when View did Disappear
         if let airportImportOrUpdateFinishedNotification = airportImportOrUpdateFinishedNotification {
             NotificationCenter.default.removeObserver(airportImportOrUpdateFinishedNotification)
         }
-        
+
         if let airportImportOrUpdateFailedNotification = airportImportOrUpdateFailedNotification {
             NotificationCenter.default.removeObserver(airportImportOrUpdateFailedNotification)
         }
-        
+
     }
-    
+
     // MARK: - Private Methods
     // MARK: Eureka Form Sections
     private func gliderSelectionSection()
     -> Section {
         let section = Section("Glider Selection")
-            
+
             <<< PushRow<String>(SettingsFormViewController.AvailableGlidersKey) { row in
                 row.title = SettingsFormViewController.AvailableGlidersKey
                 row.value = UserDefaultsManager.gliderID()
                 row.presentationMode = .segueName(segueName: "GliderSelectionSegue", onDismiss: nil)
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "airplane")
             }
-        
+
         section.tag = "Glider Selection"
         return section
     }
-    
+
     private func taskSection()
     -> Section {
         let section = Section("Task Selection")
-            
+
             <<< PushRow<Task>(SettingsFormViewController.SelectedTaskKey) { row in
                 row.title = SettingsFormViewController.SelectedTaskKey
                 row.value = FlightComputer.selectedTask()
-                
+
                 row.displayValueFor = { task in
                     if task != nil {
                         return task?.taskName
@@ -139,22 +139,22 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                         return "No task selected"
                     }
                 }
-                
+
                 row.presentationMode = .segueName(segueName: "TaskListSegue", onDismiss: nil)
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "doc.text")
-                
+
             }
-        
+
         section.tag = "Task Selection"
         return section
     }
-    
+
     private func userSettingsSection()
     -> Section {
         let section = Section("User Settings")
-            
+
             <<< SliderRow("Safety") { row in
                 row.title = "Safety"
                 row.value = Float(UserDefaultsManager.safetyAltitude())
@@ -162,72 +162,72 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 row.displayValueFor = { row in
                     return "\(Int(row ?? 0)) m"
                 }
-                
+
             }.cellSetup { cell, row in
                 let cellIconImage = UIImage(systemName: "heart")?.withTintColor(.red,
                                                                                 renderingMode: .alwaysOriginal)
                 cell.imageView?.image = cellIconImage
                 cell.slider.minimumValue = 0
                 cell.slider.maximumValue = 500
-                
+
             }.onChange { row in
                 let safetyAltitude = Double(row.value ?? 300)
                 UserDefaultsManager.set(safetyAltitude: safetyAltitude)
-                
+
             }
-            
+
             <<< SwitchRow("Show Flight Summary") { row in
                 row.title = row.tag
                 row.value = UserDefaultsManager.showFlightSummaryState()
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "doc.plaintext")
-                
+
             }.onChange { row in
                 guard let showFlightSummaryState = row.value else { return }
                 UserDefaultsManager.set(showFlightSummaryState: showFlightSummaryState)
-                
+
             }
-            
+
             <<< SwitchRow("Gear Warning") { row in
                 row.title = row.tag
                 row.value = UserDefaultsManager.gearWarningState()
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "speaker")
-                
+
             }.onChange { row in
                 guard let gearWarningState = row.value else { return }
                 UserDefaultsManager.set(gearWarningState: gearWarningState)
-                
+
             }
-            
+
             <<< SwitchRow("Low Oxygen Warning") { row in
                 row.title = row.tag
                 row.value = UserDefaultsManager.lowOxygenWarningState()
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "speaker")
-                
+
             }.onChange { row in
                 guard let lowOxygenWarningState = row.value else { return }
                 UserDefaultsManager.set(lowOxygenWarningState: lowOxygenWarningState)
-                
+
             }
-        
+
         return section
     }
-    
+
     private func mapSettingsSection()
     -> Section {
         let section = Section("Map Settings")
-            
+
             <<< PushRow<String>("Selected Map") { row in
                 row.title = "Selected Map"
                 row.options = Presets.Settings.countries.keys.sorted()
                 row.value = UserDefaultsManager.selectedCountry()
                 row.selectorTitle = "Select a Map"
-                
+
             }.onPresent { form, row in
                 row.dismissOnSelection = true
                 row.dismissOnChange = true
@@ -235,128 +235,128 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 row.selectableRowCellUpdate = { (cell, row) in
                     cell.imageView?.image = UIImage(systemName: "map")
                 }
-                
+
                 // TODO: 20200911 Hier muss die Bildgröße der Flaggen angepasst werden!
                 //                    row.selectableRowCellUpdate = { (cell, row) in
                 //                        guard let imageName = cell.textLabel?.text else { return }
                 //                        cell.imageView?.image = UIImage(named: imageName)
                 //
                 //                }
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "map")
-                
+
             }.onChange { row in
                 guard let mapCountry = row.value else { return }
                 UserDefaultsManager.set(mapCountry: mapCountry)
-                
+
                 guard let mapStyleURL = Presets.Settings.countries[mapCountry] else { return }
                 UserDefaultsManager.set(mapStyleURL: mapStyleURL)
-                
+
             }
-            
+
             <<< ButtonRow { row in
                 row.title = "Download Map of the current Area"
                 row.onCellSelection(self.downloadMapAreaButtonTapped(cell:row:))
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "square.and.arrow.down")
                 cell.textLabel?.textAlignment = .left
-                
+
             }.cellUpdate { cell, row in
                 cell.textLabel?.textAlignment = .left
-                
+
             }
-            
+
             <<< SwitchRow { row in
                 row.title = "Show Distance Circles"
                 row.tag = "Show Distance Circles"
                 row.value = UserDefaultsManager.showDistanceCirclesState()
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "smallcircle.circle")
-                
+
             }.onChange { row in
                 guard let showDistanceCirclesState = row.value else { return }
                 UserDefaultsManager.set(showDistanceCirclesState: showDistanceCirclesState)
-                
+
             }
-            
+
             <<< SwitchRow { row in
                 row.title = "Show Tracking Route"
                 row.tag = "Show Tracking Route"
                 row.value = UserDefaultsManager.showTrackingRouteState()
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "checkmark.circle")
-                
+
             }.onChange { row in
                 guard let showTrackingRouteState = row.value else { return }
                 UserDefaultsManager.set(showTrackingRouteState: showTrackingRouteState)
-                
+
             }
-            
+
             <<< SwitchRow("Thermal Assistant") { row in
                 row.title = row.tag
                 row.value = UserDefaultsManager.thermalAssistantState()
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "tornado")
-                
+
             }.onChange { row in
                 guard let thermalAssistantState = row.value else { return }
                 UserDefaultsManager.set(thermalAssistantState: thermalAssistantState)
-                
+
             }
         return section
     }
-    
+
     private func trafficMonitorSection()
     -> Section {
         let section = Section("Traffic Monitor Settings")
-            
+
             <<< SwitchRow { row in
                 row.title = SettingsFormViewController.TrafficMonitorKey
                 row.tag = SettingsFormViewController.TrafficMonitorKey
                 row.value = UserDefaultsManager.showAllNearbyGlidersState()
-                
+
             }.cellSetup { cell, row in
                 let cellIconImage = UIImage(systemName: "exclamationmark.triangle")?.withTintColor(.red,
                                                                                                    renderingMode: .alwaysOriginal)
                 cell.imageView?.image = cellIconImage
-                
+
             }.onChange { row in
                 guard let showAllNearbyGlidersState = row.value else { return }
                 UserDefaultsManager.set(showAllNearbyGlidersState: showAllNearbyGlidersState)
-                
+
                 if UserDefaultsManager.showAllNearbyGlidersState() == true {
                     // Connect to OGN Server with Radius Filter
                     OGNSocketConnectionManager.start()
-                    
+
                 } else {
                     // Disconnect from OGN Server
                     OGNSocketConnectionManager.stop()
-                    
+
                     if UserDefaultsManager.collisionWarningState() == true {
                         UserDefaultsManager.set(collisionWarningState: false)
-                        
+
                         self.form.rowBy(tag: SettingsFormViewController.CollisionWarningKey)?.baseValue = false
-                        
+
                         self.form.rowBy(tag: SettingsFormViewController.CollisionWarningKey)?.reload()
                     }
-                    
+
                     if UserDefaultsManager.buddyFilterSwitchState() == true {
                         UserDefaultsManager.set(buddyFilterSwitchState: false)
-                        
+
                         self.form.rowBy(tag: SettingsFormViewController.BuddyFilterKey)?.baseValue = false
-                        
+
                         self.form.rowBy(tag: SettingsFormViewController.BuddyFilterKey)?.reload()
                     }
-                    
+
                 }
-                
+
             }
-            
+
             <<< SliderRow("Radius") { row in
                 row.title = "Radius"
                 row.value = Float(UserDefaultsManager.trafficMonitorRadius())
@@ -364,7 +364,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 row.displayValueFor = { row in
                     return "\(Int(row ?? 0)) Km"
                 }
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "antenna.radiowaves.left.and.right")
                 cell.slider.minimumValue = 5
@@ -372,123 +372,123 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                 cell.slider.addTarget(self,
                                       action: #selector(self.radiusSliderDidEndSliding),
                                       for: [.touchUpInside, .touchUpOutside])
-                
+
             }.onChange { row in
                 let trafficMonitorRadius = Double(row.value ?? 50)
                 UserDefaultsManager.set(trafficMonitorRadius: trafficMonitorRadius)
-                
+
             }
-            
+
             <<< SwitchRow("Collision Warning") { row in
                 row.title = SettingsFormViewController.CollisionWarningKey
                 row.tag = SettingsFormViewController.CollisionWarningKey
                 row.value = UserDefaultsManager.collisionWarningState()
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "speaker")
-                
+
             }.onChange { row in
                 guard let collisionWarningState = row.value else { return }
                 UserDefaultsManager.set(collisionWarningState: collisionWarningState)
-                
+
                 if UserDefaultsManager.collisionWarningState() == true,
                    UserDefaultsManager.showAllNearbyGlidersState() == false {
-                    
+
                     UserDefaultsManager.set(showAllNearbyGlidersState: true)
-                    
+
                     self.form.rowBy(tag: SettingsFormViewController.TrafficMonitorKey)?.baseValue = UserDefaultsManager.showAllNearbyGlidersState()
-                    
+
                     self.form.rowBy(tag: SettingsFormViewController.TrafficMonitorKey)?.reload()
-                    
+
                 }
-                
+
             }
-            
+
             <<< SwitchRow("Buddy Filter") { row in
                 row.title = SettingsFormViewController.BuddyFilterKey
                 row.tag = SettingsFormViewController.BuddyFilterKey
                 row.value = UserDefaultsManager.buddyFilterSwitchState()
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "line.horizontal.3.decrease.circle")
-                
+
             }.onChange { row in
                 guard let rowValue = row.value else { return }
                 UserDefaultsManager.set(buddyFilterSwitchState: rowValue)
-                
+
                 if UserDefaultsManager.buddyFilterSwitchState() == true,
                    UserDefaultsManager.showAllNearbyGlidersState() == false {
-                    
+
                     UserDefaultsManager.set(showAllNearbyGlidersState: true)
-                    
+
                     self.form.rowBy(tag: SettingsFormViewController.TrafficMonitorKey)?.baseValue = UserDefaultsManager.showAllNearbyGlidersState()
-                    
+
                     self.form.rowBy(tag: SettingsFormViewController.TrafficMonitorKey)?.reload()
-                    
+
                 } else {
                     OGNSocketConnectionManager.reconnect()
-                    
+
                 }
-                
+
             }
-            
+
             <<< PushRow<Int>("Buddy List") { row in
                 row.title = "Buddy List"
                 let buddyCount = CoreDataManager.viewOnlyContext.countOfObjects(forEntityClass: Buddy.self)
                 row.value = buddyCount
                 row.presentationMode = .segueName(segueName: "BuddyListSegue", onDismiss: nil)
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "person.2")
             }
-        
+
         return section
     }
-    
+
     private func miscellaneousSection()
     -> Section {
         let section = Section("Miscellaneous")
-            
+
             <<< ButtonRow { row in
                 row.title = "Airport Database Update"
                 row.onCellSelection(self.airportDatabaseUpdatesButtonTapped)
-                
+
             }
-            
+
             <<< ButtonRow { row in
                 row.title = "Glider Model Database Update"
                 row.onCellSelection(self.gliderModelDatabaseUpdatesButtonTapped)
-                
+
             }
-            
+
             <<< ButtonRow { row in
                 row.title = "Report missing Airfield"
                 row.onCellSelection(self.reportMissingAirfieldButtonTapped)
-                
+
             }
-            
+
             <<< ButtonRow { row in
                 row.title = "Read the Manual (German)"
                 row.onCellSelection(self.readTheManualButtonTapped)
-                
+
             }
-        
+
         return section
     }
-    
+
     private func debugSection()
     -> Section {
         let section = Section("Debug")
-            
+
             <<< ButtonRow { row in
                 row.title = "Empty Core Data"
                 row.onCellSelection(self.emptyCoreDataButtonTapped)
-                
+
             }
-        
+
         return section
     }
-    
+
     // Report missing Airport
     private func reportMissingAirport() {
         if MFMailComposeViewController.canSendMail() {
@@ -496,7 +496,7 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
             mailComposer.setToRecipients(["mail@isoar.de"])
             mailComposer.setSubject("Add missing Airport")
             mailComposer.setMessageBody("Country:<br>Elevation AMSL:<br>ICAO Code:<br>Latitude:<br>Longitude:<br>Name:<br>Radio Frequency:<br>Radio Frequency Name:<br>Runway Dimensions: (1000 x 50) <br>Runway Direction: (01/19)<br>Runway Surface: Grass / Asphalt<br>URL: www.airport.org", isHTML: true)
-            
+
             mailComposer.mailComposeDelegate = self
             self.present(mailComposer, animated: true,
                          completion: nil)
@@ -506,44 +506,44 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                                                           preferredStyle: .alert)
         }
     }
-    
+
     // Mail Composer Controller
     internal func mailComposeController(_ controller: MFMailComposeViewController,
                                         didFinishWith result: MFMailComposeResult,
                                         error: Error?) {
         controller.dismiss(animated: true)
     }
-    
+
     private func updateUIAfterChangesWereMade() {
-        
+
         if let availableGlidersCount = form.rowBy(tag: SettingsFormViewController.AvailableGlidersKey) as? PushRow<String> {
             availableGlidersCount.value = UserDefaultsManager.gliderID()
             availableGlidersCount.reload()
         }
-        
+
         if let selectedTask = form.rowBy(tag: SettingsFormViewController.SelectedTaskKey) as? PushRow<Task> {
             selectedTask.value = FlightComputer.selectedTask()
             selectedTask.reload()
         }
-        
+
         if let buddyList = form.rowBy(tag: SettingsFormViewController.BuddyListKey) as? PushRow<Int> {
             buddyList.value = CoreDataManager.viewOnlyContext.countOfObjects(forEntityClass: Buddy.self)
             buddyList.reload()
         }
-        
+
     }
-    
+
     @objc private func radiusSliderDidEndSliding() {
         if UserDefaultsManager.buddyFilterSwitchState() == false {
             OGNSocketConnectionManager.reconnect()
         }
     }
-    
+
     // MARK: - Action Methods
     private func airportDatabaseUpdatesButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         DLDownloadManager.download(.airports,
                                    completion: { data in
-                                    
+
                                     guard let data = data
                                     else {
                                         //NotificationBanner.show("No data received.")
@@ -551,15 +551,15 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                                     }
 
                                     CoreDataImporter.importData(data, forType: .airports)
-                                    
+
                                    })
-        
+
     }
-    
+
     private func gliderModelDatabaseUpdatesButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         DLDownloadManager.download(.glidermodels,
                                    completion: { data in
-                                    
+
                                     guard let data = data
                                     else {
                                         NotificationBanner.show("No data received.")
@@ -567,41 +567,41 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                                     }
 
                                     CoreDataImporter.importData(data, forType: .glidermodels)
-                                    
+
                                    })
     }
-    
+
     private func reportMissingAirfieldButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         reportMissingAirport()
     }
-    
+
     private func readTheManualButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         if let manualURL = Presets.Settings.maualURL,
            UIApplication.shared.canOpenURL(manualURL as URL) {
             UIApplication.shared.open(manualURL)
         }
-        
+
     }
-    
+
     private func downloadMapAreaButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         MapAreaDownloadManager.startOfflinePackDownload()
-        
+
         self.downloadProgressView.frame = CGRect(x: 10, y: 70, width: 250, height: 0)
-        
+
         self.alertController.view.addSubview(self.downloadProgressView)
         self.present(alertController, animated: true, completion: nil)
-        
+
     }
-    
+
     private func emptyCoreDataButtonTapped(cell: ButtonCellOf<String>, row: ButtonRow) {
         var message = ""
-        
+
         let deleteCountAirports = Airport.deleteAll()
         message.append("\(deleteCountAirports) Flughäfen\n")
-        
+
         //        let deleteCountGliderModels = GliderModel.deleteAll()
         //        message.append("\(deleteCountGliderModels) Flugzeugmodelle")
-        
+
         //        let deleteCountGliders = Glider.deleteAll()
         //        message.append("\(deleteCountGliders) Flugzeuge\n")
 
@@ -609,34 +609,34 @@ class SettingsFormViewController: FormViewController, MFMailComposeViewControlle
                                                       message: message,
                                                       preferredStyle: .alert)
     }
-    
+
     // MARK: - MGLOfflinePack Notification Handlers
     @objc func offlinePackProgressDidChange(notification: NSNotification) {
         // Observe Notifications for Downloaded Ressources in Percent
         self.downloadProgressView.progress = MapAreaDownloadManager.percentageDonloaded()
-        
+
         // If downloaded Ressorces = expectes Ressources - dissmiss the AlrtViewController
         if MapAreaDownloadManager.mapAreaDownloadIsCompleted() == true {
-            
+
             //DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.alertController.dismiss(animated: true, completion: nil)
             //}
-            
+
             // Otherwise dont show only the progress
         } else {
             //print("Completed: \(MapAreaDownloadManager.shared.completedResources) - Expected: \(MapAreaDownloadManager.shared.expectedResources)")
         }
-        
+
     }
-    
+
     @objc func offlinePackDidReceiveError(notification: NSNotification) {
         self.alertController.dismiss(animated: true, completion: nil)
-        
+
     }
-    
+
     @objc func offlinePackDidReceiveMaximumAllowedMapboxTiles(notification: NSNotification) {
         self.alertController.dismiss(animated: true, completion: nil)
-        
+
     }
-    
+
 }

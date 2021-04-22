@@ -11,7 +11,7 @@ import CoreLocation
 import UIKit
 
 struct Presets {
-    
+
     static func printPresetsWaringsIfNeeded() {
         #if DEBUG
         print("#######################")
@@ -21,9 +21,9 @@ struct Presets {
         print("#######################")
         #endif
     }
-    
+
     struct OGNSocketConnection {
-        
+
         /// Base URL String for aprs.glidernet.org
         static let host: NWEndpoint.Host = "aprs.glidernet.org"
         /// May not use any filter options.
@@ -36,34 +36,34 @@ struct Presets {
         static let telemetryDataExpirationTimespan: Int64 = 120
         /// Distance from Login Location to Reconnect Location
         static let distanceLimitForReconnect: Double = 10000
-        
+
     }
-    
+
     struct MapScreen {
-        
+
         static let eulaTitle: String = "Software Usage Agreement"
-        
+
         static let eulaMessage: String = "You are not allowed to use this software as your primary navigation system.\n\nThe data provided in this app may be incorrect or incomplete.\n\nThis software may only be used as an additional backup to your currently valid ICAO card.\n\nBy using this app in the mobile network, costs may arise from your mobile operator."
-        
+
     }
-    
+
     struct LocationManager {
-        
+
         /// AlertViewController Title when Location Service is disabled
         static let locationServiceDeniedTitle: String = "Location Service disabled"
         /// AlertViewController Message when Location Service is disabled
         static let locationServiceDeniedMessage: String = "The location service for iSoar is currently disabled. Please allow the use of the location service in the settings."
-        
+
     }
-    
+
     struct FlightComputer {
-        
+
         /// Check for nearest Airport and set it for Start-Airport and End-Airport in the LogBook
         static let maximalDistanceFromNearestAirport: CLLocationDistance = 500
-        
+
         /// Minimal Speed in Meter per Seconds to check if Glider is flying or not
         static let minimalFlightSpeed: CLLocationSpeed = 10
-        
+
         // Oxygen Warning
         /// Represents the Oxygen Warning Altitude - Warning only above this Altitude
         static let lowOxygenWarningAltitude: CLLocationDistance = 3050
@@ -71,7 +71,7 @@ struct Presets {
         static let safeSecondsAtLowOxygenAltitude: Int = 1800
         /// Represents the spoken Text of the acoustic Warning
         static let lowOxygenWarningSpokenText: String = "Warning, Oxygen Level low"
-        
+
         // Landing Gear Warning
         /// Represents the lower distance Limit above the Airport in which user is warned
         static let gearWarningDistance: Double = 1000
@@ -81,7 +81,7 @@ struct Presets {
         static let upperGearWarningAltitude: Double = 400
         /// Represents the spoken Text of the acoustic Warning
         static let gearWarningSpokenText: String = "Warning, check Landing Gear"
-        
+
         // Collision Warning
         /// Represents the distance Limit of Nearby Gliders in which the user is warned
         static let horizontalCollisionWarningDistance: CLLocationDistance = 2000
@@ -89,7 +89,7 @@ struct Presets {
         static let verticalCollisionWarningDistance: CLLocationDistance = 200
         /// Represents the spoken Text of the acoustic Warning
         static let collisionWarningSpokenText: String = "Warning, Traffic ahead"
-        
+
         // Thermal Assistant
         /// Represents the deviation of the current course to the former course
         static let significantCourseDeviation: Double = 3
@@ -97,26 +97,26 @@ struct Presets {
         static let continousSignificantCourseChanges: Int = 15
         /// Represents the value of continous Courses  Updates to another Direction than the last cirling Turn
         static let turnCounterResetTrigger: Int = 7
-        
+
     }
-    
+
     struct DLDownloadManager {
-        
+
         /// Represents the Base URL of the JSON Files on the Server
         static let appSourceFilesURL = "https://www.isoar.de/AppSourceFiles/"
-        
+
     }
-    
+
     struct ISoarFileManager {
-        
+
         /// Represents the URL of the Airports.json File on the Server
         static let localAirportsJSONURL = URL(fileURLWithPath: Bundle.main.path(forResource: "Airports", ofType: "json")!)
         static let localGliderModelsJSONURL = URL(fileURLWithPath: Bundle.main.path(forResource: "GliderModels", ofType: "json")!)
-        
+
     }
-    
+
     struct Settings {
-        
+
         /// Represents the the MapBox Style URL - Key Value Pair - Country : StyleURL
         static let countries = ["Austria": "mapbox://styles/dlmapbox/ckecnz3gl2en51amvmz2zr9nd",
                                 "Basic Map": "mapbox://styles/dlmapbox/ckn9wqwfx07j717o3lrc11y0r",
@@ -138,16 +138,16 @@ struct Presets {
                                 "Sweden": "mapbox://styles/dlmapbox/ckecuue8m2l8c1amv1bqakkdf",
                                 "Switzerland": "mapbox://styles/dlmapbox/ckeco8can24b019o0cw384tx7"
         ]
-        
+
         /// Represents the URL of the Manual on the Server
         static let maualURL = URL(string: "https://www.isoar.de/handbuch")
-        
+
     }
-    
+
     struct Airport {
-        
+
         /// Distance from Last Airport Distance Update Location
         static let distanceLimitForAirportDistanceUpdate: Double = 1000
-        
+
     }
 }

@@ -10,11 +10,11 @@ import Eureka
 import CoreData
 
 class EditBuddyFormViewController: FormViewController {
-    
+
     // MARK: - Keys
     static let BuddyNameKey = "Buddy Name"
     static let BuddyFlarmIDKey = "FLARM ID"
-    
+
     // MARK: - Lets and Vars
     private var _buddy: Buddy?
     var buddy: Buddy {
@@ -34,28 +34,28 @@ class EditBuddyFormViewController: FormViewController {
             _buddy = buddyInEditContext
         }
     }
-    
+
     private let editContext = CoreDataManager.editContextForUI()
-    
+
     // MARK: IBOutlets
     @IBOutlet weak var cancelBarBauttonItem: UIBarButtonItem!
     @IBOutlet weak var saveBarBauttonItem: UIBarButtonItem!
-    
+
     // MARK: - Init&Co.
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Buddy Details"
-        
+
         form.append(buddyListSection())
     }
-    
+
     // MARK: - Private Methods
     // MARK: Eureka Form Sections
     private func buddyListSection()
     -> Section {
         let section = Section("Buddy Details")
         section.tag = "Buddy Details"
-        
+
         section
             <<< TextRow(EditBuddyFormViewController.BuddyNameKey) { row in
                 row.title = "Buddy Name"
@@ -64,21 +64,21 @@ class EditBuddyFormViewController: FormViewController {
                 row.add(rule: RuleRequired())
                 row.add(rule: RuleMinLength(minLength: 2))
                 row.validationOptions = .validatesOnChange
-                
+
             }.cellUpdate { cell, row in
                 self.validateForm()
                 if row.isValid == false {
                     cell.titleLabel?.textColor = .red
                 }
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "textformat")
-                
+
             }.onChange({ [unowned self] row in
                 let newName = row.value ?? ""
                 self.buddy.name = newName
             })
-            
+
             <<< TextRow(EditBuddyFormViewController.BuddyFlarmIDKey) { row in
                 row.title = "Flarm ID"
                 row.value = self.buddy.flarmID
@@ -87,24 +87,24 @@ class EditBuddyFormViewController: FormViewController {
                 row.add(rule: RuleMinLength(minLength: 9))
                 row.add(rule: RuleMaxLength(maxLength: 9))
                 row.validationOptions = .validatesOnChange
-                
+
             }.cellUpdate { cell, row in
                 self.validateForm()
                 if row.isValid == false {
                     cell.titleLabel?.textColor = .red
                 }
-                
+
             }.cellSetup { cell, row in
                 cell.imageView?.image = UIImage(systemName: "dot.radiowaves.left.and.right")
-                
+
             }.onChange({ (row) in
                 let newFlarmID = row.value ?? ""
                 self.buddy.flarmID = newFlarmID
             })
-        
+
         return section
     }
-    
+
     private func validateForm() {
         let validationErrors = form.validate()
         if validationErrors.isEmpty == true {
@@ -113,12 +113,12 @@ class EditBuddyFormViewController: FormViewController {
             saveBarBauttonItem.isEnabled = false
         }
     }
-    
+
     // MARK: - Action Methods
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
         let existingBuddies = editContext.fetchObjects(forEntityClass: Buddy.self,
                                                        predicateString: "%K == %@ OR %K == %@",
@@ -126,11 +126,11 @@ class EditBuddyFormViewController: FormViewController {
                                                                             Buddy.Attributes.flarmID, buddy.flarmID])
         if existingBuddies.count == 1 {
             editContext.saveContext()
-            
+
             OGNSocketConnectionManager.didUpdateBuddiesOrSelectedOtherGlider()
-            
+
             self.dismiss(animated: true, completion: nil)
-            
+
         } else if existingBuddies.isEmpty == true {
             fatalError("ich muss self.buddy haben.")
         } else {
@@ -139,7 +139,7 @@ class EditBuddyFormViewController: FormViewController {
                                                           preferredStyle: .alert,
                                                           on: self)
         }
-        
+
     }
-    
+
 }

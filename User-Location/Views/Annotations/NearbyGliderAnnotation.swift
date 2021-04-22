@@ -56,10 +56,10 @@ class NearbyGliderAnnotation: MGLPointAnnotation {
             }
         }
     }
-    
+
     required init(gliderTelemetryData: GliderTelemetryData) {
         self.gliderTelemetryDataStore = gliderTelemetryData
-        
+
         super.init()
 
         if let buddy = Buddy.forFlarmID(gliderTelemetryData.flarmID) {
@@ -70,15 +70,15 @@ class NearbyGliderAnnotation: MGLPointAnnotation {
 
         var subtitleString1 = String(format: "%.0fm | ", (gliderTelemetryData.altitude))
         let subtitleString2 = String(format: "%.1fm", (gliderTelemetryData.climbRate))
-        
+
         subtitleString1.append(subtitleString2)
-        
+
         self.subtitle = subtitleString1
-        
+
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
 }

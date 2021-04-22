@@ -10,7 +10,7 @@ import CoreData
 
 // MARK: - CoreDataManager
 class CoreDataManager {
-    
+
     // MARK: - Lets and Vars
     private static let sharedManager = CoreDataManager()
 
@@ -37,7 +37,7 @@ extension CoreDataManager {
     static let viewOnlyContext: NSManagedObjectContext = {
         let shared = CoreDataManager.sharedManager
         let viewContext = shared.persistentContainer.viewContext
-        
+
         // merges changes of save to persistentStore, if a newBackgroundContext saves, automatically.
         viewContext.automaticallyMergesChangesFromParent = true
         return viewContext

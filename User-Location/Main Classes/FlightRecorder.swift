@@ -10,51 +10,51 @@ import CoreLocation
 
 // MARK: - FlightRecorder
 class FlightRecorder {
-    
+
     // MARK: - Lets and Vars
     // Statics
     static private let shared = FlightRecorder()
-    
+
     // Private
     private var canRecordFlight = false
-    
+
     private var currentUnixTimeStamp = String.init(Date.currentUnixTimeStamp)
     private var flightStartDate = Date()
     private var startICAO: String?
-    
+
     // MARK: - Public Class Methods
     class func start() {
         let shared = FlightRecorder.shared
         FlightComputer.registerForFlightComputerUpdates(shared)
     }
-    
+
     // MARK: - Private Methods
     // Start Recording of Telemetry Data
     private func startRecording() {
         currentUnixTimeStamp = String.init(Date.currentUnixTimeStamp)
         flightStartDate = Date()
         startICAO = FlightComputer.nearestAirportAtStartOrLanding()?.icao
-        
+
         let createFlightRecorderFiles = ISoarFileManager.createFlightRecorderFiles(currentUnixTimpStamp: currentUnixTimeStamp,
                                                                                    flightStartDate: flightStartDate,
                                                                                    startICAO: startICAO)
         canRecordFlight = createFlightRecorderFiles
     }
-    
+
     // Stop Recording of Telemetry Data
     private func stopRecording() {
         let flightEndDate = Date()
         let endICAO = FlightComputer.nearestAirportAtStartOrLanding()?.icao
-        
+
         ISoarFileManager.closeFlightRecorderFiles(currentUnixTimeStamp: currentUnixTimeStamp,
                                                   flightStartDate: flightStartDate,
                                                   flightEndDate: flightEndDate,
                                                   startICAO: startICAO,
                                                   endICAO: endICAO)
-        
+
         canRecordFlight = false
     }
-    
+
     // Add current Telemetry Data Set to FlightRecorder File
     private func addCurrentTelemetryDataSetToFlightRecorderFile(_ currentLocation: CLLocation) {
         if FlightComputer.isGliderFlying() == true,
@@ -69,13 +69,13 @@ class FlightRecorder {
                 .appending("\(currentLocation.speed),")
                 .appending("\(currentLocation.course),")
                 .appending("\n")
-            
+
             // Append Telemetry Data to FlightRecorder File
             ISoarFileManager.appendTelemetryDataToFlightRecorderFile(recordLine)
         }
-        
+
     }
-    
+
 }
 
 // MARK: - Extensions
@@ -93,18 +93,18 @@ extension FlightRecorder: LocationManagerDelegate {
             else { return }
         addCurrentTelemetryDataSetToFlightRecorderFile(currentLocation)
     }
-    
+
 }
 
 extension FlightRecorder: FlightComputerDelegate {
     func altitudeAtDestination(_ altitude: Double) {
         //
     }
-    
+
     func distanceToDestination(_ distance: Double) {
         //
     }
-    
+
     func gliderIsFlying(_ isFlying: Bool) {
         if isFlying == true {
             LocationManager.registerForLocationUpdates(FlightRecorder.shared)
@@ -114,7 +114,7 @@ extension FlightRecorder: FlightComputerDelegate {
             LocationManager.unRegisterForLocationUpdates(FlightRecorder.shared)
         }
     }
-    
+
     func gliderIsCircling(_ isCircling: Bool) {
 //        if isCircling == true {
 //
@@ -122,5 +122,5 @@ extension FlightRecorder: FlightComputerDelegate {
 //
 //        }
     }
-    
+
 }

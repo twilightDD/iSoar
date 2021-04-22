@@ -10,21 +10,21 @@ import CoreLocation
 
 // MARK: - Protocol - FlightComputerDelegate
 protocol FlightComputerDelegate: AnyObject {
-    
+
     func altitudeAtDestination(_ altitude: Double)
     func distanceToDestination(_ distance: Double)
     func gliderIsFlying(_ isFlying: Bool)
     func gliderIsCircling(_ isCircling: Bool)
-    
+
 }
 
 // MARK: - FlightComputer
 class FlightComputer {
-    
+
     // MARK: - Lets and Vars
     // Statics
     static private let shared = FlightComputer()
-    
+
     // Private
     private var altitudeAtDestination: Double = 0 {
         didSet {
@@ -39,7 +39,7 @@ class FlightComputer {
             }
         }
     }
-    
+
     private var distanceToDestination: Double = 0 {
         didSet {
             if oldValue != distanceToDestination {
@@ -53,7 +53,7 @@ class FlightComputer {
             }
         }
     }
-    
+
     private var isGliderFlying: Bool = false {
         didSet {
             if oldValue != isGliderFlying {
@@ -61,13 +61,13 @@ class FlightComputer {
                 for delegate in delegates.allObjects {
                     if let flightComputerDelegate = delegate as? FlightComputerDelegate {
                         flightComputerDelegate.gliderIsFlying(isGliderFlying)
-                        
+
                     }
                 }
             }
         }
     }
-    
+
     private var isGliderCircling: Bool = false {
         didSet {
             if oldValue != isGliderCircling {
@@ -75,29 +75,29 @@ class FlightComputer {
                 for delegate in delegates.allObjects {
                     if let flightComputerDelegate = delegate as? FlightComputerDelegate {
                         flightComputerDelegate.gliderIsCircling(isGliderCircling)
-                        
+
                     }
                 }
             }
         }
     }
-    
+
     private var enteredLowOxygenAltitudeTimestamp: Int64?
-    
+
     private var leftTurnCounter: Int = 0
     private var rightTurnCounter: Int = 0
     private var straightCounter: Int = 0
-    
+
     private var shouldPlayGearWarning = true
     private var shouldPlayOxygenWarning = true
-    
+
     private var alreadyWarnedFlarmIDs: Set<String> = []
-    
+
     private var selectedDestinationAirport: Airport?
     private var selectedTask: Task?
-    
+
     private var previousAirportDistanceUpdateCoordinates: CLLocation?
-    
+
     private var startAirport: Airport?
     private var flightStartTime: Date?
     private var endAirport: Airport?
@@ -106,35 +106,35 @@ class FlightComputer {
 
     // MARK: - Delegate
     private var delegates = NSHashTable<AnyObject>.weakObjects()
-    
+
     // MARK: - Public Class Methods
     class func start() {
         let shared = FlightComputer.shared
         LocationManager.registerForLocationUpdates(shared)
     }
-    
+
     class func stop() {
         let shared = FlightComputer.shared
         LocationManager.unRegisterForLocationUpdates(shared)
     }
-    
+
     class func isGliderFlying()
     -> Bool {
         let isGliderFlying = shared.isGliderFlying
-        
+
         // TODO: 20200518 Ist das hier richtig? Und Unregister?
         OGNSocketConnectionManager.registerForSocketUpdates(shared)
-        
+
         return isGliderFlying
-        
+
     }
-    
+
     class func selectedDestinationAirport()
     -> Airport? {
         let destinationAirport = shared.selectedDestinationAirport
         return destinationAirport
     }
-    
+
     class func setSelectedDestinationAirport(_ airport: Airport?) {
         let shared = FlightComputer.shared
         shared.selectedDestinationAirport = airport
@@ -145,113 +145,113 @@ class FlightComputer {
         let altitudeAtDestination = shared.altitudeAtDestination
         return altitudeAtDestination
     }
-    
+
     class func distanceToDestination()
     -> Double? {
         let distanceToDestination = shared.distanceToDestination
         return distanceToDestination
     }
-    
+
     class func nearestAirport()
     -> Airport? {
         let nearestAirport = FlightComputer.shared.nearestAirport()
         return nearestAirport
     }
-    
+
     class func nearestAirportAtStartOrLanding()
     -> Airport? {
         let nearestAirportAtStartOrLanding = FlightComputer.shared.nearestAirportAtStartOrLanding()
         return nearestAirportAtStartOrLanding
     }
-    
+
     class func selectedTask()
     -> Task? {
         let selectedTask = shared.selectedTask
         return selectedTask
     }
-    
+
     class func setSelectedTask(_ task: Task?) {
         let shared = FlightComputer.shared
         shared.selectedTask = task
     }
-    
+
     class func startAirport()
     -> Airport? {
         let startAirport = shared.startAirport
         return startAirport
     }
-    
+
     class func flightStartTime()
     -> Date? {
         let startTime = shared.flightStartTime
         return startTime
     }
-    
+
     class func endAirport()
     -> Airport? {
         let endAirport = shared.endAirport
         return endAirport
     }
-    
+
     class func flightEndTime()
     -> Date? {
         let flightEndTime = shared.endTime
         return flightEndTime
     }
-    
+
     class func flightTime()
     -> TimeInterval? {
         let flightTime = shared.flightTime
         return flightTime
     }
-    
+
     class func airportIsReachable(airport: Airport)
     -> Bool {
-        
+
         let altitudeDifferenceToAirport = LocationManager.altitudeDifferenceFromCurrentLocationTo(altitude: airport.elevation)!
         let currentDistanceToAirport = LocationManager.distanceFromCurrentLocationTo(location: airport.location)!
-        
+
         // Get User Default Values
         let safetyAltitude = UserDefaultsManager.safetyAltitude()
         let gliderRatio = UserDefaultsManager.gliderRatio()
-        
+
         // Calculate descended Meters to Destination
         let gliderRatioMeter = gliderRatio * 1000   // Gleitzahl in Meter
         let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    // Sinkrate pro Meter
         let descendedMetersToDestination = currentDistanceToAirport * gliderSinkRatePerMeter // Descended Meters to Destination
-        
+
         // Calculate the Altitude of the Glider at Destination
         let altitudeAtDestination = altitudeDifferenceToAirport - safetyAltitude - descendedMetersToDestination
-        
+
         if altitudeAtDestination > 0 {
             return true
         } else {
             return false
         }
-        
+
     }
-    
+
     class func registerForFlightComputerUpdates(_ delegate: FlightComputerDelegate) {
         shared.delegates.add(delegate)
     }
-    
+
     class func unRegisterForFlightComputerUpdates(_ delegate: FlightComputerDelegate) {
         shared.delegates.remove(delegate)
     }
-    
+
     // MARK: - Private Instance Methods
     private func checkIfGliderIsFlying() {
         if isGliderFlying == false {
             // Check if Glider is faster than 10m/s, (Presets)
             if let currentLocation = LocationManager.currentLocation(),
                currentLocation.speed > Presets.FlightComputer.minimalFlightSpeed {
-                
+
                 startAirport = nearestAirportAtStartOrLanding()
                 flightStartTime = TimeDateFormatter.yearMonthDayHourMinuteDateFrom(Date())
-                
+
                 isGliderFlying = true
                 OGNSocketConnectionManager.registerForSocketUpdates(self)
-                
+
                 DLLogger.writeDebugStringToLogFile("\(#function) -> true - Flight Start detected")
             }
         } else if let currentLocation = LocationManager.currentLocation(),
@@ -267,30 +267,30 @@ class FlightComputer {
                         // If vertical Distance between Glider Altitude and Terrain Elevation is < 100m - set isGliderFlying = false
                         // => If vertical Distance between Glider Altitude and Terrain Elevation is > 100m  - Nothing to do
                         if currentLocation.altitude-currentTerrainElevation < 100 {
-                            
+
                             DLLogger.writeDebugStringToLogFile("\(#function) -> false - Possible Landing recognized. Got current Terrain Elevation: \(currentTerrainElevation) m")
-                           
+
                             self.endAirport = self.nearestAirportAtStartOrLanding()
                             self.endTime = TimeDateFormatter.yearMonthDayHourMinuteDateFrom(Date())
                             self.flightTime = self.endTime!.timeIntervalSince(self.flightStartTime!)
-                            
+
                             self.isGliderFlying = false
                             OGNSocketConnectionManager.unregisterForSocketUpdates(self)
-                            
+
                         }
                     } else if let nearestAirport = FlightComputer.nearestAirport(),
                               let distance = LocationManager.distanceFromCurrentLocationTo(location: nearestAirport.location) {
-                        
+
                         // If we cant get the Terrain elevation we check for the distance to the nearest Airport
                         // If Distance to nearest Airport is < 500m - set isGliderFlying = false
                         if distance < Presets.FlightComputer.maximalDistanceFromNearestAirport {
-                            
+
                             DLLogger.writeDebugStringToLogFile("\(#function) -> false - Possible Landing recognized. Could not get current Terrain Elevation. Check for Distance to nearest Airport.")
-                            
+
                             self.endAirport = self.nearestAirportAtStartOrLanding()
                             self.endTime = TimeDateFormatter.yearMonthDayHourMinuteDateFrom(Date())
                             self.flightTime = self.endTime!.timeIntervalSince(self.flightStartTime!)
-                            
+
                             self.isGliderFlying = false
                             OGNSocketConnectionManager.unregisterForSocketUpdates(self)
 
@@ -298,37 +298,37 @@ class FlightComputer {
                             // If Distance to nearest Airport is > 500m - check current Altitude of Glider
                             // If Glider Altitude is < 1200 - set isGliderFlying = false
                             // => If Glider Altitude is > 1200 - Nothing to do
-                            
+
                             DLLogger.writeDebugStringToLogFile("\(#function) -> false - Possible Landing recognized. Could neither get current Terrain elevation nor nearest Airport.")
-                            
+
                             self.endAirport = self.nearestAirportAtStartOrLanding()
                             self.endTime = TimeDateFormatter.yearMonthDayHourMinuteDateFrom(Date())
                             self.flightTime = self.endTime!.timeIntervalSince(self.flightStartTime!)
-                            
+
                             self.isGliderFlying = false
                             OGNSocketConnectionManager.unregisterForSocketUpdates(self)
 
                         }
                     }
-                    
+
                 })
-            
+
         }
-        
+
     }
-    
+
     // Check if Glider is circling
     private func checkIfGliderIsCircling() {
         // If Thermal Assistant Switch is on - State true
-        
+
         guard UserDefaultsManager.thermalAssistantState() == true,
               let currentLocation = LocationManager.currentLocation(),
               let formerLocation = LocationManager.formerLocation()
         else { return }
-        
+
         // If current Course < than former Course - Glider turns left
         if currentLocation.course < formerLocation.course - Presets.FlightComputer.significantCourseDeviation {
-            
+
             leftTurnCounter += 1
             if leftTurnCounter > Presets.FlightComputer.turnCounterResetTrigger {
                 rightTurnCounter = 0
@@ -352,35 +352,35 @@ class FlightComputer {
                 //print("Straight: Set Left & Right to: 0")
             }
         }
-        
+
         if leftTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges && isGliderCircling == false ||
             rightTurnCounter > Presets.FlightComputer.continousSignificantCourseChanges && isGliderCircling == false {
             isGliderCircling = true
             DLLogger.writeDebugStringToLogFile("\(#function) -> true - Thermal Circling Start detected")
-            
+
         } else if leftTurnCounter == 0 && rightTurnCounter == 0 && isGliderCircling == true {
             isGliderCircling = false
             DLLogger.writeDebugStringToLogFile("\(#function) -> false - Thermal Circling End detected")
-            
+
         } else {
             //print("Nothing to do here")
         }
-        
+
     }
-    
+
     // Returns the nearest Airport
     private func nearestAirport()
     -> Airport? {
         guard LocationManager.currentLocation() != nil
         else { return nil }
-        
+
         let context = CoreDataManager.viewOnlyContext
         let nearestAirports = context.fetchObjects(forEntityClass: Airport.self,
                                                    sortByKeypath: Airport.Attributes.distance)
         let nearestAirport = nearestAirports.first
         return nearestAirport
     }
-    
+
     // Returns the Airport which is probable the one at Takeoff or Landing
     private func nearestAirportAtStartOrLanding()
     -> Airport? {
@@ -393,28 +393,28 @@ class FlightComputer {
 
         return nil
     }
-    
+
     // MARK: Check Warning Methods
     // Check for Gear Warning
     private func checkForGearWarning() {
         guard let selectedDestinationAirport = FlightComputer.selectedDestinationAirport(),
               let currentLocation = LocationManager.currentLocation()
         else { return }
-        
+
         let gearWarningSwitch = UserDefaultsManager.gearWarningState()
         if gearWarningSwitch == true {
-            
+
             let upperGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.upperGearWarningAltitude
             let lowerGearWarningAltitude = selectedDestinationAirport.elevation + Presets.FlightComputer.lowerGearWarningAltitude
-            
+
             let distanceWarningNeeded = selectedDestinationAirport.distance < Presets.FlightComputer.gearWarningDistance
             let upperWarningNeeded = currentLocation.altitude < upperGearWarningAltitude
             let lowerWarningNeeded = currentLocation.altitude > lowerGearWarningAltitude
-            
+
             if distanceWarningNeeded == true,
                upperWarningNeeded == true,
                lowerWarningNeeded == true {
-                
+
                 if shouldPlayGearWarning == true {
                     DLAudioOutput.speak(playBeep: true, string: Presets.FlightComputer.gearWarningSpokenText)
                     shouldPlayGearWarning = false
@@ -422,16 +422,16 @@ class FlightComputer {
             } else {
                 shouldPlayGearWarning = true
             }
-            
+
         }
     }
-    
+
     // Check for Oxygen Warning
     // http://www.sglenzburg.ch/org/public/Dokumente/Powerpoint/Sauerstoff-SGL-Streckenflugseminar.pdf
     private func checkForLowOxygenWarning() {
         guard let currentLocation = LocationManager.currentLocation()
         else { return }
-        
+
         let oxygenWarningSwitch = UserDefaultsManager.lowOxygenWarningState()
         if oxygenWarningSwitch == true {
             if currentLocation.altitude > Presets.FlightComputer.lowOxygenWarningAltitude {
@@ -448,13 +448,13 @@ class FlightComputer {
                         } else {
                             //print("GLIDER IN LOW OXYGEN WARNING ALTITUDE, BUT WARNING ALREADY PLAYED")
                         }
-                        
+
                     } else {
                         //print("GLIDER NOT LONG ENOUGH IN LOW OXYGEN WARNING ALTITUDE")
                     }
-                    
+
                 }
-                
+
             } else {
                 if enteredLowOxygenAltitudeTimestamp != nil {
                     //print("GLIDER DESCANDED UNDER LOW OXYGEN WARNING ALTITUDE")
@@ -462,58 +462,58 @@ class FlightComputer {
                     if shouldPlayOxygenWarning == false {
                         shouldPlayOxygenWarning = true
                     }
-                    
+
                 } else {
                     //print("GLIDER IS UNDER LOW OXYGEN WARNING ALTITUDE")
                 }
-                
+
             }
-            
+
         } else {
             //print("OXYGEN WARNING SWITCH IS OFF")
         }
-        
+
     }
-    
+
     // Check if Airport Distance Update is needed
     private func checkForAirportDistanceUpdates() {
         guard let currentLocation = LocationManager.currentLocation() else { return }
-        
+
         if previousAirportDistanceUpdateCoordinates == nil {
             previousAirportDistanceUpdateCoordinates = currentLocation
-            
+
         }
-        
+
         let distanceFromLastUpdateLocation = LocationManager.distanceFromCurrentLocationTo(location: previousAirportDistanceUpdateCoordinates!)!
-        
+
         if distanceFromLastUpdateLocation > Presets.Airport.distanceLimitForAirportDistanceUpdate {
             Airport.updateLocation()
             self.previousAirportDistanceUpdateCoordinates = currentLocation
         }
-        
+
     }
-    
+
     private func updateAltitudeAtSelectedDestinationAirport() {
         guard let selectedDestinationAirport = selectedDestinationAirport,
               let currentDistanceToSelectedDestinationAirport = LocationManager.distanceFromCurrentLocationTo(location: selectedDestinationAirport.location) else { return }
-        
+
         let altitudeDifferenceToAirport = LocationManager.altitudeDifferenceFromCurrentLocationTo(altitude: selectedDestinationAirport.elevation)!
-        
+
         // Get User Default Values
         let safetyAltitude = UserDefaultsManager.safetyAltitude()
         let gliderRatio = UserDefaultsManager.gliderRatio()
-        
+
         // Calculate descended Meters to Destination
         let gliderRatioMeter = gliderRatio * 1000   // Gleitzahl in Meter
         let gliderSinkRatePerMeter = 1000 / gliderRatioMeter    // Sinkrate pro Meter
         let descendedMetersToDestination = currentDistanceToSelectedDestinationAirport * gliderSinkRatePerMeter // Descended Meters to Destination
-        
+
         // Calculate the Altitude of the Glider at Destination
         let altitudeAtDestination = altitudeDifferenceToAirport - safetyAltitude - descendedMetersToDestination
         self.altitudeAtDestination = altitudeAtDestination
 
     }
-    
+
     private func updateADistanceToSelectedDestinationAirport() {
         guard let selectedDestinationAirport = selectedDestinationAirport,
               let currentDistanceToSelectedDestinationAirport = LocationManager.distanceFromCurrentLocationTo(location: selectedDestinationAirport.location) else { return }
@@ -526,65 +526,65 @@ class FlightComputer {
 
 // MARK: - Extension - LocationManagerDelegate
 extension FlightComputer: LocationManagerDelegate {
-    
+
     func locationManager(didUpdateLocations locations: [CLLocation]) {
         checkIfGliderIsFlying()
         checkIfGliderIsCircling()
         checkForGearWarning()
         checkForLowOxygenWarning()
         checkForAirportDistanceUpdates()
-        
+
         updateAltitudeAtSelectedDestinationAirport()
         updateADistanceToSelectedDestinationAirport()
     }
-    
+
 }
 
 // MARK: - Extension - DL_OGNSocketConnectionManagerDelegate
 extension FlightComputer: DL_OGNSocketConnectionManagerDelegate {
-    
+
     // Update alreadyWarnedFlarmIDs Set for specific FlarmID
     func updateNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
-        
+
         if UserDefaultsManager.collisionWarningState() == true {
-            
+
             // If Nearby Glider IS in Collision Range AND NOT yet in the SET
             if gliderTelemetryData.isInCollisionRange == true && alreadyWarnedFlarmIDs.contains(gliderTelemetryData.flarmID) == false {
-                
+
                 // Check if Nearby Gliders Speed is more than 50 Kmh - is flying
                 if gliderTelemetryData.speed > 50 {
                     alreadyWarnedFlarmIDs.update(with: gliderTelemetryData.flarmID)
                     DLAudioOutput.speak(playBeep: true, string: Presets.FlightComputer.collisionWarningSpokenText)
-                    
+
                     print("IN RANGE: \(gliderTelemetryData.flarmID) - IM SET: \(alreadyWarnedFlarmIDs.count) - Alt: \(gliderTelemetryData.altitude) - Speed: \(gliderTelemetryData.speed)")
                 } else {
                     // Nearby Gliders Speed is less than 50 Kmh - not flying
                     print("In Range: but not flying: \(gliderTelemetryData.flarmID)")
                 }
-                
+
             }
-            
+
             // If Nearby Glider IS NOT (or no more) in Collision Range BUT IN the SET
             if gliderTelemetryData.isInCollisionRange == false &&
                 alreadyWarnedFlarmIDs.contains(gliderTelemetryData.flarmID) {
-                
+
                 alreadyWarnedFlarmIDs.remove(gliderTelemetryData.flarmID)
-                
+
                 print("OUT OF RANGE: \(gliderTelemetryData.flarmID) - IM SET: \(alreadyWarnedFlarmIDs.count) - Alt: \(gliderTelemetryData.altitude) - Speed: \(gliderTelemetryData.speed)")
             }
         } else {
             alreadyWarnedFlarmIDs.removeAll()
         }
     }
-    
+
     // Remove specific FlarmID from alreadyWarnedFlarmIDs Set
     func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
         alreadyWarnedFlarmIDs.remove(gliderTelemetryData.flarmID)
     }
-    
+
     // Remove all FlarmIDs from alreadyWarnedFlarmIDs Set
     func removeAllNearbyGliders() {
         alreadyWarnedFlarmIDs.removeAll()
     }
-    
+
 }

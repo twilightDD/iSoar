@@ -12,9 +12,9 @@ import Mapbox
 
 // MARK: MapScreen
 class MapScreenViewController: UIViewController {
-    
+
     static private var shared = MapScreenViewController()
-    
+
     // MARK: IBOutlets
     @IBOutlet private weak var mapView: MGLMapView!
     @IBOutlet private weak var courseLabel: UILabel!
@@ -23,45 +23,45 @@ class MapScreenViewController: UIViewController {
     @IBOutlet private weak var destinationAirportICAOLabel: UILabel!
     @IBOutlet private weak var distanceToDestinationAirportLabel: UILabel!
     @IBOutlet private weak var altitudeAtDestinationLabel: UILabel!
-    
+
     // MARK: Lets and Vars
     lazy private var userLocationButton: UserLocationButton = createUserLocationButton()
-    
+
     // Text Label Attributes
     private let valueLabelTextAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 25)]
     private let unitLabelTextAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
-    
+
     private var currentDestinationAirportDirectionLine: MGLPolyline?
     private var currentTravelledFlightLineSegemt = MGLPolyline()
     private var travelledFlightlineSegments = [MGLPolyline]()
     private var currentTaskLine: MGLPolyline?
-    
+
     private var innerCircleAroundUserLocationPolyline: MGLPolyline?
     private var outerCircleAroundUserLocationPolyline: MGLPolyline?
-    
+
     private var userTrackingMode = true
     private var userFollow = false
-    
+
     private var showAltitudeInMeters = true
     private var altitudeInMeters: CLLocationDistance = 0
-    
+
     private var showSpeedInKMH = true
     private var speedInKMH: CLLocationSpeed = 0
-    
+
     private var showDistanceInKM = true
-    
+
     private var showTrackingRoute = false
-    
+
     private var nearbyGliderAnnotations = [String: NearbyGliderAnnotation]()
     private var airportAnnotationArray = [MGLPointAnnotation]()
-    
+
     // TODO: 20210318 Annotations for Task Waypoints
 //    private var waypointAnnotationArray = [MGLPointAnnotation]()
-    
+
     private var verticalMovement: String = ""
-    
+
     private var mapIsInCirclingZoom: Bool = false
-    
+
     private var userAcceptedEULA: Bool = {
         #if DEBUG
         return true
@@ -69,85 +69,85 @@ class MapScreenViewController: UIViewController {
         return false
         #endif
     }()
-    
+
     // Notification Observers
     private var airportImportOrUpdateFinishedNotification: NSObjectProtocol?
     private var airportImportOrUpdateFailedNotification: NSObjectProtocol?
-    
+
     // MARK: - Init & Co.
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         MapScreenViewController.shared = self
 
         self.navigationController?.navigationBar.isHidden = true
-        
+
         FlightComputer.start()
         FlightComputer.registerForFlightComputerUpdates(self)
-        
+
         FlightRecorder.start()
-        
+
         DLNetworkMonitor.start()
-        
+
         OGNSocketConnectionManager.registerForSocketUpdates(self)
         OGNSocketConnectionManager.start()
         LocationManager.registerForLocationUpdates(self)
         TaskSelectionTableViewController.registerForTaskUpdates(self)
-        
+
         setupMapBox()
-        
+
         setupGestureRecognizers()
-        
+
         createAirportAnnotations()
-        
+
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         checkIfMapStyleURLHasChanged()
-        
+
         checkTrackingRouteStatus()
-        
+
         checkDistanceCirclesStatus()
-        
+
         // MARK: - Register Observers for notfications
         // Airport Update Finished
         airportImportOrUpdateFinishedNotification = NotificationCenter.default.addObserver(forName: Airport.importOrUpdateFinishedNotification,
                                                                                            object: nil,
                                                                                            queue: OperationQueue.main) { [unowned self] (notification) in
-            
+
             airportAnnotationArray.removeAll()
             mapView.removeAnnotations(airportAnnotationArray)
             createAirportAnnotations()
-            
+
         }
-        
+
         // TODO: 20210107 Airport Update Failed Notification
-        
+
     }
-    
+
     deinit {
         // Remove Obeservers when View did Disappear
         if let airportImportOrUpdateFinishedNotification = airportImportOrUpdateFinishedNotification {
             NotificationCenter.default.removeObserver(airportImportOrUpdateFinishedNotification)
         }
-        
+
         if let airportImportOrUpdateFailedNotification = airportImportOrUpdateFailedNotification {
             NotificationCenter.default.removeObserver(airportImportOrUpdateFailedNotification)
         }
-        
+
         TaskSelectionTableViewController.unRegisterForTaskUpdates()
-        
+
     }
 
     // MARK: - Setup functions
     private func setupMapBox() {
-        
+
         guard let mapStyleURL: URL = URL(string: UserDefaultsManager.mapStyleURL()) else { return }
 
         mapView.delegate = self
-        
+
         mapView.styleURL = mapStyleURL
         mapView.automaticallyAdjustsContentInset = true
         mapView.tintColor = .red
@@ -156,48 +156,48 @@ class MapScreenViewController: UIViewController {
         mapView.compassView.isHidden = true
         mapView.minimumZoomLevel = 4
         mapView.maximumZoomLevel = 13
-        
+
         mapView.userTrackingMode = .followWithHeading
         mapView.showsUserHeadingIndicator = true
-        
+
         // MGLMapboxMetricsEnabledSettingShownInApp: YES - Info.plist
         // MGLMapboxMetricsEnabled = false
         // https://docs.mapbox.com/help/how-mapbox-works/mobile-apps/#telemetry
         mapView.logoView.isHidden = false
         mapView.attributionButton.isHidden = false
         mapView.attributionButton.tintColor = .lightGray
-        
+
         mapView.resetNorth()
     }
-    
+
     // Create Annotations for Airports on Map
     private func createAirportAnnotations() {
         let context = CoreDataManager.viewOnlyContext
         let allAirports = context.fetchObjects(forEntityClass: Airport.self)
-        
+
         for airport in allAirports {
             let airportAnnotation = AirportAnnotation.init(airport: airport)
             airportAnnotationArray.append(airportAnnotation)
         }
         mapView.addAnnotations(airportAnnotationArray)
-        
+
     }
-    
+
     // Create User Center Location Button on Map
     private func createUserLocationButton()
     -> UserLocationButton {
         let userLocationButton = UserLocationButton(buttonSize: 40)
         userLocationButton.addTarget(self, action: #selector(self.locationButtonTappedAction), for: .touchUpInside)
         userLocationButton.tintColor = self.mapView.tintColor
-        
+
         // Setup constraints such that the button is placed within
         // the upper left corner of the view.
         userLocationButton.translatesAutoresizingMaskIntoConstraints = false
-        
+
         userLocationButton.layer.borderWidth = 1
         userLocationButton.layer.borderColor = UIColor.red.cgColor
         // userLocationButton.layer.cornerRadius = 5
-        
+
         let leadingConstraint = NSLayoutConstraint(item: userLocationButton,
                                                    attribute: .leading,
                                                    relatedBy: .equal,
@@ -205,7 +205,7 @@ class MapScreenViewController: UIViewController {
                                                    attribute: .leading,
                                                    multiplier: 1,
                                                    constant: 10)
-        
+
         let constraints: [NSLayoutConstraint] = [NSLayoutConstraint(item: userLocationButton,
                                                                     attribute: .top,
                                                                     relatedBy: .greaterThanOrEqual,
@@ -228,58 +228,58 @@ class MapScreenViewController: UIViewController {
                                                                     attribute: .notAnAttribute,
                                                                     multiplier: 1,
                                                                     constant: userLocationButton.frame.size.width)]
-        
+
         self.view.addSubview(userLocationButton)
         self.view.addConstraints(constraints)
-        
+
         return userLocationButton
     }
-    
+
     // MARK: - Gesture Recognizer Methods
     private func setupGestureRecognizers() {
         // MapView
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
         panGestureRecognizer.delegate = self
         mapView.addGestureRecognizer(panGestureRecognizer)
-        
+
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(screenZoomed(_:)))
         pinchGestureRecognizer.delegate = self
         mapView.addGestureRecognizer(pinchGestureRecognizer)
-        
+
         let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(screenSingleTapped))
         singleTapGestureRecognizer.numberOfTapsRequired = 1
         singleTapGestureRecognizer.delegate = self
         mapView.addGestureRecognizer(singleTapGestureRecognizer)
-        
+
         let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(screenDoubleTapped))
         doubleTapGestureRecognizer.numberOfTapsRequired = 2
         doubleTapGestureRecognizer.delegate = self
         mapView.addGestureRecognizer(doubleTapGestureRecognizer)
-        
+
         mapView.isUserInteractionEnabled = true
-        
+
         // Altitude Label
         let tapOnAltitudeLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnAltitudeLabel))
         altitudeLabel.addGestureRecognizer(tapOnAltitudeLabelRecognizer)
         altitudeLabel.isUserInteractionEnabled = true
-        
+
         // Speed Label
         let tapOnSpeedLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnSpeedLabel))
         speedLabel.addGestureRecognizer(tapOnSpeedLabelRecognizer)
         speedLabel.isUserInteractionEnabled = true
-        
+
         // Distance to Destination Airport Label
         let tapOnDistanceToDestinationAirportLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnDistanceToDestinationAirportLabel))
         distanceToDestinationAirportLabel.addGestureRecognizer(tapOnDistanceToDestinationAirportLabelRecognizer)
         distanceToDestinationAirportLabel.isUserInteractionEnabled = true
-        
+
         // Destination Airport ICAO Label
         let tapOnDestinationAirportLabelRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapOnDestinationAirportLabel))
         destinationAirportICAOLabel.addGestureRecognizer(tapOnDestinationAirportLabelRecognizer)
         destinationAirportICAOLabel.isUserInteractionEnabled = true
-        
+
     }
-    
+
     // Map Swipe recognized
     @objc func screenEdgeSwiped(_ recognizer: UIScreenEdgePanGestureRecognizer) {
         if recognizer.state == .recognized {
@@ -290,7 +290,7 @@ class MapScreenViewController: UIViewController {
             }
         }
     }
-    
+
     // Map Zoom recognized
     @objc func screenZoomed(_ recognizer: UIPinchGestureRecognizer) {
         if recognizer.state == .ended {
@@ -304,7 +304,7 @@ class MapScreenViewController: UIViewController {
             }
         }
     }
-    
+
     // Map Single-Tap recognized
     @objc func screenSingleTapped(_ recognizer: UITapGestureRecognizer) {
         if recognizer.state == .ended {
@@ -312,7 +312,7 @@ class MapScreenViewController: UIViewController {
             moveTabBar(animated: true, duration: 0.5)
         }
     }
-    
+
     // Map Double-Tap recognized
     @objc func screenDoubleTapped(_ recognizer: UITapGestureRecognizer) {
         if recognizer.state == .ended {
@@ -326,33 +326,33 @@ class MapScreenViewController: UIViewController {
             }
         }
     }
-    
+
     @objc func tapOnAltitudeLabel(_ recognizer: UITapGestureRecognizer) {
         showAltitudeInMeters = !showAltitudeInMeters
         updateAltitudeLabel()
     }
-    
+
     @objc func tapOnSpeedLabel(_ recognizer: UITapGestureRecognizer) {
         showSpeedInKMH = !showSpeedInKMH
         updateSpeedLabel()
     }
-    
+
     @objc func tapOnDistanceToDestinationAirportLabel(_ recognizer: UITapGestureRecognizer) {
         showDistanceInKM = !showDistanceInKM
         // TODO: 20210419 Update Trigger for distanceToSelectedDestinationAirpott should not be locationDidUpdate
     }
-    
+
     @objc func tapOnDestinationAirportLabel(_ recognizer: UITapGestureRecognizer) {
         if FlightComputer.selectedDestinationAirport() != nil {
             performSegue(withIdentifier: "AirportInfoSegue", sender: self)
         }
     }
-    
+
     // MARK: - Action Methods
     @IBAction func locationButtonTappedAction(sender: UserLocationButton) {
         self.userFollow = !self.userFollow
         userLocationButton.updateArrowForTrackingMode(state: self.userFollow)
-        
+
         if self.userFollow == true {
             if let currentLocation = LocationManager.currentLocation() {
                 self.mapView.setCenter(currentLocation.coordinate,
@@ -360,9 +360,9 @@ class MapScreenViewController: UIViewController {
             }
         }
     }
-    
+
     // MARK: - Private Methods
-    
+
     // Show EULA Confirmation Popup at Startup
     private func showEULAConfirmationPopup() {
         if userAcceptedEULA == false {
@@ -373,50 +373,50 @@ class MapScreenViewController: UIViewController {
                                                           actionButtonHandler: { action in
                                                             self.userAcceptedEULA = true
                                                           })
-            
+
         }
-        
+
     }
-    
+
     private func updateUI() {
         // Update UI for currentLocation
         updateAltitudeLabel()
         updateSpeedLabel()
         updateCourseLabel()
-        
+
         // Update UI for flown Route
         drawTrackingRoute()
-        
+
         // Update UI for Direction
         updateDestinationAirportUI()
-        
+
         //
         updateCirclesAroundUserLocation()
-        
+
     }
-    
+
     // Check if User has changed the Map Style in Settings
     private func checkIfMapStyleURLHasChanged() {
         guard let mapStyleURL: URL = URL(string: UserDefaultsManager.mapStyleURL()) else { return }
-        
+
         if mapView.styleURL != mapStyleURL {
-            
+
             MGLOfflineStorage.shared.invalidateAmbientCache { error in
                 print("MapBox Tile Cache invalidated")
             }
-            
+
             setupMapBox()
-            
+
         }
     }
-    
+
     private func updateAltitudeLabel() {
         guard let currentLocation = LocationManager.currentLocation()
         else { return }
-        
+
         var altituteLabelValueText = ""
         var altituteLabelUnitText = ""
-        
+
         if showAltitudeInMeters == true {
             altituteLabelValueText = String(format: "%.0f", currentLocation.altitude)
             altituteLabelUnitText = " m"
@@ -425,22 +425,22 @@ class MapScreenViewController: UIViewController {
             altituteLabelValueText = String(format: "%.0f", altitudeInFeet)
             altituteLabelUnitText = " ft"
         }
-        
+
         let valueString = NSMutableAttributedString(string: altituteLabelValueText, attributes: valueLabelTextAttributes)
         let unitString = NSMutableAttributedString(string: altituteLabelUnitText, attributes: unitLabelTextAttributes)
-        
+
         valueString.append(unitString)
-        
+
         altitudeLabel.attributedText = valueString
     }
-    
+
     private func updateSpeedLabel() {
         guard let currentLocation = LocationManager.currentLocation()
         else { return }
-        
+
         var speedLabelValueText = ""
         var speedLabelUnitText = ""
-        
+
         if currentLocation.speed < 0 {
             speedLabelValueText = "---"
         } else {
@@ -454,23 +454,23 @@ class MapScreenViewController: UIViewController {
                 speedLabelUnitText = " kt"
             }
         }
-        
+
         let valueString = NSMutableAttributedString(string: speedLabelValueText, attributes: valueLabelTextAttributes)
         let unitString = NSMutableAttributedString(string: speedLabelUnitText, attributes: unitLabelTextAttributes)
-        
+
         valueString.append(unitString)
-        
+
         speedLabel.attributedText = valueString
-        
+
     }
-    
+
     private func updateCourseLabel() {
         guard let currentLocation = LocationManager.currentLocation()
         else { return }
-        
+
         var courseLabelValueText = ""
         var courseLabelUnitText = ""
-        
+
         let course = currentLocation.course
         if course < 0 {
             courseLabelValueText = "---"
@@ -478,16 +478,16 @@ class MapScreenViewController: UIViewController {
             courseLabelValueText = String(format: "%.0f", course)
             courseLabelUnitText = "°"
         }
-        
+
         let valueString = NSMutableAttributedString(string: courseLabelValueText, attributes: valueLabelTextAttributes)
         let unitString = NSMutableAttributedString(string: courseLabelUnitText, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15), NSAttributedString.Key.baselineOffset: 7])
-        
+
         valueString.append(unitString)
-        
+
         courseLabel.attributedText = valueString
-        
+
     }
-    
+
     // MARK: Route Tracking
     // Check for Tracking Route Status
     private func checkTrackingRouteStatus() {
@@ -498,30 +498,30 @@ class MapScreenViewController: UIViewController {
             removeTravelledFlightLineFromMapView()
         }
     }
-    
+
     // Add Travelled FlightLine to MapView
     private func addTravelledFlightLineToMapView() {
         for segment in travelledFlightlineSegments {
             mapView.addAnnotation(segment)
         }
     }
-    
+
     // Remove Travelled FlightLine from MapView
     private func removeTravelledFlightLineFromMapView() {
         for segment in travelledFlightlineSegments {
             mapView.removeAnnotation(segment)
         }
     }
-    
+
     // TODO: 20200511 Code Optimieren! Doppelungen raus! Enum für ascanding & descanding
     private func drawTrackingRoute() {
         if FlightComputer.isGliderFlying() == true,
            let currentLocation = LocationManager.currentLocation(),
            let formerLocation = LocationManager.formerLocation() {
-            
+
             var formerLocationCoordinate2D = formerLocation.coordinate
             var currentLocationCoordinate2D = currentLocation.coordinate
-            
+
             // If former Altitude was lesser than the current Altitude - Glider is ascanding
             if formerLocation.altitude <= currentLocation.altitude {
                 //print("Former: \(formerLocation?.altitude) <= Current: \(currentLocation.altitude) = Steigen")
@@ -536,21 +536,21 @@ class MapScreenViewController: UIViewController {
                     ascandingTravelledFlightLine.title = "ascanding"
                     currentTravelledFlightLineSegemt = ascandingTravelledFlightLine
                     travelledFlightlineSegments.append(ascandingTravelledFlightLine)
-                    
+
                     if UserDefaultsManager.showTrackingRouteState() == true {
                         self.mapView.addAnnotation(currentTravelledFlightLineSegemt)
                     }
-                    
+
                     // If the glider already acanded before
                 } else {
                     // just append current Location to Polyline
                     //print("Füge nur Punkt hinzu")
                     currentTravelledFlightLineSegemt.appendCoordinates(&currentLocationCoordinate2D, count: 1)
                 }
-                
+
                 // Set verticalMovement to "ascanding"
                 verticalMovement = "ascanding"
-                
+
                 // If former Altitude was greater than the current Altitude - Glider is desscanding
             } else {
                 //print("Former: \(formerLocation?.altitude) >= Current: \(currentLocation.altitude) = Sinken")
@@ -574,18 +574,18 @@ class MapScreenViewController: UIViewController {
                     //print("Füge nur Punkt hinzu")
                     self.currentTravelledFlightLineSegemt.appendCoordinates(&currentLocationCoordinate2D, count: 1)
                 }
-                
+
                 // Set verticalMovement to "descanding"
                 verticalMovement = "descanding"
-                
+
             }
-            
+
             // TODO: DOCU
-            
+
         }
-        
+
     }
-    
+
     // MARK: Update Destination Airport UI
     private func updateDestinationAirportUI() {
         guard let destinationAirport = FlightComputer.selectedDestinationAirport(),
@@ -594,15 +594,15 @@ class MapScreenViewController: UIViewController {
             resetUpdateDestinationAirportUI()
             return
         }
-        
+
         // Destination Airport Labels
         // TODO: 20200519 ICAO Label muss nicht bei jedem Location Update neu gezeichnet werden
         updateICAOOfDestinationAirportLabel(destinationAirport: destinationAirport)
-        
+
         // DirectionLine
         updateDestinationAirportDirectionLine(destinationAirport: destinationAirport)
     }
-    
+
     // Check for Distance Circles Status
     // Method will only called once when view will appear
     private func checkDistanceCirclesStatus() {
@@ -617,22 +617,22 @@ class MapScreenViewController: UIViewController {
                 mapView.removeAnnotation(outerCircleAroundUserLocationPolyline)
                 self.outerCircleAroundUserLocationPolyline = nil
             }
-            
+
         }
-        
+
     }
-    
+
     // Draw or update Distance Circles
     private func updateCirclesAroundUserLocation() {
         if UserDefaultsManager.showDistanceCirclesState() == true {
             guard let currentLocation = LocationManager.currentLocation()
             else { return }
-            
+
             // Inner Circle
             let newInnerCircleCoordinates = circleCoordinatesAround(coordinate: currentLocation.coordinate,
                                                                     withMeterRadius: 10000)
             let innerCircleCoordinatesPointer = UnsafeMutablePointer(mutating: newInnerCircleCoordinates)
-            
+
             if let innerCircleAroundUserLocationPolyline = self.innerCircleAroundUserLocationPolyline {
                 innerCircleAroundUserLocationPolyline.setCoordinates(innerCircleCoordinatesPointer,
                                                                      count: UInt(newInnerCircleCoordinates.count))
@@ -641,12 +641,12 @@ class MapScreenViewController: UIViewController {
                                                                          count: UInt(newInnerCircleCoordinates.count))
                 mapView.addAnnotation(innerCircleAroundUserLocationPolyline!)
             }
-            
+
             // Outer Circle
             let newOuterCircleCoordinates = circleCoordinatesAround(coordinate: currentLocation.coordinate,
                                                                     withMeterRadius: 20000)
             let newOuterCircleCoordinatesPointer = UnsafeMutablePointer(mutating: newOuterCircleCoordinates)
-            
+
             if let outerCircleAroundUserLocationPolyline = self.outerCircleAroundUserLocationPolyline {
                 outerCircleAroundUserLocationPolyline.setCoordinates(newOuterCircleCoordinatesPointer,
                                                                      count: UInt(newOuterCircleCoordinates.count))
@@ -655,39 +655,39 @@ class MapScreenViewController: UIViewController {
                                                                          count: UInt(newOuterCircleCoordinates.count))
                 mapView.addAnnotation(outerCircleAroundUserLocationPolyline!)
             }
-            
+
         }
-        
+
     }
-    
+
     private func resetUpdateDestinationAirportUI() {
         // labels
         destinationAirportICAOLabel.text = "---"
         distanceToDestinationAirportLabel.text = "---"
         altitudeAtDestinationLabel.text = "---"
         altitudeAtDestinationLabel.textColor = UIColor(named: "StandardTextColor")
-        
+
         // directionLine
         if let destinationAirportDirectionLine = currentDestinationAirportDirectionLine {
             mapView.remove(destinationAirportDirectionLine)
             currentDestinationAirportDirectionLine = nil
         }
     }
-    
+
     private func updateICAOOfDestinationAirportLabel(destinationAirport: Airport) {
         destinationAirportICAOLabel.text = destinationAirport.icao
     }
-    
+
     private func updateDestinationAirportDirectionLine(destinationAirport: Airport) {
         guard let currentLocationCoordinate2D = LocationManager.currentLocation()?.coordinate
         else { return }
-        
+
         // get new directionLineLocationCoordinate2Ds
         let destinationAirportCoordinate2D = destinationAirport.locationCoordinate2D
         let directionLineLocationCoordinate2Ds = [currentLocationCoordinate2D,
                                                   destinationAirportCoordinate2D]
         let pointer = UnsafeMutablePointer(mutating: directionLineLocationCoordinate2Ds)
-        
+
         // Update existing or create new line
         if let existingDestinationAirportDirectionLine = currentDestinationAirportDirectionLine {
             existingDestinationAirportDirectionLine.setCoordinates(pointer,
@@ -701,23 +701,23 @@ class MapScreenViewController: UIViewController {
             currentDestinationAirportDirectionLine = newDestinationAirportDirectionLine
         }
     }
-    
+
     private func circleCoordinatesAround(coordinate: CLLocationCoordinate2D, withMeterRadius: Double)
     -> [CLLocationCoordinate2D] {
-        
+
         // TODO: check performance; 01202020, ph
         /*
          let factor = Double.pi / 180
          let factor2 = 180 / Double.pi
          */
-        
+
         let degreesBetweenPoints: Double = 1 // 360 segments
         let numberOfPolygonPoints = 360 //  floor(360.0 / degreesBetweenPoints)
         let distRadians: Double = withMeterRadius / 6371000.0 // earth radius in meters
         let centerLatRadians: Double = coordinate.latitude * Double.pi / 180
         let centerLonRadians: Double = coordinate.longitude * Double.pi / 180
         var coordinates = [CLLocationCoordinate2D]() //array to hold all the points
-        
+
         for index in 0 ... numberOfPolygonPoints {
             let degrees: Double = Double(index) * Double(degreesBetweenPoints)
             let degreeRadians: Double = degrees * Double.pi / 180
@@ -728,28 +728,28 @@ class MapScreenViewController: UIViewController {
             let point: CLLocationCoordinate2D = CLLocationCoordinate2DMake(pointLat, pointLon)
             coordinates.append(point)
         }
-        
+
         return coordinates
     }
-    
+
     private func increaseZoomLevel() {
         // Save current Zoom Level to User Defaults
         UserDefaultsManager.set(userMapZoomLevel: mapView.zoomLevel)
-        
+
         // Zoom into Map
         mapView.setZoomLevel(13, animated: true)
     }
-    
+
     private  func decreaseZoomLevel() {
         // Read Zoom Level from User Defaults and set Zoom Level to Map
         mapView.setZoomLevel(UserDefaultsManager.userMapZoomLevel(), animated: true)
     }
-    
+
 }
 
 // MARK: - Extension - MGLMapViewDelegate
 extension MapScreenViewController: MGLMapViewDelegate {
-    
+
     // Set Polyline Colors
     internal func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape)
     -> UIColor {
@@ -764,15 +764,15 @@ extension MapScreenViewController: MGLMapViewDelegate {
         } else if annotation == currentTaskLine {
             return UIColor.systemPink
         }
-        
+
         return UIColor.blue
-        
+
     }
-    
+
     // Set Polyline Width
     func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline)
     -> CGFloat {
-        
+
         if annotation == innerCircleAroundUserLocationPolyline {
             return 1.0
         } else if annotation == outerCircleAroundUserLocationPolyline {
@@ -780,10 +780,10 @@ extension MapScreenViewController: MGLMapViewDelegate {
         } else if annotation == currentTaskLine {
             return 2.0
         }
-        
+
         return 2.0
     }
-    
+
     // Annotation can show Callout
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation)
     -> Bool {
@@ -793,35 +793,35 @@ extension MapScreenViewController: MGLMapViewDelegate {
             return true
         }
     }
-    
+
     // Instantiate and return our custom callout view
     // https://stackoverflow.com/questions/26713582/didselectannotationview-not-called
     func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation)
     -> MGLCalloutView? {
-        
+
         if let nearbyGliderAnnotation = annotation as? NearbyGliderAnnotation {
             let views = Bundle.main.loadNibNamed(NearbyGliderCalloutView.nibName(),
                                                  owner: nil,
                                                  options: nil)
-            
+
             guard let nearbyGliderCalloutView = views?[0] as? NearbyGliderCalloutView
             else { fatalError("Must be a NearbyGliderCalloutView.") }
-            
+
             nearbyGliderCalloutView.representedObject = nearbyGliderAnnotation
-            
+
             return nearbyGliderCalloutView
         }
-        
+
         return nil
     }
-    
+
     // Substitute our custom view for the user location annotation
     // TODO: 20200526 if und if else´s prüfen
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation)
     -> MGLAnnotationView? {
-        
+
         var annotationView: MGLAnnotationView?
-        
+
         // User Annotation -> myself
         if annotation is MGLUserLocation && mapView.userLocation != nil {
             annotationView = UserLocationAnnotationView()
@@ -829,44 +829,44 @@ extension MapScreenViewController: MGLMapViewDelegate {
             // Notice: nil is needed here! MGLAnnotation is an ObjC-Protocol. Fuck it!; 19.3.2020, ph
             guard let flarmID = annotation.title ?? nil
             else { return nil }
-            
+
             annotationView = NearbyGliderAnnotationView(annotation: annotation,
                                                         reuseIdentifier: flarmID)
             // swiftlint:disable force_unwrapping
             annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
             // swiftlint:enable force_unwrapping
-            
+
             return annotationView
-            
+
         } else if annotation is AirportAnnotation {
             // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
             let reuseIdentifier = "\(annotation.coordinate.longitude)"
-            
+
             // For better performance, always try to reuse existing annotations.
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-            
+
             // If there’s no reusable annotation view available, initialize a new one.
             if annotationView == nil {
                 annotationView = AirportAnnotationView(reuseIdentifier: reuseIdentifier)
-                
+
                 // swiftlint:disable force_unwrapping
                 annotationView!.bounds = CGRect(x: 0, y: 0, width: 20, height: 20)
                 // swiftlint:enable force_unwrapping
-                
+
             }
-            
+
             return annotationView
         }
-        
+
         return annotationView
     }
-    
+
     // User did select Annotation
     internal func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         guard let title = annotation.title ?? nil,
               let subtitle = annotation.subtitle ?? nil
         else { return }
-        
+
         if let airportAnnotation = annotation as? AirportAnnotation {
             // If selected Airport is ALREADY the Destination Airport
             if airportAnnotation.airport == FlightComputer.selectedDestinationAirport() {
@@ -883,7 +883,7 @@ extension MapScreenViewController: MGLMapViewDelegate {
                                                               cancelButtonHandler: { [unowned self] action in
                                                                 self.mapView.deselectAnnotation(annotation, animated: true)
                                                               })
-                
+
                 // If selected Airport is NOT the Destination Airport
             } else {
                 DLAlertViewController.showAlertViewController(title: (subtitle),
@@ -899,11 +899,11 @@ extension MapScreenViewController: MGLMapViewDelegate {
                                                               cancelButtonHandler: { [unowned self] action in
                                                                 self.mapView.deselectAnnotation(annotation, animated: true)
                                                               })
-                
+
             }
         }
     }
-    
+
     // Map did finished loading
     internal func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
         // Center Map to User Location
@@ -923,12 +923,12 @@ extension MapScreenViewController: MGLMapViewDelegate {
                               zoomLevel: UserDefaultsManager.userMapZoomLevel(),
                               animated: true)
         }
-        
+
         userLocationButton.updateArrowForTrackingMode(state: userFollow)
-        
+
         showEULAConfirmationPopup()
     }
-    
+
 }
 
 // MARK: - Extension - LocationManagerDelegate
@@ -936,22 +936,22 @@ extension MapScreenViewController: LocationManagerDelegate {
     internal func locationManager(didUpdateLocations locations: [CLLocation]) {
         guard let currentLocation = locations.last // Alternativ: LocationManager.currentLocation
         else { return }
-        
+
         // Get User Tracking State - If true - set Map center on User Location
         if self.userFollow == true {
             self.mapView.setCenter(currentLocation.coordinate, animated: true)
         }
-        
+
         updateUI()
 
     }
-    
+
 }
 
 // MARK: - Extension - TaskSelectionDelegate
 extension MapScreenViewController: TaskSelectionProtocol {
     internal func setNewTask(coordinates: [CLLocationCoordinate2D]) {
-        
+
         // TODO: 20210318 Annotations for Task Waypoints
 //        for coordinate in coordinates {
 //            let point = MGLPointAnnotation()
@@ -960,12 +960,12 @@ extension MapScreenViewController: TaskSelectionProtocol {
 //            waypointAnnotationArray.append(point)
 //            mapView.addAnnotations(waypointAnnotationArray)
 //        }
-        
+
         if let currentTaskLine = currentTaskLine {
             mapView.removeAnnotation(currentTaskLine)
             self.currentTaskLine = nil
         }
-        
+
         if coordinates.isEmpty == false {
             currentTaskLine = MGLPolyline(coordinates: coordinates,
                                           count: UInt(coordinates.count))
@@ -995,30 +995,30 @@ extension MapScreenViewController: DL_OGNSocketConnectionManagerDelegate {
             mapView.addAnnotation(nearbyGliderAnnotation!)
             // swiftlint:enable force_unwrapping
         }
-        
+
         // swiftlint:disable force_unwrapping
         nearbyGliderAnnotation!.gliderTelemetryData = gliderTelemetryData
         // swiftlint:enable force_unwrapping
-        
+
     }
-    
+
     internal func removeNearbyGlider(gliderTelemetryData: GliderTelemetryData) {
         if let nearbyGliderAnnotation = nearbyGliderAnnotations[gliderTelemetryData.flarmID] {
             mapView.removeAnnotation(nearbyGliderAnnotation)
             nearbyGliderAnnotations[gliderTelemetryData.flarmID] = nil
         }
     }
-    
+
     internal func removeAllNearbyGliders() {
         var nearbyGliderAnnotationsToRemove = [NearbyGliderAnnotation]()
         for (_, nearbyGliderAnnotationToRemove) in nearbyGliderAnnotations {
             nearbyGliderAnnotationsToRemove.append(nearbyGliderAnnotationToRemove)
         }
-        
+
         mapView.removeAnnotations(nearbyGliderAnnotationsToRemove)
         nearbyGliderAnnotations.removeAll()
     }
-    
+
 }
 
 // MARK: - Extension - FlightComputerDelegate
@@ -1026,14 +1026,14 @@ extension MapScreenViewController: FlightComputerDelegate {
     internal func altitudeAtDestination(_ altitude: Double) {
         let altitudeAtDestinationLabelValueText = String(format: "%.0f", altitude as CVarArg)
         let altitudeAtDestinationLabelUnitText = " m"
-        
+
         let valueString = NSMutableAttributedString(string: altitudeAtDestinationLabelValueText, attributes: valueLabelTextAttributes)
         let unitString = NSMutableAttributedString(string: altitudeAtDestinationLabelUnitText, attributes: unitLabelTextAttributes)
-        
+
         valueString.append(unitString)
-        
+
         altitudeAtDestinationLabel.attributedText = valueString
-        
+
         // Update Text Color
         if altitude > 0 {
             altitudeAtDestinationLabel.textColor = UIColor(named: "StandardTextColor")
@@ -1041,11 +1041,11 @@ extension MapScreenViewController: FlightComputerDelegate {
             altitudeAtDestinationLabel.textColor = UIColor(named: "WarningTextColor")
         }
     }
-    
+
     internal func distanceToDestination(_ distance: Double) {
         var distanceLabelValueText = ""
         var distanceLabelUnitText = ""
-        
+
         if showDistanceInKM == true {
             let distanceInKm = distance / 1000
             distanceLabelValueText =  String(format: "%.0f", distanceInKm)
@@ -1055,16 +1055,16 @@ extension MapScreenViewController: FlightComputerDelegate {
             distanceLabelValueText = String(format: "%.0f", distcanceInMi)
             distanceLabelUnitText = " NM"
         }
-        
+
         let valueString = NSMutableAttributedString(string: distanceLabelValueText, attributes: valueLabelTextAttributes)
         let unitString = NSMutableAttributedString(string: distanceLabelUnitText, attributes: unitLabelTextAttributes)
-        
+
         valueString.append(unitString)
-        
+
         distanceToDestinationAirportLabel.attributedText = valueString
-        
+
     }
-    
+
     internal func gliderIsFlying(_ isFlying: Bool) {
         if isFlying == true {
             // Remove all existing travelledFlightlineSegments Annotations from MapScreen
@@ -1079,24 +1079,24 @@ extension MapScreenViewController: FlightComputerDelegate {
                    let endAirport = FlightComputer.endAirport(),
                    let flightEndTime = FlightComputer.flightEndTime(),
                    let flightTime = FlightComputer.flightTime() {
-                    
+
                     let utcStartTimeString = TimeDateFormatter.utcTimeInHHMMAsString(from: flightStartTime)
                     let utcEndTimeString = TimeDateFormatter.utcTimeInHHMMAsString(from: flightEndTime)
                     let flightTimeString = TimeDateFormatter.hourMinutesStringFromTimeIntervall(flightTime)
-                    
+
                     DispatchQueue.main.async {
                         DLAlertViewController.showAlertViewController(title: "Flight Summary",
                                                                       message: "From: \(startAirport.icao ?? "????") to: \(endAirport.icao ?? "????")\nTakeoff: \(utcStartTimeString) UTC\nLanding: \(utcEndTimeString) UTC\nFlightime: \(flightTimeString)",
                                                                       preferredStyle: .alert, on: self, actionButtonTitle: "OK")
                     }
-                    
+
                 }
 
             }
 
         }
     }
-    
+
     func gliderIsCircling(_ isCircling: Bool) {
         if isCircling == true {
             MapScreenViewController.shared.increaseZoomLevel()

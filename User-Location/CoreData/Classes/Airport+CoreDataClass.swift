@@ -12,17 +12,17 @@ import UIKit
 
 @objc(Airport)
 public class Airport: NSManagedObject {
-    
+
     static let importOrUpdateFinishedNotification = Notification.Name(rawValue: "airportImportOrUpdateFinished")
     static let importOrUpdateFailedNotification = Notification.Name(rawValue: "airportImportOrUpdateFailed")
-    
+
     lazy var location = CLLocation(latitude: latitude, longitude: longitude)
     lazy var locationCoordinate2D = CLLocationCoordinate2D.init(latitude: latitude, longitude: longitude)
-    
+
     class func importOrUpdate(_ airportDictionaries: [[String: Any]]) {
-        
+
         let context = CoreDataManager.editContextInBackground()
-        
+
         for airportDictionary in airportDictionaries {
             // Check for existing  airportDictionary or create a new one
             guard let uuidString = airportDictionary[Airport.Attributes.uuid] as? String,
@@ -32,9 +32,9 @@ public class Airport: NSManagedObject {
                                                         sortByKeypath: nil,
                                                         predicateString: "%K == %@",
                                                         predicateArguments: [Airport.Attributes.uuid, uuid])
-            
+
             var airportWithUUID: Airport!
-            
+
             if airportsWithUUID.isEmpty == true {
                 airportWithUUID = Airport.init(context: context)
                 airportWithUUID.uuid = uuid
@@ -47,7 +47,7 @@ public class Airport: NSManagedObject {
                 DLLogger.writeStringToLogFile("\(#function) - UUID already exists")
                 break
             }
-            
+
             // Update Values
             airportWithUUID.additionalInfo = airportDictionary[Airport.Attributes.additionalInfo] as? String ?? "<kein Wert>"
             airportWithUUID.airportType = airportDictionary[Airport.Attributes.airportType] as? String ?? "<kein Wert>"
@@ -65,44 +65,44 @@ public class Airport: NSManagedObject {
             airportWithUUID.runwaySurface = airportDictionary[Airport.Attributes.runwaySurface] as? String ?? "<kein Wert>"
             airportWithUUID.url = airportDictionary[Airport.Attributes.url] as? String
             airportWithUUID.validationDate = airportDictionary[Airport.Attributes.validationDate] as? String ?? "<kein Wert>"
-            
+
         }
-        
+
         print("\(#function) - \(context.insertedObjects.count) Airports imported.")
-        
+
         context.saveContext()
-        
+
         // Post Notification for finished Import or Update
         NotificationCenter.default.post(name: importOrUpdateFinishedNotification,
                                         object: nil)
-        
+
     }
-    
+
     func countryImage()
     -> UIImage? {
         guard let country = self.country
         else { return  nil}
-        
+
         let image = UIImage(named: country)
         return image
     }
-    
+
 }
 
 // MARK: - Extenstion - Location Updates
 extension Airport {
-    
+
     class func updateLocation() {
-        
+
         guard let currentLocation = LocationManager.currentLocation() else { return }
-        
+
         let editContext = CoreDataManager.editContextInBackground()
         let allAirports = editContext.fetchObjects(forEntityClass: Airport.self)
-        
+
         for airport in allAirports {
             airport.updateDistance(forLocation: currentLocation)
         }
-        
+
         editContext.saveContext()
 
     }
@@ -111,7 +111,7 @@ extension Airport {
         let currentDistance = location.distance(from: currentLocation)
         distance = currentDistance
     }
-    
+
 }
 
 // MARK: - Extension Airport Attributes
@@ -135,6 +135,6 @@ extension Airport {
         static let url = "url"
         static let uuid = "uuid"
         static let validationDate = "validationDate"
-        
+
     }
 }
